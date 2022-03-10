@@ -19,7 +19,16 @@
     <loc>https://insightsengineering.github.io/teal.reporter/pull_request_template.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/NewpageBlock.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/PictureBlock.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/Renderer.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/TableBlock.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/TextBlock.html</loc>
@@ -28,6 +37,12 @@
     <loc>https://insightsengineering.github.io/teal.reporter/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/md_header.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/teal.reporter.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/yaml_quoted.html</loc>
   </url>
 </urlset>

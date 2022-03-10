@@ -12,7 +12,7 @@ PictureBlock"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/lib
     
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9002</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 30px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,15 +26,6 @@ PictureBlock"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/lib
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start_releases -->
-<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-Other releases
-<span class="caret"></span></a><ul class="dropdown-menu" role="menu">
-   <li><a href="../index.html">latest</a></li>
-   <li><a href="..//index.html"></a></li>
-</ul></li>
-<!-- end_releases -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -71,6 +62,11 @@ Other releases
 <ul><li><p><a href="#method-new"><code>PictureBlock$new()</code></a></p></li>
 <li><p><a href="#method-set_content"><code>PictureBlock$set_content()</code></a></p></li>
 <li><p><a href="#method-get_content"><code>PictureBlock$get_content()</code></a></p></li>
+<li><p><a href="#method-set_title"><code>PictureBlock$set_title()</code></a></p></li>
+<li><p><a href="#method-get_title"><code>PictureBlock$get_title()</code></a></p></li>
+<li><p><a href="#method-get_type"><code>PictureBlock$get_type()</code></a></p></li>
+<li><p><a href="#method-set_dim"><code>PictureBlock$set_dim()</code></a></p></li>
+<li><p><a href="#method-get_dim"><code>PictureBlock$get_dim()</code></a></p></li>
 <li><p><a href="#method-clone"><code>PictureBlock$clone()</code></a></p></li>
 </ul></div><p></p><hr><a id="method-new"></a><div class="section">
 <h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
@@ -104,7 +100,7 @@ Other releases
 <div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>content</code></dt>
-<dd><p>(<code>character(1)</code>) a string assigned to this <code>PictureBlock</code></p></dd>
+<dd><p>(<code>character(1)</code>) a string path assigned to this <code>PictureBlock</code></p></dd>
 
 
 </dl><p></p></div>
@@ -121,7 +117,8 @@ Other releases
 <div class="section">
 <h4 id="examples-1">Examples<a class="anchor" aria-label="anchor" href="#examples-1"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span class="va">block</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/PictureBlock.html">PictureBlock</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
-<span class="va">block</span><span class="op">$</span><span class="fu">set_content</span><span class="op">(</span><span class="st">"Base64 encoded picture"</span><span class="op">)</span></code></pre></div><p></p></div>
+<span class="va">img_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"img"</span>, <span class="st">"Rlogo.png"</span>, package <span class="op">=</span> <span class="st">"png"</span><span class="op">)</span>
+<span class="va">block</span><span class="op">$</span><span class="fu">set_content</span><span class="op">(</span><span class="va">img_path</span><span class="op">)</span></code></pre></div><p></p></div>
 </div>
 
 
@@ -143,15 +140,126 @@ Other releases
 </div>
 
 
-</div><p></p><hr><a id="method-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
-<p>The objects of this class are cloneable with this method.</p><div class="section">
+</div><p></p><hr><a id="method-set_title"></a><div class="section">
+<h3 id="method-set-title-">Method <code>set_title()</code><a class="anchor" aria-label="anchor" href="#method-set-title-"></a></h3>
+<p>Sets the title of this <code>PictureBlock</code>.</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">PictureBlock</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">PictureBlock</span><span class="op">$</span><span class="fu">set_title</span><span class="op">(</span><span class="va">title</span><span class="op">)</span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>title</code></dt>
+<dd><p>(<code>character(1)</code>) a string assigned to this <code>PictureBlock</code></p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="details-2">Details<a class="anchor" aria-label="anchor" href="#details-2"></a></h4>
+<p>throws if argument is not <code>character(1)</code>.</p>
+</div>
+
+<div class="section">
+<h4 id="returns-3">Returns<a class="anchor" aria-label="anchor" href="#returns-3"></a></h4>
+<p>invisibly self</p>
+</div>
+<div class="section">
+<h4 id="examples-3">Examples<a class="anchor" aria-label="anchor" href="#examples-3"></a></h4>
+<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span class="va">block</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/PictureBlock.html">PictureBlock</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
+<span class="va">block</span><span class="op">$</span><span class="fu">set_title</span><span class="op">(</span><span class="st">"Title"</span><span class="op">)</span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-get_title"></a><div class="section">
+<h3 id="method-get-title-">Method <code>get_title()</code><a class="anchor" aria-label="anchor" href="#method-get-title-"></a></h3>
+<p>Returns the title of this <code>PictureBlock</code></p><div class="section">
+<h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">PictureBlock</span><span class="op">$</span><span class="fu">get_title</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="returns-4">Returns<a class="anchor" aria-label="anchor" href="#returns-4"></a></h4>
+<p>the content of this <code>PictureBlock</code></p>
+</div>
+<div class="section">
+<h4 id="examples-4">Examples<a class="anchor" aria-label="anchor" href="#examples-4"></a></h4>
+<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span class="va">block</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/PictureBlock.html">PictureBlock</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
+<span class="va">block</span><span class="op">$</span><span class="fu">get_title</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-get_type"></a><div class="section">
+<h3 id="method-get-type-">Method <code>get_type()</code><a class="anchor" aria-label="anchor" href="#method-get-type-"></a></h3>
+<p>Returns the type of this <code>PictureBlock</code></p><div class="section">
+<h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">PictureBlock</span><span class="op">$</span><span class="fu">get_type</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="returns-5">Returns<a class="anchor" aria-label="anchor" href="#returns-5"></a></h4>
+<p>the type of this <code>PictureBlock</code></p>
+</div>
+<div class="section">
+<h4 id="examples-5">Examples<a class="anchor" aria-label="anchor" href="#examples-5"></a></h4>
+<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span class="va">block</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/PictureBlock.html">PictureBlock</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
+<span class="va">block</span><span class="op">$</span><span class="fu">get_type</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-set_dim"></a><div class="section">
+<h3 id="method-set-dim-">Method <code>set_dim()</code><a class="anchor" aria-label="anchor" href="#method-set-dim-"></a></h3>
+<p>set the dimensions of this <code>PictureBlock</code></p><div class="section">
+<h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">PictureBlock</span><span class="op">$</span><span class="fu">set_dim</span><span class="op">(</span><span class="va">dim</span><span class="op">)</span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>dim</code></dt>
+<dd><p><code>numeric</code> figure dimensions (width and height) in percent, length 2.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-6">Returns<a class="anchor" aria-label="anchor" href="#returns-6"></a></h4>
+<p><code>self</code></p>
+</div>
+<div class="section">
+<h4 id="examples-6">Examples<a class="anchor" aria-label="anchor" href="#examples-6"></a></h4>
+<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span class="va">block</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/PictureBlock.html">PictureBlock</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
+<span class="va">block</span><span class="op">$</span><span class="fu">set_dim</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">50</span><span class="op">)</span><span class="op">)</span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-get_dim"></a><div class="section">
+<h3 id="method-get-dim-">Method <code>get_dim()</code><a class="anchor" aria-label="anchor" href="#method-get-dim-"></a></h3>
+<p>get the dimensions of this <code>PictureBlock</code></p><div class="section">
+<h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">PictureBlock</span><span class="op">$</span><span class="fu">get_dim</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="returns-7">Returns<a class="anchor" aria-label="anchor" href="#returns-7"></a></h4>
+<p><code>numeric</code> dim filed, dimensions.</p>
+</div>
+<div class="section">
+<h4 id="examples-7">Examples<a class="anchor" aria-label="anchor" href="#examples-7"></a></h4>
+<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span class="va">block</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/PictureBlock.html">PictureBlock</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
+<span class="va">block</span><span class="op">$</span><span class="fu">get_dim</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-clone"></a><div class="section">
+<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+<p>The objects of this class are cloneable with this method.</p><div class="section">
+<h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">PictureBlock</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 
@@ -178,7 +286,8 @@ Other releases
 <span class="r-in"><span class="co">## ------------------------------------------------</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">block</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va">PictureBlock</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">block</span><span class="op">$</span><span class="fu">set_content</span><span class="op">(</span><span class="st">"Base64 encoded picture"</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">img_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"img"</span>, <span class="st">"Rlogo.png"</span>, package <span class="op">=</span> <span class="st">"png"</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">block</span><span class="op">$</span><span class="fu">set_content</span><span class="op">(</span><span class="va">img_path</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## ------------------------------------------------</span></span>
@@ -188,6 +297,49 @@ Other releases
 <span class="r-in"><span class="va">block</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va">PictureBlock</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">block</span><span class="op">$</span><span class="fu">get_content</span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-in"></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
+<span class="r-in"><span class="co">## Method `PictureBlock$set_title`</span></span>
+<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="va">block</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va">PictureBlock</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">block</span><span class="op">$</span><span class="fu">set_title</span><span class="op">(</span><span class="st">"Title"</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
+<span class="r-in"><span class="co">## Method `PictureBlock$get_title`</span></span>
+<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="va">block</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va">PictureBlock</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">block</span><span class="op">$</span><span class="fu">get_title</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] ""</span>
+<span class="r-in"></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
+<span class="r-in"><span class="co">## Method `PictureBlock$get_type`</span></span>
+<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="va">block</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va">PictureBlock</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">block</span><span class="op">$</span><span class="fu">get_type</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-in"></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
+<span class="r-in"><span class="co">## Method `PictureBlock$set_dim`</span></span>
+<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="va">block</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va">PictureBlock</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">block</span><span class="op">$</span><span class="fu">set_dim</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">50</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
+<span class="r-in"><span class="co">## Method `PictureBlock$get_dim`</span></span>
+<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="va">block</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va">PictureBlock</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">block</span><span class="op">$</span><span class="fu">get_dim</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 100 100</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
