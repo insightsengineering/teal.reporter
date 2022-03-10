@@ -19,11 +19,11 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @details The style has bearing on the rendering of this block.
     #'
-    #' @param style (`character(1)`) one of: `default`, `header`, `verbatim`.
+    #' @param style (`character(1)`) one of: `default`, `header2`, `header3`, `verbatim`.
     #' @return invisibly self
     #' @examples
     #' block <- teal.reporter:::TextBlock$new()
-    #' block$set_style("header")
+    #' block$set_style("header2")
     #'
     set_style = function(style) {
       private$style <- match.arg(style, private$styles)
@@ -78,7 +78,7 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
   private = list(
     content = character(0),
     style = character(0),
-    styles = c("default", "header", "verbatim")
+    styles = c("default", "header2", "header3", "verbatim")
   ),
   lock_objects = TRUE,
   lock_class = TRUE

@@ -10,11 +10,14 @@ URL: https://github.com/insightsengineering/teal.reporter,
 BugReports: https://github.com/insightsengineering/teal.reporter/issues
 Imports:
     checkmate,
-    R6
+    R6,
+    yaml
 Suggests:
     knitr,
     rmarkdown,
-    testthat
+    testthat,
+    png,
+    rtables
 VignetteBuilder:
     knitr
 Encoding: UTF-8

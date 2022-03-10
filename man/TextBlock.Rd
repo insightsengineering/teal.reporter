@@ -22,7 +22,7 @@ block <- teal.reporter:::TextBlock$new()
 ## ------------------------------------------------
 
 block <- teal.reporter:::TextBlock$new()
-block$set_style("header")
+block$set_style("header2")
 
 
 ## ------------------------------------------------
@@ -108,7 +108,7 @@ Sets the style of this \code{TextBlock}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{style}}{(\code{character(1)}) one of: \code{default}, \code{header}, \code{verbatim}.}
+\item{\code{style}}{(\code{character(1)}) one of: \code{default}, \code{header2}, \code{header3}, \code{verbatim}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -122,7 +122,7 @@ invisibly self
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{block <- teal.reporter:::TextBlock$new()
-block$set_style("header")
+block$set_style("header2")
 
 }
 \if{html}{\out{</div>}}

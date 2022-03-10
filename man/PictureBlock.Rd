@@ -22,7 +22,8 @@ block <- teal.reporter:::PictureBlock$new()
 ## ------------------------------------------------
 
 block <- teal.reporter:::PictureBlock$new()
-block$set_content("Base64 encoded picture")
+img_path <- system.file("img", "Rlogo.png", package = "png")
+block$set_content(img_path)
 
 
 ## ------------------------------------------------
@@ -32,6 +33,46 @@ block$set_content("Base64 encoded picture")
 block <- teal.reporter:::PictureBlock$new()
 block$get_content()
 
+
+## ------------------------------------------------
+## Method `PictureBlock$set_title`
+## ------------------------------------------------
+
+block <- teal.reporter:::PictureBlock$new()
+block$set_title("Title")
+
+
+## ------------------------------------------------
+## Method `PictureBlock$get_title`
+## ------------------------------------------------
+
+block <- teal.reporter:::PictureBlock$new()
+block$get_title()
+
+
+## ------------------------------------------------
+## Method `PictureBlock$get_type`
+## ------------------------------------------------
+
+block <- teal.reporter:::PictureBlock$new()
+block$get_type()
+
+
+## ------------------------------------------------
+## Method `PictureBlock$set_dim`
+## ------------------------------------------------
+
+block <- teal.reporter:::PictureBlock$new()
+block$set_dim(c(50, 50))
+
+
+## ------------------------------------------------
+## Method `PictureBlock$get_dim`
+## ------------------------------------------------
+
+block <- teal.reporter:::PictureBlock$new()
+block$get_dim()
+
 }
 \keyword{internal}
 \section{Methods}{
@@ -40,6 +81,11 @@ block$get_content()
 \item \href{#method-new}{\code{PictureBlock$new()}}
 \item \href{#method-set_content}{\code{PictureBlock$set_content()}}
 \item \href{#method-get_content}{\code{PictureBlock$get_content()}}
+\item \href{#method-set_title}{\code{PictureBlock$set_title()}}
+\item \href{#method-get_title}{\code{PictureBlock$get_title()}}
+\item \href{#method-get_type}{\code{PictureBlock$get_type()}}
+\item \href{#method-set_dim}{\code{PictureBlock$set_dim()}}
+\item \href{#method-get_dim}{\code{PictureBlock$get_dim()}}
 \item \href{#method-clone}{\code{PictureBlock$clone()}}
 }
 }
@@ -81,7 +127,7 @@ Sets the content of this \code{PictureBlock}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{content}}{(\code{character(1)}) a string assigned to this \code{PictureBlock}}
+\item{\code{content}}{(\code{character(1)}) a string path assigned to this \code{PictureBlock}}
 }
 \if{html}{\out{</div>}}
 }
@@ -95,7 +141,8 @@ invisibly self
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{block <- teal.reporter:::PictureBlock$new()
-block$set_content("Base64 encoded picture")
+img_path <- system.file("img", "Rlogo.png", package = "png")
+block$set_content(img_path)
 
 }
 \if{html}{\out{</div>}}
@@ -119,6 +166,139 @@ the content of this \code{PictureBlock}
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{block <- teal.reporter:::PictureBlock$new()
 block$get_content()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-set_title"></a>}}
+\if{latex}{\out{\hypertarget{method-set_title}{}}}
+\subsection{Method \code{set_title()}}{
+Sets the title of this \code{PictureBlock}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PictureBlock$set_title(title)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{title}}{(\code{character(1)}) a string assigned to this \code{PictureBlock}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+throws if argument is not \code{character(1)}.
+}
+
+\subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- teal.reporter:::PictureBlock$new()
+block$set_title("Title")
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_title"></a>}}
+\if{latex}{\out{\hypertarget{method-get_title}{}}}
+\subsection{Method \code{get_title()}}{
+Returns the title of this \code{PictureBlock}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PictureBlock$get_title()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+the content of this \code{PictureBlock}
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- teal.reporter:::PictureBlock$new()
+block$get_title()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_type"></a>}}
+\if{latex}{\out{\hypertarget{method-get_type}{}}}
+\subsection{Method \code{get_type()}}{
+Returns the type of this \code{PictureBlock}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PictureBlock$get_type()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+the type of this \code{PictureBlock}
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- teal.reporter:::PictureBlock$new()
+block$get_type()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-set_dim"></a>}}
+\if{latex}{\out{\hypertarget{method-set_dim}{}}}
+\subsection{Method \code{set_dim()}}{
+set the dimensions of this \code{PictureBlock}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PictureBlock$set_dim(dim)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{dim}}{\code{numeric} figure dimensions (width and height) in percent, length 2.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{self}
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- teal.reporter:::PictureBlock$new()
+block$set_dim(c(50, 50))
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_dim"></a>}}
+\if{latex}{\out{\hypertarget{method-get_dim}{}}}
+\subsection{Method \code{get_dim()}}{
+get the dimensions of this \code{PictureBlock}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PictureBlock$get_dim()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\code{numeric} dim filed, dimensions.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- teal.reporter:::PictureBlock$new()
+block$get_dim()
 
 }
 \if{html}{\out{</div>}}
