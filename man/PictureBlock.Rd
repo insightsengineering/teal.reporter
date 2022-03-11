@@ -11,28 +11,17 @@
 \examples{
 
 ## ------------------------------------------------
-## Method `PictureBlock$new`
-## ------------------------------------------------
-
-block <- teal.reporter:::PictureBlock$new()
-
-
-## ------------------------------------------------
 ## Method `PictureBlock$set_content`
 ## ------------------------------------------------
 
 block <- teal.reporter:::PictureBlock$new()
-img_path <- system.file("img", "Rlogo.png", package = "png")
-block$set_content(img_path)
-
-
-## ------------------------------------------------
-## Method `PictureBlock$get_content`
-## ------------------------------------------------
+block$set_content(ggplot2::ggplot(iris))
 
 block <- teal.reporter:::PictureBlock$new()
-block$get_content()
+block$set_content(lattice::bwplot(1))
 
+block <- teal.reporter:::PictureBlock$new()
+block$set_content(ggplot2::ggplotGrob(ggplot2::ggplot(iris)))
 
 ## ------------------------------------------------
 ## Method `PictureBlock$set_title`
@@ -75,12 +64,15 @@ block$get_dim()
 
 }
 \keyword{internal}
+\section{Super class}{
+\code{\link[teal.reporter:ContentBlock]{teal.reporter::ContentBlock}} -> \code{PictureBlock}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{PictureBlock$new()}}
 \item \href{#method-set_content}{\code{PictureBlock$set_content()}}
-\item \href{#method-get_content}{\code{PictureBlock$get_content()}}
+\item \href{#method-finalize}{\code{PictureBlock$finalize()}}
 \item \href{#method-set_title}{\code{PictureBlock$set_title()}}
 \item \href{#method-get_title}{\code{PictureBlock$get_title()}}
 \item \href{#method-get_type}{\code{PictureBlock$get_type()}}
@@ -89,31 +81,33 @@ block$get_dim()
 \item \href{#method-clone}{\code{PictureBlock$clone()}}
 }
 }
+\if{html}{
+\out{<details open ><summary>Inherited methods</summary>}
+\itemize{
+\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="deep_clone">}\href{../../teal.reporter/html/ContentBlock.html#method-deep_clone}{\code{teal.reporter::ContentBlock$deep_clone()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content">}\href{../../teal.reporter/html/ContentBlock.html#method-get_content}{\code{teal.reporter::ContentBlock$get_content()}}\out{</span>}
+}
+\out{</details>}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
-Returns a \code{PictureBlock} object.
+Returns a new \code{PictureBlock} object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PictureBlock$new()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{PictureBlock$new(plot)}\if{html}{\out{</div>}}
 }
 
-\subsection{Details}{
-Returns a \code{PictureBlock} object with no content and the default style.
-}
-
-\subsection{Returns}{
-\code{PictureBlock}
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- teal.reporter:::PictureBlock$new()
-
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{plot}}{(\code{ggplot}, \code{grid}) a picture in this \code{PictureBlock}}
 }
 \if{html}{\out{</div>}}
-
 }
-
+\subsection{Returns}{
+a \code{PictureBlock} object
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-set_content"></a>}}
@@ -127,12 +121,12 @@ Sets the content of this \code{PictureBlock}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{content}}{(\code{character(1)}) a string path assigned to this \code{PictureBlock}}
+\item{\code{content}}{(\code{ggplot}, \code{grob}, \code{trellis}) a picture in this \code{PictureBlock}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-throws if argument is not \code{character(1)}.
+throws if argument is not a \code{ggplot}, \code{grob} or \code{trellis} plot.
 }
 
 \subsection{Returns}{
@@ -141,9 +135,13 @@ invisibly self
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{block <- teal.reporter:::PictureBlock$new()
-img_path <- system.file("img", "Rlogo.png", package = "png")
-block$set_content(img_path)
+block$set_content(ggplot2::ggplot(iris))
 
+block <- teal.reporter:::PictureBlock$new()
+block$set_content(lattice::bwplot(1))
+
+block <- teal.reporter:::PictureBlock$new()
+block$set_content(ggplot2::ggplotGrob(ggplot2::ggplot(iris)))
 }
 \if{html}{\out{</div>}}
 
@@ -151,25 +149,16 @@ block$set_content(img_path)
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_content"></a>}}
-\if{latex}{\out{\hypertarget{method-get_content}{}}}
-\subsection{Method \code{get_content()}}{
-Returns the content of this \code{PictureBlock}
+\if{html}{\out{<a id="method-finalize"></a>}}
+\if{latex}{\out{\hypertarget{method-finalize}{}}}
+\subsection{Method \code{finalize()}}{
+finalize of this \code{PictureBlock}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PictureBlock$get_content()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{PictureBlock$finalize()}\if{html}{\out{</div>}}
 }
 
-\subsection{Returns}{
-the content of this \code{PictureBlock}
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- teal.reporter:::PictureBlock$new()
-block$get_content()
-
-}
-\if{html}{\out{</div>}}
-
+\subsection{Details}{
+Removes the temporary file created in the constructor.
 }
 
 }
@@ -293,7 +282,7 @@ get the dimensions of this \code{PictureBlock}
 }
 
 \subsection{Returns}{
-\code{numeric} dim filed, dimensions.
+\code{numeric} dim field, dimensions in pixels.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

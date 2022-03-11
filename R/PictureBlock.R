@@ -1,46 +1,61 @@
 #' @title `PictureBlock`
 #' @keywords internal
+#'
 PictureBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "PictureBlock",
+  inherit = ContentBlock,
   public = list(
-    #' @description Returns a `PictureBlock` object.
+    #' @description Returns a new `PictureBlock` object.
     #'
-    #' @details Returns a `PictureBlock` object with no content and the default style.
+    #' @param plot (`ggplot`, `grid`) a picture in this `PictureBlock`
+    #' @return a `PictureBlock` object
     #'
-    #' @return `PictureBlock`
-    #' @examples
-    #' block <- teal.reporter:::PictureBlock$new()
-    #'
-    initialize = function() {
+    initialize = function(plot) {
+      if (!missing(plot)) {
+        self$set_content(plot)
+      }
       invisible(self)
     },
     #' @description Sets the content of this `PictureBlock`.
     #'
-    #' @details throws if argument is not `character(1)`.
+    #' @details throws if argument is not a `ggplot`, `grob` or `trellis` plot.
     #'
-    #' @param content (`character(1)`) a string path assigned to this `PictureBlock`
+    #' @param content (`ggplot`, `grob`, `trellis`) a picture in this `PictureBlock`
     #' @return invisibly self
     #' @examples
     #' block <- teal.reporter:::PictureBlock$new()
-    #' img_path <- system.file("img", "Rlogo.png", package = "png")
-    #' block$set_content(img_path)
+    #' block$set_content(ggplot2::ggplot(iris))
     #'
+    #' block <- teal.reporter:::PictureBlock$new()
+    #' block$set_content(lattice::bwplot(1))
+    #'
+    #' block <- teal.reporter:::PictureBlock$new()
+    #' block$set_content(ggplot2::ggplotGrob(ggplot2::ggplot(iris)))
     set_content = function(content) {
-      checkmate::assert_string(content)
-      checkmate::assert_file_exists(content)
-      private$content <- content
-      private$type <- tools::file_ext(content)
+      checkmate::assert_multi_class(content, private$supported_plots)
+      path <- tempfile(fileext = ".png")
+      grDevices::png(filename = path, width = private$dim[1], height = private$dim[2])
+      if (inherits(content, "grob")) {
+        grid::grid.newpage()
+        grid::grid.draw(content)
+      } else if (inherits(content, "gg")) {
+        print(content)
+      } else if (inherits(content, "trellis")) {
+        grid::grid.newpage()
+        grid::grid.grabExpr(print(content), warn = 0, wrap.grobs = TRUE)
+      } else {
+        stop("plot type not supported.")
+      }
+      grDevices::dev.off()
+      super$set_content(path)
       invisible(self)
     },
-    #' @description Returns the content of this `PictureBlock`
+    #' @description finalize of this `PictureBlock`.
     #'
-    #' @return the content of this `PictureBlock`
-    #' @examples
-    #' block <- teal.reporter:::PictureBlock$new()
-    #' block$get_content()
+    #' @details Removes the temporary file created in the constructor.
     #'
-    get_content = function() {
-      private$content
+    finalize = function() {
+      try(unlink(super$get_content()))
     },
     #' @description Sets the title of this `PictureBlock`.
     #'
@@ -92,7 +107,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description get the dimensions of this `PictureBlock`
     #'
-    #' @return `numeric` dim filed, dimensions.
+    #' @return `numeric` dim field, dimensions in pixels.
     #' @examples
     #' block <- teal.reporter:::PictureBlock$new()
     #' block$get_dim()
@@ -102,10 +117,10 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     }
   ),
   private = list(
-    content = character(0),
+    supported_plots = c("ggplot", "grob", "trellis"),
     type = character(0),
     title = "",
-    dim = c(100, 100)
+    dim = c(800, 600)
   ),
   lock_objects = TRUE,
   lock_class = TRUE

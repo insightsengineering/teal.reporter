@@ -17,7 +17,9 @@ Suggests:
     png,
     rmarkdown,
     rtables,
-    testthat
+    testthat,
+    ggplot2,
+    lattice
 VignetteBuilder:
     knitr
 Encoding: UTF-8

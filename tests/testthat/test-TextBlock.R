@@ -13,7 +13,7 @@ testthat::test_that("set_content accepts a string", {
 
 testthat::test_that("set_content asserts the argument is a string", {
   block <- TextBlock$new()
-  testthat::expect_error(block$set_content(7), regexp = "Must be of type 'string'")
+  testthat::expect_error(block$set_content(7), regexp = "Must be of type 'character'")
 })
 
 testthat::test_that("set_content returns the TextBlock object", {

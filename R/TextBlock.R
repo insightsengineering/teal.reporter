@@ -2,17 +2,22 @@
 #' @keywords internal
 TextBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "TextBlock",
+  inherit = ContentBlock,
   public = list(
     #' @description Returns a `TextBlock` object.
     #'
     #' @details Returns a `TextBlock` object with no content and the default style.
     #'
+    #' @param content (`character(1)` or `character(0)`) a string assigned to this `TextBlock`
+    #' @param style (`character(1)`) one of: `default`, `header`, `verbatim`
+    #'
     #' @return `TextBlock`
     #' @examples
     #' block <- teal.reporter:::TextBlock$new()
     #'
-    initialize = function() {
-      private$style <- private$styles[1]
+    initialize = function(content = character(0), style = private$styles[1]) {
+      super$set_content(content)
+      self$set_style(style)
       invisible(self)
     },
     #' @description Sets the style of this `TextBlock`.
@@ -39,31 +44,6 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     get_style = function() {
       private$style
     },
-    #' @description Sets the content of this `TextBlock`.
-    #'
-    #' @details throws if argument is not `character(1)`.
-    #'
-    #' @param content (`character(1)`) a string assigned to this `TextBlock`
-    #' @return invisibly self
-    #' @examples
-    #' block <- teal.reporter:::TextBlock$new()
-    #' block$set_content("Some text")
-    #'
-    set_content = function(content) {
-      checkmate::assert_string(content)
-      private$content <- content
-      invisible(self)
-    },
-    #' @description Returns the content of this `TextBlock`
-    #'
-    #' @return the content of this `TextBlock`
-    #' @examples
-    #' block <- teal.reporter:::TextBlock$new()
-    #' block$get_content()
-    #'
-    get_content = function() {
-      private$content
-    },
     #' @description Returns an array of styles available to this `TextBlock`.
     #'
     #' @return a `character` array of styles
@@ -76,7 +56,6 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     }
   ),
   private = list(
-    content = character(0),
     style = character(0),
     styles = c("default", "header2", "header3", "verbatim")
   ),

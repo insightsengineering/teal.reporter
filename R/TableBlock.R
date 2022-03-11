@@ -1,62 +1,48 @@
 #' @title `TableBlock`
 #' @keywords internal
+#'
 TableBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "TableBlock",
+  inherit = ContentBlock,
   public = list(
-    #' @description Returns a `TableBlock` object.
+    #' @description Returns a new `TableBlock` object
     #'
-    #' @details Returns a `TableBlock` object with no content and the default style.
+    #' @param table (`data.frame`, `DT`, `rtables`, `TableTree`) a table assigned to this `TableBlock`
+    #' @return a `TableBlock` object
     #'
-    #' @return `TableBlock`
-    #' @examples
-    #' block <- teal.reporter:::TableBlock$new()
-    #'
-    initialize = function() {
+    initialize = function(table) {
+      if (!missing(table)) {
+        self$set_content(table)
+      }
       invisible(self)
     },
-    #' @description Sets the content of this `TableBlock`.
+    #' @description Sets content of this `TableBlock`.
     #'
-    #' @details throws if argument is not `character(1)`.
+    #' @details throws if argument is not a table-like object.
     #'
-    #' @param content (`character(1)`) a string path assigned to this `TableBlock`
+    #' @param content (`data.frame`, `DT`, `rtables`) a table assigned to this `TableBlock`
     #' @return invisibly self
     #' @examples
     #' block <- teal.reporter:::TableBlock$new()
-    #' table_path <- tempfile(fileext = ".csv")
-    #' write.csv(mtcars, table_path)
-    #' block$set_content(table_path)
+    #' block$set_content(iris)
     #'
     set_content = function(content) {
-      checkmate::assert_string(content)
-      checkmate::assert_file_exists(content)
-      private$content <- content
-      private$type <- tools::file_ext(content)
+      checkmate::assert_multi_class(content, private$supported_tables)
+      path <- tempfile(fileext = ".rds")
+      saveRDS(content, file = path)
+      super$set_content(path)
       invisible(self)
     },
-    #' @description Returns the content of this `TableBlock`
+    #' @description finalize of this `TableBlock`.
     #'
-    #' @return the content of this `TableBlock`
-    #' @examples
-    #' block <- teal.reporter:::TableBlock$new()
-    #' block$get_content()
+    #' @details Removes the temporary file created in the constructor.
     #'
-    get_content = function() {
-      private$content
-    },
-    #' @description Returns the type of this `TableBlock`
-    #'
-    #' @return the type of this `TableBlock`
-    #' @examples
-    #' block <- teal.reporter:::TableBlock$new()
-    #' block$get_type()
-    #'
-    get_type = function() {
-      return(private$type)
+    finalize = function() {
+      try(unlink(super$get_content()))
     }
   ),
   private = list(
-    content = character(0),
-    type = character(0)
+    supported_tables = c("data.frame", "DT", "rtables", "TableTree")
   ),
   lock_objects = TRUE,
   lock_class = TRUE

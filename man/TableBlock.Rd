@@ -11,80 +11,59 @@
 \examples{
 
 ## ------------------------------------------------
-## Method `TableBlock$new`
-## ------------------------------------------------
-
-block <- teal.reporter:::TableBlock$new()
-
-
-## ------------------------------------------------
 ## Method `TableBlock$set_content`
 ## ------------------------------------------------
 
 block <- teal.reporter:::TableBlock$new()
-table_path <- tempfile(fileext = ".csv")
-write.csv(mtcars, table_path)
-block$set_content(table_path)
-
-
-## ------------------------------------------------
-## Method `TableBlock$get_content`
-## ------------------------------------------------
-
-block <- teal.reporter:::TableBlock$new()
-block$get_content()
-
-
-## ------------------------------------------------
-## Method `TableBlock$get_type`
-## ------------------------------------------------
-
-block <- teal.reporter:::TableBlock$new()
-block$get_type()
+block$set_content(iris)
 
 }
 \keyword{internal}
+\section{Super class}{
+\code{\link[teal.reporter:ContentBlock]{teal.reporter::ContentBlock}} -> \code{TableBlock}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{TableBlock$new()}}
 \item \href{#method-set_content}{\code{TableBlock$set_content()}}
-\item \href{#method-get_content}{\code{TableBlock$get_content()}}
-\item \href{#method-get_type}{\code{TableBlock$get_type()}}
+\item \href{#method-finalize}{\code{TableBlock$finalize()}}
 \item \href{#method-clone}{\code{TableBlock$clone()}}
 }
+}
+\if{html}{
+\out{<details open ><summary>Inherited methods</summary>}
+\itemize{
+\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="deep_clone">}\href{../../teal.reporter/html/ContentBlock.html#method-deep_clone}{\code{teal.reporter::ContentBlock$deep_clone()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content">}\href{../../teal.reporter/html/ContentBlock.html#method-get_content}{\code{teal.reporter::ContentBlock$get_content()}}\out{</span>}
+}
+\out{</details>}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
-Returns a \code{TableBlock} object.
+Returns a new \code{TableBlock} object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TableBlock$new()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TableBlock$new(table)}\if{html}{\out{</div>}}
 }
 
-\subsection{Details}{
-Returns a \code{TableBlock} object with no content and the default style.
-}
-
-\subsection{Returns}{
-\code{TableBlock}
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- teal.reporter:::TableBlock$new()
-
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{table}}{(\code{data.frame}, \code{DT}, \code{rtables}, \code{TableTree}) a table assigned to this \code{TableBlock}}
 }
 \if{html}{\out{</div>}}
-
 }
-
+\subsection{Returns}{
+a \code{TableBlock} object
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-set_content"></a>}}
 \if{latex}{\out{\hypertarget{method-set_content}{}}}
 \subsection{Method \code{set_content()}}{
-Sets the content of this \code{TableBlock}.
+Sets content of this \code{TableBlock}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TableBlock$set_content(content)}\if{html}{\out{</div>}}
 }
@@ -92,12 +71,12 @@ Sets the content of this \code{TableBlock}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{content}}{(\code{character(1)}) a string path assigned to this \code{TableBlock}}
+\item{\code{content}}{(\code{data.frame}, \code{DT}, \code{rtables}) a table assigned to this \code{TableBlock}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-throws if argument is not \code{character(1)}.
+throws if argument is not a table-like object.
 }
 
 \subsection{Returns}{
@@ -106,9 +85,7 @@ invisibly self
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{block <- teal.reporter:::TableBlock$new()
-table_path <- tempfile(fileext = ".csv")
-write.csv(mtcars, table_path)
-block$set_content(table_path)
+block$set_content(iris)
 
 }
 \if{html}{\out{</div>}}
@@ -117,48 +94,16 @@ block$set_content(table_path)
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_content"></a>}}
-\if{latex}{\out{\hypertarget{method-get_content}{}}}
-\subsection{Method \code{get_content()}}{
-Returns the content of this \code{TableBlock}
+\if{html}{\out{<a id="method-finalize"></a>}}
+\if{latex}{\out{\hypertarget{method-finalize}{}}}
+\subsection{Method \code{finalize()}}{
+finalize of this \code{TableBlock}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TableBlock$get_content()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TableBlock$finalize()}\if{html}{\out{</div>}}
 }
 
-\subsection{Returns}{
-the content of this \code{TableBlock}
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- teal.reporter:::TableBlock$new()
-block$get_content()
-
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_type"></a>}}
-\if{latex}{\out{\hypertarget{method-get_type}{}}}
-\subsection{Method \code{get_type()}}{
-Returns the type of this \code{TableBlock}
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TableBlock$get_type()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-the type of this \code{TableBlock}
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- teal.reporter:::TableBlock$new()
-block$get_type()
-
-}
-\if{html}{\out{</div>}}
-
+\subsection{Details}{
+Removes the temporary file created in the constructor.
 }
 
 }

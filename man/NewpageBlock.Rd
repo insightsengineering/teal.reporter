@@ -16,23 +16,26 @@
 
 block <- teal.reporter:::NewpageBlock$new()
 
-
-## ------------------------------------------------
-## Method `NewpageBlock$get_content`
-## ------------------------------------------------
-
-block <- teal.reporter:::NewpageBlock$new()
-block$get_content()
-
 }
 \keyword{internal}
+\section{Super class}{
+\code{\link[teal.reporter:ContentBlock]{teal.reporter::ContentBlock}} -> \code{NewpageBlock}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{NewpageBlock$new()}}
-\item \href{#method-get_content}{\code{NewpageBlock$get_content()}}
 \item \href{#method-clone}{\code{NewpageBlock$clone()}}
 }
+}
+\if{html}{
+\out{<details open ><summary>Inherited methods</summary>}
+\itemize{
+\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="deep_clone">}\href{../../teal.reporter/html/ContentBlock.html#method-deep_clone}{\code{teal.reporter::ContentBlock$deep_clone()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content">}\href{../../teal.reporter/html/ContentBlock.html#method-get_content}{\code{teal.reporter::ContentBlock$get_content()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="set_content">}\href{../../teal.reporter/html/ContentBlock.html#method-set_content}{\code{teal.reporter::ContentBlock$set_content()}}\out{</span>}
+}
+\out{</details>}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
@@ -53,29 +56,6 @@ Returns a \code{NewpageBlock} object with no content and the default style.
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{block <- teal.reporter:::NewpageBlock$new()
-
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_content"></a>}}
-\if{latex}{\out{\hypertarget{method-get_content}{}}}
-\subsection{Method \code{get_content()}}{
-Returns the content of this \code{NewpageBlock}
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{NewpageBlock$get_content()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-the content of this \code{NewpageBlock}
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- teal.reporter:::NewpageBlock$new()
-block$get_content()
 
 }
 \if{html}{\out{</div>}}

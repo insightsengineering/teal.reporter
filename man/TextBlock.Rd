@@ -34,22 +34,6 @@ block$get_style()
 
 
 ## ------------------------------------------------
-## Method `TextBlock$set_content`
-## ------------------------------------------------
-
-block <- teal.reporter:::TextBlock$new()
-block$set_content("Some text")
-
-
-## ------------------------------------------------
-## Method `TextBlock$get_content`
-## ------------------------------------------------
-
-block <- teal.reporter:::TextBlock$new()
-block$get_content()
-
-
-## ------------------------------------------------
 ## Method `TextBlock$get_available_styles`
 ## ------------------------------------------------
 
@@ -58,17 +42,27 @@ block$get_available_styles()
 
 }
 \keyword{internal}
+\section{Super class}{
+\code{\link[teal.reporter:ContentBlock]{teal.reporter::ContentBlock}} -> \code{TextBlock}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{TextBlock$new()}}
 \item \href{#method-set_style}{\code{TextBlock$set_style()}}
 \item \href{#method-get_style}{\code{TextBlock$get_style()}}
-\item \href{#method-set_content}{\code{TextBlock$set_content()}}
-\item \href{#method-get_content}{\code{TextBlock$get_content()}}
 \item \href{#method-get_available_styles}{\code{TextBlock$get_available_styles()}}
 \item \href{#method-clone}{\code{TextBlock$clone()}}
 }
+}
+\if{html}{
+\out{<details open ><summary>Inherited methods</summary>}
+\itemize{
+\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="deep_clone">}\href{../../teal.reporter/html/ContentBlock.html#method-deep_clone}{\code{teal.reporter::ContentBlock$deep_clone()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content">}\href{../../teal.reporter/html/ContentBlock.html#method-get_content}{\code{teal.reporter::ContentBlock$get_content()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="set_content">}\href{../../teal.reporter/html/ContentBlock.html#method-set_content}{\code{teal.reporter::ContentBlock$set_content()}}\out{</span>}
+}
+\out{</details>}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
@@ -76,9 +70,18 @@ block$get_available_styles()
 \subsection{Method \code{new()}}{
 Returns a \code{TextBlock} object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TextBlock$new()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TextBlock$new(content = character(0), style = private$styles[1])}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{content}}{(\code{character(1)} or \code{character(0)}) a string assigned to this \code{TextBlock}}
+
+\item{\code{style}}{(\code{character(1)}) one of: \code{default}, \code{header}, \code{verbatim}}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Details}{
 Returns a \code{TextBlock} object with no content and the default style.
 }
@@ -146,63 +149,6 @@ Returns the style of this \code{TextBlock}.
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{block <- teal.reporter:::TextBlock$new()
 block$get_style()
-
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_content"></a>}}
-\if{latex}{\out{\hypertarget{method-set_content}{}}}
-\subsection{Method \code{set_content()}}{
-Sets the content of this \code{TextBlock}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TextBlock$set_content(content)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{content}}{(\code{character(1)}) a string assigned to this \code{TextBlock}}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-throws if argument is not \code{character(1)}.
-}
-
-\subsection{Returns}{
-invisibly self
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- teal.reporter:::TextBlock$new()
-block$set_content("Some text")
-
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_content"></a>}}
-\if{latex}{\out{\hypertarget{method-get_content}{}}}
-\subsection{Method \code{get_content()}}{
-Returns the content of this \code{TextBlock}
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TextBlock$get_content()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-the content of this \code{TextBlock}
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- teal.reporter:::TextBlock$new()
-block$get_content()
 
 }
 \if{html}{\out{</div>}}
