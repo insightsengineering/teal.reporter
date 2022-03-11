@@ -1,6 +1,6 @@
 Package: teal.reporter
 Title: Reporting tools for Shiny modules
-Version: 0.0.0.9003
+Version: 0.0.0.9004
 Authors@R:
     person("NEST", , , "basel.nestcicd@roche.com", role = c("aut", "cre"))
 Description: Reporting tools for Shiny modules.
@@ -13,13 +13,13 @@ Imports:
     R6,
     yaml
 Suggests:
+    ggplot2,
     knitr,
+    lattice,
     png,
     rmarkdown,
     rtables,
-    testthat,
-    ggplot2,
-    lattice
+    testthat
 VignetteBuilder:
     knitr
 Encoding: UTF-8
