@@ -19,6 +19,9 @@
     <loc>https://insightsengineering.github.io/teal.reporter/pull_request_template.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/ContentBlock.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/NewpageBlock.html</loc>
   </url>
   <url>
@@ -26,6 +29,9 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/Renderer.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/ReportCard.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/TableBlock.html</loc>
