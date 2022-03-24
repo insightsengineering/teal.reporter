@@ -1,6 +1,6 @@
 Package: teal.reporter
 Title: Reporting tools for Shiny modules
-Version: 0.0.0.9004
+Version: 0.0.0.9005
 Authors@R:
     person("NEST", , , "basel.nestcicd@roche.com", role = c("aut", "cre"))
 Description: Reporting tools for Shiny modules.
