@@ -1,4 +1,4 @@
-testthat::test_that("TextBlock object can be created", {
+testthat::test_that("Renderer object can be created", {
   testthat::expect_error(Renderer$new(), regexp = NA)
 })
 

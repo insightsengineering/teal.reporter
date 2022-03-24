@@ -52,7 +52,7 @@ block$get_type()
 ## ------------------------------------------------
 
 block <- teal.reporter:::PictureBlock$new()
-block$set_dim(c(50, 50))
+block$set_dim(c(800, 600))
 
 
 ## ------------------------------------------------
@@ -254,7 +254,7 @@ set the dimensions of this \code{PictureBlock}
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{dim}}{\code{numeric} figure dimensions (width and height) in percent, length 2.}
+\item{\code{dim}}{\code{numeric} figure dimensions (width and height) in pixels, length 2.}
 }
 \if{html}{\out{</div>}}
 }
@@ -264,7 +264,7 @@ set the dimensions of this \code{PictureBlock}
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{block <- teal.reporter:::PictureBlock$new()
-block$set_dim(c(50, 50))
+block$set_dim(c(800, 600))
 
 }
 \if{html}{\out{</div>}}

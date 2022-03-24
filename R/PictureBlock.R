@@ -94,11 +94,11 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description set the dimensions of this `PictureBlock`
     #'
-    #' @param dim `numeric` figure dimensions (width and height) in percent, length 2.
+    #' @param dim `numeric` figure dimensions (width and height) in pixels, length 2.
     #' @return `self`
     #' @examples
     #' block <- teal.reporter:::PictureBlock$new()
-    #' block$set_dim(c(50, 50))
+    #' block$set_dim(c(800, 600))
     #'
     set_dim = function(dim) {
       checkmate::assert_numeric(dim, len = 2)

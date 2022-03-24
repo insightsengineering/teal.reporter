@@ -27,29 +27,35 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @param yaml_header `character` a `rmarkdown` `yaml` header.
     #' @return `character` a `Rmd` text (`yaml` header + body), ready to be rendered.
     #' @examples
+    #' card1 <- teal.reporter:::ReportCard$new()
+    #'
+    #' card1$append_text("Header 2 text", "header2")
+    #' card1$append_text("A paragraph of default text")
+    #' card1$append_plot(
+    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #' )
+    #'
+    #' card2 <- teal.reporter:::ReportCard$new()
+    #'
+    #' card2$append_text("Header 2 text", "header2")
+    #' card2$append_text("A paragraph of default text", "header2")
+    #' lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
+    #' table_res2 <- rtables::build_table(lyt, airquality)
+    #' card2$append_table(table_res2)
+    #' card2$append_table(iris)
+    #'
+    #' reporter <- teal.reporter:::Reporter$new()
+    #' reporter$append_cards(list(card1, card2))
+    #'
     #' yaml_l <- list(
     #'   author = teal.reporter:::yaml_quoted("NEST"),
     #'   title = teal.reporter:::yaml_quoted("Report"),
     #'   date = teal.reporter:::yaml_quoted("07/04/2019"),
     #'   output = list(pdf_document = list(keep_tex = TRUE))
     #' )
+    #'
     #' yaml_header <- teal.reporter:::md_header(yaml::as.yaml(yaml_l))
-    #' text_block1 <- teal.reporter:::TextBlock$new()$set_content("text")$set_style("header2")
-    #' text_block2 <- teal.reporter:::TextBlock$new()$set_content("text")
-    #' text_block3 <- teal.reporter:::TextBlock$new()$set_content("tables")$set_style("header2")
-    #' ggplot1 <- ggplot2::ggplot(airquality, ggplot2::aes(Ozone, Month)) + ggplot2::geom_point()
-    #' picture_block <- teal.reporter:::PictureBlock$new()$set_content(ggplot1)
-    #' table_block1 <- teal.reporter:::TableBlock$new(iris)
-    #' lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
-    #' table_res2 <- rtables::build_table(lyt, airquality)
-    #' table_block2 <- teal.reporter:::TableBlock$new(table_res2)
-    #' newpage_block <- teal.reporter:::NewpageBlock$new()
-    #' blocks <- list(
-    #'   text_block1, text_block2, picture_block, newpage_block,
-    #'   text_block3, table_block1, table_block2, newpage_block
-    #' )
-    #' renderer <- teal.reporter:::Renderer$new()
-    #' rmd_path <- renderer$renderRmd(blocks, yaml_header)
+    #' result_path <- teal.reporter:::Renderer$new()$renderRmd(reporter$get_blocks(), yaml_header)
     renderRmd = function(blocks, yaml_header) {
       checkmate::assert_list(blocks, c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock"))
       if (missing(yaml_header)) {
@@ -75,29 +81,33 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @param ... `rmarkdown::render` arguments, `input` and `output_dir` should not be updated.
     #' @return `character` path to the output
     #' @examples
+    #' card1 <- teal.reporter:::ReportCard$new()
+    #' card1$append_text("Header 2 text", "header2")
+    #' card1$append_text("A paragraph of default text")
+    #' card1$append_plot(
+    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #' )
+    #'
+    #' card2 <- teal.reporter:::ReportCard$new()
+    #' card2$append_text("Header 2 text", "header2")
+    #' card2$append_text("A paragraph of default text", "header2")
+    #' lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
+    #' table_res2 <- rtables::build_table(lyt, airquality)
+    #' card2$append_table(table_res2)
+    #' card2$append_table(iris)
+    #'
+    #' reporter <- teal.reporter:::Reporter$new()
+    #' reporter$append_cards(list(card1, card2))
+    #'
     #' yaml_l <- list(
     #'   author = teal.reporter:::yaml_quoted("NEST"),
     #'   title = teal.reporter:::yaml_quoted("Report"),
     #'   date = teal.reporter:::yaml_quoted("07/04/2019"),
     #'   output = list(pdf_document = list(keep_tex = TRUE))
     #' )
+    #'
     #' yaml_header <- teal.reporter:::md_header(yaml::as.yaml(yaml_l))
-    #' text_block1 <- teal.reporter:::TextBlock$new()$set_content("text")$set_style("header2")
-    #' text_block2 <- teal.reporter:::TextBlock$new()$set_content("text")
-    #' text_block3 <- teal.reporter:::TextBlock$new()$set_content("tables")$set_style("header2")
-    #' ggplot1 <- ggplot2::ggplot(airquality, ggplot2::aes(Ozone, Month)) + ggplot2::geom_point()
-    #' picture_block <- teal.reporter:::PictureBlock$new()$set_content(ggplot1)
-    #' table_block1 <- teal.reporter:::TableBlock$new(iris)
-    #' lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
-    #' table_res2 <- rtables::build_table(lyt, airquality)
-    #' table_block2 <- teal.reporter:::TableBlock$new(table_res2)
-    #' newpage_block <- teal.reporter:::NewpageBlock$new()
-    #' blocks <- list(
-    #'   text_block1, text_block2, picture_block, newpage_block,
-    #'   text_block3, table_block1, table_block2, newpage_block
-    #' )
-    #' renderer <- teal.reporter:::Renderer$new()
-    #' result_path <- renderer$render(blocks, yaml_header)
+    #' result_path <- teal.reporter:::Renderer$new()$render(reporter$get_blocks(), yaml_header)
     render = function(blocks, yaml_header, ...) {
       args <- list(...)
       input_path <- self$renderRmd(blocks, yaml_header)
