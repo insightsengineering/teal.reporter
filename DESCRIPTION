@@ -1,6 +1,6 @@
 Package: teal.reporter
 Title: Reporting tools for Shiny modules
-Version: 0.0.0.9005
+Version: 0.0.0.9006
 Authors@R:
     person("NEST", , , "basel.nestcicd@roche.com", role = c("aut", "cre"))
 Description: Reporting tools for Shiny modules.
@@ -22,9 +22,8 @@ Suggests:
     testthat
 VignetteBuilder:
     knitr
+Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-Config/Needs/website:
-    insightsengineering/nesttemplate
