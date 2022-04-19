@@ -37,3 +37,11 @@ testthat::test_that("get_content returns a list of ContentBlock objects", {
   card <- ReportCard$new()$append_text("test")$append_plot(ggplot2::ggplot(iris))$append_table(iris)
   testthat::expect_true(checkmate::test_list(card$get_content(), types = "ContentBlock"))
 })
+
+testthat::test_that("The deep copy constructor copies the file in the content blocks", {
+  card <- ReportCard$new()$append_text("test")$append_plot(ggplot2::ggplot(iris))$append_table(iris)
+  card_copy <- card$clone(deep = TRUE)
+  original_filepath <- card$get_content()[[2]]$get_content()
+  copied_filepath <- card_copy$get_content()[[2]]$get_content()
+  testthat::expect_true(original_filepath != copied_filepath)
+})

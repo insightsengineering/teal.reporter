@@ -10,5 +10,6 @@ NULL
 #' @noRd
 #' @importFrom R6 R6Class
 #' @importFrom checkmate assert_string
+#' @importFrom grid grid.newpage
 #' @importFrom yaml as.yaml
 NULL

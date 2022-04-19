@@ -58,7 +58,6 @@ card$get_content()
 \item \href{#method-append_plot}{\code{ReportCard$append_plot()}}
 \item \href{#method-append_text}{\code{ReportCard$append_text()}}
 \item \href{#method-get_content}{\code{ReportCard$get_content()}}
-\item \href{#method-deep_clone}{\code{ReportCard$deep_clone()}}
 \item \href{#method-clone}{\code{ReportCard$clone()}}
 }
 }
@@ -199,28 +198,6 @@ card$get_content()
 
 }
 
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-deep_clone"></a>}}
-\if{latex}{\out{\hypertarget{method-deep_clone}{}}}
-\subsection{Method \code{deep_clone()}}{
-The copy constructor.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$deep_clone(name, value)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{the name of the field}
-
-\item{\code{value}}{the value of the field}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-the new value of the field
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
