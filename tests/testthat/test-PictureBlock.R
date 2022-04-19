@@ -1,4 +1,4 @@
- # Constructor
+# Constructor
 testthat::test_that("PictureBlock object can be created", {
   testthat::expect_error(PictureBlock$new(), regexp = NA)
 })
