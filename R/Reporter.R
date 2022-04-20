@@ -107,6 +107,14 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
       blocks
     },
+    #' @description Reset the instance, remove already added cards.
+    #'
+    #' @return a `Reporter` object
+    #'
+    reset = function() {
+      private$cards <- list()
+      invisible(self)
+    },
     #' @description The copy constructor.
     #'
     #' @param name the name of the field

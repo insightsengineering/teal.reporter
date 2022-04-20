@@ -2,6 +2,13 @@
 
 export(ReportCard)
 export(Reporter)
+export(add_card_button_srv)
+export(add_card_button_ui)
+export(download_report_button_srv)
+export(download_report_button_ui)
+export(extract_addcard_id)
+export(simple_reporter)
+export(simple_reporter_ui)
 importFrom(R6,R6Class)
 importFrom(checkmate,assert_string)
 importFrom(yaml,as.yaml)

@@ -11,7 +11,10 @@ BugReports: https://github.com/insightsengineering/teal.reporter/issues
 Imports:
     checkmate,
     R6,
-    yaml
+    yaml,
+    shiny,
+    shinyWidgets,
+    zip
 Suggests:
     ggplot2,
     knitr,

@@ -1,0 +1,204 @@
+---
+title: "Simple Reporter"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Simple Reporter}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(shiny)
+library(teal.reporter)
+library(ggplot2)
+library(rtables)
+```
+
+AddCardButton and downloadReportButton modules:
+
+```{r}
+ui <- fluidPage(
+  titlePanel(""),
+  sidebarLayout(
+    sidebarPanel(
+      uiOutput("encoding")
+    ),
+    mainPanel(
+      ### REPORTER
+      teal.reporter::add_card_button_ui("addReportCard"),
+      teal.reporter::download_report_button_ui("downloadButton"),
+      ###
+      tags$br(),
+      tags$br(),
+      tabsetPanel(
+        id = "tabs",
+        tabPanel("Plot", plotOutput("distPlot")),
+        tabPanel("Table", verbatimTextOutput("table"))
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  output$encoding <- renderUI({
+    if (input$tabs == "Plot") {
+      sliderInput(
+        "binwidth",
+        "binwidth",
+        min = 2,
+        max = 10,
+        value = 8
+      )
+    } else {
+      selectInput(
+        "stat",
+        label = "Statistic",
+        choices = c("mean", "median", "sd"),
+        "mean"
+      )
+    }
+  })
+  
+  plot <- reactive({
+    req(input$binwidth)
+    x <- mtcars$mpg
+    ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg)) +
+      ggplot2::geom_histogram(binwidth = input$binwidth)
+  })
+  
+  output$distPlot <- renderPlot({
+    plot()
+  })
+  
+  table <- reactive({
+    req(input$stat)
+    lyt <- basic_table() %>%
+      split_rows_by("Month", label_pos = "visible") %>%
+      analyze("Ozone", afun = eval(str2expression(input$stat)))
+    
+    build_table(lyt, airquality)
+  })
+  
+  output$table <- renderPrint({
+    table()
+  })
+  
+  ### REPORTER
+  reporter <- teal.reporter::Reporter$new()
+  card_r <- eventReactive(
+    input[[teal.reporter::extract_addcard_id(input)]], {
+      card <- teal.reporter::ReportCard$new()
+      if (input$tabs == "Plot") {
+        card$append_text("My plot", "header2")
+        card$append_plot(plot())
+      } else if (input$tabs == "Table") {
+        card$append_text("My Table", "header2")
+        card$append_table(table())
+      }
+      card
+  })
+  
+  teal.reporter::add_card_button_srv("addReportCard", reporter = reporter, card = card_r)
+  teal.reporter::download_report_button_srv("downloadButton", reporter = reporter)
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+Simple Reporter:
+
+```{r}
+ui <- fluidPage(
+  titlePanel(""),
+  sidebarLayout(
+    sidebarPanel(
+      uiOutput("encoding")
+    ),
+    mainPanel(
+      ### REPORTER
+      teal.reporter::simple_reporter_ui("simpleReporter"),
+      ###
+      tags$br(),
+      tags$br(),
+      tabsetPanel(
+        id = "tabs",
+        tabPanel("Plot", plotOutput("distPlot")),
+        tabPanel("Table", verbatimTextOutput("table"))
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  output$encoding <- renderUI({
+    if (input$tabs == "Plot") {
+      sliderInput(
+        "binwidth",
+        "binwidth",
+        min = 2,
+        max = 10,
+        value = 8
+      )
+    } else {
+      selectInput(
+        "stat",
+        label = "Statistic",
+        choices = c("mean", "median", "sd"),
+        "mean"
+      )
+    }
+  })
+  
+  plot <- reactive({
+    req(input$binwidth)
+    x <- mtcars$mpg
+    ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg)) +
+      ggplot2::geom_histogram(binwidth = input$binwidth)
+  })
+  
+  output$distPlot <- renderPlot({
+    plot()
+  })
+  
+  table <- reactive({
+    req(input$stat)
+    lyt <- basic_table() %>%
+      split_rows_by("Month", label_pos = "visible") %>%
+      analyze("Ozone", afun = eval(str2expression(input$stat)))
+    
+    build_table(lyt, airquality)
+  })
+  
+  output$table <- renderPrint({
+    table()
+  })
+  
+  ### REPORTER
+  reporter <- teal.reporter::Reporter$new()
+  card_r <- eventReactive(
+    input[[teal.reporter::extract_addcard_id(input)]], {
+      card <- teal.reporter::ReportCard$new()
+      if (input$tabs == "Plot") {
+        card$append_text("My plot", "header2")
+        card$append_plot(plot())
+      } else if (input$tabs == "Table") {
+        card$append_text("My Table", "header2")
+        card$append_table(table())
+      }
+      card
+  })
+  
+  teal.reporter::simple_reporter("simpleReporter", reporter = reporter, card = card_r)
+  ###
+}
+
+shinyApp(ui = ui, server = server)
+```
+
