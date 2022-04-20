@@ -12,6 +12,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     initialize = function() {
       private$content <- list()
+      private$meta_data <- list()
       invisible(self)
     },
     #' @description Appends a table to this `ReportCard`.
@@ -62,6 +63,30 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     get_content = function() {
       private$content
     },
+    #' @description Appends meta data elements to `meta_data` of this `ReportCard`.
+    #'
+    #' @param key (`character(1)`) name of meta data.
+    #' @param value (`list`) content of meta data.
+    #' @return invisibly self
+    #' @examples
+    #' card <- ReportCard$new()$insert_meta_data(list("This is meta data"))
+    #'
+    insert_meta_data = function(key, value) {
+      private$meta_data[[key]] <- value
+      invisible(self)
+    },
+    #' @description Returns the `meta_data` of this `ReportCard`.
+    #'
+    #' @return `list()` named list of `meta_data`
+    #' @examples
+    #' card <- ReportCard$new()$append_text("Some text")$append_plot(
+    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #' )
+    #' card$get_meta_data()
+    #'
+    get_meta_data = function() {
+      private$meta_data
+    },
     #' @description The copy constructor.
     #'
     #' @param name the name of the field
@@ -77,7 +102,8 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     }
   ),
   private = list(
-    content = list()
+    content = list(),
+    meta_data = list()
   ),
   lock_objects = TRUE,
   lock_class = TRUE
