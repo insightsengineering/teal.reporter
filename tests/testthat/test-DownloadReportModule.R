@@ -14,6 +14,7 @@ testthat::test_that("download_report_button_srv", {
     download_report_button_srv,
     args = list(reporter = reporter),
     expr = {
+      session$setInputs(`download_button` = 0)
       session$setInputs(`docType` = "html_document")
       session$setInputs(`docTitle` = "TITLE")
       session$setInputs(`docAuthor` = "AUTHOR")
@@ -28,6 +29,30 @@ testthat::test_that("download_report_button_srv", {
       files <- list.files(output_dir, recursive = TRUE)
       testthat::expect_true(any(grepl("[.]Rmd", files)))
       testthat::expect_true(any(grepl("[.]html", files)))
+    }
+  )
+})
+
+card1 <- ReportCard$new()
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text", "header2")
+card1$append_plot(
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
+    ggplot2::geom_histogram()
+)
+
+reporter <- Reporter$new()
+reporter$append_cards(list(card1))
+
+testthat::test_that("download_report_button_srv", {
+  shiny::testServer(
+    download_report_button_srv,
+    args = list(reporter = reporter),
+    expr = {
+      testthat::expect_identical(reporter$get_cards(), list(card1))
+      session$setInputs(`reset_reporter` = 0)
+      session$setInputs(`reset_reporter_ok` = 0)
+      testthat::expect_identical(reporter$get_blocks(), list())
     }
   )
 })

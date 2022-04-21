@@ -42,13 +42,13 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
   private = list(
     content = character(0),
 
-    #' @description The copy constructor.
-    #'
-    #' @param name `character(1)` the name of the field
-    #' @param value the value assigned to the field
-    #'
-    #' @return the value of the copied field
-    #'
+    # @description The copy constructor.
+    #
+    # @param name `character(1)` the name of the field
+    # @param value the value assigned to the field
+    #
+    # @return the value of the copied field
+    #
     deep_clone = function(name, value) {
       if (name == "content" && checkmate::test_file_exists(value)) {
         extension <- ""

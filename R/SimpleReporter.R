@@ -19,7 +19,7 @@ simple_reporter_ui <- function(id) {
 #' @param notification logical if to add shiny notification about the download process.
 #' @return shiny `moduleServer`
 #' @export
-simple_reporter <- function(id, reporter, card, notification = TRUE) {
+simple_reporter_srv <- function(id, reporter, card, notification = TRUE) {
   shiny::moduleServer(
     id,
     function(input, output, session) {

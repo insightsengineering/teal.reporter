@@ -14,6 +14,7 @@ testthat::test_that("add_card_button_srv", {
     args = list(reporter = reporter, card = reactive(card1)),
     expr = {
       card_len <- length(card()$get_content())
+      session$setInputs(`addReportCardButton` = 0)
       session$setInputs(comment = "Comment Body")
       session$setInputs(`addCardOk` = 0)
 

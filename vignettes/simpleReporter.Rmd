@@ -199,7 +199,7 @@ server <- function(input, output, session) {
       card
   })
 
-  teal.reporter::simple_reporter("simpleReporter", reporter = reporter, card = card_r)
+  teal.reporter::simple_reporter_srv("simpleReporter", reporter = reporter, card = card_r)
   ###
 }
 
