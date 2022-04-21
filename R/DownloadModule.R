@@ -117,11 +117,10 @@ download_report_button_srv <- function(id, reporter, notification = TRUE) {
 
       output$download_data <- shiny::downloadHandler(
         filename = function() {
-          paste("Report_", format(Sys.time(), "%y%m%d%H%M%S"), ".zip", sep = "")
+          paste("report_", format(Sys.time(), "%y%m%d%H%M%S"), ".zip", sep = "")
         },
         content = function(file) {
           renderer <- Renderer$new()
-
           yaml <- list(
             author = yaml_quoted(input$docAuthor),
             title = yaml_quoted(input$docTitle),
@@ -138,6 +137,7 @@ download_report_button_srv <- function(id, reporter, notification = TRUE) {
           temp_zip_file <- tempfile(fileext = ".zip")
           zip::zipr(temp_zip_file, renderer$get_output_dir())
           file.copy(temp_zip_file, file)
+          rm(renderer)
         },
         contentType = "application/zip"
       )
