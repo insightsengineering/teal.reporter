@@ -35,7 +35,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @return invisibly self
     #' @examples
     #' card <- TealReportCard$new()$append_src(
-    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #'   "ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()"
     #' )
     #'
     append_src = function(src) {
