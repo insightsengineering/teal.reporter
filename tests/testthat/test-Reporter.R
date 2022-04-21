@@ -49,3 +49,13 @@ testthat::test_that("get_blocks and get_cards return empty list by default", {
   expect_identical(reporter$get_blocks(), list())
   expect_identical(reporter$get_cards(), list())
 })
+
+testthat::test_that("The deep copy constructor copies the content files to new files", {
+  card <- ReportCard$new()$append_plot(ggplot2::ggplot(iris))
+  reporter <- Reporter$new()$append_cards(list(card))
+  reporter_copy <- reporter$clone(deep = TRUE)
+  original_content_file <- reporter$get_blocks()[[1]]$get_content()
+  copied_content_file <- reporter_copy$get_blocks()[[1]]$get_content()
+
+  testthat::expect_false(original_content_file == copied_content_file)
+})

@@ -130,7 +130,7 @@ Returns a \code{Renderer} object.
 \if{html}{\out{<a id="method-finalize"></a>}}
 \if{latex}{\out{\hypertarget{method-finalize}{}}}
 \subsection{Method \code{finalize()}}{
-finalize a \code{Renderer} object.
+Finalizes a \code{Renderer} object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Renderer$finalize()}\if{html}{\out{</div>}}
 }
@@ -198,7 +198,7 @@ result_path <- teal.reporter:::Renderer$new()$renderRmd(reporter$get_blocks(), y
 \if{html}{\out{<a id="method-render"></a>}}
 \if{latex}{\out{\hypertarget{method-render}{}}}
 \subsection{Method \code{render()}}{
-render blocks and \code{yaml} header to the output file
+Renders the content of this \code{Report} to the output file
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Renderer$render(blocks, yaml_header, ...)}\if{html}{\out{</div>}}
 }
@@ -208,7 +208,7 @@ render blocks and \code{yaml} header to the output file
 \describe{
 \item{\code{blocks}}{\code{list} of \code{c("TextBlock", "PictureBlock", "NewpageBlock")} objects.}
 
-\item{\code{yaml_header}}{\code{character} a \code{rmarkdown} \code{yaml} header.}
+\item{\code{yaml_header}}{\code{character} an \code{rmarkdown} \code{yaml} header.}
 
 \item{\code{...}}{\code{rmarkdown::render} arguments, \code{input} and \code{output_dir} should not be updated.}
 }
