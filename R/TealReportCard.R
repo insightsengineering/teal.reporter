@@ -39,8 +39,8 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )
     #'
-    insert_src = function(src) {
-      super$insert_meta_data("SRC", TextBlock$new(src))
+    append_src = function(src) {
+      super$append_meta_data("SRC", TextBlock$new(src))
       invisible(self)
     },
     #' @description Appends the filter state list to the `meta_data` of this `TealReportCard`.
@@ -52,8 +52,8 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )
     #'
-    insert_fs = function(fs) {
-      super$insert_meta_data("Filter state", fs)
+    append_fs = function(fs) {
+      super$append_meta_data("Filter state", fs)
       invisible(self)
     },
     #' @description Appends the encodings list to the `meta_data` of this `TealReportCard`.
@@ -65,8 +65,8 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )
     #'
-    insert_encodings = function(encodings) {
-      super$insert_meta_data("Encodings", encodings)
+    append_encodings = function(encodings) {
+      super$append_meta_data("Encodings", encodings)
       invisible(self)
     }
   ),
