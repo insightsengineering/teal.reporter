@@ -35,3 +35,9 @@ testthat::test_that("add_card_button_srv", {
     }
   )
 })
+
+testthat::test_that("add_card_button_ui", {
+  testthat::expect_true(
+    inherits(add_card_button_ui("sth"), c("shiny.tag.list", "list"))
+  )
+})

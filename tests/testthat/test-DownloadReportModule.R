@@ -56,3 +56,9 @@ testthat::test_that("download_report_button_srv", {
     }
   )
 })
+
+testthat::test_that("download_report_button_ui", {
+  testthat::expect_true(
+    inherits(download_report_button_ui("sth"), c("shiny.tag.list", "list"))
+  )
+})
