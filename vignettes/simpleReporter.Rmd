@@ -21,7 +21,10 @@ library(ggplot2)
 library(rtables)
 ```
 
-AddCardButton and downloadReportButton modules:
+Simple Reporter is a shiny module for capturing app views during the session, and eventually downloading a report document.
+The Simple Reporter module consists of two separate modules one for each of two buttons, Add Card and Download Report buttons modules.
+
+Simple Reporter shiny app with separate modules for each button:
 
 ```{r}
 ui <- fluidPage(
@@ -112,7 +115,7 @@ server <- function(input, output, session) {
 shinyApp(ui = ui, server = server)
 ```
 
-Simple Reporter:
+Simple Reporter shiny app with combined buttons modules:
 
 ```{r}
 ui <- fluidPage(
