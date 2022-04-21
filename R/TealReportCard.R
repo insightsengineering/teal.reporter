@@ -15,7 +15,18 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card$get_content()
     #'
     get_content = function() {
-      text_meta_data <- sapply(private$meta_data, function(x) if (inherits(x, "TextBlock")) x else TextBlock$new(deparse1(x)))
+      text_meta_data <- list()
+      for (x in seq_along(private$meta_data)) {
+        block <- private$meta_data[[x]]
+        text_meta_data <- append(text_meta_data, TextBlock$new(names(private$meta_data)[x], style = "header3"))
+        if (inherits(block, "TextBlock")) {
+          text_meta_data <- append(text_meta_data, block)
+        } else {
+          text_meta_data <- append(text_meta_data, TextBlock$new(deparse1(block)))
+        }
+      }
+
+
       private$content <- append(private$content, text_meta_data)
       private$content
     },
