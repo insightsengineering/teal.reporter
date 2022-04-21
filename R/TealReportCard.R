@@ -29,9 +29,9 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
       private$content <- append(private$content, text_meta_data)
       private$content
     },
-    #' @description Appends the SRC to the `meta_data` of this `TealReportCard`.
+    #' @description Appends the show R code to the `meta_data` of this `TealReportCard`.
     #'
-    #' @param src (`character(1)`) src as text.
+    #' @param src (`character(1)`) code as text.
     #' @return invisibly self
     #' @examples
     #' card <- TealReportCard$new()$append_src(

@@ -99,7 +99,7 @@ card$get_content()
 \if{html}{\out{<a id="method-append_src"></a>}}
 \if{latex}{\out{\hypertarget{method-append_src}{}}}
 \subsection{Method \code{append_src()}}{
-Appends the SRC to the \code{meta_data} of this \code{TealReportCard}.
+Appends the show R code to the \code{meta_data} of this \code{TealReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_src(src)}\if{html}{\out{</div>}}
 }
@@ -107,7 +107,7 @@ Appends the SRC to the \code{meta_data} of this \code{TealReportCard}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{src}}{(\code{character(1)}) src as text.}
+\item{\code{src}}{(\code{character(1)}) code as text.}
 }
 \if{html}{\out{</div>}}
 }
