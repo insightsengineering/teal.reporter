@@ -49,6 +49,21 @@ card <- ReportCard$new()$append_text("Some text")$append_plot(
 )
 card$get_content()
 
+
+## ------------------------------------------------
+## Method `ReportCard$append_meta_data`
+## ------------------------------------------------
+
+card <- ReportCard$new()$append_meta_data(key = "meta1", value = list("This is meta data"))
+
+
+## ------------------------------------------------
+## Method `ReportCard$get_meta_data`
+## ------------------------------------------------
+
+card <- ReportCard$new()$append_meta_data("meta1", list("This is meta data"))
+card$get_meta_data()
+
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -58,6 +73,8 @@ card$get_content()
 \item \href{#method-append_plot}{\code{ReportCard$append_plot()}}
 \item \href{#method-append_text}{\code{ReportCard$append_text()}}
 \item \href{#method-get_content}{\code{ReportCard$get_content()}}
+\item \href{#method-append_meta_data}{\code{ReportCard$append_meta_data()}}
+\item \href{#method-get_meta_data}{\code{ReportCard$get_meta_data()}}
 \item \href{#method-deep_clone}{\code{ReportCard$deep_clone()}}
 \item \href{#method-clone}{\code{ReportCard$clone()}}
 }
@@ -193,6 +210,60 @@ Returns the content of this \code{ReportCard}.
   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
 )
 card$get_content()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-append_meta_data"></a>}}
+\if{latex}{\out{\hypertarget{method-append_meta_data}{}}}
+\subsection{Method \code{append_meta_data()}}{
+Appends meta data elements to \code{meta_data} of this \code{ReportCard}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_meta_data(key, value)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{key}}{(\code{character(1)}) name of meta data.}
+
+\item{\code{value}}{(\code{list}) content of meta data.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{card <- ReportCard$new()$append_meta_data(key = "meta1", value = list("This is meta data"))
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_meta_data"></a>}}
+\if{latex}{\out{\hypertarget{method-get_meta_data}{}}}
+\subsection{Method \code{get_meta_data()}}{
+Returns the \code{meta_data} of this \code{ReportCard}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_meta_data()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\code{list()} named list of \code{meta_data}
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{card <- ReportCard$new()$append_meta_data("meta1", list("This is meta data"))
+card$get_meta_data()
 
 }
 \if{html}{\out{</div>}}
