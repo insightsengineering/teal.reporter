@@ -68,31 +68,31 @@ server <- function(input, output, session) {
       )
     }
   })
-  
+
   plot <- reactive({
     req(input$binwidth)
     x <- mtcars$mpg
     ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg)) +
       ggplot2::geom_histogram(binwidth = input$binwidth)
   })
-  
+
   output$distPlot <- renderPlot({
     plot()
   })
-  
+
   table <- reactive({
     req(input$stat)
     lyt <- basic_table() %>%
       split_rows_by("Month", label_pos = "visible") %>%
       analyze("Ozone", afun = eval(str2expression(input$stat)))
-    
+
     build_table(lyt, airquality)
   })
-  
+
   output$table <- renderPrint({
     table()
   })
-  
+
   ### REPORTER
   reporter <- teal.reporter::Reporter$new()
   card_r <- eventReactive(
@@ -107,7 +107,7 @@ server <- function(input, output, session) {
       }
       card
   })
-  
+
   teal.reporter::add_card_button_srv("addReportCard", reporter = reporter, card = card_r)
   teal.reporter::download_report_button_srv("downloadButton", reporter = reporter)
 }
@@ -158,31 +158,31 @@ server <- function(input, output, session) {
       )
     }
   })
-  
+
   plot <- reactive({
     req(input$binwidth)
     x <- mtcars$mpg
     ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg)) +
       ggplot2::geom_histogram(binwidth = input$binwidth)
   })
-  
+
   output$distPlot <- renderPlot({
     plot()
   })
-  
+
   table <- reactive({
     req(input$stat)
     lyt <- basic_table() %>%
       split_rows_by("Month", label_pos = "visible") %>%
       analyze("Ozone", afun = eval(str2expression(input$stat)))
-    
+
     build_table(lyt, airquality)
   })
-  
+
   output$table <- renderPrint({
     table()
   })
-  
+
   ### REPORTER
   reporter <- teal.reporter::Reporter$new()
   card_r <- eventReactive(
@@ -197,7 +197,7 @@ server <- function(input, output, session) {
       }
       card
   })
-  
+
   teal.reporter::simple_reporter("simpleReporter", reporter = reporter, card = card_r)
   ###
 }

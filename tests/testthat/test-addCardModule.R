@@ -10,24 +10,26 @@ reporter <- Reporter$new()
 
 testthat::test_that("Adding comment header and comment body", {
   shiny::testServer(add_card_button_srv,
-                    args = list(reporter = reporter, card = reactive(card1)), {
-    card_len <- length(card()$get_content())
-    session$setInputs(comment = "Comment Body")
-    session$setInputs(`addCardOk` = 0)
+    args = list(reporter = reporter, card = reactive(card1)),
+    {
+      card_len <- length(card()$get_content())
+      session$setInputs(comment = "Comment Body")
+      session$setInputs(`addCardOk` = 0)
 
-    testthat::expect_identical(
-      length(reporter$get_blocks()),
-      card_len + 2L
-    )
+      testthat::expect_identical(
+        length(reporter$get_blocks()),
+        card_len + 2L
+      )
 
-    testthat::expect_identical(
+      testthat::expect_identical(
         tail(reporter$get_blocks(), 1)[[1]]$get_content(),
         "Comment Body"
-    )
+      )
 
-    testthat::expect_identical(
-      tail(reporter$get_blocks(), 2)[[1]]$get_content(),
-      "Comment"
-    )
-  })
+      testthat::expect_identical(
+        tail(reporter$get_blocks(), 2)[[1]]$get_content(),
+        "Comment"
+      )
+    }
+  )
 })
