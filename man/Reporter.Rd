@@ -100,6 +100,7 @@ reporter$get_blocks()
 \item \href{#method-append_cards}{\code{Reporter$append_cards()}}
 \item \href{#method-get_cards}{\code{Reporter$get_cards()}}
 \item \href{#method-get_blocks}{\code{Reporter$get_blocks()}}
+\item \href{#method-reset}{\code{Reporter$reset()}}
 \item \href{#method-clone}{\code{Reporter$clone()}}
 }
 }
@@ -260,6 +261,19 @@ reporter$get_blocks()
 
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-reset"></a>}}
+\if{latex}{\out{\hypertarget{method-reset}{}}}
+\subsection{Method \code{reset()}}{
+Reset the instance, remove already added cards.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$reset()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+a \code{Reporter} object
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
