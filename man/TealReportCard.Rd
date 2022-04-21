@@ -65,7 +65,6 @@ card <- TealReportCard$new()$append_encodings(list("variable 1 is X"))
 \item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_plot">}\href{../../teal.reporter/html/ReportCard.html#method-append_plot}{\code{teal.reporter::ReportCard$append_plot()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_table">}\href{../../teal.reporter/html/ReportCard.html#method-append_table}{\code{teal.reporter::ReportCard$append_table()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_text">}\href{../../teal.reporter/html/ReportCard.html#method-append_text}{\code{teal.reporter::ReportCard$append_text()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="deep_clone">}\href{../../teal.reporter/html/ReportCard.html#method-deep_clone}{\code{teal.reporter::ReportCard$deep_clone()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="get_meta_data">}\href{../../teal.reporter/html/ReportCard.html#method-get_meta_data}{\code{teal.reporter::ReportCard$get_meta_data()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="initialize">}\href{../../teal.reporter/html/ReportCard.html#method-initialize}{\code{teal.reporter::ReportCard$initialize()}}\out{</span>}
 }

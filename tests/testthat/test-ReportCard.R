@@ -50,13 +50,15 @@ testthat::test_that("append_meta_data accepts a key and a value", {
 testthat::test_that("append_meta_data throws error if value if missing", {
   testthat::expect_error(
     ReportCard$new()$append_meta_data(key = "key1"),
-    regexp = "argument \"value\" is missing, with no default")
+    regexp = "argument \"value\" is missing, with no default"
+  )
 })
 
 testthat::test_that("append_meta_data throws error if key if missing", {
   testthat::expect_error(
     ReportCard$new()$append_meta_data(value = "value"),
-    regexp = "missing subscript")
+    regexp = "missing subscript"
+  )
 })
 
 testthat::test_that("get_meta_data renders a named list in meta_data", {
