@@ -8,10 +8,11 @@ card1$append_plot(
 
 reporter <- Reporter$new()
 
-testthat::test_that("Adding comment header and comment body", {
-  shiny::testServer(add_card_button_srv,
+testthat::test_that("add_card_button_srv", {
+  shiny::testServer(
+    add_card_button_srv,
     args = list(reporter = reporter, card = reactive(card1)),
-    {
+    expr = {
       card_len <- length(card()$get_content())
       session$setInputs(comment = "Comment Body")
       session$setInputs(`addCardOk` = 0)

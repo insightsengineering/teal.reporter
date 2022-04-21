@@ -9,10 +9,11 @@ card1$append_plot(
 reporter <- Reporter$new()
 reporter$append_cards(list(card1))
 
-testthat::test_that("", {
-  shiny::testServer(download_report_button_srv,
+testthat::test_that("download_report_button_srv", {
+  shiny::testServer(
+    download_report_button_srv,
     args = list(reporter = reporter),
-    {
+    expr = {
       session$setInputs(`docType` = "html_document")
       session$setInputs(`docTitle` = "TITLE")
       session$setInputs(`docAuthor` = "AUTHOR")

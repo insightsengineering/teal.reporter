@@ -7,7 +7,7 @@
 extract_addcard_id(input)
 }
 \arguments{
-\item{input}{shiny input}
+\item{input}{shiny input, \code{reactivevalues}.}
 }
 \description{
 extract Add Card Button id.

@@ -42,7 +42,7 @@ testthat::test_that("set_style accepts one of the styles returned by get_availab
 testthat::test_that("set_style asserts the argument is one of styles in get_available_styles", {
   testthat::expect_error(
     TextBlock$new()$set_style("test"),
-    regexp = "'arg' should be one of \"default\", \"header2\", \"header3\", \"verbatim\""
+    regexp = "'arg' should be one of "
   )
 })
 

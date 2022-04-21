@@ -7,10 +7,10 @@ add_card_button_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::tags$button(
-      id = ns("addReportCard"),
+      id = ns("addReportCardButton"),
       type = "button",
       class = "btn btn-primary action-button",
-      `data-val` = shiny::restoreInput(id = ns("addReportCard"), default = NULL),
+      `data-val` = shiny::restoreInput(id = ns("addReportCardButton"), default = NULL),
       NULL,
       "Add Card"
     )
@@ -67,7 +67,7 @@ add_card_button_srv <- function(id, reporter, card) {
         )
       }
 
-      shiny::observeEvent(input$addReportCard, {
+      shiny::observeEvent(input$addReportCardButton, {
         shiny::showModal(add_modal())
       })
 
