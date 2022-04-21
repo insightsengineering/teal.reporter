@@ -69,9 +69,9 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param value (`list`) content of meta data.
     #' @return invisibly self
     #' @examples
-    #' card <- ReportCard$new()$insert_meta_data(list("This is meta data"))
+    #' card <- ReportCard$new()$append_meta_data(key = "meta1", value = list("This is meta data"))
     #'
-    insert_meta_data = function(key, value) {
+    append_meta_data = function(key, value) {
       private$meta_data[[key]] <- value
       invisible(self)
     },
@@ -79,9 +79,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `list()` named list of `meta_data`
     #' @examples
-    #' card <- ReportCard$new()$append_text("Some text")$append_plot(
-    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-    #' )
+    #' card <- ReportCard$new()$append_meta_data("meta1", list("This is meta data"))
     #' card$get_meta_data()
     #'
     get_meta_data = function() {

@@ -37,3 +37,29 @@ testthat::test_that("get_content returns a list of ContentBlock objects", {
   card <- ReportCard$new()$append_text("test")$append_plot(ggplot2::ggplot(iris))$append_table(iris)
   testthat::expect_true(checkmate::test_list(card$get_content(), types = "ContentBlock"))
 })
+
+testthat::test_that("append_meta_data returns an object of type ReportCard", {
+  card <- ReportCard$new()
+  testthat::expect_true(inherits(ReportCard$new()$append_meta_data("key1", "value1"), "ReportCard"))
+})
+
+testthat::test_that("append_meta_data accepts a key and a value", {
+  testthat::expect_error(ReportCard$new()$append_meta_data("key1", "value1"), regexp = NA)
+})
+
+testthat::test_that("append_meta_data throws error if value if missing", {
+  testthat::expect_error(
+    ReportCard$new()$append_meta_data(key = "key1"),
+    regexp = "argument \"value\" is missing, with no default")
+})
+
+testthat::test_that("append_meta_data throws error if key if missing", {
+  testthat::expect_error(
+    ReportCard$new()$append_meta_data(value = "value"),
+    regexp = "missing subscript")
+})
+
+testthat::test_that("get_meta_data renders a named list in meta_data", {
+  card <- ReportCard$new()$append_meta_data("key1", "value1")
+  expect_true(length(names(card$get_meta_data())) > 0)
+})

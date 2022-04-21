@@ -35,12 +35,12 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param src (`character(1)`) src as text.
     #' @return invisibly self
     #' @examples
-    #' card <- ReportCard$new()$append_src(
+    #' card <- TealReportCard$new()$append_src(
     #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )
     #'
-    insert_src = function(src) {
-      super$insert_meta_data("SRC", TextBlock$new(src))
+    append_src = function(src) {
+      super$append_meta_data("SRC", TextBlock$new(src))
       invisible(self)
     },
     #' @description Appends the filter state list to the `meta_data` of this `TealReportCard`.
@@ -48,12 +48,12 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param fs (`list`) list of filter states.
     #' @return invisibly self
     #' @examples
-    #' card <- ReportCard$new()$append_fs(
-    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #' card <- TealReportCard$new()$append_fs(
+    #'   list(data = list(X = list(selected = c(1, 10))))
     #' )
     #'
-    insert_fs = function(fs) {
-      super$insert_meta_data("Filter state", fs)
+    append_fs = function(fs) {
+      super$append_meta_data("Filter state", fs)
       invisible(self)
     },
     #' @description Appends the encodings list to the `meta_data` of this `TealReportCard`.
@@ -61,12 +61,10 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param encodings (`list`) list of encodings selections of the teal app.
     #' @return invisibly self
     #' @examples
-    #' card <- ReportCard$new()$append_encodings(
-    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-    #' )
+    #' card <- TealReportCard$new()$append_encodings(list("variable 1 is X"))
     #'
-    insert_encodings = function(encodings) {
-      super$insert_meta_data("Encodings", encodings)
+    append_encodings = function(encodings) {
+      super$append_meta_data("Encodings", encodings)
       invisible(self)
     }
   ),
