@@ -12,7 +12,7 @@ ReportCard"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/
     
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 30px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,15 +26,6 @@ ReportCard"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start_releases -->
-<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-Other releases
-<span class="caret"></span></a><ul class="dropdown-menu" role="menu">
-   <li><a href="../index.html">latest</a></li>
-   <li><a href="..//index.html"></a></li>
-</ul></li>
-<!-- end_releases -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -73,7 +64,6 @@ Other releases
 <li><p><a href="#method-append_plot"><code>ReportCard$append_plot()</code></a></p></li>
 <li><p><a href="#method-append_text"><code>ReportCard$append_text()</code></a></p></li>
 <li><p><a href="#method-get_content"><code>ReportCard$get_content()</code></a></p></li>
-<li><p><a href="#method-deep_clone"><code>ReportCard$deep_clone()</code></a></p></li>
 <li><p><a href="#method-clone"><code>ReportCard$clone()</code></a></p></li>
 </ul></div><p></p><hr><a id="method-new"></a><div class="section">
 <h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
@@ -193,39 +183,15 @@ Other releases
 </div>
 
 
-</div><p></p><hr><a id="method-deep_clone"></a><div class="section">
-<h3 id="method-deep-clone-">Method <code>deep_clone()</code><a class="anchor" aria-label="anchor" href="#method-deep-clone-"></a></h3>
-<p>The copy constructor.</p><div class="section">
-<h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">ReportCard</span><span class="op">$</span><span class="fu">deep_clone</span><span class="op">(</span><span class="va">name</span>, <span class="va">value</span><span class="op">)</span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>name</code></dt>
-<dd><p>the name of the field</p></dd>
-
-
-<dt><code>value</code></dt>
-<dd><p>the value of the field</p></dd>
-
-
-</dl><p></p></div>
-</div>
-<div class="section">
-<h4 id="returns-5">Returns<a class="anchor" aria-label="anchor" href="#returns-5"></a></h4>
-<p>the new value of the field</p>
-</div>
-
 </div><p></p><hr><a id="method-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
+<h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">ReportCard</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
+<h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 
@@ -285,7 +251,6 @@ Other releases
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_available_styles: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_style: function () </span>
@@ -294,6 +259,7 @@ Other releases
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_style: function (style) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     content: Some text</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     style: default</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     styles: default header2 header3 verbatim</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -302,18 +268,17 @@ Other releases
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     finalize: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_dim: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_title: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_type: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (plot) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_dim: function (dim) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/Rtmpsyq0qC/file23e47af4526.png</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpCuvln4/file2444e134fc2.png</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     title: </span>
