@@ -73,7 +73,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Returns blocks of all `ReportCard` of this `Reporter`.
     #'
-    #' @param sep separator between blocks. Default: `NewpageBlock$new()`
+    #' @param sep the element inserted between each content element in this `Reporter`.
+    #' Pass `NULL` to return content without any additional elements. Default: `NewpageBlock$new()`
     #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock` and `NewpageBlock`
     #' @examples
     #' card1 <- teal.reporter:::ReportCard$new()
@@ -106,7 +107,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         blocks <- append(blocks, private$cards[[length(private$cards)]]$get_content())
       }
       blocks
-    },
+    }
+  ),
+  private = list(
+    cards = list(),
     #' @description The copy constructor.
     #'
     #' @param name the name of the field
@@ -120,9 +124,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         value
       }
     }
-  ),
-  private = list(
-    cards = list()
   ),
   lock_objects = TRUE,
   lock_class = TRUE

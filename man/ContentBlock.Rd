@@ -40,7 +40,6 @@ block$get_content()
 \item \href{#method-new}{\code{ContentBlock$new()}}
 \item \href{#method-set_content}{\code{ContentBlock$set_content()}}
 \item \href{#method-get_content}{\code{ContentBlock$get_content()}}
-\item \href{#method-deep_clone}{\code{ContentBlock$deep_clone()}}
 \item \href{#method-clone}{\code{ContentBlock$clone()}}
 }
 }
@@ -122,28 +121,6 @@ block$get_content()
 
 }
 
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-deep_clone"></a>}}
-\if{latex}{\out{\hypertarget{method-deep_clone}{}}}
-\subsection{Method \code{deep_clone()}}{
-The copy constructor.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ContentBlock$deep_clone(name, value)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{\code{character(1)} the name of the field}
-
-\item{\code{value}}{the value assigned to the field}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-the value of the copied field
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

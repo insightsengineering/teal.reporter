@@ -84,7 +84,12 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     get_meta_data = function() {
       private$meta_data
-    },
+    }
+  ),
+  private = list(
+    content = list(),
+    meta_data = list(),
+
     #' @description The copy constructor.
     #'
     #' @param name the name of the field
@@ -98,10 +103,6 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
         value
       }
     }
-  ),
-  private = list(
-    content = list(),
-    meta_data = list()
   ),
   lock_objects = TRUE,
   lock_class = TRUE

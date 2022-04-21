@@ -63,3 +63,11 @@ testthat::test_that("get_meta_data renders a named list in meta_data", {
   card <- ReportCard$new()$append_meta_data("key1", "value1")
   expect_true(length(names(card$get_meta_data())) > 0)
 })
+
+testthat::test_that("The deep copy constructor copies the file in the content blocks", {
+  card <- ReportCard$new()$append_text("test")$append_plot(ggplot2::ggplot(iris))$append_table(iris)
+  card_copy <- card$clone(deep = TRUE)
+  original_filepath <- card$get_content()[[2]]$get_content()
+  copied_filepath <- card_copy$get_content()[[2]]$get_content()
+  testthat::expect_true(original_filepath != copied_filepath)
+})
