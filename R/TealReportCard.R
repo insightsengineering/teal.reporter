@@ -26,7 +26,6 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
         }
       }
 
-
       private$content <- append(private$content, text_meta_data)
       private$content
     },
