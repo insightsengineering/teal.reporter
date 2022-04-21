@@ -40,14 +40,6 @@ block$get_title()
 
 
 ## ------------------------------------------------
-## Method `PictureBlock$get_type`
-## ------------------------------------------------
-
-block <- teal.reporter:::PictureBlock$new()
-block$get_type()
-
-
-## ------------------------------------------------
 ## Method `PictureBlock$set_dim`
 ## ------------------------------------------------
 
@@ -75,7 +67,6 @@ block$get_dim()
 \item \href{#method-finalize}{\code{PictureBlock$finalize()}}
 \item \href{#method-set_title}{\code{PictureBlock$set_title()}}
 \item \href{#method-get_title}{\code{PictureBlock$get_title()}}
-\item \href{#method-get_type}{\code{PictureBlock$get_type()}}
 \item \href{#method-set_dim}{\code{PictureBlock$set_dim()}}
 \item \href{#method-get_dim}{\code{PictureBlock$get_dim()}}
 \item \href{#method-clone}{\code{PictureBlock$clone()}}
@@ -84,7 +75,6 @@ block$get_dim()
 \if{html}{
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="deep_clone">}\href{../../teal.reporter/html/ContentBlock.html#method-deep_clone}{\code{teal.reporter::ContentBlock$deep_clone()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content">}\href{../../teal.reporter/html/ContentBlock.html#method-get_content}{\code{teal.reporter::ContentBlock$get_content()}}\out{</span>}
 }
 \out{</details>}
@@ -152,7 +142,7 @@ block$set_content(ggplot2::ggplotGrob(ggplot2::ggplot(iris)))
 \if{html}{\out{<a id="method-finalize"></a>}}
 \if{latex}{\out{\hypertarget{method-finalize}{}}}
 \subsection{Method \code{finalize()}}{
-finalize of this \code{PictureBlock}.
+Finalizes this \code{PictureBlock}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{PictureBlock$finalize()}\if{html}{\out{</div>}}
 }
@@ -220,33 +210,10 @@ block$get_title()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_type"></a>}}
-\if{latex}{\out{\hypertarget{method-get_type}{}}}
-\subsection{Method \code{get_type()}}{
-Returns the type of this \code{PictureBlock}
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PictureBlock$get_type()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-the type of this \code{PictureBlock}
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- teal.reporter:::PictureBlock$new()
-block$get_type()
-
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-set_dim"></a>}}
 \if{latex}{\out{\hypertarget{method-set_dim}{}}}
 \subsection{Method \code{set_dim()}}{
-set the dimensions of this \code{PictureBlock}
+Sets the dimensions of this \code{PictureBlock}
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{PictureBlock$set_dim(dim)}\if{html}{\out{</div>}}
 }
@@ -276,13 +243,13 @@ block$set_dim(c(800, 600))
 \if{html}{\out{<a id="method-get_dim"></a>}}
 \if{latex}{\out{\hypertarget{method-get_dim}{}}}
 \subsection{Method \code{get_dim()}}{
-get the dimensions of this \code{PictureBlock}
+Returns the dimensions of this \code{PictureBlock}
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{PictureBlock$get_dim()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-\code{numeric} dim field, dimensions in pixels.
+\code{numeric} the array of 2 numeric values representing width and height in pixels.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

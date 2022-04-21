@@ -61,7 +61,10 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     get_content = function() {
       private$content
-    },
+    }
+  ),
+  private = list(
+    content = list(),
     #' @description The copy constructor.
     #'
     #' @param name the name of the field
@@ -75,9 +78,6 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
         value
       }
     }
-  ),
-  private = list(
-    content = list()
   ),
   lock_objects = TRUE,
   lock_class = TRUE

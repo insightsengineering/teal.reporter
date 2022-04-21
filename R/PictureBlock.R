@@ -35,22 +35,24 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
       checkmate::assert_multi_class(content, private$supported_plots)
       path <- tempfile(fileext = ".png")
       grDevices::png(filename = path, width = private$dim[1], height = private$dim[2])
-      if (inherits(content, "grob")) {
-        grid::grid.newpage()
-        grid::grid.draw(content)
-      } else if (inherits(content, "gg")) {
-        print(content)
-      } else if (inherits(content, "trellis")) {
-        grid::grid.newpage()
-        grid::grid.grabExpr(print(content), warn = 0, wrap.grobs = TRUE)
-      } else {
-        stop("plot type not supported.")
-      }
-      grDevices::dev.off()
-      super$set_content(path)
+      tryCatch(
+        expr = {
+          if (inherits(content, "grob")) {
+            grid::grid.newpage()
+            grid::grid.draw(content)
+          } else if (inherits(content, "gg")) {
+            print(content)
+          } else if (inherits(content, "trellis")) {
+            grid::grid.newpage()
+            grid::grid.grabExpr(print(content), warn = 0, wrap.grobs = TRUE)
+          }
+          super$set_content(path)
+        },
+        finally = grDevices::dev.off()
+      )
       invisible(self)
     },
-    #' @description finalize of this `PictureBlock`.
+    #' @description Finalizes this `PictureBlock`.
     #'
     #' @details Removes the temporary file created in the constructor.
     #'
@@ -82,17 +84,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     get_title = function() {
       private$title
     },
-    #' @description Returns the type of this `PictureBlock`
-    #'
-    #' @return the type of this `PictureBlock`
-    #' @examples
-    #' block <- teal.reporter:::PictureBlock$new()
-    #' block$get_type()
-    #'
-    get_type = function() {
-      return(private$type)
-    },
-    #' @description set the dimensions of this `PictureBlock`
+    #' @description Sets the dimensions of this `PictureBlock`
     #'
     #' @param dim `numeric` figure dimensions (width and height) in pixels, length 2.
     #' @return `self`
@@ -105,9 +97,9 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
       private$dim <- dim
       invisible(self)
     },
-    #' @description get the dimensions of this `PictureBlock`
+    #' @description Returns the dimensions of this `PictureBlock`
     #'
-    #' @return `numeric` dim field, dimensions in pixels.
+    #' @return `numeric` the array of 2 numeric values representing width and height in pixels.
     #' @examples
     #' block <- teal.reporter:::PictureBlock$new()
     #' block$get_dim()

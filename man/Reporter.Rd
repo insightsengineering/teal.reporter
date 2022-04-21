@@ -100,8 +100,6 @@ reporter$get_blocks()
 \item \href{#method-append_cards}{\code{Reporter$append_cards()}}
 \item \href{#method-get_cards}{\code{Reporter$get_cards()}}
 \item \href{#method-get_blocks}{\code{Reporter$get_blocks()}}
-\item \href{#method-reset}{\code{Reporter$reset()}}
-\item \href{#method-deep_clone}{\code{Reporter$deep_clone()}}
 \item \href{#method-clone}{\code{Reporter$clone()}}
 }
 }
@@ -226,7 +224,8 @@ Returns blocks of all \code{ReportCard} of this \code{Reporter}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{sep}}{separator between blocks. Default: \code{NewpageBlock$new()}}
+\item{\code{sep}}{the element inserted between each content element in this \code{Reporter}.
+Pass \code{NULL} to return content without any additional elements. Default: \code{NewpageBlock$new()}}
 }
 \if{html}{\out{</div>}}
 }
@@ -261,41 +260,6 @@ reporter$get_blocks()
 
 }
 
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-reset"></a>}}
-\if{latex}{\out{\hypertarget{method-reset}{}}}
-\subsection{Method \code{reset()}}{
-Reset the instance, remove already added cards.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$reset()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-a \code{Reporter} object
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-deep_clone"></a>}}
-\if{latex}{\out{\hypertarget{method-deep_clone}{}}}
-\subsection{Method \code{deep_clone()}}{
-The copy constructor.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$deep_clone(name, value)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{the name of the field}
-
-\item{\code{value}}{the value of the field}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-the new value of the field
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

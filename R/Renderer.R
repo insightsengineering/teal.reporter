@@ -17,7 +17,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       private$output_dir <- output_dir
       invisible(self)
     },
-    #' @description finalize a `Renderer` object.
+    #' @description Finalizes a `Renderer` object.
     finalize = function() {
       unlink(private$output_dir, recursive = TRUE)
     },
@@ -74,10 +74,10 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       cat(rmd_text, file = input_path)
       input_path
     },
-    #' @description render blocks and `yaml` header to the output file
+    #' @description Renders the content of this `Report` to the output file
     #'
     #' @param blocks `list` of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
-    #' @param yaml_header `character` a `rmarkdown` `yaml` header.
+    #' @param yaml_header `character` an `rmarkdown` `yaml` header.
     #' @param ... `rmarkdown::render` arguments, `input` and `output_dir` should not be updated.
     #' @return `character` path to the output
     #' @examples
