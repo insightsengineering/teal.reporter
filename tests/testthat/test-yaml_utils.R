@@ -7,5 +7,5 @@ testthat::test_that("yaml_quoted adds the `quoted` attribute equal to `TRUE`", {
 testthat::test_that("yaml_quoted does not modify the value of the object", {
   object <- "test"
   yaml_quoted_object <- yaml_quoted(object)
-  testthat::expect_true(object == yaml_quoted_object)
+  testthat::expect_equivalent(object, yaml_quoted_object)
 })
