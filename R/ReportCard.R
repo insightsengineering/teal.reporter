@@ -69,7 +69,11 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param value (`list`) content of meta data.
     #' @return invisibly self
     #' @examples
+<<<<<<< HEAD
     #' card <- ReportCard$new()$append_meta_data(key = "meta1", value = list("This is meta data"))
+=======
+    #' card <- ReportCard$new()$append_meta_data(list("This is meta data"))
+>>>>>>> 14_tealreportcard@main
     #'
     append_meta_data = function(key, value) {
       private$meta_data[[key]] <- value

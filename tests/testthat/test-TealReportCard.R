@@ -16,7 +16,11 @@ testthat::test_that("TealReportCard$get_content returns a list of ContentBlock o
 })
 
 testthat::test_that("TealReportCard$get_content returns content with
+<<<<<<< HEAD
                     meta_data header as a ContentBlock before the meta_data ContentBlock", {
+=======
+                    SRC meta_data header as the ContentBlock before the meta_data ContentBlock", {
+>>>>>>> 14_tealreportcard@main
   card <-
     TealReportCard$new()$append_text("test")$append_src("test_src")$append_encodings(list("data = test"))
   testthat::expect_equal(length(card$get_content()), 5)
@@ -47,8 +51,13 @@ testthat::test_that("TealReportCard$append_encodings returns self", {
 
 testthat::test_that("TealReportCard$append_fs accepts a character or list of character", {
   card <- TealReportCard$new()
+<<<<<<< HEAD
   testthat::expect_error(card$append_fs("test"), regexp = NA)
   testthat::expect_error(card$append_fs(list("test")), regexp = NA)
+=======
+  testthat::expect_error(card$append_src("test"), regexp = NA)
+  testthat::expect_error(card$append_src(list("test")), regexp = NA)
+>>>>>>> 14_tealreportcard@main
 })
 
 testthat::test_that("TealReportCard$append_fs returns self", {
