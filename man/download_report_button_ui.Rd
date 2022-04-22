@@ -2,7 +2,7 @@
 % Please edit documentation in R/DownloadModule.R
 \name{download_report_button_ui}
 \alias{download_report_button_ui}
-\title{Download Button Reporter user interface}
+\title{Download Button Reporter User Interface}
 \usage{
 download_report_button_ui(id)
 }
@@ -14,4 +14,6 @@ shiny \code{tagList}
 }
 \description{
 button for downloading the Report. Part of the simple Reporter user interface.
+
+For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }

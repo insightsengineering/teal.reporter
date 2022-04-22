@@ -1,5 +1,7 @@
-#' Simple Reporter user interface
+#' Simple Reporter User Interface
 #' @description two buttons for adding views and downloading the Report.
+#'
+#' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id character
 #' @return shiny `tagList`
 #' @export
@@ -12,7 +14,10 @@ simple_reporter_ui <- function(id) {
 }
 
 #' Simple Reporter Server
-#' @description two buttons for adding views and downloading the Report
+#' @description two buttons for adding views and downloading the Report.
+#' The add module has `addReportCard` id and download module the `downloadButton` id.
+#'
+#' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id character
 #' @param reporter `Reporter` instance.
 #' @param card `ReportCard` instance

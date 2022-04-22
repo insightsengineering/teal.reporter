@@ -2,7 +2,7 @@
 % Please edit documentation in R/SimpleReporter.R
 \name{simple_reporter_ui}
 \alias{simple_reporter_ui}
-\title{Simple Reporter user interface}
+\title{Simple Reporter User Interface}
 \usage{
 simple_reporter_ui(id)
 }
@@ -14,4 +14,6 @@ shiny \code{tagList}
 }
 \description{
 two buttons for adding views and downloading the Report.
+
+For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/AddCardModule.R
 \name{add_card_button_ui}
 \alias{add_card_button_ui}
-\title{Add Card Reporter user interface}
+\title{Add Card Reporter User Interface}
 \usage{
 add_card_button_ui(id)
 }
@@ -14,4 +14,6 @@ shiny \code{tagList}
 }
 \description{
 button for adding views/cards to the Report. Part of the simple Reporter user interface.
+
+For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }

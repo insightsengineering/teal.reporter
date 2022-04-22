@@ -1,5 +1,7 @@
-#' Add Card Reporter user interface
+#' Add Card Reporter User Interface
 #' @description button for adding views/cards to the Report. Part of the simple Reporter user interface.
+#'
+#' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id character
 #' @return shiny `tagList`
 #' @export
@@ -19,6 +21,8 @@ add_card_button_ui <- function(id) {
 
 #' Add Card Button Server
 #' @description server for adding views/cards the Report. Part of the simple Reporter.
+#'
+#' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id character
 #' @param reporter `Reporter` instance.
 #' @param card `ReportCard` instance

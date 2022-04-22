@@ -24,6 +24,17 @@ library(rtables)
 Simple Reporter is a shiny module for capturing app views during the session, and eventually downloading a report document.
 The Simple Reporter module consists of two separate modules one for each of two buttons, Add Card and Download Report buttons modules.
 
+The code added to introduce the simply reporter is wrapped in the `### REPORTER` code blocks.
+
+The implementation should consist of 5 steps:
+
+1. Add modules user interface to the user interface of the app.
+2. Initialize Reporter instance.
+3. Create the Report Card when the Add Button is clicked, a `eventReactive` part. 
+This part is one of the most demanding step as require from the developer to use his imagination, 
+how the document page should looks like.
+4. Invoke the servers with the reporter instance and the reactive of the report card instance.
+
 Simple Reporter shiny app with separate modules for each button:
 
 ```{r}
@@ -113,6 +124,7 @@ server <- function(input, output, session) {
 
   teal.reporter::add_card_button_srv("addReportCard", reporter = reporter, card = card_r)
   teal.reporter::download_report_button_srv("downloadButton", reporter = reporter)
+  ###
 }
 
 shinyApp(ui = ui, server = server)

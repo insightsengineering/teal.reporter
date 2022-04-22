@@ -18,4 +18,6 @@ shiny \code{moduleServer}
 }
 \description{
 server for downloading the Report. Part of the simple Reporter.
+
+For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }

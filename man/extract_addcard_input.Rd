@@ -14,7 +14,9 @@ value
 }
 \description{
 extract Add Card Button input, looks for an id with a suffix \code{addReportCardButton}.
-It is needed to know when to trigger the reactivity cycle for the \code{ReportCard}.
+It is needed to identify when to trigger the reactivity cycle for the \code{ReportCard}.
+
+For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }
 \note{
 has to be invoked inside the active reactive context.

@@ -19,5 +19,8 @@ simple_reporter_srv(id, reporter, card, notification = TRUE)
 shiny \code{moduleServer}
 }
 \description{
-two buttons for adding views and downloading the Report
+two buttons for adding views and downloading the Report.
+The add module has \code{addReportCard} id and download module the \code{downloadButton} id.
+
+For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }
