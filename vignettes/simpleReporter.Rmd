@@ -50,7 +50,6 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
-  browser()
   output$encoding <- renderUI({
     if (input$tabs == "Plot") {
       sliderInput(
@@ -97,8 +96,9 @@ server <- function(input, output, session) {
   ### REPORTER
   reporter <- teal.reporter::Reporter$new()
   card_r <- eventReactive(
-    input[[teal.reporter::extract_addcard_id(input)]], {
+    teal.reporter::extract_addcard_input(input), {
       card <- teal.reporter::ReportCard$new()
+      print("triggered")
       if (input$tabs == "Plot") {
         card$append_text("My plot", "header2")
         card$append_plot(plot())
@@ -187,7 +187,7 @@ server <- function(input, output, session) {
   ### REPORTER
   reporter <- teal.reporter::Reporter$new()
   card_r <- eventReactive(
-    input[[teal.reporter::extract_addcard_id(input)]], {
+    teal.reporter::extract_addcard_input(input), {
       card <- teal.reporter::ReportCard$new()
       if (input$tabs == "Plot") {
         card$append_text("My plot", "header2")
