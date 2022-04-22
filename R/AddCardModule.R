@@ -1,5 +1,5 @@
-#' Add Card Reporter UI
-#' @description button for adding views/cards to the Report. Part of the simple Reporter UI.
+#' Add Card Reporter user interface
+#' @description button for adding views/cards to the Report. Part of the simple Reporter user interface.
 #' @param id character
 #' @return shiny `tagList`
 #' @export

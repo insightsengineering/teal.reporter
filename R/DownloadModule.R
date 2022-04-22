@@ -1,5 +1,5 @@
-#' Download Button Reporter UI
-#' @description button for downloading the Report. Part of the simple Reporter UI.
+#' Download Button Reporter user interface
+#' @description button for downloading the Report. Part of the simple Reporter user interface.
 #' @param id character
 #' @return shiny `tagList`
 #' @export

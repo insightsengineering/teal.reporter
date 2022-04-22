@@ -1,5 +1,5 @@
-#' Simple Reporter UI
-#' @description two buttons for adding views and downloading the Report
+#' Simple Reporter user interface
+#' @description two buttons for adding views and downloading the Report.
 #' @param id character
 #' @return shiny `tagList`
 #' @export

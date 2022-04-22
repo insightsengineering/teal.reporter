@@ -2,7 +2,7 @@
 % Please edit documentation in R/DownloadModule.R
 \name{download_report_button_ui}
 \alias{download_report_button_ui}
-\title{Download Button Reporter UI}
+\title{Download Button Reporter user interface}
 \usage{
 download_report_button_ui(id)
 }
@@ -13,5 +13,5 @@ download_report_button_ui(id)
 shiny \code{tagList}
 }
 \description{
-button for downloading the Report. Part of the simple Reporter UI.
+button for downloading the Report. Part of the simple Reporter user interface.
 }
