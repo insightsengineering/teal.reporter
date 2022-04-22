@@ -42,7 +42,7 @@ ui <- fluidPage(
       tags$br(),
       tabsetPanel(
         id = "tabs",
-        tabPanel("Plot", plotOutput("distPlot")),
+        tabPanel("Plot", plotOutput("dist_plot")),
         tabPanel("Table", verbatimTextOutput("table"))
       )
     )
@@ -76,7 +76,7 @@ server <- function(input, output, session) {
       ggplot2::geom_histogram(binwidth = input$binwidth)
   })
 
-  output$distPlot <- renderPlot({
+  output$dist_plot <- renderPlot({
     plot()
   })
 
@@ -135,7 +135,7 @@ ui <- fluidPage(
       tags$br(),
       tabsetPanel(
         id = "tabs",
-        tabPanel("Plot", plotOutput("distPlot")),
+        tabPanel("Plot", plotOutput("dist_plot")),
         tabPanel("Table", verbatimTextOutput("table"))
       )
     )
@@ -169,7 +169,7 @@ server <- function(input, output, session) {
       ggplot2::geom_histogram(binwidth = input$binwidth)
   })
 
-  output$distPlot <- renderPlot({
+  output$dist_plot <- renderPlot({
     plot()
   })
 
