@@ -9,10 +9,13 @@ extract_addcard_input(input)
 \arguments{
 \item{input}{shiny input, \code{reactivevalues}.}
 }
+\value{
+value
+}
 \description{
-extract Add Card Button input.
-It is needed to know when trigger the reactivity cycle for the \code{ReportCard}.
+extract Add Card Button input, looks for an id with a suffix \code{addReportCardButton}.
+It is needed to know when to trigger the reactivity cycle for the \code{ReportCard}.
 }
 \note{
-has to be invoked inside the reactive call.
+has to be invoked inside the active reactive context.
 }

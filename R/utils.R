@@ -1,8 +1,9 @@
 #' Extract Add Card Button input
-#' @description extract Add Card Button input.
-#' It is needed to know when trigger the reactivity cycle for the `ReportCard`.
+#' @description extract Add Card Button input, looks for an id with a suffix `addReportCardButton`.
+#' It is needed to know when to trigger the reactivity cycle for the `ReportCard`.
 #' @param input shiny input, `reactivevalues`.
-#' @note has to be invoked inside the reactive call.
+#' @return value
+#' @note has to be invoked inside the active reactive context.
 #' @export
 extract_addcard_input <- function(input) {
   checkmate::assert_class(input, "reactivevalues")
@@ -10,7 +11,7 @@ extract_addcard_input <- function(input) {
   which_addcard <- grep("addReportCardButton$", nams)
   res <- nams[which_addcard]
   val <-
-    reactive(
+    shiny::reactive(
       if (length(res) == 1) {
         input[[res]]
       } else {
@@ -18,4 +19,4 @@ extract_addcard_input <- function(input) {
       }
     )
   val()
-  }
+}
