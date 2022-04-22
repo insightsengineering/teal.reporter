@@ -96,7 +96,8 @@ server <- function(input, output, session) {
   ### REPORTER
   reporter <- teal.reporter::Reporter$new()
   card_r <- eventReactive(
-    teal.reporter::extract_addcard_input(input), {
+    eventExpr = teal.reporter::extract_addcard_input(input),
+    handlerExpr = {
       card <- teal.reporter::ReportCard$new()
       print("triggered")
       if (input$tabs == "Plot") {
@@ -107,7 +108,8 @@ server <- function(input, output, session) {
         card$append_table(table())
       }
       card
-  })
+    }
+  )
 
   teal.reporter::add_card_button_srv("addReportCard", reporter = reporter, card = card_r)
   teal.reporter::download_report_button_srv("downloadButton", reporter = reporter)
@@ -187,7 +189,8 @@ server <- function(input, output, session) {
   ### REPORTER
   reporter <- teal.reporter::Reporter$new()
   card_r <- eventReactive(
-    teal.reporter::extract_addcard_input(input), {
+    eventExpr = teal.reporter::extract_addcard_input(input),
+    handlerExpr = {
       card <- teal.reporter::ReportCard$new()
       if (input$tabs == "Plot") {
         card$append_text("My plot", "header2")
@@ -197,7 +200,8 @@ server <- function(input, output, session) {
         card$append_table(table())
       }
       card
-  })
+    }
+  )
 
   teal.reporter::simple_reporter_srv("simpleReporter", reporter = reporter, card = card_r)
   ###

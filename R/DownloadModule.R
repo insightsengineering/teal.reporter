@@ -131,7 +131,9 @@ download_report_button_srv <- function(id, reporter, notification = TRUE) {
 
           yaml_header <- md_header(yaml::as.yaml(yaml))
 
-          if (notification) shiny::showNotification(sprintf("Rendering and Downloading\n%s.", input$docType))
+          if (notification) {
+            shiny::showNotification(sprintf("Rendering and Downloading\n%s.", input$docType))
+          }
 
           renderer$render(reporter$get_blocks(), yaml_header)
           temp_zip_file <- tempfile(fileext = ".zip")
