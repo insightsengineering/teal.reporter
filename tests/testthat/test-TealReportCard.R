@@ -15,13 +15,23 @@ testthat::test_that("TealReportCard$get_content returns a list of ContentBlock o
   testthat::expect_true(checkmate::test_list(card$get_content(), types = "ContentBlock"))
 })
 
+testthat::test_that("TealReportCard$get_content returns a list with content only when include_meta_data = FALSE", {
+  card <- TealReportCard$new()$append_text("test")$append_src("a <- plot()")
+  testthat::expect_true(checkmate::test_list(card$get_content(include_meta_data = FALSE), types = "ContentBlock"))
+})
+
+testthat::test_that("TealReportCard$get_content returns a list with content and meta_data only when include_meta_data = TRUE", {
+  card <- TealReportCard$new()$append_text("test")$append_src("a <- plot()")
+  testthat::expect_true(checkmate::test_list(card$get_content(include_meta_data = TRUE), types = "ContentBlock"))
+})
+
 testthat::test_that("TealReportCard$get_content returns content with
                     meta_data header as a ContentBlock before the meta_data ContentBlock", {
   card <-
     TealReportCard$new()$append_text("test")$append_src("test_src")$append_encodings(list("data = test"))
-  testthat::expect_equal(length(card$get_content()), 5)
-  testthat::expect_identical(card$get_content()[[2]]$get_content(), "SRC")
-  testthat::expect_identical(card$get_content()[[4]]$get_content(), "Encodings")
+  testthat::expect_equal(length(card$get_content(include_meta_data = TRUE)), 5)
+  testthat::expect_identical(card$get_content(include_meta_data = TRUE)[[2]]$get_content(), "SRC")
+  testthat::expect_identical(card$get_content(include_meta_data = TRUE)[[4]]$get_content(), "Encodings")
 })
 
 testthat::test_that("TealReportCard$append_src accepts a character", {

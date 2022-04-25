@@ -14,21 +14,24 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' )
     #' card$get_content()
     #'
-    get_content = function() {
-      text_meta_data <- list()
-      names_meta_data <- names(private$meta_data)
-      for (x in seq_along(private$meta_data)) {
-        block <- private$meta_data[[x]]
-        text_meta_data <- append(text_meta_data, TextBlock$new(names_meta_data[x], style = "header3"))
-        if (inherits(block, "TextBlock")) {
-          text_meta_data <- append(text_meta_data, block)
-        } else {
-          text_meta_data <- append(text_meta_data, TextBlock$new(deparse1(block)))
+    get_content = function(include_meta_data = FALSE) {
+      if (include_meta_data) {
+        text_meta_data <- list()
+        names_meta_data <- names(private$meta_data)
+        for (x in seq_along(private$meta_data)) {
+          block <- private$meta_data[[x]]
+          text_meta_data <- append(text_meta_data, TextBlock$new(names_meta_data[x], style = "header3"))
+          if (inherits(block, "TextBlock")) {
+            text_meta_data <- append(text_meta_data, block)
+          } else {
+            text_meta_data <- append(text_meta_data, TextBlock$new(deparse1(block)))
+          }
         }
+        appended_content <- append(private$content, text_meta_data)
+        appended_content
+      } else {
+        private$content
       }
-
-      private$content <- append(private$content, text_meta_data)
-      private$content
     },
     #' @description Appends the show R code to the `meta_data` of this `TealReportCard`.
     #'

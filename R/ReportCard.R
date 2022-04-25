@@ -60,8 +60,12 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' )
     #' card$get_content()
     #'
-    get_content = function() {
-      private$content
+    get_content = function(include_meta_data = FALSE) {
+      if (include_meta_data) {
+        append(private$content, private$meta_data)
+      } else {
+        private$content
+      }
     },
     #' @description Appends meta data elements to `meta_data` of this `ReportCard`.
     #'
@@ -87,8 +91,8 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card <- ReportCard$new()$append_meta_data("meta1", list("This is meta data"))
     #' card$get_meta_data()
     #'
-    get_meta_data = function() {
-      private$meta_data
+    get_meta_data = function(key) {
+      private$meta_data[key]
     }
   ),
   private = list(

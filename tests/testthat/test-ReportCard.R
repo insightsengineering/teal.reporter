@@ -34,8 +34,18 @@ testthat::test_that("append_plot accepts a ggplot", {
 })
 
 testthat::test_that("get_content returns a list of ContentBlock objects", {
-  card <- ReportCard$new()$append_text("test")$append_plot(ggplot2::ggplot(iris))$append_table(iris)
+  card <- ReportCard$new()$append_text("test")$append_plot(ggplot2::ggplot(iris))$append_meta_data("SRC", "A <- plot()")
   testthat::expect_true(checkmate::test_list(card$get_content(), types = "ContentBlock"))
+})
+
+testthat::test_that("get_content returns a list of content only when include_meta_data = FALSE", {
+  card <- ReportCard$new()$append_text("test")$append_plot(ggplot2::ggplot(iris))$append_meta_data("SRC", "A <- plot()")
+  testthat::expect_equal(length(card$get_content(include_meta_data = FALSE)), 2)
+})
+
+testthat::test_that("get_content returns a list of content and meta data when include_meta_data = TRUE", {
+  card <- ReportCard$new()$append_text("test")$append_plot(ggplot2::ggplot(iris))$append_meta_data("SRC", "A <- plot()")
+  testthat::expect_equal(length(card$get_content(include_meta_data = TRUE)), 3)
 })
 
 testthat::test_that("append_meta_data returns an object of type ReportCard", {
@@ -94,9 +104,20 @@ testthat::test_that("append_meta_data throws error if value is not character or 
     regexp = "Must be of type 'character', not 'double'."
   )
 })
+
 testthat::test_that("get_meta_data renders a named list in meta_data", {
-  card <- ReportCard$new()$append_meta_data("key1", "value1")
+  card <- ReportCard$new()$append_meta_data("key1", "value1")$append_meta_data("key2", "value2")
   expect_true(length(names(card$get_meta_data())) > 0)
+})
+
+testthat::test_that("get_meta_data allows specifiying a specific key in meta_data", {
+  card <- ReportCard$new()$append_meta_data("key1", "value1")$append_meta_data("key2", "value2")
+  expect_identical(names(card$get_meta_data("key1")), "key1")
+})
+
+testthat::test_that("get_meta_data allows specifiying a specific key in meta_data", {
+  card <- ReportCard$new()$append_meta_data("key1", "value1")$append_meta_data("key2", "value2")
+  expect_identical(names(card$get_meta_data("key1")), "key1")
 })
 
 testthat::test_that("The deep copy constructor copies the file in the content blocks", {
@@ -106,4 +127,3 @@ testthat::test_that("The deep copy constructor copies the file in the content bl
   copied_filepath <- card_copy$get_content()[[2]]$get_content()
   testthat::expect_true(original_filepath != copied_filepath)
 })
-
