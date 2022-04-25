@@ -20,7 +20,8 @@ testthat::test_that("TealReportCard$get_content returns a list with content only
   testthat::expect_true(checkmate::test_list(card$get_content(include_meta_data = FALSE), types = "ContentBlock"))
 })
 
-testthat::test_that("TealReportCard$get_content returns a list with content and meta_data only when include_meta_data = TRUE", {
+testthat::test_that("TealReportCard$get_content returns a list with content
+                    and meta_data only when include_meta_data = TRUE", {
   card <- TealReportCard$new()$append_text("test")$append_src("a <- plot()")
   testthat::expect_true(checkmate::test_list(card$get_content(include_meta_data = TRUE), types = "ContentBlock"))
 })
