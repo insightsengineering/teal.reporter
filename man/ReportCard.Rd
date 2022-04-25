@@ -197,7 +197,7 @@ invisibly self
 \subsection{Method \code{get_content()}}{
 Returns the content of this \code{ReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_content()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_content(include_meta_data = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
@@ -253,7 +253,7 @@ invisibly self
 \subsection{Method \code{get_meta_data()}}{
 Returns the \code{meta_data} of this \code{ReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_meta_data()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_meta_data(key)}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{

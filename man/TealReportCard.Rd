@@ -76,7 +76,7 @@ card <- TealReportCard$new()$append_encodings(list("variable 1 is X"))
 \subsection{Method \code{get_content()}}{
 Returns the content of this \code{TealReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$get_content()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$get_content(include_meta_data = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
