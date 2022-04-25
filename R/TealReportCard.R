@@ -41,7 +41,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     append_src = function(src) {
       checkmate::assert_character(src, min.len = 0, max.len = 1)
-      super$append_meta_data("SRC", TextBlock$new(src))
+      super$append_meta_data("SRC", src)
       invisible(self)
     },
     #' @description Appends the filter state list to the `meta_data` of this `TealReportCard`.

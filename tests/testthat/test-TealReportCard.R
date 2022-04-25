@@ -34,9 +34,8 @@ testthat::test_that("TealReportCard$append_src returns self", {
   testthat::expect_identical(card$append_src("test"), card)
 })
 
-testthat::test_that("TealReportCard$append_encodings accepts a character or list of character", {
+testthat::test_that("TealReportCard$append_encodings accepts list of character", {
   card <- TealReportCard$new()
-  testthat::expect_error(card$append_encodings("test"), regexp = NA)
   testthat::expect_error(card$append_encodings(list("test")), regexp = NA)
 })
 
@@ -45,9 +44,8 @@ testthat::test_that("TealReportCard$append_encodings returns self", {
   testthat::expect_identical(card$append_encodings(list("test_encodings")), card)
 })
 
-testthat::test_that("TealReportCard$append_fs accepts a character or list of character", {
+testthat::test_that("TealReportCard$append_fs accepts a list of character", {
   card <- TealReportCard$new()
-  testthat::expect_error(card$append_fs("test"), regexp = NA)
   testthat::expect_error(card$append_fs(list("test")), regexp = NA)
 })
 

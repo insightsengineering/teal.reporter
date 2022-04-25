@@ -43,7 +43,34 @@ testthat::test_that("append_meta_data returns an object of type ReportCard", {
   testthat::expect_true(inherits(ReportCard$new()$append_meta_data("key1", "value1"), "ReportCard"))
 })
 
-testthat::test_that("append_meta_data accepts a key and a value", {
+testthat::test_that("append_meta_data accepts a character key and a character or list value", {
+  testthat::expect_error(ReportCard$new()$append_meta_data("key1", "value1"), regexp = NA)
+  testthat::expect_error(ReportCard$new()$append_meta_data("key1", list("value1")), regexp = NA)
+})
+
+testthat::test_that("append_meta_data throws error if key is not character", {
+  testthat::expect_error(
+    ReportCard$new()$append_meta_data(key = 1, value = "value1"),
+    regexp = "Must be of type 'character', not 'double'."
+  )
+  testthat::expect_error(
+    ReportCard$new()$append_meta_data(key = factor("A"), value = "value1"),
+    regexp = "Must be of type 'character', not 'factor'."
+  )
+})
+
+testthat::test_that("append_meta_data throws error if value is not character or list", {
+  testthat::expect_error(
+    ReportCard$new()$append_meta_data(key = "key1", value = 1),
+    regexp = "Must inherit from class 'character'/'list', but has class 'numeric'."
+  )
+  testthat::expect_error(
+    ReportCard$new()$append_meta_data(key = "key1", value = factor("A")),
+    regexp = "Must inherit from class 'character'/'list', but has class 'factor'."
+  )
+})
+
+testthat::test_that("append_meta_data throws error a character key and a value", {
   testthat::expect_error(ReportCard$new()$append_meta_data("key1", "value1"), regexp = NA)
 })
 
@@ -57,10 +84,16 @@ testthat::test_that("append_meta_data throws error if value if missing", {
 testthat::test_that("append_meta_data throws error if key if missing", {
   testthat::expect_error(
     ReportCard$new()$append_meta_data(value = "value"),
-    regexp = "missing subscript"
+    regexp = "argument \"key\" is missing, with no default"
   )
 })
 
+testthat::test_that("append_meta_data throws error if value is not character or list", {
+  testthat::expect_error(
+    ReportCard$new()$append_meta_data(key = 1, value = "value1"),
+    regexp = "Must be of type 'character', not 'double'."
+  )
+})
 testthat::test_that("get_meta_data renders a named list in meta_data", {
   card <- ReportCard$new()$append_meta_data("key1", "value1")
   expect_true(length(names(card$get_meta_data())) > 0)
@@ -73,3 +106,4 @@ testthat::test_that("The deep copy constructor copies the file in the content bl
   copied_filepath <- card_copy$get_content()[[2]]$get_content()
   testthat::expect_true(original_filepath != copied_filepath)
 })
+
