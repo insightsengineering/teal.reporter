@@ -72,6 +72,8 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card <- ReportCard$new()$append_meta_data(key = "meta1", value = list("This is meta data"))
     #'
     append_meta_data = function(key, value) {
+      checkmate::assert_character(key, min.len = 0, max.len = 1)
+      checkmate::assert_multi_class(value, c("TextBlock", "list"))
       private$meta_data[[key]] <- value
       invisible(self)
     },

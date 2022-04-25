@@ -16,9 +16,10 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     get_content = function() {
       text_meta_data <- list()
+      names_meta_data <- names(private$meta_data)
       for (x in seq_along(private$meta_data)) {
         block <- private$meta_data[[x]]
-        text_meta_data <- append(text_meta_data, TextBlock$new(names(private$meta_data)[x], style = "header3"))
+        text_meta_data <- append(text_meta_data, TextBlock$new(names_meta_data[x], style = "header3"))
         if (inherits(block, "TextBlock")) {
           text_meta_data <- append(text_meta_data, block)
         } else {
@@ -39,6 +40,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' )
     #'
     append_src = function(src) {
+      checkmate::assert_character(src, min.len = 0, max.len = 1)
       super$append_meta_data("SRC", TextBlock$new(src))
       invisible(self)
     },
@@ -52,6 +54,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' )
     #'
     append_fs = function(fs) {
+      checkmate::assert_list(fs)
       super$append_meta_data("Filter state", fs)
       invisible(self)
     },
@@ -63,6 +66,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card <- TealReportCard$new()$append_encodings(list("variable 1 is X"))
     #'
     append_encodings = function(encodings) {
+      checkmate::assert_list(encodings)
       super$append_meta_data("Encodings", encodings)
       invisible(self)
     }
