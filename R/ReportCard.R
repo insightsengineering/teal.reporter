@@ -1,4 +1,7 @@
 #' @title `ReportCard`
+#' @description R6 class that supports creating a card containing different types of
+#' blocks that can be appended and rendered to form a report output.
+#' Content and meta data are rendered as separate entities.
 #' @export
 #'
 ReportCard <- R6::R6Class( # nolint: object_name_linter.
@@ -12,7 +15,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     initialize = function() {
       private$content <- list()
-      private$meta_data <- list()
+      private$metadata <- list()
       invisible(self)
     },
     #' @description Appends a table to this `ReportCard`.
@@ -53,6 +56,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Returns the content of this `ReportCard`.
     #'
+    #' @param include_metadata (`logical`) whether to include render `content` alone or with `metadata`
     #' @return `list()` list of `TableBlock`, `TextBlock` and `PictureBlock`
     #' @examples
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
@@ -60,44 +64,45 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' )
     #' card$get_content()
     #'
-    get_content = function(include_meta_data = FALSE) {
-      if (include_meta_data) {
-        append(private$content, private$meta_data)
+    get_content = function(include_metadata = FALSE) {
+      checkmate::assert_logical(include_metadata)
+      if (include_metadata) {
+        append(private$content, private$metadata)
       } else {
         private$content
       }
     },
-    #' @description Appends meta data elements to `meta_data` of this `ReportCard`.
+    #' @description Appends meta data elements to `metadata` of this `ReportCard`.
     #'
     #' @param key (`character(1)`) name of meta data.
     #' @param value (`list`) content of meta data.
     #' @return invisibly self
     #' @examples
-    #' card <- ReportCard$new()$append_meta_data(key = "meta1", value = list("This is meta data"))
+    #' card <- ReportCard$new()$append_metadata(key = "meta1", value = list("This is meta data"))
     #'
-    append_meta_data = function(key, value) {
+    append_metadata = function(key, value) {
       checkmate::assert_character(key, min.len = 0, max.len = 1)
       checkmate::assert_multi_class(value, c("character", "list"))
       if (inherits(value, "character")) {
         value <- TextBlock$new(value)
       }
-      private$meta_data[[key]] <- value
+      private$metadata[[key]] <- value
       invisible(self)
     },
-    #' @description Returns the `meta_data` of this `ReportCard`.
+    #' @description Returns the `metadata` of this `ReportCard`.
     #'
-    #' @return `list()` named list of `meta_data`
+    #' @return `list()` named list of `metadata`
     #' @examples
-    #' card <- ReportCard$new()$append_meta_data("meta1", list("This is meta data"))
-    #' card$get_meta_data()
+    #' card <- ReportCard$new()$append_metadata("meta1", list("This is meta data"))
+    #' card$get_metadata()
     #'
-    get_meta_data = function(key) {
-      private$meta_data[key]
+    get_metadata = function(key) {
+      private$metadata[key]
     }
   ),
   private = list(
     content = list(),
-    meta_data = list(),
+    metadata = list(),
 
     #' @description The copy constructor.
     #'

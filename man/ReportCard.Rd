@@ -4,9 +4,9 @@
 \alias{ReportCard}
 \title{\code{ReportCard}}
 \description{
-\code{ReportCard}
-
-\code{ReportCard}
+R6 class that supports creating a card containing different types of
+blocks that can be appended and rendered to form a report output.
+Content and meta data are rendered as separate entities.
 }
 \examples{
 
@@ -51,18 +51,18 @@ card$get_content()
 
 
 ## ------------------------------------------------
-## Method `ReportCard$append_meta_data`
+## Method `ReportCard$append_metadata`
 ## ------------------------------------------------
 
-card <- ReportCard$new()$append_meta_data(key = "meta1", value = list("This is meta data"))
+card <- ReportCard$new()$append_metadata(key = "meta1", value = list("This is meta data"))
 
 
 ## ------------------------------------------------
-## Method `ReportCard$get_meta_data`
+## Method `ReportCard$get_metadata`
 ## ------------------------------------------------
 
-card <- ReportCard$new()$append_meta_data("meta1", list("This is meta data"))
-card$get_meta_data()
+card <- ReportCard$new()$append_metadata("meta1", list("This is meta data"))
+card$get_metadata()
 
 }
 \section{Methods}{
@@ -73,8 +73,8 @@ card$get_meta_data()
 \item \href{#method-append_plot}{\code{ReportCard$append_plot()}}
 \item \href{#method-append_text}{\code{ReportCard$append_text()}}
 \item \href{#method-get_content}{\code{ReportCard$get_content()}}
-\item \href{#method-append_meta_data}{\code{ReportCard$append_meta_data()}}
-\item \href{#method-get_meta_data}{\code{ReportCard$get_meta_data()}}
+\item \href{#method-append_metadata}{\code{ReportCard$append_metadata()}}
+\item \href{#method-get_metadata}{\code{ReportCard$get_metadata()}}
 \item \href{#method-clone}{\code{ReportCard$clone()}}
 }
 }
@@ -197,9 +197,16 @@ invisibly self
 \subsection{Method \code{get_content()}}{
 Returns the content of this \code{ReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_content(include_meta_data = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_content(include_metadata = FALSE)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{include_metadata}}{(\code{logical}) whether to include render \code{content} alone or with \code{metadata}}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 \code{list()} list of \code{TableBlock}, \code{TextBlock} and \code{PictureBlock}
 }
@@ -217,12 +224,12 @@ card$get_content()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-append_meta_data"></a>}}
-\if{latex}{\out{\hypertarget{method-append_meta_data}{}}}
-\subsection{Method \code{append_meta_data()}}{
-Appends meta data elements to \code{meta_data} of this \code{ReportCard}.
+\if{html}{\out{<a id="method-append_metadata"></a>}}
+\if{latex}{\out{\hypertarget{method-append_metadata}{}}}
+\subsection{Method \code{append_metadata()}}{
+Appends meta data elements to \code{metadata} of this \code{ReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_meta_data(key, value)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_metadata(key, value)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -239,7 +246,7 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- ReportCard$new()$append_meta_data(key = "meta1", value = list("This is meta data"))
+\preformatted{card <- ReportCard$new()$append_metadata(key = "meta1", value = list("This is meta data"))
 
 }
 \if{html}{\out{</div>}}
@@ -248,21 +255,21 @@ invisibly self
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_meta_data"></a>}}
-\if{latex}{\out{\hypertarget{method-get_meta_data}{}}}
-\subsection{Method \code{get_meta_data()}}{
-Returns the \code{meta_data} of this \code{ReportCard}.
+\if{html}{\out{<a id="method-get_metadata"></a>}}
+\if{latex}{\out{\hypertarget{method-get_metadata}{}}}
+\subsection{Method \code{get_metadata()}}{
+Returns the \code{metadata} of this \code{ReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_meta_data(key)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_metadata(key)}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-\code{list()} named list of \code{meta_data}
+\code{list()} named list of \code{metadata}
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- ReportCard$new()$append_meta_data("meta1", list("This is meta data"))
-card$get_meta_data()
+\preformatted{card <- ReportCard$new()$append_metadata("meta1", list("This is meta data"))
+card$get_metadata()
 
 }
 \if{html}{\out{</div>}}
