@@ -25,8 +25,8 @@ download_report_button_ui <- function(id) {
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character`
 #' @param reporter `Reporter` instance.
-#' @param notification logical if to add shiny notification about the download process.
-#' @return shiny `moduleServer`
+#' @param notification logical whether to add shiny notification about the download process.
+#' @return `shiny::tagList`
 #' @export
 download_report_button_srv <- function(id, reporter, notification = TRUE) {
   shiny::moduleServer(

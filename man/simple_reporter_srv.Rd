@@ -7,7 +7,7 @@
 simple_reporter_srv(id, reporter, card, notification = TRUE)
 }
 \arguments{
-\item{id}{character}
+\item{id}{\code{character}}
 
 \item{reporter}{\code{Reporter} instance.}
 
@@ -16,7 +16,7 @@ simple_reporter_srv(id, reporter, card, notification = TRUE)
 \item{notification}{logical if to add shiny notification about the download process.}
 }
 \value{
-shiny \code{moduleServer}
+\code{shiny::tagList}
 }
 \description{
 two buttons for adding views and downloading the Report.

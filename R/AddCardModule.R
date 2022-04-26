@@ -26,7 +26,7 @@ add_card_button_ui <- function(id) {
 #' @param id `character`
 #' @param reporter `Reporter` instance.
 #' @param card `ReportCard` instance
-#' @return shiny `moduleServer`
+#' @return `shiny::tagList`
 #' @export
 #' @export
 add_card_button_srv <- function(id, reporter, card) {

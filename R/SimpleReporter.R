@@ -2,7 +2,7 @@
 #' @description two buttons for adding views and downloading the Report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id character
+#' @param id `character`
 #' @return `shiny::tagList`
 #' @export
 simple_reporter_ui <- function(id) {
@@ -18,11 +18,11 @@ simple_reporter_ui <- function(id) {
 #' The add module has `addReportCard` id and download module the `downloadButton` id.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id character
+#' @param id `character`
 #' @param reporter `Reporter` instance.
 #' @param card `ReportCard` instance
 #' @param notification logical if to add shiny notification about the download process.
-#' @return shiny `moduleServer`
+#' @return `shiny::tagList`
 #' @export
 simple_reporter_srv <- function(id, reporter, card, notification = TRUE) {
   shiny::moduleServer(

@@ -11,10 +11,10 @@ download_report_button_srv(id, reporter, notification = TRUE)
 
 \item{reporter}{\code{Reporter} instance.}
 
-\item{notification}{logical if to add shiny notification about the download process.}
+\item{notification}{logical whether to add shiny notification about the download process.}
 }
 \value{
-shiny \code{moduleServer}
+\code{shiny::tagList}
 }
 \description{
 server for downloading the Report. Part of the simple Reporter.

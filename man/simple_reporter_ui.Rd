@@ -7,7 +7,7 @@
 simple_reporter_ui(id)
 }
 \arguments{
-\item{id}{character}
+\item{id}{\code{character}}
 }
 \value{
 \code{shiny::tagList}
