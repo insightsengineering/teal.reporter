@@ -76,7 +76,7 @@ add_card_button_srv <- function(id, reporter, card) {
       })
 
       shiny::observeEvent(input$addCardOk, {
-        stopifnot(inherits(card(), "ReportCard"), "added card is not a ReportCrad class")
+        stopifnot(inherits(card(), "ReportCard"))
         card()$append_text("Comment", "header3")
         card()$append_text(input$comment)
         reporter$append_cards(list(card()))
