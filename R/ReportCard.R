@@ -108,6 +108,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     append_metadata = function(key, value, deparse = deparse1) {
       checkmate::assert_character(key, min.len = 0, max.len = 1)
       checkmate::assert_function(deparse)
+      checkmate::assert_character(deparse(value), min.len = 0, max.len = 1)
 
       meta_list <- list()
       meta_list[[key]] <- value
