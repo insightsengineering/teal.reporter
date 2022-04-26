@@ -12,16 +12,6 @@ meta data.
 \examples{
 
 ## ------------------------------------------------
-## Method `TealReportCard$get_content`
-## ------------------------------------------------
-
-card <- TealReportCard$new()$append_text("Some text")$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-)
-card$get_content()
-
-
-## ------------------------------------------------
 ## Method `TealReportCard$append_src`
 ## ------------------------------------------------
 
@@ -52,7 +42,6 @@ card <- TealReportCard$new()$append_encodings(list("variable 1 is X"))
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-get_content}{\code{TealReportCard$get_content()}}
 \item \href{#method-append_src}{\code{TealReportCard$append_src()}}
 \item \href{#method-append_fs}{\code{TealReportCard$append_fs()}}
 \item \href{#method-append_encodings}{\code{TealReportCard$append_encodings()}}
@@ -66,42 +55,11 @@ card <- TealReportCard$new()$append_encodings(list("variable 1 is X"))
 \item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_plot">}\href{../../teal.reporter/html/ReportCard.html#method-append_plot}{\code{teal.reporter::ReportCard$append_plot()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_table">}\href{../../teal.reporter/html/ReportCard.html#method-append_table}{\code{teal.reporter::ReportCard$append_table()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_text">}\href{../../teal.reporter/html/ReportCard.html#method-append_text}{\code{teal.reporter::ReportCard$append_text()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="get_metadata">}\href{../../teal.reporter/html/ReportCard.html#method-get_metadata}{\code{teal.reporter::ReportCard$get_metadata()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="get_content">}\href{../../teal.reporter/html/ReportCard.html#method-get_content}{\code{teal.reporter::ReportCard$get_content()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="get_deparsers">}\href{../../teal.reporter/html/ReportCard.html#method-get_deparsers}{\code{teal.reporter::ReportCard$get_deparsers()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="initialize">}\href{../../teal.reporter/html/ReportCard.html#method-initialize}{\code{teal.reporter::ReportCard$initialize()}}\out{</span>}
 }
 \out{</details>}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_content"></a>}}
-\if{latex}{\out{\hypertarget{method-get_content}{}}}
-\subsection{Method \code{get_content()}}{
-Returns the content of this \code{TealReportCard}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$get_content(include_metadata = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{include_metadata}}{(\code{logical}) whether to include render \code{content} alone or with \code{metadata}}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{list()} list of \code{TableBlock}, \code{TextBlock}, \code{PictureBlock} and \code{metadata}
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- TealReportCard$new()$append_text("Some text")$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-)
-card$get_content()
-
-}
-\if{html}{\out{</div>}}
-
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-append_src"></a>}}
@@ -109,7 +67,7 @@ card$get_content()
 \subsection{Method \code{append_src()}}{
 Appends the source code to the \code{metadata} of this \code{TealReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_src(src)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_src(src, deparse = deparse1)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -140,7 +98,7 @@ invisibly self
 \subsection{Method \code{append_fs()}}{
 Appends the filter state list to the \code{metadata} of this \code{TealReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_fs(fs)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_fs(fs, deparse = deparse1)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -171,7 +129,7 @@ invisibly self
 \subsection{Method \code{append_encodings()}}{
 Appends the encodings list to the \code{metadata} of this \code{TealReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_encodings(encodings)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_encodings(encodings, deparse = deparse1)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

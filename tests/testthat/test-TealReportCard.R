@@ -17,29 +17,21 @@ testthat::test_that("TealReportCard$get_content returns a list of ContentBlock o
 
 testthat::test_that("TealReportCard$get_content returns a list with content only when include_metadata = FALSE", {
   card <- TealReportCard$new()$append_text("test")$append_src("a <- plot()")
-  testthat::expect_true(checkmate::test_list(card$get_content(include_metadata = FALSE), types = "ContentBlock"))
+  testthat::expect_true(checkmate::test_list(card$get_content(), types = "ContentBlock"))
 })
 
 testthat::test_that("TealReportCard$get_content returns a list with content
                     and metadata only when include_metadata = TRUE", {
   card <- TealReportCard$new()$append_text("test")$append_src("a <- plot()")
-  testthat::expect_true(checkmate::test_list(card$get_content(include_metadata = TRUE), types = "ContentBlock"))
+  testthat::expect_true(checkmate::test_list(card$get_content(), types = "ContentBlock"))
 })
 
 testthat::test_that("TealReportCard$get_content returns content with
                     metadata header as a ContentBlock before the metadata ContentBlock", {
   card <- TealReportCard$new()$append_text("test")$append_src("test_src")$append_encodings(list("data = test"))
-  testthat::expect_equal(length(card$get_content(include_metadata = TRUE)), 5)
-  testthat::expect_identical(card$get_content(include_metadata = TRUE)[[2]]$get_content(), "SRC")
-  testthat::expect_identical(card$get_content(include_metadata = TRUE)[[4]]$get_content(), "Encodings")
-})
-
-testthat::test_that("get_content throws error when include_metadata is not logical", {
-  card <- TealReportCard$new()$append_text("test")$append_src("test_src")$append_encodings(list("data = test"))
-  testthat::expect_error(
-    card$get_content(include_metadata = "TRUE"),
-    "Assertion on 'include_metadata' failed: Must be of type 'logical', not 'character'."
-  )
+  testthat::expect_equal(length(card$get_content()), 3)
+  testthat::expect_identical(card$get_content()[[2]]$get_content(), deparse1("test_src"))
+  testthat::expect_identical(card$get_content()[[3]]$get_content(), deparse1(list("data = test")))
 })
 
 testthat::test_that("TealReportCard$append_src accepts a character", {
