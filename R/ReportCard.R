@@ -86,16 +86,21 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends content elements of this `ReportCard`.
     #'
     #' @param key (`character(1)`) name of meta data.
-    #' @param value (`list`) content of meta data, `list` or `character`, by default `base::deparse1`.
+    #' @param value any value a meta data, by default `base::deparse1`.
     #' @param deparse (`function`) to convert a value to a string.
     #' @return invisibly self
     #' @examples
     #' card <- ReportCard$new()$append_metadata(key = "meta1", value = list("This is meta data"))
     #'
     #' custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\n")
-    #' card <- ReportCard$new()$append_metadata(key = "lm",
-    #'                                          value = lm(Ozone ~ Solar.R, airquality),
-    #'                                          deparse = custom_lm_deparse)
+    #' card <- ReportCard$new()$append_text("Some text")$append_plot(
+    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #' )$append_metadata(key = "lm",
+    #'                   value = lm(Ozone ~ Solar.R, airquality),
+    #'                   deparse = custom_lm_deparse)
+    #'
+    #' card$get_content()
+    #' card$get_content(raw = TRUE)
     #'
     append_metadata = function(key, value, deparse = deparse1) {
       checkmate::assert_character(key, min.len = 0, max.len = 1)

@@ -75,7 +75,7 @@ Appends the source code to the \code{metadata} of this \code{TealReportCard}.
 \describe{
 \item{\code{src}}{(\code{character(1)}) code as text}
 
-\item{\code{deparse}}{(\code{function}) to convert a value to a string.}
+\item{\code{deparse}}{(\code{function}) to convert a src to a string, by default \code{base::deparse1}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -108,7 +108,7 @@ Appends the filter state list to the \code{metadata} of this \code{TealReportCar
 \describe{
 \item{\code{fs}}{(\code{list}) list of filter states.}
 
-\item{\code{deparse}}{(\code{function}) to convert a value to a string.}
+\item{\code{deparse}}{(\code{function}) to convert a fs to a string, by default \code{base::deparse1}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -141,7 +141,7 @@ Appends the encodings list to the \code{metadata} of this \code{TealReportCard}.
 \describe{
 \item{\code{encodings}}{(\code{list}) list of encodings selections of the teal app}
 
-\item{\code{deparse}}{(\code{function}) to convert a value to a string.}
+\item{\code{deparse}}{(\code{function}) to convert a encodings to a string, by default \code{base::deparse1}.}
 }
 \if{html}{\out{</div>}}
 }

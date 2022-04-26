@@ -58,9 +58,14 @@ card$get_content()
 card <- ReportCard$new()$append_metadata(key = "meta1", value = list("This is meta data"))
 
 custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\n")
-card <- ReportCard$new()$append_metadata(key = "lm",
-                                         value = lm(Ozone ~ Solar.R, airquality),
-                                         deparse = custom_lm_deparse)
+card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)$append_metadata(key = "lm",
+                  value = lm(Ozone ~ Solar.R, airquality),
+                  deparse = custom_lm_deparse)
+
+card$get_content()
+card$get_content(raw = TRUE)
 
 }
 \section{Methods}{
@@ -236,7 +241,7 @@ Appends content elements of this \code{ReportCard}.
 \describe{
 \item{\code{key}}{(\code{character(1)}) name of meta data.}
 
-\item{\code{value}}{(\code{list}) content of meta data, \code{list} or \code{character}, by default \code{base::deparse1}.}
+\item{\code{value}}{any value a meta data, by default \code{base::deparse1}.}
 
 \item{\code{deparse}}{(\code{function}) to convert a value to a string.}
 }
@@ -250,9 +255,14 @@ invisibly self
 \preformatted{card <- ReportCard$new()$append_metadata(key = "meta1", value = list("This is meta data"))
 
 custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\n")
-card <- ReportCard$new()$append_metadata(key = "lm",
-                                         value = lm(Ozone ~ Solar.R, airquality),
-                                         deparse = custom_lm_deparse)
+card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)$append_metadata(key = "lm",
+                  value = lm(Ozone ~ Solar.R, airquality),
+                  deparse = custom_lm_deparse)
+
+card$get_content()
+card$get_content(raw = TRUE)
 
 }
 \if{html}{\out{</div>}}
