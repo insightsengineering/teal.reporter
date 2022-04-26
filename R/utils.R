@@ -1,5 +1,5 @@
 #' Extract Add Card Button input
-#' @description extract Add Card Button input, looks for an id with a suffix `addReportCardButton`.
+#' @description extracts Add Card Button input and looks for an id with a suffix `addReportCardButton`.
 #' It is needed to identify when to trigger the reactivity cycle for the `ReportCard`.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
