@@ -107,6 +107,8 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       private$deparsers[[key]] <- deparse
       invisible(self)
     },
+    #' @description get all deparse functions of this `ReportCard`.
+    #' @return `named list`
     get_deparsers = function() {
       private$deparsers
     }

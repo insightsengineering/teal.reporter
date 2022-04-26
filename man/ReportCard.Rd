@@ -264,10 +264,14 @@ card <- ReportCard$new()$append_metadata(key = "lm",
 \if{html}{\out{<a id="method-get_deparsers"></a>}}
 \if{latex}{\out{\hypertarget{method-get_deparsers}{}}}
 \subsection{Method \code{get_deparsers()}}{
+get all deparse functions of this \code{ReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_deparsers()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\verb{named list}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

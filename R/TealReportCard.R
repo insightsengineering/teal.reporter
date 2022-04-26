@@ -12,6 +12,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends the source code to the `metadata` of this `TealReportCard`.
     #'
     #' @param src (`character(1)`) code as text
+    #' @param deparse (`function`) to convert a value to a string.
     #' @return invisibly self
     #' @examples
     #' card <- TealReportCard$new()$append_src(
@@ -26,6 +27,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends the filter state list to the `metadata` of this `TealReportCard`.
     #'
     #' @param fs (`list`) list of filter states.
+    #' @param deparse (`function`) to convert a value to a string.
     #' @return invisibly self
     #' @examples
     #' card <- TealReportCard$new()$append_fs(
@@ -40,6 +42,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends the encodings list to the `metadata` of this `TealReportCard`.
     #'
     #' @param encodings (`list`) list of encodings selections of the teal app
+    #' @param deparse (`function`) to convert a value to a string.
     #' @return invisibly self
     #' @examples
     #' card <- TealReportCard$new()$append_encodings(list("variable 1 is X"))
