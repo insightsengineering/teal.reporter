@@ -22,7 +22,7 @@ simple_reporter_ui <- function(id) {
 #' @param reporter `Reporter` instance.
 #' @param card `ReportCard` instance
 #' @param notification logical if to add shiny notification about the download process.
-#' @return `shiny::tagList`
+#' @return `shiny::moduleServer`
 #' @export
 simple_reporter_srv <- function(id, reporter, card, notification = TRUE) {
   shiny::moduleServer(

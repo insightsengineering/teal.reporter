@@ -14,7 +14,7 @@ add_card_button_srv(id, reporter, card)
 \item{card}{\code{ReportCard} instance}
 }
 \value{
-\code{shiny::tagList}
+\code{shiny::moduleServer}
 }
 \description{
 server for adding views/cards the Report. Part of the simple Reporter.

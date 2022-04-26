@@ -14,7 +14,7 @@ download_report_button_srv(id, reporter, notification = TRUE)
 \item{notification}{logical whether to add shiny notification about the download process.}
 }
 \value{
-\code{shiny::tagList}
+\code{shiny::moduleServer}
 }
 \description{
 server for downloading the Report. Part of the simple Reporter.

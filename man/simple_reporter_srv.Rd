@@ -16,7 +16,7 @@ simple_reporter_srv(id, reporter, card, notification = TRUE)
 \item{notification}{logical if to add shiny notification about the download process.}
 }
 \value{
-\code{shiny::tagList}
+\code{shiny::moduleServer}
 }
 \description{
 two buttons for adding views and downloading the Report.
