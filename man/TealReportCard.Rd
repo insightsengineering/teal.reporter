@@ -69,7 +69,7 @@ Appends the source code to the \code{metadata} of this \code{TealReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_src(
   src,
-  deparse = function(x) paste0("```\\n", x, "\\n```\\n")
+  deparse = function(x) paste0("```\\n", paste(x, collapse = "\\n"), "\\n```\\n")
 )}\if{html}{\out{</div>}}
 }
 
@@ -78,7 +78,8 @@ Appends the source code to the \code{metadata} of this \code{TealReportCard}.
 \describe{
 \item{\code{src}}{(\code{character(1)}) code as text}
 
-\item{\code{deparse}}{(\code{function}) to convert a src to a string, by default \code{function(x) paste0("```\\n", x, "\\n```\\n")}.}
+\item{\code{deparse}}{(\code{function}) to convert a src to a string,
+by default \code{function(x) paste0("```\\n", paste(x, collapse = "\\n"), "\\n```\\n")}.}
 }
 \if{html}{\out{</div>}}
 }
