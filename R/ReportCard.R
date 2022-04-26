@@ -68,17 +68,18 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     get_content = function(raw = FALSE) {
       checkmate::assert_logical(raw)
       if (!raw) {
-        lapply(seq_along(private$content),
-               function(m) {
-                 if (inherits(private$content[[m]], "ContentBlock"))  {
-                   private$content[[m]]
-                 } else {
-                   key <- names(private$content)[m]
-                   deparse_func <- private$deparsers[[key]]
-                   TextBlock$new(deparse_func(private$content[[m]]))
-                 }
-               }
-              )
+        lapply(
+          seq_along(private$content),
+          function(m) {
+            if (inherits(private$content[[m]], "ContentBlock")) {
+              private$content[[m]]
+            } else {
+              key <- names(private$content)[m]
+              deparse_func <- private$deparsers[[key]]
+              TextBlock$new(deparse_func(private$content[[m]]))
+            }
+          }
+        )
       } else {
         private$content
       }
