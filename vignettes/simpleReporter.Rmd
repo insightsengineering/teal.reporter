@@ -32,7 +32,8 @@ The implementation should consist of 5 steps:
 2. Initialize Reporter instance.
 3. Create the Report Card when the Add Button is clicked, a `eventReactive` part. 
 This part is one of the most demanding step as require from the developer to use his imagination, 
-how the document page should looks like.
+how the document page should looks like. 
+The `teal.reporter::extract_addcard_input` is created to help retrieve an add button input.
 4. Invoke the servers with the reporter instance and the reactive of the report card instance.
 
 Simple Reporter shiny app with separate modules for each button:
@@ -108,9 +109,8 @@ server <- function(input, output, session) {
   reporter <- teal.reporter::Reporter$new()
   card_r <- eventReactive(
     eventExpr = teal.reporter::extract_addcard_input(input),
-    handlerExpr = {
+    valueExpr = {
       card <- teal.reporter::ReportCard$new()
-      print("triggered")
       if (input$tabs == "Plot") {
         card$append_text("My plot", "header2")
         card$append_plot(plot())
@@ -202,7 +202,7 @@ server <- function(input, output, session) {
   reporter <- teal.reporter::Reporter$new()
   card_r <- eventReactive(
     eventExpr = teal.reporter::extract_addcard_input(input),
-    handlerExpr = {
+    valueExpr = {
       card <- teal.reporter::ReportCard$new()
       if (input$tabs == "Plot") {
         card$append_text("My plot", "header2")
