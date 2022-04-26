@@ -211,7 +211,9 @@ Returns the content of this \code{ReportCard}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{list()} list of \code{TableBlock}, \code{TextBlock} and \code{PictureBlock}
+\code{list()} list of \code{TableBlock}, \code{TextBlock} and \code{PictureBlock}.
+If the \code{raw} argument is equal \code{TRUE} then It will return the meta data objects in the form as they were added.
+Only metadata elements are named.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

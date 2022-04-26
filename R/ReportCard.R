@@ -57,7 +57,9 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Returns the content of this `ReportCard`.
     #'
     #' @param raw (`logical`) whether to include a `content` as it was added or apply `deparse` functions on metadata.
-    #' @return `list()` list of `TableBlock`, `TextBlock` and `PictureBlock`
+    #' @return `list()` list of `TableBlock`, `TextBlock` and `PictureBlock`.
+    #' If the `raw` argument is equal `TRUE` then It will return the meta data objects in the form as they were added.
+    #' Only metadata elements are named.
     #' @examples
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
     #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
