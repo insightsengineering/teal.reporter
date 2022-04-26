@@ -13,7 +13,7 @@ extract_addcard_input(input)
 value
 }
 \description{
-extract Add Card Button input, looks for an id with a suffix \code{addReportCardButton}.
+extracts Add Card Button input and looks for an id with a suffix \code{addReportCardButton}.
 It is needed to identify when to trigger the reactivity cycle for the \code{ReportCard}.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
