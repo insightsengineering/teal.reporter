@@ -67,7 +67,10 @@ card <- TealReportCard$new()$append_encodings(list("variable 1 is X"))
 \subsection{Method \code{append_src()}}{
 Appends the source code to the \code{metadata} of this \code{TealReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_src(src, deparse = deparse1)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_src(
+  src,
+  deparse = function(x) paste0("```\\n", x, "\\n```\\n")
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -75,7 +78,7 @@ Appends the source code to the \code{metadata} of this \code{TealReportCard}.
 \describe{
 \item{\code{src}}{(\code{character(1)}) code as text}
 
-\item{\code{deparse}}{(\code{function}) to convert a src to a string, by default \code{base::deparse1}.}
+\item{\code{deparse}}{(\code{function}) to convert a src to a string, by default \code{function(x) paste0("```\\n", x, "\\n```\\n")}.}
 }
 \if{html}{\out{</div>}}
 }

@@ -12,14 +12,14 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends the source code to the `metadata` of this `TealReportCard`.
     #'
     #' @param src (`character(1)`) code as text
-    #' @param deparse (`function`) to convert a src to a string, by default `base::deparse1`.
+    #' @param deparse (`function`) to convert a src to a string, by default `function(x) paste0("```\n", x, "\n```\n")`.
     #' @return invisibly self
     #' @examples
     #' card <- TealReportCard$new()$append_src(
     #'   "ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()"
     #' )
     #'
-    append_src = function(src, deparse = deparse1) {
+    append_src = function(src, deparse = function(x) paste0("```\n", x, "\n```\n")) {
       checkmate::assert_character(src, min.len = 0, max.len = 1)
       super$append_metadata("SRC", src, deparse)
       invisible(self)

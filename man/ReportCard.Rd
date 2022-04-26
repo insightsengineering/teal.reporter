@@ -57,10 +57,10 @@ card$get_content()
 
 card <- ReportCard$new()$append_metadata(key = "meta1", value = list("This is meta data"))
 
-custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\n")
+custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\n  ")
 card <- ReportCard$new()$append_text("Some text")$append_plot(
   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-)$append_metadata(key = "lm",
+)$append_text("Some text")$append_metadata(key = "lm",
                   value = lm(Ozone ~ Solar.R, airquality),
                   deparse = custom_lm_deparse)
 
@@ -256,10 +256,10 @@ invisibly self
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{card <- ReportCard$new()$append_metadata(key = "meta1", value = list("This is meta data"))
 
-custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\n")
+custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\n  ")
 card <- ReportCard$new()$append_text("Some text")$append_plot(
   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-)$append_metadata(key = "lm",
+)$append_text("Some text")$append_metadata(key = "lm",
                   value = lm(Ozone ~ Solar.R, airquality),
                   deparse = custom_lm_deparse)
 
