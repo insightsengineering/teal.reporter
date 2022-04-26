@@ -2,8 +2,8 @@
 #' @description button for downloading the Report. Part of the simple Reporter user interface.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id character
-#' @return shiny `tagList`
+#' @param id `character`
+#' @return `shiny::tagList`
 #' @export
 download_report_button_ui <- function(id) {
   ns <- shiny::NS(id)
@@ -23,7 +23,7 @@ download_report_button_ui <- function(id) {
 #' @description server for downloading the Report. Part of the simple Reporter.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id character
+#' @param id `character`
 #' @param reporter `Reporter` instance.
 #' @param notification logical if to add shiny notification about the download process.
 #' @return shiny `moduleServer`

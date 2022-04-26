@@ -7,10 +7,10 @@
 download_report_button_ui(id)
 }
 \arguments{
-\item{id}{character}
+\item{id}{\code{character}}
 }
 \value{
-shiny \code{tagList}
+\code{shiny::tagList}
 }
 \description{
 button for downloading the Report. Part of the simple Reporter user interface.

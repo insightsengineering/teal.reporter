@@ -7,7 +7,7 @@
 download_report_button_srv(id, reporter, notification = TRUE)
 }
 \arguments{
-\item{id}{character}
+\item{id}{\code{character}}
 
 \item{reporter}{\code{Reporter} instance.}
 

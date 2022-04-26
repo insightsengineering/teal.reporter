@@ -3,7 +3,7 @@
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id character
-#' @return shiny `tagList`
+#' @return `shiny::tagList`
 #' @export
 simple_reporter_ui <- function(id) {
   ns <- shiny::NS(id)

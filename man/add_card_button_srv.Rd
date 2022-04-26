@@ -7,7 +7,7 @@
 add_card_button_srv(id, reporter, card)
 }
 \arguments{
-\item{id}{character}
+\item{id}{\code{character}}
 
 \item{reporter}{\code{Reporter} instance.}
 

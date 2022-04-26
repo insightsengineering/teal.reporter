@@ -2,15 +2,15 @@
 % Please edit documentation in R/AddCardModule.R
 \name{add_card_button_ui}
 \alias{add_card_button_ui}
-\title{Add Card Reporter User Interface}
+\title{Add Card Button User Interface}
 \usage{
 add_card_button_ui(id)
 }
 \arguments{
-\item{id}{character}
+\item{id}{\code{character}}
 }
 \value{
-shiny \code{tagList}
+\code{shiny::tagList}
 }
 \description{
 button for adding views/cards to the Report. Part of the simple Reporter user interface.
