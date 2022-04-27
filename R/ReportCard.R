@@ -95,13 +95,12 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param deparse (`function`) to convert a value to a string, by default `base::deparse1`.
     #' @return invisibly self
     #' @examples
-    #' custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\n  ")
+    #' custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\\n  ")
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
     #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )$append_text("Some text")$append_metadata(key = "lm",
     #'                   value = lm(Ozone ~ Solar.R, airquality),
     #'                   deparse = custom_lm_deparse)
-    #'
     #' card$get_content()
     #' card$get_content(raw = TRUE)
     #'
@@ -118,12 +117,15 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description get all deparse functions of this `ReportCard`.
     #' @return `named list`
-    #' custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\n  ")
-    #' card <- ReportCard$new()$append_metadata(key = "lm",
+    #' custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\\n  ")
+    #' card <- ReportCard$new()$append_text("Some text")$append_plot(
+    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #' )$append_text("Some text")$append_metadata(key = "lm",
     #'                   value = lm(Ozone ~ Solar.R, airquality),
-    #'                   deparse = custom_lm_deparse)$
-    #'                   append_metadata(key = "code", value = lm(Ozone ~ Solar.R, airquality))
-    #'
+    #'                   deparse = custom_lm_deparse
+    #' )$append_metadata(key = "code", value = lm(Ozone ~ Solar.R, airquality))
+
+
     #' card$get_deparsers()
     #'
     get_deparsers = function() {

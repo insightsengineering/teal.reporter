@@ -120,7 +120,7 @@ testthat::test_that("append_metadata throws error if key if missing", {
 })
 
 testthat::test_that("get_deparsers returns an empty list when append_metadata is not used prior", {
-  card <- ReportCard$new()$append_text("test")$append_plot(ggplot2::ggplot(iris))#$append_metadata("SRC", "A <- plot()")
+  card <- ReportCard$new()$append_text("test")$append_plot(ggplot2::ggplot(iris))
   testthat::expect_true(length(card$get_deparsers()) == 0)
 })
 
