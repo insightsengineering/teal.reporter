@@ -40,21 +40,14 @@ testthat::test_that("get_content returns a list of ContentBlock objects", {
 
 testthat::test_that("get_content returns a list of content only when include_metadata = FALSE", {
   card <- ReportCard$new()$append_text("test")$append_plot(ggplot2::ggplot(iris))$append_metadata("SRC", "A <- plot()")
-  testthat::expect_equal(length(card$get_content(include_metadata = FALSE)), 2)
+  testthat::expect_equal(length(card$get_content()), 3)
 })
 
 testthat::test_that("get_content returns a list of content and meta data when include_metadata = TRUE", {
   card <- ReportCard$new()$append_text("test")$append_plot(ggplot2::ggplot(iris))$append_metadata("SRC", "A <- plot()")
-  testthat::expect_equal(length(card$get_content(include_metadata = TRUE)), 3)
+  testthat::expect_equal(length(card$get_content()), 3)
 })
 
-testthat::test_that("get_content throws error when include_metadata is not logical", {
-  card <- ReportCard$new()$append_text("test")$append_plot(ggplot2::ggplot(iris))$append_metadata("SRC", "A <- plot()")
-  testthat::expect_error(
-    card$get_content(include_metadata = "TRUE"),
-    "Assertion on 'include_metadata' failed: Must be of type 'logical', not 'character'."
-  )
-})
 
 testthat::test_that("append_metadata returns an object of type ReportCard", {
   card <- ReportCard$new()
@@ -74,17 +67,6 @@ testthat::test_that("append_metadata throws error if key is not character", {
   testthat::expect_error(
     ReportCard$new()$append_metadata(key = factor("A"), value = "value1"),
     regexp = "Must be of type 'character', not 'factor'."
-  )
-})
-
-testthat::test_that("append_metadata throws error if value is not character or list", {
-  testthat::expect_error(
-    ReportCard$new()$append_metadata(key = "key1", value = 1),
-    regexp = "Must inherit from class 'character'/'list', but has class 'numeric'."
-  )
-  testthat::expect_error(
-    ReportCard$new()$append_metadata(key = "key1", value = factor("A")),
-    regexp = "Must inherit from class 'character'/'list', but has class 'factor'."
   )
 })
 
@@ -111,21 +93,6 @@ testthat::test_that("append_metadata throws error if value is not character or l
     ReportCard$new()$append_metadata(key = 1, value = "value1"),
     regexp = "Must be of type 'character', not 'double'."
   )
-})
-
-testthat::test_that("get_metadata renders a named list in metadata", {
-  card <- ReportCard$new()$append_metadata("key1", "value1")$append_metadata("key2", "value2")
-  expect_true(length(names(card$get_metadata())) > 0)
-})
-
-testthat::test_that("get_metadata allows specifiying a specific key in metadata", {
-  card <- ReportCard$new()$append_metadata("key1", "value1")$append_metadata("key2", "value2")
-  expect_identical(names(card$get_metadata("key1")), "key1")
-})
-
-testthat::test_that("get_metadata allows specifiying a specific key in metadata", {
-  card <- ReportCard$new()$append_metadata("key1", "value1")$append_metadata("key2", "value2")
-  expect_identical(names(card$get_metadata("key1")), "key1")
 })
 
 testthat::test_that("The deep copy constructor copies the file in the content blocks", {

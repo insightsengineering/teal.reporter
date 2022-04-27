@@ -15,7 +15,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     initialize = function() {
       private$content <- list()
-      private$metadata <- list()
+      private$deparsers <- list()
       invisible(self)
     },
     #' @description Appends a table to this `ReportCard`.
@@ -56,53 +56,75 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Returns the content of this `ReportCard`.
     #'
-    #' @param include_metadata (`logical`) whether to include render `content` alone or with `metadata`
-    #' @return `list()` list of `TableBlock`, `TextBlock` and `PictureBlock`
+    #' @param raw (`logical`) whether to include a `content` as it was added or apply `deparse` functions on metadata.
+    #' @return `list()` list of `TableBlock`, `TextBlock` and `PictureBlock`.
+    #' If the `raw` argument is equal `TRUE` then It will return the meta data objects in the form as they were added.
+    #' Only metadata elements are named.
     #' @examples
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
     #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-    #' )
+    #' )$append_metadata("rc", "a <- 2 + 2")
+    #'
     #' card$get_content()
     #'
-    get_content = function(include_metadata = FALSE) {
-      checkmate::assert_logical(include_metadata)
-      if (include_metadata) {
-        append(private$content, private$metadata)
+    get_content = function(raw = FALSE) {
+      checkmate::assert_logical(raw)
+      if (!raw) {
+        lapply(
+          seq_along(private$content),
+          function(m) {
+            if (inherits(private$content[[m]], "ContentBlock")) {
+              private$content[[m]]
+            } else {
+              key <- names(private$content)[m]
+              deparse_func <- private$deparsers[[key]]
+              TextBlock$new(deparse_func(private$content[[m]]))
+            }
+          }
+        )
       } else {
         private$content
       }
     },
-    #' @description Appends meta data elements to `metadata` of this `ReportCard`.
+    #' @description Appends content elements of this `ReportCard`.
     #'
     #' @param key (`character(1)`) name of meta data.
-    #' @param value (`list`) content of meta data.
+    #' @param value any value a meta data, by default `base::deparse1`.
+    #' @param deparse (`function`) to convert a value to a string.
     #' @return invisibly self
     #' @examples
     #' card <- ReportCard$new()$append_metadata(key = "meta1", value = list("This is meta data"))
     #'
-    append_metadata = function(key, value) {
+    #' custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\n  ")
+    #' card <- ReportCard$new()$append_text("Some text")$append_plot(
+    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #' )$append_text("Some text")$append_metadata(key = "lm",
+    #'                   value = lm(Ozone ~ Solar.R, airquality),
+    #'                   deparse = custom_lm_deparse)
+    #'
+    #' card$get_content()
+    #' card$get_content(raw = TRUE)
+    #'
+    append_metadata = function(key, value, deparse = deparse1) {
       checkmate::assert_character(key, min.len = 0, max.len = 1)
-      checkmate::assert_multi_class(value, c("character", "list"))
-      if (inherits(value, "character")) {
-        value <- TextBlock$new(value)
-      }
-      private$metadata[[key]] <- value
+      checkmate::assert_function(deparse)
+      checkmate::assert_character(deparse(value), min.len = 0, max.len = 1)
+
+      meta_list <- list()
+      meta_list[[key]] <- value
+      private$content <- append(private$content, meta_list)
+      private$deparsers[[key]] <- deparse
       invisible(self)
     },
-    #' @description Returns the `metadata` of this `ReportCard`.
-    #'
-    #' @return `list()` named list of `metadata`
-    #' @examples
-    #' card <- ReportCard$new()$append_metadata("meta1", list("This is meta data"))
-    #' card$get_metadata()
-    #'
-    get_metadata = function(key) {
-      private$metadata[key]
+    #' @description get all deparse functions of this `ReportCard`.
+    #' @return `named list`
+    get_deparsers = function() {
+      private$deparsers
     }
   ),
   private = list(
     content = list(),
-    metadata = list(),
+    deparsers = list(),
 
     #' @description The copy constructor.
     #'
@@ -112,7 +134,13 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     deep_clone = function(name, value) {
       if (name == "content") {
-        lapply(value, function(content_block) content_block$clone(deep = TRUE))
+        lapply(value, function(content_block) {
+          if (inherits(content_block, "ContentBlock") || inherits(content_block, "R6")) {
+            content_block$clone(deep = TRUE)
+          } else {
+            content_block
+          }
+        })
       } else {
         value
       }
