@@ -80,7 +80,7 @@ Appends the source code to the \code{content} meta data of this \code{TealReport
 \describe{
 \item{\code{src}}{(\code{character(1)}) code as text}
 
-\item{\code{deparse}}{(\code{function}) to convert src to a string,
+\item{\code{deparse}}{(\code{function}) to convert a \code{src} argument to a string,
 by default \code{function(x) paste0("```\\n", paste(x, collapse = "\\n"), "\\n```\\n")}.}
 }
 \if{html}{\out{</div>}}
@@ -114,7 +114,7 @@ Appends the filter state list to the \code{content} meta data  of this \code{Tea
 \describe{
 \item{\code{fs}}{(\code{list}) list of filter states.}
 
-\item{\code{deparse}}{(\code{function}) to convert fs list to a string, by default \code{base::deparse1}.}
+\item{\code{deparse}}{(\code{function}) to convert a \code{fs} argument to a string, by default \code{base::deparse1}.}
 }
 \if{html}{\out{</div>}}
 }

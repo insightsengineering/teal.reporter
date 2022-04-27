@@ -12,7 +12,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends the source code to the `content` meta data of this `TealReportCard`.
     #'
     #' @param src (`character(1)`) code as text
-    #' @param deparse (`function`) to convert src to a string,
+    #' @param deparse (`function`) to convert a `src` argument to a string,
     #' by default `function(x) paste0("```\n", paste(x, collapse = "\n"), "\n```\n")`.
     #' @return invisibly self
     #' @examples
@@ -28,7 +28,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends the filter state list to the `content` meta data  of this `TealReportCard`.
     #'
     #' @param fs (`list`) list of filter states.
-    #' @param deparse (`function`) to convert fs list to a string, by default `base::deparse1`.
+    #' @param deparse (`function`) to convert a fs to a string, by default `base::deparse1`.
     #' @return invisibly self
     #' @examples
     #' card <- TealReportCard$new()$append_fs(
