@@ -37,7 +37,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     append_fs = function(fs, deparse = deparse1) {
       checkmate::assert_list(fs)
-      super$append_metadata("Filter state", fs, deparse)
+      super$append_metadata("FS", fs, deparse)
       invisible(self)
     },
     #' @description Appends the encodings list to the `metadata` of this `TealReportCard`.

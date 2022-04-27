@@ -135,7 +135,11 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     deep_clone = function(name, value) {
       if (name == "content") {
         lapply(value, function(content_block) {
-          if (inherits(content_block, "ContentBlock")) content_block$clone(deep = TRUE) else content_block
+          if (inherits(content_block, "ContentBlock") || inherits(content_block, "R6")) {
+            content_block$clone(deep = TRUE)
+          } else {
+            content_block
+          }
         })
       } else {
         value
