@@ -115,8 +115,9 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       private$deparsers[[key]] <- deparse
       invisible(self)
     },
-    #' @description get all deparse functions of this `ReportCard`.
+    #' @description get all `deparse` functions of this `ReportCard`.
     #' @return `named list`
+    #' @examples
     #' custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\\n  ")
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
     #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
@@ -124,8 +125,6 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'                   value = lm(Ozone ~ Solar.R, airquality),
     #'                   deparse = custom_lm_deparse
     #' )$append_metadata(key = "code", value = lm(Ozone ~ Solar.R, airquality))
-
-
     #' card$get_deparsers()
     #'
     get_deparsers = function() {

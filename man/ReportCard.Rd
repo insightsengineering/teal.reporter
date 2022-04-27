@@ -64,6 +64,20 @@ card <- ReportCard$new()$append_text("Some text")$append_plot(
 card$get_content()
 card$get_content(raw = TRUE)
 
+
+## ------------------------------------------------
+## Method `ReportCard$get_deparsers`
+## ------------------------------------------------
+
+custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\\\\n  ")
+card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)$append_text("Some text")$append_metadata(key = "lm",
+                  value = lm(Ozone ~ Solar.R, airquality),
+                  deparse = custom_lm_deparse
+)$append_metadata(key = "code", value = lm(Ozone ~ Solar.R, airquality))
+card$get_deparsers()
+
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -272,22 +286,30 @@ card$get_content(raw = TRUE)
 \if{html}{\out{<a id="method-get_deparsers"></a>}}
 \if{latex}{\out{\hypertarget{method-get_deparsers}{}}}
 \subsection{Method \code{get_deparsers()}}{
-get all deparse functions of this \code{ReportCard}.
+get all \code{deparse} functions of this \code{ReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_deparsers()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
 \verb{named list}
-custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\\n  ")
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\\\\n  ")
 card <- ReportCard$new()$append_text("Some text")$append_plot(
-ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
 )$append_text("Some text")$append_metadata(key = "lm",
-value = lm(Ozone ~ Solar.R, airquality),
-deparse = custom_lm_deparse
+                  value = lm(Ozone ~ Solar.R, airquality),
+                  deparse = custom_lm_deparse
 )$append_metadata(key = "code", value = lm(Ozone ~ Solar.R, airquality))
 card$get_deparsers()
+
 }
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
