@@ -18,7 +18,7 @@ meta data.
 card <- TealReportCard$new()$append_src(
   "ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()"
 )
-
+card$get_content()[[1]]$get_content()
 
 ## ------------------------------------------------
 ## Method `TealReportCard$append_fs`
@@ -27,6 +27,7 @@ card <- TealReportCard$new()$append_src(
 card <- TealReportCard$new()$append_fs(
   list(data = list(X = list(selected = c(1, 10))))
 )
+card$get_content()[[1]]$get_content()
 
 
 ## ------------------------------------------------
@@ -34,6 +35,7 @@ card <- TealReportCard$new()$append_fs(
 ## ------------------------------------------------
 
 card <- TealReportCard$new()$append_encodings(list("variable 1 is X"))
+card$get_content()[[1]]$get_content()
 
 }
 \section{Super class}{
@@ -65,7 +67,7 @@ card <- TealReportCard$new()$append_encodings(list("variable 1 is X"))
 \if{html}{\out{<a id="method-append_src"></a>}}
 \if{latex}{\out{\hypertarget{method-append_src}{}}}
 \subsection{Method \code{append_src()}}{
-Appends the source code to the \code{metadata} of this \code{TealReportCard}.
+Appends the source code to the \code{content} meta data of this \code{TealReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_src(
   src,
@@ -78,7 +80,7 @@ Appends the source code to the \code{metadata} of this \code{TealReportCard}.
 \describe{
 \item{\code{src}}{(\code{character(1)}) code as text}
 
-\item{\code{deparse}}{(\code{function}) to convert a src to a string,
+\item{\code{deparse}}{(\code{function}) to convert src to a string,
 by default \code{function(x) paste0("```\\n", paste(x, collapse = "\\n"), "\\n```\\n")}.}
 }
 \if{html}{\out{</div>}}
@@ -91,7 +93,7 @@ invisibly self
 \preformatted{card <- TealReportCard$new()$append_src(
   "ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()"
 )
-
+card$get_content()[[1]]$get_content()
 }
 \if{html}{\out{</div>}}
 
@@ -102,7 +104,7 @@ invisibly self
 \if{html}{\out{<a id="method-append_fs"></a>}}
 \if{latex}{\out{\hypertarget{method-append_fs}{}}}
 \subsection{Method \code{append_fs()}}{
-Appends the filter state list to the \code{metadata} of this \code{TealReportCard}.
+Appends the filter state list to the \code{content} meta data  of this \code{TealReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_fs(fs, deparse = deparse1)}\if{html}{\out{</div>}}
 }
@@ -112,7 +114,7 @@ Appends the filter state list to the \code{metadata} of this \code{TealReportCar
 \describe{
 \item{\code{fs}}{(\code{list}) list of filter states.}
 
-\item{\code{deparse}}{(\code{function}) to convert a fs to a string, by default \code{base::deparse1}.}
+\item{\code{deparse}}{(\code{function}) to convert fs list to a string, by default \code{base::deparse1}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -124,6 +126,7 @@ invisibly self
 \preformatted{card <- TealReportCard$new()$append_fs(
   list(data = list(X = list(selected = c(1, 10))))
 )
+card$get_content()[[1]]$get_content()
 
 }
 \if{html}{\out{</div>}}
@@ -135,7 +138,7 @@ invisibly self
 \if{html}{\out{<a id="method-append_encodings"></a>}}
 \if{latex}{\out{\hypertarget{method-append_encodings}{}}}
 \subsection{Method \code{append_encodings()}}{
-Appends the encodings list to the \code{metadata} of this \code{TealReportCard}.
+Appends the encodings list to the \code{content} meta data of this \code{TealReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_encodings(encodings, deparse = deparse1)}\if{html}{\out{</div>}}
 }
@@ -143,7 +146,7 @@ Appends the encodings list to the \code{metadata} of this \code{TealReportCard}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{encodings}}{(\code{list}) list of encodings selections of the teal app}
+\item{\code{encodings}}{(\code{list}) list of encodings selections of the teal app.}
 
 \item{\code{deparse}}{(\code{function}) to convert a encodings to a string, by default \code{base::deparse1}.}
 }
@@ -155,6 +158,7 @@ invisibly self
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{card <- TealReportCard$new()$append_encodings(list("variable 1 is X"))
+card$get_content()[[1]]$get_content()
 
 }
 \if{html}{\out{</div>}}

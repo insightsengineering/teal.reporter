@@ -56,9 +56,11 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Returns the content of this `ReportCard`.
     #'
-    #' @param raw (`logical`) whether to include a `content` as it was added or apply `deparse` functions on metadata.
+    #' @param raw (`logical`) whether to include `content` as it was appended or apply `deparse` functions on meta data
+    #' objects.
     #' @return `list()` list of `TableBlock`, `TextBlock` and `PictureBlock`.
-    #' If the `raw` argument is equal `TRUE` then It will return the meta data objects in the form as they were added.
+    #' If the `raw` argument is `TRUE`, meta data objects in the form they were added will be returned. Otherwise,
+    #' given `deparse` function given will be applied on these objects.
     #' Only metadata elements are named.
     #' @examples
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
@@ -86,15 +88,13 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
         private$content
       }
     },
-    #' @description Appends content elements of this `ReportCard`.
+    #' @description Appends content elements to this `ReportCard`.
     #'
     #' @param key (`character(1)`) name of meta data.
-    #' @param value any value a meta data, by default `base::deparse1`.
-    #' @param deparse (`function`) to convert a value to a string.
+    #' @param value value of meta data.
+    #' @param deparse (`function`) to convert a value to a string, by default `base::deparse1`.
     #' @return invisibly self
     #' @examples
-    #' card <- ReportCard$new()$append_metadata(key = "meta1", value = list("This is meta data"))
-    #'
     #' custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\n  ")
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
     #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
@@ -118,6 +118,14 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description get all deparse functions of this `ReportCard`.
     #' @return `named list`
+    #' custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\n  ")
+    #' card <- ReportCard$new()$append_metadata(key = "lm",
+    #'                   value = lm(Ozone ~ Solar.R, airquality),
+    #'                   deparse = custom_lm_deparse)$
+    #'                   append_metadata(key = "code", value = lm(Ozone ~ Solar.R, airquality))
+    #'
+    #' card$get_deparsers()
+    #'
     get_deparsers = function() {
       private$deparsers
     }

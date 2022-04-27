@@ -55,8 +55,6 @@ card$get_content()
 ## Method `ReportCard$append_metadata`
 ## ------------------------------------------------
 
-card <- ReportCard$new()$append_metadata(key = "meta1", value = list("This is meta data"))
-
 custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\n  ")
 card <- ReportCard$new()$append_text("Some text")$append_plot(
   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
@@ -206,13 +204,15 @@ Returns the content of this \code{ReportCard}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{raw}}{(\code{logical}) whether to include a \code{content} as it was added or apply \code{deparse} functions on metadata.}
+\item{\code{raw}}{(\code{logical}) whether to include \code{content} as it was appended or apply \code{deparse} functions on meta data
+objects.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
 \code{list()} list of \code{TableBlock}, \code{TextBlock} and \code{PictureBlock}.
-If the \code{raw} argument is equal \code{TRUE} then It will return the meta data objects in the form as they were added.
+If the \code{raw} argument is \code{TRUE}, meta data objects in the form they were added will be returned. Otherwise,
+given \code{deparse} function given will be applied on these objects.
 Only metadata elements are named.
 }
 \subsection{Examples}{
@@ -233,7 +233,7 @@ card$get_content()
 \if{html}{\out{<a id="method-append_metadata"></a>}}
 \if{latex}{\out{\hypertarget{method-append_metadata}{}}}
 \subsection{Method \code{append_metadata()}}{
-Appends content elements of this \code{ReportCard}.
+Appends content elements to this \code{ReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_metadata(key, value, deparse = deparse1)}\if{html}{\out{</div>}}
 }
@@ -243,9 +243,9 @@ Appends content elements of this \code{ReportCard}.
 \describe{
 \item{\code{key}}{(\code{character(1)}) name of meta data.}
 
-\item{\code{value}}{any value a meta data, by default \code{base::deparse1}.}
+\item{\code{value}}{value of meta data.}
 
-\item{\code{deparse}}{(\code{function}) to convert a value to a string.}
+\item{\code{deparse}}{(\code{function}) to convert a value to a string, by default \code{base::deparse1}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -254,9 +254,7 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- ReportCard$new()$append_metadata(key = "meta1", value = list("This is meta data"))
-
-custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\n  ")
+\preformatted{custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\n  ")
 card <- ReportCard$new()$append_text("Some text")$append_plot(
   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
 )$append_text("Some text")$append_metadata(key = "lm",
@@ -283,6 +281,13 @@ get all deparse functions of this \code{ReportCard}.
 
 \subsection{Returns}{
 \verb{named list}
+custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\n  ")
+card <- ReportCard$new()$append_metadata(key = "lm",
+value = lm(Ozone ~ Solar.R, airquality),
+deparse = custom_lm_deparse)$
+append_metadata(key = "code", value = lm(Ozone ~ Solar.R, airquality))
+
+card$get_deparsers()
 }
 }
 \if{html}{\out{<hr>}}
