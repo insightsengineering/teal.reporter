@@ -25,10 +25,18 @@ download_report_button_ui <- function(id) {
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character`
 #' @param reporter `Reporter` instance.
-#' @param notification logical whether to add shiny notification about the download process.
+#' @param notification logical whether to add shiny notification about the download process, by default `TRUE`.
+#' @param output_types `character` vector with `rmarkdown` output types,
+#' by default `c("pdf document", "html document", "powerpoint presentation", "word document")`.
 #' @return `shiny::moduleServer`
 #' @export
-download_report_button_srv <- function(id, reporter, notification = TRUE) {
+download_report_button_srv <- function(id,
+                                       reporter,
+                                       notification = TRUE,
+                                       output_types = c(
+                                         "pdf document", "html document",
+                                         "powerpoint presentation", "word document"
+                                       )) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
@@ -67,7 +75,7 @@ download_report_button_srv <- function(id, reporter, notification = TRUE) {
             shinyWidgets::pickerInput(
               inputId = ns("docType"),
               label = "Choose a document type: ",
-              choices = c("pdf document", "html document", "powerpoint presentation", "word document")
+              choices = output_types
             )
           ),
           if (failed) {

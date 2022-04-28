@@ -4,14 +4,23 @@
 \alias{download_report_button_srv}
 \title{Download Button Server}
 \usage{
-download_report_button_srv(id, reporter, notification = TRUE)
+download_report_button_srv(
+  id,
+  reporter,
+  notification = TRUE,
+  output_types = c("pdf document", "html document", "powerpoint presentation",
+    "word document")
+)
 }
 \arguments{
 \item{id}{\code{character}}
 
 \item{reporter}{\code{Reporter} instance.}
 
-\item{notification}{logical whether to add shiny notification about the download process.}
+\item{notification}{logical whether to add shiny notification about the download process, by default \code{TRUE}.}
+
+\item{output_types}{\code{character} vector with \code{rmarkdown} output types,
+by default \code{c("pdf document", "html document", "powerpoint presentation", "word document")}.}
 }
 \value{
 \code{shiny::moduleServer}
