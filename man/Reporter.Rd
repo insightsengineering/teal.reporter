@@ -266,13 +266,13 @@ reporter$get_blocks()
 \if{html}{\out{<a id="method-reset"></a>}}
 \if{latex}{\out{\hypertarget{method-reset}{}}}
 \subsection{Method \code{reset()}}{
-Reset the instance, remove already added cards.
+Removes all \code{ReportCard} objects added to this \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$reset()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-a \code{Reporter} object
+invisibly self
 }
 }
 \if{html}{\out{<hr>}}

@@ -17,7 +17,7 @@ download_report_button_srv(
 
 \item{reporter}{\code{Reporter} instance.}
 
-\item{notification}{logical whether to add shiny notification about the download process, by default \code{TRUE}.}
+\item{notification}{\code{logical} whether to add a shiny notification about the download process. Default \code{TRUE}.}
 
 \item{output_types}{\code{character} vector with \code{rmarkdown} output types,
 by default \code{c("pdf document", "html document", "powerpoint presentation", "word document")}.}
@@ -26,7 +26,7 @@ by default \code{c("pdf document", "html document", "powerpoint presentation", "
 \code{shiny::moduleServer}
 }
 \description{
-server for downloading the Report. Part of the simple Reporter.
+server for downloading the Report.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }

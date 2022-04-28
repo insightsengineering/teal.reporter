@@ -17,7 +17,7 @@ add_card_button_srv(id, reporter, card_fun)
 \code{shiny::moduleServer}
 }
 \description{
-server for adding views/cards the Report. Part of the simple Reporter.
+server for adding views/cards to the Report.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }

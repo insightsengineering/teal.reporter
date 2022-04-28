@@ -30,10 +30,9 @@ The implementation should consist of 5 steps:
 
 1. Add modules user interface to the user interface of the app.
 2. Initialize Reporter instance.
-3. Create the Report Card when the Add Button is clicked, a `eventReactive` part. 
+3. Create the Report Card function.
 This part requires the developer to use their imagination on how the document page should look like. 
-The `teal.reporter::extract_addcard_input` is created to help retrieve an add button input.
-4. Invoke the servers with the reporter instance and the reactive of the report card instance.
+4. Invoke the servers with the reporter instance and the function to create the report card instance.
 
 Simple Reporter shiny app with separate modules for each button:
 

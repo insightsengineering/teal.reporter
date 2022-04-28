@@ -11,7 +11,7 @@ card_fun <- function(card = ReportCard$new()) {
 
 reporter <- Reporter$new()
 
-testthat::test_that("add_card_button_srv", {
+testthat::test_that("add_card_button_srv - add a Card to the Reporter", {
   shiny::testServer(
     add_card_button_srv,
     args = list(reporter = reporter, card_fun = card_fun),
@@ -39,7 +39,7 @@ testthat::test_that("add_card_button_srv", {
   )
 })
 
-testthat::test_that("add_card_button_ui", {
+testthat::test_that("add_card_button_ui - returns a tagList", {
   testthat::expect_true(
     inherits(add_card_button_ui("sth"), c("shiny.tag.list", "list"))
   )

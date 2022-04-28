@@ -13,7 +13,7 @@ download_report_button_ui(id)
 \code{shiny::tagList}
 }
 \description{
-button for downloading the Report. Part of the simple Reporter user interface.
+button for downloading the Report.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }

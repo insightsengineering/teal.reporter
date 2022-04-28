@@ -1,5 +1,5 @@
 #' Download Button Reporter User Interface
-#' @description button for downloading the Report. Part of the simple Reporter user interface.
+#' @description button for downloading the Report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character`
@@ -20,7 +20,7 @@ download_report_button_ui <- function(id) {
 }
 
 #' Download Button Server
-#' @description server for downloading the Report. Part of the simple Reporter.
+#' @description server for downloading the Report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character`

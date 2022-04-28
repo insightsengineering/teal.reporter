@@ -13,7 +13,7 @@ add_card_button_ui(id)
 \code{shiny::tagList}
 }
 \description{
-button for adding views/cards to the Report. Part of the simple Reporter user interface.
+button for adding views/cards to the Report.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }
