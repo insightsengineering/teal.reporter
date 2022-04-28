@@ -86,7 +86,8 @@ testthat::test_that("as_yaml_auto - parse", {
   testthat::expect_identical(
     as_yaml_auto(input),
     structure("---\nauthor: ''\noutput:\n  pdf_document:\n    toc: yes\n    keep_tex: yes\n---\n",
-              class = "yaml_header")
+      class = "yaml_header"
+    )
   )
 })
 
@@ -94,7 +95,8 @@ testthat::test_that("as_yaml_auto - warning for not accepted argument and skip i
   testthat::expect_warning(testthat::expect_identical(
     as_yaml_auto(list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE, wrong = 2)),
     structure("---\nauthor: ''\noutput:\n  pdf_document:\n    toc: yes\n    keep_tex: yes\n---\n",
-              class = "yaml_header")
+      class = "yaml_header"
+    )
   ))
 })
 
@@ -102,7 +104,8 @@ testthat::test_that("as_yaml_auto - silent the warning for not accepted argument
   testthat::expect_identical(
     as_yaml_auto(list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE, wrong = 2), silent = TRUE),
     structure("---\nauthor: ''\noutput:\n  pdf_document:\n    toc: yes\n    keep_tex: yes\n---\n",
-              class = "yaml_header")
+      class = "yaml_header"
+    )
   )
 })
 
@@ -110,7 +113,8 @@ testthat::test_that("as_yaml_auto - convert character logical to logical", {
   testthat::expect_identical(
     as_yaml_auto(list(author = "", output = "pdf_document", toc = TRUE, keep_tex = "True"), silent = TRUE),
     structure("---\nauthor: ''\noutput:\n  pdf_document:\n    toc: yes\n    keep_tex: yes\n---\n",
-              class = "yaml_header")
+      class = "yaml_header"
+    )
   )
 })
 
@@ -118,14 +122,16 @@ testthat::test_that("as_yaml_auto - convert character logical to logical", {
 testthat::test_that("as_yaml_auto - do not accept multi outputs without the multi_output argument", {
   testthat::expect_error(
     as_yaml_auto(list(author = "", output = "pdf_document", output = "html_document", toc = TRUE, keep_tex = TRUE),
-                 silent = TRUE)
+      silent = TRUE
+    )
   )
 })
 
 testthat::test_that("as_yaml_auto - ccept multi outputs with the multi_output argument", {
   testthat::expect_error(
     as_yaml_auto(list(author = "", output = "pdf_document", output = "html_document", toc = TRUE, keep_tex = TRUE),
-                 silent = TRUE, multi_output = TRUE),
+      silent = TRUE, multi_output = TRUE
+    ),
     NA
   )
 })

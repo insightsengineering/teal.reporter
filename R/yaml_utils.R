@@ -124,11 +124,14 @@ rmd_output_arguments <- function(output_name, default_values = FALSE) {
 #'
 #' as_yaml_auto(list(author = "", output = "pdf_document", toc = TRUE, keep_tex = "TRUE"))
 #'
-#' as_yaml_auto(list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE,
-#'              wrong = 2))
+#' as_yaml_auto(list(
+#'   author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE,
+#'   wrong = 2
+#' ))
 #'
 #' as_yaml_auto(list(author = "", output = "pdf_document", toc = TRUE, keep_tex = 2),
-#'              silent = TRUE)
+#'   silent = TRUE
+#' )
 #'
 #' input <- list(author = "", output = "pdf_document", toc = TRUE, keep_tex = "True")
 #' as_yaml_auto(input)
@@ -137,13 +140,17 @@ rmd_output_arguments <- function(output_name, default_values = FALSE) {
 #' as_yaml_auto(input, convert_logi = FALSE, silent = TRUE)
 #'
 #' as_yaml_auto(
-#'   list(author = "", output = "pdf_document",
-#'        output = "html_document", toc = TRUE, keep_tex = TRUE),
+#'   list(
+#'     author = "", output = "pdf_document",
+#'     output = "html_document", toc = TRUE, keep_tex = TRUE
+#'   ),
 #'   multi_output = TRUE
 #' )
 #' as_yaml_auto(
-#'   list(author = "", output = "pdf_document",
-#'        output = "html_document", toc = "True", keep_tex = TRUE),
+#'   list(
+#'     author = "", output = "pdf_document",
+#'     output = "html_document", toc = "True", keep_tex = TRUE
+#'   ),
 #'   multi_output = TRUE
 #' )
 #'
