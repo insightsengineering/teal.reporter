@@ -21,3 +21,4 @@ yaml <- list(
 )
 yaml::as.yaml(yaml)
 }
+\keyword{internal}

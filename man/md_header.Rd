@@ -21,3 +21,4 @@ yaml <- list(
 )
 teal.reporter:::md_header(yaml::as.yaml(yaml))
 }
+\keyword{internal}

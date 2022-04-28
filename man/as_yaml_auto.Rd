@@ -37,7 +37,9 @@ Moreover all \code{output}field types in the \code{rmarkdown} package and their 
 }
 \examples{
 # nested so using yaml::as.yaml directly
-as_yaml_auto(list(author = "", output = list(pdf_document = list(toc = TRUE))))
+as_yaml_auto(
+  list(author = "", output = list(pdf_document = list(toc = TRUE)))
+)
 
 # auto parsing for a flat list, like shiny input
 input <- list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE)
@@ -45,9 +47,11 @@ as_yaml_auto(input)
 
 as_yaml_auto(list(author = "", output = "pdf_document", toc = TRUE, keep_tex = "TRUE"))
 
-as_yaml_auto(list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE, wrong = 2))
+as_yaml_auto(list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE,
+             wrong = 2))
 
-as_yaml_auto(list(author = "", output = "pdf_document", toc = TRUE, keep_tex = 2), silent = TRUE)
+as_yaml_auto(list(author = "", output = "pdf_document", toc = TRUE, keep_tex = 2),
+             silent = TRUE)
 
 input <- list(author = "", output = "pdf_document", toc = TRUE, keep_tex = "True")
 as_yaml_auto(input)
@@ -55,13 +59,14 @@ as_yaml_auto(input, convert_logi = TRUE, silent = TRUE)
 as_yaml_auto(input, silent = TRUE)
 as_yaml_auto(input, convert_logi = FALSE, silent = TRUE)
 
-# Fail
-# as_yaml_auto(list(author = "", output = "pdf_document", output = "html_document", toc = TRUE, keep_tex = TRUE))
-# ok
-as_yaml_auto(list(author = "", output = "pdf_document", output = "html_document", toc = TRUE, keep_tex = TRUE),
+as_yaml_auto(
+  list(author = "", output = "pdf_document",
+       output = "html_document", toc = TRUE, keep_tex = TRUE),
   multi_output = TRUE
 )
-as_yaml_auto(list(author = "", output = "pdf_document", output = "html_document", toc = "True", keep_tex = TRUE),
+as_yaml_auto(
+  list(author = "", output = "pdf_document",
+       output = "html_document", toc = "True", keep_tex = TRUE),
   multi_output = TRUE
 )
 
