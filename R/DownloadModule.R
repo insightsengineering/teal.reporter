@@ -11,11 +11,11 @@
 #' @return `shiny::moduleServer`
 #' @export
 download_report_srv <- function(id, reporter,
-                                       notification = TRUE,
-                                       output_types = c(
-                                         "pdf document", "html document",
-                                         "powerpoint presentation", "word document"
-                                       ), show_modal = shiny::reactive(NULL)) {
+                                notification = TRUE,
+                                output_types = c(
+                                  "pdf document", "html document",
+                                  "powerpoint presentation", "word document"
+                                ), show_modal = shiny::reactive(NULL)) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
