@@ -6,9 +6,10 @@
 \usage{
 conv_str_logi(
   input,
+  name = "",
   pos_logi = c("TRUE", "true", "True", "yes", "y", "Y", "on"),
   neg_logi = c("FALSE", "false", "False", "no", "n", "N", "off"),
-  silent = FALSE
+  silent = TRUE
 )
 }
 \arguments{

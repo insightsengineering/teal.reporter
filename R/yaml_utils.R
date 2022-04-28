@@ -49,12 +49,21 @@ md_header <- function(x) {
 #' teal.reporter:::conv_str_logi("sth")
 #'
 conv_str_logi <- function(input,
+                          name = "",
                           pos_logi = c("TRUE", "true", "True", "yes", "y", "Y", "on"),
                           neg_logi = c("FALSE", "false", "False", "no", "n", "N", "off"),
-                          silent = FALSE) {
+                          silent = TRUE) {
   checkmate::assert_character(input)
   all_logi <- c(pos_logi, neg_logi)
   if (input %in% all_logi) {
+    if (isFALSE(silent)) {
+      message(
+        sprintf(
+          "The '%s' value should be a logical, so is automatically converted.",
+          input
+        )
+      )
+    }
     input %in% pos_logi
   } else {
     input
@@ -171,15 +180,10 @@ as_yaml_auto <- function(input,
   }
 
   is_nested <- function(x) any(unlist(lapply(x, is.list)))
-
   if (is_nested(input)) {
-    result <- yaml::as.yaml(input)
-    if (as_header) {
-      result <- md_header(result)
-    }
+    result <- input
   } else {
     result <- list()
-
     input_nams <- names(input)
 
     # top fields
@@ -187,31 +191,26 @@ as_yaml_auto <- function(input,
       "author", "date", "title", "subtitle", "abstract",
       "keywords", "subject", "description", "category", "lang"
     )
-
     for (itop in top_fields) {
-      if (itop %in% input_nams) {
-        result[[itop]] <- input[[itop]]
-      }
+      if (itop %in% input_nams) result[[itop]] <- input[[itop]]
     }
 
     # output field
     doc_types <- unlist(input[input_nams == "output"])
-
     if (length(doc_types)) {
       for (dtype in doc_types) {
         doc_type_args <- rmd_output_arguments(dtype, TRUE)
         doc_type_args_nams <- names(doc_type_args)
-        any_doc_arg <- any(input_nams %in% doc_type_args_nams)
+        any_output_arg <- any(input_nams %in% doc_type_args_nams)
 
         not_found_args <- setdiff(input_nams, c(doc_type_args_nams, top_fields, "output"))
         if (isFALSE(silent) && length(not_found_args) > 0 && isFALSE(multi_output)) {
           warning(sprintf("Not recognized and skipped arguments: %s", paste(not_found_args, collapse = ", ")))
         }
 
-        if (any_doc_arg) {
+        if (any_output_arg) {
           doc_list <- list()
           doc_list[[dtype]] <- list()
-
           for (e in intersect(input_nams, doc_type_args_nams)) {
             if (!is.null(doc_type_args[[e]])) {
               expected_class <- class(doc_type_args[[e]])
@@ -221,48 +220,28 @@ as_yaml_auto <- function(input,
               neg_logi <- c("FALSE", "false", "False", "no", "n", "N", "off")
               all_logi <- c(pos_logi, neg_logi)
 
-              if ("character" %in% provided_class &&
-                input[[e]] %in% all_logi &&
-                "logical" %in% expected_class &&
-                convert_logi) {
-                input[[e]] <- conv_str_logi(input[[e]], pos_logi = pos_logi, neg_logi = neg_logi)
-                if (isFALSE(silent)) {
-                  message(
-                    sprintf(
-                      "The %s ('%s') yaml argument most probably should be a logical, so is automatically converted.",
-                      e,
-                      input[[e]]
-                    )
-                  )
-                }
+              if ("character" %in% provided_class && input[[e]] %in% all_logi &&
+                "logical" %in% expected_class && convert_logi) {
+                input[[e]] <- conv_str_logi(input[[e]], e, pos_logi = pos_logi, neg_logi = neg_logi, silent = silent)
               } else if (isFALSE(silent) && length(intersect(expected_class, provided_class)) == 0) {
-                warning(
-                  sprintf(
-                    "The %s yaml argument with a value %s (%s) looks to have a wrong type, probably should be a %s",
-                    e,
-                    input[[e]],
-                    paste(provided_class, collapse = ", "),
-                    paste(expected_class, collapse = ", ")
-                  )
-                )
+                w_template <- "The %s yaml argument with a value %s could have a wrong type, possibly should be %s"
+                warning(sprintf(w_template, e, input[[e]], paste(expected_class, collapse = ", ")))
               }
             }
             doc_list[[dtype]][[e]] <- input[[e]]
           }
-
           result[["output"]] <- append(result[["output"]], doc_list)
         } else {
           result[["output"]] <- append(result[["output"]], input[["output"]])
         }
       }
     }
-
-    result <- yaml::as.yaml(result)
-    if (as_header) {
-      result <- md_header(result)
-    }
   }
 
+  result <- yaml::as.yaml(result)
+  if (as_header) {
+    result <- md_header(result)
+  }
   structure(result, class = "yaml_header")
 }
 
