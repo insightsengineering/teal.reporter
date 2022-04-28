@@ -4,9 +4,8 @@
 \alias{ReportCard}
 \title{\code{ReportCard}}
 \description{
-R6 class that supports creating a card containing different types of
-blocks that can be appended and rendered to form a report output.
-Content and meta data are rendered as separate entities.
+R6 class that supports creating a report card containing text, plot, table and
+meta data blocks that can be appended and rendered to form a report output from a shiny app.
 }
 \examples{
 

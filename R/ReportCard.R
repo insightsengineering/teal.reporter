@@ -1,7 +1,6 @@
 #' @title `ReportCard`
-#' @description R6 class that supports creating a card containing different types of
-#' blocks that can be appended and rendered to form a report output.
-#' Content and meta data are rendered as separate entities.
+#' @description R6 class that supports creating a report card containing text, plot, table and
+#' meta data blocks that can be appended and rendered to form a report output from a shiny app.
 #' @export
 #'
 ReportCard <- R6::R6Class( # nolint: object_name_linter.
@@ -107,7 +106,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     append_metadata = function(key, value, deparse = deparse1) {
       checkmate::assert_character(key, min.len = 0, max.len = 1)
       checkmate::assert_function(deparse)
-      checkmate::assert_character(deparse(value), min.len = 0, max.len = 1)
+      checkmate::assert_string(deparse(value))
 
       meta_list <- list()
       meta_list[[key]] <- value
