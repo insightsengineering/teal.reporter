@@ -2,7 +2,7 @@
 % Please edit documentation in R/yaml_utils.R
 \name{print.yaml_header}
 \alias{print.yaml_header}
-\title{Print method for the yaml_header class}
+\title{Print method for the \code{yaml_header} class}
 \usage{
 \method{print}{yaml_header}(x, ...)
 }
@@ -12,7 +12,7 @@
 \item{...}{optional text.}
 }
 \description{
-Print method for the yaml_header class.
+Print method for the \code{yaml_header} class.
 }
 \examples{
 input <- list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE)

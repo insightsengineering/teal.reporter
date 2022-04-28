@@ -2,7 +2,7 @@
 % Please edit documentation in R/yaml_utils.R
 \name{rmd_output_arguments}
 \alias{rmd_output_arguments}
-\title{Get document output arguments from the rmarkdown package}
+\title{Get document output arguments from the \code{rmarkdown} package}
 \usage{
 rmd_output_arguments(output_name, default_values = FALSE)
 }
@@ -12,7 +12,7 @@ rmd_output_arguments(output_name, default_values = FALSE)
 \item{default_values}{\code{logical} if to return a default values for each argument.}
 }
 \description{
-get document output arguments from the rmarkdown package
+get document output arguments from the \code{rmarkdown} package
 }
 \examples{
 rmd_output_arguments("pdf_document")

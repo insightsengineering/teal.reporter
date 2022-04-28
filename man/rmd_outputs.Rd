@@ -2,7 +2,7 @@
 % Please edit documentation in R/yaml_utils.R
 \name{rmd_outputs}
 \alias{rmd_outputs}
-\title{Get document output types from the rmarkdown package}
+\title{Get document output types from the \code{rmarkdown} package}
 \usage{
 rmd_outputs()
 }

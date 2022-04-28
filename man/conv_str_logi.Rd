@@ -2,7 +2,7 @@
 % Please edit documentation in R/yaml_utils.R
 \name{conv_str_logi}
 \alias{conv_str_logi}
-\title{Convert a character of a yaml boolean to a logical value}
+\title{Convert a character of a \code{yaml} boolean to a logical value}
 \usage{
 conv_str_logi(
   input,
@@ -14,17 +14,17 @@ conv_str_logi(
 \arguments{
 \item{input}{\code{character}}
 
-\item{pos_logi}{\code{character} vector}
+\item{pos_logi}{\code{character} vector of \code{yaml} values which should be treated as \code{TRUE}.}
 
-\item{neg_logi}{\code{character} vector}
+\item{neg_logi}{\code{character} vector of \code{yaml} values which should be treated as \code{FALSE}.}
 
-\item{silent}{\code{logical}}
+\item{silent}{\code{logical} if to suppress the messages and warnings.}
 }
 \value{
 \code{input} argument or the appropriate \code{logical} value.
 }
 \description{
-convert a character of a yaml boolean to a logical value.
+convert a character of a \code{yaml} boolean to a logical value.
 }
 \examples{
 teal.reporter:::conv_str_logi("TRUE")

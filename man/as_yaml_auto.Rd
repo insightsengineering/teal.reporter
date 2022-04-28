@@ -2,7 +2,7 @@
 % Please edit documentation in R/yaml_utils.R
 \name{as_yaml_auto}
 \alias{as_yaml_auto}
-\title{arse a named list to the Rmd yaml header}
+\title{Parse a Named List to the \code{Rmd} \code{yaml} Header}
 \usage{
 as_yaml_auto(
   input,
@@ -13,12 +13,12 @@ as_yaml_auto(
 )
 }
 \arguments{
-\item{input}{\verb{named list} non nested with slots names and their values compatible with Rmd yaml header.}
+\item{input}{\verb{named list} non nested with slots names and their values compatible with \code{Rmd} \code{yaml} header.}
 
 \item{as_header}{\code{logical} optionally wrap with result with the \code{teal.reporter::md_header}, default \code{TRUE}.}
 
 \item{convert_logi}{\code{logical}convert a character values to logical,
-if they are recognized as quoted yaml logical values , default \code{TRUE}.}
+if they are recognized as quoted \code{yaml} logical values , default \code{TRUE}.}
 
 \item{multi_output}{\code{logical}multi \code{output} slots in the \code{input} argument, default \code{FALSE}.}
 
@@ -28,10 +28,10 @@ if they are recognized as quoted yaml logical values , default \code{TRUE}.}
 \code{character} result of \code{\link[yaml:as.yaml]{yaml::as.yaml}}, optionally wrapped with \code{teal.reporter::md_header}.
 }
 \description{
-Parse a named list to the Rmd yaml header, so the developer gets automatically tabulated Rmd yaml header.
+parse a named list to the \code{Rmd} \code{yaml} header, so the developer gets automatically tabulated \code{Rmd} \code{yaml} header.
 Only a non nested (flat) list will be processed,
 where as a nested list is directly processed with the \code{\link[yaml:as.yaml]{yaml::as.yaml}} function.
-All Rmd yaml header fields from the vector are supported,
+All \code{Rmd} \code{yaml} header fields from the vector are supported,
 \code{c("author", "date", "title", "subtitle", "abstract", "keywords", "subject", "description", "category", "lang")}.
 Moreover all \code{output}field types in the \code{rmarkdown} package and their arguments are supported.
 }

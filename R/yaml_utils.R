@@ -31,12 +31,12 @@ md_header <- function(x) {
   paste0("---\n", x, "---\n")
 }
 
-#' @title Convert a character of a yaml boolean to a logical value
-#' @description convert a character of a yaml boolean to a logical value.
+#' @title Convert a character of a `yaml` boolean to a logical value
+#' @description convert a character of a `yaml` boolean to a logical value.
 #' @param input `character`
-#' @param pos_logi `character` vector
-#' @param neg_logi `character` vector
-#' @param silent `logical`
+#' @param pos_logi `character` vector of `yaml` values which should be treated as `TRUE`.
+#' @param neg_logi `character` vector of `yaml` values which should be treated as `FALSE`.
+#' @param silent `logical` if to suppress the messages and warnings.
 #' @return `input` argument or the appropriate `logical` value.
 #' @keywords internal
 #' @examples
@@ -61,7 +61,7 @@ conv_str_logi <- function(input,
   }
 }
 
-#' @title Get document output types from the rmarkdown package
+#' @title Get document output types from the `rmarkdown` package
 #'
 #' @description get document output types from the `rmarkdown` package.
 #' @return `character` vector.
@@ -74,9 +74,9 @@ rmd_outputs <- function() {
   ls(rmarkdown_namespace)[grep("_document|_presentation", ls(rmarkdown_namespace))]
 }
 
-#' @title Get document output arguments from the rmarkdown package
+#' @title Get document output arguments from the `rmarkdown` package
 #'
-#' @description get document output arguments from the rmarkdown package
+#' @description get document output arguments from the `rmarkdown` package
 #' @param output_name `character``rmarkdown` output name.
 #' @param default_values `logical` if to return a default values for each argument.
 #' @export
@@ -96,18 +96,18 @@ rmd_output_arguments <- function(output_name, default_values = FALSE) {
   }
 }
 
-#' @title arse a named list to the Rmd yaml header
+#' @title Parse a Named List to the `Rmd` `yaml` Header
 #' @description
-#' Parse a named list to the Rmd yaml header, so the developer gets automatically tabulated Rmd yaml header.
+#' parse a named list to the `Rmd` `yaml` header, so the developer gets automatically tabulated `Rmd` `yaml` header.
 #' Only a non nested (flat) list will be processed,
 #' where as a nested list is directly processed with the [`yaml::as.yaml`] function.
-#' All Rmd yaml header fields from the vector are supported,
+#' All `Rmd` `yaml` header fields from the vector are supported,
 #' `c("author", "date", "title", "subtitle", "abstract", "keywords", "subject", "description", "category", "lang")`.
 #' Moreover all `output`field types in the `rmarkdown` package and their arguments are supported.
-#' @param input `named list` non nested with slots names and their values compatible with Rmd yaml header.
+#' @param input `named list` non nested with slots names and their values compatible with `Rmd` `yaml` header.
 #' @param as_header `logical` optionally wrap with result with the `teal.reporter::md_header`, default `TRUE`.
 #' @param convert_logi `logical`convert a character values to logical,
-#'  if they are recognized as quoted yaml logical values , default `TRUE`.
+#'  if they are recognized as quoted `yaml` logical values , default `TRUE`.
 #' @param multi_output `logical`multi `output` slots in the `input` argument, default `FALSE`.
 #' @param silent `logical` suppress messages and warnings, default `FALSE`.
 #' @return `character` result of [`yaml::as.yaml`], optionally wrapped with `teal.reporter::md_header`.
@@ -259,9 +259,9 @@ as_yaml_auto <- function(input,
   structure(result, class = "yaml_header")
 }
 
-#' @title Print method for the yaml_header class
+#' @title Print method for the `yaml_header` class
 #'
-#' @description Print method for the yaml_header class.
+#' @description Print method for the `yaml_header` class.
 #' @param x `yaml_header` class object.
 #' @param ... optional text.
 #' @return NULL
