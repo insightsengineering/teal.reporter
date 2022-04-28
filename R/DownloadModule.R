@@ -170,8 +170,10 @@ render_and_download <- function(reporter, input, file) {
   renderer <- Renderer$new()
 
   renderer$render(reporter$get_blocks(), yaml_header)
+
   temp_zip_file <- tempfile(fileext = ".zip")
   zip::zipr(temp_zip_file, renderer$get_output_dir())
   file.copy(temp_zip_file, file)
+
   rm(renderer)
 }

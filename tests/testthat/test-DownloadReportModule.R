@@ -74,9 +74,9 @@ card1$append_plot(
 reporter <- Reporter$new()
 reporter$append_cards(list(card1))
 
-testthat::test_that("render_and_download - ", {
+testthat::test_that("render_and_download - render and downlaod a html document", {
   input <- shiny::reactiveValues(author = "NEST", title = "Report", output = "html_document")
-  temp_zip <- tempfile(fileext = "zip")
+  temp_zip <- tempfile(fileext = ".zip")
   shiny::isolate(render_and_download(reporter, input, temp_zip))
   tmp_dir <- tempdir()
   output_dir <- file.path(tmp_dir, sprintf("report_test_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
