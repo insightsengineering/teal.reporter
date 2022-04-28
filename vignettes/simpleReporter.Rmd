@@ -106,14 +106,14 @@ server <- function(input, output, session) {
   ### REPORTER
   reporter <- teal.reporter::Reporter$new()
   card_fun <- function(card = ReportCard$new()) {
-      if (input$tabs == "Plot") {
-        card$append_text("My plot", "header2")
-        card$append_plot(plot())
-      } else if (input$tabs == "Table") {
-        card$append_text("My Table", "header2")
-        card$append_table(table())
-      }
-      card
+    if (input$tabs == "Plot") {
+      card$append_text("My plot", "header2")
+      card$append_plot(plot())
+    } else if (input$tabs == "Table") {
+      card$append_text("My Table", "header2")
+      card$append_table(table())
+    }
+    card
   }
 
   teal.reporter::add_card_button_srv("addReportCard", reporter = reporter, card_fun = card_fun)
@@ -195,14 +195,14 @@ server <- function(input, output, session) {
   ### REPORTER
   reporter <- teal.reporter::Reporter$new()
   card_fun <- function(card = ReportCard$new()) {
-      if (input$tabs == "Plot") {
-        card$append_text("My plot", "header2")
-        card$append_plot(plot())
-      } else if (input$tabs == "Table") {
-        card$append_text("My Table", "header2")
-        card$append_table(table())
-      }
-      card
+    if (input$tabs == "Plot") {
+      card$append_text("My plot", "header2")
+      card$append_plot(plot())
+    } else if (input$tabs == "Table") {
+      card$append_text("My Table", "header2")
+      card$append_table(table())
+    }
+    card
   }
 
   teal.reporter::simple_reporter_srv("simpleReporter", reporter = reporter, card_fun = card_fun)
