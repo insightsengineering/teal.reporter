@@ -1,25 +1,4 @@
-#' Download Button Reporter User Interface
-#' @description button for downloading the Report. Part of the simple Reporter user interface.
-#'
-#' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character`
-#' @return `shiny::tagList`
-#' @export
-download_report_button_ui <- function(id) {
-  ns <- shiny::NS(id)
-  shiny::tagList(
-    shiny::tags$button(
-      id = ns("download_button"),
-      type = "button",
-      class = "btn btn-primary action-button",
-      `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
-      NULL,
-      "Download Report"
-    )
-  )
-}
-
-#' Download Button Server
+#' Download report Server
 #' @description server for downloading the Report. Part of the simple Reporter.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
@@ -28,15 +7,15 @@ download_report_button_ui <- function(id) {
 #' @param notification logical whether to add shiny notification about the download process, by default `TRUE`.
 #' @param output_types `character` vector with `rmarkdown` output types,
 #' by default `c("pdf document", "html document", "powerpoint presentation", "word document")`.
+#' @param show_modal `reactive` to trigger popup of the download modal
 #' @return `shiny::moduleServer`
 #' @export
-download_report_button_srv <- function(id,
-                                       reporter,
+download_report_srv <- function(id, reporter,
                                        notification = TRUE,
                                        output_types = c(
                                          "pdf document", "html document",
                                          "powerpoint presentation", "word document"
-                                       )) {
+                                       ), show_modal = shiny::reactive(NULL)) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
@@ -104,9 +83,10 @@ download_report_button_srv <- function(id,
         )
       }
 
-      shiny::observeEvent(input$download_button, {
+      shiny::observeEvent(show_modal(), {
         shiny::showModal(download_modal())
       })
+
 
       shiny::observeEvent(input$reset_reporter, {
         shiny::showModal(

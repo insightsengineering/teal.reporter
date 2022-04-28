@@ -9,9 +9,9 @@ card1$append_plot(
 reporter <- Reporter$new()
 reporter$append_cards(list(card1))
 
-testthat::test_that("download_report_button_srv", {
+testthat::test_that("download_report_srv", {
   shiny::testServer(
-    download_report_button_srv,
+    download_report_srv,
     args = list(reporter = reporter),
     expr = {
       session$setInputs(`download_button` = 0)
@@ -44,9 +44,9 @@ card1$append_plot(
 reporter <- Reporter$new()
 reporter$append_cards(list(card1))
 
-testthat::test_that("download_report_button_srv", {
+testthat::test_that("download_report_srv", {
   shiny::testServer(
-    download_report_button_srv,
+    download_report_srv,
     args = list(reporter = reporter),
     expr = {
       testthat::expect_identical(reporter$get_cards(), list(card1))
@@ -54,11 +54,5 @@ testthat::test_that("download_report_button_srv", {
       session$setInputs(`reset_reporter_ok` = 0)
       testthat::expect_identical(reporter$get_blocks(), list())
     }
-  )
-})
-
-testthat::test_that("download_report_button_ui", {
-  testthat::expect_true(
-    inherits(download_report_button_ui("sth"), c("shiny.tag.list", "list"))
   )
 })
