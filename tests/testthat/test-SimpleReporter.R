@@ -58,7 +58,7 @@ testthat::test_that("simple_reporter_srv - reset a reporter", {
 })
 
 
-card_fun <- function(card = ReportCard$new()) {
+card_fun <- function(card = ReportCard$new(), comment = NULL) {
   card$append_text("Header 2 text", "header2")
   card$append_text("A paragraph of default text", "header2")
   card$append_plot(
@@ -82,17 +82,7 @@ testthat::test_that("simple_reporter_srv - add a Card to Reporter", {
 
       testthat::expect_identical(
         length(reporter$get_blocks()),
-        card_len + 2L
-      )
-
-      testthat::expect_identical(
-        tail(reporter$get_blocks(), 1)[[1]]$get_content(),
-        "Comment Body"
-      )
-
-      testthat::expect_identical(
-        tail(reporter$get_blocks(), 2)[[1]]$get_content(),
-        "Comment"
+        card_len
       )
     }
   )

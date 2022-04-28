@@ -77,10 +77,8 @@ add_card_button_srv <- function(id, reporter, card_fun) {
 
       shiny::observeEvent(input$addCardOk, {
         card <- ReportCard$new()
-        card_fun(card)
+        card_fun(card, input$comment)
         checkmate::assert_class(card, "ReportCard")
-        card$append_text("Comment", "header3")
-        card$append_text(input$comment)
         reporter$append_cards(list(card))
         shiny::removeModal()
       })

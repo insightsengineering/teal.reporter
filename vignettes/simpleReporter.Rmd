@@ -30,7 +30,9 @@ The implementation should consist of 5 steps:
 
 1. Add modules user interface to the user interface of the app.
 2. Initialize Reporter instance.
-3. Create the Report Card function.
+3. Create the Report Card function with two arguments: card and comment.
+The function should build the Card step by step and assuming it is empty ad the start, 
+the comment argument is a string provided by the user when the card is added.
 This part requires the developer to use their imagination on how the document page should look like. 
 4. Invoke the servers with the reporter instance and the function to create the report card instance.
 
@@ -105,7 +107,8 @@ server <- function(input, output, session) {
 
   ### REPORTER
   reporter <- teal.reporter::Reporter$new()
-  card_fun <- function(card = ReportCard$new()) {
+  card_fun <- function(card = ReportCard$new(), 
+                       comment) {
     if (input$tabs == "Plot") {
       card$append_text("My plot", "header2")
       card$append_plot(plot())
@@ -113,6 +116,8 @@ server <- function(input, output, session) {
       card$append_text("My Table", "header2")
       card$append_table(table())
     }
+    card$append_text("Comment", "header3")
+    card$append_text(comment)
     card
   }
 
@@ -194,7 +199,8 @@ server <- function(input, output, session) {
 
   ### REPORTER
   reporter <- teal.reporter::Reporter$new()
-  card_fun <- function(card = ReportCard$new()) {
+  card_fun <- function(card = ReportCard$new(),
+                       comment) {
     if (input$tabs == "Plot") {
       card$append_text("My plot", "header2")
       card$append_plot(plot())
@@ -202,6 +208,8 @@ server <- function(input, output, session) {
       card$append_text("My Table", "header2")
       card$append_table(table())
     }
+    card$append_text("Comment", "header3")
+    card$append_text(comment)
     card
   }
 
