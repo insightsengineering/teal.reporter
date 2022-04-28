@@ -54,14 +54,8 @@ conv_str_logi <- function(input,
                           silent = FALSE) {
   checkmate::assert_character(input)
   all_logi <- c(pos_logi, neg_logi)
-  is_logi <- input %in% all_logi
-  is_pos_logi <- input %in% pos_logi
-  if (is_logi) {
-    if (is_pos_logi) {
-      TRUE
-    } else {
-      FALSE
-    }
+  if (input %in% all_logi) {
+    input %in% pos_logi
   } else {
     input
   }
@@ -187,9 +181,9 @@ as_yaml_auto <- function(input,
       "keywords", "subject", "description", "category", "lang"
     )
 
-    for (t in top_fields) {
-      if (t %in% input_nams) {
-        result[[t]] <- input[[t]]
+    for (itop in top_fields) {
+      if (itop %in% input_nams) {
+        result[[itop]] <- input[[itop]]
       }
     }
 
@@ -197,8 +191,8 @@ as_yaml_auto <- function(input,
     doc_types <- unlist(input[input_nams == "output"])
 
     if (length(doc_types)) {
-      for (t in doc_types) {
-        doc_type_args <- rmd_output_arguments(t, TRUE)
+      for (dtype in doc_types) {
+        doc_type_args <- rmd_output_arguments(dtype, TRUE)
         doc_type_args_nams <- names(doc_type_args)
         any_doc_arg <- any(input_nams %in% doc_type_args_nams)
 
@@ -209,7 +203,7 @@ as_yaml_auto <- function(input,
 
         if (any_doc_arg) {
           doc_list <- list()
-          doc_list[[t]] <- list()
+          doc_list[[dtype]] <- list()
 
           for (e in intersect(input_nams, doc_type_args_nams)) {
             if (!is.null(doc_type_args[[e]])) {
@@ -246,7 +240,7 @@ as_yaml_auto <- function(input,
                 )
               }
             }
-            doc_list[[t]][[e]] <- input[[e]]
+            doc_list[[dtype]][[e]] <- input[[e]]
           }
 
           result[["output"]] <- append(result[["output"]], doc_list)
