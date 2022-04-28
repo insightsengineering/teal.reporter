@@ -8,9 +8,9 @@ card1$append_plot(
 
 reporter <- Reporter$new()
 
-testthat::test_that("add_card_srv", {
+testthat::test_that("add_card_button_srv", {
   shiny::testServer(
-    add_card_srv,
+    add_card_button_srv,
     args = list(reporter = reporter, card = reactive(card1)),
     expr = {
       card_len <- length(card()$get_content())
@@ -33,5 +33,11 @@ testthat::test_that("add_card_srv", {
         "Comment"
       )
     }
+  )
+})
+
+testthat::test_that("add_card_button_ui", {
+  testthat::expect_true(
+    inherits(add_card_button_ui("sth"), c("shiny.tag.list", "list"))
   )
 })
