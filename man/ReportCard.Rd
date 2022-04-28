@@ -216,8 +216,8 @@ Returns the content of this \code{ReportCard}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{raw}}{(\code{logical}) whether to include \code{content} as it was appended or apply \code{chr_converter} functions on meta data
-objects.}
+\item{\code{raw}}{(\code{logical}) whether to include \code{content} as it was appended or apply \code{chr_converter}
+functions on meta data objects.}
 }
 \if{html}{\out{</div>}}
 }

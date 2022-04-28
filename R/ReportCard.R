@@ -55,8 +55,8 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Returns the content of this `ReportCard`.
     #'
-    #' @param raw (`logical`) whether to include `content` as it was appended or apply `chr_converter` functions on meta data
-    #' objects.
+    #' @param raw (`logical`) whether to include `content` as it was appended or apply `chr_converter`
+    #' functions on meta data objects.
     #' @return `list()` list of `TableBlock`, `TextBlock` and `PictureBlock`.
     #' If the `raw` argument is `TRUE`, meta data objects in the form they were added will be returned. Otherwise,
     #' given `chr_converter` function given will be applied on these objects.
