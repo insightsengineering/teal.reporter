@@ -4,14 +4,14 @@
 \alias{add_card_button_srv}
 \title{Add Card Button Server}
 \usage{
-add_card_button_srv(id, reporter, card)
+add_card_button_srv(id, reporter, card_fun)
 }
 \arguments{
 \item{id}{\code{character}}
 
 \item{reporter}{\code{Reporter} instance.}
 
-\item{card}{\code{ReportCard} instance}
+\item{card_fun}{\code{function} which returns a \code{ReportCard} instance.}
 }
 \value{
 \code{shiny::moduleServer}

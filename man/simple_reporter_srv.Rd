@@ -4,14 +4,14 @@
 \alias{simple_reporter_srv}
 \title{Simple Reporter Server}
 \usage{
-simple_reporter_srv(id, reporter, card, notification = TRUE)
+simple_reporter_srv(id, reporter, card_fun, notification = TRUE)
 }
 \arguments{
 \item{id}{\code{character}}
 
 \item{reporter}{\code{Reporter} instance.}
 
-\item{card}{\code{ReportCard} instance}
+\item{card_fun}{\code{function} which returns a \code{ReportCard} instance.}
 
 \item{notification}{logical if to add shiny notification about the download process.}
 }

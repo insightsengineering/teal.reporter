@@ -9,10 +9,10 @@ card1$append_plot(
 reporter <- Reporter$new()
 reporter$append_cards(list(card1))
 
-testthat::test_that("download_report_button_srv", {
+testthat::test_that("simple_reporter_srv", {
   shiny::testServer(
     simple_reporter_srv,
-    args = list(reporter = reporter),
+    args = list(reporter = reporter, card_fun = NULL),
     expr = {
       session$setInputs(`download_button` = 0)
       session$setInputs(`downloadButton-docType` = "html_document")
@@ -44,7 +44,7 @@ card1$append_plot(
 reporter <- Reporter$new()
 reporter$append_cards(list(card1))
 
-testthat::test_that("download_report_button_srv", {
+testthat::test_that("simple_reporter_srv", {
   shiny::testServer(
     simple_reporter_srv,
     args = list(reporter = reporter),
@@ -57,22 +57,26 @@ testthat::test_that("download_report_button_srv", {
   )
 })
 
-card1 <- ReportCard$new()
-card1$append_text("Header 2 text", "header2")
-card1$append_text("A paragraph of default text", "header2")
-card1$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
-    ggplot2::geom_histogram()
-)
+
+card_fun <- function(card = ReportCard$new()) {
+  card$append_text("Header 2 text", "header2")
+  card$append_text("A paragraph of default text", "header2")
+  card$append_plot(
+    ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
+      ggplot2::geom_histogram()
+  )
+  card
+}
+
 
 reporter <- Reporter$new()
 
-testthat::test_that("add_card_button_srv", {
+testthat::test_that("simple_reporter_srv", {
   shiny::testServer(
     simple_reporter_srv,
-    args = list(reporter = reporter, card = reactive(card1)),
+    args = list(reporter = reporter, card_fun = card_fun),
     expr = {
-      card_len <- length(card()$get_content())
+      card_len <- length(card_fun()$get_content())
       session$setInputs(`addReportCard-addReportCardButton` = 0)
       session$setInputs(`addReportCard-comment` = "Comment Body")
       session$setInputs(`addReportCard-addCardOk` = 0)

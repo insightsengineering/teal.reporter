@@ -20,15 +20,15 @@ simple_reporter_ui <- function(id) {
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character`
 #' @param reporter `Reporter` instance.
-#' @param card `ReportCard` instance
+#' @param card_fun `function` which returns a `ReportCard` instance.
 #' @param notification logical if to add shiny notification about the download process.
 #' @return `shiny::moduleServer`
 #' @export
-simple_reporter_srv <- function(id, reporter, card, notification = TRUE) {
+simple_reporter_srv <- function(id, reporter, card_fun, notification = TRUE) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
-      add_card_button_srv("addReportCard", reporter = reporter, card = card)
+      add_card_button_srv("addReportCard", reporter = reporter, card_fun = card_fun)
       download_report_button_srv("downloadButton", reporter = reporter, notification = notification)
     }
   )

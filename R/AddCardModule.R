@@ -25,11 +25,11 @@ add_card_button_ui <- function(id) {
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character`
 #' @param reporter `Reporter` instance.
-#' @param card `ReportCard` instance
+#' @param card_fun `function` which returns a `ReportCard` instance.
 #' @return `shiny::moduleServer`
 #' @export
 #' @export
-add_card_button_srv <- function(id, reporter, card) {
+add_card_button_srv <- function(id, reporter, card_fun) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
@@ -76,10 +76,12 @@ add_card_button_srv <- function(id, reporter, card) {
       })
 
       shiny::observeEvent(input$addCardOk, {
-        checkmate::assert_class(card(), "ReportCard")
-        card()$append_text("Comment", "header3")
-        card()$append_text(input$comment)
-        reporter$append_cards(list(card()))
+        card <- ReportCard$new()
+        card_fun(card)
+        checkmate::assert_class(card, "ReportCard")
+        card$append_text("Comment", "header3")
+        card$append_text(input$comment)
+        reporter$append_cards(list(card))
         shiny::removeModal()
       })
     }
