@@ -111,12 +111,12 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
   ),
   private = list(
     cards = list(),
-    #' @description The copy constructor.
-    #'
-    #' @param name the name of the field
-    #' @param value the value of the field
-    #' @return the new value of the field
-    #'
+    # @description The copy constructor.
+    #
+    # @param name the name of the field
+    # @param value the value of the field
+    # @return the new value of the field
+    #
     deep_clone = function(name, value) {
       if (name == "cards") {
         lapply(value, function(card) card$clone(deep = TRUE))
