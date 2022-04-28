@@ -145,11 +145,16 @@ download_report_button_srv <- function(id,
 }
 
 #' Render and Download the Document
+#' @description render and download the document
 #' @param reporter `Reporter` instance.
 #' @param input shiny input.
 #  @param `character` argument of the content function inside `downloadHandler`.
 #' @keywords internal
 render_and_download <- function(reporter, input, file) {
+  checkmate::assert_class(reporter, "Reporter")
+  checkmate::assert_class(input, "reactivevalues")
+  checkmate::assert_class(file, "character")
+
   yaml <- list(
     author = yaml_quoted(input$docAuthor),
     title = yaml_quoted(input$docTitle),

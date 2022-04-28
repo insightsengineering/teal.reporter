@@ -12,6 +12,6 @@ render_and_download(reporter, input, file)
 \item{input}{shiny input.}
 }
 \description{
-Render and Download the Document
+render and download the document
 }
 \keyword{internal}
