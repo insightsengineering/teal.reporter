@@ -8,8 +8,8 @@ download_report_button_srv(
   id,
   reporter,
   notification = TRUE,
-  output_types = c("pdf document", "html document", "powerpoint presentation",
-    "word document")
+  output_types = c("pdf_document", "html_document", "powerpoint_presentation",
+    "word_document")
 )
 }
 \arguments{
@@ -20,7 +20,7 @@ download_report_button_srv(
 \item{notification}{\code{logical} whether to add a shiny notification about the download process. Default \code{TRUE}.}
 
 \item{output_types}{\code{character} vector with \code{rmarkdown} output types,
-by default \code{c("pdf document", "html document", "powerpoint presentation", "word document")}.}
+by default \code{c("pdf_document", "html_document", "powerpoint_presentation", "word_document")}.}
 }
 \value{
 \code{shiny::moduleServer}

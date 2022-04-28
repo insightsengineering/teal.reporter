@@ -15,9 +15,9 @@ testthat::test_that("simple_reporter_srv - render and downlaod  a document", {
     args = list(reporter = reporter, card_fun = NULL),
     expr = {
       session$setInputs(`download_button` = 0)
-      session$setInputs(`downloadButton-docType` = "html_document")
-      session$setInputs(`downloadButton-docTitle` = "TITLE")
-      session$setInputs(`downloadButton-docAuthor` = "AUTHOR")
+      session$setInputs(`downloadButton-output` = "html_document")
+      session$setInputs(`downloadButton-title` = "TITLE")
+      session$setInputs(`downloadButton-author` = "AUTHOR")
       session$setInputs(`downloadButton-download_data` = 0)
 
       f <- output$`downloadButton-download_data`

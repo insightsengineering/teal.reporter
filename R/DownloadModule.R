@@ -27,15 +27,15 @@ download_report_button_ui <- function(id) {
 #' @param reporter `Reporter` instance.
 #' @param notification `logical` whether to add a shiny notification about the download process. Default `TRUE`.
 #' @param output_types `character` vector with `rmarkdown` output types,
-#' by default `c("pdf document", "html document", "powerpoint presentation", "word document")`.
+#' by default `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
 #' @return `shiny::moduleServer`
 #' @export
 download_report_button_srv <- function(id,
                                        reporter,
                                        notification = TRUE,
                                        output_types = c(
-                                         "pdf document", "html document",
-                                         "powerpoint presentation", "word document"
+                                         "pdf_document", "html_document",
+                                         "powerpoint_presentation", "word_document"
                                        )) {
   shiny::moduleServer(
     id,
@@ -69,11 +69,11 @@ download_report_button_srv <- function(id,
               ),
             )
           },
-          shiny::textInput(ns("docAuthor"), label = "Author:", value = "NEST"),
-          shiny::textInput(ns("docTitle"), label = "Title:", value = "NEST Report"),
+          shiny::textInput(ns("author"), label = "Author:", value = "NEST"),
+          shiny::textInput(ns("title"), label = "Title:", value = "NEST Report"),
           shiny::tags$div(
             shinyWidgets::pickerInput(
-              inputId = ns("docType"),
+              inputId = ns("output"),
               label = "Choose a document type: ",
               choices = output_types
             )
@@ -156,12 +156,14 @@ render_and_download <- function(reporter, input, file) {
   checkmate::assert_class(file, "character")
 
   yaml <- list(
-    author = yaml_quoted(input$docAuthor),
-    title = yaml_quoted(input$docTitle),
-    date = yaml_quoted(as.character(Sys.Date()))
+    author = input$author,
+    title = input$title,
+    date = as.character(Sys.Date())
   )
 
-  yaml[["output"]] <- gsub(" ", "_", input$docType)
+  if (!is.null(input$output)) {
+    yaml[["output"]] <- input$output
+  }
 
   yaml_header <- md_header(yaml::as.yaml(yaml))
 
