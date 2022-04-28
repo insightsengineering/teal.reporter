@@ -22,9 +22,9 @@ library(rtables)
 ```
 
 Simple Reporter is a shiny module for capturing app views during the session, and eventually downloading a report document.
-The Simple Reporter module consists of two separate modules one for each of two buttons, Add Card and Download Report buttons modules.
+The Simple Reporter module consists of two separate modules one for each of the two buttons, Add Card and Download Report buttons modules.
 
-The code added to introduce the simply reporter is wrapped in the `### REPORTER` code blocks.
+The code added to introduce the simple reporter is wrapped in the `### REPORTER` code blocks.
 
 The implementation should consist of 5 steps:
 

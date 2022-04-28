@@ -1,9 +1,9 @@
-testthat::test_that("error if use not a reactivevalues", {
+testthat::test_that("extract_addcard_input throws error when input is not a reactivevalues", {
   vals <- list()
   testthat::expect_error(isolate(extract_addcard_input(vals)))
 })
 
-testthat::test_that("empty id if there is no match", {
+testthat::test_that("extract_addcard_input returns empty id if there is no match", {
   vals <- shiny::reactiveValues(a = 1, b = 2)
   testthat::expect_identical(
     isolate(extract_addcard_input(vals)),
@@ -11,7 +11,7 @@ testthat::test_that("empty id if there is no match", {
   )
 })
 
-testthat::test_that("correct match", {
+testthat::test_that("extract_addcard_input returns right id when there is a correct match", {
   vals <- shiny::reactiveValues(a = 1, b = 2, `addReportCardButton` = 0)
   testthat::expect_identical(
     isolate(extract_addcard_input(vals)),
@@ -27,7 +27,7 @@ testthat::test_that("correct match 2", {
   )
 })
 
-testthat::test_that("return empty id if there is double match", {
+testthat::test_that("extract_addcard_input returns empty id if there is double match", {
   vals <- shiny::reactiveValues(
     a = 1,
     b = 2,
