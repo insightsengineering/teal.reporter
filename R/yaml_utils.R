@@ -57,12 +57,7 @@ conv_str_logi <- function(input,
   all_logi <- c(pos_logi, neg_logi)
   if (input %in% all_logi) {
     if (isFALSE(silent)) {
-      message(
-        sprintf(
-          "The '%s' value should be a logical, so is automatically converted.",
-          input
-        )
-      )
+      message(sprintf("The '%s' value should be a logical, so it is automatically converted.", input))
     }
     input %in% pos_logi
   } else {
