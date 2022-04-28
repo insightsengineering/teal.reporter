@@ -71,20 +71,13 @@ testthat::test_that("append_metadata accepts a character key and a character or 
 })
 
 testthat::test_that("append_metadata accepts a function deparse argument", {
-  testthat::expect_error(ReportCard$new()$append_metadata("key1", "value1", deparse = deparse), regexp = NA)
+  testthat::expect_error(ReportCard$new()$append_metadata("key1", "value1", chr_converter = deparse), regexp = NA)
 })
 
 testthat::test_that("append_metadata throws error when deparse argument is not a function", {
   testthat::expect_error(
-    ReportCard$new()$append_metadata("key1", "value1", deparse = "deparse"),
-    regexp = "Assertion on 'deparse' failed: Must be a function, not 'character'."
-  )
-})
-
-testthat::test_that("append_metadata throws error if value is not character", {
-  testthat::expect_error(
-    ReportCard$new()$append_metadata(key = 1, value = "value1"),
-    regexp = "Must be of type 'character', not 'double'."
+    ReportCard$new()$append_metadata("key1", "value1", chr_converter = "deparse"),
+    regexp = "Assertion on 'chr_converter' failed: Must be a function, not 'character'."
   )
 })
 
@@ -99,12 +92,6 @@ testthat::test_that("append_metadata throws error if key is not character", {
   )
 })
 
-testthat::test_that("append_metadata throws error if deparse is not a function", {
-  testthat::expect_error(
-    ReportCard$new()$append_metadata(key = 1, value = "value1"),
-    regexp = "Must be of type 'character', not 'double'."
-  )
-})
 testthat::test_that("append_metadata throws error if value if missing", {
   testthat::expect_error(
     ReportCard$new()$append_metadata(key = "key1"),
@@ -112,21 +99,27 @@ testthat::test_that("append_metadata throws error if value if missing", {
   )
 })
 
-testthat::test_that("append_metadata throws error if key if missing", {
+testthat::test_that("append_metadata throws error if key is missing", {
   testthat::expect_error(
     ReportCard$new()$append_metadata(value = "value"),
     regexp = "argument \"key\" is missing, with no default"
   )
 })
 
-testthat::test_that("get_deparsers returns an empty list when append_metadata is not used prior", {
-  card <- ReportCard$new()$append_text("test")$append_plot(ggplot2::ggplot(iris))
-  testthat::expect_true(length(card$get_deparsers()) == 0)
+testthat::test_that("append_metadata throws error if keys are duplicated", {
+  testthat::expect_error(
+    ReportCard$new()$append_metadata(key = "key", value = "value")$append_metadata(key = "key", value = "value")
+  )
 })
 
-testthat::test_that("get_deparsers returns a character list when append_metadata is used prior", {
+testthat::test_that("get_chr_converters returns an empty list when append_metadata is not used prior", {
+  card <- ReportCard$new()$append_text("test")$append_plot(ggplot2::ggplot(iris))
+  testthat::expect_true(length(card$get_chr_converters()) == 0)
+})
+
+testthat::test_that("get_chr_converters returns a character list when append_metadata is used prior", {
   card <- ReportCard$new()$append_text("test")$append_plot(ggplot2::ggplot(iris))$append_metadata("SRC", "A <- plot()")
-  testthat::expect_true(length(card$get_deparsers()) != 0)
+  testthat::expect_true(length(card$get_chr_converters()) != 0)
 })
 
 testthat::test_that("The deep copy constructor copies the file in the content blocks", {

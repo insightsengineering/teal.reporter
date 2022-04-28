@@ -15,10 +15,10 @@ testthat::test_that("TealReportCard$get_content returns a list of ContentBlock o
   testthat::expect_true(checkmate::test_list(card$get_content(), types = "ContentBlock"))
 })
 
-testthat::test_that("TealReportCard$get_content returns content with
-                    metadata header as a ContentBlock before the metadata ContentBlock", {
+testthat::test_that("TealReportCard$get_content returns content with metadata", {
   card <- TealReportCard$new()$append_text("test")$append_src("test_src")$append_encodings(list("data = test"))
   testthat::expect_equal(length(card$get_content()), 3)
+  testthat::expect_identical(card$get_content()[[1]]$get_content(), "test")
   testthat::expect_identical(
     card$get_content()[[2]]$get_content(),
     paste0("```\n", paste("test_src", collapse = "\n"), "\n```\n")

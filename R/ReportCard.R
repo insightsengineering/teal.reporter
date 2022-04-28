@@ -14,7 +14,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     initialize = function() {
       private$content <- list()
-      private$deparsers <- list()
+      private$chr_converters <- list()
       invisible(self)
     },
     #' @description Appends a table to this `ReportCard`.
@@ -55,11 +55,11 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Returns the content of this `ReportCard`.
     #'
-    #' @param raw (`logical`) whether to include `content` as it was appended or apply `deparse` functions on meta data
+    #' @param raw (`logical`) whether to include `content` as it was appended or apply `chr_converter` functions on meta data
     #' objects.
     #' @return `list()` list of `TableBlock`, `TextBlock` and `PictureBlock`.
     #' If the `raw` argument is `TRUE`, meta data objects in the form they were added will be returned. Otherwise,
-    #' given `deparse` function given will be applied on these objects.
+    #' given `chr_converter` function given will be applied on these objects.
     #' Only metadata elements are named.
     #' @examples
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
@@ -73,13 +73,13 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       if (!raw) {
         lapply(
           seq_along(private$content),
-          function(m) {
-            if (inherits(private$content[[m]], "ContentBlock")) {
-              private$content[[m]]
+          function(index) {
+            if (inherits(private$content[[index]], "ContentBlock")) {
+              private$content[[index]]
             } else {
-              key <- names(private$content)[m]
-              deparse_func <- private$deparsers[[key]]
-              TextBlock$new(deparse_func(private$content[[m]]))
+              key <- names(private$content)[index]
+              chr_converter_func <- private$chr_converters[[key]]
+              TextBlock$new(chr_converter_func(private$content[[index]]))
             }
           }
         )
@@ -91,48 +91,49 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param key (`character(1)`) name of meta data.
     #' @param value value of meta data.
-    #' @param deparse (`function`) to convert a value to a string, by default `base::deparse1`.
+    #' @param chr_converter (`function`) to convert a value to a character, by default `base::deparse1`.
     #' @return invisibly self
     #' @examples
-    #' custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\\n  ")
+    #' custom_lm_chr_converter <- function(x) paste(capture.output(summary(x)), collapse = "\\n  ")
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
     #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )$append_text("Some text")$append_metadata(key = "lm",
     #'                   value = lm(Ozone ~ Solar.R, airquality),
-    #'                   deparse = custom_lm_deparse)
+    #'                   chr_converter = custom_lm_chr_converter)
     #' card$get_content()
     #' card$get_content(raw = TRUE)
     #'
-    append_metadata = function(key, value, deparse = deparse1) {
+    append_metadata = function(key, value, chr_converter = deparse1) {
       checkmate::assert_character(key, min.len = 0, max.len = 1)
-      checkmate::assert_function(deparse)
-      checkmate::assert_string(deparse(value))
+      checkmate::assert_false(checkmate::test_choice(key, names(private$chr_converters)))
+      checkmate::assert_function(chr_converter)
+      checkmate::assert_string(chr_converter(value))
 
       meta_list <- list()
       meta_list[[key]] <- value
       private$content <- append(private$content, meta_list)
-      private$deparsers[[key]] <- deparse
+      private$chr_converters[[key]] <- chr_converter
       invisible(self)
     },
-    #' @description get all `deparse` functions of this `ReportCard`.
+    #' @description get all `chr_converter` functions of this `ReportCard`.
     #' @return `named list`
     #' @examples
-    #' custom_lm_deparse <- function(x) paste(capture.output(summary(x)), collapse = "\\n  ")
+    #' custom_lm_chr_converter <- function(x) paste(capture.output(summary(x)), collapse = "\\n  ")
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
     #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )$append_text("Some text")$append_metadata(key = "lm",
     #'                   value = lm(Ozone ~ Solar.R, airquality),
-    #'                   deparse = custom_lm_deparse
+    #'                   chr_converter = custom_lm_chr_converter
     #' )$append_metadata(key = "code", value = lm(Ozone ~ Solar.R, airquality))
-    #' card$get_deparsers()
+    #' card$get_chr_converters()
     #'
-    get_deparsers = function() {
-      private$deparsers
+    get_chr_converters = function() {
+      private$chr_converters
     }
   ),
   private = list(
     content = list(),
-    deparsers = list(),
+    chr_converters = list(),
 
     #' @description The copy constructor.
     #'
@@ -143,7 +144,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     deep_clone = function(name, value) {
       if (name == "content") {
         lapply(value, function(content_block) {
-          if (inherits(content_block, "ContentBlock") || inherits(content_block, "R6")) {
+          if (inherits(content_block, "R6")) {
             content_block$clone(deep = TRUE)
           } else {
             content_block
