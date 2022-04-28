@@ -136,7 +136,7 @@ download_report_button_srv <- function(id,
             shiny::showNotification(sprintf("Rendering and Downloading a document."))
           }
 
-          render_and_download(reporter, input, file)
+          render_report(reporter, input, file)
         },
         contentType = "application/zip"
       )
@@ -144,31 +144,29 @@ download_report_button_srv <- function(id,
   )
 }
 
-#' Render and Download the Document
-#' @description render and download the document
+#' Render the Report
+#' @description render the report and zip the created directory.
 #' @param reporter `Reporter` instance.
-#' @param input shiny input.
-#  @param `character` argument of the content function inside `downloadHandler`.
+#' @param input `reactivevalues` shiny input.
+#' @param file `character` where to copy the returned directory.
+#' @return `file` argument
 #' @keywords internal
-render_and_download <- function(reporter, input, file) {
+render_report <- function(reporter, input, file = tempdir()) {
   checkmate::assert_class(reporter, "Reporter")
   checkmate::assert_class(input, "reactivevalues")
-  checkmate::assert_class(file, "character")
+  checkmate::assert_string(file)
 
   yaml <- list(
     author = input$author,
     title = input$title,
     date = as.character(Sys.Date())
   )
-
   if (!is.null(input$output)) {
     yaml[["output"]] <- input$output
   }
-
   yaml_header <- md_header(yaml::as.yaml(yaml))
 
   renderer <- Renderer$new()
-
   renderer$render(reporter$get_blocks(), yaml_header)
 
   temp_zip_file <- tempfile(fileext = ".zip")
@@ -176,4 +174,5 @@ render_and_download <- function(reporter, input, file) {
   file.copy(temp_zip_file, file)
 
   rm(renderer)
+  file
 }

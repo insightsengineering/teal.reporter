@@ -73,16 +73,25 @@ card1$append_plot(
 
 reporter <- Reporter$new()
 reporter$append_cards(list(card1))
+input <- shiny::reactiveValues(author = "NEST", title = "Report", output = "html_document")
+temp_dir <- tempdir()
 
-testthat::test_that("render_and_download - render and downlaod a html document", {
+testthat::test_that("render_and_download - valid arguments", {
+  testthat::expect_error(shiny::isolate(render_report(reporter, input, temp_dir)), NA)
+})
+
+testthat::test_that("render_and_download - invalid arguments", {
+  testthat::expect_error(render_report(reporter, list(), temp_zip))
+  testthat::expect_error(render_report(reporter, input, 2))
+  testthat::expect_error(render_report(reporter, list, ""))
+})
+
+testthat::test_that("render_report - render an html document", {
   input <- shiny::reactiveValues(author = "NEST", title = "Report", output = "html_document")
-  temp_zip <- tempfile(fileext = ".zip")
-  shiny::isolate(render_and_download(reporter, input, temp_zip))
-  tmp_dir <- tempdir()
-  output_dir <- file.path(tmp_dir, sprintf("report_test_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
-  dir.create(path = output_dir)
-  zip::unzip(temp_zip, exdir = output_dir)
-  files <- list.files(output_dir, recursive = TRUE)
+  temp_dir <- tempdir()
+  res_path <- shiny::isolate(render_report(reporter, input, temp_dir))
+  expect_identical(res_path, temp_dir)
+  files <- list.files(temp_dir, recursive = TRUE)
   testthat::expect_true(any(grepl("[.]Rmd", files)))
   testthat::expect_true(any(grepl("[.]html", files)))
 })
