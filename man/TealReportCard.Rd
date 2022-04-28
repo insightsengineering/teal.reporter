@@ -71,7 +71,7 @@ Appends the source code to the \code{content} meta data of this \code{TealReport
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_src(
   src,
-  deparse = function(x) paste0("```\\n", paste(x, collapse = "\\n"), "\\n```\\n")
+  chr_converter = function(x) paste0("```\\n", paste(x, collapse = "\\n"), "\\n```\\n")
 )}\if{html}{\out{</div>}}
 }
 
@@ -80,7 +80,7 @@ Appends the source code to the \code{content} meta data of this \code{TealReport
 \describe{
 \item{\code{src}}{(\code{character(1)}) code as text.}
 
-\item{\code{deparse}}{(\code{function}) to convert \code{src} argument to a string,
+\item{\code{chr_converter}}{(\code{function}) to convert \code{src} argument to a string,
 by default \code{function(x) paste0("```\\n", paste(x, collapse = "\\n"), "\\n```\\n")}.}
 }
 \if{html}{\out{</div>}}
@@ -106,7 +106,7 @@ card$get_content()[[1]]$get_content()
 \subsection{Method \code{append_fs()}}{
 Appends the filter state list to the \code{content} meta data  of this \code{TealReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_fs(fs, deparse = deparse1)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_fs(fs, chr_converter = deparse1)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -114,7 +114,7 @@ Appends the filter state list to the \code{content} meta data  of this \code{Tea
 \describe{
 \item{\code{fs}}{(\code{list}) list of filter states.}
 
-\item{\code{deparse}}{(\code{function}) to convert \code{fs} argument to a string, by default \code{base::deparse1}.}
+\item{\code{chr_converter}}{(\code{function}) to convert \code{fs} argument to a string, by default \code{base::deparse1}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -140,7 +140,7 @@ card$get_content()[[1]]$get_content()
 \subsection{Method \code{append_encodings()}}{
 Appends the encodings list to the \code{content} meta data of this \code{TealReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_encodings(encodings, deparse = deparse1)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_encodings(encodings, chr_converter = deparse1)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -148,7 +148,7 @@ Appends the encodings list to the \code{content} meta data of this \code{TealRep
 \describe{
 \item{\code{encodings}}{(\code{list}) list of encodings selections of the teal app.}
 
-\item{\code{deparse}}{(\code{function}) to convert a encodings to a string, by default \code{base::deparse1}.}
+\item{\code{chr_converter}}{(\code{function}) to convert a encodings to a string, by default \code{base::deparse1}.}
 }
 \if{html}{\out{</div>}}
 }

@@ -70,11 +70,11 @@ testthat::test_that("append_metadata accepts a character key and a character or 
   testthat::expect_error(ReportCard$new()$append_metadata("key1", list("value1")), regexp = NA)
 })
 
-testthat::test_that("append_metadata accepts a function deparse argument", {
+testthat::test_that("append_metadata accepts a function chr_converter argument", {
   testthat::expect_error(ReportCard$new()$append_metadata("key1", "value1", chr_converter = deparse), regexp = NA)
 })
 
-testthat::test_that("append_metadata throws error when deparse argument is not a function", {
+testthat::test_that("append_metadata throws error when chr_converter argument is not a function", {
   testthat::expect_error(
     ReportCard$new()$append_metadata("key1", "value1", chr_converter = "deparse"),
     regexp = "Assertion on 'chr_converter' failed: Must be a function, not 'character'."
