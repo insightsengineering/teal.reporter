@@ -20,7 +20,7 @@ add_card_button_ui <- function(id) {
 }
 
 #' Add Card Button Server
-#' @description server for adding views/cards the Report. Part of the simple Reporter.
+#' @description server for adding views/cards to the Report. Part of the simple Reporter.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character`

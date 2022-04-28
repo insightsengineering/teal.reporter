@@ -25,7 +25,7 @@ download_report_button_ui <- function(id) {
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character`
 #' @param reporter `Reporter` instance.
-#' @param notification logical whether to add shiny notification about the download process, by default `TRUE`.
+#' @param notification `logical` whether to add a shiny notification about the download process. Default `TRUE`.
 #' @param output_types `character` vector with `rmarkdown` output types,
 #' by default `c("pdf document", "html document", "powerpoint presentation", "word document")`.
 #' @return `shiny::moduleServer`

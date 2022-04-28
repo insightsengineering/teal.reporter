@@ -108,9 +108,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
       blocks
     },
-    #' @description Reset the instance, remove already added cards.
+    #' @description Removes all `ReportCard` objects added to this `Reporter`.
     #'
-    #' @return a `Reporter` object
+    #' @return invisibly self
     #'
     reset = function() {
       private$cards <- list()
