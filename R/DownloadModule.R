@@ -132,29 +132,39 @@ download_report_button_srv <- function(id,
           paste("report_", format(Sys.time(), "%y%m%d%H%M%S"), ".zip", sep = "")
         },
         content = function(file) {
-          renderer <- Renderer$new()
-          yaml <- list(
-            author = yaml_quoted(input$docAuthor),
-            title = yaml_quoted(input$docTitle),
-            date = yaml_quoted(as.character(Sys.Date()))
-          )
-
-          yaml[["output"]] <- gsub(" ", "_", input$docType)
-
-          yaml_header <- md_header(yaml::as.yaml(yaml))
-
           if (notification) {
-            shiny::showNotification(sprintf("Rendering and Downloading\n%s.", input$docType))
+            shiny::showNotification(sprintf("Rendering and Downloading a document."))
           }
 
-          renderer$render(reporter$get_blocks(), yaml_header)
-          temp_zip_file <- tempfile(fileext = ".zip")
-          zip::zipr(temp_zip_file, renderer$get_output_dir())
-          file.copy(temp_zip_file, file)
-          rm(renderer)
+          render_and_download(reporter, input, file)
         },
         contentType = "application/zip"
       )
     }
   )
+}
+
+#' Render and Download the Document
+#' @param reporter `Reporter` instance.
+#' @param input shiny input.
+#  @param `character` argument of the content function inside `downloadHandler`.
+#' @keywords internal
+render_and_download <- function(reporter, input, file) {
+  yaml <- list(
+    author = yaml_quoted(input$docAuthor),
+    title = yaml_quoted(input$docTitle),
+    date = yaml_quoted(as.character(Sys.Date()))
+  )
+
+  yaml[["output"]] <- gsub(" ", "_", input$docType)
+
+  yaml_header <- md_header(yaml::as.yaml(yaml))
+
+  renderer <- Renderer$new()
+
+  renderer$render(reporter$get_blocks(), yaml_header)
+  temp_zip_file <- tempfile(fileext = ".zip")
+  zip::zipr(temp_zip_file, renderer$get_output_dir())
+  file.copy(temp_zip_file, file)
+  rm(renderer)
 }
