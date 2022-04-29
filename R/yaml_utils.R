@@ -114,7 +114,7 @@ rmd_output_arguments <- function(output_name, default_values = FALSE) {
 #' All `Rmd` `yaml` header fields from the vector are supported,
 #' `c("author", "date", "title", "subtitle", "abstract", "keywords", "subject", "description", "category", "lang")`.
 #' Moreover all `output`field types in the `rmarkdown` package and their arguments are supported.
-#' @param input `named list` non nested with slots names and their values compatible with `Rmd` `yaml` header.
+#' @param input_list `named list` non nested with slots names and their values compatible with `Rmd` `yaml` header.
 #' @param as_header `logical` optionally wrap with result with the `teal.reporter::md_header`, default `TRUE`.
 #' @param convert_logi `logical`convert a character values to logical,
 #'  if they are recognized as quoted `yaml` logical values , default `TRUE`.
@@ -165,7 +165,7 @@ rmd_output_arguments <- function(output_name, default_values = FALSE) {
 #'   multi_output = TRUE
 #' )
 #'
-as_yaml_auto <- function(input,
+as_yaml_auto <- function(input_list,
                          as_header = TRUE,
                          convert_logi = TRUE,
                          multi_output = FALSE,
@@ -176,17 +176,17 @@ as_yaml_auto <- function(input,
   checkmate::assert_logical(multi_output)
 
   if (multi_output) {
-    checkmate::assert_list(input, names = "named")
+    checkmate::assert_list(input_list, names = "named")
   } else {
-    checkmate::assert_list(input, names = "unique")
+    checkmate::assert_list(input_list, names = "unique")
   }
 
   is_nested <- function(x) any(unlist(lapply(x, is.list)))
-  if (is_nested(input)) {
-    result <- input
+  if (is_nested(input_list)) {
+    result <- input_list
   } else {
     result <- list()
-    input_nams <- names(input)
+    input_nams <- names(input_list)
 
     # top fields
     top_fields <- c(
@@ -196,14 +196,14 @@ as_yaml_auto <- function(input,
     for (itop in top_fields) {
       if (itop %in% input_nams) {
         result[[itop]] <- switch(itop,
-          date = as.character(input[[itop]]),
-          input[[itop]]
+          date = as.character(input_list[[itop]]),
+          input_list[[itop]]
         )
       }
     }
 
     # output field
-    doc_types <- unlist(input[input_nams == "output"])
+    doc_types <- unlist(input_list[input_nams == "output"])
     if (length(doc_types)) {
       for (dtype in doc_types) {
         doc_type_args <- rmd_output_arguments(dtype, TRUE)
@@ -219,20 +219,23 @@ as_yaml_auto <- function(input,
           doc_list <- list()
           doc_list[[dtype]] <- list()
           for (e in intersect(input_nams, doc_type_args_nams)) {
-            if (is.logical(doc_type_args[[e]]) && is.character(input[[e]])) {
+            if (is.logical(doc_type_args[[e]]) && is.character(input_list[[e]])) {
               pos_logi <- c("TRUE", "true", "True", "yes", "y", "Y", "on")
               neg_logi <- c("FALSE", "false", "False", "no", "n", "N", "off")
               all_logi <- c(pos_logi, neg_logi)
-              if (input[[e]] %in% all_logi && convert_logi) {
-                input[[e]] <- conv_str_logi(input[[e]], e, pos_logi = pos_logi, neg_logi = neg_logi, silent = silent)
+              if (input_list[[e]] %in% all_logi && convert_logi) {
+                input_list[[e]] <- conv_str_logi(input_list[[e]], e,
+                  pos_logi = pos_logi,
+                  neg_logi = neg_logi, silent = silent
+                )
               }
             }
 
-            doc_list[[dtype]][[e]] <- input[[e]]
+            doc_list[[dtype]][[e]] <- input_list[[e]]
           }
           result[["output"]] <- append(result[["output"]], doc_list)
         } else {
-          result[["output"]] <- append(result[["output"]], input[["output"]])
+          result[["output"]] <- append(result[["output"]], input_list[["output"]])
         }
       }
     }

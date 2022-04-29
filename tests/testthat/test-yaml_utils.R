@@ -82,11 +82,11 @@ testthat::test_that("as_yaml_auto - works the same as yaml::as.yaml for a nested
   )
 })
 
-input <- list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE, date = Sys.Date())
+input_list <- list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE, date = Sys.Date())
 
 testthat::test_that("as_yaml_auto - parse", {
   testthat::expect_identical(
-    as_yaml_auto(input),
+    as_yaml_auto(input_list),
     structure(
       "---\nauthor: ''\ndate: '2022-04-29'\noutput:\n  pdf_document:\n    toc: yes\n    keep_tex: yes\n---\n",
       class = "rmd_yaml_header"

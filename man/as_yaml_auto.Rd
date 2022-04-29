@@ -5,7 +5,7 @@
 \title{Parse a Named List to the \code{Rmd} \code{yaml} Header}
 \usage{
 as_yaml_auto(
-  input,
+  input_list,
   as_header = TRUE,
   convert_logi = TRUE,
   multi_output = FALSE,
@@ -13,7 +13,7 @@ as_yaml_auto(
 )
 }
 \arguments{
-\item{input}{\verb{named list} non nested with slots names and their values compatible with \code{Rmd} \code{yaml} header.}
+\item{input_list}{\verb{named list} non nested with slots names and their values compatible with \code{Rmd} \code{yaml} header.}
 
 \item{as_header}{\code{logical} optionally wrap with result with the \code{teal.reporter::md_header}, default \code{TRUE}.}
 
