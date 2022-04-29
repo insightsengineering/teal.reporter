@@ -73,23 +73,23 @@ card1$append_plot(
 
 reporter <- Reporter$new()
 reporter$append_cards(list(card1))
-input <- shiny::reactiveValues(author = "NEST", title = "Report", output = "html_document")
+input <- list(author = "NEST", title = "Report", output = "html_document")
 temp_dir <- tempdir()
 
-testthat::test_that("render_and_download - valid arguments", {
-  testthat::expect_error(shiny::isolate(render_report(reporter, input, temp_dir)), NA)
+testthat::test_that("report_render_and_compress - valid arguments", {
+  testthat::expect_error(report_render_and_compress(reporter, input, temp_dir), NA)
 })
 
-testthat::test_that("render_and_download - invalid arguments", {
-  testthat::expect_error(render_report(reporter, list(), temp_zip))
-  testthat::expect_error(render_report(reporter, input, 2))
-  testthat::expect_error(render_report(reporter, list, ""))
+testthat::test_that("report_render_and_compress - invalid arguments", {
+  testthat::expect_error(report_render_and_compress(reporter, list(), temp_zip))
+  testthat::expect_error(report_render_and_compress(reporter, input, 2))
+  testthat::expect_error(report_render_and_compress(reporter, list, ""))
 })
 
-testthat::test_that("render_report - render an html document", {
-  input <- shiny::reactiveValues(author = "NEST", title = "Report", output = "html_document")
+testthat::test_that("report_render_and_compress - render an html document", {
+  input <- list(author = "NEST", title = "Report", output = "html_document")
   temp_dir <- tempdir()
-  res_path <- shiny::isolate(render_report(reporter, input, temp_dir))
+  res_path <- report_render_and_compress(reporter, input, temp_dir)
   expect_identical(res_path, temp_dir)
   files <- list.files(temp_dir, recursive = TRUE)
   testthat::expect_true(any(grepl("[.]Rmd", files)))

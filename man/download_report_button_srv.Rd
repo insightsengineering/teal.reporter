@@ -8,8 +8,10 @@ download_report_button_srv(
   id,
   reporter,
   notification = TRUE,
-  output_types = c("pdf_document", "html_document", "powerpoint_presentation",
-    "word_document")
+  rmd_output = c("html_document", "pdf_document", "powerpoint_presentation",
+    "word_document"),
+  rmd_yaml_args = list(author = "NEST", title = "Report", date =
+    as.character(Sys.Date()), output = "html_document")
 )
 }
 \arguments{
@@ -19,8 +21,12 @@ download_report_button_srv(
 
 \item{notification}{\code{logical} whether to add a shiny notification about the download process. Default \code{TRUE}.}
 
-\item{output_types}{\code{character} vector with \code{rmarkdown} output types,
+\item{rmd_output}{\code{character} vector with \code{rmarkdown} output types,
 by default \code{c("pdf_document", "html_document", "powerpoint_presentation", "word_document")}.}
+
+\item{rmd_yaml_args}{\verb{named list} vector with \code{Rmd} \code{yaml} header fields and their default values.
+Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document")}.
+Please update only values at this moment.}
 }
 \value{
 \code{shiny::moduleServer}

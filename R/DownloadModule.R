@@ -26,16 +26,23 @@ download_report_button_ui <- function(id) {
 #' @param id `character`
 #' @param reporter `Reporter` instance.
 #' @param notification `logical` whether to add a shiny notification about the download process. Default `TRUE`.
-#' @param output_types `character` vector with `rmarkdown` output types,
+#' @param rmd_output `character` vector with `rmarkdown` output types,
 #' by default `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
+#' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
+#' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document")`.
+#' Please update only values at this moment.
 #' @return `shiny::moduleServer`
 #' @export
 download_report_button_srv <- function(id,
                                        reporter,
                                        notification = TRUE,
-                                       output_types = c(
-                                         "pdf_document", "html_document",
+                                       rmd_output = c(
+                                         "html_document", "pdf_document",
                                          "powerpoint_presentation", "word_document"
+                                       ),
+                                       rmd_yaml_args = list(
+                                         author = "NEST", title = "Report",
+                                         date = as.character(Sys.Date()), output = "html_document"
                                        )) {
   shiny::moduleServer(
     id,
@@ -69,13 +76,15 @@ download_report_button_srv <- function(id,
               ),
             )
           },
-          shiny::textInput(ns("author"), label = "Author:", value = "NEST"),
-          shiny::textInput(ns("title"), label = "Title:", value = "NEST Report"),
+          shiny::textInput(ns("author"), label = "Author:", value = rmd_yaml_args$author),
+          shiny::textInput(ns("title"), label = "Title:", value = rmd_yaml_args$title),
+          shiny::dateInput(ns("date"), "Date:", value = rmd_yaml_args$date),
           shiny::tags$div(
             shinyWidgets::pickerInput(
               inputId = ns("output"),
               label = "Choose a document type: ",
-              choices = output_types
+              choices = rmd_output,
+              selected = rmd_yaml_args$output
             )
           ),
           if (failed) {
@@ -135,8 +144,9 @@ download_report_button_srv <- function(id,
           if (notification) {
             shiny::showNotification(sprintf("Rendering and Downloading a document."))
           }
-
-          render_report(reporter, input, file)
+          input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
+          names(input_list) <- names(rmd_yaml_args)
+          report_render_and_compress(reporter, input_list, file)
         },
         contentType = "application/zip"
       )
@@ -147,19 +157,19 @@ download_report_button_srv <- function(id,
 #' Render the Report
 #' @description render the report and zip the created directory.
 #' @param reporter `Reporter` instance.
-#' @param input `reactivevalues` shiny input.
+#' @param input `list` like shiny input converted to a regular list.
 #' @param file `character` where to copy the returned directory.
 #' @return `file` argument
 #' @keywords internal
-render_report <- function(reporter, input, file = tempdir()) {
+report_render_and_compress <- function(reporter, input, file = tempdir()) {
   checkmate::assert_class(reporter, "Reporter")
-  checkmate::assert_class(input, "reactivevalues")
+  checkmate::assert_list(input, names = "named")
   checkmate::assert_string(file)
 
   yaml <- list(
     author = input$author,
     title = input$title,
-    date = as.character(Sys.Date())
+    date = as.character(input$date)
   )
   if (!is.null(input$output)) {
     yaml[["output"]] <- input$output
