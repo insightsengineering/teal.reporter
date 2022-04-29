@@ -175,15 +175,7 @@ report_render_and_compress <- function(reporter, input, file = tempdir()) {
   checkmate::assert_list(input, names = "named")
   checkmate::assert_string(file)
 
-  yaml <- list(
-    author = input$author,
-    title = input$title,
-    date = as.character(input$date)
-  )
-  if (!is.null(input$output)) {
-    yaml[["output"]] <- input$output
-  }
-  yaml_header <- md_header(yaml::as.yaml(yaml))
+  yaml_header <- as_yaml_auto(input)
 
   renderer <- Renderer$new()
   renderer$render(reporter$get_blocks(), yaml_header)
