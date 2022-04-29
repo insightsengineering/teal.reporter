@@ -15,6 +15,8 @@ conv_str_logi(
 \arguments{
 \item{input}{\code{character}}
 
+\item{name}{\code{charcter}}
+
 \item{pos_logi}{\code{character} vector of \code{yaml} values which should be treated as \code{TRUE}.}
 
 \item{neg_logi}{\code{character} vector of \code{yaml} values which should be treated as \code{FALSE}.}

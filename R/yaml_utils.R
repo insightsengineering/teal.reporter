@@ -34,6 +34,7 @@ md_header <- function(x) {
 #' @title Convert a character of a `yaml` boolean to a logical value
 #' @description convert a character of a `yaml` boolean to a logical value.
 #' @param input `character`
+#' @param name `charcter`
 #' @param pos_logi `character` vector of `yaml` values which should be treated as `TRUE`.
 #' @param neg_logi `character` vector of `yaml` values which should be treated as `FALSE`.
 #' @param silent `logical` if to suppress the messages and warnings.
@@ -53,7 +54,12 @@ conv_str_logi <- function(input,
                           pos_logi = c("TRUE", "true", "True", "yes", "y", "Y", "on"),
                           neg_logi = c("FALSE", "false", "False", "no", "n", "N", "off"),
                           silent = TRUE) {
-  checkmate::assert_character(input)
+  checkmate::assert_string(input)
+  checkmate::assert_string(name)
+  checkmate::assert_character(pos_logi)
+  checkmate::assert_character(neg_logi)
+  checkmate::assert_flag(silent)
+
   all_logi <- c(pos_logi, neg_logi)
   if (input %in% all_logi) {
     if (isFALSE(silent)) {
