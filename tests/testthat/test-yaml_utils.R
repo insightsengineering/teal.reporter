@@ -76,7 +76,9 @@ testthat::test_that("as_yaml_auto - accept a named list (optionally nested)", {
 testthat::test_that("as_yaml_auto - works the same as yaml::as.yaml for a nested list when as_header is FALSE", {
   testthat::expect_identical(
     as_yaml_auto(list(author = "", output = list(pdf_document = list(toc = TRUE))), as_header = FALSE),
-    structure(yaml::as.yaml(list(author = "", output = list(pdf_document = list(toc = TRUE)))), class = "yaml_header")
+    structure(yaml::as.yaml(list(author = "", output = list(pdf_document = list(toc = TRUE)))),
+      class = "rmd_yaml_header"
+    )
   )
 })
 
@@ -86,7 +88,7 @@ testthat::test_that("as_yaml_auto - parse", {
   testthat::expect_identical(
     as_yaml_auto(input),
     structure("---\nauthor: ''\noutput:\n  pdf_document:\n    toc: yes\n    keep_tex: yes\n---\n",
-      class = "yaml_header"
+      class = "rmd_yaml_header"
     )
   )
 })
@@ -95,7 +97,7 @@ testthat::test_that("as_yaml_auto - warning for not accepted argument and skip i
   testthat::expect_warning(testthat::expect_identical(
     as_yaml_auto(list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE, wrong = 2)),
     structure("---\nauthor: ''\noutput:\n  pdf_document:\n    toc: yes\n    keep_tex: yes\n---\n",
-      class = "yaml_header"
+      class = "rmd_yaml_header"
     )
   ))
 })
@@ -104,7 +106,7 @@ testthat::test_that("as_yaml_auto - silent the warning for not accepted argument
   testthat::expect_identical(
     as_yaml_auto(list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE, wrong = 2), silent = TRUE),
     structure("---\nauthor: ''\noutput:\n  pdf_document:\n    toc: yes\n    keep_tex: yes\n---\n",
-      class = "yaml_header"
+      class = "rmd_yaml_header"
     )
   )
 })
@@ -113,7 +115,7 @@ testthat::test_that("as_yaml_auto - convert character logical to logical", {
   testthat::expect_identical(
     as_yaml_auto(list(author = "", output = "pdf_document", toc = TRUE, keep_tex = "True"), silent = TRUE),
     structure("---\nauthor: ''\noutput:\n  pdf_document:\n    toc: yes\n    keep_tex: yes\n---\n",
-      class = "yaml_header"
+      class = "rmd_yaml_header"
     )
   )
 })
