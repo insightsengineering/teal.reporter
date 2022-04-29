@@ -25,7 +25,8 @@ add_card_button_ui <- function(id) {
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character`
 #' @param reporter `Reporter` instance.
-#' @param card_fun `function` which returns a `ReportCard` instance.
+#' @param card_fun `function` which returns a `ReportCard` instance,
+#' the function have at least two arguments `card` and `comment`.
 #' @return `shiny::moduleServer`
 #' @export
 #' @export

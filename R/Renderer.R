@@ -51,7 +51,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'   author = teal.reporter:::yaml_quoted("NEST"),
     #'   title = teal.reporter:::yaml_quoted("Report"),
     #'   date = teal.reporter:::yaml_quoted("07/04/2019"),
-    #'   output = list(pdf_document = list(keep_tex = TRUE))
+    #'   output = list(html_document = list(toc = FALSE))
     #' )
     #'
     #' yaml_header <- teal.reporter:::md_header(yaml::as.yaml(yaml_l))
@@ -103,7 +103,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'   author = teal.reporter:::yaml_quoted("NEST"),
     #'   title = teal.reporter:::yaml_quoted("Report"),
     #'   date = teal.reporter:::yaml_quoted("07/04/2019"),
-    #'   output = list(pdf_document = list(keep_tex = TRUE))
+    #'   output = list(html_document = list(toc = FALSE))
     #' )
     #'
     #' yaml_header <- teal.reporter:::md_header(yaml::as.yaml(yaml_l))

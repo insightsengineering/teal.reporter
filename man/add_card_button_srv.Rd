@@ -11,7 +11,8 @@ add_card_button_srv(id, reporter, card_fun)
 
 \item{reporter}{\code{Reporter} instance.}
 
-\item{card_fun}{\code{function} which returns a \code{ReportCard} instance.}
+\item{card_fun}{\code{function} which returns a \code{ReportCard} instance,
+the function have at least two arguments \code{card} and \code{comment}.}
 }
 \value{
 \code{shiny::moduleServer}

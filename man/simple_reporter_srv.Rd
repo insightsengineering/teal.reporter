@@ -11,7 +11,8 @@ simple_reporter_srv(id, reporter, card_fun, notification = TRUE)
 
 \item{reporter}{\code{Reporter} instance.}
 
-\item{card_fun}{\code{function} which returns a \code{ReportCard} instance.}
+\item{card_fun}{\code{function} which returns a \code{ReportCard} instance,
+the function have at least two arguments \code{card} and \code{comment}.}
 
 \item{notification}{logical if to add shiny notification about the download process.}
 }
