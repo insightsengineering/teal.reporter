@@ -60,7 +60,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
               "Cancel"
             ),
             shiny::tags$button(
-              id = ns("addCardOk"),
+              id = ns("add_card_ok"),
               type = "button",
               class = "btn btn-primary action-button",
               `data-val` = shiny::restoreInput(id = ns("addCardOk"), default = NULL),
@@ -75,7 +75,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
         shiny::showModal(add_modal())
       })
 
-      shiny::observeEvent(input$addCardOk, {
+      shiny::observeEvent(input$add_card_ok, {
         card <- ReportCard$new()
         card_fun(card, input$comment)
         checkmate::assert_class(card, "ReportCard")
