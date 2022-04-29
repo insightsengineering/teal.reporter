@@ -18,9 +18,9 @@ testthat::test_that("add_card_button_srv - add a Card to the Reporter", {
     args = list(reporter = reporter, card_fun = card_fun),
     expr = {
       card_len <- length(card_fun()$get_content())
-      session$setInputs(`addReportCardButton` = 0)
+      session$setInputs(`add_report_card_button` = 0)
       session$setInputs(comment = "Comment Body")
-      session$setInputs(`addCardOk` = 0)
+      session$setInputs(`add_card_ok` = 0)
 
       testthat::expect_identical(
         length(reporter$get_blocks()),

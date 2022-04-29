@@ -12,7 +12,7 @@ simple_reporter_srv(id, reporter, card_fun, notification = TRUE)
 \item{reporter}{\code{Reporter} instance.}
 
 \item{card_fun}{\code{function} which returns a \code{ReportCard} instance,
-the function have at least two arguments \code{card} and \code{comment}.}
+the function have at\code{card}argument and optional \code{comment}.}
 
 \item{notification}{logical if to add shiny notification about the download process.}
 }
@@ -21,7 +21,7 @@ the function have at least two arguments \code{card} and \code{comment}.}
 }
 \description{
 two buttons for adding views and downloading the Report.
-The add module has \code{addReportCard} id and download module the \code{downloadButton} id.
+The add module has \code{add_report_card_simple} id and download module the \code{download_button_simple} id.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }

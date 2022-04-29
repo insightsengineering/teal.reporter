@@ -9,10 +9,10 @@ add_card_button_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::tags$button(
-      id = ns("addReportCardButton"),
+      id = ns("add_report_card_button"),
       type = "button",
       class = "btn btn-primary action-button",
-      `data-val` = shiny::restoreInput(id = ns("addReportCardButton"), default = NULL),
+      `data-val` = shiny::restoreInput(id = ns("add_report_card_button"), default = NULL),
       NULL,
       "Add Card"
     )
@@ -26,10 +26,14 @@ add_card_button_ui <- function(id) {
 #' @param id `character`
 #' @param reporter `Reporter` instance.
 #' @param card_fun `function` which returns a `ReportCard` instance,
-#' the function has at least two arguments `card` and `comment`.
+#' the function have at`card`argument and optional `comment`.
 #' @return `shiny::moduleServer`
 #' @export
 add_card_button_srv <- function(id, reporter, card_fun) {
+  checkmate::assert_function(card_fun)
+  checkmate::assert_class(reporter, "Reporter")
+  checkmate::assert_subset(names(formals(card_fun)), c("card", "comment"), empty.ok = FALSE)
+
   shiny::moduleServer(
     id,
     function(input, output, session) {
@@ -63,7 +67,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
               id = ns("add_card_ok"),
               type = "button",
               class = "btn btn-primary action-button",
-              `data-val` = shiny::restoreInput(id = ns("addCardOk"), default = NULL),
+              `data-val` = shiny::restoreInput(id = ns("add_card_ok"), default = NULL),
               NULL,
               "Add Card"
             )
@@ -71,13 +75,20 @@ add_card_button_srv <- function(id, reporter, card_fun) {
         )
       }
 
-      shiny::observeEvent(input$addReportCardButton, {
+      shiny::observeEvent(input$add_report_card_button, {
         shiny::showModal(add_modal())
       })
 
       shiny::observeEvent(input$add_card_ok, {
         card <- ReportCard$new()
-        card_fun(card, input$comment)
+        card_fun_args_nams <- names(formals(card_fun))
+        if (length(card_fun_args_nams) == 1) {
+          card_fun(card)
+          card$append_text("Comment", "header3")
+          card$append_text(input$comment)
+        } else {
+          card_fun(card, input$comment)
+        }
         checkmate::assert_class(card, "ReportCard")
         reporter$append_cards(list(card))
         shiny::removeModal()
