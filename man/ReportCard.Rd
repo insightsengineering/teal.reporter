@@ -4,9 +4,8 @@
 \alias{ReportCard}
 \title{\code{ReportCard}}
 \description{
-\code{ReportCard}
-
-\code{ReportCard}
+R6 class that supports creating a report card containing text, plot, table and
+meta data blocks that can be appended and rendered to form a report output from a shiny app.
 }
 \examples{
 
@@ -46,8 +45,37 @@ card <- ReportCard$new()$append_text("A paragraph of default text")
 
 card <- ReportCard$new()$append_text("Some text")$append_plot(
   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-)
+)$append_metadata("rc", "a <- 2 + 2")
+
 card$get_content()
+
+
+## ------------------------------------------------
+## Method `ReportCard$append_metadata`
+## ------------------------------------------------
+
+custom_lm_chr_converter <- function(x) paste(capture.output(summary(x)), collapse = "\\\\n  ")
+card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)$append_text("Some text")$append_metadata(key = "lm",
+                  value = lm(Ozone ~ Solar.R, airquality),
+                  chr_converter = custom_lm_chr_converter)
+card$get_content()
+card$get_content(raw = TRUE)
+
+
+## ------------------------------------------------
+## Method `ReportCard$get_chr_converters`
+## ------------------------------------------------
+
+custom_lm_chr_converter <- function(x) paste(capture.output(summary(x)), collapse = "\\\\n  ")
+card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)$append_text("Some text")$append_metadata(key = "lm",
+                  value = lm(Ozone ~ Solar.R, airquality),
+                  chr_converter = custom_lm_chr_converter
+)$append_metadata(key = "code", value = lm(Ozone ~ Solar.R, airquality))
+card$get_chr_converters()
 
 }
 \section{Methods}{
@@ -58,6 +86,8 @@ card$get_content()
 \item \href{#method-append_plot}{\code{ReportCard$append_plot()}}
 \item \href{#method-append_text}{\code{ReportCard$append_text()}}
 \item \href{#method-get_content}{\code{ReportCard$get_content()}}
+\item \href{#method-append_metadata}{\code{ReportCard$append_metadata()}}
+\item \href{#method-get_chr_converters}{\code{ReportCard$get_chr_converters()}}
 \item \href{#method-clone}{\code{ReportCard$clone()}}
 }
 }
@@ -180,18 +210,99 @@ invisibly self
 \subsection{Method \code{get_content()}}{
 Returns the content of this \code{ReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_content()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_content(raw = FALSE)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{raw}}{(\code{logical}) whether to include \code{content} as it was appended or apply \code{chr_converter}
+functions on meta data objects.}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
-\code{list()} list of \code{TableBlock}, \code{TextBlock} and \code{PictureBlock}
+\code{list()} list of \code{TableBlock}, \code{TextBlock} and \code{PictureBlock}.
+If the \code{raw} argument is \code{TRUE}, meta data objects in the form they were added will be returned. Otherwise,
+given \code{chr_converter} function given will be applied on these objects.
+Only metadata elements are named.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{card <- ReportCard$new()$append_text("Some text")$append_plot(
   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-)
+)$append_metadata("rc", "a <- 2 + 2")
+
 card$get_content()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-append_metadata"></a>}}
+\if{latex}{\out{\hypertarget{method-append_metadata}{}}}
+\subsection{Method \code{append_metadata()}}{
+Appends content elements to this \code{ReportCard}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_metadata(key, value, chr_converter = deparse1)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{key}}{(\code{character(1)}) name of meta data.}
+
+\item{\code{value}}{value of meta data.}
+
+\item{\code{chr_converter}}{(\code{function}) to convert a value to a character, by default \code{base::deparse1}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{custom_lm_chr_converter <- function(x) paste(capture.output(summary(x)), collapse = "\\\\n  ")
+card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)$append_text("Some text")$append_metadata(key = "lm",
+                  value = lm(Ozone ~ Solar.R, airquality),
+                  chr_converter = custom_lm_chr_converter)
+card$get_content()
+card$get_content(raw = TRUE)
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_chr_converters"></a>}}
+\if{latex}{\out{\hypertarget{method-get_chr_converters}{}}}
+\subsection{Method \code{get_chr_converters()}}{
+get all \code{chr_converter} functions of this \code{ReportCard}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_chr_converters()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\verb{named list}
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{custom_lm_chr_converter <- function(x) paste(capture.output(summary(x)), collapse = "\\\\n  ")
+card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)$append_text("Some text")$append_metadata(key = "lm",
+                  value = lm(Ozone ~ Solar.R, airquality),
+                  chr_converter = custom_lm_chr_converter
+)$append_metadata(key = "code", value = lm(Ozone ~ Solar.R, airquality))
+card$get_chr_converters()
 
 }
 \if{html}{\out{</div>}}
