@@ -12,7 +12,7 @@ Reporter"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/ma
     
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9007</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 30px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -291,26 +291,32 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;ReportCard&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     append_metadata: function (key, value, chr_converter = deparse1) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     append_plot: function (plot) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     append_table: function (table) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     append_text: function (text, style = TextBlock$new()$get_available_styles()[1]) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_chr_converters: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function (raw = FALSE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     chr_converters: list</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     content: list</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;ReportCard&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     append_metadata: function (key, value, chr_converter = deparse1) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     append_plot: function (plot) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     append_table: function (table) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     append_text: function (text, style = TextBlock$new()$get_available_styles()[1]) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_chr_converters: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function (raw = FALSE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     chr_converters: list</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     content: list</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -389,7 +395,7 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_dim: function (dim) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpCuvln4/file24421ea9fae.png</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpmWrcwf/file116adf079b.png</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis</span>
@@ -454,7 +460,7 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (table) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpCuvln4/file244268cf199.rds</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpmWrcwf/file11644d81f05.rds</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_tables: data.frame DT rtables TableTree</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -468,7 +474,7 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (table) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpCuvln4/file2446c15b547.rds</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpmWrcwf/file11632816936.rds</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_tables: data.frame DT rtables TableTree</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
