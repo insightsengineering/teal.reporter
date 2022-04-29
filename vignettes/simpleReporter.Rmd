@@ -31,7 +31,7 @@ The implementation should consist of 5 steps:
 1. Add modules user interface to the user interface of the app.
 2. Initialize Reporter instance.
 3. Create the Report Card function with two arguments: card and comment.
-The function should build the Card step by step and assuming it is empty ad the start, 
+The function should build the Card step by step and assuming it is empty at the beginning,
 the optional comment argument is a string provided by the user when the card is added.
 If the comment argument is not specified then it is added automatically at the end of the Card.
 This part requires the developer to use their imagination on how the document page should look like. 
