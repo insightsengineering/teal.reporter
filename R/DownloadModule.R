@@ -27,7 +27,7 @@ download_report_button_ui <- function(id) {
 #' @param reporter `Reporter` instance.
 #' @param notification `logical` whether to add a shiny notification about the download process. Default `TRUE`.
 #' @param rmd_output `character` vector with `rmarkdown` output types,
-#' by default `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
+#' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
 #' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
 #' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document")`.
 #' Please update only values at this moment.
@@ -44,6 +44,15 @@ download_report_button_srv <- function(id,
                                          author = "NEST", title = "Report",
                                          date = as.character(Sys.Date()), output = "html_document"
                                        )) {
+  checkmate::assert_class(reporter, "Reporter")
+  checkmate::assert_flag(notification)
+  checkmate::assert_subset(rmd_output, c(
+    "html_document", "pdf_document",
+    "powerpoint_presentation", "word_document"
+  ))
+  checkmate::assert_list(rmd_yaml_args, names = "named")
+  checkmate::assert_true(all(c("author", "title", "date", "output") %in% names(rmd_yaml_args)))
+
   shiny::moduleServer(
     id,
     function(input, output, session) {

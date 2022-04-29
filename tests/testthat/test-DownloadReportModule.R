@@ -12,7 +12,7 @@ reporter$append_cards(list(card1))
 testthat::test_that("download_report_button_srv - render and downlaod a document", {
   shiny::testServer(
     download_report_button_srv,
-    args = list(reporter = reporter),
+    args = list(reporter = reporter, notification = FALSE),
     expr = {
       session$setInputs(`download_button` = 0)
       session$setInputs(`output` = "html_document")
@@ -47,7 +47,7 @@ reporter$append_cards(list(card1))
 testthat::test_that("download_report_button_srv - reset a report", {
   shiny::testServer(
     download_report_button_srv,
-    args = list(reporter = reporter),
+    args = list(reporter = reporter, notification = FALSE),
     expr = {
       testthat::expect_identical(reporter$get_cards(), list(card1))
       session$setInputs(`reset_reporter` = 0)

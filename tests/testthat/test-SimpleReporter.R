@@ -12,7 +12,7 @@ reporter$append_cards(list(card1))
 testthat::test_that("simple_reporter_srv - render and downlaod  a document", {
   shiny::testServer(
     simple_reporter_srv,
-    args = list(reporter = reporter, card_fun = NULL),
+    args = list(reporter = reporter, notification = FALSE, card_fun = NULL),
     expr = {
       session$setInputs(`download_button` = 0)
       session$setInputs(`downloadButton-output` = "html_document")
@@ -47,7 +47,7 @@ reporter$append_cards(list(card1))
 testthat::test_that("simple_reporter_srv - reset a reporter", {
   shiny::testServer(
     simple_reporter_srv,
-    args = list(reporter = reporter),
+    args = list(reporter = reporter, notification = FALSE),
     expr = {
       testthat::expect_identical(reporter$get_cards(), list(card1))
       session$setInputs(`downloadButton-reset_reporter` = 0)
@@ -73,7 +73,7 @@ reporter <- Reporter$new()
 testthat::test_that("simple_reporter_srv - add a Card to Reporter", {
   shiny::testServer(
     simple_reporter_srv,
-    args = list(reporter = reporter, card_fun = card_fun),
+    args = list(reporter = reporter, notification = FALSE, card_fun = card_fun),
     expr = {
       card_len <- length(card_fun()$get_content())
       session$setInputs(`addReportCard-addReportCardButton` = 0)
