@@ -23,6 +23,12 @@ Reporter"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/ma
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/simpleReporter.html">Simple Reporter</a>
+  </div>
+</li>
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
@@ -63,6 +69,7 @@ Reporter"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/ma
 <li><p><a href="#method-append_cards"><code>Reporter$append_cards()</code></a></p></li>
 <li><p><a href="#method-get_cards"><code>Reporter$get_cards()</code></a></p></li>
 <li><p><a href="#method-get_blocks"><code>Reporter$get_blocks()</code></a></p></li>
+<li><p><a href="#method-reset"><code>Reporter$reset()</code></a></p></li>
 <li><p><a href="#method-clone"><code>Reporter$clone()</code></a></p></li>
 </ul></div><p></p><hr><a id="method-new"></a><div class="section">
 <h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
@@ -205,10 +212,22 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 </div>
 
 
+</div><p></p><hr><a id="method-reset"></a><div class="section">
+<h3 id="method-reset-">Method <code>reset()</code><a class="anchor" aria-label="anchor" href="#method-reset-"></a></h3>
+<p>Removes all <code>ReportCard</code> objects added to this <code>Reporter</code>.</p><div class="section">
+<h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Reporter</span><span class="op">$</span><span class="fu">reset</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="returns-4">Returns<a class="anchor" aria-label="anchor" href="#returns-4"></a></h4>
+<p>invisibly self</p>
+</div>
+
 </div><p></p><hr><a id="method-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
+<h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Reporter</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div><p></p></div>
 </div>
 
@@ -395,7 +414,7 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_dim: function (dim) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpmWrcwf/file116adf079b.png</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/Rtmp0tKQKF/file10f7eb0ab9d.png</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis</span>
@@ -460,7 +479,7 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (table) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpmWrcwf/file11644d81f05.rds</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/Rtmp0tKQKF/file10f5ff0a0c6.rds</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_tables: data.frame DT rtables TableTree</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -474,7 +493,7 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (table) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpmWrcwf/file11632816936.rds</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/Rtmp0tKQKF/file10f5b5887a8.rds</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_tables: data.frame DT rtables TableTree</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

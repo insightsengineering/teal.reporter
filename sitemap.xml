@@ -7,6 +7,12 @@
     <loc>https://insightsengineering.github.io/teal.reporter/LICENSE-text.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/articles/simpleReporter.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/teal.reporter/authors.html</loc>
   </url>
   <url>
@@ -46,10 +52,31 @@
     <loc>https://insightsengineering.github.io/teal.reporter/reference/TextBlock.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/add_card_button_srv.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/add_card_button_ui.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/download_report_button_srv.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/download_report_button_ui.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/index.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/md_header.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/report_render_and_compress.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/simple_reporter_srv.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/simple_reporter_ui.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/teal.reporter.html</loc>
