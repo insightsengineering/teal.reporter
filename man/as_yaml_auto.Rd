@@ -25,7 +25,8 @@ if they are recognized as quoted \code{yaml} logical values , default \code{TRUE
 \item{silent}{\code{logical} suppress messages and warnings, default \code{FALSE}.}
 }
 \value{
-\code{character} result of \code{\link[yaml:as.yaml]{yaml::as.yaml}}, optionally wrapped with \code{teal.reporter::md_header}.
+\code{character} with \code{rmd_yaml_header} class,
+result of \code{\link[yaml:as.yaml]{yaml::as.yaml}}, optionally wrapped with \code{teal.reporter::md_header}.
 }
 \description{
 parse a named list to the \code{Rmd} \code{yaml} header, so the developer gets automatically tabulated \code{Rmd} \code{yaml} header.

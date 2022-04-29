@@ -114,7 +114,8 @@ rmd_output_arguments <- function(output_name, default_values = FALSE) {
 #'  if they are recognized as quoted `yaml` logical values , default `TRUE`.
 #' @param multi_output `logical`multi `output` slots in the `input` argument, default `FALSE`.
 #' @param silent `logical` suppress messages and warnings, default `FALSE`.
-#' @return `character` result of [`yaml::as.yaml`], optionally wrapped with `teal.reporter::md_header`.
+#' @return `character` with `rmd_yaml_header` class,
+#' result of [`yaml::as.yaml`], optionally wrapped with `teal.reporter::md_header`.
 #' @export
 #' @examples
 #' # nested so using yaml::as.yaml directly
@@ -237,13 +238,13 @@ as_yaml_auto <- function(input,
   if (as_header) {
     result <- md_header(result)
   }
-  structure(result, class = "yaml_header")
+  structure(result, class = "rmd_yaml_header")
 }
 
 #' @title Print method for the `yaml_header` class
 #'
 #' @description Print method for the `yaml_header` class.
-#' @param x `yaml_header` class object.
+#' @param x `rmd_yaml_header` class object.
 #' @param ... optional text.
 #' @return NULL
 #' @exportS3Method
@@ -253,6 +254,6 @@ as_yaml_auto <- function(input,
 #' out
 #' print(out)
 #'
-print.yaml_header <- function(x, ...) {
+print.rmd_yaml_header <- function(x, ...) {
   cat(x, ...)
 }
