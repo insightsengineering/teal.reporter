@@ -84,8 +84,10 @@ add_card_button_srv <- function(id, reporter, card_fun) {
         card_fun_args_nams <- names(formals(card_fun))
         if (length(card_fun_args_nams) == 1) {
           card_fun(card)
-          card$append_text("Comment", "header3")
-          card$append_text(input$comment)
+          if (length(input$comment) > 0 && input$comment != "") {
+            card$append_text("Comment", "header3")
+            card$append_text(input$comment)
+          }
         } else {
           card_fun(card, input$comment)
         }
