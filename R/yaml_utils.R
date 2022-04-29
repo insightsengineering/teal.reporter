@@ -188,7 +188,12 @@ as_yaml_auto <- function(input,
       "keywords", "subject", "description", "category", "lang"
     )
     for (itop in top_fields) {
-      if (itop %in% input_nams) result[[itop]] <- input[[itop]]
+      if (itop %in% input_nams) {
+        result[[itop]] <- switch(itop,
+          date = as.character(input[[itop]]),
+          input[[itop]]
+        )
+      }
     }
 
     # output field
@@ -208,22 +213,15 @@ as_yaml_auto <- function(input,
           doc_list <- list()
           doc_list[[dtype]] <- list()
           for (e in intersect(input_nams, doc_type_args_nams)) {
-            if (!is.null(doc_type_args[[e]])) {
-              expected_class <- class(doc_type_args[[e]])
-              provided_class <- class(input[[e]])
-
+            if (is.logical(doc_type_args[[e]]) && is.character(input[[e]])) {
               pos_logi <- c("TRUE", "true", "True", "yes", "y", "Y", "on")
               neg_logi <- c("FALSE", "false", "False", "no", "n", "N", "off")
               all_logi <- c(pos_logi, neg_logi)
-
-              if ("character" %in% provided_class && input[[e]] %in% all_logi &&
-                "logical" %in% expected_class && convert_logi) {
+              if (input[[e]] %in% all_logi && convert_logi) {
                 input[[e]] <- conv_str_logi(input[[e]], e, pos_logi = pos_logi, neg_logi = neg_logi, silent = silent)
-              } else if (isFALSE(silent) && length(intersect(expected_class, provided_class)) == 0) {
-                w_template <- "The %s yaml argument with a value %s could have a wrong type, possibly should be %s"
-                warning(sprintf(w_template, e, input[[e]], paste(expected_class, collapse = ", ")))
               }
             }
+
             doc_list[[dtype]][[e]] <- input[[e]]
           }
           result[["output"]] <- append(result[["output"]], doc_list)
