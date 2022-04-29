@@ -107,7 +107,7 @@ server <- function(input, output, session) {
 
   ### REPORTER
   reporter <- teal.reporter::Reporter$new()
-  card_fun <- function(card = ReportCard$new(), 
+  card_fun <- function(card = ReportCard$new(),
                        comment) {
     if (input$tabs == "Plot") {
       card$append_text("My plot", "header2")
