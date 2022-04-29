@@ -7,3 +7,5 @@
 ^\.github$
 ^\.lintr$
 ^\.pre-commit-config\.yaml$
+^doc$
+^Meta$
