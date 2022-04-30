@@ -4,17 +4,17 @@
 \alias{report_render_and_compress}
 \title{Render the Report}
 \usage{
-report_render_and_compress(reporter, input, file = tempdir())
+report_render_and_compress(reporter, input_list, file = tempdir())
 }
 \arguments{
 \item{reporter}{\code{Reporter} instance.}
 
-\item{input}{\code{list} like shiny input converted to a regular list.}
+\item{input_list}{\code{list} like shiny input converted to a regular named list.}
 
 \item{file}{\code{character} where to copy the returned directory.}
 }
 \value{
-\code{file} argument
+\code{file} argument, invisibly.
 }
 \description{
 render the report and zip the created directory.

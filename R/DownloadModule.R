@@ -166,24 +166,16 @@ download_report_button_srv <- function(id,
 #' Render the Report
 #' @description render the report and zip the created directory.
 #' @param reporter `Reporter` instance.
-#' @param input `list` like shiny input converted to a regular list.
+#' @param input_list `list` like shiny input converted to a regular named list.
 #' @param file `character` where to copy the returned directory.
-#' @return `file` argument
+#' @return `file` argument, invisibly.
 #' @keywords internal
-report_render_and_compress <- function(reporter, input, file = tempdir()) {
+report_render_and_compress <- function(reporter, input_list, file = tempdir()) {
   checkmate::assert_class(reporter, "Reporter")
-  checkmate::assert_list(input, names = "named")
+  checkmate::assert_list(input_list, names = "named")
   checkmate::assert_string(file)
 
-  yaml <- list(
-    author = input$author,
-    title = input$title,
-    date = as.character(input$date)
-  )
-  if (!is.null(input$output)) {
-    yaml[["output"]] <- input$output
-  }
-  yaml_header <- md_header(yaml::as.yaml(yaml))
+  yaml_header <- as_yaml_auto(input_list)
 
   renderer <- Renderer$new()
   renderer$render(reporter$get_blocks(), yaml_header)
@@ -193,5 +185,5 @@ report_render_and_compress <- function(reporter, input, file = tempdir()) {
   file.copy(temp_zip_file, file)
 
   rm(renderer)
-  file
+  invisible(file)
 }
