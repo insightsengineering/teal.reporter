@@ -3,7 +3,7 @@ pkgdown: 2.0.3
 pkgdown_sha: ~
 articles:
   simpleReporter: simpleReporter.html
-last_built: 2022-04-29T10:13Z
+last_built: 2022-04-30T10:56Z
 urls:
   reference: https://insightsengineering.github.io/teal.reporter/reference
   article: https://insightsengineering.github.io/teal.reporter/articles

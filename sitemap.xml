@@ -58,6 +58,12 @@
     <loc>https://insightsengineering.github.io/teal.reporter/reference/add_card_button_ui.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/as_yaml_auto.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/conv_str_logi.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/download_report_button_srv.html</loc>
   </url>
   <url>
@@ -70,7 +76,16 @@
     <loc>https://insightsengineering.github.io/teal.reporter/reference/md_header.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/print.rmd_yaml_header.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/report_render_and_compress.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/rmd_output_arguments.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/rmd_outputs.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/simple_reporter_srv.html</loc>

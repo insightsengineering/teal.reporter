@@ -57,21 +57,21 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">report_render_and_compress</span><span class="op">(</span><span class="va">reporter</span>, <span class="va">input</span>, file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">report_render_and_compress</span><span class="op">(</span><span class="va">reporter</span>, <span class="va">input_list</span>, file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>reporter</dt>
 <dd><p><code>Reporter</code> instance.</p></dd>
-<dt>input</dt>
-<dd><p><code>list</code> like shiny input converted to a regular list.</p></dd>
+<dt>input_list</dt>
+<dd><p><code>list</code> like shiny input converted to a regular named list.</p></dd>
 <dt>file</dt>
 <dd><p><code>character</code> where to copy the returned directory.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><code>file</code> argument</p>
+    <p><code>file</code> argument, invisibly.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
