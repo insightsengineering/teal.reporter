@@ -131,7 +131,7 @@ testthat::test_that("as_yaml_auto - do not accept multi outputs without the mult
   )
 })
 
-testthat::test_that("as_yaml_auto - ccept multi outputs with the multi_output argument", {
+testthat::test_that("as_yaml_auto - accept multi outputs with the multi_output argument", {
   testthat::expect_error(
     as_yaml_auto(list(author = "", output = "pdf_document", output = "html_document", toc = TRUE, keep_tex = TRUE),
       silent = TRUE, multi_output = TRUE
