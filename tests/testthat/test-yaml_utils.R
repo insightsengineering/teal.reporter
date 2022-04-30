@@ -82,7 +82,7 @@ testthat::test_that("as_yaml_auto - works the same as yaml::as.yaml for a nested
   )
 })
 
-input_list <- list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE, date = as.Date('2022-04-29'))
+input_list <- list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE, date = as.Date("2022-04-29"))
 
 testthat::test_that("as_yaml_auto - parse", {
   testthat::expect_identical(
