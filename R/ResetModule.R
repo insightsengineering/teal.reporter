@@ -1,5 +1,5 @@
 #' Reset Button Reporter User Interface
-#' @description button for reseting the report content.
+#' @description button for resetting the report content.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character`
