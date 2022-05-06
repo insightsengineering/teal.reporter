@@ -93,6 +93,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
         }
         checkmate::assert_class(card, "ReportCard")
         reporter$append_cards(list(card))
+        reporter$reactiveV(reporter$reactiveV() + 1)
         shiny::removeModal()
       })
     }

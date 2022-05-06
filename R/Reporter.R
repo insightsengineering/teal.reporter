@@ -12,6 +12,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     initialize = function() {
       private$cards <- list()
+      self$reactiveV <- reactiveVal(1)
       invisible(self)
     },
     #' @description Appends a table to this `Reporter`.
@@ -115,7 +116,32 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     reset = function() {
       private$cards <- list()
       invisible(self)
-    }
+    },
+    remove_cards = function(ids = NULL) {
+      checkmate::assert(
+        checkmate::check_null(ids),
+        checkmate::check_integer(ids, min.len = 1, max.len = length(private$cards))
+      )
+      if (!is.null(ids)) {
+        private$cards <- private$cards[-ids]
+      }
+      invisible(self)
+    },
+    swap_cards = function(start, end) {
+      checkmate::assert(
+        checkmate::check_integer(start,
+                                 min.len = 1, max.len = 1, lower = 1, upper = length(private$cards)),
+        checkmate::check_integer(end,
+                                 min.len = 1, max.len = 1, lower = 1, upper = length(private$cards)),
+        combine = "and"
+      )
+      start_val <- private$cards[[start]]$clone()
+      end_val <- private$cards[[end]]$clone()
+      private$cards[[start]] <- end_val
+      private$cards[[end]] <- start_val
+      invisible(self)
+    },
+    reactiveV = NULL
   ),
   private = list(
     cards = list(),

@@ -101,6 +101,7 @@ reporter$get_blocks()
 \item \href{#method-get_cards}{\code{Reporter$get_cards()}}
 \item \href{#method-get_blocks}{\code{Reporter$get_blocks()}}
 \item \href{#method-reset}{\code{Reporter$reset()}}
+\item \href{#method-remove_cards}{\code{Reporter$remove_cards()}}
 \item \href{#method-clone}{\code{Reporter$clone()}}
 }
 }
@@ -274,6 +275,15 @@ Removes all \code{ReportCard} objects added to this \code{Reporter}.
 \subsection{Returns}{
 invisibly self
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-remove_cards"></a>}}
+\if{latex}{\out{\hypertarget{method-remove_cards}{}}}
+\subsection{Method \code{remove_cards()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$remove_cards(ids = NULL)}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
