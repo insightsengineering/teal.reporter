@@ -101,15 +101,6 @@ download_report_button_srv <- function(id,
           },
           footer = shiny::tagList(
             shiny::tags$button(
-              id = ns("reset_reporter"),
-              type = "button",
-              style = "float: left;",
-              class = "btn btn-danger action-button",
-              `data-val` = shiny::restoreInput(id = ns("reset_reporter"), default = NULL),
-              NULL,
-              "Reset Reporter"
-            ),
-            shiny::tags$button(
               type = "button",
               class = "btn btn-primary",
               `data-dismiss` = "modal",
@@ -124,25 +115,6 @@ download_report_button_srv <- function(id,
 
       shiny::observeEvent(input$download_button, {
         shiny::showModal(download_modal())
-      })
-
-      shiny::observeEvent(input$reset_reporter, {
-        shiny::showModal(
-          shiny::modalDialog(
-            shiny::tags$h3("Reset the Report"),
-            shiny::tags$hr(),
-            shiny::tags$strong(shiny::tags$p("Are you sure you want to reset the report?")),
-            footer = shiny::tagList(
-              shiny::modalButton("Cancel"),
-              shiny::actionButton(ns("reset_reporter_ok"), "Reset")
-            )
-          )
-        )
-      })
-
-      shiny::observeEvent(input$reset_reporter_ok, {
-        reporter$reset()
-        shiny::removeModal()
       })
 
       output$download_data <- shiny::downloadHandler(
