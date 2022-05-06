@@ -151,10 +151,39 @@ report_render_and_compress <- function(reporter, input_list, file = tempdir()) {
 
   renderer <- Renderer$new()
   renderer$render(reporter$get_blocks(), yaml_header)
-
   temp_zip_file <- tempfile(fileext = ".zip")
-  zip::zipr(temp_zip_file, renderer$get_output_dir())
-  file.copy(temp_zip_file, file)
+
+  tryCatch(
+    expr = zip::zipr(temp_zip_file, renderer$get_output_dir()),
+    warning = function(cond)
+      shiny::showNotification(
+        ui = sprintf("Zipping folder warning!"),
+        action = "Please contact app developer",
+        type = "warning"
+      ),
+    error = function(cond)
+      shiny::showNotification(
+        ui = sprintf("Zipping folder error!"),
+        action = "Please contact app developer",
+        type = "error"
+      )
+  )
+
+  tryCatch(
+    expr =   file.copy(temp_zip_file, file),
+    warning = function(cond)
+      shiny::showNotification(
+        ui = sprintf("Copying file warning!"),
+        action = "Please contact app developer",
+        type = "warning"
+      ),
+    error = function(cond)
+      shiny::showNotification(
+        ui = sprintf("Copying file error!"),
+        action = "Please contact app developer",
+        type = "error"
+      )
+  )
 
   rm(renderer)
   invisible(file)
