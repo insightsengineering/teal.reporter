@@ -88,6 +88,8 @@ card$get_chr_converters()
 \item \href{#method-get_content}{\code{ReportCard$get_content()}}
 \item \href{#method-append_metadata}{\code{ReportCard$append_metadata()}}
 \item \href{#method-get_chr_converters}{\code{ReportCard$get_chr_converters()}}
+\item \href{#method-get_name}{\code{ReportCard$get_name()}}
+\item \href{#method-set_name}{\code{ReportCard$set_name()}}
 \item \href{#method-clone}{\code{ReportCard$clone()}}
 }
 }
@@ -309,6 +311,32 @@ card$get_chr_converters()
 
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_name"></a>}}
+\if{latex}{\out{\hypertarget{method-get_name}{}}}
+\subsection{Method \code{get_name()}}{
+
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_name()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-set_name"></a>}}
+\if{latex}{\out{\hypertarget{method-set_name}{}}}
+\subsection{Method \code{set_name()}}{
+
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$set_name(name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

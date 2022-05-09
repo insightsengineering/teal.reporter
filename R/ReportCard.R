@@ -129,12 +129,29 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     get_chr_converters = function() {
       private$chr_converters
+    },
+    #' @description get the card name
+    #'
+    #' @return `character` the Card name
+    #' @examples
+    get_name = function() {
+      private$name
+    },
+    #' @description set the Card name
+    #'
+    #' @param name `character` a Card name
+    #' @return invisibly self
+    #' @examples
+    set_name = function(name) {
+      checkmate::assert_string(name)
+      private$name <- name
+      invisible(self)
     }
   ),
   private = list(
     content = list(),
     chr_converters = list(),
-
+    name = character(0),
     # @description The copy constructor.
     #
     # @param name the name of the field

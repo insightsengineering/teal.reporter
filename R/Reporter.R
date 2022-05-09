@@ -12,7 +12,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     initialize = function() {
       private$cards <- list()
-      self$reactiveV <- reactiveVal(1)
+      private$reactive_add_card <- shiny::reactiveVal(0)
       invisible(self)
     },
     #' @description Appends a table to this `Reporter`.
@@ -127,6 +127,12 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
       invisible(self)
     },
+    #' @description swap two cards in the Reporter
+    #'
+    #' @param start `integer` the index of the first card
+    #' @param end `integer` the index of the second card
+    #' @return invisibly self
+    #' @examples
     swap_cards = function(start, end) {
       checkmate::assert(
         checkmate::check_integer(start,
@@ -141,10 +147,38 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$cards[[end]] <- start_val
       invisible(self)
     },
-    reactiveV = NULL
+    #' @description get a value for the reactive value for the add card
+    #'
+    #' @return `reactive_add_card` filed value
+    #' @note The function has to be used in the shiny reactive context.
+    #' @examples
+    get_reactive_add_card = function() {
+      private$reactive_add_card()
+    },
+    #' @description set a value for the reactive value for the add card
+    #'
+    #' @param val `numeric` a value
+    #' @return invisibly self
+    #' @note The function has to be used in the shiny reactive context.
+    #' @examples
+    set_reactive_add_card = function(val) {
+      checkmate::assert_number(val)
+      private$reactive_add_card(val)
+      invisible(self)
+    },
+    #' @description increment by one the reactive value for the add card
+    #'
+    #' @return invisibly self
+    #' @note The function has to be used in the shiny reactive context.
+    #' @examples
+    increment_reactive_add_card = function() {
+      self$set_reactive_add_card(self$get_reactive_add_card() + 1)
+      invisible(self)
+    }
   ),
   private = list(
     cards = list(),
+    reactive_add_card = NULL,
     # @description The copy constructor.
     #
     # @param name the name of the field

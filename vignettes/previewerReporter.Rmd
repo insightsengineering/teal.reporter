@@ -1,11 +1,27 @@
+---
+title: "Reporter Previewer"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Simple Reporter}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
 
-
+```{r setup}
 library(shiny)
 library(teal.reporter)
 library(ggplot2)
 library(rtables)
+```
 
+```{r}
 ui <- fluidPage(
   titlePanel(""),
   tabsetPanel(
@@ -56,6 +72,12 @@ server <- function(input, output, session) {
           label = "Statistic",
           choices = c("mean", "median", "sd"),
           "mean"
+        ),
+      selectInput(
+          "format",
+          label = "Format",
+          choices = c("data.frame", "rtables"),
+          "rtables"
         )
       )
     } else {
@@ -80,7 +102,11 @@ server <- function(input, output, session) {
       split_rows_by("Month", label_pos = "visible") %>%
       analyze("Ozone", afun = eval(str2expression(input$stat)))
 
-    build_table(lyt, airquality)
+    if (input$format == "data.frame") {
+    airquality
+    } else {
+        build_table(lyt, airquality)
+    }
   })
 
   output$table <- renderPrint({
@@ -91,11 +117,15 @@ server <- function(input, output, session) {
   reporter <- teal.reporter::Reporter$new()
   card_fun <- function(card = ReportCard$new(), comment) {
     if (input$tabs == "Plot") {
+      card$set_name("Plot Module")
       card$append_text("My plot", "header2")
       card$append_plot(plot())
+      card$append_text("library(dplyr)\naa = airquality %>% mutate(Ozone3 = Ozone * 3)\naa", "verbatim")
     } else if (input$tabs == "Table") {
+      card$set_name("Table Module")
       card$append_text("My Table", "header2")
       card$append_table(table())
+      card$append_text("library(dplyr)\naa = airquality %>% mutate(Ozone2 = Ozone * 2)\naa", "verbatim")
     }
     card$append_text("Comment", "header3")
     card$append_text(comment)
@@ -109,3 +139,4 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui = ui, server = server)
+```

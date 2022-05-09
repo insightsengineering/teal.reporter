@@ -102,6 +102,10 @@ reporter$get_blocks()
 \item \href{#method-get_blocks}{\code{Reporter$get_blocks()}}
 \item \href{#method-reset}{\code{Reporter$reset()}}
 \item \href{#method-remove_cards}{\code{Reporter$remove_cards()}}
+\item \href{#method-swap_cards}{\code{Reporter$swap_cards()}}
+\item \href{#method-get_reactive_add_card}{\code{Reporter$get_reactive_add_card()}}
+\item \href{#method-set_reactive_add_card}{\code{Reporter$set_reactive_add_card()}}
+\item \href{#method-increment_reactive_add_card}{\code{Reporter$increment_reactive_add_card()}}
 \item \href{#method-clone}{\code{Reporter$clone()}}
 }
 }
@@ -284,6 +288,58 @@ invisibly self
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$remove_cards(ids = NULL)}\if{html}{\out{</div>}}
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-swap_cards"></a>}}
+\if{latex}{\out{\hypertarget{method-swap_cards}{}}}
+\subsection{Method \code{swap_cards()}}{
+
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$swap_cards(start, end)}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_reactive_add_card"></a>}}
+\if{latex}{\out{\hypertarget{method-get_reactive_add_card}{}}}
+\subsection{Method \code{get_reactive_add_card()}}{
+
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_reactive_add_card()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-set_reactive_add_card"></a>}}
+\if{latex}{\out{\hypertarget{method-set_reactive_add_card}{}}}
+\subsection{Method \code{set_reactive_add_card()}}{
+
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$set_reactive_add_card(val)}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-increment_reactive_add_card"></a>}}
+\if{latex}{\out{\hypertarget{method-increment_reactive_add_card}{}}}
+\subsection{Method \code{increment_reactive_add_card()}}{
+
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$increment_reactive_add_card()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

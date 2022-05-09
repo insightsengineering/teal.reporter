@@ -75,9 +75,7 @@ reporter_previewer_srv <- function(id, reporter, notification = TRUE, rmd_yaml_a
       ns <- session$ns
 
       output$pcards <- renderUI({
-        # Add card
-        reporter$reactiveV()
-
+        reporter$get_reactive_add_card()
         input$card_remove_id
         input$card_down_id
         input$card_up_id
@@ -107,9 +105,9 @@ reporter_previewer_srv <- function(id, reporter, notification = TRUE, rmd_yaml_a
                                 style = "float:right;margin-left:10px;margin-right:10px;margin-top:10px;color:#337ab7;",
                                 shiny::icon("arrow-down", "fa-2x", verify_fa = FALSE))
                     ),
-                    tags$a(style = "display: block;padding: 10px 15px;margin: -10px -15px;",
+                    tags$a(class="accordion-toggle", style = "display: block;padding: 10px 15px;margin: -10px -15px;",
                       `data-toggle` = "collapse", `data-parent` = "#accordion", href = paste0("#collapse", ic),
-                      tags$h4(paste0("Card ", ic, ": ", cards[[ic]]$get_content()[[1]]$get_content()), shiny::icon("caret-down"))
+                      tags$h4(paste0("Card ", ic, ": ", cards[[ic]]$get_name()), shiny::icon("caret-down"))
                     )
                   )
                 )
@@ -181,24 +179,16 @@ resolveBlock2Html <- function(b, name) {
                             header2 = tags$h2(b_content),
                             header3 = tags$h3(b_content),
                             header4 = tags$h4(b_content),
+                            verbatim = tags$pre(b_content),
                             b_content
          )
            },
          PictureBlock = tags$img(src = knitr::image_uri(b_content)),
          TableBlock = {
-           r_table <- readRDS(b_content)
-           if (inherits(r_table, "ElementaryTable") || inherits(r_table, "TableTree")) {
-             rtables::as_html(r_table)
-           } else if (inherits(r_table, "data.frame")) {
-             knitr::kable(r_table, "html")
-           } else {
-             tagList(
-               lapply(
-                 capture.output(print(r_table)),
-                 function(x) tags$p(x)
-               )
+           b_table <- readRDS(b_content)
+             shiny::tags$pre(
+               paste(capture.output(print(b_table)), collapse = "\n")
              )
-           }
          },
          NewpageBlock = tags$br(),
          ""
@@ -209,7 +199,7 @@ resolveBlock2Html <- function(b, name) {
 add_previewer_css <- function() {
   tags$head(tags$style("
                       span.preview_card_control  i:hover {
-                        color: green;
+                        color: blue;
                       }
                        "))
 }

@@ -43,11 +43,11 @@ testthat::test_that("get_blocks by default adds NewpageBlock$new() between cards
   expect_equal(reporter$get_blocks(), reporter_blocks2)
 })
 
-reporter <- Reporter$new()
+reporter2 <- Reporter$new()
 
 testthat::test_that("get_blocks and get_cards return empty list by default", {
-  expect_identical(reporter$get_blocks(), list())
-  expect_identical(reporter$get_cards(), list())
+  expect_identical(reporter2$get_blocks(), list())
+  expect_identical(reporter2$get_cards(), list())
 })
 
 testthat::test_that("The deep copy constructor copies the content files to new files", {
@@ -58,4 +58,21 @@ testthat::test_that("The deep copy constructor copies the content files to new f
   copied_content_file <- reporter_copy$get_blocks()[[1]]$get_content()
 
   testthat::expect_false(original_content_file == copied_content_file)
+})
+
+
+testthat::test_that("swap_cards", {
+  reporter1a <- reporter$clone()
+  reporter1b <- reporter$clone()
+  testthat::expect_equal(reporter1a$swap_cards(1L, 2L), reporter1b$swap_cards(2L, 1L))
+})
+
+testthat::test_that("reactive_add_card", {
+  reporter <- Reporter$new()
+  testthat::expect_error(reporter$get_reactive_add_card())
+  testthat::expect_identical(isolate(reporter$get_reactive_add_card()), 0)
+  isolate(reporter$increment_reactive_add_card())
+  testthat::expect_identical(isolate(reporter$get_reactive_add_card()), 1)
+  isolate(reporter$set_reactive_add_card(5))
+  testthat::expect_identical(isolate(reporter$get_reactive_add_card()), 5)
 })
