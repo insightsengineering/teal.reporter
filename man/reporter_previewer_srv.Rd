@@ -2,7 +2,7 @@
 % Please edit documentation in R/Previewer.R
 \name{reporter_previewer_srv}
 \alias{reporter_previewer_srv}
-\title{Reporter Previewer User Interface}
+\title{Reporter Previewer Server}
 \usage{
 reporter_previewer_srv(
   id,
@@ -24,5 +24,5 @@ Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output 
 Please update only values at this moment.}
 }
 \description{
-reporter previewer user interface to manipulate the already added report Cards
+server supporting the functionalities of the reporter previewer
 }

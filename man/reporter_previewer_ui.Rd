@@ -23,5 +23,5 @@ Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output 
 Please update only values at this moment.}
 }
 \description{
-reporter previewer user interface to manipulate the already added report Cards
+reporter previewer user interface to visualize and manipulate the already added report Cards
 }
