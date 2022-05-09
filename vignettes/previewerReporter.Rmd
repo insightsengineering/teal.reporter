@@ -170,8 +170,10 @@ server <- function(input, output, session) {
         collapse = "\n"
       ), "verbatim")
     }
-    card$append_text("Comment", "header3")
-    card$append_text(comment)
+if (!comment == "") {
+      card$append_text("Comment", "header3")
+      card$append_text(comment)
+ }
     card
   }
   

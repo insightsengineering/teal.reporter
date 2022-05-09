@@ -12,7 +12,7 @@ teal_reporter_previewer <- function(label, ...) {
 
 
 #' Reporter Previewer User Interface
-#' @description reporter previewer user interface to manipulate the already added report Cards
+#' @description reporter previewer user interface to visualize and manipulate the already added report Cards
 #' @param id `character`
 #' @param rmd_output `character` vector with `rmarkdown` output types,
 #' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
@@ -70,8 +70,8 @@ reporter_previewer_ui <- function(id, rmd_output = c(
   )
 }
 
-#' Reporter Previewer User Interface
-#' @description reporter previewer user interface to manipulate the already added report Cards
+#' Reporter Previewer Server 
+#' @description server supporting the functionalities of the reporter previewer
 #' @param id `character`
 #' @param reporter `Reporter` instance
 #' @param notification `logical`
