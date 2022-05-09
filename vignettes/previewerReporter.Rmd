@@ -2,7 +2,7 @@
 title: "Reporter Previewer"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Simple Reporter}
+  %\VignetteIndexEntry{Reporter Previewer}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

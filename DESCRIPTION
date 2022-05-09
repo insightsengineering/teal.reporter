@@ -17,7 +17,6 @@ Imports:
     yaml,
     shiny,
     shinyWidgets,
-    yaml,
     zip
 Suggests:
     ggplot2,

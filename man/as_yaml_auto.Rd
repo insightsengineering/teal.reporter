@@ -77,5 +77,4 @@ as_yaml_auto(
   ),
   multi_output = TRUE
 )
-
 }

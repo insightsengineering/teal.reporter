@@ -19,5 +19,4 @@ input <- list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE)
 out <- as_yaml_auto(input)
 out
 print(out)
-
 }

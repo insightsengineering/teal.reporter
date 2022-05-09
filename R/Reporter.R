@@ -140,9 +140,11 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     swap_cards = function(start, end) {
       checkmate::assert(
         checkmate::check_integer(start,
-                                 min.len = 1, max.len = 1, lower = 1, upper = length(private$cards)),
+          min.len = 1, max.len = 1, lower = 1, upper = length(private$cards)
+        ),
         checkmate::check_integer(end,
-                                 min.len = 1, max.len = 1, lower = 1, upper = length(private$cards)),
+          min.len = 1, max.len = 1, lower = 1, upper = length(private$cards)
+        ),
         combine = "and"
       )
       start_val <- private$cards[[start]]$clone()
