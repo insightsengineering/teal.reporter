@@ -42,7 +42,7 @@ ui <- fluidPage(
           tabsetPanel(
             id = "tabs",
             tabPanel("Plot", plotOutput("dist_plot")),
-            tabPanel("Table", shiny::verbatimTextOutput("table", placeholder = TRUE))
+            tabPanel("Table", verbatimTextOutput("table"))
           )
         )
       )
@@ -74,7 +74,7 @@ server <- function(input, output, session) {
           choices = c("mean", "median", "sd"),
           "mean"
         ),
-      selectInput(
+        selectInput(
           "formats",
           label = "Format",
           choices = c("data.frame", "rtables"),
@@ -85,39 +85,37 @@ server <- function(input, output, session) {
       NULL
     }
   })
-
+  
   plot <- reactive({
     req(input$binwidth)
     x <- mtcars$mpg
     ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg)) +
       ggplot2::geom_histogram(binwidth = input$binwidth)
   })
-
+  
   output$dist_plot <- renderPlot({
     plot()
   })
-
+  
   table <- reactive({
     req(input$stat)
     req(input$formats)
-
+    
     if (input$formats == "data.frame") {
       tab <- aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), mean, na.rm = TRUE)
-      row.names(tab) <- NULL
-      print.data.frame(tab)
     } else {
       lyt <- basic_table() %>%
-      split_rows_by("Month", label_pos = "visible") %>%
-      analyze("Ozone", afun = eval(str2expression(input$stat)))
+        split_rows_by("Month", label_pos = "visible") %>%
+        analyze("Ozone", afun = eval(str2expression(input$stat)))
       tab <- build_table(lyt, airquality)
-      print(tab)
     }
+    tab
   })
-
+  
   output$table <- renderPrint({
     table()
   })
-
+  
   ### REPORTER
   reporter <- teal.reporter::Reporter$new()
   card_fun <- function(card = ReportCard$new(), comment) {
@@ -136,7 +134,7 @@ server <- function(input, output, session) {
     card$append_text(comment)
     card
   }
-
+  
   teal.reporter::add_card_button_srv("addReportCard", reporter = reporter, card_fun = card_fun)
   teal.reporter::download_report_button_srv("downloadButton", reporter = reporter)
   teal.reporter::reset_report_button_srv("resetButton", reporter)
