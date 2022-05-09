@@ -14,6 +14,23 @@ library(ggplot2)
 library(rtables)
 ```
 
+Reporter Previewer is a shiny module for visualize and manipulate the already added report Cards, and eventually downloading a report document.
+Reporter Previewer is extended by the base modules introduced in the `simpleReporter` vignette.
+
+The code added to introduce the reporter is wrapped in the `### REPORTER` code blocks.
+
+The implementation should consist of 5 steps:
+
+1. Create a `tabsetPanel` with Main app add the Previewer.
+2. Add modules user interface to the user interface of the app.
+3. Initialize Reporter instance.
+4. Create the Report Card function with two arguments: card and comment.
+The function should build the Card step by step and assuming it is empty at the beginning,
+the optional comment argument is a string provided by the user when the card is added.
+If the comment argument is not specified then it is added automatically at the end of the Card.
+This part requires the developer to use their imagination on how the document page should look like. 
+5. Invoke the servers with the reporter instance and the function to create the report card instance.
+
 ```r
 ui <- fluidPage(
   titlePanel(""),
@@ -41,10 +58,12 @@ ui <- fluidPage(
         )
       )
     ),
+    ### REPORTER
     tabPanel(
       "Previewer",
       reporter_previewer_ui("prev")
     )
+    ###
   )
 )
 
@@ -113,24 +132,43 @@ server <- function(input, output, session) {
       card$set_name("Plot Module")
       card$append_text("My plot", "header2")
       card$append_plot(plot())
-      card$append_text(sprintf("x <- mtcars$mpg 
-      ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg)) + 
-      ggplot2::geom_histogram(binwidth = %s)", input$binwidth), "verbatim")
+      card$append_text(
+        paste(
+          c(
+            "x <- mtcars$mpg",
+            "ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg)) +",
+            paste0("ggplot2::geom_histogram(binwidth = ", input$binwidth, ")")
+          ),
+          collapse = "\n"
+        ), 
+      "verbatim")
     } else if (input$tabs == "Table") {
       card$set_name("Table Module")
       card$append_text("My Table", "header2")
       card$append_table(table())
-      card$append_text(sprintf('lyt <- basic_table() %%>%% 
-        split_rows_by("Month", label_pos = "visible") %%>%% 
-        analyze("Ozone", afun = %s) 
-    build_table(lyt, airquality)', input$stat), "verbatim")
+      card$append_text(
+        paste(
+          c(
+            'lyt <- basic_table() %>%',
+            'split_rows_by("Month", label_pos = "visible") %>%',
+            paste0('analyze("Ozone", afun = ', input$stat, ')'),
+            'build_table(lyt, airquality)'
+          ),
+          collapse = "\n"
+        ), "verbatim")
     } else if (input$tabs == "Table2") {
       card$set_name("Table Module 2")
       card$append_text("My Table 2", "header2")
       card$append_table(table2())
-      card$append_text(sprintf('aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), 
-      %s, 
-      na.rm = TRUE)', input$stat), "verbatim")
+      card$append_text(
+      paste(
+        c(
+          'aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month)', 
+          input$stat, 
+          'na.rm = TRUE)'
+        ),
+        collapse = "\n"
+      ), "verbatim")
     }
     card$append_text("Comment", "header3")
     card$append_text(comment)

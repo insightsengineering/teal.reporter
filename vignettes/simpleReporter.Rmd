@@ -26,7 +26,7 @@ The Simple Reporter module consists of two separate modules one for each of the 
 
 The code added to introduce the simple reporter is wrapped in the `### REPORTER` code blocks.
 
-The implementation should consist of 5 steps:
+The implementation should consist of 4 steps:
 
 1. Add modules user interface to the user interface of the app.
 2. Initialize Reporter instance.
