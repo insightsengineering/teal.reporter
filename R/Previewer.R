@@ -70,7 +70,7 @@ reporter_previewer_ui <- function(id, rmd_output = c(
   )
 }
 
-#' Reporter Previewer Server 
+#' Reporter Previewer Server
 #' @description server supporting the functionalities of the reporter previewer
 #' @param id `character`
 #' @param reporter `Reporter` instance
