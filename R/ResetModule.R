@@ -42,7 +42,9 @@ reset_report_button_srv <- function(id, reporter) {
           shiny::modalDialog(
             shiny::tags$h3("Reset the Report"),
             shiny::tags$hr(),
-            shiny::tags$strong(shiny::tags$p("Are you sure you want to reset the report?")),
+            shiny::tags$strong(shiny::tags$p(
+              "Are you sure you want to reset the report? (This will remove ALL previously added cards)."
+            )),
             footer = shiny::tagList(
               shiny::tags$button(
                 type = "button",
