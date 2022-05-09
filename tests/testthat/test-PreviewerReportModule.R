@@ -32,12 +32,6 @@ testthat::test_that("reporter_previewer_srv - render and downlaod a document", {
   )
 })
 
-testthat::test_that("reporter_previewer_ui - returns a tagList", {
-  testthat::expect_true(
-    inherits(reporter_previewer_ui("sth"), c("shiny.tag"))
-  )
-})
-
 reporter <- Reporter$new()
 reporter$append_cards(list(card1))
 testthat::test_that("reporter_previewer_srv - remove a card", {
@@ -89,4 +83,8 @@ testthat::test_that("reporter_previewer_srv - up and down", {
   )
 })
 
-
+testthat::test_that("reporter_previewer_ui - returns a tagList", {
+  testthat::expect_true(
+    inherits(reporter_previewer_ui("sth"), c("shiny.tag"))
+  )
+})
