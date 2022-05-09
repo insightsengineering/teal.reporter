@@ -7,21 +7,14 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
-```{r setup}
+```r
 library(shiny)
 library(teal.reporter)
 library(ggplot2)
 library(rtables)
 ```
 
-```{r}
+```r
 ui <- fluidPage(
   titlePanel(""),
   tabsetPanel(
@@ -42,7 +35,8 @@ ui <- fluidPage(
           tabsetPanel(
             id = "tabs",
             tabPanel("Plot", plotOutput("dist_plot")),
-            tabPanel("Table", verbatimTextOutput("table"))
+            tabPanel("Table", verbatimTextOutput("table")),
+            tabPanel("Table2", verbatimTextOutput("table2"))
           )
         )
       )
@@ -66,19 +60,13 @@ server <- function(input, output, session) {
           value = 8
         )
       )
-    } else if (input$tabs == "Table") {
+    } else if (input$tabs %in% c("Table", "Table2")) {
       sidebarPanel(
         selectInput(
           "stat",
           label = "Statistic",
           choices = c("mean", "median", "sd"),
           "mean"
-        ),
-        selectInput(
-          "formats",
-          label = "Format",
-          choices = c("data.frame", "rtables"),
-          "data.frame"
         )
       )
     } else {
@@ -99,21 +87,23 @@ server <- function(input, output, session) {
   
   table <- reactive({
     req(input$stat)
-    req(input$formats)
-    
-    if (input$formats == "data.frame") {
-      tab <- aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), mean, na.rm = TRUE)
-    } else {
-      lyt <- basic_table() %>%
+    lyt <- basic_table() %>%
         split_rows_by("Month", label_pos = "visible") %>%
         analyze("Ozone", afun = eval(str2expression(input$stat)))
-      tab <- build_table(lyt, airquality)
-    }
-    tab
+    build_table(lyt, airquality)
   })
   
   output$table <- renderPrint({
     table()
+  })
+  
+  table2 <- reactive({
+    req(input$stat)
+    aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), get(input$stat), na.rm = TRUE)
+  })
+  
+  output$table2 <- renderPrint({
+    print.data.frame(table2())
   })
   
   ### REPORTER
@@ -128,6 +118,11 @@ server <- function(input, output, session) {
       card$set_name("Table Module")
       card$append_text("My Table", "header2")
       card$append_table(table())
+      card$append_text("library(dplyr)\naa = airquality %>% mutate(Ozone2 = Ozone * 2)\naa", "verbatim")
+    } else if (input$tabs == "Table2") {
+      card$set_name("Table Module 2")
+      card$append_text("My Table 2", "header2")
+      card$append_table(table2())
       card$append_text("library(dplyr)\naa = airquality %>% mutate(Ozone2 = Ozone * 2)\naa", "verbatim")
     }
     card$append_text("Comment", "header3")
