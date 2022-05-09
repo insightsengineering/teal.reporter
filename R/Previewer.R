@@ -54,15 +54,13 @@ reporter_previewer_ui <- function(id, rmd_output = c(
     )
   )
 
-  forms <- NULL
   shiny::fluidRow(
     add_previewer_js(ns),
     add_previewer_css(),
     shiny::tags$div(
       shiny::tags$div(
         class = "col-md-3",
-        shiny::tags$div(class = "well", encoding),
-        shiny::tags$div(class = "form-group", forms)
+        shiny::tags$div(class = "well", encoding)
       ),
       shiny::tags$div(
         class = "col-md-9",
@@ -99,6 +97,8 @@ reporter_previewer_srv <- function(id, reporter, notification = TRUE, rmd_yaml_a
 
         cards <- reporter$get_cards()
         cards_names <- names(cards)
+
+        if (length(cards)) {
         shiny::tags$div(
           class = "panel-group", id = "accordion",
           lapply(seq_along(cards), function(ic) {
@@ -143,6 +143,9 @@ reporter_previewer_srv <- function(id, reporter, notification = TRUE, rmd_yaml_a
             )
           })
         )
+        } else {
+          shiny::tags$p("No Cards added")
+        }
       })
 
       shiny::observeEvent(input$card_remove_id, {
