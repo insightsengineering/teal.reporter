@@ -149,10 +149,10 @@ server <- function(input, output, session) {
       card$append_text(
         paste(
           c(
-            'lyt <- basic_table() %>%',
-            'split_rows_by("Month", label_pos = "visible") %>%',
-            paste0('analyze("Ozone", afun = ', input$stat, ')'),
-            'build_table(lyt, airquality)'
+            'lyt <- rtables::basic_table() %>%',
+            'rtables::split_rows_by("Month", label_pos = "visible") %>%',
+            paste0('rtables::analyze("Ozone", afun = ', input$stat, ')'),
+            'rtables::build_table(lyt, airquality)'
           ),
           collapse = "\n"
         ), "verbatim")
