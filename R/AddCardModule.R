@@ -41,12 +41,13 @@ add_card_button_srv <- function(id, reporter, card_fun) {
       add_modal <- function(failed = FALSE) {
         shiny::modalDialog(
           easyClose = TRUE,
-          shiny::tags$h3("Add the Card to the Report"),
+          shiny::tags$h3("Add a card to the Report"),
           shiny::tags$hr(),
-          shiny::textInput(
+          shiny::textAreaInput(
             ns("comment"),
             "Comment",
-            value = "The idea behind",
+            value = "",
+            placeholder = "Add a comment here...",
             width = "100%"
           ),
           if (failed) {
@@ -57,7 +58,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           footer = shiny::tagList(
             shiny::tags$button(
               type = "button",
-              class = "btn btn-primary",
+              class = "btn btn-danger",
               `data-dismiss` = "modal",
               `data-bs-dismiss` = "modal",
               NULL,
@@ -93,7 +94,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
         }
         checkmate::assert_class(card, "ReportCard")
         reporter$append_cards(list(card))
-        shiny::showNotification(sprintf("Card added successfully."))
+        shiny::showNotification(sprintf("The card added successfully."))
         shiny::removeModal()
       })
     }

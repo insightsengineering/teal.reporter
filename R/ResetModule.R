@@ -44,8 +44,15 @@ reset_report_button_srv <- function(id, reporter) {
             shiny::tags$hr(),
             shiny::tags$strong(shiny::tags$p("Are you sure you want to reset the report?")),
             footer = shiny::tagList(
-              shiny::modalButton("Cancel"),
-              shiny::actionButton(ns("reset_reporter_ok"), "Reset")
+              shiny::tags$button(
+                type = "button",
+                class = "btn btn-danger",
+                `data-dismiss` = "modal",
+                `data-bs-dismiss` = "modal",
+                NULL,
+                "Cancel"
+              ),
+              shiny::actionButton(ns("reset_reporter_ok"), "Reset", class = "btn-warning")
             )
           )
         )
