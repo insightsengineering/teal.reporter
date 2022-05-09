@@ -113,17 +113,24 @@ server <- function(input, output, session) {
       card$set_name("Plot Module")
       card$append_text("My plot", "header2")
       card$append_plot(plot())
-      card$append_text("library(dplyr)\naa = airquality %>% mutate(Ozone3 = Ozone * 3)\naa", "verbatim")
+      card$append_text(sprintf("x <- mtcars$mpg 
+      ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg)) + 
+      ggplot2::geom_histogram(binwidth = %s)", input$binwidth), "verbatim")
     } else if (input$tabs == "Table") {
       card$set_name("Table Module")
       card$append_text("My Table", "header2")
       card$append_table(table())
-      card$append_text("library(dplyr)\naa = airquality %>% mutate(Ozone2 = Ozone * 2)\naa", "verbatim")
+      card$append_text(sprintf('lyt <- basic_table() %%>%% 
+        split_rows_by("Month", label_pos = "visible") %%>%% 
+        analyze("Ozone", afun = %s) 
+    build_table(lyt, airquality)', input$stat), "verbatim")
     } else if (input$tabs == "Table2") {
       card$set_name("Table Module 2")
       card$append_text("My Table 2", "header2")
       card$append_table(table2())
-      card$append_text("library(dplyr)\naa = airquality %>% mutate(Ozone2 = Ozone * 2)\naa", "verbatim")
+      card$append_text(sprintf('aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), 
+      %s, 
+      na.rm = TRUE)', input$stat), "verbatim")
     }
     card$append_text("Comment", "header3")
     card$append_text(comment)
