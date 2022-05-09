@@ -163,8 +163,8 @@ server <- function(input, output, session) {
       card$append_text(
       paste(
         c(
-          'aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month)', 
-          input$stat, 
+          'aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month),', 
+          paste0(input$stat, ","), 
           'na.rm = TRUE)'
         ),
         collapse = "\n"
