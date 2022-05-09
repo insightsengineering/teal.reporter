@@ -18,7 +18,6 @@ knitr::opts_chunk$set(
 library(shiny)
 library(teal.reporter)
 library(ggplot2)
-library(dplyr)
 library(rtables)
 ```
 
@@ -43,7 +42,7 @@ ui <- fluidPage(
           tabsetPanel(
             id = "tabs",
             tabPanel("Plot", plotOutput("dist_plot")),
-            tabPanel("Table", verbatimTextOutput("table"))
+            tabPanel("Table", shiny::verbatimTextOutput("table", placeholder = TRUE))
           )
         )
       )
@@ -79,7 +78,7 @@ server <- function(input, output, session) {
           "formats",
           label = "Format",
           choices = c("data.frame", "rtables"),
-          "rtables"
+          "data.frame"
         )
       )
     } else {
@@ -102,16 +101,16 @@ server <- function(input, output, session) {
     req(input$stat)
     req(input$formats)
 
-    lyt <- basic_table() %>%
+    if (input$formats == "data.frame") {
+      tab <- aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), mean, na.rm = TRUE)
+      row.names(tab) <- NULL
+      print.data.frame(tab)
+    } else {
+      lyt <- basic_table() %>%
       split_rows_by("Month", label_pos = "visible") %>%
       analyze("Ozone", afun = eval(str2expression(input$stat)))
-
-    if (input$formats == "data.frame") {
-      airquality %>% 
-      group_by(Month) %>% 
-      summarise_at(all_of("Ozone"),  get(input$stat), na.rm = TRUE)
-    } else {
-      build_table(lyt, airquality)
+      tab <- build_table(lyt, airquality)
+      print(tab)
     }
   })
 
