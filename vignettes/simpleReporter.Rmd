@@ -116,8 +116,10 @@ server <- function(input, output, session) {
       card$append_text("My Table", "header2")
       card$append_table(table())
     }
-    card$append_text("Comment", "header3")
-    card$append_text(comment)
+    if (!comment == "") {
+      card$append_text("Comment", "header3")
+      card$append_text(comment)
+    }
     card
   }
 
@@ -207,7 +209,7 @@ server <- function(input, output, session) {
       card$append_text("My Table", "header2")
       card$append_table(table())
     }
-    if (!is.null(comment)) {
+    if (!comment == "") {
       card$append_text("Comment", "header3")
       card$append_text(comment)
     }
