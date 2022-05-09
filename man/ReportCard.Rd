@@ -77,6 +77,18 @@ card <- ReportCard$new()$append_text("Some text")$append_plot(
 )$append_metadata(key = "code", value = lm(Ozone ~ Solar.R, airquality))
 card$get_chr_converters()
 
+
+## ------------------------------------------------
+## Method `ReportCard$get_name`
+## ------------------------------------------------
+
+ReportCard$new()$set_name("NAME")$get_name()
+
+## ------------------------------------------------
+## Method `ReportCard$set_name`
+## ------------------------------------------------
+
+ReportCard$new()$set_name("NAME")$get_name()
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -316,27 +328,50 @@ card$get_chr_converters()
 \if{html}{\out{<a id="method-get_name"></a>}}
 \if{latex}{\out{\hypertarget{method-get_name}{}}}
 \subsection{Method \code{get_name()}}{
-
+get the Card name
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_name()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
+\code{character} a Card name
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{ReportCard$new()$set_name("NAME")$get_name()
+}
+\if{html}{\out{</div>}}
 
 }
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-set_name"></a>}}
 \if{latex}{\out{\hypertarget{method-set_name}{}}}
 \subsection{Method \code{set_name()}}{
-
+set the Card name
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$set_name(name)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{\code{character} a Card name}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{ReportCard$new()$set_name("NAME")$get_name()
+}
+\if{html}{\out{</div>}}
 
 }
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

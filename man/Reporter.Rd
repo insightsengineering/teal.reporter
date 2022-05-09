@@ -8,6 +8,13 @@
 
 \code{Reporter}
 }
+\note{
+The function has to be used in the shiny reactive context.
+
+The function has to be used in the shiny reactive context.
+
+The function has to be used in the shiny reactive context.
+}
 \examples{
 
 ## ------------------------------------------------
@@ -92,6 +99,25 @@ reporter <- teal.reporter:::Reporter$new()
 reporter$append_cards(list(card1, card2))
 reporter$get_blocks()
 
+
+## ------------------------------------------------
+## Method `Reporter$get_reactive_add_card`
+## ------------------------------------------------
+
+shiny::isolate(Reporter$new()$get_reactive_add_card())
+
+## ------------------------------------------------
+## Method `Reporter$set_reactive_add_card`
+## ------------------------------------------------
+
+shiny::isolate(Reporter$new()$set_reactive_add_card(5)$get_reactive_add_card())
+
+## ------------------------------------------------
+## Method `Reporter$increment_reactive_add_card`
+## ------------------------------------------------
+
+shiny::isolate(Reporter$new()$get_reactive_add_card())
+shiny::isolate(Reporter$new()$increment_reactive_add_card()$get_reactive_add_card())
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -284,62 +310,114 @@ invisibly self
 \if{html}{\out{<a id="method-remove_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-remove_cards}{}}}
 \subsection{Method \code{remove_cards()}}{
+remove a specific Card in the Reporter
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$remove_cards(ids = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ids}}{\code{integer} the indexes of cards}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-swap_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-swap_cards}{}}}
 \subsection{Method \code{swap_cards()}}{
-
+swap two cards in the Reporter
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$swap_cards(start, end)}\if{html}{\out{</div>}}
 }
 
-\subsection{Returns}{
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{start}}{\code{integer} the index of the first card}
 
+\item{\code{end}}{\code{integer} the index of the second card}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_reactive_add_card"></a>}}
 \if{latex}{\out{\hypertarget{method-get_reactive_add_card}{}}}
 \subsection{Method \code{get_reactive_add_card()}}{
-
+get a value for the reactive value for the add card
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$get_reactive_add_card()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
+\code{reactive_add_card} filed value
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{shiny::isolate(Reporter$new()$get_reactive_add_card())
+}
+\if{html}{\out{</div>}}
 
 }
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-set_reactive_add_card"></a>}}
 \if{latex}{\out{\hypertarget{method-set_reactive_add_card}{}}}
 \subsection{Method \code{set_reactive_add_card()}}{
-
+set a value for the reactive value for the add card
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$set_reactive_add_card(val)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{val}}{\code{numeric} a value}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{shiny::isolate(Reporter$new()$set_reactive_add_card(5)$get_reactive_add_card())
+}
+\if{html}{\out{</div>}}
 
 }
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-increment_reactive_add_card"></a>}}
 \if{latex}{\out{\hypertarget{method-increment_reactive_add_card}{}}}
 \subsection{Method \code{increment_reactive_add_card()}}{
-
+increment by one the reactive value for the add card
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$increment_reactive_add_card()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{shiny::isolate(Reporter$new()$get_reactive_add_card())
+shiny::isolate(Reporter$new()$increment_reactive_add_card()$get_reactive_add_card())
+}
+\if{html}{\out{</div>}}
 
 }
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

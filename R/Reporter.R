@@ -115,8 +115,13 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     reset = function() {
       private$cards <- list()
+      self$set_reactive_add_card(0)
       invisible(self)
     },
+    #' @description remove a specific Card in the Reporter
+    #'
+    #' @param ids `integer` the indexes of cards
+    #' @return invisibly self
     remove_cards = function(ids = NULL) {
       checkmate::assert(
         checkmate::check_null(ids),
@@ -132,7 +137,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @param start `integer` the index of the first card
     #' @param end `integer` the index of the second card
     #' @return invisibly self
-    #' @examples
     swap_cards = function(start, end) {
       checkmate::assert(
         checkmate::check_integer(start,
@@ -152,6 +156,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @return `reactive_add_card` filed value
     #' @note The function has to be used in the shiny reactive context.
     #' @examples
+    #' shiny::isolate(Reporter$new()$get_reactive_add_card())
     get_reactive_add_card = function() {
       private$reactive_add_card()
     },
@@ -161,6 +166,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @return invisibly self
     #' @note The function has to be used in the shiny reactive context.
     #' @examples
+    #' shiny::isolate(Reporter$new()$set_reactive_add_card(5)$get_reactive_add_card())
     set_reactive_add_card = function(val) {
       checkmate::assert_number(val)
       private$reactive_add_card(val)
@@ -171,6 +177,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @return invisibly self
     #' @note The function has to be used in the shiny reactive context.
     #' @examples
+    #' shiny::isolate(Reporter$new()$get_reactive_add_card())
+    #' shiny::isolate(Reporter$new()$increment_reactive_add_card()$get_reactive_add_card())
     increment_reactive_add_card = function() {
       self$set_reactive_add_card(self$get_reactive_add_card() + 1)
       invisible(self)

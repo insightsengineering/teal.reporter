@@ -130,10 +130,11 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     get_chr_converters = function() {
       private$chr_converters
     },
-    #' @description get the card name
+    #' @description get the Card name
     #'
-    #' @return `character` the Card name
+    #' @return `character` a Card name
     #' @examples
+    #' ReportCard$new()$set_name("NAME")$get_name()
     get_name = function() {
       private$name
     },
@@ -142,6 +143,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param name `character` a Card name
     #' @return invisibly self
     #' @examples
+    #' ReportCard$new()$set_name("NAME")$get_name()
     set_name = function(name) {
       checkmate::assert_string(name)
       private$name <- name

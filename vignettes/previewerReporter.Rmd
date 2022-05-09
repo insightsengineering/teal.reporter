@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 library(shiny)
 library(teal.reporter)
 library(ggplot2)
+library(dplyr)
 library(rtables)
 ```
 
@@ -35,6 +36,7 @@ ui <- fluidPage(
           ### REPORTER
           teal.reporter::add_card_button_ui("addReportCard"),
           teal.reporter::download_report_button_ui("downloadButton"),
+          teal.reporter::reset_report_button_ui("resetButton"),
           ###
           tags$br(),
           tags$br(),
@@ -74,7 +76,7 @@ server <- function(input, output, session) {
           "mean"
         ),
       selectInput(
-          "format",
+          "formats",
           label = "Format",
           choices = c("data.frame", "rtables"),
           "rtables"
@@ -98,14 +100,18 @@ server <- function(input, output, session) {
 
   table <- reactive({
     req(input$stat)
+    req(input$formats)
+
     lyt <- basic_table() %>%
       split_rows_by("Month", label_pos = "visible") %>%
       analyze("Ozone", afun = eval(str2expression(input$stat)))
 
-    if (input$format == "data.frame") {
-    airquality
+    if (input$formats == "data.frame") {
+      airquality %>% 
+      group_by(Month) %>% 
+      summarise_at(all_of("Ozone"),  get(input$stat), na.rm = TRUE)
     } else {
-        build_table(lyt, airquality)
+      build_table(lyt, airquality)
     }
   })
 
@@ -134,7 +140,8 @@ server <- function(input, output, session) {
 
   teal.reporter::add_card_button_srv("addReportCard", reporter = reporter, card_fun = card_fun)
   teal.reporter::download_report_button_srv("downloadButton", reporter = reporter)
-  reporter_previewer_srv("prev", reporter)
+  teal.reporter::reset_report_button_srv("resetButton", reporter)
+  teal.reporter::reporter_previewer_srv("prev", reporter)
   ###
 }
 

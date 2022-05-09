@@ -50,6 +50,7 @@ ui <- fluidPage(
       ### REPORTER
       teal.reporter::add_card_button_ui("addReportCard"),
       teal.reporter::download_report_button_ui("downloadButton"),
+      teal.reporter::reset_report_button_ui("resetButton"),
       ###
       tags$br(),
       tags$br(),
@@ -125,6 +126,7 @@ server <- function(input, output, session) {
 
   teal.reporter::add_card_button_srv("addReportCard", reporter = reporter, card_fun = card_fun)
   teal.reporter::download_report_button_srv("downloadButton", reporter = reporter)
+  teal.reporter::reset_report_button_srv("resetButton", reporter)
   ###
 }
 
