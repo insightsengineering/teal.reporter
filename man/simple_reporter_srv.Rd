@@ -20,8 +20,9 @@ the function have at\code{card}argument and optional \code{comment}.}
 \code{shiny::moduleServer}
 }
 \description{
-two buttons for adding views and downloading the Report.
-The add module has \code{add_report_card_simple} id and download module the \code{download_button_simple} id.
+three buttons for adding views, downloading and resetting the Report.
+The add module has \code{add_report_card_simple} id, the download module the \code{download_button_simple} id
+and the reset module the \code{reset_button_simple} id.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }

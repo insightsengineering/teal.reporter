@@ -13,7 +13,7 @@ simple_reporter_ui(id)
 \code{shiny::tagList}
 }
 \description{
-two buttons for adding views and downloading the Report.
+three buttons for adding views, downloading and resetting the Report.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }

@@ -101,17 +101,8 @@ download_report_button_srv <- function(id,
           },
           footer = shiny::tagList(
             shiny::tags$button(
-              id = ns("reset_reporter"),
               type = "button",
-              style = "float: left;",
-              class = "btn btn-danger action-button",
-              `data-val` = shiny::restoreInput(id = ns("reset_reporter"), default = NULL),
-              NULL,
-              "Reset Reporter"
-            ),
-            shiny::tags$button(
-              type = "button",
-              class = "btn btn-primary",
+              class = "btn btn-danger",
               `data-dismiss` = "modal",
               `data-bs-dismiss` = "modal",
               NULL,
@@ -124,25 +115,6 @@ download_report_button_srv <- function(id,
 
       shiny::observeEvent(input$download_button, {
         shiny::showModal(download_modal())
-      })
-
-      shiny::observeEvent(input$reset_reporter, {
-        shiny::showModal(
-          shiny::modalDialog(
-            shiny::tags$h3("Reset the Report"),
-            shiny::tags$hr(),
-            shiny::tags$strong(shiny::tags$p("Are you sure you want to reset the report?")),
-            footer = shiny::tagList(
-              shiny::modalButton("Cancel"),
-              shiny::actionButton(ns("reset_reporter_ok"), "Reset")
-            )
-          )
-        )
-      })
-
-      shiny::observeEvent(input$reset_reporter_ok, {
-        reporter$reset()
-        shiny::removeModal()
       })
 
       output$download_data <- shiny::downloadHandler(
@@ -179,10 +151,43 @@ report_render_and_compress <- function(reporter, input_list, file = tempdir()) {
 
   renderer <- Renderer$new()
   renderer$render(reporter$get_blocks(), yaml_header)
-
   temp_zip_file <- tempfile(fileext = ".zip")
-  zip::zipr(temp_zip_file, renderer$get_output_dir())
-  file.copy(temp_zip_file, file)
+
+  tryCatch(
+    expr = zip::zipr(temp_zip_file, renderer$get_output_dir()),
+    warning = function(cond) {
+      shiny::showNotification(
+        ui = sprintf("Zipping folder warning!"),
+        action = "Please contact app developer",
+        type = "warning"
+      )
+    },
+    error = function(cond) {
+      shiny::showNotification(
+        ui = sprintf("Zipping folder error!"),
+        action = "Please contact app developer",
+        type = "error"
+      )
+    }
+  )
+
+  tryCatch(
+    expr = file.copy(temp_zip_file, file),
+    warning = function(cond) {
+      shiny::showNotification(
+        ui = sprintf("Copying file warning!"),
+        action = "Please contact app developer",
+        type = "warning"
+      )
+    },
+    error = function(cond) {
+      shiny::showNotification(
+        ui = sprintf("Copying file error!"),
+        action = "Please contact app developer",
+        type = "error"
+      )
+    }
+  )
 
   rm(renderer)
   invisible(file)
