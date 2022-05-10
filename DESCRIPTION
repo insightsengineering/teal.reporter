@@ -14,9 +14,9 @@ Imports:
     knitr,
     R6,
     rmarkdown,
-    yaml,
     shiny,
     shinyWidgets,
+    yaml,
     zip
 Suggests:
     ggplot2,

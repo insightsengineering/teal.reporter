@@ -137,7 +137,7 @@ testthat::test_that("The deep copy constructor copies the non ContentBlock objec
   testthat::expect_equal(card_copy$get_content()[[3]], card$get_content()[[3]])
 })
 
-testthat::test_that("name", {
+testthat::test_that("setting and getting a name to the ReportCard", {
   testthat::expect_identical(ReportCard$new()$set_name("NAME")$get_name(), "NAME")
   testthat::expect_identical(ReportCard$new()$get_name(), character(0))
 })

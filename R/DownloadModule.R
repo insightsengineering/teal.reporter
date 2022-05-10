@@ -119,7 +119,7 @@ download_report_button_srv <- function(id,
           paste("report_", format(Sys.time(), "%y%m%d%H%M%S"), ".zip", sep = "")
         },
         content = function(file) {
-          shiny::showNotification("Rendering and Downloading a document.")
+          shiny::showNotification("Rendering and Downloading the document.")
           input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
           names(input_list) <- names(rmd_yaml_args)
           report_render_and_compress(reporter, input_list, file)
