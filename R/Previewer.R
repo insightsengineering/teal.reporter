@@ -1,16 +1,3 @@
-teal_reporter_previewer <- function(label, ...) {
-  args <- list(...)
-  structure(
-    list(
-      label = label,
-      server = reporter_previewer_srv, ui = reporter_previewer_ui,
-      server_args = list(), ui_args = list()
-    ),
-    class = "teal_module"
-  )
-}
-
-
 #' Reporter Previewer User Interface
 #' @description reporter previewer user interface to visualize and manipulate the already added report Cards
 #' @param id `character`
