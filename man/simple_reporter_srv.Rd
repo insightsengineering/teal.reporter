@@ -4,7 +4,7 @@
 \alias{simple_reporter_srv}
 \title{Simple Reporter Server}
 \usage{
-simple_reporter_srv(id, reporter, card_fun, notification = TRUE)
+simple_reporter_srv(id, reporter, card_fun)
 }
 \arguments{
 \item{id}{\code{character}}
@@ -13,8 +13,6 @@ simple_reporter_srv(id, reporter, card_fun, notification = TRUE)
 
 \item{card_fun}{\code{function} which returns a \code{ReportCard} instance,
 the function have at\code{card}argument and optional \code{comment}.}
-
-\item{notification}{logical if to add shiny notification about the download process.}
 }
 \value{
 \code{shiny::moduleServer}

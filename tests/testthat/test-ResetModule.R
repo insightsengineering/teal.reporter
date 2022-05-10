@@ -15,7 +15,7 @@ reporter$append_cards(list(card1))
 testthat::test_that("simple_reporter_srv - reset a reporter", {
   shiny::testServer(
     simple_reporter_srv,
-    args = list(reporter = reporter, notification = FALSE, card_fun = card_fun),
+    args = list(reporter = reporter, card_fun = card_fun),
     expr = {
       testthat::expect_identical(reporter$get_cards(), list(card1))
       session$setInputs(`reset_button_simple-reset_reporter` = 0)

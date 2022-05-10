@@ -12,7 +12,7 @@ reporter$append_cards(list(card1))
 testthat::test_that("reporter_previewer_srv - render and downlaod a document", {
   shiny::testServer(
     reporter_previewer_srv,
-    args = list(reporter = reporter, notification = FALSE),
+    args = list(reporter = reporter),
     expr = {
       session$setInputs(`output` = "html_document")
       session$setInputs(`title` = "TITLE")
@@ -37,7 +37,7 @@ reporter$append_cards(list(card1))
 testthat::test_that("reporter_previewer_srv - remove a card", {
   shiny::testServer(
     reporter_previewer_srv,
-    args = list(reporter = reporter, notification = FALSE),
+    args = list(reporter = reporter),
     expr = {
       len_prior <- length(reporter$get_cards())
       session$setInputs(`card_remove_id` = 1L)
@@ -62,7 +62,7 @@ reporter$append_cards(list(card1, card2))
 testthat::test_that("reporter_previewer_srv - up with first card and down with last card does not induce change", {
   shiny::testServer(
     reporter_previewer_srv,
-    args = list(reporter = reporter, notification = FALSE),
+    args = list(reporter = reporter),
     expr = {
       cards_pre <- reporter$get_cards()
       session$setInputs(`card_up_id` = 1L)
@@ -86,7 +86,7 @@ testthat::test_that("reporter_previewer_srv - up with first card and down with l
 testthat::test_that("reporter_previewer_srv - card up and down compensate", {
   shiny::testServer(
     reporter_previewer_srv,
-    args = list(reporter = reporter, notification = FALSE),
+    args = list(reporter = reporter),
     expr = {
       cards_pre <- reporter$get_cards()
       session$setInputs(`card_up_id` = 2L)
@@ -100,7 +100,7 @@ testthat::test_that("reporter_previewer_srv - card up and down compensate", {
 testthat::test_that("reporter_previewer_srv - card down", {
   shiny::testServer(
     reporter_previewer_srv,
-    args = list(reporter = reporter, notification = FALSE),
+    args = list(reporter = reporter),
     expr = {
       cards_pre <- reporter$get_cards()
       session$setInputs(`card_down_id` = 1L)
@@ -113,7 +113,7 @@ testthat::test_that("reporter_previewer_srv - card down", {
 testthat::test_that("reporter_previewer_srv - card up", {
   shiny::testServer(
     reporter_previewer_srv,
-    args = list(reporter = reporter, notification = FALSE),
+    args = list(reporter = reporter),
     expr = {
       cards_pre <- reporter$get_cards()
       session$setInputs(`card_up_id` = 2L)

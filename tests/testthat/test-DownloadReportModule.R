@@ -12,7 +12,7 @@ reporter$append_cards(list(card1))
 testthat::test_that("download_report_button_srv - render and downlaod a document", {
   shiny::testServer(
     download_report_button_srv,
-    args = list(reporter = reporter, notification = FALSE),
+    args = list(reporter = reporter),
     expr = {
       session$setInputs(`download_button` = 0)
       session$setInputs(`output` = "html_document")

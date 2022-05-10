@@ -74,12 +74,11 @@ reporter_previewer_ui <- function(id, rmd_output = c(
 #' @description server supporting the functionalities of the reporter previewer
 #' @param id `character`
 #' @param reporter `Reporter` instance
-#' @param notification `logical`
 #' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
 #' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document")`.
 #' Please update only values at this moment.
 #' @export
-reporter_previewer_srv <- function(id, reporter, notification = TRUE, rmd_yaml_args = list(
+reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
                                      author = "NEST", title = "Report",
                                      date = as.character(Sys.Date()), output = "html_document"
                                    )) {
@@ -112,9 +111,9 @@ reporter_previewer_srv <- function(id, reporter, notification = TRUE, rmd_yaml_a
                     shiny::tags$span(
                       shiny::tags$span(
                         class = "preview_card_control",
-                        nav_previewer_icon("card_remove_id", "remove", ic),
-                        nav_previewer_icon("card_up_id", "arrow-up", ic),
-                        nav_previewer_icon("card_down_id", "arrow-down", ic)
+                        nav_previewer_icon(name = "card_remove_id", icon_name = "remove", idx = ic, size = 1),
+                        nav_previewer_icon(name = "card_up_id", icon_name = "arrow-up", idx = ic, size = 1),
+                        nav_previewer_icon(name = "card_down_id", icon_name = "arrow-down", idx = ic, size = 1)
                       ),
                       shiny::tags$a(
                         class = "accordion-toggle",
@@ -175,9 +174,7 @@ reporter_previewer_srv <- function(id, reporter, notification = TRUE, rmd_yaml_a
           paste("report_", format(Sys.time(), "%y%m%d%H%M%S"), ".zip", sep = "")
         },
         content = function(file) {
-          if (notification) {
-            shiny::showNotification(sprintf("Rendering and Downloading a document."))
-          }
+          shiny::showNotification("Rendering and Downloading a document.")
           input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
           names(input_list) <- names(rmd_yaml_args)
           report_render_and_compress(reporter, input_list, file)
@@ -250,10 +247,14 @@ add_previewer_js <- function(ns) {
   ))
 }
 
-nav_previewer_icon <- function(name, icon_name, idx) {
+nav_previewer_icon <- function(name, icon_name, idx, size = 1L) {
+  checkmate::assert_string(name)
+  checkmate::assert_string(icon_name)
+  checkmate::assert_int(size)
+
   shiny::tags$span(
     class = name, `data-cardid` = idx,
     style = "float:right;margin-left:10px;margin-right:10px;margin-top:10px;color:#337ab7;",
-    shiny::icon(icon_name, "fa-2x")
+    shiny::icon(icon_name, sprintf("fa-%sx", size))
   )
 }

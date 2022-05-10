@@ -7,7 +7,6 @@
 download_report_button_srv(
   id,
   reporter,
-  notification = TRUE,
   rmd_output = c("html_document", "pdf_document", "powerpoint_presentation",
     "word_document"),
   rmd_yaml_args = list(author = "NEST", title = "Report", date =
@@ -18,8 +17,6 @@ download_report_button_srv(
 \item{id}{\code{character}}
 
 \item{reporter}{\code{Reporter} instance.}
-
-\item{notification}{\code{logical} whether to add a shiny notification about the download process. Default \code{TRUE}.}
 
 \item{rmd_output}{\code{character} vector with \code{rmarkdown} output types,
 by default all possible \code{c("pdf_document", "html_document", "powerpoint_presentation", "word_document")}.}
