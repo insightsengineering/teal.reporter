@@ -59,7 +59,7 @@ card2$append_plot(
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 
-testthat::test_that("reporter_previewer_srv - up and down", {
+testthat::test_that("reporter_previewer_srv - card up and down compensate", {
   shiny::testServer(
     reporter_previewer_srv,
     args = list(reporter = reporter, notification = FALSE),
@@ -79,6 +79,32 @@ testthat::test_that("reporter_previewer_srv - up and down", {
       session$setInputs(`card_down_id` = 1L)
       cards_post <- reporter$get_cards()
       testthat::expect_equal(cards_pre, cards_post)
+    }
+  )
+})
+
+testthat::test_that("reporter_previewer_srv - card down", {
+  shiny::testServer(
+    reporter_previewer_srv,
+    args = list(reporter = reporter, notification = FALSE),
+    expr = {
+      cards_pre <- reporter$get_cards()
+      session$setInputs(`card_down_id` = 1L)
+      cards_post <- reporter$get_cards()
+      testthat::expect_equivalent(cards_pre, cards_post[2:1])
+    }
+  )
+})
+
+testthat::test_that("reporter_previewer_srv - card up", {
+  shiny::testServer(
+    reporter_previewer_srv,
+    args = list(reporter = reporter, notification = FALSE),
+    expr = {
+      cards_pre <- reporter$get_cards()
+      session$setInputs(`card_up_id` = 2L)
+      cards_post <- reporter$get_cards()
+      testthat::expect_equivalent(cards_pre, cards_post[2:1])
     }
   )
 })
