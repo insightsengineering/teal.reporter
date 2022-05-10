@@ -10,10 +10,6 @@
 }
 \note{
 The function has to be used in the shiny reactive context.
-
-The function has to be used in the shiny reactive context.
-
-The function has to be used in the shiny reactive context.
 }
 \examples{
 
@@ -105,19 +101,6 @@ reporter$get_blocks()
 ## ------------------------------------------------
 
 shiny::isolate(Reporter$new()$get_reactive_add_card())
-
-## ------------------------------------------------
-## Method `Reporter$set_reactive_add_card`
-## ------------------------------------------------
-
-shiny::isolate(Reporter$new()$set_reactive_add_card(5)$get_reactive_add_card())
-
-## ------------------------------------------------
-## Method `Reporter$increment_reactive_add_card`
-## ------------------------------------------------
-
-shiny::isolate(Reporter$new()$get_reactive_add_card())
-shiny::isolate(Reporter$new()$increment_reactive_add_card()$get_reactive_add_card())
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -130,8 +113,6 @@ shiny::isolate(Reporter$new()$increment_reactive_add_card()$get_reactive_add_car
 \item \href{#method-remove_cards}{\code{Reporter$remove_cards()}}
 \item \href{#method-swap_cards}{\code{Reporter$swap_cards()}}
 \item \href{#method-get_reactive_add_card}{\code{Reporter$get_reactive_add_card()}}
-\item \href{#method-set_reactive_add_card}{\code{Reporter$set_reactive_add_card()}}
-\item \href{#method-increment_reactive_add_card}{\code{Reporter$increment_reactive_add_card()}}
 \item \href{#method-clone}{\code{Reporter$clone()}}
 }
 }
@@ -363,56 +344,6 @@ get a value for the reactive value for the add card
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{shiny::isolate(Reporter$new()$get_reactive_add_card())
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_reactive_add_card"></a>}}
-\if{latex}{\out{\hypertarget{method-set_reactive_add_card}{}}}
-\subsection{Method \code{set_reactive_add_card()}}{
-set a value for the reactive value for the add card
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$set_reactive_add_card(val)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{val}}{\code{numeric} a value}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-invisibly self
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{shiny::isolate(Reporter$new()$set_reactive_add_card(5)$get_reactive_add_card())
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-increment_reactive_add_card"></a>}}
-\if{latex}{\out{\hypertarget{method-increment_reactive_add_card}{}}}
-\subsection{Method \code{increment_reactive_add_card()}}{
-increment by one the reactive value for the add card
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$increment_reactive_add_card()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-invisibly self
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{shiny::isolate(Reporter$new()$get_reactive_add_card())
-shiny::isolate(Reporter$new()$increment_reactive_add_card()$get_reactive_add_card())
 }
 \if{html}{\out{</div>}}
 
