@@ -14,14 +14,14 @@ library(ggplot2)
 library(rtables)
 ```
 
-Reporter Previewer is a shiny module for visualize and manipulate the already added report Cards, and eventually downloading a report document.
+Reporter Previewer is a shiny module to visualize and manipulate the already added report Cards, and eventually downloading a report document.
 Reporter Previewer is extended by the base modules introduced in the `simpleReporter` vignette.
 
 The code added to introduce the reporter is wrapped in the `### REPORTER` code blocks.
 
 The implementation should consist of 5 steps:
 
-1. Create a `tabsetPanel` with Main app add the Previewer.
+1. Create a `tabsetPanel` with the main app and the Previewer.
 2. Add modules user interface to the user interface of the app.
 3. Initialize Reporter instance.
 4. Create the Report Card function with two arguments: card and comment.
