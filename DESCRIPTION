@@ -4,7 +4,7 @@ Version: 0.0.0.9008
 Authors@R:
     person("NEST", , , "basel.nestcicd@roche.com", role = c("aut", "cre"))
 Description: Reporting tools for Shiny modules.
-License: MIT + file LICENSE
+License: Apache License 2.0 | file LICENSE
 URL: https://github.com/insightsengineering/teal.reporter,
     https://insightsengineering.github.io/teal.reporter/
 BugReports: https://github.com/insightsengineering/teal.reporter/issues
