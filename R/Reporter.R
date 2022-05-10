@@ -43,6 +43,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     append_cards = function(cards) {
       checkmate::assert_list(cards, "ReportCard")
       private$cards <- append(private$cards, cards)
+      private$reactive_add_card(length(private$cards))
       invisible(self)
     },
     #' @description Returns cards of this `Reporter`.
@@ -115,7 +116,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     reset = function() {
       private$cards <- list()
-      self$set_reactive_add_card(0)
+      private$reactive_add_card(0)
       invisible(self)
     },
     #' @description remove a specific Card in the Reporter
@@ -161,29 +162,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' shiny::isolate(Reporter$new()$get_reactive_add_card())
     get_reactive_add_card = function() {
       private$reactive_add_card()
-    },
-    #' @description set a value for the reactive value for the add card
-    #'
-    #' @param val `numeric` a value
-    #' @return invisibly self
-    #' @note The function has to be used in the shiny reactive context.
-    #' @examples
-    #' shiny::isolate(Reporter$new()$set_reactive_add_card(5)$get_reactive_add_card())
-    set_reactive_add_card = function(val) {
-      checkmate::assert_number(val)
-      private$reactive_add_card(val)
-      invisible(self)
-    },
-    #' @description increment by one the reactive value for the add card
-    #'
-    #' @return invisibly self
-    #' @note The function has to be used in the shiny reactive context.
-    #' @examples
-    #' shiny::isolate(Reporter$new()$get_reactive_add_card())
-    #' shiny::isolate(Reporter$new()$increment_reactive_add_card()$get_reactive_add_card())
-    increment_reactive_add_card = function() {
-      self$set_reactive_add_card(self$get_reactive_add_card() + 1)
-      invisible(self)
     }
   ),
   private = list(

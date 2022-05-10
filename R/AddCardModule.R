@@ -94,7 +94,6 @@ add_card_button_srv <- function(id, reporter, card_fun) {
         }
         checkmate::assert_class(card, "ReportCard")
         reporter$append_cards(list(card))
-        reporter$increment_reactive_add_card()
         shiny::showNotification(sprintf("The card added successfully."))
         shiny::removeModal()
       })
