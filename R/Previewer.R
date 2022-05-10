@@ -111,7 +111,7 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
                     shiny::tags$span(
                       shiny::tags$span(
                         class = "preview_card_control",
-                        nav_previewer_icon(name = "card_remove_id", icon_name = "remove", idx = ic, size = 1),
+                        nav_previewer_icon(name = "card_remove_id", icon_name = "times", idx = ic, size = 1),
                         nav_previewer_icon(name = "card_up_id", icon_name = "arrow-up", idx = ic, size = 1),
                         nav_previewer_icon(name = "card_down_id", icon_name = "arrow-down", idx = ic, size = 1)
                       ),
