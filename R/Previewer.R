@@ -254,6 +254,6 @@ nav_previewer_icon <- function(name, icon_name, idx) {
   shiny::tags$span(
     class = name, `data-cardid` = idx,
     style = "float:right;margin-left:10px;margin-right:10px;margin-top:10px;color:#337ab7;",
-    shiny::icon(icon_name, "fa-2x", verify_fa = FALSE)
+    shiny::icon(icon_name, "fa-2x")
   )
 }
