@@ -29,6 +29,7 @@ testthat::test_that("download_report_button_srv - render and downlaod a document
       files <- list.files(output_dir, recursive = TRUE)
       testthat::expect_true(any(grepl("[.]Rmd", files)))
       testthat::expect_true(any(grepl("[.]html", files)))
+      unlink(output_dir, recursive = TRUE)
     }
   )
 })
