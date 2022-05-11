@@ -54,8 +54,8 @@ ui <- fluidPage(
             id = "tabs",
             tabPanel("Plot", plotOutput("dist_plot")),
             tabPanel("Table", verbatimTextOutput("table")),
-            tabPanel("Table_2", verbatimTextOutput("table2")),
-            tabPanel("Table_3", dataTableOutput("table3"))
+            tabPanel("Table DataFrame", verbatimTextOutput("table2")),
+            tabPanel("Table DataTable", dataTableOutput("table3"))
           )
         )
       )
@@ -81,7 +81,7 @@ server <- function(input, output, session) {
           value = 8
         )
       )
-    } else if (input$tabs %in% c("Table", "Table_2", "Table_3")) {
+    } else if (input$tabs %in% c("Table", "Table DataFrame", "Table DataTable")) {
       sidebarPanel(
         selectInput(
           "stat",
@@ -120,20 +120,17 @@ server <- function(input, output, session) {
   
   table2 <- reactive({
     req(input$stat)
-    aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), get(input$stat), na.rm = TRUE)
+    data <- aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), get(input$stat), na.rm = TRUE)
+    colnames(data) <- c("Month", input$stat)
+    data
   })
   
   output$table2 <- renderPrint({
     print.data.frame(table2())
   })
   
-  table3 <- reactive({
-    req(input$stat)
-    aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), get(input$stat), na.rm = TRUE)
-  })
-  
   output$table3 <- renderDataTable({
-    DT::datatable(table3())
+    DT::datatable(table2())
   })
   
   ### REPORTER
@@ -154,8 +151,8 @@ server <- function(input, output, session) {
         ), 
       "verbatim")
     } else if (input$tabs == "Table") {
-      card$set_name("Table Module")
-      card$append_text("My Table", "header2")
+      card$set_name("Table Module rtables")
+      card$append_text("My rtables", "header2")
       card$append_table(table())
       card$append_text(
         paste(
@@ -167,31 +164,19 @@ server <- function(input, output, session) {
           ),
           collapse = "\n"
         ), "verbatim")
-    } else if (input$tabs == "Table_2") {
-      card$set_name("Table Module 2")
-      card$append_text("My Table 2", "header2")
+    } else if (input$tabs %in% c("Table DataFrame", "Table DataTable")) {
+      card$set_name("Table Module DF")
+      card$append_text("My Table DF", "header2")
       card$append_table(table2())
       card$append_text(
-      paste(
+      paste0(
         c(
-          'aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month),', 
-          paste0(input$stat, ","), 
-          'na.rm = TRUE)'
-        ),
-        collapse = "\n"
-      ), "verbatim")
-    } else if (input$tabs == "Table_3") {
-      card$set_name("Table Module 3")
-      card$append_text("My Table 3", "header2")
-      card$append_table(table3())
-      card$append_text(
-      paste(
-        c(
-          'aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month),', 
-          paste0(input$stat, ","), 
-          'na.rm = TRUE)'
-        ),
-        collapse = "\n"
+          'data <- aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), ', 
+          input$stat, 
+          ', na.rm = TRUE)\n',
+          'colnames(data) <- c("Month", ', paste0('"', input$stat, '"'), ')\n',
+          'data'
+        ), collapse = ""
       ), "verbatim")
     }
     if (!comment == "") {
