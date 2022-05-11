@@ -85,6 +85,7 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
         cards_names <- names(cards)
 
         if (length(cards)) {
+          shinyjs::enable("download_data_prev")
           shiny::tags$div(
             class = "panel-group", id = "accordion",
             lapply(seq_along(cards), function(ic) {
@@ -130,6 +131,7 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
             })
           )
         } else {
+          shinyjs::disable("download_data_prev")
           shiny::tags$p(style = "color:red;", shiny::tags$strong("No Cards added"))
         }
       })
@@ -207,6 +209,7 @@ add_previewer_css <- function() {
 }
 
 add_previewer_js <- function(ns) {
+  tagList(
   shiny::tags$head(shiny::tags$script(
     sprintf('
           $(document).ready(function(event) {
@@ -231,7 +234,9 @@ add_previewer_js <- function(ns) {
              });
          })
          ', ns("card_remove_id"), ns("card_up_id"), ns("card_down_id"))
-  ))
+  )),
+  shinyjs::useShinyjs()
+  )
 }
 
 nav_previewer_icon <- function(name, icon_name, idx, size = 1L) {

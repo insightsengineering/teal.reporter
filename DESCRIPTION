@@ -15,6 +15,7 @@ Imports:
     R6,
     rmarkdown,
     shiny,
+    shinyjs,
     shinyWidgets,
     yaml,
     zip
