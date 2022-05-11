@@ -12,6 +12,7 @@ library(shiny)
 library(teal.reporter)
 library(ggplot2)
 library(rtables)
+library(DT)
 ```
 
 Reporter Previewer is a shiny module to visualize and manipulate the already added report Cards, and eventually downloading a report document.
@@ -53,7 +54,8 @@ ui <- fluidPage(
             id = "tabs",
             tabPanel("Plot", plotOutput("dist_plot")),
             tabPanel("Table", verbatimTextOutput("table")),
-            tabPanel("Table2", verbatimTextOutput("table2"))
+            tabPanel("Table_2", verbatimTextOutput("table2")),
+            tabPanel("Table_3", dataTableOutput("table3"))
           )
         )
       )
@@ -79,7 +81,7 @@ server <- function(input, output, session) {
           value = 8
         )
       )
-    } else if (input$tabs %in% c("Table", "Table2")) {
+    } else if (input$tabs %in% c("Table", "Table_2", "Table_3")) {
       sidebarPanel(
         selectInput(
           "stat",
@@ -125,6 +127,15 @@ server <- function(input, output, session) {
     print.data.frame(table2())
   })
   
+  table3 <- reactive({
+    req(input$stat)
+    aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), get(input$stat), na.rm = TRUE)
+  })
+  
+  output$table3 <- renderDataTable({
+    DT::datatable(table3())
+  })
+  
   ### REPORTER
   reporter <- teal.reporter::Reporter$new()
   card_fun <- function(card = ReportCard$new(), comment) {
@@ -156,10 +167,23 @@ server <- function(input, output, session) {
           ),
           collapse = "\n"
         ), "verbatim")
-    } else if (input$tabs == "Table2") {
+    } else if (input$tabs == "Table_2") {
       card$set_name("Table Module 2")
       card$append_text("My Table 2", "header2")
       card$append_table(table2())
+      card$append_text(
+      paste(
+        c(
+          'aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month),', 
+          paste0(input$stat, ","), 
+          'na.rm = TRUE)'
+        ),
+        collapse = "\n"
+      ), "verbatim")
+    } else if (input$tabs == "Table_3") {
+      card$set_name("Table Module 3")
+      card$append_text("My Table 3", "header2")
+      card$append_table(table3())
       card$append_text(
       paste(
         c(

@@ -42,7 +42,7 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
     }
   ),
   private = list(
-    supported_tables = c("data.frame", "DT", "rtables", "TableTree")
+    supported_tables = c("data.frame", "rtables", "TableTree")
   ),
   lock_objects = TRUE,
   lock_class = TRUE

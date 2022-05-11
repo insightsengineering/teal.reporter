@@ -52,7 +52,7 @@ reporter_previewer_ui <- function(id, rmd_output = c(
       ),
       shiny::tags$div(
         class = "col-md-9",
-        tags$div(
+        shiny::tags$div(
           id = "reporter_previewer_panel",
           shiny::uiOutput(ns("pcards"))
         )
@@ -102,7 +102,7 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
             })
           )
         } else {
-          tags$div(
+          shiny::tags$div(
             id = "reporter_previewer_panel_no_cards",
             shiny::tags$p(style = "color:red;", shiny::tags$strong("No Cards added"))
           )
@@ -191,7 +191,7 @@ add_previewer_css <- function() {
 
 add_previewer_js <- function(ns) {
   shiny::tags$head(shiny::tags$script(
-    HTML(sprintf('
+    shiny::HTML(sprintf('
           $(document).ready(function(event) {
             $("body").on("click", "span.card_remove_id", function() {
               let val = $(this).data("cardid");
