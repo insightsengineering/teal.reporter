@@ -38,7 +38,8 @@ reporter_previewer_ui <- function(id, rmd_output = c(
       download = NA,
       shiny::icon("download"),
       "Download Report"
-    )
+    ),
+    teal.reporter::reset_report_button_ui(ns("resetButtonPreviewer"))
   )
 
   shiny::fluidRow(
@@ -74,6 +75,8 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
     id,
     function(input, output, session) {
       ns <- session$ns
+
+      teal.reporter::reset_report_button_srv("resetButtonPreviewer", reporter)
 
       output$pcards <- shiny::renderUI({
         reporter$get_reactive_add_card()
