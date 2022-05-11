@@ -210,8 +210,8 @@ add_previewer_css <- function() {
 
 add_previewer_js <- function(ns) {
   tagList(
-  shiny::tags$head(shiny::tags$script(
-    sprintf('
+    shiny::tags$head(shiny::tags$script(
+      sprintf('
           $(document).ready(function(event) {
             $("body").on("click", "span.card_remove_id", function() {
               var val = $(this).data("cardid");
@@ -234,8 +234,8 @@ add_previewer_js <- function(ns) {
              });
          })
          ', ns("card_remove_id"), ns("card_up_id"), ns("card_down_id"))
-  )),
-  shinyjs::useShinyjs()
+    )),
+    shinyjs::useShinyjs()
   )
 }
 
