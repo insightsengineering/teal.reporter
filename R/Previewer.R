@@ -214,7 +214,6 @@ add_previewer_js <- function(ns) {
              });
 
              $("body").on("DOMSubtreeModified", "#reporter_previewer_panel", function() {
-              console.log("RUN");
               let accor = $(this).find("#accordion");
               let down_button = $("#%s");
               if (accor && (accor.length === 0)) {
