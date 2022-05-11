@@ -89,24 +89,24 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
 
         cards <- reporter$get_cards()
 
-          if (length(cards)) {
-            shiny::tags$div(
-              class = "panel-group", id = "accordion",
-              lapply(seq_along(cards), function(ic) {
-                shiny::tags$div(
-                  id = paste0("panel_card_", ic),
-                  class = "panel panel-default",
-                  previewer_collapse_head(ic, cards[[ic]]$get_name()),
-                  previewer_collapse_body(ic, cards[[ic]]$get_content())
-                )
-              })
-            )
-          } else {
-            tags$div(
-              id = "reporter_previewer_panel_no_cards",
-              shiny::tags$p(style = "color:red;", shiny::tags$strong("No Cards added"))
-            )
-          }
+        if (length(cards)) {
+          shiny::tags$div(
+            class = "panel-group", id = "accordion",
+            lapply(seq_along(cards), function(ic) {
+              shiny::tags$div(
+                id = paste0("panel_card_", ic),
+                class = "panel panel-default",
+                previewer_collapse_head(ic, cards[[ic]]$get_name()),
+                previewer_collapse_body(ic, cards[[ic]]$get_content())
+              )
+            })
+          )
+        } else {
+          tags$div(
+            id = "reporter_previewer_panel_no_cards",
+            shiny::tags$p(style = "color:red;", shiny::tags$strong("No Cards added"))
+          )
+        }
       })
 
       shiny::observeEvent(input$card_remove_id, {
