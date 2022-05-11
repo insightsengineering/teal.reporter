@@ -52,7 +52,10 @@ reporter_previewer_ui <- function(id, rmd_output = c(
       ),
       shiny::tags$div(
         class = "col-md-9",
-        shiny::uiOutput(ns("pcards"))
+        tags$div(
+          id = "reporter_previewer_panel",
+          shiny::uiOutput(ns("pcards"))
+        )
       )
     )
   )
@@ -86,21 +89,24 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
 
         cards <- reporter$get_cards()
 
-        if (length(cards)) {
-          shiny::tags$div(
-            class = "panel-group", id = "accordion",
-            lapply(seq_along(cards), function(ic) {
-              shiny::tags$div(
-                id = paste0("panel_card_", ic),
-                class = "panel panel-default",
-                previewer_collapse_head(ic, cards[[ic]]$get_name()),
-                previewer_collapse_body(ic, cards[[ic]]$get_content())
-              )
-            })
-          )
-        } else {
-          shiny::tags$p(style = "color:red;", shiny::tags$strong("No Cards added"))
-        }
+          if (length(cards)) {
+            shiny::tags$div(
+              class = "panel-group", id = "accordion",
+              lapply(seq_along(cards), function(ic) {
+                shiny::tags$div(
+                  id = paste0("panel_card_", ic),
+                  class = "panel panel-default",
+                  previewer_collapse_head(ic, cards[[ic]]$get_name()),
+                  previewer_collapse_body(ic, cards[[ic]]$get_content())
+                )
+              })
+            )
+          } else {
+            tags$div(
+              id = "reporter_previewer_panel_no_cards",
+              shiny::tags$p(style = "color:red;", shiny::tags$strong("No Cards added"))
+            )
+          }
       })
 
       shiny::observeEvent(input$card_remove_id, {
@@ -172,34 +178,54 @@ add_previewer_css <- function() {
                       span.preview_card_control  i:hover {
                         color: blue;
                       }
+
+                      .isDisabled {
+                        color: currentColor;
+                        cursor: not-allowed;
+                        pointer-events: none;
+                        opacity: 0.5;
+                        text-decoration: none;
+                      }
                        "))
 }
 
 add_previewer_js <- function(ns) {
   shiny::tags$head(shiny::tags$script(
-    sprintf('
+    HTML(sprintf('
           $(document).ready(function(event) {
             $("body").on("click", "span.card_remove_id", function() {
-              var val = $(this).data("cardid");
+              let val = $(this).data("cardid");
               let msg_confirm = "Do you really want to remove the card " + val + " from the Report?";
-              var answer = confirm(msg_confirm);
+              let answer = confirm(msg_confirm);
               if (answer) {
                 Shiny.setInputValue("%s", val, {priority: "event"});
                 $("#panel_card_" + val).remove();
               }
-             });
+            });
 
             $("body").on("click", "span.card_up_id", function() {
-              var val = $(this).data("cardid");
+              let val = $(this).data("cardid");
               Shiny.setInputValue("%s", val, {priority: "event"});
-              });
+            });
 
              $("body").on("click", "span.card_down_id", function() {
-              var val = $(this).data("cardid");
+              let val = $(this).data("cardid");
               Shiny.setInputValue("%s", val, {priority: "event"});
              });
-         })
-         ', ns("card_remove_id"), ns("card_up_id"), ns("card_down_id"))
+
+             $("body").on("DOMSubtreeModified", "#reporter_previewer_panel", function() {
+              console.log("RUN");
+              let accor = $(this).find("#accordion");
+              let down_button = $("#%s");
+              if (accor && (accor.length === 0)) {
+                down_button.addClass("isDisabled");
+              } else {
+                down_button.removeClass("isDisabled");
+              }
+             });
+
+          });
+         ', ns("card_remove_id"), ns("card_up_id"), ns("card_down_id"), ns("download_data_prev")))
   ))
 }
 

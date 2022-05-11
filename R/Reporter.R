@@ -131,6 +131,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       if (!is.null(ids)) {
         private$cards <- private$cards[-ids]
       }
+      private$reactive_add_card(length(private$cards))
       invisible(self)
     },
     #' @description swap two cards in the Reporter
