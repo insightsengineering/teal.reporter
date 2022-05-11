@@ -85,7 +85,6 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
         input$card_up_id
 
         cards <- reporter$get_cards()
-        cards_names <- names(cards)
 
         if (length(cards)) {
           shiny::tags$div(
@@ -94,41 +93,8 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
               shiny::tags$div(
                 id = paste0("panel_card_", ic),
                 class = "panel panel-default",
-                shiny::tags$div(
-                  class = "panel-heading", style = "overflow:auto;",
-                  shiny::tags$h4(
-                    class = "panel-title",
-                    shiny::tags$span(
-                      shiny::tags$span(
-                        class = "preview_card_control",
-                        nav_previewer_icon(name = "card_remove_id", icon_name = "times", idx = ic, size = 1),
-                        nav_previewer_icon(name = "card_up_id", icon_name = "arrow-up", idx = ic, size = 1),
-                        nav_previewer_icon(name = "card_down_id", icon_name = "arrow-down", idx = ic, size = 1)
-                      ),
-                      shiny::tags$a(
-                        class = "accordion-toggle",
-                        style = "display: block;padding: 10px 15px;margin: -10px -15px;",
-                        `data-toggle` = "collapse", `data-parent` = "#accordion", href = paste0("#collapse", ic),
-                        shiny::tags$h4(paste0("Card ", ic, ": ", cards[[ic]]$get_name()), shiny::icon("caret-down"))
-                      )
-                    )
-                  )
-                ),
-                shiny::tags$div(
-                  id = paste0("collapse", ic), class = "panel-collapse collapse out",
-                  shiny::tags$div(
-                    class = "panel-body",
-                    shiny::tags$div(
-                      id = paste0("card", ic),
-                      lapply(
-                        cards[[ic]]$get_content(),
-                        function(b) {
-                          resolve_block_to_html(b, cards_names[ic])
-                        }
-                      )
-                    )
-                  )
-                )
+                previewer_collapse_head(ic, cards[[ic]]$get_name()),
+                previewer_collapse_body(ic, cards[[ic]]$get_content())
               )
             })
           )
@@ -175,7 +141,7 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
   )
 }
 
-resolve_block_to_html <- function(b, name) {
+block_to_html <- function(b) {
   block_class <- class(b)[1]
   b_content <- b$get_content()
   switch(block_class,
@@ -246,5 +212,46 @@ nav_previewer_icon <- function(name, icon_name, idx, size = 1L) {
     class = name, `data-cardid` = idx,
     style = "float:right;margin-left:10px;margin-right:10px;margin-top:10px;color:#337ab7;",
     shiny::icon(icon_name, sprintf("fa-%sx", size))
+  )
+}
+
+previewer_collapse_body <- function(idx, card_blocks) {
+  shiny::tags$div(
+    id = paste0("collapse", idx), class = "panel-collapse collapse out",
+    shiny::tags$div(
+      class = "panel-body",
+      shiny::tags$div(
+        id = paste0("card", idx),
+        lapply(
+          card_blocks,
+          function(b) {
+            block_to_html(b)
+          }
+        )
+      )
+    )
+  )
+}
+
+previewer_collapse_head <- function(idx, card_name) {
+  shiny::tags$div(
+    class = "panel-heading", style = "overflow:auto;",
+    shiny::tags$h4(
+      class = "panel-title",
+      shiny::tags$span(
+        shiny::tags$span(
+          class = "preview_card_control",
+          nav_previewer_icon(name = "card_remove_id", icon_name = "times", idx = idx, size = 1),
+          nav_previewer_icon(name = "card_up_id", icon_name = "arrow-up", idx = idx, size = 1),
+          nav_previewer_icon(name = "card_down_id", icon_name = "arrow-down", idx = idx, size = 1)
+        ),
+        shiny::tags$a(
+          class = "accordion-toggle",
+          style = "display: block;padding: 10px 15px;margin: -10px -15px;",
+          `data-toggle` = "collapse", `data-parent` = "#accordion", href = paste0("#collapse", idx),
+          shiny::tags$h4(paste0("Card ", idx, ": ", card_name), shiny::icon("caret-down"))
+        )
+      )
+    )
   )
 }
