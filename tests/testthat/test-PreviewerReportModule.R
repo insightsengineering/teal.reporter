@@ -74,12 +74,6 @@ testthat::test_that("reporter_previewer_srv - up with first card and down with l
       session$setInputs(`card_down_id` = 2L)
       cards_post <- reporter$get_cards()
       testthat::expect_identical(cards_pre, cards_post)
-
-      cards_pre <- reporter$get_cards()
-      session$setInputs(`card_up_id` = 2L)
-      session$setInputs(`card_down_id` = 1L)
-      cards_post <- reporter$get_cards()
-      testthat::expect_equal(cards_pre, cards_post)
     }
   )
 })
