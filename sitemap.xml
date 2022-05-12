@@ -10,6 +10,9 @@
     <loc>https://insightsengineering.github.io/teal.reporter/articles/index.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/articles/previewerReporter.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/teal.reporter/articles/simpleReporter.html</loc>
   </url>
   <url>
@@ -80,6 +83,12 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/report_render_and_compress.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/reporter_previewer_srv.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/reporter_previewer_ui.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/reset_report_button_srv.html</loc>
