@@ -1,0 +1,197 @@
+---
+title: "Reporter Previewer"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Reporter Previewer}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```r
+library(shiny)
+library(teal.reporter)
+library(ggplot2)
+library(rtables)
+library(DT)
+```
+
+Reporter Previewer is a shiny module to visualize and manipulate the already added report Cards, and eventually downloading a report document.
+Reporter Previewer is extended by the base modules introduced in the `simpleReporter` vignette.
+
+The code added to introduce the reporter is wrapped in the `### REPORTER` code blocks.
+
+The implementation should consist of 5 steps:
+
+1. Create a `tabsetPanel` with the main app and the Previewer.
+2. Add modules user interface to the user interface of the app.
+3. Initialize Reporter instance.
+4. Create the Report Card function with two arguments: card and comment.
+The function should build the Card step by step and assuming it is empty at the beginning,
+the optional comment argument is a string provided by the user when the card is added.
+If the comment argument is not specified then it is added automatically at the end of the Card.
+This part requires the developer to use their imagination on how the document page should look like. 
+5. Invoke the servers with the reporter instance and the function to create the report card instance.
+
+```r
+ui <- fluidPage(
+  titlePanel(""),
+  tabsetPanel(
+    tabPanel(
+      "main App",
+      tags$br(),
+      tags$br(),
+      sidebarLayout(
+        uiOutput("encoding"),
+        mainPanel(
+          ### REPORTER
+          teal.reporter::add_card_button_ui("addReportCard"),
+          teal.reporter::download_report_button_ui("downloadButton"),
+          teal.reporter::reset_report_button_ui("resetButton"),
+          ###
+          tags$br(),
+          tags$br(),
+          tabsetPanel(
+            id = "tabs",
+            tabPanel("Plot", plotOutput("dist_plot")),
+            tabPanel("Table", verbatimTextOutput("table")),
+            tabPanel("Table DataFrame", verbatimTextOutput("table2")),
+            tabPanel("Table DataTable", dataTableOutput("table3"))
+          )
+        )
+      )
+    ),
+    ### REPORTER
+    tabPanel(
+      "Previewer",
+      reporter_previewer_ui("prev")
+    )
+    ###
+  )
+)
+
+server <- function(input, output, session) {
+  output$encoding <- renderUI({
+    if (input$tabs == "Plot") {
+      sidebarPanel(
+        sliderInput(
+          "binwidth",
+          "binwidth",
+          min = 2,
+          max = 10,
+          value = 8
+        )
+      )
+    } else if (input$tabs %in% c("Table", "Table DataFrame", "Table DataTable")) {
+      sidebarPanel(
+        selectInput(
+          "stat",
+          label = "Statistic",
+          choices = c("mean", "median", "sd"),
+          "mean"
+        )
+      )
+    } else {
+      NULL
+    }
+  })
+  
+  plot <- reactive({
+    req(input$binwidth)
+    x <- mtcars$mpg
+    ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg)) +
+      ggplot2::geom_histogram(binwidth = input$binwidth)
+  })
+  
+  output$dist_plot <- renderPlot({
+    plot()
+  })
+  
+  table <- reactive({
+    req(input$stat)
+    lyt <- basic_table() %>%
+        split_rows_by("Month", label_pos = "visible") %>%
+        analyze("Ozone", afun = eval(str2expression(input$stat)))
+    build_table(lyt, airquality)
+  })
+  
+  output$table <- renderPrint({
+    table()
+  })
+  
+  table2 <- reactive({
+    req(input$stat)
+    data <- aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), get(input$stat), na.rm = TRUE)
+    colnames(data) <- c("Month", input$stat)
+    data
+  })
+  
+  output$table2 <- renderPrint({
+    print.data.frame(table2())
+  })
+  
+  output$table3 <- renderDataTable({
+    DT::datatable(table2())
+  })
+  
+  ### REPORTER
+  reporter <- teal.reporter::Reporter$new()
+  card_fun <- function(card = ReportCard$new(), comment) {
+    if (input$tabs == "Plot") {
+      card$set_name("Plot Module")
+      card$append_text("My plot", "header2")
+      card$append_plot(plot())
+      card$append_text(
+        paste(
+          c(
+            "x <- mtcars$mpg",
+            "ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg)) +",
+            paste0("ggplot2::geom_histogram(binwidth = ", input$binwidth, ")")
+          ),
+          collapse = "\n"
+        ), 
+      "verbatim")
+    } else if (input$tabs == "Table") {
+      card$set_name("Table Module rtables")
+      card$append_text("My rtables", "header2")
+      card$append_table(table())
+      card$append_text(
+        paste(
+          c(
+            'lyt <- rtables::basic_table() %>%',
+            'rtables::split_rows_by("Month", label_pos = "visible") %>%',
+            paste0('rtables::analyze("Ozone", afun = ', input$stat, ')'),
+            'rtables::build_table(lyt, airquality)'
+          ),
+          collapse = "\n"
+        ), "verbatim")
+    } else if (input$tabs %in% c("Table DataFrame", "Table DataTable")) {
+      card$set_name("Table Module DF")
+      card$append_text("My Table DF", "header2")
+      card$append_table(table2())
+      card$append_text(
+      paste0(
+        c(
+          'data <- aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), ', 
+          input$stat, 
+          ', na.rm = TRUE)\n',
+          'colnames(data) <- c("Month", ', paste0('"', input$stat, '"'), ')\n',
+          'data'
+        ), collapse = ""
+      ), "verbatim")
+    }
+    if (!comment == "") {
+      card$append_text("Comment", "header3")
+      card$append_text(comment)
+    }
+    card
+  }
+  
+  teal.reporter::add_card_button_srv("addReportCard", reporter = reporter, card_fun = card_fun)
+  teal.reporter::download_report_button_srv("downloadButton", reporter = reporter)
+  teal.reporter::reset_report_button_srv("resetButton", reporter)
+  teal.reporter::reporter_previewer_srv("prev", reporter)
+  ###
+}
+
+shinyApp(ui = ui, server = server)
+```

@@ -70,7 +70,7 @@ Sets content of this \code{TableBlock}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{content}}{(\code{data.frame}, \code{DT}, \code{rtables}) a table assigned to this \code{TableBlock}}
+\item{\code{content}}{(\code{data.frame}, \code{rtables}) a table assigned to this \code{TableBlock}}
 }
 \if{html}{\out{</div>}}
 }

@@ -20,7 +20,7 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @details throws if argument is not a table-like object.
     #'
-    #' @param content (`data.frame`, `DT`, `rtables`) a table assigned to this `TableBlock`
+    #' @param content (`data.frame`, `rtables`) a table assigned to this `TableBlock`
     #' @return invisibly self
     #' @examples
     #' block <- teal.reporter:::TableBlock$new()
@@ -42,7 +42,7 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
     }
   ),
   private = list(
-    supported_tables = c("data.frame", "DT", "rtables", "TableTree")
+    supported_tables = c("data.frame", "rtables", "TableTree")
   ),
   lock_objects = TRUE,
   lock_class = TRUE

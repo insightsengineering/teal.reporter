@@ -59,7 +59,9 @@ card$get_content()[[1]]$get_content()
 \item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_text">}\href{../../teal.reporter/html/ReportCard.html#method-append_text}{\code{teal.reporter::ReportCard$append_text()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="get_chr_converters">}\href{../../teal.reporter/html/ReportCard.html#method-get_chr_converters}{\code{teal.reporter::ReportCard$get_chr_converters()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="get_content">}\href{../../teal.reporter/html/ReportCard.html#method-get_content}{\code{teal.reporter::ReportCard$get_content()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="get_name">}\href{../../teal.reporter/html/ReportCard.html#method-get_name}{\code{teal.reporter::ReportCard$get_name()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="initialize">}\href{../../teal.reporter/html/ReportCard.html#method-initialize}{\code{teal.reporter::ReportCard$initialize()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="set_name">}\href{../../teal.reporter/html/ReportCard.html#method-set_name}{\code{teal.reporter::ReportCard$set_name()}}\out{</span>}
 }
 \out{</details>}
 }

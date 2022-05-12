@@ -37,6 +37,5 @@ teal.reporter:::conv_str_logi("off")
 teal.reporter:::conv_str_logi("n")
 
 teal.reporter:::conv_str_logi("sth")
-
 }
 \keyword{internal}

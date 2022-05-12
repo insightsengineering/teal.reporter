@@ -12,7 +12,7 @@ reporter$append_cards(list(card1))
 testthat::test_that("download_report_button_srv - render and downlaod a document", {
   shiny::testServer(
     download_report_button_srv,
-    args = list(reporter = reporter, notification = FALSE),
+    args = list(reporter = reporter),
     expr = {
       session$setInputs(`download_button` = 0)
       session$setInputs(`output` = "html_document")
@@ -29,6 +29,7 @@ testthat::test_that("download_report_button_srv - render and downlaod a document
       files <- list.files(output_dir, recursive = TRUE)
       testthat::expect_true(any(grepl("[.]Rmd", files)))
       testthat::expect_true(any(grepl("[.]html", files)))
+      unlink(output_dir, recursive = TRUE)
     }
   )
 })

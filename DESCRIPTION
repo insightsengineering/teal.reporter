@@ -11,17 +11,17 @@ BugReports: https://github.com/insightsengineering/teal.reporter/issues
 Imports:
     checkmate,
     grid,
+    knitr,
     R6,
+    rmarkdown,
     shiny,
     shinyWidgets,
     yaml,
     zip
 Suggests:
     ggplot2,
-    knitr,
     lattice,
     png,
-    rmarkdown,
     rtables,
     testthat
 VignetteBuilder:

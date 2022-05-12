@@ -17,5 +17,4 @@ get document output arguments from the \code{rmarkdown} package
 \examples{
 rmd_output_arguments("pdf_document")
 rmd_output_arguments("pdf_document", TRUE)
-
 }

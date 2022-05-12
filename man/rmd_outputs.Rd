@@ -14,5 +14,4 @@ get document output types from the \code{rmarkdown} package.
 }
 \examples{
 rmd_outputs()
-
 }

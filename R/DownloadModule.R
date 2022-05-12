@@ -25,7 +25,6 @@ download_report_button_ui <- function(id) {
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character`
 #' @param reporter `Reporter` instance.
-#' @param notification `logical` whether to add a shiny notification about the download process. Default `TRUE`.
 #' @param rmd_output `character` vector with `rmarkdown` output types,
 #' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
 #' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
@@ -35,7 +34,6 @@ download_report_button_ui <- function(id) {
 #' @export
 download_report_button_srv <- function(id,
                                        reporter,
-                                       notification = TRUE,
                                        rmd_output = c(
                                          "html_document", "pdf_document",
                                          "powerpoint_presentation", "word_document"
@@ -45,7 +43,6 @@ download_report_button_srv <- function(id,
                                          date = as.character(Sys.Date()), output = "html_document"
                                        )) {
   checkmate::assert_class(reporter, "Reporter")
-  checkmate::assert_flag(notification)
   checkmate::assert_subset(rmd_output, c(
     "html_document", "pdf_document",
     "powerpoint_presentation", "word_document"
@@ -122,9 +119,7 @@ download_report_button_srv <- function(id,
           paste("report_", format(Sys.time(), "%y%m%d%H%M%S"), ".zip", sep = "")
         },
         content = function(file) {
-          if (notification) {
-            shiny::showNotification(sprintf("Rendering and Downloading a document."))
-          }
+          shiny::showNotification("Rendering and Downloading the document.")
           input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
           names(input_list) <- names(rmd_yaml_args)
           report_render_and_compress(reporter, input_list, file)
