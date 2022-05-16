@@ -1,6 +1,6 @@
 Package: teal.reporter
 Title: Reporting tools for Shiny modules
-Version: 0.0.0.9009
+Version: 0.0.0.9010
 Authors@R: c(
     person("Maciej", "Nasinski", , "maciej.nasinski@contractors.roche.com", role = c("aut", "cre")),
     person("Konrad", "Pagacz", , "konrad.pagacz@contractors.roche.com", role = "aut"),
@@ -15,17 +15,17 @@ BugReports: https://github.com/insightsengineering/teal.reporter/issues
 Imports:
     checkmate,
     grid,
+    knitr,
     R6,
+    rmarkdown,
     shiny,
     shinyWidgets,
     yaml,
     zip
 Suggests:
     ggplot2,
-    knitr,
     lattice,
     png,
-    rmarkdown,
     rtables,
     testthat
 VignetteBuilder:

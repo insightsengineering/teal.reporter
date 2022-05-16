@@ -12,6 +12,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     initialize = function() {
       private$cards <- list()
+      private$reactive_add_card <- shiny::reactiveVal(0)
       invisible(self)
     },
     #' @description Appends a table to this `Reporter`.
@@ -42,6 +43,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     append_cards = function(cards) {
       checkmate::assert_list(cards, "ReportCard")
       private$cards <- append(private$cards, cards)
+      private$reactive_add_card(length(private$cards))
       invisible(self)
     },
     #' @description Returns cards of this `Reporter`.
@@ -114,11 +116,58 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     reset = function() {
       private$cards <- list()
+      private$reactive_add_card(0)
       invisible(self)
+    },
+    #' @description remove a specific Card in the Reporter
+    #'
+    #' @param ids `integer` the indexes of cards
+    #' @return invisibly self
+    remove_cards = function(ids = NULL) {
+      checkmate::assert(
+        checkmate::check_null(ids),
+        checkmate::check_integer(ids, min.len = 1, max.len = length(private$cards))
+      )
+      if (!is.null(ids)) {
+        private$cards <- private$cards[-ids]
+      }
+      private$reactive_add_card(length(private$cards))
+      invisible(self)
+    },
+    #' @description swap two cards in the Reporter
+    #'
+    #' @param start `integer` the index of the first card
+    #' @param end `integer` the index of the second card
+    #' @return invisibly self
+    swap_cards = function(start, end) {
+      checkmate::assert(
+        checkmate::check_integer(start,
+          min.len = 1, max.len = 1, lower = 1, upper = length(private$cards)
+        ),
+        checkmate::check_integer(end,
+          min.len = 1, max.len = 1, lower = 1, upper = length(private$cards)
+        ),
+        combine = "and"
+      )
+      start_val <- private$cards[[start]]$clone()
+      end_val <- private$cards[[end]]$clone()
+      private$cards[[start]] <- end_val
+      private$cards[[end]] <- start_val
+      invisible(self)
+    },
+    #' @description get a value for the reactive value for the add card
+    #'
+    #' @return `reactive_add_card` filed value
+    #' @note The function has to be used in the shiny reactive context.
+    #' @examples
+    #' shiny::isolate(Reporter$new()$get_reactive_add_card())
+    get_reactive_add_card = function() {
+      private$reactive_add_card()
     }
   ),
   private = list(
     cards = list(),
+    reactive_add_card = NULL,
     # @description The copy constructor.
     #
     # @param name the name of the field

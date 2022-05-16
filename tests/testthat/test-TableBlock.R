@@ -13,7 +13,7 @@ testthat::test_that("set_content accepts a table object", {
 
 testthat::test_that("set_content asserts the argument is a plot", {
   block <- TableBlock$new()
-  testthat::expect_error(block$set_content(7), regexp = "Must inherit from class 'data.frame'/'DT'/'rtables'")
+  testthat::expect_error(block$set_content(7), regexp = "Must inherit from class 'data.frame'/'rtables'")
 })
 
 testthat::test_that("set_content returns the TableBlock object", {

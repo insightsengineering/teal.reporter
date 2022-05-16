@@ -48,7 +48,6 @@ md_header <- function(x) {
 #' teal.reporter:::conv_str_logi("n")
 #'
 #' teal.reporter:::conv_str_logi("sth")
-#'
 conv_str_logi <- function(input,
                           name = "",
                           pos_logi = c("TRUE", "true", "True", "yes", "y", "Y", "on"),
@@ -78,7 +77,6 @@ conv_str_logi <- function(input,
 #' @export
 #' @examples
 #' rmd_outputs()
-#'
 rmd_outputs <- function() {
   rmarkdown_namespace <- asNamespace("rmarkdown")
   ls(rmarkdown_namespace)[grep("_document|_presentation", ls(rmarkdown_namespace))]
@@ -93,7 +91,6 @@ rmd_outputs <- function() {
 #' @examples
 #' rmd_output_arguments("pdf_document")
 #' rmd_output_arguments("pdf_document", TRUE)
-#'
 rmd_output_arguments <- function(output_name, default_values = FALSE) {
   checkmate::assert_string(output_name)
   checkmate::assert_subset(output_name, rmd_outputs())
@@ -164,7 +161,6 @@ rmd_output_arguments <- function(output_name, default_values = FALSE) {
 #'   ),
 #'   multi_output = TRUE
 #' )
-#'
 as_yaml_auto <- function(input_list,
                          as_header = TRUE,
                          convert_logi = TRUE,
@@ -260,7 +256,6 @@ as_yaml_auto <- function(input_list,
 #' out <- as_yaml_auto(input)
 #' out
 #' print(out)
-#'
 print.rmd_yaml_header <- function(x, ...) {
   cat(x, ...)
 }

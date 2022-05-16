@@ -26,7 +26,7 @@ The Simple Reporter module consists of two separate modules one for each of the 
 
 The code added to introduce the simple reporter is wrapped in the `### REPORTER` code blocks.
 
-The implementation should consist of 5 steps:
+The implementation should consist of 4 steps:
 
 1. Add modules user interface to the user interface of the app.
 2. Initialize Reporter instance.
@@ -50,6 +50,7 @@ ui <- fluidPage(
       ### REPORTER
       teal.reporter::add_card_button_ui("addReportCard"),
       teal.reporter::download_report_button_ui("downloadButton"),
+      teal.reporter::reset_report_button_ui("resetButton"),
       ###
       tags$br(),
       tags$br(),
@@ -125,6 +126,7 @@ server <- function(input, output, session) {
 
   teal.reporter::add_card_button_srv("addReportCard", reporter = reporter, card_fun = card_fun)
   teal.reporter::download_report_button_srv("downloadButton", reporter = reporter)
+  teal.reporter::reset_report_button_srv("resetButton", reporter)
   ###
 }
 

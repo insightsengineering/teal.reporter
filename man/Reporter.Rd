@@ -8,6 +8,9 @@
 
 \code{Reporter}
 }
+\note{
+The function has to be used in the shiny reactive context.
+}
 \examples{
 
 ## ------------------------------------------------
@@ -92,6 +95,12 @@ reporter <- teal.reporter:::Reporter$new()
 reporter$append_cards(list(card1, card2))
 reporter$get_blocks()
 
+
+## ------------------------------------------------
+## Method `Reporter$get_reactive_add_card`
+## ------------------------------------------------
+
+shiny::isolate(Reporter$new()$get_reactive_add_card())
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -101,6 +110,9 @@ reporter$get_blocks()
 \item \href{#method-get_cards}{\code{Reporter$get_cards()}}
 \item \href{#method-get_blocks}{\code{Reporter$get_blocks()}}
 \item \href{#method-reset}{\code{Reporter$reset()}}
+\item \href{#method-remove_cards}{\code{Reporter$remove_cards()}}
+\item \href{#method-swap_cards}{\code{Reporter$swap_cards()}}
+\item \href{#method-get_reactive_add_card}{\code{Reporter$get_reactive_add_card()}}
 \item \href{#method-clone}{\code{Reporter$clone()}}
 }
 }
@@ -274,6 +286,69 @@ Removes all \code{ReportCard} objects added to this \code{Reporter}.
 \subsection{Returns}{
 invisibly self
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-remove_cards"></a>}}
+\if{latex}{\out{\hypertarget{method-remove_cards}{}}}
+\subsection{Method \code{remove_cards()}}{
+remove a specific Card in the Reporter
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$remove_cards(ids = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ids}}{\code{integer} the indexes of cards}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-swap_cards"></a>}}
+\if{latex}{\out{\hypertarget{method-swap_cards}{}}}
+\subsection{Method \code{swap_cards()}}{
+swap two cards in the Reporter
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$swap_cards(start, end)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{start}}{\code{integer} the index of the first card}
+
+\item{\code{end}}{\code{integer} the index of the second card}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_reactive_add_card"></a>}}
+\if{latex}{\out{\hypertarget{method-get_reactive_add_card}{}}}
+\subsection{Method \code{get_reactive_add_card()}}{
+get a value for the reactive value for the add card
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_reactive_add_card()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\code{reactive_add_card} filed value
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{shiny::isolate(Reporter$new()$get_reactive_add_card())
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
