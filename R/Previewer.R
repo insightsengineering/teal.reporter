@@ -174,7 +174,8 @@ block_to_html <- function(b) {
 }
 
 add_previewer_css <- function() {
-  shiny::tags$head(shiny::tags$style("
+  shiny::singleton(
+    shiny::tags$head(shiny::tags$style("
                       span.preview_card_control  i:hover {
                         color: blue;
                       }
@@ -187,11 +188,13 @@ add_previewer_css <- function() {
                         text-decoration: none;
                       }
                        "))
+  )
 }
 
 add_previewer_js <- function(ns) {
-  shiny::tags$head(shiny::tags$script(
-    shiny::HTML(sprintf('
+  shiny::singleton(
+    shiny::tags$head(shiny::tags$script(
+      shiny::HTML(sprintf('
           $(document).ready(function(event) {
             $("body").on("click", "span.card_remove_id", function() {
               let val = $(this).data("cardid");
@@ -225,7 +228,8 @@ add_previewer_js <- function(ns) {
 
           });
          ', ns("card_remove_id"), ns("card_up_id"), ns("card_down_id"), ns("download_data_prev")))
-  ))
+    ))
+  )
 }
 
 nav_previewer_icon <- function(name, icon_name, idx, size = 1L) {
