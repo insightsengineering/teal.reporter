@@ -1,3 +1,3 @@
-# teal.reporter 0.0.0.9011
+# teal.reporter 0.0.0.9012
 
 * Initialize the package.
