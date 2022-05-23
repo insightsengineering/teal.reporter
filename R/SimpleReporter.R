@@ -9,10 +9,10 @@
 #' @examples
 #' if (interactive()) {
 #'   shiny::shinyApp(
-#'     ui = function (id) {
+#'     ui = function(id) {
 #'       simple_reporter_ui("simple")
 #'     },
-#'     server = function (input, output, session) {
+#'     server = function(input, output, session) {
 #'       simple_reporter_srv("simple", Reporter$new(), function(card) card)
 #'     }
 #'   )
