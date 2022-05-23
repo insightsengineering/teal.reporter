@@ -1,11 +1,10 @@
-card_fun <- function(card = ReportCard$new(),
-                     comment = NULL) {
-  card$append_text("Header 2 text", "header2")
-  card$append_text("A paragraph of default text", "header2")
-  card
-}
-
 testthat::test_that("add_card_button_srv - add a Card to the Reporter", {
+  card_fun <- function(card = ReportCard$new(),
+                       comment = NULL) {
+    card$append_text("Header 2 text", "header2")
+    card$append_text("A paragraph of default text", "header2")
+    card
+  }
   shiny::testServer(
     add_card_button_srv,
     args = list(reporter = Reporter$new(), card_fun = card_fun),
