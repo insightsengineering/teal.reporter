@@ -10,7 +10,7 @@ simple_reporter_ui(id)
 \item{id}{\code{character}}
 }
 \value{
-\code{shiny::tagList}
+\code{shiny.tag}
 }
 \description{
 three buttons for adding views, downloading and resetting the Report.
