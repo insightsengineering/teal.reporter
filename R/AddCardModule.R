@@ -81,8 +81,8 @@ add_card_button_srv <- function(id, reporter, card_fun) {
       })
 
       shiny::observeEvent(input$add_card_ok, {
-        card <- ReportCard$new()
         card_fun_args_nams <- names(formals(card_fun))
+        card <- `if`(is.null(formals(card_fun)[[1]]), ReportCard$new(), eval(formals(card_fun)[[1]]))
         if (length(card_fun_args_nams) == 1) {
           card_fun(card)
           if (length(input$comment) > 0 && input$comment != "") {

@@ -5,12 +5,28 @@
 #' @param id `character`
 #' @return `shiny::tagList`
 #' @export
+#'
+#' @examples
+#' if (interactive()) {
+#'   shiny::shinyApp(
+#'     ui = function (id) {
+#'       simple_reporter_ui("simple")
+#'     },
+#'     server = function (input, output, session) {
+#'       simple_reporter_srv("simple", Reporter$new(), function(card) card)
+#'     }
+#'   )
+#' }
 simple_reporter_ui <- function(id) {
   ns <- shiny::NS(id)
-  shiny::tagList(
+  shiny::div(
+    shiny::singleton(
+      shiny::tags$head(shiny::includeCSS(system.file("css/SimpleReporter.css", package = "teal.reporter")))
+    ),
     add_card_button_ui(ns("add_report_card_simple")),
     download_report_button_ui(ns("download_button_simple")),
-    reset_report_button_ui(ns("reset_button_simple"))
+    reset_report_button_ui(ns("reset_button_simple")),
+    class = "simple-reporter-container"
   )
 }
 
