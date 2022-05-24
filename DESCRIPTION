@@ -18,6 +18,7 @@ Imports:
     knitr,
     R6,
     rmarkdown,
+    rtables,
     shiny,
     shinyWidgets,
     yaml,
@@ -26,7 +27,6 @@ Suggests:
     ggplot2,
     lattice,
     png,
-    rtables,
     testthat
 VignetteBuilder:
     knitr
