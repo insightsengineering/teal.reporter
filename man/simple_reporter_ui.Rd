@@ -10,10 +10,22 @@ simple_reporter_ui(id)
 \item{id}{\code{character}}
 }
 \value{
-\code{shiny::tagList}
+\code{shiny.tag}
 }
 \description{
 three buttons for adding views, downloading and resetting the Report.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
+}
+\examples{
+if (interactive()) {
+  shiny::shinyApp(
+    ui = function(id) {
+      simple_reporter_ui("simple")
+    },
+    server = function(input, output, session) {
+      simple_reporter_srv("simple", Reporter$new(), function(card) card)
+    }
+  )
+}
 }
