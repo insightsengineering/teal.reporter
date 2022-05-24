@@ -24,21 +24,21 @@ block <- teal.reporter:::NewpageBlock$new()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{NewpageBlock$new()}}
-\item \href{#method-clone}{\code{NewpageBlock$clone()}}
+\item \href{#method-NewpageBlock-new}{\code{NewpageBlock$new()}}
+\item \href{#method-NewpageBlock-clone}{\code{NewpageBlock$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content">}\href{../../teal.reporter/html/ContentBlock.html#method-get_content}{\code{teal.reporter::ContentBlock$get_content()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="set_content">}\href{../../teal.reporter/html/ContentBlock.html#method-set_content}{\code{teal.reporter::ContentBlock$set_content()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-get_content'><code>teal.reporter::ContentBlock$get_content()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="set_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-set_content'><code>teal.reporter::ContentBlock$set_content()</code></a></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-NewpageBlock-new"></a>}}
+\if{latex}{\out{\hypertarget{method-NewpageBlock-new}{}}}
 \subsection{Method \code{new()}}{
 Returns a \code{NewpageBlock} object.
 \subsection{Usage}{
@@ -63,8 +63,8 @@ Returns a \code{NewpageBlock} object with no content and the default style.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-NewpageBlock-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-NewpageBlock-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

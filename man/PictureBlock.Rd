@@ -62,26 +62,26 @@ block$get_dim()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{PictureBlock$new()}}
-\item \href{#method-set_content}{\code{PictureBlock$set_content()}}
-\item \href{#method-finalize}{\code{PictureBlock$finalize()}}
-\item \href{#method-set_title}{\code{PictureBlock$set_title()}}
-\item \href{#method-get_title}{\code{PictureBlock$get_title()}}
-\item \href{#method-set_dim}{\code{PictureBlock$set_dim()}}
-\item \href{#method-get_dim}{\code{PictureBlock$get_dim()}}
-\item \href{#method-clone}{\code{PictureBlock$clone()}}
+\item \href{#method-PictureBlock-new}{\code{PictureBlock$new()}}
+\item \href{#method-PictureBlock-set_content}{\code{PictureBlock$set_content()}}
+\item \href{#method-PictureBlock-finalize}{\code{PictureBlock$finalize()}}
+\item \href{#method-PictureBlock-set_title}{\code{PictureBlock$set_title()}}
+\item \href{#method-PictureBlock-get_title}{\code{PictureBlock$get_title()}}
+\item \href{#method-PictureBlock-set_dim}{\code{PictureBlock$set_dim()}}
+\item \href{#method-PictureBlock-get_dim}{\code{PictureBlock$get_dim()}}
+\item \href{#method-PictureBlock-clone}{\code{PictureBlock$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content">}\href{../../teal.reporter/html/ContentBlock.html#method-get_content}{\code{teal.reporter::ContentBlock$get_content()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-get_content'><code>teal.reporter::ContentBlock$get_content()</code></a></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-PictureBlock-new"></a>}}
+\if{latex}{\out{\hypertarget{method-PictureBlock-new}{}}}
 \subsection{Method \code{new()}}{
 Returns a new \code{PictureBlock} object.
 \subsection{Usage}{
@@ -100,8 +100,8 @@ a \code{PictureBlock} object
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_content"></a>}}
-\if{latex}{\out{\hypertarget{method-set_content}{}}}
+\if{html}{\out{<a id="method-PictureBlock-set_content"></a>}}
+\if{latex}{\out{\hypertarget{method-PictureBlock-set_content}{}}}
 \subsection{Method \code{set_content()}}{
 Sets the content of this \code{PictureBlock}.
 \subsection{Usage}{
@@ -139,8 +139,8 @@ block$set_content(ggplot2::ggplotGrob(ggplot2::ggplot(iris)))
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-finalize"></a>}}
-\if{latex}{\out{\hypertarget{method-finalize}{}}}
+\if{html}{\out{<a id="method-PictureBlock-finalize"></a>}}
+\if{latex}{\out{\hypertarget{method-PictureBlock-finalize}{}}}
 \subsection{Method \code{finalize()}}{
 Finalizes this \code{PictureBlock}.
 \subsection{Usage}{
@@ -153,8 +153,8 @@ Removes the temporary file created in the constructor.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_title"></a>}}
-\if{latex}{\out{\hypertarget{method-set_title}{}}}
+\if{html}{\out{<a id="method-PictureBlock-set_title"></a>}}
+\if{latex}{\out{\hypertarget{method-PictureBlock-set_title}{}}}
 \subsection{Method \code{set_title()}}{
 Sets the title of this \code{PictureBlock}.
 \subsection{Usage}{
@@ -187,8 +187,8 @@ block$set_title("Title")
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_title"></a>}}
-\if{latex}{\out{\hypertarget{method-get_title}{}}}
+\if{html}{\out{<a id="method-PictureBlock-get_title"></a>}}
+\if{latex}{\out{\hypertarget{method-PictureBlock-get_title}{}}}
 \subsection{Method \code{get_title()}}{
 Returns the title of this \code{PictureBlock}
 \subsection{Usage}{
@@ -210,8 +210,8 @@ block$get_title()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_dim"></a>}}
-\if{latex}{\out{\hypertarget{method-set_dim}{}}}
+\if{html}{\out{<a id="method-PictureBlock-set_dim"></a>}}
+\if{latex}{\out{\hypertarget{method-PictureBlock-set_dim}{}}}
 \subsection{Method \code{set_dim()}}{
 Sets the dimensions of this \code{PictureBlock}
 \subsection{Usage}{
@@ -240,8 +240,8 @@ block$set_dim(c(800, 600))
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_dim"></a>}}
-\if{latex}{\out{\hypertarget{method-get_dim}{}}}
+\if{html}{\out{<a id="method-PictureBlock-get_dim"></a>}}
+\if{latex}{\out{\hypertarget{method-PictureBlock-get_dim}{}}}
 \subsection{Method \code{get_dim()}}{
 Returns the dimensions of this \code{PictureBlock}
 \subsection{Usage}{
@@ -263,8 +263,8 @@ block$get_dim()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-PictureBlock-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-PictureBlock-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

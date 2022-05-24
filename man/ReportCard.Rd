@@ -93,21 +93,21 @@ ReportCard$new()$set_name("NAME")$get_name()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{ReportCard$new()}}
-\item \href{#method-append_table}{\code{ReportCard$append_table()}}
-\item \href{#method-append_plot}{\code{ReportCard$append_plot()}}
-\item \href{#method-append_text}{\code{ReportCard$append_text()}}
-\item \href{#method-get_content}{\code{ReportCard$get_content()}}
-\item \href{#method-append_metadata}{\code{ReportCard$append_metadata()}}
-\item \href{#method-get_chr_converters}{\code{ReportCard$get_chr_converters()}}
-\item \href{#method-get_name}{\code{ReportCard$get_name()}}
-\item \href{#method-set_name}{\code{ReportCard$set_name()}}
-\item \href{#method-clone}{\code{ReportCard$clone()}}
+\item \href{#method-ReportCard-new}{\code{ReportCard$new()}}
+\item \href{#method-ReportCard-append_table}{\code{ReportCard$append_table()}}
+\item \href{#method-ReportCard-append_plot}{\code{ReportCard$append_plot()}}
+\item \href{#method-ReportCard-append_text}{\code{ReportCard$append_text()}}
+\item \href{#method-ReportCard-get_content}{\code{ReportCard$get_content()}}
+\item \href{#method-ReportCard-append_metadata}{\code{ReportCard$append_metadata()}}
+\item \href{#method-ReportCard-get_chr_converters}{\code{ReportCard$get_chr_converters()}}
+\item \href{#method-ReportCard-get_name}{\code{ReportCard$get_name()}}
+\item \href{#method-ReportCard-set_name}{\code{ReportCard$set_name()}}
+\item \href{#method-ReportCard-clone}{\code{ReportCard$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-ReportCard-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-new}{}}}
 \subsection{Method \code{new()}}{
 Returns a \code{ReportCard} object.
 \subsection{Usage}{
@@ -128,8 +128,8 @@ a \code{ReportCard} object
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-append_table"></a>}}
-\if{latex}{\out{\hypertarget{method-append_table}{}}}
+\if{html}{\out{<a id="method-ReportCard-append_table"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-append_table}{}}}
 \subsection{Method \code{append_table()}}{
 Appends a table to this \code{ReportCard}.
 \subsection{Usage}{
@@ -157,8 +157,8 @@ invisibly self
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-append_plot"></a>}}
-\if{latex}{\out{\hypertarget{method-append_plot}{}}}
+\if{html}{\out{<a id="method-ReportCard-append_plot"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-append_plot}{}}}
 \subsection{Method \code{append_plot()}}{
 Appends a plot to this \code{ReportCard}.
 \subsection{Usage}{
@@ -188,8 +188,8 @@ invisibly self
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-append_text"></a>}}
-\if{latex}{\out{\hypertarget{method-append_text}{}}}
+\if{html}{\out{<a id="method-ReportCard-append_text"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-append_text}{}}}
 \subsection{Method \code{append_text()}}{
 Appends a paragraph of text to this \code{ReportCard}.
 \subsection{Usage}{
@@ -219,8 +219,8 @@ invisibly self
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_content"></a>}}
-\if{latex}{\out{\hypertarget{method-get_content}{}}}
+\if{html}{\out{<a id="method-ReportCard-get_content"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-get_content}{}}}
 \subsection{Method \code{get_content()}}{
 Returns the content of this \code{ReportCard}.
 \subsection{Usage}{
@@ -256,8 +256,8 @@ card$get_content()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-append_metadata"></a>}}
-\if{latex}{\out{\hypertarget{method-append_metadata}{}}}
+\if{html}{\out{<a id="method-ReportCard-append_metadata"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-append_metadata}{}}}
 \subsection{Method \code{append_metadata()}}{
 Appends content elements to this \code{ReportCard}.
 \subsection{Usage}{
@@ -296,8 +296,8 @@ card$get_content(raw = TRUE)
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_chr_converters"></a>}}
-\if{latex}{\out{\hypertarget{method-get_chr_converters}{}}}
+\if{html}{\out{<a id="method-ReportCard-get_chr_converters"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-get_chr_converters}{}}}
 \subsection{Method \code{get_chr_converters()}}{
 get all \code{chr_converter} functions of this \code{ReportCard}.
 \subsection{Usage}{
@@ -325,8 +325,8 @@ card$get_chr_converters()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_name"></a>}}
-\if{latex}{\out{\hypertarget{method-get_name}{}}}
+\if{html}{\out{<a id="method-ReportCard-get_name"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-get_name}{}}}
 \subsection{Method \code{get_name()}}{
 get the Card name
 \subsection{Usage}{
@@ -346,8 +346,8 @@ get the Card name
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_name"></a>}}
-\if{latex}{\out{\hypertarget{method-set_name}{}}}
+\if{html}{\out{<a id="method-ReportCard-set_name"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-set_name}{}}}
 \subsection{Method \code{set_name()}}{
 set the Card name
 \subsection{Usage}{
@@ -374,8 +374,8 @@ invisibly self
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-ReportCard-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

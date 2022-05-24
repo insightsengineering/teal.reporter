@@ -37,15 +37,15 @@ block$get_content()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{ContentBlock$new()}}
-\item \href{#method-set_content}{\code{ContentBlock$set_content()}}
-\item \href{#method-get_content}{\code{ContentBlock$get_content()}}
-\item \href{#method-clone}{\code{ContentBlock$clone()}}
+\item \href{#method-ContentBlock-new}{\code{ContentBlock$new()}}
+\item \href{#method-ContentBlock-set_content}{\code{ContentBlock$set_content()}}
+\item \href{#method-ContentBlock-get_content}{\code{ContentBlock$get_content()}}
+\item \href{#method-ContentBlock-clone}{\code{ContentBlock$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-ContentBlock-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ContentBlock-new}{}}}
 \subsection{Method \code{new()}}{
 Returns a \code{ContentBlock} object.
 \subsection{Usage}{
@@ -70,8 +70,8 @@ Returns a \code{ContentBlock} object with no content and the default style.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_content"></a>}}
-\if{latex}{\out{\hypertarget{method-set_content}{}}}
+\if{html}{\out{<a id="method-ContentBlock-set_content"></a>}}
+\if{latex}{\out{\hypertarget{method-ContentBlock-set_content}{}}}
 \subsection{Method \code{set_content()}}{
 Sets content of this \code{ContentBlock}.
 \subsection{Usage}{
@@ -100,8 +100,8 @@ block$set_content("Base64 encoded picture")
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_content"></a>}}
-\if{latex}{\out{\hypertarget{method-get_content}{}}}
+\if{html}{\out{<a id="method-ContentBlock-get_content"></a>}}
+\if{latex}{\out{\hypertarget{method-ContentBlock-get_content}{}}}
 \subsection{Method \code{get_content()}}{
 Returns the absolute path to content of this \code{ContentBlock}
 \subsection{Usage}{
@@ -123,8 +123,8 @@ block$get_content()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-ContentBlock-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ContentBlock-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

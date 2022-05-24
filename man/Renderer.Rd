@@ -93,17 +93,17 @@ renderer$get_output_dir()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{Renderer$new()}}
-\item \href{#method-finalize}{\code{Renderer$finalize()}}
-\item \href{#method-renderRmd}{\code{Renderer$renderRmd()}}
-\item \href{#method-render}{\code{Renderer$render()}}
-\item \href{#method-get_output_dir}{\code{Renderer$get_output_dir()}}
-\item \href{#method-clone}{\code{Renderer$clone()}}
+\item \href{#method-Renderer-new}{\code{Renderer$new()}}
+\item \href{#method-Renderer-finalize}{\code{Renderer$finalize()}}
+\item \href{#method-Renderer-renderRmd}{\code{Renderer$renderRmd()}}
+\item \href{#method-Renderer-render}{\code{Renderer$render()}}
+\item \href{#method-Renderer-get_output_dir}{\code{Renderer$get_output_dir()}}
+\item \href{#method-Renderer-clone}{\code{Renderer$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-Renderer-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Renderer-new}{}}}
 \subsection{Method \code{new()}}{
 Returns a \code{Renderer} object.
 \subsection{Usage}{
@@ -127,8 +127,8 @@ Returns a \code{Renderer} object.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-finalize"></a>}}
-\if{latex}{\out{\hypertarget{method-finalize}{}}}
+\if{html}{\out{<a id="method-Renderer-finalize"></a>}}
+\if{latex}{\out{\hypertarget{method-Renderer-finalize}{}}}
 \subsection{Method \code{finalize()}}{
 Finalizes a \code{Renderer} object.
 \subsection{Usage}{
@@ -137,8 +137,8 @@ Finalizes a \code{Renderer} object.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-renderRmd"></a>}}
-\if{latex}{\out{\hypertarget{method-renderRmd}{}}}
+\if{html}{\out{<a id="method-Renderer-renderRmd"></a>}}
+\if{latex}{\out{\hypertarget{method-Renderer-renderRmd}{}}}
 \subsection{Method \code{renderRmd()}}{
 getting the \code{Rmd} text which could be easily rendered later.
 \subsection{Usage}{
@@ -195,8 +195,8 @@ result_path <- teal.reporter:::Renderer$new()$renderRmd(reporter$get_blocks(), y
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-render"></a>}}
-\if{latex}{\out{\hypertarget{method-render}{}}}
+\if{html}{\out{<a id="method-Renderer-render"></a>}}
+\if{latex}{\out{\hypertarget{method-Renderer-render}{}}}
 \subsection{Method \code{render()}}{
 Renders the content of this \code{Report} to the output file
 \subsection{Usage}{
@@ -253,8 +253,8 @@ result_path <- teal.reporter:::Renderer$new()$render(reporter$get_blocks(), yaml
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_output_dir"></a>}}
-\if{latex}{\out{\hypertarget{method-get_output_dir}{}}}
+\if{html}{\out{<a id="method-Renderer-get_output_dir"></a>}}
+\if{latex}{\out{\hypertarget{method-Renderer-get_output_dir}{}}}
 \subsection{Method \code{get_output_dir()}}{
 get \code{output_dir} field
 \subsection{Usage}{
@@ -275,8 +275,8 @@ renderer$get_output_dir()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-Renderer-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Renderer-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
