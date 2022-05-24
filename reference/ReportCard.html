@@ -12,7 +12,7 @@ meta data blocks that can be appended and rendered to form a report output from 
     
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9014</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9015</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 30px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,15 +33,6 @@ meta data blocks that can be appended and rendered to form a report output from 
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start_releases -->
-<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-Other releases
-<span class="caret"></span></a><ul class="dropdown-menu" role="menu">
-   <li><a href="../index.html">latest</a></li>
-   <li><a href="..//index.html"></a></li>
-</ul></li>
-<!-- end_releases -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -75,17 +66,17 @@ meta data blocks that can be appended and rendered to form a report output from 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
 
-<ul><li><p><a href="#method-new"><code>ReportCard$new()</code></a></p></li>
-<li><p><a href="#method-append_table"><code>ReportCard$append_table()</code></a></p></li>
-<li><p><a href="#method-append_plot"><code>ReportCard$append_plot()</code></a></p></li>
-<li><p><a href="#method-append_text"><code>ReportCard$append_text()</code></a></p></li>
-<li><p><a href="#method-get_content"><code>ReportCard$get_content()</code></a></p></li>
-<li><p><a href="#method-append_metadata"><code>ReportCard$append_metadata()</code></a></p></li>
-<li><p><a href="#method-get_chr_converters"><code>ReportCard$get_chr_converters()</code></a></p></li>
-<li><p><a href="#method-get_name"><code>ReportCard$get_name()</code></a></p></li>
-<li><p><a href="#method-set_name"><code>ReportCard$set_name()</code></a></p></li>
-<li><p><a href="#method-clone"><code>ReportCard$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-new"></a><div class="section">
+<ul><li><p><a href="#method-ReportCard-new"><code>ReportCard$new()</code></a></p></li>
+<li><p><a href="#method-ReportCard-append_table"><code>ReportCard$append_table()</code></a></p></li>
+<li><p><a href="#method-ReportCard-append_plot"><code>ReportCard$append_plot()</code></a></p></li>
+<li><p><a href="#method-ReportCard-append_text"><code>ReportCard$append_text()</code></a></p></li>
+<li><p><a href="#method-ReportCard-get_content"><code>ReportCard$get_content()</code></a></p></li>
+<li><p><a href="#method-ReportCard-append_metadata"><code>ReportCard$append_metadata()</code></a></p></li>
+<li><p><a href="#method-ReportCard-get_chr_converters"><code>ReportCard$get_chr_converters()</code></a></p></li>
+<li><p><a href="#method-ReportCard-get_name"><code>ReportCard$get_name()</code></a></p></li>
+<li><p><a href="#method-ReportCard-set_name"><code>ReportCard$set_name()</code></a></p></li>
+<li><p><a href="#method-ReportCard-clone"><code>ReportCard$clone()</code></a></p></li>
+</ul></div><p></p><hr><a id="method-ReportCard-new"></a><div class="section">
 <h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
 <p>Returns a <code>ReportCard</code> object.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
@@ -102,7 +93,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 </div>
 
 
-</div><p></p><hr><a id="method-append_table"></a><div class="section">
+</div><p></p><hr><a id="method-ReportCard-append_table"></a><div class="section">
 <h3 id="method-append-table-">Method <code>append_table()</code><a class="anchor" aria-label="anchor" href="#method-append-table-"></a></h3>
 <p>Appends a table to this <code>ReportCard</code>.</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
@@ -127,7 +118,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 </div>
 
 
-</div><p></p><hr><a id="method-append_plot"></a><div class="section">
+</div><p></p><hr><a id="method-ReportCard-append_plot"></a><div class="section">
 <h3 id="method-append-plot-">Method <code>append_plot()</code><a class="anchor" aria-label="anchor" href="#method-append-plot-"></a></h3>
 <p>Appends a plot to this <code>ReportCard</code>.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
@@ -154,7 +145,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 </div>
 
 
-</div><p></p><hr><a id="method-append_text"></a><div class="section">
+</div><p></p><hr><a id="method-ReportCard-append_text"></a><div class="section">
 <h3 id="method-append-text-">Method <code>append_text()</code><a class="anchor" aria-label="anchor" href="#method-append-text-"></a></h3>
 <p>Appends a paragraph of text to this <code>ReportCard</code>.</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
@@ -183,7 +174,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 </div>
 
 
-</div><p></p><hr><a id="method-get_content"></a><div class="section">
+</div><p></p><hr><a id="method-ReportCard-get_content"></a><div class="section">
 <h3 id="method-get-content-">Method <code>get_content()</code><a class="anchor" aria-label="anchor" href="#method-get-content-"></a></h3>
 <p>Returns the content of this <code>ReportCard</code>.</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
@@ -216,7 +207,7 @@ Only metadata elements are named.</p>
 </div>
 
 
-</div><p></p><hr><a id="method-append_metadata"></a><div class="section">
+</div><p></p><hr><a id="method-ReportCard-append_metadata"></a><div class="section">
 <h3 id="method-append-metadata-">Method <code>append_metadata()</code><a class="anchor" aria-label="anchor" href="#method-append-metadata-"></a></h3>
 <p>Appends content elements to this <code>ReportCard</code>.</p><div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
@@ -256,7 +247,7 @@ Only metadata elements are named.</p>
 </div>
 
 
-</div><p></p><hr><a id="method-get_chr_converters"></a><div class="section">
+</div><p></p><hr><a id="method-ReportCard-get_chr_converters"></a><div class="section">
 <h3 id="method-get-chr-converters-">Method <code>get_chr_converters()</code><a class="anchor" aria-label="anchor" href="#method-get-chr-converters-"></a></h3>
 <p>get all <code>chr_converter</code> functions of this <code>ReportCard</code>.</p><div class="section">
 <h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
@@ -280,7 +271,7 @@ Only metadata elements are named.</p>
 </div>
 
 
-</div><p></p><hr><a id="method-get_name"></a><div class="section">
+</div><p></p><hr><a id="method-ReportCard-get_name"></a><div class="section">
 <h3 id="method-get-name-">Method <code>get_name()</code><a class="anchor" aria-label="anchor" href="#method-get-name-"></a></h3>
 <p>get the Card name</p><div class="section">
 <h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
@@ -297,7 +288,7 @@ Only metadata elements are named.</p>
 </div>
 
 
-</div><p></p><hr><a id="method-set_name"></a><div class="section">
+</div><p></p><hr><a id="method-ReportCard-set_name"></a><div class="section">
 <h3 id="method-set-name-">Method <code>set_name()</code><a class="anchor" aria-label="anchor" href="#method-set-name-"></a></h3>
 <p>set the Card name</p><div class="section">
 <h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
@@ -322,7 +313,7 @@ Only metadata elements are named.</p>
 </div>
 
 
-</div><p></p><hr><a id="method-clone"></a><div class="section">
+</div><p></p><hr><a id="method-ReportCard-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
@@ -417,7 +408,7 @@ Only metadata elements are named.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_dim: function (dim) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpgTH1sO/file19525f9006f.png</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpEk44Jb/file18dbe505c4.png</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis</span>
@@ -486,7 +477,7 @@ Only metadata elements are named.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_dim: function (dim) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpgTH1sO/file19516356694.png</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpEk44Jb/file18d6b93c4bc.png</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis</span>
@@ -559,7 +550,7 @@ Only metadata elements are named.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_dim: function (dim) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpgTH1sO/file19516356694.png</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpEk44Jb/file18d6b93c4bc.png</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis</span>
@@ -610,12 +601,12 @@ Only metadata elements are named.</p>
 <span class="r-in"><span class="va">card</span><span class="op">$</span><span class="fu">get_chr_converters</span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $lm</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function(x) paste(capture.output(summary(x)), collapse = "\\n  ")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x561f8497aeb8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d475152048&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $code</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (expr, collapse = " ", width.cutoff = 500L, ...) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> paste(deparse(expr, width.cutoff, ...), collapse = collapse)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x561f861dc750&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d46bc9a590&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: namespace:base&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>

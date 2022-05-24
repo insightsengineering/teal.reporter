@@ -12,7 +12,7 @@ Renderer"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/ma
     
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9014</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9015</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 30px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,15 +33,6 @@ Renderer"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/ma
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start_releases -->
-<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-Other releases
-<span class="caret"></span></a><ul class="dropdown-menu" role="menu">
-   <li><a href="../index.html">latest</a></li>
-   <li><a href="..//index.html"></a></li>
-</ul></li>
-<!-- end_releases -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -75,13 +66,13 @@ Other releases
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
 
-<ul><li><p><a href="#method-new"><code>Renderer$new()</code></a></p></li>
-<li><p><a href="#method-finalize"><code>Renderer$finalize()</code></a></p></li>
-<li><p><a href="#method-renderRmd"><code>Renderer$renderRmd()</code></a></p></li>
-<li><p><a href="#method-render"><code>Renderer$render()</code></a></p></li>
-<li><p><a href="#method-get_output_dir"><code>Renderer$get_output_dir()</code></a></p></li>
-<li><p><a href="#method-clone"><code>Renderer$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-new"></a><div class="section">
+<ul><li><p><a href="#method-Renderer-new"><code>Renderer$new()</code></a></p></li>
+<li><p><a href="#method-Renderer-finalize"><code>Renderer$finalize()</code></a></p></li>
+<li><p><a href="#method-Renderer-renderRmd"><code>Renderer$renderRmd()</code></a></p></li>
+<li><p><a href="#method-Renderer-render"><code>Renderer$render()</code></a></p></li>
+<li><p><a href="#method-Renderer-get_output_dir"><code>Renderer$get_output_dir()</code></a></p></li>
+<li><p><a href="#method-Renderer-clone"><code>Renderer$clone()</code></a></p></li>
+</ul></div><p></p><hr><a id="method-Renderer-new"></a><div class="section">
 <h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
 <p>Returns a <code>Renderer</code> object.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
@@ -103,7 +94,7 @@ Other releases
 </div>
 
 
-</div><p></p><hr><a id="method-finalize"></a><div class="section">
+</div><p></p><hr><a id="method-Renderer-finalize"></a><div class="section">
 <h3 id="method-finalize-">Method <code>finalize()</code><a class="anchor" aria-label="anchor" href="#method-finalize-"></a></h3>
 <p>Finalizes a <code>Renderer</code> object.</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
@@ -111,7 +102,7 @@ Other releases
 </div>
 
 
-</div><p></p><hr><a id="method-renderRmd"></a><div class="section">
+</div><p></p><hr><a id="method-Renderer-renderRmd"></a><div class="section">
 <h3 id="method-renderrmd-">Method <code>renderRmd()</code><a class="anchor" aria-label="anchor" href="#method-renderrmd-"></a></h3>
 <p>getting the <code>Rmd</code> text which could be easily rendered later.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
@@ -168,7 +159,7 @@ Other releases
 </div>
 
 
-</div><p></p><hr><a id="method-render"></a><div class="section">
+</div><p></p><hr><a id="method-Renderer-render"></a><div class="section">
 <h3 id="method-render-">Method <code>render()</code><a class="anchor" aria-label="anchor" href="#method-render-"></a></h3>
 <p>Renders the content of this <code>Report</code> to the output file</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
@@ -227,7 +218,7 @@ Other releases
 </div>
 
 
-</div><p></p><hr><a id="method-get_output_dir"></a><div class="section">
+</div><p></p><hr><a id="method-Renderer-get_output_dir"></a><div class="section">
 <h3 id="method-get-output-dir-">Method <code>get_output_dir()</code><a class="anchor" aria-label="anchor" href="#method-get-output-dir-"></a></h3>
 <p>get <code>output_dir</code> field</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
@@ -245,7 +236,7 @@ Other releases
 </div>
 
 
-</div><p></p><hr><a id="method-clone"></a><div class="section">
+</div><p></p><hr><a id="method-Renderer-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
@@ -350,7 +341,7 @@ Other releases
 <span class="r-in"></span>
 <span class="r-in"><span class="va">renderer</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va">Renderer</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">renderer</span><span class="op">$</span><span class="fu">get_output_dir</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpgTH1sO/report_202205240755363372"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpEk44Jb/report_202205240835291976"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
