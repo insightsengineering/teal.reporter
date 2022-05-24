@@ -1,0 +1,12 @@
+---
+current_repo:
+  repo: insightsengineering/teal.reporter
+  host: https://github.com
+downstream_repos:
+  insightsengineering/teals:
+    repo: insightsengineering/teal
+    host: https://github.com
+upstream_repos:
+  Roche/rtables:
+    repo: Roche/rtables
+    host: https://github.com
