@@ -48,24 +48,24 @@ block$get_available_styles()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{TextBlock$new()}}
-\item \href{#method-set_style}{\code{TextBlock$set_style()}}
-\item \href{#method-get_style}{\code{TextBlock$get_style()}}
-\item \href{#method-get_available_styles}{\code{TextBlock$get_available_styles()}}
-\item \href{#method-clone}{\code{TextBlock$clone()}}
+\item \href{#method-TextBlock-new}{\code{TextBlock$new()}}
+\item \href{#method-TextBlock-set_style}{\code{TextBlock$set_style()}}
+\item \href{#method-TextBlock-get_style}{\code{TextBlock$get_style()}}
+\item \href{#method-TextBlock-get_available_styles}{\code{TextBlock$get_available_styles()}}
+\item \href{#method-TextBlock-clone}{\code{TextBlock$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content">}\href{../../teal.reporter/html/ContentBlock.html#method-get_content}{\code{teal.reporter::ContentBlock$get_content()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="set_content">}\href{../../teal.reporter/html/ContentBlock.html#method-set_content}{\code{teal.reporter::ContentBlock$set_content()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-get_content'><code>teal.reporter::ContentBlock$get_content()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="set_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-set_content'><code>teal.reporter::ContentBlock$set_content()</code></a></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-TextBlock-new"></a>}}
+\if{latex}{\out{\hypertarget{method-TextBlock-new}{}}}
 \subsection{Method \code{new()}}{
 Returns a \code{TextBlock} object.
 \subsection{Usage}{
@@ -99,8 +99,8 @@ Returns a \code{TextBlock} object with no content and the default style.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_style"></a>}}
-\if{latex}{\out{\hypertarget{method-set_style}{}}}
+\if{html}{\out{<a id="method-TextBlock-set_style"></a>}}
+\if{latex}{\out{\hypertarget{method-TextBlock-set_style}{}}}
 \subsection{Method \code{set_style()}}{
 Sets the style of this \code{TextBlock}.
 \subsection{Usage}{
@@ -133,8 +133,8 @@ block$set_style("header2")
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_style"></a>}}
-\if{latex}{\out{\hypertarget{method-get_style}{}}}
+\if{html}{\out{<a id="method-TextBlock-get_style"></a>}}
+\if{latex}{\out{\hypertarget{method-TextBlock-get_style}{}}}
 \subsection{Method \code{get_style()}}{
 Returns the style of this \code{TextBlock}.
 \subsection{Usage}{
@@ -156,8 +156,8 @@ block$get_style()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_available_styles"></a>}}
-\if{latex}{\out{\hypertarget{method-get_available_styles}{}}}
+\if{html}{\out{<a id="method-TextBlock-get_available_styles"></a>}}
+\if{latex}{\out{\hypertarget{method-TextBlock-get_available_styles}{}}}
 \subsection{Method \code{get_available_styles()}}{
 Returns an array of styles available to this \code{TextBlock}.
 \subsection{Usage}{
@@ -179,8 +179,8 @@ block$get_available_styles()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-TextBlock-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-TextBlock-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
