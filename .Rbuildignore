@@ -9,3 +9,4 @@
 ^\.pre-commit-config\.yaml$
 ^doc$
 ^Meta$
+^\.gitlab-ci\.yml

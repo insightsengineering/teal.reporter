@@ -81,16 +81,20 @@ add_card_button_srv <- function(id, reporter, card_fun) {
       })
 
       shiny::observeEvent(input$add_card_ok, {
-        card <- ReportCard$new()
         card_fun_args_nams <- names(formals(card_fun))
+        card <- `if`(
+          is.null(formals(card_fun)[[1]]),
+          ReportCard$new(),
+          eval(formals(card_fun)[[1]], envir = environment(card_fun))
+        )
         if (length(card_fun_args_nams) == 1) {
-          card_fun(card)
+          card <- card_fun(card)
           if (length(input$comment) > 0 && input$comment != "") {
             card$append_text("Comment", "header3")
             card$append_text(input$comment)
           }
         } else {
-          card_fun(card, input$comment)
+          card <- card_fun(card, input$comment)
         }
         checkmate::assert_class(card, "ReportCard")
         reporter$append_cards(list(card))

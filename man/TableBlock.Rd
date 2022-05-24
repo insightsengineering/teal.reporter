@@ -25,22 +25,22 @@ block$set_content(iris)
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{TableBlock$new()}}
-\item \href{#method-set_content}{\code{TableBlock$set_content()}}
-\item \href{#method-finalize}{\code{TableBlock$finalize()}}
-\item \href{#method-clone}{\code{TableBlock$clone()}}
+\item \href{#method-TableBlock-new}{\code{TableBlock$new()}}
+\item \href{#method-TableBlock-set_content}{\code{TableBlock$set_content()}}
+\item \href{#method-TableBlock-finalize}{\code{TableBlock$finalize()}}
+\item \href{#method-TableBlock-clone}{\code{TableBlock$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content">}\href{../../teal.reporter/html/ContentBlock.html#method-get_content}{\code{teal.reporter::ContentBlock$get_content()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-get_content'><code>teal.reporter::ContentBlock$get_content()</code></a></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-TableBlock-new"></a>}}
+\if{latex}{\out{\hypertarget{method-TableBlock-new}{}}}
 \subsection{Method \code{new()}}{
 Returns a new \code{TableBlock} object
 \subsection{Usage}{
@@ -59,8 +59,8 @@ a \code{TableBlock} object
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_content"></a>}}
-\if{latex}{\out{\hypertarget{method-set_content}{}}}
+\if{html}{\out{<a id="method-TableBlock-set_content"></a>}}
+\if{latex}{\out{\hypertarget{method-TableBlock-set_content}{}}}
 \subsection{Method \code{set_content()}}{
 Sets content of this \code{TableBlock}.
 \subsection{Usage}{
@@ -93,8 +93,8 @@ block$set_content(iris)
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-finalize"></a>}}
-\if{latex}{\out{\hypertarget{method-finalize}{}}}
+\if{html}{\out{<a id="method-TableBlock-finalize"></a>}}
+\if{latex}{\out{\hypertarget{method-TableBlock-finalize}{}}}
 \subsection{Method \code{finalize()}}{
 finalize of this \code{TableBlock}.
 \subsection{Usage}{
@@ -107,8 +107,8 @@ Removes the temporary file created in the constructor.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-TableBlock-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-TableBlock-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

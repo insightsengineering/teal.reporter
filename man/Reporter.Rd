@@ -105,20 +105,20 @@ shiny::isolate(Reporter$new()$get_reactive_add_card())
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{Reporter$new()}}
-\item \href{#method-append_cards}{\code{Reporter$append_cards()}}
-\item \href{#method-get_cards}{\code{Reporter$get_cards()}}
-\item \href{#method-get_blocks}{\code{Reporter$get_blocks()}}
-\item \href{#method-reset}{\code{Reporter$reset()}}
-\item \href{#method-remove_cards}{\code{Reporter$remove_cards()}}
-\item \href{#method-swap_cards}{\code{Reporter$swap_cards()}}
-\item \href{#method-get_reactive_add_card}{\code{Reporter$get_reactive_add_card()}}
-\item \href{#method-clone}{\code{Reporter$clone()}}
+\item \href{#method-Reporter-new}{\code{Reporter$new()}}
+\item \href{#method-Reporter-append_cards}{\code{Reporter$append_cards()}}
+\item \href{#method-Reporter-get_cards}{\code{Reporter$get_cards()}}
+\item \href{#method-Reporter-get_blocks}{\code{Reporter$get_blocks()}}
+\item \href{#method-Reporter-reset}{\code{Reporter$reset()}}
+\item \href{#method-Reporter-remove_cards}{\code{Reporter$remove_cards()}}
+\item \href{#method-Reporter-swap_cards}{\code{Reporter$swap_cards()}}
+\item \href{#method-Reporter-get_reactive_add_card}{\code{Reporter$get_reactive_add_card()}}
+\item \href{#method-Reporter-clone}{\code{Reporter$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-Reporter-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-new}{}}}
 \subsection{Method \code{new()}}{
 Returns a \code{Reporter} object.
 \subsection{Usage}{
@@ -139,8 +139,8 @@ a \code{Reporter} object
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-append_cards"></a>}}
-\if{latex}{\out{\hypertarget{method-append_cards}{}}}
+\if{html}{\out{<a id="method-Reporter-append_cards"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-append_cards}{}}}
 \subsection{Method \code{append_cards()}}{
 Appends a table to this \code{Reporter}.
 \subsection{Usage}{
@@ -186,8 +186,8 @@ reporter$append_cards(list(card1, card2))
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_cards"></a>}}
-\if{latex}{\out{\hypertarget{method-get_cards}{}}}
+\if{html}{\out{<a id="method-Reporter-get_cards"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-get_cards}{}}}
 \subsection{Method \code{get_cards()}}{
 Returns cards of this \code{Reporter}.
 \subsection{Usage}{
@@ -226,8 +226,8 @@ reporter$get_cards()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_blocks"></a>}}
-\if{latex}{\out{\hypertarget{method-get_blocks}{}}}
+\if{html}{\out{<a id="method-Reporter-get_blocks"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-get_blocks}{}}}
 \subsection{Method \code{get_blocks()}}{
 Returns blocks of all \code{ReportCard} of this \code{Reporter}.
 \subsection{Usage}{
@@ -275,8 +275,8 @@ reporter$get_blocks()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-reset"></a>}}
-\if{latex}{\out{\hypertarget{method-reset}{}}}
+\if{html}{\out{<a id="method-Reporter-reset"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-reset}{}}}
 \subsection{Method \code{reset()}}{
 Removes all \code{ReportCard} objects added to this \code{Reporter}.
 \subsection{Usage}{
@@ -288,8 +288,8 @@ invisibly self
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-remove_cards"></a>}}
-\if{latex}{\out{\hypertarget{method-remove_cards}{}}}
+\if{html}{\out{<a id="method-Reporter-remove_cards"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-remove_cards}{}}}
 \subsection{Method \code{remove_cards()}}{
 remove a specific Card in the Reporter
 \subsection{Usage}{
@@ -308,8 +308,8 @@ invisibly self
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-swap_cards"></a>}}
-\if{latex}{\out{\hypertarget{method-swap_cards}{}}}
+\if{html}{\out{<a id="method-Reporter-swap_cards"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-swap_cards}{}}}
 \subsection{Method \code{swap_cards()}}{
 swap two cards in the Reporter
 \subsection{Usage}{
@@ -330,8 +330,8 @@ invisibly self
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_reactive_add_card"></a>}}
-\if{latex}{\out{\hypertarget{method-get_reactive_add_card}{}}}
+\if{html}{\out{<a id="method-Reporter-get_reactive_add_card"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-get_reactive_add_card}{}}}
 \subsection{Method \code{get_reactive_add_card()}}{
 get a value for the reactive value for the add card
 \subsection{Usage}{
@@ -351,8 +351,8 @@ get a value for the reactive value for the add card
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-Reporter-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
