@@ -86,7 +86,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
         card <- `if`(
           missing(default_card),
           ReportCard$new(),
-          eval(defualt_card, envir = environment(card_fun))
+          eval(default, envir = environment(card_fun))
         )
         if (length(card_fun_args_nams) == 1) {
           card <- card_fun(card)
