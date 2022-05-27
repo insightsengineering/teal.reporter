@@ -99,10 +99,14 @@ add_card_button_srv <- function(id, reporter, card_fun) {
 
       shiny::observeEvent(input$add_card_ok, {
         card_fun_args_nams <- names(formals(card_fun))
+        # The default_card is defined here because formals() returns a pairedlist object
+        # of formal parameter names and their default values. The values are missing
+        # if not defined and the missing check does not work if supplied formals(card_fun)[[1]]
+        default_card <- formals(card_fun)[[1]]
         card <- `if`(
-          is.null(formals(card_fun)[[1]]),
+          missing(default_card),
           ReportCard$new(),
-          eval(formals(card_fun)[[1]], envir = environment(card_fun))
+          eval(default_card, envir = environment(card_fun))
         )
         if (length(card_fun_args_nams) == 1) {
           card <- card_fun(card)

@@ -53,3 +53,25 @@ testthat::test_that("add_card_button_srv supports custom ReportCard classes", {
     }
   )
 })
+
+testthat::test_that("add_card_button_srv supports passing no default object to card", {
+  card_fun <- function(card) {
+    card$append_text("Test")
+    card
+  }
+
+  shiny::testServer(
+    add_card_button_srv,
+    args = list(reporter = Reporter$new(), card_fun = card_fun),
+    expr = {
+      card_len <- length(card_fun(ReportCard$new())$get_content())
+      session$setInputs(`add_report_card_button` = 0)
+      session$setInputs(`add_card_ok` = 0)
+
+      testthat::expect_identical(
+        length(reporter$get_blocks()),
+        card_len
+      )
+    }
+  )
+})
