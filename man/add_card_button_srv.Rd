@@ -22,3 +22,19 @@ server for adding views/cards to the Report.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }
+\details{
+This module allows using a child of \code{ReportCard} instead of \code{ReportCard}.
+To properly support this, an instance of the child class must be passed
+as the default value of the \code{card} argument in the \code{card_fun} function.
+See below:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{CustomReportCard <- R6::R6Class( # nolint: object_name_linter.
+  classname = "CustomReportCard",
+  inherit = teal.reporter::ReportCard
+)
+
+custom_function <- function(card = CustomReportCard$new()) \{
+  card
+\}
+}\if{html}{\out{</div>}}
+}

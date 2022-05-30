@@ -23,6 +23,23 @@ add_card_button_ui <- function(id) {
 #' @description server for adding views/cards to the Report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
+#'
+#' @details
+#' This module allows using a child of `ReportCard` instead of `ReportCard`.
+#' To properly support this, an instance of the child class must be passed
+#' as the default value of the `card` argument in the `card_fun` function.
+#' See below:
+#' ```{r}
+#' CustomReportCard <- R6::R6Class( # nolint: object_name_linter.
+#'   classname = "CustomReportCard",
+#'   inherit = teal.reporter::ReportCard
+#' )
+#'
+#' custom_function <- function(card = CustomReportCard$new()) {
+#'   card
+#' }
+#' ```
+#'
 #' @param id `character`
 #' @param reporter `Reporter` instance.
 #' @param card_fun `function` which returns a `ReportCard` instance,
