@@ -4,9 +4,8 @@
 \alias{Reporter}
 \title{\code{Reporter}}
 \description{
-\code{Reporter}
-
-\code{Reporter}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+R6 class that stores and manages multiple report cards.
 }
 \note{
 The function has to be used in the shiny reactive context.

@@ -13,6 +13,7 @@ simple_reporter_ui(id)
 \code{shiny.tag}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 three buttons for adding views, downloading and resetting the Report.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.

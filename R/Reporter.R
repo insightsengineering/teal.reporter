@@ -1,4 +1,6 @@
 #' @title `Reporter`
+#' @description `r lifecycle::badge("experimental")`
+#' R6 class that stores and manages multiple report cards.
 #' @export
 #'
 Reporter <- R6::R6Class( # nolint: object_name_linter.
