@@ -5,7 +5,6 @@
 \alias{teal.reporter}
 \title{Reporting tools for \code{shiny} modules.}
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 A collection of tools for creating, previewing and modifying reports from \code{shiny} modules.
 }
 \keyword{internal}
