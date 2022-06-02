@@ -1,5 +1,6 @@
 #' Add Card Button User Interface
-#' @description button for adding views/cards to the Report.
+#' @description `r lifecycle::badge("experimental")`
+#' button for adding views/cards to the Report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character`
@@ -20,7 +21,8 @@ add_card_button_ui <- function(id) {
 }
 
 #' Add Card Button Server
-#' @description server for adding views/cards to the Report.
+#' @description `r lifecycle::badge("experimental")`
+#' server for adding views/cards to the Report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #'

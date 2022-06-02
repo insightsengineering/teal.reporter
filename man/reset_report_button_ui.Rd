@@ -13,6 +13,7 @@ reset_report_button_ui(id)
 \code{shiny::tagList}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 button for resetting the report content.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.

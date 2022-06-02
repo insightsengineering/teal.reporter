@@ -1,5 +1,6 @@
 #' Download Button Reporter User Interface
-#' @description button for downloading the Report.
+#' @description `r lifecycle::badge("experimental")`
+#' button for downloading the Report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character`
@@ -20,7 +21,8 @@ download_report_button_ui <- function(id) {
 }
 
 #' Download Button Server
-#' @description server for downloading the Report.
+#' @description `r lifecycle::badge("experimental")`
+#' server for downloading the Report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character`

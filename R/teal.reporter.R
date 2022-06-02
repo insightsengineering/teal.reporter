@@ -1,6 +1,7 @@
 #' Reporting tools for `shiny` modules.
 #'
-#' @description A collection of tools for creating, previewing and modifying reports from `shiny` modules.
+#' @description
+#' A collection of tools for creating, previewing and modifying reports from `shiny` modules.
 #'
 #' @docType package
 #' @keywords internal

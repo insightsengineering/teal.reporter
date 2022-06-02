@@ -72,7 +72,8 @@ conv_str_logi <- function(input,
 
 #' @title Get document output types from the `rmarkdown` package
 #'
-#' @description get document output types from the `rmarkdown` package.
+#' @description `r lifecycle::badge("experimental")`
+#' get document output types from the `rmarkdown` package.
 #' @return `character` vector.
 #' @export
 #' @examples
@@ -84,7 +85,8 @@ rmd_outputs <- function() {
 
 #' @title Get document output arguments from the `rmarkdown` package
 #'
-#' @description get document output arguments from the `rmarkdown` package
+#' @description `r lifecycle::badge("experimental")`
+#' get document output arguments from the `rmarkdown` package
 #' @param output_name `character``rmarkdown` output name.
 #' @param default_values `logical` if to return a default values for each argument.
 #' @export
@@ -104,7 +106,7 @@ rmd_output_arguments <- function(output_name, default_values = FALSE) {
 }
 
 #' @title Parse a Named List to the `Rmd` `yaml` Header
-#' @description
+#' @description `r lifecycle::badge("experimental")`
 #' parse a named list to the `Rmd` `yaml` header, so the developer gets automatically tabulated `Rmd` `yaml` header.
 #' Only a non nested (flat) list will be processed,
 #' where as a nested list is directly processed with the [`yaml::as.yaml`] function.
@@ -246,7 +248,8 @@ as_yaml_auto <- function(input_list,
 
 #' @title Print method for the `yaml_header` class
 #'
-#' @description Print method for the `yaml_header` class.
+#' @description `r lifecycle::badge("experimental")`
+#' Print method for the `yaml_header` class.
 #' @param x `rmd_yaml_header` class object.
 #' @param ... optional text.
 #' @return NULL

@@ -15,6 +15,7 @@ reset_report_button_srv(id, reporter)
 \code{shiny::moduleServer}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 server for resetting the Report content.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.

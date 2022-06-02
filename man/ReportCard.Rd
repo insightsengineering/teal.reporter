@@ -4,6 +4,7 @@
 \alias{ReportCard}
 \title{\code{ReportCard}}
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 R6 class that supports creating a report card containing text, plot, table and
 meta data blocks that can be appended and rendered to form a report output from a shiny app.
 }

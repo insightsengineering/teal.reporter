@@ -1,5 +1,6 @@
 #' Reporter Previewer User Interface
-#' @description reporter previewer user interface to visualize and manipulate the already added report Cards
+#' @description `r lifecycle::badge("experimental")`
+#' reporter previewer user interface to visualize and manipulate the already added report Cards
 #' @param id `character`
 #' @param rmd_output `character` vector with `rmarkdown` output types,
 #' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
@@ -62,7 +63,8 @@ reporter_previewer_ui <- function(id, rmd_output = c(
 }
 
 #' Reporter Previewer Server
-#' @description server supporting the functionalities of the reporter previewer
+#' @description `r lifecycle::badge("experimental")`
+#' server supporting the functionalities of the reporter previewer
 #' @param id `character`
 #' @param reporter `Reporter` instance
 #' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.

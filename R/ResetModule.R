@@ -1,5 +1,6 @@
 #' Reset Button Reporter User Interface
-#' @description button for resetting the report content.
+#' @description `r lifecycle::badge("experimental")`
+#' button for resetting the report content.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character`
@@ -20,7 +21,8 @@ reset_report_button_ui <- function(id) {
 }
 
 #' Reset Button Server
-#' @description server for resetting the Report content.
+#' @description `r lifecycle::badge("experimental")`
+#' server for resetting the Report content.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character`

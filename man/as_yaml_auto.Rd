@@ -29,6 +29,7 @@ if they are recognized as quoted \code{yaml} logical values , default \code{TRUE
 result of \code{\link[yaml:as.yaml]{yaml::as.yaml}}, optionally wrapped with \code{teal.reporter::md_header}.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 parse a named list to the \code{Rmd} \code{yaml} header, so the developer gets automatically tabulated \code{Rmd} \code{yaml} header.
 Only a non nested (flat) list will be processed,
 where as a nested list is directly processed with the \code{\link[yaml:as.yaml]{yaml::as.yaml}} function.

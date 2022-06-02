@@ -23,5 +23,6 @@ Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output 
 Please update only values at this moment.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 reporter previewer user interface to visualize and manipulate the already added report Cards
 }
