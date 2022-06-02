@@ -5,6 +5,7 @@ SECURITY.md
 ^pkgdown$
 ^README\.Rmd$
 ^docs$
+^staged_dependencies\.yaml$
 ^_pkgdown\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$

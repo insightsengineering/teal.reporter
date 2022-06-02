@@ -1,6 +1,6 @@
 Package: teal.reporter
 Title: Reporting tools for Shiny modules
-Version: 0.0.0.9019
+Version: 0.0.0.9019.2
 Authors@R: c(
     person("Maciej", "Nasinski", , "maciej.nasinski@contractors.roche.com", role = c("aut", "cre")),
     person("Konrad", "Pagacz", , "konrad.pagacz@contractors.roche.com", role = "aut"),
@@ -19,7 +19,6 @@ Imports:
     lifecycle,
     R6,
     rmarkdown,
-    rtables,
     shiny,
     shinyWidgets,
     yaml,
@@ -28,6 +27,7 @@ Suggests:
     ggplot2,
     lattice,
     png,
+    rtables,
     testthat
 VignetteBuilder:
     knitr
