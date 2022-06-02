@@ -19,7 +19,7 @@ the function have at\code{card}argument and optional \code{comment}.}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-three buttons for adding views, downloading and resetting the Report.
+three buttons for adding cards, downloading and resetting the Report.
 The add module has \code{add_report_card_simple} id, the download module the \code{download_button_simple} id
 and the reset module the \code{reset_button_simple} id.
 

@@ -1,6 +1,6 @@
 #' Simple Reporter User Interface
 #' @description `r lifecycle::badge("experimental")`
-#' three buttons for adding views, downloading and resetting the Report.
+#' three buttons for adding cards, downloading and resetting the Report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character`
@@ -33,7 +33,7 @@ simple_reporter_ui <- function(id) {
 
 #' Simple Reporter Server
 #' @description `r lifecycle::badge("experimental")`
-#' three buttons for adding views, downloading and resetting the Report.
+#' three buttons for adding cards, downloading and resetting the Report.
 #' The add module has `add_report_card_simple` id, the download module the `download_button_simple` id
 #' and the reset module the `reset_button_simple` id.
 #'
