@@ -3,3 +3,32 @@ url: https://insightsengineering.github.io/teal.reporter/
 
 template:
   package: nesttemplate
+
+reference:
+  - title: Shiny modules for adding content to reports
+    contents:
+      - add_card_button_srv
+      - add_card_button_ui
+  - title: Shiny modules for viewing and downloading reports
+    contents:
+      - reporter_previewer_srv
+      - reporter_previewer_ui
+      - simple_reporter_srv
+      - simple_reporter_ui
+  - title: Supporting shiny modules
+    contents:
+      - download_report_button_srv
+      - download_report_button_ui
+      - reset_report_button_srv
+      - reset_report_button_ui
+  - title: yaml and rmd utility functions
+    contents:
+      - as_yaml_auto
+      - print.rmd_yaml_header
+      - rmd_output_arguments
+      - rmd_outputs
+  - title: R6 classes used inside package
+    contents:
+      - ReportCard
+      - Reporter
+      - TealReportCard
