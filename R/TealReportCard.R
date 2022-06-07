@@ -13,47 +13,52 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends the source code to the `content` meta data of this `TealReportCard`.
     #'
     #' @param src (`character(1)`) code as text.
-    #' @param chr_converter (`function`) to convert `src` argument to a string,
-    #' by default `function(x) paste0("```\n", paste(x, collapse = "\n"), "\n```\n")`.
     #' @return invisibly self
     #' @examples
     #' card <- TealReportCard$new()$append_src(
     #'   "ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()"
     #' )
     #' card$get_content()[[1]]$get_content()
-    append_src = function(src, chr_converter = function(x) paste0("```\n", paste(x, collapse = "\n"), "\n```\n")) {
+    append_src = function(src) {
       checkmate::assert_character(src, min.len = 0, max.len = 1)
-      super$append_metadata("SRC", src, chr_converter)
+      super$append_text(src, "verbatim")
+      super$append_metadata("SRC", src)
       invisible(self)
     },
     #' @description Appends the filter state list to the `content` meta data  of this `TealReportCard`.
     #'
-    #' @param fs (`list`) list of filter states.
-    #' @param chr_converter (`function`) to convert `fs` argument to a string, by default `base::deparse1`.
+    #' @param fs (`FilteredData`) with a filter states.
     #' @return invisibly self
     #' @examples
-    #' card <- TealReportCard$new()$append_fs(
-    #'   list(data = list(X = list(selected = c(1, 10))))
+    #' # Artificial FilteredData class
+    #' fs <- R6::R6Class("FilteredData",
+    #' public = list(
+    #'   get_filter_state = function() list(a = 1, b = 3),
+    #'   get_formatted_filter_state = function() "a = 1 and b = 3"
     #' )
+    #' )
+    #' fs_inst <- fs$new()
+    #' card <- TealReportCard$new()$append_fs(fs_inst)
     #' card$get_content()[[1]]$get_content()
     #'
-    append_fs = function(fs, chr_converter = deparse1) {
-      checkmate::assert_list(fs)
-      super$append_metadata("FS", fs, chr_converter)
+    append_fs = function(fs) {
+      checkmate::assert_class(fs, "FilteredData")
+      super$append_text(fs$get_formatted_filter_state(), "verbatim")
+      super$append_metadata("FS", fs$get_filter_state())
       invisible(self)
     },
     #' @description Appends the encodings list to the `content` meta data of this `TealReportCard`.
     #'
     #' @param encodings (`list`) list of encodings selections of the teal app.
-    #' @param chr_converter (`function`) to convert a encodings to a string, by default `base::deparse1`.
     #' @return invisibly self
     #' @examples
     #' card <- TealReportCard$new()$append_encodings(list("variable 1 is X"))
     #' card$get_content()[[1]]$get_content()
     #'
-    append_encodings = function(encodings, chr_converter = deparse1) {
+    append_encodings = function(encodings) {
       checkmate::assert_list(encodings)
-      super$append_metadata("Encodings", encodings, chr_converter)
+      super$append_text(yaml::as.yaml(encodings), "verbatim")
+      super$append_metadata("Encodings", encodings)
       invisible(self)
     }
   ),
