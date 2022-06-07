@@ -5,9 +5,9 @@ The `shiny` app developer (or `teal` module developer) specifies the content of 
 
 This package provides:
 
-* A `shiny` module for adding cards (i.e. items) into a report 
-* A `shiny` module for previewing the report on-screen
-* The ability to download a zip file containing the reports
+*  A `shiny` module for adding cards (i.e. items) into a report 
+*  A `shiny` module for previewing the report on-screen
+*  The ability to download a zip file containing the reports
 
 ## Installation
 
