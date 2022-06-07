@@ -24,6 +24,7 @@ Imports:
     yaml,
     zip
 Suggests:
+    DT,
     ggplot2,
     lattice,
     png,
@@ -31,7 +32,7 @@ Suggests:
     testthat
 VignetteBuilder:
     knitr
-RdMacros: 
+RdMacros:
     lifecycle
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8

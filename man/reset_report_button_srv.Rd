@@ -7,7 +7,7 @@
 reset_report_button_srv(id, reporter)
 }
 \arguments{
-\item{id}{\code{character(1)} \code{shiny} module id.}
+\item{id}{\code{character(1)} this \code{shiny} module's id.}
 
 \item{reporter}{\code{\link{Reporter}} instance.}
 }

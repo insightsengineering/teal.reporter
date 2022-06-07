@@ -3,7 +3,7 @@
 #' button for adding views/cards to the Report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character(1)` `shiny` module id.
+#' @param id `character(1)` this `shiny` module's id.
 #' @return `shiny::tagList`
 #' @export
 add_card_button_ui <- function(id) {
@@ -42,7 +42,7 @@ add_card_button_ui <- function(id) {
 #' }
 #' ```
 #'
-#' @param id `character(1)` `shiny` module id.
+#' @param id `character(1)` this `shiny` module's id.
 #' @param reporter [`Reporter`] instance.
 #' @param card_fun `function` which returns a [`ReportCard`] instance,
 #' the function have at`card`argument and optional `comment`.

@@ -21,8 +21,9 @@ library(ggplot2)
 library(rtables)
 ```
 
-Simple Reporter is a shiny module for capturing app views during the session, and eventually downloading a report document.
-The Simple Reporter module consists of two separate modules one for each of the two buttons, Add Card and Download Report buttons modules.
+Simple Reporter is a shiny module for capturing app views during the session, and eventually downloading
+a report document. The Simple Reporter module consists of two separate modules one for each of the two buttons,
+Add Card and Download Report buttons modules.
 
 The code added to introduce the simple reporter is wrapped in the `### REPORTER` code blocks.
 
@@ -34,7 +35,7 @@ The implementation should consist of 4 steps:
 The function should build the Card step by step and assuming it is empty at the beginning,
 the optional comment argument is a string provided by the user when the card is added.
 If the comment argument is not specified then it is added automatically at the end of the Card.
-This part requires the developer to use their imagination on how the document page should look like.
+This part requires the developer to use their imagination as to what the document page should look like.
 4. Invoke the servers with the reporter instance and the function to create the report card instance.
 
 Simple Reporter shiny app with separate modules for each button:

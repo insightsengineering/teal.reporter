@@ -7,7 +7,7 @@
 download_report_button_ui(id)
 }
 \arguments{
-\item{id}{\code{character(1)} \code{shiny} module id.}
+\item{id}{\code{character(1)} this \code{shiny} module's id.}
 }
 \value{
 \code{shiny::tagList}

@@ -3,7 +3,7 @@
 #' button for resetting the report content.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character(1)` `shiny` module id.
+#' @param id `character(1)` this `shiny` module's id.
 #' @return `shiny::tagList`
 #' @export
 reset_report_button_ui <- function(id) {
@@ -25,7 +25,7 @@ reset_report_button_ui <- function(id) {
 #' server for resetting the Report content.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character(1)` `shiny` module id.
+#' @param id `character(1)` this `shiny` module's id.
 #' @param reporter [`Reporter`] instance.
 #' @return `shiny::moduleServer`
 #' @export

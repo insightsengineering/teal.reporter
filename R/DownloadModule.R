@@ -3,7 +3,7 @@
 #' button for downloading the Report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character(1)` `shiny` module id.
+#' @param id `character(1)` this `shiny` module's id.
 #' @return `shiny::tagList`
 #' @export
 download_report_button_ui <- function(id) {
@@ -25,7 +25,7 @@ download_report_button_ui <- function(id) {
 #' server for downloading the Report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character(1)` `shiny` module id.
+#' @param id `character(1)` this `shiny` module's id.
 #' @param reporter [`Reporter`] instance.
 #' @param rmd_output `character` vector with `rmarkdown` output types,
 #' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.

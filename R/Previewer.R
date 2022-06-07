@@ -1,7 +1,7 @@
 #' Reporter Previewer User Interface
 #' @description `r lifecycle::badge("experimental")`
 #' reporter previewer user interface to visualize and manipulate the already added report Cards
-#' @param id `character(1)` `shiny` module id.
+#' @param id `character(1)` this `shiny` module's id.
 #' @param rmd_output `character` vector with `rmarkdown` output types,
 #' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
 #' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
@@ -65,7 +65,7 @@ reporter_previewer_ui <- function(id, rmd_output = c(
 #' Reporter Previewer Server
 #' @description `r lifecycle::badge("experimental")`
 #' server supporting the functionalities of the reporter previewer
-#' @param id `character(1)` `shiny` module id.
+#' @param id `character(1)` this `shiny` module's id.
 #' @param reporter `Reporter` instance
 #' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
 #' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document")`.
