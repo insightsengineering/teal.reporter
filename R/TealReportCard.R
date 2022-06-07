@@ -32,10 +32,10 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @examples
     #' # Artificial FilteredData class
     #' fs <- R6::R6Class("FilteredData",
-    #' public = list(
-    #'   get_filter_state = function() list(a = 1, b = 3),
-    #'   get_formatted_filter_state = function() "a = 1 and b = 3"
-    #' )
+    #'   public = list(
+    #'     get_filter_state = function() list(a = 1, b = 3),
+    #'     get_formatted_filter_state = function() "a = 1 and b = 3"
+    #'   )
     #' )
     #' fs_inst <- fs$new()
     #' card <- TealReportCard$new()$append_fs(fs_inst)

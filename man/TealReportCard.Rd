@@ -25,12 +25,12 @@ card$get_content()[[1]]$get_content()
 ## Method `TealReportCard$append_fs`
 ## ------------------------------------------------
 
-# Artificial class
+# Artificial FilteredData class
 fs <- R6::R6Class("FilteredData",
-public = list(
-  get_filter_state = function() list(a = 1, b = 3),
-  get_formatted_filter_state = function() "a = 1 and b = 3"
-)
+  public = list(
+    get_filter_state = function() list(a = 1, b = 3),
+    get_formatted_filter_state = function() "a = 1 and b = 3"
+  )
 )
 fs_inst <- fs$new()
 card <- TealReportCard$new()$append_fs(fs_inst)
@@ -124,12 +124,12 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Artificial class
+\preformatted{# Artificial FilteredData class
 fs <- R6::R6Class("FilteredData",
-public = list(
-  get_filter_state = function() list(a = 1, b = 3),
-  get_formatted_filter_state = function() "a = 1 and b = 3"
-)
+  public = list(
+    get_filter_state = function() list(a = 1, b = 3),
+    get_formatted_filter_state = function() "a = 1 and b = 3"
+  )
 )
 fs_inst <- fs$new()
 card <- TealReportCard$new()$append_fs(fs_inst)
