@@ -3,7 +3,7 @@
 #' three buttons for adding cards, downloading and resetting the Report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character`
+#' @param id `character(1)` `shiny` module id.
 #' @return `shiny.tag`
 #' @export
 #'
@@ -38,9 +38,9 @@ simple_reporter_ui <- function(id) {
 #' and the reset module the `reset_button_simple` id.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character`
-#' @param reporter `Reporter` instance.
-#' @param card_fun `function` which returns a `ReportCard` instance,
+#' @param id `character(1)` `shiny` module id.
+#' @param reporter [`Reporter`] instance.
+#' @param card_fun `function` which returns a [`ReportCard`] instance,
 #' the function have at`card`argument and optional `comment`.
 #' @return `shiny::moduleServer`
 #' @export

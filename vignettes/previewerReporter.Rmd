@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```r
+```{r message = FALSE}
 library(shiny)
 library(teal.reporter)
 library(ggplot2)
@@ -29,7 +29,7 @@ The implementation should consist of 5 steps:
 The function should build the Card step by step and assuming it is empty at the beginning,
 the optional comment argument is a string provided by the user when the card is added.
 If the comment argument is not specified then it is added automatically at the end of the Card.
-This part requires the developer to use their imagination on how the document page should look like. 
+This part requires the developer to use their imagination on how the document page should look like.
 5. Invoke the servers with the reporter instance and the function to create the report card instance.
 
 ```r
@@ -94,18 +94,18 @@ server <- function(input, output, session) {
       NULL
     }
   })
-  
+
   plot <- reactive({
     req(input$binwidth)
     x <- mtcars$mpg
     ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg)) +
       ggplot2::geom_histogram(binwidth = input$binwidth)
   })
-  
+
   output$dist_plot <- renderPlot({
     plot()
   })
-  
+
   table <- reactive({
     req(input$stat)
     lyt <- basic_table() %>%
@@ -113,26 +113,26 @@ server <- function(input, output, session) {
         analyze("Ozone", afun = eval(str2expression(input$stat)))
     build_table(lyt, airquality)
   })
-  
+
   output$table <- renderPrint({
     table()
   })
-  
+
   table2 <- reactive({
     req(input$stat)
     data <- aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), get(input$stat), na.rm = TRUE)
     colnames(data) <- c("Month", input$stat)
     data
   })
-  
+
   output$table2 <- renderPrint({
     print.data.frame(table2())
   })
-  
+
   output$table3 <- renderDataTable({
     DT::datatable(table2())
   })
-  
+
   ### REPORTER
   reporter <- teal.reporter::Reporter$new()
   card_fun <- function(card = ReportCard$new(), comment) {
@@ -148,7 +148,7 @@ server <- function(input, output, session) {
             paste0("ggplot2::geom_histogram(binwidth = ", input$binwidth, ")")
           ),
           collapse = "\n"
-        ), 
+        ),
       "verbatim")
     } else if (input$tabs == "Table") {
       card$set_name("Table Module rtables")
@@ -171,8 +171,8 @@ server <- function(input, output, session) {
       card$append_text(
       paste0(
         c(
-          'data <- aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), ', 
-          input$stat, 
+          'data <- aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), ',
+          input$stat,
           ', na.rm = TRUE)\n',
           'colnames(data) <- c("Month", ', paste0('"', input$stat, '"'), ')\n',
           'data'
@@ -185,7 +185,7 @@ server <- function(input, output, session) {
     }
     card
   }
-  
+
   teal.reporter::add_card_button_srv("addReportCard", reporter = reporter, card_fun = card_fun)
   teal.reporter::download_report_button_srv("downloadButton", reporter = reporter)
   teal.reporter::reset_report_button_srv("resetButton", reporter)

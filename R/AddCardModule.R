@@ -3,7 +3,7 @@
 #' button for adding views/cards to the Report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character`
+#' @param id `character(1)` `shiny` module id.
 #' @return `shiny::tagList`
 #' @export
 add_card_button_ui <- function(id) {
@@ -27,7 +27,7 @@ add_card_button_ui <- function(id) {
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #'
 #' @details
-#' This module allows using a child of `ReportCard` instead of `ReportCard`.
+#' This module allows using a child of [`ReportCard`] instead of [`ReportCard`].
 #' To properly support this, an instance of the child class must be passed
 #' as the default value of the `card` argument in the `card_fun` function.
 #' See below:
@@ -42,9 +42,9 @@ add_card_button_ui <- function(id) {
 #' }
 #' ```
 #'
-#' @param id `character`
-#' @param reporter `Reporter` instance.
-#' @param card_fun `function` which returns a `ReportCard` instance,
+#' @param id `character(1)` `shiny` module id.
+#' @param reporter [`Reporter`] instance.
+#' @param card_fun `function` which returns a [`ReportCard`] instance,
 #' the function have at`card`argument and optional `comment`.
 #' @return `shiny::moduleServer`
 #' @export

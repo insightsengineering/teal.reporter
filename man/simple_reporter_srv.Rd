@@ -7,11 +7,11 @@
 simple_reporter_srv(id, reporter, card_fun)
 }
 \arguments{
-\item{id}{\code{character}}
+\item{id}{\code{character(1)} \code{shiny} module id.}
 
-\item{reporter}{\code{Reporter} instance.}
+\item{reporter}{\code{\link{Reporter}} instance.}
 
-\item{card_fun}{\code{function} which returns a \code{ReportCard} instance,
+\item{card_fun}{\code{function} which returns a \code{\link{ReportCard}} instance,
 the function have at\code{card}argument and optional \code{comment}.}
 }
 \value{

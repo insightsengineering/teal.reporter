@@ -13,7 +13,7 @@ reporter_previewer_ui(
 )
 }
 \arguments{
-\item{id}{\code{character}}
+\item{id}{\code{character(1)} \code{shiny} module id.}
 
 \item{rmd_output}{\code{character} vector with \code{rmarkdown} output types,
 by default all possible \code{c("pdf_document", "html_document", "powerpoint_presentation", "word_document")}.}
