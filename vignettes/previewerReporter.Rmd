@@ -32,7 +32,7 @@ If the comment argument is not specified then it is added automatically at the e
 This part requires the developer to use their imagination on how the document page should look like.
 5. Invoke the servers with the reporter instance and the function to create the report card instance.
 
-```r
+```{r}
 ui <- fluidPage(
   titlePanel(""),
   tabsetPanel(
@@ -109,8 +109,8 @@ server <- function(input, output, session) {
   table <- reactive({
     req(input$stat)
     lyt <- basic_table() %>%
-        split_rows_by("Month", label_pos = "visible") %>%
-        analyze("Ozone", afun = eval(str2expression(input$stat)))
+      split_rows_by("Month", label_pos = "visible") %>%
+      analyze("Ozone", afun = eval(str2expression(input$stat)))
     build_table(lyt, airquality)
   })
 
@@ -149,7 +149,8 @@ server <- function(input, output, session) {
           ),
           collapse = "\n"
         ),
-      "verbatim")
+        "verbatim"
+      )
     } else if (input$tabs == "Table") {
       card$set_name("Table Module rtables")
       card$append_text("My rtables", "header2")
@@ -157,27 +158,30 @@ server <- function(input, output, session) {
       card$append_text(
         paste(
           c(
-            'lyt <- rtables::basic_table() %>%',
+            "lyt <- rtables::basic_table() %>%",
             'rtables::split_rows_by("Month", label_pos = "visible") %>%',
-            paste0('rtables::analyze("Ozone", afun = ', input$stat, ')'),
-            'rtables::build_table(lyt, airquality)'
+            paste0('rtables::analyze("Ozone", afun = ', input$stat, ")"),
+            "rtables::build_table(lyt, airquality)"
           ),
           collapse = "\n"
-        ), "verbatim")
+        ), "verbatim"
+      )
     } else if (input$tabs %in% c("Table DataFrame", "Table DataTable")) {
       card$set_name("Table Module DF")
       card$append_text("My Table DF", "header2")
       card$append_table(table2())
       card$append_text(
-      paste0(
-        c(
-          'data <- aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), ',
-          input$stat,
-          ', na.rm = TRUE)\n',
-          'colnames(data) <- c("Month", ', paste0('"', input$stat, '"'), ')\n',
-          'data'
-        ), collapse = ""
-      ), "verbatim")
+        paste0(
+          c(
+            'data <- aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), ',
+            input$stat,
+            ", na.rm = TRUE)\n",
+            'colnames(data) <- c("Month", ', paste0('"', input$stat, '"'), ")\n",
+            "data"
+          ),
+          collapse = ""
+        ), "verbatim"
+      )
     }
     if (!comment == "") {
       card$append_text("Comment", "header3")
