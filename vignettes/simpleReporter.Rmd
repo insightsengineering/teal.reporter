@@ -38,6 +38,8 @@ If the comment argument is not specified then it is added automatically at the e
 This part requires the developer to use their imagination as to what the document page should look like.
 4. Invoke the servers with the reporter instance and the function to create the report card instance.
 
+The code added to introduce the reporter is wrapped in the `### REPORTER` code blocks.
+
 Simple Reporter shiny app with separate modules for each button:
 
 ```{r}
@@ -223,5 +225,5 @@ server <- function(input, output, session) {
   ###
 }
 
-shinyApp(ui = ui, server = server)
+if (interactive()) shinyApp(ui = ui, server = server)
 ```

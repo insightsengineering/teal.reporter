@@ -21,9 +21,7 @@ For more details see the vignette: \code{vignette("simpleReporter", "teal.report
 \examples{
 if (interactive()) {
   shiny::shinyApp(
-    ui = function(id) {
-      simple_reporter_ui("simple")
-    },
+    ui = shiny::fluidPage(simple_reporter_ui("simple")),
     server = function(input, output, session) {
       simple_reporter_srv("simple", Reporter$new(), function(card) card)
     }
