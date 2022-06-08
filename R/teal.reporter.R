@@ -16,4 +16,5 @@ NULL
 #' @importFrom R6 R6Class
 #' @importFrom rmarkdown render
 #' @importFrom yaml as.yaml
+#' @importFrom lifecycle badge
 NULL
