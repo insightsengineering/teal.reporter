@@ -38,12 +38,12 @@ For the basic usage of `teal.reporter` and the quickest way to enhance your modu
 [the vignette about the simple reporting setup](./simpleReporter.html).
 
 ### Previewing a report
-If you want to let the users of your module preview a report, look into
+If you want to let the users of your application preview a report and reorganize it, look into
 [the vignette on a "report previewer" module](./previewerReporter.html).
 
 ### Integration with `teal`
 If you are interested in how `teal.reporter` fits into [`teal`](https://github.com/insightsengineering/teal), look for
-a vignette about it in `teal`: `vignette("adding_support_for_reporting", package = "teal")`.
+[a vignette about it in `teal`](https://insightsengineering.github.io/teal/articles/adding_support_for_reporting.html).
 
 ### More control
 If you are unhappy with the default layout of a simple reporting tool, we welcome you to read through the documentation
