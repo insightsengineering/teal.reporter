@@ -7,7 +7,7 @@
 rmd_output_arguments(output_name, default_values = FALSE)
 }
 \arguments{
-\item{output_name}{\verb{character``rmarkdown} output name.}
+\item{output_name}{\code{character} \code{rmarkdown} output name.}
 
 \item{default_values}{\code{logical} if to return a default values for each argument.}
 }

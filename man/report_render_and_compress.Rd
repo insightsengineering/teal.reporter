@@ -7,7 +7,7 @@
 report_render_and_compress(reporter, input_list, file = tempdir())
 }
 \arguments{
-\item{reporter}{\code{Reporter} instance.}
+\item{reporter}{\code{\link{Reporter}} instance.}
 
 \item{input_list}{\code{list} like shiny input converted to a regular named list.}
 

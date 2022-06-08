@@ -15,18 +15,18 @@ as_yaml_auto(
 \arguments{
 \item{input_list}{\verb{named list} non nested with slots names and their values compatible with \code{Rmd} \code{yaml} header.}
 
-\item{as_header}{\code{logical} optionally wrap with result with the \code{teal.reporter::md_header}, default \code{TRUE}.}
+\item{as_header}{\code{logical} optionally wrap with result with the \code{\link[=md_header]{md_header()}}, default \code{TRUE}.}
 
-\item{convert_logi}{\code{logical}convert a character values to logical,
+\item{convert_logi}{\code{logical} convert a character values to logical,
 if they are recognized as quoted \code{yaml} logical values , default \code{TRUE}.}
 
-\item{multi_output}{\code{logical}multi \code{output} slots in the \code{input} argument, default \code{FALSE}.}
+\item{multi_output}{\code{logical} multi \code{output} slots in the \code{input} argument, default \code{FALSE}.}
 
 \item{silent}{\code{logical} suppress messages and warnings, default \code{FALSE}.}
 }
 \value{
 \code{character} with \code{rmd_yaml_header} class,
-result of \code{\link[yaml:as.yaml]{yaml::as.yaml}}, optionally wrapped with \code{teal.reporter::md_header}.
+result of \code{\link[yaml:as.yaml]{yaml::as.yaml}}, optionally wrapped with \code{\link[=md_header]{md_header()}}.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
