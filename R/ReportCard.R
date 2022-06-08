@@ -60,7 +60,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @examples
     #' card <- ReportCard$new()$append_text("Some text")$append_metadata("rc", "a <- 2 + 2")
     #'
-    #' card$get_metadata()
+    #' card$get_content()
     #'
     #'
     get_content = function() {

@@ -46,7 +46,7 @@ card <- ReportCard$new()$append_text("A paragraph of default text")
 
 card <- ReportCard$new()$append_text("Some text")$append_metadata("rc", "a <- 2 + 2")
 
-card$get_metadata()
+card$get_content()
 
 
 
@@ -227,7 +227,7 @@ Returns the content of this \code{ReportCard}.
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{card <- ReportCard$new()$append_text("Some text")$append_metadata("rc", "a <- 2 + 2")
 
-card$get_metadata()
+card$get_content()
 
 
 }
