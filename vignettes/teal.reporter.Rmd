@@ -9,8 +9,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-<img src="images/teal.jpg" alt="Teal Duck" style="width: 100%;"/>
-
 ## Introduction
 There are times when you explore data in your `shiny` module, spot an interesting finding and capture it, be it in
 your slides presentation, a `markdown` article or another medium. `teal.reporter` helps you enhance a `shiny` module
@@ -21,10 +19,11 @@ your module with minimal input from users of the `shiny` modules and from you as
 
 And it can be done as easy as adding one of the reporting tools to your module:
 ```{r}
-ui <- function(id) {
-  simple_reporter_ui("simple")
-}
+library(teal.reporter)
+ui <- shiny::fluidPage(simple_reporter_ui("simple"))
 server <- function(input, output, session) {
+  # The bulk of your module logic here
+
   create_module_report <- function(card) {
     card$append_text("This is the content of the report from the `simple` module")
   }
@@ -36,15 +35,16 @@ if (interactive()) shiny::shinyApp(ui, server)
 
 ## Where to next
 ### Basic usage
-For the basic usage of `teal.reporter` and the quickest way to enhance your modules with reporting, head to [the vignette about
-the simple reporting setup](./simpleReporter.Rmd).
+For the basic usage of `teal.reporter` and the quickest way to enhance your modules with reporting, head to
+[the vignette about the simple reporting setup](./simpleReporter.html).
 
 ### Previewing a report
-If you want to let the users of your module preview a report, look into [the vignette on a "report previewer" module](./previewerReporter.Rmd).
+If you want to let the users of your module preview a report, look into
+[the vignette on a "report previewer" module](./previewerReporter.html).
 
 ### Integration with `teal`
 If you are interested in how `teal.reporter` fits into [`teal`](https://github.com/insightsengineering/teal), look for
-a vignette about it in `teal`: `vignette(package = "teal")`.
+a vignette about it in `teal`: `vignette("adding_support_for_reporting", package = "teal")`.
 
 ### More control
 If you are unhappy with the default layout of a simple reporting tool, we welcome you to read through the documentation
