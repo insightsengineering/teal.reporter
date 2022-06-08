@@ -15,4 +15,5 @@ NULL
 #' @importFrom grid grid.newpage
 #' @importFrom rmarkdown render
 #' @importFrom yaml as.yaml
+#' @importFrom lifecycle badge
 NULL
