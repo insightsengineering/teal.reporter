@@ -149,7 +149,7 @@ Appends a table to this \code{Reporter}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{cards}}{\code{ReportCard} or a list of such objects}
+\item{\code{cards}}{\code{\link{ReportCard}} or a list of such objects}
 }
 \if{html}{\out{</div>}}
 }
@@ -194,7 +194,7 @@ Returns cards of this \code{Reporter}.
 }
 
 \subsection{Returns}{
-\code{list()} list of \code{ReportCard}
+\code{list()} list of \code{\link{ReportCard}}
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -228,7 +228,7 @@ reporter$get_cards()
 \if{html}{\out{<a id="method-Reporter-get_blocks"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_blocks}{}}}
 \subsection{Method \code{get_blocks()}}{
-Returns blocks of all \code{ReportCard} of this \code{Reporter}.
+Returns blocks of all \code{\link{ReportCard}} of this \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$get_blocks(sep = NewpageBlock$new())}\if{html}{\out{</div>}}
 }
@@ -277,7 +277,7 @@ reporter$get_blocks()
 \if{html}{\out{<a id="method-Reporter-reset"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-reset}{}}}
 \subsection{Method \code{reset()}}{
-Removes all \code{ReportCard} objects added to this \code{Reporter}.
+Removes all \code{\link{ReportCard}} objects added to this \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$reset()}\if{html}{\out{</div>}}
 }

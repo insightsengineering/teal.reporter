@@ -7,7 +7,7 @@
 add_card_button_ui(id)
 }
 \arguments{
-\item{id}{\code{character}}
+\item{id}{\code{character(1)} this \code{shiny} module's id.}
 }
 \value{
 \code{shiny::tagList}
