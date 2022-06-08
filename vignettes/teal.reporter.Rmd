@@ -1,0 +1,17 @@
+---
+title: "Getting Started with teal.reporter"
+author: "Nikolas Burkoff"
+date: "2022-03-24"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with teal.reporter}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<img src="images/teal.jpg" alt="Teal Duck" style="width: 100%;"/>
+
+## Introduction
+There are times when you explore data in your `shiny` module, spot an interesting finding and capture it, be it in
+your slides presentation, a `markdown` article or another medium. `teal.reporter` helps you enhance a `shiny` module
+so you do not have to copy-paste and save every image or write your own `markdown` to show it.
