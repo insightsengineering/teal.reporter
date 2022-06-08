@@ -9,7 +9,7 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @details Returns a `TextBlock` object with no content and the default style.
     #'
     #' @param content (`character(1)` or `character(0)`) a string assigned to this `TextBlock`
-    #' @param style (`character(1)`) one of: `default`, `header2`, `header3` `verbatim`
+    #' @param style (`character(1)`) one of: `"default"`, `"header2"`, `"header3"` `"verbatim"`
     #'
     #' @return `TextBlock`
     #' @examples
@@ -24,7 +24,7 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @details The style has bearing on the rendering of this block.
     #'
-    #' @param style (`character(1)`) one of: `default`, `header2`, `header3`, `verbatim`.
+    #' @param style (`character(1)`) one of: `"default"`, `"header2"`, `"header3"` `"verbatim"`
     #' @return invisibly self
     #' @examples
     #' block <- teal.reporter:::TextBlock$new()

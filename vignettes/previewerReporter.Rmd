@@ -18,7 +18,7 @@ library(DT)
 Reporter Previewer is a shiny module to visualize and manipulate the already added report Cards, and eventually downloading a report document.
 Reporter Previewer is extended by the base modules introduced in the `simpleReporter` vignette.
 
-The code added to introduce the reporter is wrapped in the `### REPORTER` code blocks.
+For clarity, in the app below the code added to introduce the reporter is wrapped in the `### REPORTER` code blocks.
 
 The implementation should consist of 5 steps:
 

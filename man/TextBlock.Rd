@@ -77,7 +77,7 @@ Returns a \code{TextBlock} object.
 \describe{
 \item{\code{content}}{(\code{character(1)} or \code{character(0)}) a string assigned to this \code{TextBlock}}
 
-\item{\code{style}}{(\code{character(1)}) one of: \code{default}, \code{header2}, \code{header3} \code{verbatim}}
+\item{\code{style}}{(\code{character(1)}) one of: \code{"default"}, \code{"header2"}, \code{"header3"} \code{"verbatim"}}
 }
 \if{html}{\out{</div>}}
 }
@@ -110,7 +110,7 @@ Sets the style of this \code{TextBlock}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{style}}{(\code{character(1)}) one of: \code{default}, \code{header2}, \code{header3}, \code{verbatim}.}
+\item{\code{style}}{(\code{character(1)}) one of: \code{"default"}, \code{"header2"}, \code{"header3"} \code{"verbatim"}}
 }
 \if{html}{\out{</div>}}
 }

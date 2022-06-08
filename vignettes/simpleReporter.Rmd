@@ -133,7 +133,7 @@ server <- function(input, output, session) {
   ###
 }
 
-shinyApp(ui = ui, server = server)
+if (interactive()) shinyApp(ui = ui, server = server)
 ```
 
 Simple Reporter shiny app with combined buttons modules:
