@@ -13,7 +13,7 @@ reporter_previewer_ui(
 )
 }
 \arguments{
-\item{id}{\code{character}}
+\item{id}{\code{character(1)} this \code{shiny} module's id.}
 
 \item{rmd_output}{\code{character} vector with \code{rmarkdown} output types,
 by default all possible \code{c("pdf_document", "html_document", "powerpoint_presentation", "word_document")}.}
@@ -23,5 +23,6 @@ Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output 
 Please update only values at this moment.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 reporter previewer user interface to visualize and manipulate the already added report Cards
 }

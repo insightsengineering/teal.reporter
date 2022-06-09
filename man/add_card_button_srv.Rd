@@ -7,23 +7,24 @@
 add_card_button_srv(id, reporter, card_fun)
 }
 \arguments{
-\item{id}{\code{character}}
+\item{id}{\code{character(1)} this \code{shiny} module's id.}
 
-\item{reporter}{\code{Reporter} instance.}
+\item{reporter}{\code{\link{Reporter}} instance.}
 
-\item{card_fun}{\code{function} which returns a \code{ReportCard} instance,
+\item{card_fun}{\code{function} which returns a \code{\link{ReportCard}} instance,
 the function have at\code{card}argument and optional \code{comment}.}
 }
 \value{
 \code{shiny::moduleServer}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 server for adding views/cards to the Report.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }
 \details{
-This module allows using a child of \code{ReportCard} instead of \code{ReportCard}.
+This module allows using a child of \code{\link{ReportCard}} instead of \code{\link{ReportCard}}.
 To properly support this, an instance of the child class must be passed
 as the default value of the \code{card} argument in the \code{card_fun} function.
 See below:

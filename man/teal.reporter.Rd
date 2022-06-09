@@ -7,3 +7,4 @@
 \description{
 A collection of tools for creating, previewing and modifying reports from \code{shiny} modules.
 }
+\keyword{internal}

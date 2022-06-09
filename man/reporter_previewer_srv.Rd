@@ -12,7 +12,7 @@ reporter_previewer_srv(
 )
 }
 \arguments{
-\item{id}{\code{character}}
+\item{id}{\code{character(1)} this \code{shiny} module's id.}
 
 \item{reporter}{\code{Reporter} instance}
 
@@ -21,5 +21,6 @@ Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output 
 Please update only values at this moment.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 server supporting the functionalities of the reporter previewer
 }

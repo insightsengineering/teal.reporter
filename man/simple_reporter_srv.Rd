@@ -7,18 +7,19 @@
 simple_reporter_srv(id, reporter, card_fun)
 }
 \arguments{
-\item{id}{\code{character}}
+\item{id}{\code{character(1)} this \code{shiny} module's id.}
 
-\item{reporter}{\code{Reporter} instance.}
+\item{reporter}{\code{\link{Reporter}} instance.}
 
-\item{card_fun}{\code{function} which returns a \code{ReportCard} instance,
+\item{card_fun}{\code{function} which returns a \code{\link{ReportCard}} instance,
 the function have at\code{card}argument and optional \code{comment}.}
 }
 \value{
 \code{shiny::moduleServer}
 }
 \description{
-three buttons for adding views, downloading and resetting the Report.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+three buttons for adding cards, downloading and resetting the Report.
 The add module has \code{add_report_card_simple} id, the download module the \code{download_button_simple} id
 and the reset module the \code{reset_button_simple} id.
 

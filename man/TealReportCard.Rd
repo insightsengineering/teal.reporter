@@ -4,7 +4,8 @@
 \alias{TealReportCard}
 \title{\code{TealReportCard}}
 \description{
-A child of \code{ReportCard} that is used for teal specific applications.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+A child of \code{\link{ReportCard}} that is used for teal specific applications.
 In addition to the parent methods, it supports rendering teal specific elements such as
 the source code, the encodings panel content and the filter panel content as part of the
 meta data.

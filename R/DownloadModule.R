@@ -1,8 +1,9 @@
 #' Download Button Reporter User Interface
-#' @description button for downloading the Report.
+#' @description `r lifecycle::badge("experimental")`
+#' button for downloading the Report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character`
+#' @param id `character(1)` this `shiny` module's id.
 #' @return `shiny::tagList`
 #' @export
 download_report_button_ui <- function(id) {
@@ -20,11 +21,12 @@ download_report_button_ui <- function(id) {
 }
 
 #' Download Button Server
-#' @description server for downloading the Report.
+#' @description `r lifecycle::badge("experimental")`
+#' server for downloading the Report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character`
-#' @param reporter `Reporter` instance.
+#' @param id `character(1)` this `shiny` module's id.
+#' @param reporter [`Reporter`] instance.
 #' @param rmd_output `character` vector with `rmarkdown` output types,
 #' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
 #' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
@@ -132,7 +134,7 @@ download_report_button_srv <- function(id,
 
 #' Render the Report
 #' @description render the report and zip the created directory.
-#' @param reporter `Reporter` instance.
+#' @param reporter [`Reporter`] instance.
 #' @param input_list `list` like shiny input converted to a regular named list.
 #' @param file `character` where to copy the returned directory.
 #' @return `file` argument, invisibly.

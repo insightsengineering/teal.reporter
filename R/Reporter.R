@@ -1,4 +1,6 @@
 #' @title `Reporter`
+#' @description `r lifecycle::badge("experimental")`
+#' R6 class that stores and manages report cards.
 #' @export
 #'
 Reporter <- R6::R6Class( # nolint: object_name_linter.
@@ -17,7 +19,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Appends a table to this `Reporter`.
     #'
-    #' @param cards `ReportCard` or a list of such objects
+    #' @param cards [`ReportCard`] or a list of such objects
     #' @return invisibly self
     #' @examples
     #' card1 <- teal.reporter:::ReportCard$new()
@@ -48,7 +50,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Returns cards of this `Reporter`.
     #'
-    #' @return `list()` list of `ReportCard`
+    #' @return `list()` list of [`ReportCard`]
     #' @examples
     #' card1 <- teal.reporter:::ReportCard$new()
     #'
@@ -73,7 +75,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     get_cards = function() {
       private$cards
     },
-    #' @description Returns blocks of all `ReportCard` of this `Reporter`.
+    #' @description Returns blocks of all [`ReportCard`] of this `Reporter`.
     #'
     #' @param sep the element inserted between each content element in this `Reporter`.
     #' Pass `NULL` to return content without any additional elements. Default: `NewpageBlock$new()`
@@ -110,7 +112,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
       blocks
     },
-    #' @description Removes all `ReportCard` objects added to this `Reporter`.
+    #' @description Removes all [`ReportCard`] objects added to this `Reporter`.
     #'
     #' @return invisibly self
     #'
