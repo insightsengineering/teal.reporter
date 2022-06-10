@@ -25,9 +25,15 @@ card$get_content()[[1]]$get_content()
 ## Method `TealReportCard$append_fs`
 ## ------------------------------------------------
 
-card <- TealReportCard$new()$append_fs(
-  list(data = list(X = list(selected = c(1, 10))))
+# Artificial FilteredData class
+fs <- R6::R6Class("FilteredData",
+  public = list(
+    get_filter_state = function() list(a = 1, b = 3),
+    get_formatted_filter_state = function() "a = 1 and b = 3"
+  )
 )
+fs_inst <- fs$new()
+card <- TealReportCard$new()$append_fs(fs_inst)
 card$get_content()[[1]]$get_content()
 
 
@@ -58,8 +64,8 @@ card$get_content()[[1]]$get_content()
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_plot"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-append_plot'><code>teal.reporter::ReportCard$append_plot()</code></a></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_table"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-append_table'><code>teal.reporter::ReportCard$append_table()</code></a></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_text"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-append_text'><code>teal.reporter::ReportCard$append_text()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="get_chr_converters"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-get_chr_converters'><code>teal.reporter::ReportCard$get_chr_converters()</code></a></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="get_content"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-get_content'><code>teal.reporter::ReportCard$get_content()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="get_metadata"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-get_metadata'><code>teal.reporter::ReportCard$get_metadata()</code></a></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="get_name"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-get_name'><code>teal.reporter::ReportCard$get_name()</code></a></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="initialize"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-initialize'><code>teal.reporter::ReportCard$initialize()</code></a></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="set_name"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-set_name'><code>teal.reporter::ReportCard$set_name()</code></a></li>
@@ -72,19 +78,13 @@ card$get_content()[[1]]$get_content()
 \subsection{Method \code{append_src()}}{
 Appends the source code to the \code{content} meta data of this \code{TealReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_src(
-  src,
-  chr_converter = function(x) paste0("```\\n", paste(x, collapse = "\\n"), "\\n```\\n")
-)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_src(src)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{src}}{(\code{character(1)}) code as text.}
-
-\item{\code{chr_converter}}{(\code{function}) to convert \code{src} argument to a string,
-by default \code{function(x) paste0("```\\n", paste(x, collapse = "\\n"), "\\n```\\n")}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -109,15 +109,13 @@ card$get_content()[[1]]$get_content()
 \subsection{Method \code{append_fs()}}{
 Appends the filter state list to the \code{content} meta data  of this \code{TealReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_fs(fs, chr_converter = deparse1)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_fs(fs)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{fs}}{(\code{list}) list of filter states.}
-
-\item{\code{chr_converter}}{(\code{function}) to convert \code{fs} argument to a string, by default \code{base::deparse1}.}
+\item{\code{fs}}{(\code{FilteredData}) with a filter states.}
 }
 \if{html}{\out{</div>}}
 }
@@ -126,9 +124,15 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- TealReportCard$new()$append_fs(
-  list(data = list(X = list(selected = c(1, 10))))
+\preformatted{# Artificial FilteredData class
+fs <- R6::R6Class("FilteredData",
+  public = list(
+    get_filter_state = function() list(a = 1, b = 3),
+    get_formatted_filter_state = function() "a = 1 and b = 3"
+  )
 )
+fs_inst <- fs$new()
+card <- TealReportCard$new()$append_fs(fs_inst)
 card$get_content()[[1]]$get_content()
 
 }
@@ -143,15 +147,13 @@ card$get_content()[[1]]$get_content()
 \subsection{Method \code{append_encodings()}}{
 Appends the encodings list to the \code{content} meta data of this \code{TealReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_encodings(encodings, chr_converter = deparse1)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_encodings(encodings)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{encodings}}{(\code{list}) list of encodings selections of the teal app.}
-
-\item{\code{chr_converter}}{(\code{function}) to convert a encodings to a string, by default \code{base::deparse1}.}
 }
 \if{html}{\out{</div>}}
 }
