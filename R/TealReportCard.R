@@ -27,7 +27,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Appends the filter state list to the `content` meta data  of this `TealReportCard`.
     #'
-    #' @param fs (`FilteredData`) with a filter states.
+    #' @param fs (`FilteredData`) with filter states.
     #' @return invisibly self
     #' @examples
     #' # Artificial FilteredData class

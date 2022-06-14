@@ -49,7 +49,7 @@ testthat::test_that("get_metadata returns a list of mixed objects", {
   testthat::expect_false(checkmate::test_list(card$get_metadata(), types = "ContentBlock"))
 })
 
-testthat::test_that("get_metadata returns a named list when", {
+testthat::test_that("get_metadata returns a named list", {
   card <- ReportCard$new()$append_metadata("sth", "test")$append_metadata("sth2", ggplot2::ggplot(iris))
   testthat::expect_equal(c("sth", "sth2"), names(card$get_metadata()))
 })
