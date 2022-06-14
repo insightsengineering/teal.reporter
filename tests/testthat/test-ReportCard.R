@@ -33,12 +33,6 @@ testthat::test_that("append_plot accepts a ggplot", {
   testthat::expect_error(ReportCard$new()$append_plot(ggplot2::ggplot(iris)), regexp = NA)
 })
 
-testthat::test_that("get_content accepts logical raw argument", {
-  card <- ReportCard$new()$append_text("test")
-  testthat::expect_error(card$get_content(), regexp = NA)
-  testthat::expect_error(card$get_content(), regexp = NA)
-})
-
 testthat::test_that("get_content returns a list of ContentBlock objects", {
   card <- ReportCard$new()$append_text("test")$append_plot(ggplot2::ggplot(iris))$append_metadata("SRC", "A <- plot()")
   testthat::expect_true(checkmate::test_list(card$get_content(), types = "ContentBlock"))

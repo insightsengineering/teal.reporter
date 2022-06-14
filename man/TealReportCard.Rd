@@ -115,7 +115,7 @@ Appends the filter state list to the \code{content} meta data  of this \code{Tea
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{fs}}{(\code{FilteredData}) with a filter states.}
+\item{\code{fs}}{(\code{FilteredData}) with filter states.}
 }
 \if{html}{\out{</div>}}
 }

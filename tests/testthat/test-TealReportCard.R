@@ -57,8 +57,10 @@ fs <- R6::R6Class("FilteredData",
 )
 fs_inst <- fs$new()
 
-testthat::test_that("TealReportCard$append_fs accepts a FilteredData", {
+testthat::test_that("TealReportCard$append_fs accepts only a FilteredData", {
   card <- TealReportCard$new()
+  testthat::expect_error(card$append_fs(list(a = 1)),
+                         regexp = "Must inherit from class 'FilteredData'")
   testthat::expect_error(card$append_fs(fs_inst), regexp = NA)
 })
 
