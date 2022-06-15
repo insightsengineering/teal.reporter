@@ -106,6 +106,14 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     get_dim = function() {
       private$dim
+    },
+    from_list = function(x) {
+      checkmate::assert_list(x)
+      checkmate::assert_file_exists(x$path)
+      super$set_content(x$path)
+    },
+    to_list = function() {
+      list(path = basename(sef$get_content()))
     }
   ),
   private = list(

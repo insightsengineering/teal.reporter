@@ -27,6 +27,7 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
     #' block$set_content(iris)
     #'
     set_content = function(content) {
+      is.character(content)
       checkmate::assert_multi_class(content, private$supported_tables)
       path <- tempfile(fileext = ".rds")
       saveRDS(content, file = path)
@@ -39,6 +40,14 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     finalize = function() {
       try(unlink(super$get_content()))
+    },
+    from_list = function(x) {
+      checkmate::assert_list(x)
+      checkmate::assert_file_exists(x$path)
+      super$set_content(x$path)
+    },
+    to_list = function() {
+      list(path = basename(sef$get_content()))
     }
   ),
   private = list(

@@ -53,6 +53,15 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     get_available_styles = function() {
       private$styles
+    },
+    from_list = function(x) {
+      checkmate::assert_list(x)
+      checkmate::assert_names(x, subset.of = c("text", "style"))
+      super$set_content(x$text)
+      self$set_style(x$style)
+    },
+    to_list = function() {
+      list(path = basename(sef$get_content()))
     }
   ),
   private = list(

@@ -175,8 +175,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     load_archiver = function(archiver) {
       checkmate::assert_class(archiver, "Archiver")
       self$reset()
-      cards <- archiver$get_cards()
-      self$append_cards(cards)
+      reporter <- archiver$read()
+      self$append_cards(reporter$get_cards())
       private$reactive_add_card(length(private$cards))
     }
   ),
