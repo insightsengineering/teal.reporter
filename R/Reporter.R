@@ -165,19 +165,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' shiny::isolate(Reporter$new()$get_reactive_add_card())
     get_reactive_add_card = function() {
       private$reactive_add_card()
-    },
-    #' @description
-    #'
-    #' @return
-    #' @note
-    #' @examples
-    #'
-    load_archiver = function(archiver) {
-      checkmate::assert_class(archiver, "Archiver")
-      self$reset()
-      reporter <- archiver$read()
-      self$append_cards(reporter$get_cards())
-      private$reactive_add_card(length(private$cards))
     }
   ),
   private = list(

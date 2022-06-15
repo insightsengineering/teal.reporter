@@ -54,6 +54,18 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       private$content <- append(private$content, TextBlock$new(text, style))
       invisible(self)
     },
+    #' @description Appends a ContentBlock to this `ReportCard`.
+    #'
+    #' @param content (`ContentBlock`)
+    #' @return invisibly self
+    #' @examples
+    #' card <- ReportCard$new()$append_content(NewPageBlock$new())
+    #'
+    append_content = function(content) {
+      checkmate::assert_class(content, "ContentBlock")
+      private$content <- append(private$content, content)
+      invisible(self)
+    },
     #' @description Returns the content of this `ReportCard`.
     #'
     #' @return `list()` list of `TableBlock`, `TextBlock` and `PictureBlock`.

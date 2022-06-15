@@ -41,13 +41,23 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
     finalize = function() {
       try(unlink(super$get_content()))
     },
-    from_list = function(x) {
+    from_list = function(x, base_path = NULL) {
       checkmate::assert_list(x)
-      checkmate::assert_file_exists(x$path)
-      super$set_content(x$path)
+      checkmate::assert_names(names(x), must.include = "path")
+      path <- if (!is.null(base_path)) {
+        file.path(base_path, basename(x$path))
+      } else {
+        basename(x$path)
+      }
+      super$set_content(path)
     },
-    to_list = function() {
-      list(path = basename(sef$get_content()))
+    to_list = function(base_path = ".") {
+      path <- if (!is.null(base_path)) {
+        file.path(base_path, basename(super$get_content()))
+      } else {
+        basename(super$get_content())
+      }
+      list(path = path)
     }
   ),
   private = list(
