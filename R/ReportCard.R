@@ -89,11 +89,10 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     get_metadata = function() {
       private$metadata
     },
-    #' @description Appends content elements to this `ReportCard`.
+    #' @description Appends metadata to this `ReportCard`.
     #'
     #' @param key (`character(1)`) name of meta data.
     #' @param value value of meta data.
-    #' @param chr_converter (`function`) to convert a value to a character, by default `base::deparse1`.
     #' @return invisibly self
     #' @examples
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(

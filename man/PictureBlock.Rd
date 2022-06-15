@@ -69,6 +69,8 @@ block$get_dim()
 \item \href{#method-PictureBlock-get_title}{\code{PictureBlock$get_title()}}
 \item \href{#method-PictureBlock-set_dim}{\code{PictureBlock$set_dim()}}
 \item \href{#method-PictureBlock-get_dim}{\code{PictureBlock$get_dim()}}
+\item \href{#method-PictureBlock-from_list}{\code{PictureBlock$from_list()}}
+\item \href{#method-PictureBlock-to_list}{\code{PictureBlock$to_list()}}
 \item \href{#method-PictureBlock-clone}{\code{PictureBlock$clone()}}
 }
 }
@@ -259,6 +261,24 @@ block$get_dim()
 }
 \if{html}{\out{</div>}}
 
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PictureBlock-from_list"></a>}}
+\if{latex}{\out{\hypertarget{method-PictureBlock-from_list}{}}}
+\subsection{Method \code{from_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PictureBlock$from_list(x, base_path = NULL)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PictureBlock-to_list"></a>}}
+\if{latex}{\out{\hypertarget{method-PictureBlock-to_list}{}}}
+\subsection{Method \code{to_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PictureBlock$to_list(base_path = ".")}\if{html}{\out{</div>}}
 }
 
 }

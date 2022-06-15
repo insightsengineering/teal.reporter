@@ -71,13 +71,10 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' archiver <- JSONArchiver$new()
     #' archiver$write(reporter)
     #'
-    #' testthat::expect_equal(reporter, archiver$read())
-    #'
     #' archiver$read()$get_cards()[[1]]$get_content()
     #' archiver$get_output_dir()
     #' zip::zipr("../test.zip", list.files(archiver$get_output_dir(), full.names = TRUE))
     #' archiver$read("../test.zip")$get_cards()[[1]]$get_content()[[3]]$get_content()
-    #' testthat::
     write = function(reporter, report_params = list(), datasets = NULL, version = "1") {
       checkmate::assert_class(reporter, "Reporter")
       private$reporter2dir(reporter,
@@ -105,8 +102,8 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `character` a `output_dir` field path.
     #' @examples
-    #' renderer <- teal.reporter:::Renderer$new()
-    #' renderer$get_output_dir()
+    #' archiver <- teal.reporter:::Archiver$new()
+    #' archiver$get_output_dir()
     get_output_dir = function() {
       private$output_dir
     }

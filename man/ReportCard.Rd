@@ -41,6 +41,13 @@ card <- ReportCard$new()$append_text("A paragraph of default text")
 
 
 ## ------------------------------------------------
+## Method `ReportCard$append_content`
+## ------------------------------------------------
+
+card <- ReportCard$new()$append_content(NewPageBlock$new())
+
+
+## ------------------------------------------------
 ## Method `ReportCard$get_content`
 ## ------------------------------------------------
 
@@ -90,6 +97,7 @@ ReportCard$new()$set_name("NAME")$get_name()
 \item \href{#method-ReportCard-append_table}{\code{ReportCard$append_table()}}
 \item \href{#method-ReportCard-append_plot}{\code{ReportCard$append_plot()}}
 \item \href{#method-ReportCard-append_text}{\code{ReportCard$append_text()}}
+\item \href{#method-ReportCard-append_content}{\code{ReportCard$append_content()}}
 \item \href{#method-ReportCard-get_content}{\code{ReportCard$get_content()}}
 \item \href{#method-ReportCard-get_metadata}{\code{ReportCard$get_metadata()}}
 \item \href{#method-ReportCard-append_metadata}{\code{ReportCard$append_metadata()}}
@@ -212,6 +220,35 @@ invisibly self
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ReportCard-append_content"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-append_content}{}}}
+\subsection{Method \code{append_content()}}{
+Appends a ContentBlock to this \code{ReportCard}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_content(content)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{content}}{(\code{ContentBlock})}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{card <- ReportCard$new()$append_content(NewPageBlock$new())
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-get_content"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-get_content}{}}}
 \subsection{Method \code{get_content()}}{
@@ -264,7 +301,7 @@ card$get_metadata()
 \if{html}{\out{<a id="method-ReportCard-append_metadata"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-append_metadata}{}}}
 \subsection{Method \code{append_metadata()}}{
-Appends content elements to this \code{ReportCard}.
+Appends metadata to this \code{ReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_metadata(key, value)}\if{html}{\out{</div>}}
 }
@@ -275,8 +312,6 @@ Appends content elements to this \code{ReportCard}.
 \item{\code{key}}{(\code{character(1)}) name of meta data.}
 
 \item{\code{value}}{value of meta data.}
-
-\item{\code{chr_converter}}{(\code{function}) to convert a value to a character, by default \code{base::deparse1}.}
 }
 \if{html}{\out{</div>}}
 }

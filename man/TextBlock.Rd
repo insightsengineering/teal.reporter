@@ -52,6 +52,8 @@ block$get_available_styles()
 \item \href{#method-TextBlock-set_style}{\code{TextBlock$set_style()}}
 \item \href{#method-TextBlock-get_style}{\code{TextBlock$get_style()}}
 \item \href{#method-TextBlock-get_available_styles}{\code{TextBlock$get_available_styles()}}
+\item \href{#method-TextBlock-from_list}{\code{TextBlock$from_list()}}
+\item \href{#method-TextBlock-to_list}{\code{TextBlock$to_list()}}
 \item \href{#method-TextBlock-clone}{\code{TextBlock$clone()}}
 }
 }
@@ -175,6 +177,24 @@ block$get_available_styles()
 }
 \if{html}{\out{</div>}}
 
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TextBlock-from_list"></a>}}
+\if{latex}{\out{\hypertarget{method-TextBlock-from_list}{}}}
+\subsection{Method \code{from_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TextBlock$from_list(x)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TextBlock-to_list"></a>}}
+\if{latex}{\out{\hypertarget{method-TextBlock-to_list}{}}}
+\subsection{Method \code{to_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TextBlock$to_list()}\if{html}{\out{</div>}}
 }
 
 }

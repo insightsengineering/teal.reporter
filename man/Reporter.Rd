@@ -100,6 +100,22 @@ reporter$get_blocks()
 ## ------------------------------------------------
 
 shiny::isolate(Reporter$new()$get_reactive_add_card())
+
+## ------------------------------------------------
+## Method `Reporter$get_metadata`
+## ------------------------------------------------
+
+reporter <- Reporter$new()$append_metadata("sth", "sth")
+reporter$get_metadata()
+
+
+## ------------------------------------------------
+## Method `Reporter$append_metadata`
+## ------------------------------------------------
+
+reporter <- Reporter$new()$append_metadata("sth", "sth")
+reporter$get_metadata()
+
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -112,6 +128,8 @@ shiny::isolate(Reporter$new()$get_reactive_add_card())
 \item \href{#method-Reporter-remove_cards}{\code{Reporter$remove_cards()}}
 \item \href{#method-Reporter-swap_cards}{\code{Reporter$swap_cards()}}
 \item \href{#method-Reporter-get_reactive_add_card}{\code{Reporter$get_reactive_add_card()}}
+\item \href{#method-Reporter-get_metadata}{\code{Reporter$get_metadata()}}
+\item \href{#method-Reporter-append_metadata}{\code{Reporter$append_metadata()}}
 \item \href{#method-Reporter-clone}{\code{Reporter$clone()}}
 }
 }
@@ -343,6 +361,61 @@ get a value for the reactive value for the add card
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{shiny::isolate(Reporter$new()$get_reactive_add_card())
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-get_metadata"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-get_metadata}{}}}
+\subsection{Method \code{get_metadata()}}{
+get metadata of this \code{Reporter}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_metadata()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+metadata
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{reporter <- Reporter$new()$append_metadata("sth", "sth")
+reporter$get_metadata()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-append_metadata"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-append_metadata}{}}}
+\subsection{Method \code{append_metadata()}}{
+Appends metadata to this \code{Reporter}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$append_metadata(key, value)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{key}}{(\code{character(1)}) name of meta data.}
+
+\item{\code{value}}{value of meta data.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{reporter <- Reporter$new()$append_metadata("sth", "sth")
+reporter$get_metadata()
+
 }
 \if{html}{\out{</div>}}
 

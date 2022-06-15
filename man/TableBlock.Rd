@@ -28,6 +28,8 @@ block$set_content(iris)
 \item \href{#method-TableBlock-new}{\code{TableBlock$new()}}
 \item \href{#method-TableBlock-set_content}{\code{TableBlock$set_content()}}
 \item \href{#method-TableBlock-finalize}{\code{TableBlock$finalize()}}
+\item \href{#method-TableBlock-from_list}{\code{TableBlock$from_list()}}
+\item \href{#method-TableBlock-to_list}{\code{TableBlock$to_list()}}
 \item \href{#method-TableBlock-clone}{\code{TableBlock$clone()}}
 }
 }
@@ -103,6 +105,24 @@ finalize of this \code{TableBlock}.
 
 \subsection{Details}{
 Removes the temporary file created in the constructor.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TableBlock-from_list"></a>}}
+\if{latex}{\out{\hypertarget{method-TableBlock-from_list}{}}}
+\subsection{Method \code{from_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TableBlock$from_list(x, base_path = NULL)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TableBlock-to_list"></a>}}
+\if{latex}{\out{\hypertarget{method-TableBlock-to_list}{}}}
+\subsection{Method \code{to_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TableBlock$to_list(base_path = ".")}\if{html}{\out{</div>}}
 }
 
 }

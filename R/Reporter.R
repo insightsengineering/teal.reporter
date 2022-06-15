@@ -165,10 +165,38 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' shiny::isolate(Reporter$new()$get_reactive_add_card())
     get_reactive_add_card = function() {
       private$reactive_add_card()
+    },
+    #' @description get metadata of this `Reporter`.
+    #'
+    #' @return metadata
+    #' @examples
+    #' reporter <- Reporter$new()$append_metadata("sth", "sth")
+    #' reporter$get_metadata()
+    #'
+    get_metadata = function() {
+      private$metadata
+    },
+    #' @description Appends metadata to this `Reporter`.
+    #'
+    #' @param key (`character(1)`) name of meta data.
+    #' @param value value of meta data.
+    #' @return invisibly self
+    #' @examples
+    #' reporter <- Reporter$new()$append_metadata("sth", "sth")
+    #' reporter$get_metadata()
+    #'
+    append_metadata = function(key, value) {
+      checkmate::assert_character(key, min.len = 0, max.len = 1)
+      checkmate::assert_false(key %in% names(private$metadata))
+      meta_list <- list()
+      meta_list[[key]] <- value
+      private$metadata <- append(private$metadata, meta_list)
+      invisible(self)
     }
   ),
   private = list(
     cards = list(),
+    metadata = list(version = "1"),
     reactive_add_card = NULL,
     # @description The copy constructor.
     #
