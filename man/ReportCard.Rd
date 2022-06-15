@@ -44,39 +44,31 @@ card <- ReportCard$new()$append_text("A paragraph of default text")
 ## Method `ReportCard$get_content`
 ## ------------------------------------------------
 
-card <- ReportCard$new()$append_text("Some text")$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-)$append_metadata("rc", "a <- 2 + 2")
+card <- ReportCard$new()$append_text("Some text")$append_metadata("rc", "a <- 2 + 2")
 
 card$get_content()
+
+
+
+## ------------------------------------------------
+## Method `ReportCard$get_metadata`
+## ------------------------------------------------
+
+card <- ReportCard$new()$append_text("Some text")$append_metadata("rc", "a <- 2 + 2")
+
+card$get_metadata()
 
 
 ## ------------------------------------------------
 ## Method `ReportCard$append_metadata`
 ## ------------------------------------------------
 
-custom_lm_chr_converter <- function(x) paste(capture.output(summary(x)), collapse = "\\\\n  ")
 card <- ReportCard$new()$append_text("Some text")$append_plot(
   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
 )$append_text("Some text")$append_metadata(key = "lm",
-                  value = lm(Ozone ~ Solar.R, airquality),
-                  chr_converter = custom_lm_chr_converter)
+                  value = lm(Ozone ~ Solar.R, airquality))
 card$get_content()
-card$get_content(raw = TRUE)
-
-
-## ------------------------------------------------
-## Method `ReportCard$get_chr_converters`
-## ------------------------------------------------
-
-custom_lm_chr_converter <- function(x) paste(capture.output(summary(x)), collapse = "\\\\n  ")
-card <- ReportCard$new()$append_text("Some text")$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-)$append_text("Some text")$append_metadata(key = "lm",
-                  value = lm(Ozone ~ Solar.R, airquality),
-                  chr_converter = custom_lm_chr_converter
-)$append_metadata(key = "code", value = lm(Ozone ~ Solar.R, airquality))
-card$get_chr_converters()
+card$get_metadata()
 
 
 ## ------------------------------------------------
@@ -99,8 +91,8 @@ ReportCard$new()$set_name("NAME")$get_name()
 \item \href{#method-ReportCard-append_plot}{\code{ReportCard$append_plot()}}
 \item \href{#method-ReportCard-append_text}{\code{ReportCard$append_text()}}
 \item \href{#method-ReportCard-get_content}{\code{ReportCard$get_content()}}
+\item \href{#method-ReportCard-get_metadata}{\code{ReportCard$get_metadata()}}
 \item \href{#method-ReportCard-append_metadata}{\code{ReportCard$append_metadata()}}
-\item \href{#method-ReportCard-get_chr_converters}{\code{ReportCard$get_chr_converters()}}
 \item \href{#method-ReportCard-get_name}{\code{ReportCard$get_name()}}
 \item \href{#method-ReportCard-set_name}{\code{ReportCard$set_name()}}
 \item \href{#method-ReportCard-clone}{\code{ReportCard$clone()}}
@@ -225,30 +217,42 @@ invisibly self
 \subsection{Method \code{get_content()}}{
 Returns the content of this \code{ReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_content(raw = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_content()}\if{html}{\out{</div>}}
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{raw}}{(\code{logical}) whether to include \code{content} as it was appended or apply \code{chr_converter}
-functions on meta data objects.}
-}
-\if{html}{\out{</div>}}
-}
 \subsection{Returns}{
 \code{list()} list of \code{TableBlock}, \code{TextBlock} and \code{PictureBlock}.
-If the \code{raw} argument is \code{TRUE}, meta data objects in the form they were added will be returned. Otherwise,
-given \code{chr_converter} function given will be applied on these objects.
-Only metadata elements are named.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- ReportCard$new()$append_text("Some text")$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-)$append_metadata("rc", "a <- 2 + 2")
+\preformatted{card <- ReportCard$new()$append_text("Some text")$append_metadata("rc", "a <- 2 + 2")
 
 card$get_content()
+
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ReportCard-get_metadata"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-get_metadata}{}}}
+\subsection{Method \code{get_metadata()}}{
+Returns the metadata of this \code{ReportCard}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_metadata()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\verb{named list} list of elements.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{card <- ReportCard$new()$append_text("Some text")$append_metadata("rc", "a <- 2 + 2")
+
+card$get_metadata()
 
 }
 \if{html}{\out{</div>}}
@@ -262,7 +266,7 @@ card$get_content()
 \subsection{Method \code{append_metadata()}}{
 Appends content elements to this \code{ReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_metadata(key, value, chr_converter = deparse1)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_metadata(key, value)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -281,43 +285,12 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{custom_lm_chr_converter <- function(x) paste(capture.output(summary(x)), collapse = "\\\\n  ")
-card <- ReportCard$new()$append_text("Some text")$append_plot(
+\preformatted{card <- ReportCard$new()$append_text("Some text")$append_plot(
   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
 )$append_text("Some text")$append_metadata(key = "lm",
-                  value = lm(Ozone ~ Solar.R, airquality),
-                  chr_converter = custom_lm_chr_converter)
+                  value = lm(Ozone ~ Solar.R, airquality))
 card$get_content()
-card$get_content(raw = TRUE)
-
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ReportCard-get_chr_converters"></a>}}
-\if{latex}{\out{\hypertarget{method-ReportCard-get_chr_converters}{}}}
-\subsection{Method \code{get_chr_converters()}}{
-get all \code{chr_converter} functions of this \code{ReportCard}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_chr_converters()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-\verb{named list}
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{custom_lm_chr_converter <- function(x) paste(capture.output(summary(x)), collapse = "\\\\n  ")
-card <- ReportCard$new()$append_text("Some text")$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-)$append_text("Some text")$append_metadata(key = "lm",
-                  value = lm(Ozone ~ Solar.R, airquality),
-                  chr_converter = custom_lm_chr_converter
-)$append_metadata(key = "code", value = lm(Ozone ~ Solar.R, airquality))
-card$get_chr_converters()
+card$get_metadata()
 
 }
 \if{html}{\out{</div>}}
