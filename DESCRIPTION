@@ -1,6 +1,6 @@
 Package: teal.reporter
 Title: Reporting tools for Shiny modules
-Version: 0.1.0.9000
+Version: 0.1.0.9001
 Date: 2022-06-09
 Authors@R: c(
     person("Maciej", "Nasinski", , "maciej.nasinski@contractors.roche.com", role = c("aut", "cre")),
@@ -37,6 +37,7 @@ RdMacros:
     lifecycle
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
+Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
