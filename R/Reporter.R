@@ -199,6 +199,87 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       self$append_cards(reporter$get_cards())
       self$append_metadata(reporter$get_metadata())
       invisible(self)
+    },
+    from_jsondir = function(output_dir) {
+      dir_files <- list.files(output_dir)
+      which_json <- grep("json$", dir_files)
+      json <- jsonlite::read_json(file.path(output_dir, dir_files[which_json]))
+      if (json$version == "1") {
+        new_cards <- list()
+        cards_names <- names(json$cards)
+        cards_names <- gsub("[.][0-9]*$","", cards_names)
+        for (iter_c in seq_along(json$cards)) {
+          card_class <- cards_names[iter_c]
+          new_card <- switch(card_class,
+                             ReportCard = ReportCard$new(),
+                             TealReportCard = TealReportCard$new()
+          )
+          blocks <- json$cards[[iter_c]]$blocks
+          metadata <- json$cards[[iter_c]]$metadata
+          blocks_names <- names(blocks)
+          blocks_names <- gsub("[.][0-9]*$","", blocks_names)
+          for (iter_b in seq_along(blocks)) {
+            block_class <- blocks_names[iter_b]
+            block <- blocks[[iter_b]]
+            cblock <- switch(block_class,
+                             TextBlock = TextBlock$new()$from_list(block),
+                             PictureBlock = PictureBlock$new()$from_list(block, output_dir),
+                             TableBlock = TableBlock$new()$from_list(block, output_dir),
+                             NewpageBlock = NewPageBlock$new(),
+                             NULL
+            )
+            new_card$append_content(cblock)
+          }
+          for (meta in names(metadata)) {
+            new_card$append_metadata(meta, metadata[[meta]])
+          }
+          new_cards <- c(new_cards, new_card)
+        }
+      } else {
+        stop("The provided version is not supported")
+      }
+      self$reset()
+      self$append_cards(new_cards)
+      self$append_metadata(json$metadata)
+      invisible(self)
+    },
+    to_jsondir = function(output_dir) {
+        json <- list(version = "1", cards = list())
+        json[["metadata"]] <- self$get_metadata()
+        for (card in self$get_cards()) {
+          card_class <- class(card)[1]
+          new_blocks <- list()
+          for (block in card$get_content()) {
+            block_class <- class(block)[1]
+            cblock <- switch(block_class,
+                             TextBlock = block$to_list(),
+                             PictureBlock = {
+                               file.copy(block$get_content(), output_dir)
+                               block$to_list()
+                             },
+                             TableBlock = {
+                               file.copy(block$get_content(), output_dir)
+                               block$to_list()
+                             },
+                             NewpageBlock = list(),
+                             NULL
+            )
+            new_block <- list()
+            new_block[[block_class]] <- cblock
+            new_blocks <- c(new_blocks, new_block)
+          }
+          new_card <- list()
+          new_card[["blocks"]] <- new_blocks
+          new_card[["metadata"]] <- card$get_metadata()
+
+          u_card <- list()
+          u_card[[card_class]] <- new_card
+          json$cards <- c(json$cards, u_card)
+        }
+
+      cat(jsonlite::toJSON(json, auto_unbox=TRUE, force = TRUE),
+          file = file.path(output_dir, "Report.json"))
+      output_dir
     }
   ),
   private = list(
