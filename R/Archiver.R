@@ -23,10 +23,10 @@ Archiver <- R6::R6Class( # nolint: object_name_linter.
   lock_class = TRUE
 )
 
-#' @title `JSONArchiver`
+#' @title `RDSArchiver`
 #' @keywords internal
-JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
-  classname = "JSONArchiver",
+FileArchiver <- R6::R6Class( # nolint: object_name_linter.
+  classname = "RDSArchiver",
   inherit = Archiver,
   public = list(
     #' @description Returns a `JSONArchiver` object.
@@ -46,7 +46,16 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' @description Finalizes a `Archiver` object.
     finalize = function() {
       unlink(private$output_dir, recursive = TRUE)
-    },
+    }
+  )
+)
+
+#' @title `JSONArchiver`
+#' @keywords internal
+JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
+  classname = "JSONArchiver",
+  inherit = FileArchiver,
+  public = list(
     #' @description write a `Reporter` instance in to this `JSONArchiver` object.
     #'
     #' @param reporter
@@ -81,13 +90,10 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' archiver$get_output_dir()
     #' zip::zipr("../test.zip", list.files(archiver$get_output_dir(), full.names = TRUE))
     #' archiver$read("../test.zip")$get_cards()[[1]]$get_content()[[3]]$get_content()
-    write = function(reporter, report_params = list(), datasets = NULL) {
+    write = function(reporter, report_params = list(), datasets = NULL, version = "1") {
       checkmate::assert_class(reporter, "Reporter")
       unlink(list.files(private$output_dir, recursive = TRUE, full.names = TRUE))
-      private$reporter2dir(reporter,
-                           report_params = report_params,
-                           datasets = datasets,
-                           private$output_dir)
+      private$reporter2dir(reporter, private$output_dir, version)
       return(self)
     },
     #' @examples
@@ -143,11 +149,9 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
   private = list(
     output_dir = character(0),
     reporter = NULL,
-    reporter2dir = function(reporter, report_params, datasets, output_dir) {
-      version <- reporter$get_version()
+    reporter2dir = function(reporter, output_dir, version) {
       if (version == "1") {
         json <- list(version = version, cards = list())
-        json[["report_params"]] <- report_params
         json[["metadata"]] <- reporter$get_metadata()
         for (card in reporter$get_cards()) {
           card_class <- class(card)[1]
@@ -226,7 +230,6 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
         stop("The provided version is not supported, Archiver.")
       }
       reporter <- Reporter$new()
-      reporter$set_version(json$version)
       reporter$append_cards(new_cards)
       reporter$append_metadata(json$metadata)
       private$reporter <- reporter

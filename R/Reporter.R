@@ -193,26 +193,15 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$metadata <- append(private$metadata, meta)
       invisible(self)
     },
-    get_version = function() {
-      private$version
-    },
-    set_version = function(version) {
-      checkmate::assert_string(version)
-      checkmate::assert_true(version %in% c("1"))
-
-      private$version <- version
-    },
     from_reporter = function(reporter) {
       checkmate::assert_class(reporter, "Reporter")
       self$reset()
       self$append_cards(reporter$get_cards())
       self$append_metadata(reporter$get_metadata())
-      self$set_version(reporter$get_version())
       invisible(self)
     }
   ),
   private = list(
-    version = "1",
     cards = list(),
     metadata = list(),
     reactive_add_card = NULL,
