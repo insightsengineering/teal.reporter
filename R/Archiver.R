@@ -16,8 +16,11 @@ Archiver <- R6::R6Class( # nolint: object_name_linter.
     finalize = function() {},
     read = function() {
       # returns Reporter instance
+      stop("Pure virtual method.")
     },
-    write = function() {}
+    write = function() {
+      stop("Pure virtual method.")
+    }
   ),
   lock_objects = TRUE,
   lock_class = TRUE

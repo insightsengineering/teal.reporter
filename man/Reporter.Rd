@@ -130,9 +130,9 @@ reporter$get_metadata()
 \item \href{#method-Reporter-get_reactive_add_card}{\code{Reporter$get_reactive_add_card()}}
 \item \href{#method-Reporter-get_metadata}{\code{Reporter$get_metadata()}}
 \item \href{#method-Reporter-append_metadata}{\code{Reporter$append_metadata()}}
-\item \href{#method-Reporter-get_version}{\code{Reporter$get_version()}}
-\item \href{#method-Reporter-set_version}{\code{Reporter$set_version()}}
 \item \href{#method-Reporter-from_reporter}{\code{Reporter$from_reporter()}}
+\item \href{#method-Reporter-from_jsondir}{\code{Reporter$from_jsondir()}}
+\item \href{#method-Reporter-to_jsondir}{\code{Reporter$to_jsondir()}}
 \item \href{#method-Reporter-clone}{\code{Reporter$clone()}}
 }
 }
@@ -427,29 +427,29 @@ reporter$get_metadata()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Reporter-get_version"></a>}}
-\if{latex}{\out{\hypertarget{method-Reporter-get_version}{}}}
-\subsection{Method \code{get_version()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_version()}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Reporter-set_version"></a>}}
-\if{latex}{\out{\hypertarget{method-Reporter-set_version}{}}}
-\subsection{Method \code{set_version()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$set_version(version)}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-from_reporter"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-from_reporter}{}}}
 \subsection{Method \code{from_reporter()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$from_reporter(reporter)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-from_jsondir"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-from_jsondir}{}}}
+\subsection{Method \code{from_jsondir()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$from_jsondir(output_dir)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-to_jsondir"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-to_jsondir}{}}}
+\subsection{Method \code{to_jsondir()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$to_jsondir(output_dir)}\if{html}{\out{</div>}}
 }
 
 }

@@ -11,13 +11,6 @@
 \examples{
 
 ## ------------------------------------------------
-## Method `JSONArchiver$new`
-## ------------------------------------------------
-
-archiver <- teal.reporter:::JSONArchiver$new()
-
-
-## ------------------------------------------------
 ## Method `JSONArchiver$write`
 ## ------------------------------------------------
 
@@ -80,74 +73,35 @@ archiver$read()$get_cards()[[1]]$get_content()
 archiver$get_output_dir()
 zip::zipr("../test.zip", list.files(archiver$get_output_dir(), full.names = TRUE))
 archiver$read("../test.zip")$get_cards()[[1]]$get_content()[[3]]$get_content()
-
-## ------------------------------------------------
-## Method `JSONArchiver$get_output_dir`
-## ------------------------------------------------
-
-archiver <- teal.reporter:::Archiver$new()
-archiver$get_output_dir()
 }
 \keyword{internal}
-\section{Super class}{
-\code{\link[teal.reporter:Archiver]{teal.reporter::Archiver}} -> \code{JSONArchiver}
+\section{Super classes}{
+\code{\link[teal.reporter:Archiver]{teal.reporter::Archiver}} -> \code{\link[teal.reporter:RDSArchiver]{teal.reporter::RDSArchiver}} -> \code{JSONArchiver}
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-JSONArchiver-new}{\code{JSONArchiver$new()}}
-\item \href{#method-JSONArchiver-finalize}{\code{JSONArchiver$finalize()}}
 \item \href{#method-JSONArchiver-write}{\code{JSONArchiver$write()}}
 \item \href{#method-JSONArchiver-read}{\code{JSONArchiver$read()}}
-\item \href{#method-JSONArchiver-get_output_dir}{\code{JSONArchiver$get_output_dir()}}
 \item \href{#method-JSONArchiver-clone}{\code{JSONArchiver$clone()}}
 }
 }
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="RDSArchiver" data-id="finalize"><a href='../../teal.reporter/html/RDSArchiver.html#method-RDSArchiver-finalize'><code>teal.reporter::RDSArchiver$finalize()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="RDSArchiver" data-id="get_output_dir"><a href='../../teal.reporter/html/RDSArchiver.html#method-RDSArchiver-get_output_dir'><code>teal.reporter::RDSArchiver$get_output_dir()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="RDSArchiver" data-id="initialize"><a href='../../teal.reporter/html/RDSArchiver.html#method-RDSArchiver-initialize'><code>teal.reporter::RDSArchiver$initialize()</code></a></li>
 </ul>
 </details>
 }}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-JSONArchiver-new"></a>}}
-\if{latex}{\out{\hypertarget{method-JSONArchiver-new}{}}}
-\subsection{Method \code{new()}}{
-Returns a \code{JSONArchiver} object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{JSONArchiver$new(version)}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-a \code{JSONArchiver} object
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{archiver <- teal.reporter:::JSONArchiver$new()
-
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-JSONArchiver-finalize"></a>}}
-\if{latex}{\out{\hypertarget{method-JSONArchiver-finalize}{}}}
-\subsection{Method \code{finalize()}}{
-Finalizes a \code{Archiver} object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{JSONArchiver$finalize()}\if{html}{\out{</div>}}
-}
-
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-JSONArchiver-write"></a>}}
 \if{latex}{\out{\hypertarget{method-JSONArchiver-write}{}}}
 \subsection{Method \code{write()}}{
 write a \code{Reporter} instance in to this \code{JSONArchiver} object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{JSONArchiver$write(reporter, report_params = list(), datasets = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{JSONArchiver$write(reporter)}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
@@ -225,28 +179,6 @@ archiver$read()$get_cards()[[1]]$get_content()
 archiver$get_output_dir()
 zip::zipr("../test.zip", list.files(archiver$get_output_dir(), full.names = TRUE))
 archiver$read("../test.zip")$get_cards()[[1]]$get_content()[[3]]$get_content()
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-JSONArchiver-get_output_dir"></a>}}
-\if{latex}{\out{\hypertarget{method-JSONArchiver-get_output_dir}{}}}
-\subsection{Method \code{get_output_dir()}}{
-get \code{output_dir} field
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{JSONArchiver$get_output_dir()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-\code{character} a \code{output_dir} field path.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{archiver <- teal.reporter:::Archiver$new()
-archiver$get_output_dir()
 }
 \if{html}{\out{</div>}}
 
