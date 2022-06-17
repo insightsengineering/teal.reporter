@@ -141,7 +141,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
         unlink(list.files(private$output_dir, recursive = TRUE, full.names = TRUE))
         zip::unzip(path2zip, exdir = private$output_dir)
       }
-      reporter$from_jsondir(private$output_dir)
+      Reporter$new()$from_jsondir(private$output_dir)
     }
   ),
   private = list(
