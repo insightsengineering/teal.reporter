@@ -29,23 +29,31 @@ FileArchiver <- R6::R6Class( # nolint: object_name_linter.
   classname = "RDSArchiver",
   inherit = Archiver,
   public = list(
-    #' @description Returns a `JSONArchiver` object.
+    #' @description Returns a `FileArchiver` object.
     #'
-    #' @return a `JSONArchiver` object
+    #' @return a `FileArchiver` object
     #' @examples
-    #' archiver <- teal.reporter:::JSONArchiver$new()
+    #' archiver <- teal.reporter:::FileArchiver$new()
     #'
     initialize = function(version) {
       tmp_dir <- tempdir()
       output_dir <- file.path(tmp_dir, sprintf("archive_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
       dir.create(path = output_dir)
       private$output_dir <- output_dir
-      private$reporter <- Reporter$new()
       invisible(self)
     },
-    #' @description Finalizes a `Archiver` object.
+    #' @description Finalizes a `FileArchiver` object.
     finalize = function() {
       unlink(private$output_dir, recursive = TRUE)
+    },
+    #' @description get `output_dir` field
+    #'
+    #' @return `character` a `output_dir` field path.
+    #' @examples
+    #' archiver <- teal.reporter:::FileArchiver$new()
+    #' archiver$get_output_dir()
+    get_output_dir = function() {
+      private$output_dir
     }
   )
 )
@@ -133,22 +141,11 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
         unlink(list.files(private$output_dir, recursive = TRUE, full.names = TRUE))
         zip::unzip(path2zip, exdir = private$output_dir)
       }
-      private$reporter <- private$dir2reporter(private$output_dir)
-      private$reporter
-    },
-    #' @description get `output_dir` field
-    #'
-    #' @return `character` a `output_dir` field path.
-    #' @examples
-    #' archiver <- teal.reporter:::Archiver$new()
-    #' archiver$get_output_dir()
-    get_output_dir = function() {
-      private$output_dir
+      private$dir2reporter(private$output_dir)
     }
   ),
   private = list(
     output_dir = character(0),
-    reporter = NULL,
     reporter2dir = function(reporter, output_dir, version) {
       if (version == "1") {
         json <- list(version = version, cards = list())
@@ -232,7 +229,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
       reporter <- Reporter$new()
       reporter$append_cards(new_cards)
       reporter$append_metadata(json$metadata)
-      private$reporter <- reporter
+      reporter
     }
   ),
   lock_objects = TRUE,
