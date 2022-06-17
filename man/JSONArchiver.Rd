@@ -50,6 +50,38 @@ zip::zipr("../test.zip", list.files(archiver$get_output_dir(), full.names = TRUE
 archiver$read("../test.zip")$get_cards()[[1]]$get_content()[[3]]$get_content()
 
 ## ------------------------------------------------
+## Method `JSONArchiver$read`
+## ------------------------------------------------
+
+card1 <- teal.reporter:::ReportCard$new()
+
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text", "header2")
+card1$append_plot(
+ ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)
+
+card2 <- teal.reporter:::ReportCard$new()
+
+card2$append_text("Header 2 text", "header2")
+card2$append_text("A paragraph of default text", "header2")
+lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
+table_res2 <- rtables::build_table(lyt, airquality)
+card2$append_table(table_res2)
+card2$append_table(iris)
+
+reporter <- teal.reporter:::Reporter$new()
+reporter$append_cards(list(card1, card2))
+
+archiver <- JSONArchiver$new()
+archiver$write(reporter)
+
+archiver$read()$get_cards()[[1]]$get_content()
+archiver$get_output_dir()
+zip::zipr("../test.zip", list.files(archiver$get_output_dir(), full.names = TRUE))
+archiver$read("../test.zip")$get_cards()[[1]]$get_content()[[3]]$get_content()
+
+## ------------------------------------------------
 ## Method `JSONArchiver$get_output_dir`
 ## ------------------------------------------------
 
@@ -103,7 +135,7 @@ a \code{JSONArchiver} object
 \if{html}{\out{<a id="method-JSONArchiver-finalize"></a>}}
 \if{latex}{\out{\hypertarget{method-JSONArchiver-finalize}{}}}
 \subsection{Method \code{finalize()}}{
-Finalizes a \code{Renderer} object.
+Finalizes a \code{Archiver} object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{JSONArchiver$finalize()}\if{html}{\out{</div>}}
 }
@@ -113,15 +145,14 @@ Finalizes a \code{Renderer} object.
 \if{html}{\out{<a id="method-JSONArchiver-write"></a>}}
 \if{latex}{\out{\hypertarget{method-JSONArchiver-write}{}}}
 \subsection{Method \code{write()}}{
+write a \code{Reporter} instance in to this \code{JSONArchiver} object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{JSONArchiver$write(
-  reporter,
-  report_params = list(),
-  datasets = NULL,
-  version = "1"
-)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{JSONArchiver$write(reporter, report_params = list(), datasets = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+invisibly self
+}
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{card1 <- teal.reporter:::ReportCard$new()
@@ -163,6 +194,40 @@ archiver$read("../test.zip")$get_cards()[[1]]$get_content()[[3]]$get_content()
 \subsection{Method \code{read()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{JSONArchiver$read(path2zip = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{card1 <- teal.reporter:::ReportCard$new()
+
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text", "header2")
+card1$append_plot(
+ ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)
+
+card2 <- teal.reporter:::ReportCard$new()
+
+card2$append_text("Header 2 text", "header2")
+card2$append_text("A paragraph of default text", "header2")
+lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
+table_res2 <- rtables::build_table(lyt, airquality)
+card2$append_table(table_res2)
+card2$append_table(iris)
+
+reporter <- teal.reporter:::Reporter$new()
+reporter$append_cards(list(card1, card2))
+
+archiver <- JSONArchiver$new()
+archiver$write(reporter)
+
+archiver$read()$get_cards()[[1]]$get_content()
+archiver$get_output_dir()
+zip::zipr("../test.zip", list.files(archiver$get_output_dir(), full.names = TRUE))
+archiver$read("../test.zip")$get_cards()[[1]]$get_content()[[3]]$get_content()
+}
+\if{html}{\out{</div>}}
+
 }
 
 }

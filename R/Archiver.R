@@ -43,9 +43,52 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
       private$reporter <- Reporter$new()
       invisible(self)
     },
-    #' @description Finalizes a `Renderer` object.
+    #' @description Finalizes a `Archiver` object.
     finalize = function() {
       unlink(private$output_dir, recursive = TRUE)
+    },
+    #' @description write a `Reporter` instance in to this `JSONArchiver` object.
+    #'
+    #' @param reporter
+    #' @param report_params
+    #' @param datasets
+    #' @return invisibly self
+    #' @examples
+    #' card1 <- teal.reporter:::ReportCard$new()
+    #'
+    #' card1$append_text("Header 2 text", "header2")
+    #' card1$append_text("A paragraph of default text", "header2")
+    #' card1$append_plot(
+    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #' )
+    #'
+    #' card2 <- teal.reporter:::ReportCard$new()
+    #'
+    #' card2$append_text("Header 2 text", "header2")
+    #' card2$append_text("A paragraph of default text", "header2")
+    #' lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
+    #' table_res2 <- rtables::build_table(lyt, airquality)
+    #' card2$append_table(table_res2)
+    #' card2$append_table(iris)
+    #'
+    #' reporter <- teal.reporter:::Reporter$new()
+    #' reporter$append_cards(list(card1, card2))
+    #'
+    #' archiver <- JSONArchiver$new()
+    #' archiver$write(reporter)
+    #'
+    #' archiver$read()$get_cards()[[1]]$get_content()
+    #' archiver$get_output_dir()
+    #' zip::zipr("../test.zip", list.files(archiver$get_output_dir(), full.names = TRUE))
+    #' archiver$read("../test.zip")$get_cards()[[1]]$get_content()[[3]]$get_content()
+    write = function(reporter, report_params = list(), datasets = NULL) {
+      checkmate::assert_class(reporter, "Reporter")
+      unlink(list.files(private$output_dir, recursive = TRUE, full.names = TRUE))
+      private$reporter2dir(reporter,
+                           report_params = report_params,
+                           datasets = datasets,
+                           private$output_dir)
+      return(self)
     },
     #' @examples
     #' card1 <- teal.reporter:::ReportCard$new()
@@ -75,24 +118,13 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' archiver$get_output_dir()
     #' zip::zipr("../test.zip", list.files(archiver$get_output_dir(), full.names = TRUE))
     #' archiver$read("../test.zip")$get_cards()[[1]]$get_content()[[3]]$get_content()
-    write = function(reporter, report_params = list(), datasets = NULL, version = "1") {
-      checkmate::assert_class(reporter, "Reporter")
-      private$reporter2dir(reporter,
-                           report_params = report_params,
-                           datasets = datasets,
-                           version = version,
-                           private$output_dir)
-      return(self)
-    },
     read = function(path2zip = NULL) {
       checkmate::assert(
         checkmate::check_null(path2zip),
-        checkmate::check_file_exists(path2zip)
+        checkmate::check_file_exists(path2zip, extension = "zip")
       )
-      # validate file name
-      # TODO
       if (!is.null(path2zip)) {
-        unlink(private$output_dir, recursive = TRUE)
+        unlink(list.files(private$output_dir, recursive = TRUE, full.names = TRUE))
         zip::unzip(path2zip, exdir = private$output_dir)
       }
       private$reporter <- private$dir2reporter(private$output_dir)
@@ -111,11 +143,12 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
   private = list(
     output_dir = character(0),
     reporter = NULL,
-    reporter2dir = function(reporter, report_params, datasets, version, output_dir) {
+    reporter2dir = function(reporter, report_params, datasets, output_dir) {
+      version <- reporter$get_version()
       if (version == "1") {
         json <- list(version = version, cards = list())
         json[["report_params"]] <- report_params
-
+        json[["metadata"]] <- reporter$get_metadata()
         for (card in reporter$get_cards()) {
           card_class <- class(card)[1]
           new_blocks <- list()
@@ -150,14 +183,15 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
         stop("The provided version is not supported, Archiver.")
       }
 
-      cat(jsonlite::toJSON(json, auto_unbox=TRUE), file = file.path(private$output_dir, "Report.json"))
+      cat(jsonlite::toJSON(json, auto_unbox=TRUE, force = TRUE),
+          file = file.path(private$output_dir, "Report.json"))
       private$output_dir
     },
     dir2reporter = function(dir) {
       dir_files <- list.files(dir)
       which_json <- grep("json$", dir_files)
       json <- jsonlite::read_json(file.path(private$output_dir, dir_files[which_json]))
-      if (json$version[[1]] == "1") {
+      if (json$version == "1") {
         new_cards <- list()
         cards_names <- names(json$cards)
         cards_names <- gsub("[.][0-9]*$","", cards_names)
@@ -176,12 +210,8 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
             block <- blocks[[iter_b]]
             cblock <- switch(block_class,
                    TextBlock = TextBlock$new()$from_list(block),
-                   PictureBlock = {
-                     PictureBlock$new()$from_list(block, private$output_dir)
-                   },
-                   TableBlock = {
-                     TableBlock$new()$from_list(block, private$output_dir)
-                   },
+                   PictureBlock = PictureBlock$new()$from_list(block, private$output_dir),
+                   TableBlock = TableBlock$new()$from_list(block, private$output_dir),
                    NewpageBlock = NewPageBlock$new(),
                    NULL
             )
@@ -196,7 +226,9 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
         stop("The provided version is not supported, Archiver.")
       }
       reporter <- Reporter$new()
+      reporter$set_version(json$version)
       reporter$append_cards(new_cards)
+      reporter$append_metadata(json$metadata)
       private$reporter <- reporter
     }
   ),

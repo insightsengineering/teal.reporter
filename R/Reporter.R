@@ -113,11 +113,13 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       blocks
     },
     #' @description Removes all [`ReportCard`] objects added to this `Reporter`.
+    #' Additionally all metadata instead of the Reporter version are removed.
     #'
     #' @return invisibly self
     #'
     reset = function() {
       private$cards <- list()
+      private$metadata <- list()
       private$reactive_add_card(0)
       invisible(self)
     },
@@ -182,21 +184,37 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @param value value of meta data.
     #' @return invisibly self
     #' @examples
-    #' reporter <- Reporter$new()$append_metadata("sth", "sth")
+    #' reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
     #' reporter$get_metadata()
     #'
-    append_metadata = function(key, value) {
-      checkmate::assert_character(key, min.len = 0, max.len = 1)
-      checkmate::assert_false(key %in% names(private$metadata))
-      meta_list <- list()
-      meta_list[[key]] <- value
-      private$metadata <- append(private$metadata, meta_list)
+    append_metadata = function(meta) {
+      checkmate::assert_list(meta, names = "all")
+      checkmate::assert_true(length(meta) == 0 || any(names(meta) %in% names(private$metadata)))
+      private$metadata <- append(private$metadata, meta)
+      invisible(self)
+    },
+    get_version = function() {
+      private$version
+    },
+    set_version = function(version) {
+      checkmate::assert_string(version)
+      checkmate::assert_true(version %in% c("1"))
+
+      private$version <- version
+    },
+    from_reporter = function(reporter) {
+      checkmate::assert_class(reporter, "Reporter")
+      self$reset()
+      self$append_cards(reporter$get_cards())
+      self$append_metadata(reporter$get_metadata())
+      self$set_version(reporter$get_version())
       invisible(self)
     }
   ),
   private = list(
+    version = "1",
     cards = list(),
-    metadata = list(version = "1"),
+    metadata = list(),
     reactive_add_card = NULL,
     # @description The copy constructor.
     #

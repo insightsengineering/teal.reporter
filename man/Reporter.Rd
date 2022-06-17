@@ -113,7 +113,7 @@ reporter$get_metadata()
 ## Method `Reporter$append_metadata`
 ## ------------------------------------------------
 
-reporter <- Reporter$new()$append_metadata("sth", "sth")
+reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
 reporter$get_metadata()
 
 }
@@ -130,6 +130,9 @@ reporter$get_metadata()
 \item \href{#method-Reporter-get_reactive_add_card}{\code{Reporter$get_reactive_add_card()}}
 \item \href{#method-Reporter-get_metadata}{\code{Reporter$get_metadata()}}
 \item \href{#method-Reporter-append_metadata}{\code{Reporter$append_metadata()}}
+\item \href{#method-Reporter-get_version}{\code{Reporter$get_version()}}
+\item \href{#method-Reporter-set_version}{\code{Reporter$set_version()}}
+\item \href{#method-Reporter-from_reporter}{\code{Reporter$from_reporter()}}
 \item \href{#method-Reporter-clone}{\code{Reporter$clone()}}
 }
 }
@@ -296,6 +299,7 @@ reporter$get_blocks()
 \if{latex}{\out{\hypertarget{method-Reporter-reset}{}}}
 \subsection{Method \code{reset()}}{
 Removes all \code{\link{ReportCard}} objects added to this \code{Reporter}.
+Additionally all metadata instead of the Reporter version are removed.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$reset()}\if{html}{\out{</div>}}
 }
@@ -396,7 +400,7 @@ reporter$get_metadata()
 \subsection{Method \code{append_metadata()}}{
 Appends metadata to this \code{Reporter}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$append_metadata(key, value)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$append_metadata(meta)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -413,12 +417,39 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{reporter <- Reporter$new()$append_metadata("sth", "sth")
+\preformatted{reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
 reporter$get_metadata()
 
 }
 \if{html}{\out{</div>}}
 
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-get_version"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-get_version}{}}}
+\subsection{Method \code{get_version()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_version()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-set_version"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-set_version}{}}}
+\subsection{Method \code{set_version()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$set_version(version)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-from_reporter"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-from_reporter}{}}}
+\subsection{Method \code{from_reporter()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$from_reporter(reporter)}\if{html}{\out{</div>}}
 }
 
 }
