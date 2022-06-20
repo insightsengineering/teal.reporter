@@ -19,7 +19,81 @@ card2$append_table(iris)
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 
-testthat::test_that("", {
+testthat::test_that("intialize Archiver", {
+  expect_error(Archiver$new(), NA)
+})
 
+testthat::test_that("Archiver errors with the abstract methods", {
+  archiver <- Archiver$new()
+  expect_error(archiver$read(), "Pure virtual method")
+  expect_error(archiver$write(), "Pure virtual method")
+})
+
+testthat::test_that("intialize FileArchiver", {
+  expect_error(FileArchiver$new(), NA)
+})
+
+testthat::test_that("FileArchiver creates a temp directory when initialized", {
+  archiver <- FileArchiver$new()
+  expect_true(dir.exists(archiver$get_output_dir()))
+})
+
+testthat::test_that("FileArchiver creates a temp directory when initialized, with a proper name", {
+  archiver <- FileArchiver$new()
+  expect_true(grepl("archive_[0-9]{18,18}$", archiver$get_output_dir()))
+})
+
+testthat::test_that("FileArchiver dectructor removes the temp dir", {
+  archiver <- FileArchiver$new()
+  temp_dir <- archiver$get_output_dir()
+  expect_true(dir.exists(temp_dir))
+  rm(archiver)
+  # we need a garbage collector
+  gc()
+  expect_false(dir.exists(temp_dir))
+})
+
+testthat::test_that("intialize JSONArchiver", {
+  expect_error(JSONArchiver$new(), NA)
+})
+
+testthat::test_that("JSONArchiver creates a temp directory when initialized", {
+  archiver <- JSONArchiver$new()
+  expect_true(dir.exists(archiver$get_output_dir()))
+})
+
+testthat::test_that("JSONArchiver dectructor removes the temp dir", {
+  archiver <- JSONArchiver$new()
+  temp_dir <- archiver$get_output_dir()
+  expect_true(dir.exists(temp_dir))
+  rm(archiver)
+  # we need a garbage collector
+  gc()
+  expect_false(dir.exists(temp_dir))
+})
+
+archiver <- JSONArchiver$new()
+expect_error(archiver$write(reporter), NA)
+
+testthat::test_that("JSONArchiver write a reporter", {
+  expect_error(archiver$write(reporter), NA)
+})
+
+testthat::test_that("JSONArchiver write a reporter with a json file and static files", {
+  files <- list.files(archiver$get_output_dir())
+  expect_true(length(files) == 4)
+  expect_true("Report.json" %in% files)
+})
+
+testthat::test_that("JSONArchiver read back the Reporter instance", {
+  expect_s3_class(archiver$read(), "Reporter")
+  expect_length(archiver$read()$get_cards(), 2L)
+  expect_length(archiver$read()$get_blocks(), 8L)
+})
+
+testthat::test_that("JSONArchiver read back and all table/picture statics exists", {
+  file_blocks <- Filter(function(x) inherits(x, "PictureBlock") || inherits(x, "TableBlock"),
+                        archiver$read()$get_blocks())
+  expect_true(all(vapply(file_blocks, function(f) file.exists(f$get_content()), logical(1))))
 })
 

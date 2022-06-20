@@ -39,6 +39,9 @@ archiver$write(reporter)
 
 archiver$read()$get_cards()[[1]]$get_content()
 archiver$get_output_dir()
+blocks <- Reporter$new()$from_reporter(archiver$read())$get_blocks()
+doc <- Renderer$new()$render(blocks)
+
 archiver$read(archiver$get_output_dir())$get_cards()[[1]]$get_content()[[3]]$get_content()
 
 ## ------------------------------------------------
@@ -69,12 +72,15 @@ archiver <- JSONArchiver$new()
 archiver$write(reporter)
 
 archiver$read()$get_cards()[[1]]$get_content()
-archiver$get_output_dir()
+list.files(archiver$get_output_dir())
 archiver$read(archiver$get_output_dir())$get_cards()[[1]]$get_content()[[3]]$get_content()
+reporter <- Reporter$new()$from_reporter(archiver$read())
+doc <- Renderer$new()$render(reporter$get_blocks())
+doc <- Renderer$new()$render(Reporter$new()$from_jsondir(archiver$get_output_dir())$get_blocks())
 }
 \keyword{internal}
 \section{Super classes}{
-\code{\link[teal.reporter:Archiver]{teal.reporter::Archiver}} -> \code{\link[teal.reporter:RDSArchiver]{teal.reporter::RDSArchiver}} -> \code{JSONArchiver}
+\code{\link[teal.reporter:Archiver]{teal.reporter::Archiver}} -> \code{\link[teal.reporter:FileArchiver]{teal.reporter::FileArchiver}} -> \code{JSONArchiver}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -87,9 +93,9 @@ archiver$read(archiver$get_output_dir())$get_cards()[[1]]$get_content()[[3]]$get
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="RDSArchiver" data-id="finalize"><a href='../../teal.reporter/html/RDSArchiver.html#method-RDSArchiver-finalize'><code>teal.reporter::RDSArchiver$finalize()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="RDSArchiver" data-id="get_output_dir"><a href='../../teal.reporter/html/RDSArchiver.html#method-RDSArchiver-get_output_dir'><code>teal.reporter::RDSArchiver$get_output_dir()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="RDSArchiver" data-id="initialize"><a href='../../teal.reporter/html/RDSArchiver.html#method-RDSArchiver-initialize'><code>teal.reporter::RDSArchiver$initialize()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileArchiver" data-id="finalize"><a href='../../teal.reporter/html/FileArchiver.html#method-FileArchiver-finalize'><code>teal.reporter::FileArchiver$finalize()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileArchiver" data-id="get_output_dir"><a href='../../teal.reporter/html/FileArchiver.html#method-FileArchiver-get_output_dir'><code>teal.reporter::FileArchiver$get_output_dir()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileArchiver" data-id="initialize"><a href='../../teal.reporter/html/FileArchiver.html#method-FileArchiver-initialize'><code>teal.reporter::FileArchiver$initialize()</code></a></li>
 </ul>
 </details>
 }}
@@ -139,6 +145,9 @@ archiver$write(reporter)
 
 archiver$read()$get_cards()[[1]]$get_content()
 archiver$get_output_dir()
+blocks <- Reporter$new()$from_reporter(archiver$read())$get_blocks()
+doc <- Renderer$new()$render(blocks)
+
 archiver$read(archiver$get_output_dir())$get_cards()[[1]]$get_content()[[3]]$get_content()
 }
 \if{html}{\out{</div>}}
@@ -191,8 +200,11 @@ archiver <- JSONArchiver$new()
 archiver$write(reporter)
 
 archiver$read()$get_cards()[[1]]$get_content()
-archiver$get_output_dir()
+list.files(archiver$get_output_dir())
 archiver$read(archiver$get_output_dir())$get_cards()[[1]]$get_content()[[3]]$get_content()
+reporter <- Reporter$new()$from_reporter(archiver$read())
+doc <- Renderer$new()$render(reporter$get_blocks())
+doc <- Renderer$new()$render(Reporter$new()$from_jsondir(archiver$get_output_dir())$get_blocks())
 }
 \if{html}{\out{</div>}}
 

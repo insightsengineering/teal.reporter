@@ -23,7 +23,9 @@ block$set_content(iris)
 ## ------------------------------------------------
 
 block <- teal.reporter:::TableBlock$new()
-block$from_list(list(path = "file.RDS"))
+file_path <- tempfile(fileext = ".RDS")
+saveRDS(iris, file_path)
+block$from_list(list(path = file_path))
 
 ## ------------------------------------------------
 ## Method `TableBlock$to_list`
@@ -150,7 +152,9 @@ invisibly self
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{block <- teal.reporter:::TableBlock$new()
-block$from_list(list(path = "file.RDS"))
+file_path <- tempfile(fileext = ".RDS")
+saveRDS(iris, file_path)
+block$from_list(list(path = file_path))
 }
 \if{html}{\out{</div>}}
 

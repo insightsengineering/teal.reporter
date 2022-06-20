@@ -25,18 +25,18 @@ testthat::test_that("get_content returns character(0) on a newly initialized Tab
   testthat::expect_equal(TableBlock$new()$get_content(), character(0))
 })
 
-testthat::test_that("to_list", {
+testthat::test_that("to_list returns a named list with a one field, a proper path", {
   block <- TableBlock$new()$set_content(iris)
   testthat::expect_identical(block$to_list(NULL), list(path = basename(block$get_content())))
 })
 
-testthat::test_that("to_list", {
+testthat::test_that("to_list with base_path arg", {
   block <- TableBlock$new()$set_content(iris)
   testthat::expect_identical(block$to_list(dirname(block$get_content())),
                              list(path = block$get_content()))
 })
 
-testthat::test_that("from_list", {
+testthat::test_that("from_list returns the same object as set_content", {
   block <- TableBlock$new()$set_content(iris)
   testthat::expect_equal(block,
                          TableBlock$new()$from_list(list(path = block$get_content()), dirname(block$get_content())))

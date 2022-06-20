@@ -60,7 +60,9 @@ block$get_dim()
 ## ------------------------------------------------
 
 block <- teal.reporter:::PictureBlock$new()
-block$from_list(list(path = "file.png"))
+file_path <- tempfile(fileext = ".png")
+saveRDS(iris, file_path)
+block$from_list(list(path = file_path))
 
 ## ------------------------------------------------
 ## Method `PictureBlock$to_list`
@@ -305,7 +307,9 @@ invisibly self
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{block <- teal.reporter:::PictureBlock$new()
-block$from_list(list(path = "file.png"))
+file_path <- tempfile(fileext = ".png")
+saveRDS(iris, file_path)
+block$from_list(list(path = file_path))
 }
 \if{html}{\out{</div>}}
 

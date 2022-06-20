@@ -140,6 +140,7 @@ reporter$to_jsondir(tmp_dir)
 reporter <- Reporter$new()
 tmp_dir <- file.path(tempdir(), "jsondir")
 dir.create(tmp_dir)
+unlink(list.files(tmp_dir, recursive = TRUE))
 reporter$to_jsondir(tmp_dir)
 reporter$from_jsondir(tmp_dir)
 }
@@ -534,6 +535,7 @@ invisibly self
 \preformatted{reporter <- Reporter$new()
 tmp_dir <- file.path(tempdir(), "jsondir")
 dir.create(tmp_dir)
+unlink(list.files(tmp_dir, recursive = TRUE))
 reporter$to_jsondir(tmp_dir)
 reporter$from_jsondir(tmp_dir)
 }

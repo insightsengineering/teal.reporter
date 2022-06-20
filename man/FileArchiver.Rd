@@ -26,15 +26,15 @@ archiver$get_output_dir()
 }
 \keyword{internal}
 \section{Super class}{
-\code{\link[teal.reporter:Archiver]{teal.reporter::Archiver}} -> \code{RDSArchiver}
+\code{\link[teal.reporter:Archiver]{teal.reporter::Archiver}} -> \code{FileArchiver}
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-RDSArchiver-new}{\code{FileArchiver$new()}}
-\item \href{#method-RDSArchiver-finalize}{\code{FileArchiver$finalize()}}
-\item \href{#method-RDSArchiver-get_output_dir}{\code{FileArchiver$get_output_dir()}}
-\item \href{#method-RDSArchiver-clone}{\code{FileArchiver$clone()}}
+\item \href{#method-FileArchiver-new}{\code{FileArchiver$new()}}
+\item \href{#method-FileArchiver-finalize}{\code{FileArchiver$finalize()}}
+\item \href{#method-FileArchiver-get_output_dir}{\code{FileArchiver$get_output_dir()}}
+\item \href{#method-FileArchiver-clone}{\code{FileArchiver$clone()}}
 }
 }
 \if{html}{\out{
@@ -46,8 +46,8 @@ archiver$get_output_dir()
 </details>
 }}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-RDSArchiver-new"></a>}}
-\if{latex}{\out{\hypertarget{method-RDSArchiver-new}{}}}
+\if{html}{\out{<a id="method-FileArchiver-new"></a>}}
+\if{latex}{\out{\hypertarget{method-FileArchiver-new}{}}}
 \subsection{Method \code{new()}}{
 Returns a \code{FileArchiver} object.
 \subsection{Usage}{
@@ -68,8 +68,8 @@ a \code{FileArchiver} object
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-RDSArchiver-finalize"></a>}}
-\if{latex}{\out{\hypertarget{method-RDSArchiver-finalize}{}}}
+\if{html}{\out{<a id="method-FileArchiver-finalize"></a>}}
+\if{latex}{\out{\hypertarget{method-FileArchiver-finalize}{}}}
 \subsection{Method \code{finalize()}}{
 Finalizes a \code{FileArchiver} object.
 \subsection{Usage}{
@@ -78,8 +78,8 @@ Finalizes a \code{FileArchiver} object.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-RDSArchiver-get_output_dir"></a>}}
-\if{latex}{\out{\hypertarget{method-RDSArchiver-get_output_dir}{}}}
+\if{html}{\out{<a id="method-FileArchiver-get_output_dir"></a>}}
+\if{latex}{\out{\hypertarget{method-FileArchiver-get_output_dir}{}}}
 \subsection{Method \code{get_output_dir()}}{
 get \code{output_dir} field
 \subsection{Usage}{
@@ -100,8 +100,8 @@ archiver$get_output_dir()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-RDSArchiver-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-RDSArchiver-clone}{}}}
+\if{html}{\out{<a id="method-FileArchiver-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-FileArchiver-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

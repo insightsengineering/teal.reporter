@@ -60,6 +60,9 @@ FileArchiver <- R6::R6Class( # nolint: object_name_linter.
     get_output_dir = function() {
       private$output_dir
     }
+  ),
+  private = list(
+      output_dir = character(0)
   )
 )
 
@@ -161,9 +164,6 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
         Reporter$new()
       }
     }
-  ),
-  private = list(
-    output_dir = character(0)
   ),
   lock_objects = TRUE,
   lock_class = TRUE
