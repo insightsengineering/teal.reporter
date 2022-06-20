@@ -115,19 +115,6 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' archiver <- JSONArchiver$new()
     #' archiver$write(reporter)
-    #' card1 <- teal.reporter:::ReportCard$new()
-    #'
-    #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text", "header2")
-    #' card1$append_plot(
-    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-    #' )
-    #'
-    #' reporter <- teal.reporter:::Reporter$new()
-    #' reporter$append_cards(list(card1))
-    #'
-    #' archiver <- JSONArchiver$new()
-    #' archiver$write(reporter)
     #' archiver$get_output_dir()
     #'
     #' archiver$read()$get_cards()[[1]]$get_content()

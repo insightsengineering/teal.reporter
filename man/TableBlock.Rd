@@ -17,28 +17,10 @@
 block <- teal.reporter:::TableBlock$new()
 block$set_content(iris)
 
-
-## ------------------------------------------------
-## Method `TableBlock$from_list`
-## ------------------------------------------------
-
-block <- teal.reporter:::TableBlock$new()
-file_path <- tempfile(fileext = ".RDS")
-saveRDS(iris, file_path)
-block$from_list(list(path = file_path))
-
-## ------------------------------------------------
-## Method `TableBlock$to_list`
-## ------------------------------------------------
-
-block <- teal.reporter:::TableBlock$new()
-block$set_content(iris)
-block$to_list()
-block$to_list("/path/sth")
 }
 \keyword{internal}
-\section{Super class}{
-\code{\link[teal.reporter:ContentBlock]{teal.reporter::ContentBlock}} -> \code{TableBlock}
+\section{Super classes}{
+\code{\link[teal.reporter:ContentBlock]{teal.reporter::ContentBlock}} -> \code{\link[teal.reporter:FileBlock]{teal.reporter::FileBlock}} -> \code{TableBlock}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -46,8 +28,6 @@ block$to_list("/path/sth")
 \item \href{#method-TableBlock-new}{\code{TableBlock$new()}}
 \item \href{#method-TableBlock-set_content}{\code{TableBlock$set_content()}}
 \item \href{#method-TableBlock-finalize}{\code{TableBlock$finalize()}}
-\item \href{#method-TableBlock-from_list}{\code{TableBlock$from_list()}}
-\item \href{#method-TableBlock-to_list}{\code{TableBlock$to_list()}}
 \item \href{#method-TableBlock-clone}{\code{TableBlock$clone()}}
 }
 }
@@ -55,6 +35,8 @@ block$to_list("/path/sth")
 <details open><summary>Inherited methods</summary>
 <ul>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-get_content'><code>teal.reporter::ContentBlock$get_content()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileBlock" data-id="from_list"><a href='../../teal.reporter/html/FileBlock.html#method-FileBlock-from_list'><code>teal.reporter::FileBlock$from_list()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileBlock" data-id="to_list"><a href='../../teal.reporter/html/FileBlock.html#method-FileBlock-to_list'><code>teal.reporter::FileBlock$to_list()</code></a></li>
 </ul>
 </details>
 }}
@@ -123,73 +105,6 @@ finalize of this \code{TableBlock}.
 
 \subsection{Details}{
 Removes the temporary file created in the constructor.
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TableBlock-from_list"></a>}}
-\if{latex}{\out{\hypertarget{method-TableBlock-from_list}{}}}
-\subsection{Method \code{from_list()}}{
-Create the \code{TableBlock} from a list.
-The list should contain one named field, \code{"path"}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TableBlock$from_list(x, base_path = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\verb{named list} with one field \code{"path"}, a path to the \code{RDS} file.}
-
-\item{\code{base_path}}{\code{character} with a path to the dir with the file.
-If the argument is \code{NULL} then only \code{x} is used. Default \code{NULL}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-invisibly self
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- teal.reporter:::TableBlock$new()
-file_path <- tempfile(fileext = ".RDS")
-saveRDS(iris, file_path)
-block$from_list(list(path = file_path))
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TableBlock-to_list"></a>}}
-\if{latex}{\out{\hypertarget{method-TableBlock-to_list}{}}}
-\subsection{Method \code{to_list()}}{
-Convert the \code{TableBlock} to a list.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TableBlock$to_list(base_path = ".")}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{base_path}}{\code{character} with a path to the dir with the file.
-If the argument is \code{NULL} then only basename is returned. Default \code{.}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\verb{named list} with a path to the file.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- teal.reporter:::TableBlock$new()
-block$set_content(iris)
-block$to_list()
-block$to_list("/path/sth")
-}
-\if{html}{\out{</div>}}
-
 }
 
 }

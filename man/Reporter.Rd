@@ -387,7 +387,7 @@ get a value for the reactive value for the add card
 }
 
 \subsection{Returns}{
-\code{reactive_add_card} filed value
+\code{reactive_add_card} field value
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
