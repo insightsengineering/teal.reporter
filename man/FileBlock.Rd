@@ -52,7 +52,7 @@ block$to_list()
 \if{html}{\out{<a id="method-FileBlock-finalize"></a>}}
 \if{latex}{\out{\hypertarget{method-FileBlock-finalize}{}}}
 \subsection{Method \code{finalize()}}{
-finalize of this \code{TableBlock}.
+finalize of this \code{FileBlock}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{FileBlock$finalize()}\if{html}{\out{</div>}}
 }
@@ -66,7 +66,7 @@ Removes the temporary file created in the constructor.
 \if{html}{\out{<a id="method-FileBlock-from_list"></a>}}
 \if{latex}{\out{\hypertarget{method-FileBlock-from_list}{}}}
 \subsection{Method \code{from_list()}}{
-Create the \code{TableBlock} from a list.
+Create the \code{FileBlock} from a list.
 The list should contain one named field, \code{"path"}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{FileBlock$from_list(x, base_path = NULL)}\if{html}{\out{</div>}}
@@ -75,7 +75,7 @@ The list should contain one named field, \code{"path"}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{x}}{\verb{named list} with one field \code{"path"}, a path to the \code{RDS} file.}
+\item{\code{x}}{\verb{named list} with one field \code{"path"}, a path to the file.}
 
 \item{\code{base_path}}{\code{character} with a path to the dir with the file.
 If the argument is \code{NULL} then only \code{x} is used. Default \code{NULL}.}
