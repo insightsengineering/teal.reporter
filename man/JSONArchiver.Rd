@@ -25,7 +25,7 @@ card1$append_plot(
 reporter <- teal.reporter:::Reporter$new()
 reporter$append_cards(list(card1))
 
-archiver <- JSONArchiver$new()
+archiver <- teal.reporter:::JSONArchiver$new()
 archiver$write(reporter)
 archiver$get_output_dir()
 
@@ -44,13 +44,13 @@ card1$append_plot(
 reporter <- teal.reporter:::Reporter$new()
 reporter$append_cards(list(card1))
 
-archiver <- JSONArchiver$new()
+archiver <- teal.reporter:::JSONArchiver$new()
 archiver$write(reporter)
 archiver$get_output_dir()
 
 archiver$read()$get_cards()[[1]]$get_content()
-blocks <- Reporter$new()$from_reporter(archiver$read())$get_blocks()
-doc <- Renderer$new()$render(blocks)
+blocks <- teal.reporter:::Reporter$new()$from_reporter(archiver$read())$get_blocks()
+doc <- teal.reporter:::Renderer$new()$render(blocks)
 }
 \keyword{internal}
 \section{Super classes}{
@@ -105,7 +105,7 @@ card1$append_plot(
 reporter <- teal.reporter:::Reporter$new()
 reporter$append_cards(list(card1))
 
-archiver <- JSONArchiver$new()
+archiver <- teal.reporter:::JSONArchiver$new()
 archiver$write(reporter)
 archiver$get_output_dir()
 }
@@ -146,13 +146,13 @@ card1$append_plot(
 reporter <- teal.reporter:::Reporter$new()
 reporter$append_cards(list(card1))
 
-archiver <- JSONArchiver$new()
+archiver <- teal.reporter:::JSONArchiver$new()
 archiver$write(reporter)
 archiver$get_output_dir()
 
 archiver$read()$get_cards()[[1]]$get_content()
-blocks <- Reporter$new()$from_reporter(archiver$read())$get_blocks()
-doc <- Renderer$new()$render(blocks)
+blocks <- teal.reporter:::Reporter$new()$from_reporter(archiver$read())$get_blocks()
+doc <- teal.reporter:::Renderer$new()$render(blocks)
 }
 \if{html}{\out{</div>}}
 

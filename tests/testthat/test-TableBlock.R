@@ -32,13 +32,16 @@ testthat::test_that("to_list returns a named list with a one field, a proper pat
 
 testthat::test_that("to_list with base_path arg", {
   block <- TableBlock$new()$set_content(iris)
-  testthat::expect_identical(block$to_list(dirname(block$get_content())),
-                             list(path = block$get_content()))
+  testthat::expect_identical(
+    block$to_list(dirname(block$get_content())),
+    list(path = block$get_content())
+  )
 })
 
 testthat::test_that("from_list returns the same object as set_content", {
   block <- TableBlock$new()$set_content(iris)
-  testthat::expect_equal(block,
-                         TableBlock$new()$from_list(list(path = block$get_content()), dirname(block$get_content())))
-
+  testthat::expect_equal(
+    block,
+    TableBlock$new()$from_list(list(path = block$get_content()), dirname(block$get_content()))
+  )
 })

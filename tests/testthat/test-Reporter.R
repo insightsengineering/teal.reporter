@@ -113,8 +113,10 @@ testthat::test_that("from_reporter persists the cards structure", {
 })
 
 testthat::test_that("from_reporter persists the reactive_add_card count", {
-  expect_identical(shiny::isolate(reporter1$get_reactive_add_card()),
-                   shiny::isolate(reporter2$from_reporter(reporter1)$get_reactive_add_card()))
+  expect_identical(
+    shiny::isolate(reporter1$get_reactive_add_card()),
+    shiny::isolate(reporter2$from_reporter(reporter1)$get_reactive_add_card())
+  )
 })
 
 testthat::test_that("to_jsondir require the existing directory path", {
@@ -126,7 +128,7 @@ temp_dir <- file.path(tempdir(), "test")
 unlink(temp_dir, recursive = TRUE)
 dir.create(temp_dir)
 
-testthat::test_that("to_jsondir returns the same dir it was provided to it",{
+testthat::test_that("to_jsondir returns the same dir it was provided to it", {
   expect_identical(temp_dir, reporter$to_jsondir(temp_dir))
 })
 
@@ -140,4 +142,3 @@ testthat::test_that("to_jsondir and from_jsondir could be used to save and retri
   expect_identical(reporter$get_cards(), reporter_arch$get_cards())
   expect_identical(reporter$get_metadata(), reporter_arch$get_metadata())
 })
-

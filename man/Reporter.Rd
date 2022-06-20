@@ -105,7 +105,7 @@ shiny::isolate(Reporter$new()$get_reactive_add_card())
 ## Method `Reporter$get_metadata`
 ## ------------------------------------------------
 
-reporter <- Reporter$new()$append_metadata("sth", "sth")
+reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
 reporter$get_metadata()
 
 
@@ -412,7 +412,7 @@ metadata
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{reporter <- Reporter$new()$append_metadata("sth", "sth")
+\preformatted{reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
 reporter$get_metadata()
 
 }

@@ -13,6 +13,8 @@ testthat::test_that("to_list returns a named list with a one field", {
 
 testthat::test_that("to_list with base_path arg", {
   block <- TableBlock$new()
-  testthat::expect_identical(block$to_list(dirname(block$get_content())),
-                             list(path = character(0)))
+  testthat::expect_identical(
+    block$to_list(dirname(block$get_content())),
+    list(path = character(0))
+  )
 })

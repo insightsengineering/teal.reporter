@@ -172,7 +172,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return metadata
     #' @examples
-    #' reporter <- Reporter$new()$append_metadata("sth", "sth")
+    #' reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
     #' reporter$get_metadata()
     #'
     get_metadata = function() {
@@ -223,17 +223,17 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         for (block in card$get_content()) {
           block_class <- class(block)[1]
           cblock <- switch(block_class,
-                           TextBlock = block$to_list(),
-                           PictureBlock = {
-                             file.copy(block$get_content(), output_dir)
-                             block$to_list()
-                           },
-                           TableBlock = {
-                             file.copy(block$get_content(), output_dir)
-                             block$to_list()
-                           },
-                           NewpageBlock = list(),
-                           NULL
+            TextBlock = block$to_list(),
+            PictureBlock = {
+              file.copy(block$get_content(), output_dir)
+              block$to_list()
+            },
+            TableBlock = {
+              file.copy(block$get_content(), output_dir)
+              block$to_list()
+            },
+            NewpageBlock = list(),
+            NULL
           )
           new_block <- list()
           new_block[[block_class]] <- cblock
@@ -248,8 +248,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         json$cards <- c(json$cards, u_card)
       }
 
-      cat(jsonlite::toJSON(json, auto_unbox=TRUE, force = TRUE),
-          file = file.path(output_dir, "Report.json"))
+      cat(jsonlite::toJSON(json, auto_unbox = TRUE, force = TRUE),
+        file = file.path(output_dir, "Report.json")
+      )
       output_dir
     },
     #' @description Create/Recreate a Reporter from a dir with JSON file and static files
@@ -271,34 +272,34 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       if (json$version == "1") {
         new_cards <- list()
         cards_names <- names(json$cards)
-        cards_names <- gsub("[.][0-9]*$","", cards_names)
+        cards_names <- gsub("[.][0-9]*$", "", cards_names)
         for (iter_c in seq_along(json$cards)) {
           card_class <- cards_names[iter_c]
           new_card <- switch(card_class,
-                             ReportCard = ReportCard$new(),
-                             TealReportCard = TealReportCard$new()
+            ReportCard = ReportCard$new(),
+            TealReportCard = TealReportCard$new()
           )
           blocks <- json$cards[[iter_c]]$blocks
           metadata <- json$cards[[iter_c]]$metadata
           blocks_names <- names(blocks)
-          blocks_names <- gsub("[.][0-9]*$","", blocks_names)
+          blocks_names <- gsub("[.][0-9]*$", "", blocks_names)
           for (iter_b in seq_along(blocks)) {
             block_class <- blocks_names[iter_b]
             block <- blocks[[iter_b]]
             cblock <- switch(block_class,
-                             TextBlock = TextBlock$new()$from_list(block),
-                             PictureBlock = {
-                               new_file_path <- tempfile(fileext = ".png")
-                               file.copy(file.path(output_dir, basename(block$path)), new_file_path)
-                               PictureBlock$new()$from_list(list(path = new_file_path))
-                             },
-                             TableBlock = {
-                               new_file_path <- tempfile(fileext = ".RDS")
-                               file.copy(file.path(output_dir, basename(block$path)), new_file_path)
-                               TableBlock$new()$from_list(list(path = new_file_path))
-                             },
-                             NewpageBlock = NewPageBlock$new(),
-                             NULL
+              TextBlock = TextBlock$new()$from_list(block),
+              PictureBlock = {
+                new_file_path <- tempfile(fileext = ".png")
+                file.copy(file.path(output_dir, basename(block$path)), new_file_path)
+                PictureBlock$new()$from_list(list(path = new_file_path))
+              },
+              TableBlock = {
+                new_file_path <- tempfile(fileext = ".RDS")
+                file.copy(file.path(output_dir, basename(block$path)), new_file_path)
+                TableBlock$new()$from_list(list(path = new_file_path))
+              },
+              NewpageBlock = NewpageBlock$new(),
+              NULL
             )
             new_card$append_content(cblock)
           }

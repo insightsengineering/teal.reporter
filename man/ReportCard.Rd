@@ -44,7 +44,7 @@ card <- ReportCard$new()$append_text("A paragraph of default text")
 ## Method `ReportCard$append_content`
 ## ------------------------------------------------
 
-card <- ReportCard$new()$append_content(NewPageBlock$new())
+card <- ReportCard$new()$append_content(teal.reporter:::NewpageBlock$new())
 
 
 ## ------------------------------------------------
@@ -240,7 +240,7 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- ReportCard$new()$append_content(NewPageBlock$new())
+\preformatted{card <- ReportCard$new()$append_content(teal.reporter:::NewpageBlock$new())
 
 }
 \if{html}{\out{</div>}}

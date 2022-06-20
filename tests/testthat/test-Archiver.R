@@ -96,9 +96,9 @@ testthat::test_that("JSONArchiver read back the Reporter instance", {
 })
 
 testthat::test_that("JSONArchiver read back and all table/picture statics exists", {
-  file_blocks <- Filter(function(x) inherits(x, "PictureBlock") || inherits(x, "TableBlock"),
-                        archiver$read()$get_blocks())
+  file_blocks <- Filter(
+    function(x) inherits(x, "PictureBlock") || inherits(x, "TableBlock"),
+    archiver$read()$get_blocks()
+  )
   expect_true(all(vapply(file_blocks, function(f) file.exists(f$get_content()), logical(1))))
 })
-
-

@@ -13,7 +13,9 @@ Archiver <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
     #' @description Finalizes an `Archiver` object.
-    finalize = function() {},
+    finalize = function() {
+      # destructor
+    },
     #' @description Pure virtual method for reading an `Archiver`.
     read = function() {
       # returns Reporter instance
@@ -62,7 +64,7 @@ FileArchiver <- R6::R6Class( # nolint: object_name_linter.
     }
   ),
   private = list(
-      output_dir = character(0)
+    output_dir = character(0)
   )
 )
 
@@ -88,7 +90,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' reporter <- teal.reporter:::Reporter$new()
     #' reporter$append_cards(list(card1))
     #'
-    #' archiver <- JSONArchiver$new()
+    #' archiver <- teal.reporter:::JSONArchiver$new()
     #' archiver$write(reporter)
     #' archiver$get_output_dir()
     write = function(reporter) {
@@ -113,13 +115,13 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' reporter <- teal.reporter:::Reporter$new()
     #' reporter$append_cards(list(card1))
     #'
-    #' archiver <- JSONArchiver$new()
+    #' archiver <- teal.reporter:::JSONArchiver$new()
     #' archiver$write(reporter)
     #' archiver$get_output_dir()
     #'
     #' archiver$read()$get_cards()[[1]]$get_content()
-    #' blocks <- Reporter$new()$from_reporter(archiver$read())$get_blocks()
-    #' doc <- Renderer$new()$render(blocks)
+    #' blocks <- teal.reporter:::Reporter$new()$from_reporter(archiver$read())$get_blocks()
+    #' doc <- teal.reporter:::Renderer$new()$render(blocks)
     read = function(path = NULL) {
       checkmate::assert(
         checkmate::check_null(path),
