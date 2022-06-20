@@ -161,7 +161,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description get a value for the reactive value for the add card
     #'
-    #' @return `reactive_add_card` filed value
+    #' @return `reactive_add_card` field value
     #' @note The function has to be used in the shiny reactive context.
     #' @examples
     #' shiny::isolate(Reporter$new()$get_reactive_add_card())

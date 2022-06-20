@@ -65,7 +65,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       parsed_yaml <- yaml_header
       parsed_blocks <- paste(unlist(lapply(blocks, function(b) private$block2md(b))), collapse = "\n\n")
 
-      rmd_text <- paste0(parsed_yaml, "\n", parsed_blocks)
+      rmd_text <- paste0(parsed_yaml, "\n", parsed_blocks, "\n")
       tmp <- tempfile(fileext = ".Rmd")
       input_path <- file.path(
         private$output_dir,

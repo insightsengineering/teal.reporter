@@ -23,6 +23,10 @@ testthat::test_that("intialize Archiver", {
   expect_error(Archiver$new(), NA)
 })
 
+testthat::test_that("new returns an object of type Archiver", {
+  testthat::expect_true(inherits(Archiver$new(), "Archiver"))
+})
+
 testthat::test_that("Archiver errors with the abstract methods", {
   archiver <- Archiver$new()
   expect_error(archiver$read(), "Pure virtual method")
@@ -96,4 +100,5 @@ testthat::test_that("JSONArchiver read back and all table/picture statics exists
                         archiver$read()$get_blocks())
   expect_true(all(vapply(file_blocks, function(f) file.exists(f$get_content()), logical(1))))
 })
+
 

@@ -85,27 +85,12 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )
     #'
-    #' card2 <- teal.reporter:::ReportCard$new()
-    #'
-    #' card2$append_text("Header 2 text", "header2")
-    #' card2$append_text("A paragraph of default text", "header2")
-    #' lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
-    #' table_res2 <- rtables::build_table(lyt, airquality)
-    #' card2$append_table(table_res2)
-    #' card2$append_table(iris)
-    #'
     #' reporter <- teal.reporter:::Reporter$new()
-    #' reporter$append_cards(list(card1, card2))
+    #' reporter$append_cards(list(card1))
     #'
     #' archiver <- JSONArchiver$new()
     #' archiver$write(reporter)
-    #'
-    #' archiver$read()$get_cards()[[1]]$get_content()
     #' archiver$get_output_dir()
-    #' blocks <- Reporter$new()$from_reporter(archiver$read())$get_blocks()
-    #' doc <- Renderer$new()$render(blocks)
-    #'
-    #' archiver$read(archiver$get_output_dir())$get_cards()[[1]]$get_content()[[3]]$get_content()
     write = function(reporter) {
       checkmate::assert_class(reporter, "Reporter")
       unlink(list.files(private$output_dir, recursive = TRUE, full.names = TRUE))
@@ -125,27 +110,29 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )
     #'
-    #' card2 <- teal.reporter:::ReportCard$new()
-    #'
-    #' card2$append_text("Header 2 text", "header2")
-    #' card2$append_text("A paragraph of default text", "header2")
-    #' lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
-    #' table_res2 <- rtables::build_table(lyt, airquality)
-    #' card2$append_table(table_res2)
-    #' card2$append_table(iris)
-    #'
     #' reporter <- teal.reporter:::Reporter$new()
-    #' reporter$append_cards(list(card1, card2))
+    #' reporter$append_cards(list(card1))
     #'
     #' archiver <- JSONArchiver$new()
     #' archiver$write(reporter)
+    #' card1 <- teal.reporter:::ReportCard$new()
+    #'
+    #' card1$append_text("Header 2 text", "header2")
+    #' card1$append_text("A paragraph of default text", "header2")
+    #' card1$append_plot(
+    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #' )
+    #'
+    #' reporter <- teal.reporter:::Reporter$new()
+    #' reporter$append_cards(list(card1))
+    #'
+    #' archiver <- JSONArchiver$new()
+    #' archiver$write(reporter)
+    #' archiver$get_output_dir()
     #'
     #' archiver$read()$get_cards()[[1]]$get_content()
-    #' list.files(archiver$get_output_dir())
-    #' archiver$read(archiver$get_output_dir())$get_cards()[[1]]$get_content()[[3]]$get_content()
-    #' reporter <- Reporter$new()$from_reporter(archiver$read())
-    #' doc <- Renderer$new()$render(reporter$get_blocks())
-    #' doc <- Renderer$new()$render(Reporter$new()$from_jsondir(archiver$get_output_dir())$get_blocks())
+    #' blocks <- Reporter$new()$from_reporter(archiver$read())$get_blocks()
+    #' doc <- Renderer$new()$render(blocks)
     read = function(path = NULL) {
       checkmate::assert(
         checkmate::check_null(path),

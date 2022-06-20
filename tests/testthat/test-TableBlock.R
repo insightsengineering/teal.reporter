@@ -27,7 +27,7 @@ testthat::test_that("get_content returns character(0) on a newly initialized Tab
 
 testthat::test_that("to_list returns a named list with a one field, a proper path", {
   block <- TableBlock$new()$set_content(iris)
-  testthat::expect_identical(block$to_list(NULL), list(path = basename(block$get_content())))
+  testthat::expect_equal(block$to_list(), list(path = file.path(".", basename(block$get_content()))))
 })
 
 testthat::test_that("to_list with base_path arg", {
