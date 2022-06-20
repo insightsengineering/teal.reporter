@@ -261,6 +261,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter$to_jsondir(tmp_dir)
     #' reporter$from_jsondir(tmp_dir)
     from_jsondir = function(output_dir) {
+      checkmate::assert_directory_exists(output_dir)
+      checkmate::assert_true(length(list.files(output_dir)) > 0)
       dir_files <- list.files(output_dir)
       which_json <- grep("json$", dir_files)
       json <- jsonlite::read_json(file.path(output_dir, dir_files[which_json]))

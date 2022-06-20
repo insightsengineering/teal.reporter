@@ -39,8 +39,7 @@ archiver$write(reporter)
 
 archiver$read()$get_cards()[[1]]$get_content()
 archiver$get_output_dir()
-zip::zipr("../test.zip", list.files(archiver$get_output_dir(), full.names = TRUE))
-archiver$read("../test.zip")$get_cards()[[1]]$get_content()[[3]]$get_content()
+archiver$read(archiver$get_output_dir())$get_cards()[[1]]$get_content()[[3]]$get_content()
 
 ## ------------------------------------------------
 ## Method `JSONArchiver$read`
@@ -71,8 +70,7 @@ archiver$write(reporter)
 
 archiver$read()$get_cards()[[1]]$get_content()
 archiver$get_output_dir()
-zip::zipr("../test.zip", list.files(archiver$get_output_dir(), full.names = TRUE))
-archiver$read("../test.zip")$get_cards()[[1]]$get_content()[[3]]$get_content()
+archiver$read(archiver$get_output_dir())$get_cards()[[1]]$get_content()[[3]]$get_content()
 }
 \keyword{internal}
 \section{Super classes}{
@@ -141,8 +139,7 @@ archiver$write(reporter)
 
 archiver$read()$get_cards()[[1]]$get_content()
 archiver$get_output_dir()
-zip::zipr("../test.zip", list.files(archiver$get_output_dir(), full.names = TRUE))
-archiver$read("../test.zip")$get_cards()[[1]]$get_content()[[3]]$get_content()
+archiver$read(archiver$get_output_dir())$get_cards()[[1]]$get_content()[[3]]$get_content()
 }
 \if{html}{\out{</div>}}
 
@@ -155,13 +152,13 @@ archiver$read("../test.zip")$get_cards()[[1]]$get_content()[[3]]$get_content()
 \subsection{Method \code{read()}}{
 read a \code{Reporter} instance from a directory with \code{JSONArchiver}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{JSONArchiver$read(path2zip = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{JSONArchiver$read(path = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{path2zip}}{\code{character(1)} a path to the directory with all proper files.}
+\item{\code{path}}{\code{character(1)} a path to the directory with all proper files.}
 }
 \if{html}{\out{</div>}}
 }
@@ -195,8 +192,7 @@ archiver$write(reporter)
 
 archiver$read()$get_cards()[[1]]$get_content()
 archiver$get_output_dir()
-zip::zipr("../test.zip", list.files(archiver$get_output_dir(), full.names = TRUE))
-archiver$read("../test.zip")$get_cards()[[1]]$get_content()[[3]]$get_content()
+archiver$read(archiver$get_output_dir())$get_cards()[[1]]$get_content()[[3]]$get_content()
 }
 \if{html}{\out{</div>}}
 
