@@ -100,6 +100,8 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' archiver$read()$get_cards()[[1]]$get_content()
     #' archiver$get_output_dir()
     #' archiver$read(archiver$get_output_dir())$get_cards()[[1]]$get_content()[[3]]$get_content()
+    #'
+    #' doc <- Renderer$new()$render(Reporter$new()$from_reporter(archiver$read())$get_blocks())
     write = function(reporter) {
       checkmate::assert_class(reporter, "Reporter")
       unlink(list.files(private$output_dir, recursive = TRUE, full.names = TRUE))
@@ -137,11 +139,14 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' archiver$read()$get_cards()[[1]]$get_content()
     #' archiver$get_output_dir()
     #' archiver$read(archiver$get_output_dir())$get_cards()[[1]]$get_content()[[3]]$get_content()
+    #'
+    #' doc <- Renderer$new()$render(Reporter$new()$from_reporter(archiver$read())$get_blocks())
     read = function(path = NULL) {
       checkmate::assert(
         checkmate::check_null(path),
         checkmate::check_directory_exists(path)
       )
+
       if (!is.null(path) && !identical(path, private$output_dir)) {
         unlink(list.files(private$output_dir, recursive = TRUE, full.names = TRUE))
         file.copy(path, private$output_dir, recursive = TRUE)
@@ -150,7 +155,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
       if (length(list.files(private$output_dir))) {
         Reporter$new()$from_jsondir(private$output_dir)
       } else {
-        warning("The directory provided to Archiver is empty.")
+        warning("The directory provided to the Archiver is empty.")
         Reporter$new()
       }
     }

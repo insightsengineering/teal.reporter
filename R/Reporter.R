@@ -203,6 +203,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       self$reset()
       self$append_cards(reporter$get_cards())
       self$append_metadata(reporter$get_metadata())
+      private$reactive_add_card(length(private$cards))
       invisible(self)
     },
     #' @description Create/Recreate a Reporter from a dir with JSON file and static files

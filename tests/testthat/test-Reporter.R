@@ -74,3 +74,23 @@ testthat::test_that("reactive_add_card", {
   reporter$append_cards(list(card1))
   testthat::expect_identical(isolate(reporter$get_reactive_add_card()), 1L)
 })
+
+testthat::test_that("from_reporter", {
+  reporter1 <- Reporter$new()
+  reporter1$append_cards(list(card1, card2))
+  reporter2 <- Reporter$new()
+
+  expect_equal(reporter1$get_cards(), reporter2$from_reporter(reporter1)$get_cards())
+  expect_equal(shiny::isolate(reporter1$get_reactive_add_card()),
+                    shiny::isolate(reporter2$from_reporter(reporter1)$get_reactive_add_card()))
+})
+
+testthat::test_that("to_jsondir", {
+
+})
+
+testthat::test_that("from_jsondir", {
+
+})
+
+
