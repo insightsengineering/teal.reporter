@@ -57,3 +57,7 @@ testthat::test_that("get_style returns the set style", {
     TextBlock$new()$get_available_styles()[1]
   )
 })
+
+testthat::test_that("to_list", {})
+
+testthat::test_that("from_list", {})

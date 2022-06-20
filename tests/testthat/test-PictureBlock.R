@@ -87,3 +87,7 @@ testthat::test_that("set_content accepts a `grob` object", {
 testthat::test_that("set_content accepts a `trellis` object", {
   testthat::expect_error(PictureBlock$new()$set_content(lattice::bwplot(1)), regexp = NA)
 })
+
+testthat::test_that("to_list", {})
+
+testthat::test_that("from_list", {})

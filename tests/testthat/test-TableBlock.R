@@ -24,3 +24,7 @@ testthat::test_that("set_content returns the TableBlock object", {
 testthat::test_that("get_content returns character(0) on a newly initialized TableBlock", {
   testthat::expect_equal(TableBlock$new()$get_content(), character(0))
 })
+
+testthat::test_that("to_list", {})
+
+testthat::test_that("from_list", {})

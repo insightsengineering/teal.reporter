@@ -75,6 +75,12 @@ testthat::test_that("reactive_add_card", {
   testthat::expect_identical(shiny::isolate(reporter$get_reactive_add_card()), 1L)
 })
 
+testthat::test_that("append_metadata", {
+})
+
+testthat::test_that("get_metadata", {
+})
+
 testthat::test_that("from_reporter returns identical/equal object from the same reporter", {
   expect_identical(reporter, reporter$from_reporter(reporter))
 })
