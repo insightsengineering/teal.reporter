@@ -187,8 +187,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter$get_metadata()
     #'
     append_metadata = function(meta) {
-      checkmate::assert_list(meta, names = "all")
-      checkmate::assert_true(length(meta) == 0 || any(names(meta) %in% names(private$metadata)))
+      checkmate::assert_list(meta, names = "unique")
+      checkmate::assert_true(length(meta) == 0 || all(!names(meta) %in% names(private$metadata)))
       private$metadata <- append(private$metadata, meta)
       invisible(self)
     },
@@ -287,8 +287,16 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
             block <- blocks[[iter_b]]
             cblock <- switch(block_class,
                              TextBlock = TextBlock$new()$from_list(block),
-                             PictureBlock = PictureBlock$new()$from_list(block, output_dir),
-                             TableBlock = TableBlock$new()$from_list(block, output_dir),
+                             PictureBlock = {
+                               new_file_path <- tempfile(fileext = ".png")
+                               file.copy(file.path(output_dir, basename(block$path)), new_file_path)
+                               PictureBlock$new()$from_list(list(path = new_file_path))
+                             },
+                             TableBlock = {
+                               new_file_path <- tempfile(fileext = ".RDS")
+                               file.copy(file.path(output_dir, basename(block$path)), new_file_path)
+                               TableBlock$new()$from_list(list(path = new_file_path))
+                             },
                              NewpageBlock = NewPageBlock$new(),
                              NULL
             )

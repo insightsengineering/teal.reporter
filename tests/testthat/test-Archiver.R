@@ -20,5 +20,6 @@ reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 
 testthat::test_that("", {
+
 })
 

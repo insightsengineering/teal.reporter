@@ -75,10 +75,25 @@ testthat::test_that("reactive_add_card", {
   testthat::expect_identical(shiny::isolate(reporter$get_reactive_add_card()), 1L)
 })
 
-testthat::test_that("append_metadata", {
+testthat::test_that("append_metadata accept only named list", {
+  reporter <- Reporter$new()
+  expect_error(reporter$append_metadata(list(sth = "sth")), NA)
+  expect_error(reporter$append_metadata("sth"), "'list', not 'character'")
+  expect_error(reporter$append_metadata(list("sth")), "Must have names")
+})
+
+testthat::test_that("append_metadata accept only unique names which could not be repeated", {
+  reporter <- Reporter$new()
+  expect_error(reporter$append_metadata(list(sth = "sth", sth = 2)), "but element 2 is duplicated")
+  reporter <- Reporter$new()
+  expect_error(reporter$append_metadata(list(sth = "sth")), NA)
+  expect_error(reporter$append_metadata(list(sth = "sth")), "failed: Must be TRUE")
 })
 
 testthat::test_that("get_metadata", {
+  reporter <- Reporter$new()
+  expect_error(reporter$append_metadata(list(sth = "sth")), NA)
+  expect_identical(reporter$get_metadata(), list(sth = "sth"))
 })
 
 testthat::test_that("from_reporter returns identical/equal object from the same reporter", {

@@ -103,7 +103,6 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' doc <- Renderer$new()$render(blocks)
     #'
     #' archiver$read(archiver$get_output_dir())$get_cards()[[1]]$get_content()[[3]]$get_content()
-
     write = function(reporter) {
       checkmate::assert_class(reporter, "Reporter")
       unlink(list.files(private$output_dir, recursive = TRUE, full.names = TRUE))
@@ -156,11 +155,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
       }
 
       if (length(list.files(private$output_dir))) {
-        tmp_dir <- tempdir()
-        output_dir <- file.path(tmp_dir, sprintf("archive_output_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
-        dir.create(path = output_dir)
-        file.copy(list.files(private$output_dir, full.names = TRUE), output_dir)
-        Reporter$new()$from_jsondir(output_dir)
+        Reporter$new()$from_jsondir(private$output_dir)
       } else {
         warning("The directory provided to the Archiver is empty.")
         Reporter$new()

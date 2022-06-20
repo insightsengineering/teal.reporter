@@ -88,6 +88,12 @@ testthat::test_that("set_content accepts a `trellis` object", {
   testthat::expect_error(PictureBlock$new()$set_content(lattice::bwplot(1)), regexp = NA)
 })
 
-testthat::test_that("to_list", {})
+testthat::test_that("to_list", {
+  pblock <- PictureBlock$new()$set_content(ggplot2::ggplot(iris))
+  expect_identical(pblock$to_list(), list(path = file.path(".", basename(pblock$get_content()))))
+})
 
-testthat::test_that("from_list", {})
+testthat::test_that("from_list from to_list", {
+  pblock <- PictureBlock$new()$set_content(ggplot2::ggplot(iris))
+  expect_equal(PictureBlock$new()$from_list(pblock$to_list(), dirname(pblock$get_content())), pblock)
+})

@@ -58,6 +58,11 @@ testthat::test_that("get_style returns the set style", {
   )
 })
 
-testthat::test_that("to_list", {})
+testthat::test_that("to_list", {
+  testthat::expect_identical(TextBlock$new()$set_content("test")$to_list(), list(text = "test", style = "default"))
+})
 
-testthat::test_that("from_list", {})
+testthat::test_that("from_list", {
+  expect_equal(TextBlock$new()$from_list(list(text = "test", style = "default")),
+               TextBlock$new()$set_content("test"))
+})
