@@ -51,7 +51,7 @@ archiver$get_output_dir()
 \subsection{Method \code{new()}}{
 Returns a \code{FileArchiver} object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{FileArchiver$new(version)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{FileArchiver$new()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{

@@ -107,6 +107,15 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     get_dim = function() {
       private$dim
     },
+    #' @description Create the `TableBlock` from a list.
+    #' The list should contain one named field, `"path"`.
+    #' @param x `named list` with one field `"path"`, a path to the `RDS` file.
+    #' @param base_path `character` with a path to the dir with the file.
+    #' If the argument is `NULL` then only `x` is used. Default `NULL`.
+    #' @return invisibly self
+    #' @examples
+    #' block <- teal.reporter:::PictureBlock$new()
+    #' block$from_list(list(path = "file.png"))
     from_list = function(x, base_path = NULL) {
       checkmate::assert_list(x)
       checkmate::assert_names(names(x), must.include = "path")
@@ -116,7 +125,16 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
         basename(x$path)
       }
       super$set_content(path)
+      invisible(self)
     },
+    #' @description Convert the `PictureBlock` to a list.
+    #' @param base_path `character` with a path to the dir with the file.
+    #' If the argument is `NULL` then only basename is returned. Default `.`.
+    #' @return `named list` with a path to the file.
+    #' @examples
+    #' block <- teal.reporter:::PictureBlock$new()
+    #' block$to_list()
+    #' block$to_list("/path/sth")
     to_list = function(base_path = ".") {
       path <- if (!is.null(base_path)) {
         file.path(base_path, basename(super$get_content()))

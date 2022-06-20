@@ -64,6 +64,7 @@ Finalizes an \code{Archiver} object.
 \if{html}{\out{<a id="method-Archiver-read"></a>}}
 \if{latex}{\out{\hypertarget{method-Archiver-read}{}}}
 \subsection{Method \code{read()}}{
+Pure virtual method for reading an \code{Archiver}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Archiver$read()}\if{html}{\out{</div>}}
 }
@@ -73,6 +74,7 @@ Finalizes an \code{Archiver} object.
 \if{html}{\out{<a id="method-Archiver-write"></a>}}
 \if{latex}{\out{\hypertarget{method-Archiver-write}{}}}
 \subsection{Method \code{write()}}{
+Pure virtual method for writing an \code{Archiver}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Archiver$write()}\if{html}{\out{</div>}}
 }

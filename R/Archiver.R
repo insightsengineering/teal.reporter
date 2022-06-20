@@ -14,10 +14,12 @@ Archiver <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Finalizes an `Archiver` object.
     finalize = function() {},
+    #' @description Pure virtual method for reading an `Archiver`.
     read = function() {
       # returns Reporter instance
       stop("Pure virtual method.")
     },
+    #' @description Pure virtual method for writing an `Archiver`.
     write = function() {
       stop("Pure virtual method.")
     }
@@ -38,7 +40,7 @@ FileArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' @examples
     #' archiver <- teal.reporter:::FileArchiver$new()
     #'
-    initialize = function(version) {
+    initialize = function() {
       tmp_dir <- tempdir()
       output_dir <- file.path(tmp_dir, sprintf("archive_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
       dir.create(path = output_dir)
@@ -69,9 +71,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
   public = list(
     #' @description write a `Reporter` instance in to this `JSONArchiver` object.
     #'
-    #' @param reporter
-    #' @param report_params
-    #' @param datasets
+    #' @param reporter `Reporter` instance.
     #' @return invisibly self
     #' @examples
     #' card1 <- teal.reporter:::ReportCard$new()
@@ -107,6 +107,10 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
       reporter$to_jsondir(private$output_dir)
       return(self)
     },
+    #' @description read a `Reporter` instance from a directory with `JSONArchiver`.
+    #'
+    #' @param path2zip `character(1)` a path to the directory with all proper files.
+    #' @return `Reporter` instance.
     #' @examples
     #' card1 <- teal.reporter:::ReportCard$new()
     #'

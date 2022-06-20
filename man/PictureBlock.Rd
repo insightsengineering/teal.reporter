@@ -54,6 +54,21 @@ block$set_dim(c(800, 600))
 block <- teal.reporter:::PictureBlock$new()
 block$get_dim()
 
+
+## ------------------------------------------------
+## Method `PictureBlock$from_list`
+## ------------------------------------------------
+
+block <- teal.reporter:::PictureBlock$new()
+block$from_list(list(path = "file.png"))
+
+## ------------------------------------------------
+## Method `PictureBlock$to_list`
+## ------------------------------------------------
+
+block <- teal.reporter:::PictureBlock$new()
+block$to_list()
+block$to_list("/path/sth")
 }
 \keyword{internal}
 \section{Super class}{
@@ -268,8 +283,32 @@ block$get_dim()
 \if{html}{\out{<a id="method-PictureBlock-from_list"></a>}}
 \if{latex}{\out{\hypertarget{method-PictureBlock-from_list}{}}}
 \subsection{Method \code{from_list()}}{
+Create the \code{TableBlock} from a list.
+The list should contain one named field, \code{"path"}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{PictureBlock$from_list(x, base_path = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{\verb{named list} with one field \code{"path"}, a path to the \code{RDS} file.}
+
+\item{\code{base_path}}{\code{character} with a path to the dir with the file.
+If the argument is \code{NULL} then only \code{x} is used. Default \code{NULL}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- teal.reporter:::PictureBlock$new()
+block$from_list(list(path = "file.png"))
+}
+\if{html}{\out{</div>}}
+
 }
 
 }
@@ -277,8 +316,30 @@ block$get_dim()
 \if{html}{\out{<a id="method-PictureBlock-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-PictureBlock-to_list}{}}}
 \subsection{Method \code{to_list()}}{
+Convert the \code{PictureBlock} to a list.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{PictureBlock$to_list(base_path = ".")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{base_path}}{\code{character} with a path to the dir with the file.
+If the argument is \code{NULL} then only basename is returned. Default \code{.}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\verb{named list} with a path to the file.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- teal.reporter:::PictureBlock$new()
+block$to_list()
+block$to_list("/path/sth")
+}
+\if{html}{\out{</div>}}
+
 }
 
 }

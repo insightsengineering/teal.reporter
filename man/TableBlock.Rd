@@ -17,6 +17,22 @@
 block <- teal.reporter:::TableBlock$new()
 block$set_content(iris)
 
+
+## ------------------------------------------------
+## Method `TableBlock$from_list`
+## ------------------------------------------------
+
+block <- teal.reporter:::TableBlock$new()
+block$from_list(list(path = "file.RDS"))
+
+## ------------------------------------------------
+## Method `TableBlock$to_list`
+## ------------------------------------------------
+
+block <- teal.reporter:::TableBlock$new()
+block$set_content(iris)
+block$to_list()
+block$to_list("/path/sth")
 }
 \keyword{internal}
 \section{Super class}{
@@ -112,8 +128,32 @@ Removes the temporary file created in the constructor.
 \if{html}{\out{<a id="method-TableBlock-from_list"></a>}}
 \if{latex}{\out{\hypertarget{method-TableBlock-from_list}{}}}
 \subsection{Method \code{from_list()}}{
+Create the \code{TableBlock} from a list.
+The list should contain one named field, \code{"path"}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TableBlock$from_list(x, base_path = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{\verb{named list} with one field \code{"path"}, a path to the \code{RDS} file.}
+
+\item{\code{base_path}}{\code{character} with a path to the dir with the file.
+If the argument is \code{NULL} then only \code{x} is used. Default \code{NULL}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- teal.reporter:::TableBlock$new()
+block$from_list(list(path = "file.RDS"))
+}
+\if{html}{\out{</div>}}
+
 }
 
 }
@@ -121,8 +161,31 @@ Removes the temporary file created in the constructor.
 \if{html}{\out{<a id="method-TableBlock-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-TableBlock-to_list}{}}}
 \subsection{Method \code{to_list()}}{
+Convert the \code{TableBlock} to a list.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TableBlock$to_list(base_path = ".")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{base_path}}{\code{character} with a path to the dir with the file.
+If the argument is \code{NULL} then only basename is returned. Default \code{.}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\verb{named list} with a path to the file.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- teal.reporter:::TableBlock$new()
+block$set_content(iris)
+block$to_list()
+block$to_list("/path/sth")
+}
+\if{html}{\out{</div>}}
+
 }
 
 }

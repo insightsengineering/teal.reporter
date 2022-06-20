@@ -180,8 +180,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Appends metadata to this `Reporter`.
     #'
-    #' @param key (`character(1)`) name of meta data.
-    #' @param value value of meta data.
+    #' @param meta (`list`) of metadata.
     #' @return invisibly self
     #' @examples
     #' reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
@@ -193,6 +192,12 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$metadata <- append(private$metadata, meta)
       invisible(self)
     },
+    #' @description Create/Recreate a Reporter from another Reporter
+    #' @param reporter `Reporter` instance.
+    #' @return invisibly self
+    #' @examples
+    #' reporter <- Reporter$new()
+    #' reporter$from_reporter(reporter)
     from_reporter = function(reporter) {
       checkmate::assert_class(reporter, "Reporter")
       self$reset()
@@ -200,6 +205,61 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       self$append_metadata(reporter$get_metadata())
       invisible(self)
     },
+    #' @description Create/Recreate a Reporter from a dir with JSON file and static files
+    #' @param output_dir `character(1)` a path to the directory
+    #' @return invisibly self
+    #' @examples
+    #' reporter <- Reporter$new()
+    #' tmp_dir <- file.path(tempdir(), "jsondir")
+    #' dir.create(tmp_dir)
+    #' reporter$to_jsondir(tmp_dir)
+    to_jsondir = function(output_dir) {
+      json <- list(version = "1", cards = list())
+      json[["metadata"]] <- self$get_metadata()
+      for (card in self$get_cards()) {
+        card_class <- class(card)[1]
+        new_blocks <- list()
+        for (block in card$get_content()) {
+          block_class <- class(block)[1]
+          cblock <- switch(block_class,
+                           TextBlock = block$to_list(),
+                           PictureBlock = {
+                             file.copy(block$get_content(), output_dir)
+                             block$to_list()
+                           },
+                           TableBlock = {
+                             file.copy(block$get_content(), output_dir)
+                             block$to_list()
+                           },
+                           NewpageBlock = list(),
+                           NULL
+          )
+          new_block <- list()
+          new_block[[block_class]] <- cblock
+          new_blocks <- c(new_blocks, new_block)
+        }
+        new_card <- list()
+        new_card[["blocks"]] <- new_blocks
+        new_card[["metadata"]] <- card$get_metadata()
+
+        u_card <- list()
+        u_card[[card_class]] <- new_card
+        json$cards <- c(json$cards, u_card)
+      }
+
+      cat(jsonlite::toJSON(json, auto_unbox=TRUE, force = TRUE),
+          file = file.path(output_dir, "Report.json"))
+      output_dir
+    },
+    #' @description Create/Recreate a Reporter from a dir with JSON file and static files
+    #' @param output_dir `character(1)` a path to the directory
+    #' @return invisibly self
+    #' @examples
+    #' reporter <- Reporter$new()
+    #' tmp_dir <- file.path(tempdir(), "jsondir")
+    #' dir.create(tmp_dir)
+    #' reporter$to_jsondir(tmp_dir)
+    #' reporter$from_jsondir(tmp_dir)
     from_jsondir = function(output_dir) {
       dir_files <- list.files(output_dir)
       which_json <- grep("json$", dir_files)
@@ -242,44 +302,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       self$append_cards(new_cards)
       self$append_metadata(json$metadata)
       invisible(self)
-    },
-    to_jsondir = function(output_dir) {
-        json <- list(version = "1", cards = list())
-        json[["metadata"]] <- self$get_metadata()
-        for (card in self$get_cards()) {
-          card_class <- class(card)[1]
-          new_blocks <- list()
-          for (block in card$get_content()) {
-            block_class <- class(block)[1]
-            cblock <- switch(block_class,
-                             TextBlock = block$to_list(),
-                             PictureBlock = {
-                               file.copy(block$get_content(), output_dir)
-                               block$to_list()
-                             },
-                             TableBlock = {
-                               file.copy(block$get_content(), output_dir)
-                               block$to_list()
-                             },
-                             NewpageBlock = list(),
-                             NULL
-            )
-            new_block <- list()
-            new_block[[block_class]] <- cblock
-            new_blocks <- c(new_blocks, new_block)
-          }
-          new_card <- list()
-          new_card[["blocks"]] <- new_blocks
-          new_card[["metadata"]] <- card$get_metadata()
-
-          u_card <- list()
-          u_card[[card_class]] <- new_card
-          json$cards <- c(json$cards, u_card)
-        }
-
-      cat(jsonlite::toJSON(json, auto_unbox=TRUE, force = TRUE),
-          file = file.path(output_dir, "Report.json"))
-      output_dir
     }
   ),
   private = list(

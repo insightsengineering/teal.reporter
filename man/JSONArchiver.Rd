@@ -104,6 +104,13 @@ write a \code{Reporter} instance in to this \code{JSONArchiver} object.
 \if{html}{\out{<div class="r">}}\preformatted{JSONArchiver$write(reporter)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{reporter}}{\code{Reporter} instance.}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 invisibly self
 }
@@ -146,10 +153,21 @@ archiver$read("../test.zip")$get_cards()[[1]]$get_content()[[3]]$get_content()
 \if{html}{\out{<a id="method-JSONArchiver-read"></a>}}
 \if{latex}{\out{\hypertarget{method-JSONArchiver-read}{}}}
 \subsection{Method \code{read()}}{
+read a \code{Reporter} instance from a directory with \code{JSONArchiver}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{JSONArchiver$read(path2zip = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{path2zip}}{\code{character(1)} a path to the directory with all proper files.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{Reporter} instance.
+}
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{card1 <- teal.reporter:::ReportCard$new()
