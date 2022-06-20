@@ -31,7 +31,7 @@ Archiver <- R6::R6Class( # nolint: object_name_linter.
 #' @title `RDSArchiver`
 #' @keywords internal
 FileArchiver <- R6::R6Class( # nolint: object_name_linter.
-  classname = "RDSArchiver",
+  classname = "FileArchiver",
   inherit = Archiver,
   public = list(
     #' @description Returns a `FileArchiver` object.
