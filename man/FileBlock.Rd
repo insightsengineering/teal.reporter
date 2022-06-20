@@ -33,6 +33,7 @@ block$to_list()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
+\item \href{#method-FileBlock-finalize}{\code{FileBlock$finalize()}}
 \item \href{#method-FileBlock-from_list}{\code{FileBlock$from_list()}}
 \item \href{#method-FileBlock-to_list}{\code{FileBlock$to_list()}}
 \item \href{#method-FileBlock-clone}{\code{FileBlock$clone()}}
@@ -47,6 +48,20 @@ block$to_list()
 </ul>
 </details>
 }}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FileBlock-finalize"></a>}}
+\if{latex}{\out{\hypertarget{method-FileBlock-finalize}{}}}
+\subsection{Method \code{finalize()}}{
+finalize of this \code{TableBlock}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FileBlock$finalize()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Removes the temporary file created in the constructor.
+}
+
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-FileBlock-from_list"></a>}}
 \if{latex}{\out{\hypertarget{method-FileBlock-from_list}{}}}

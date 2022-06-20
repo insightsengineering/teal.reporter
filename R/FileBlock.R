@@ -5,6 +5,13 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "FileBlock",
   inherit = ContentBlock,
   public = list(
+    #' @description finalize of this `TableBlock`.
+    #'
+    #' @details Removes the temporary file created in the constructor.
+    #'
+    finalize = function() {
+      try(unlink(super$get_content()))
+    },
     #' @description Create the `TableBlock` from a list.
     #' The list should contain one named field, `"path"`.
     #' @param x `named list` with one field `"path"`, a path to the `RDS` file.

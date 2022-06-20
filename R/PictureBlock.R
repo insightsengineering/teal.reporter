@@ -52,13 +52,6 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
       )
       invisible(self)
     },
-    #' @description Finalizes this `PictureBlock`.
-    #'
-    #' @details Removes the temporary file created in the constructor.
-    #'
-    finalize = function() {
-      try(unlink(super$get_content()))
-    },
     #' @description Sets the title of this `PictureBlock`.
     #'
     #' @details throws if argument is not `character(1)`.
