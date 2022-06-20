@@ -70,16 +70,20 @@ testthat::test_that("swap_cards", {
 testthat::test_that("reactive_add_card", {
   reporter <- Reporter$new()
   testthat::expect_error(reporter$get_reactive_add_card())
-  testthat::expect_identical(isolate(reporter$get_reactive_add_card()), 0)
+  testthat::expect_identical(shiny::isolate(reporter$get_reactive_add_card()), 0)
   reporter$append_cards(list(card1))
-  testthat::expect_identical(isolate(reporter$get_reactive_add_card()), 1L)
+  testthat::expect_identical(shiny::isolate(reporter$get_reactive_add_card()), 1L)
+})
+
+testthat::test_that("from_reporter returns identical/equal object from the same reporter", {
+  expect_identical(reporter, reporter$from_reporter(reporter))
 })
 
 reporter1 <- Reporter$new()
 reporter1$append_cards(list(card1, card2))
 reporter2 <- Reporter$new()
 
-testthat::test_that("from_reporter does NOT return identical/equal object", {
+testthat::test_that("from_reporter does not return identical/equal object form other reporter", {
   expect_false(identical(reporter1, reporter2$from_reporter(reporter1)))
 })
 
@@ -97,14 +101,22 @@ testthat::test_that("to_jsondir require the existing directory path", {
   expect_error(reporter$to_jsondir("/path/WRONG"), "Directory '/path/WRONG' does not exist.")
 })
 
+temp_dir <- file.path(tempdir(), "test")
+unlink(temp_dir, recursive = TRUE)
+dir.create(temp_dir)
+
 testthat::test_that("to_jsondir returns the same dir it was provided to it",{
-  temp_dir <- tempdir()
   expect_identical(temp_dir, reporter$to_jsondir(temp_dir))
 })
 
+testthat::test_that("from_jsondir returns identical/equal object", {
+  unlink(list.files(temp_dir), recursive = TRUE)
+  expect_identical(reporter, reporter$from_jsondir(temp_dir))
+})
+
 testthat::test_that("to_jsondir and from_jsondir could be used to save and retrive a Reporter", {
-  temp_dir <- tempdir()
   reporter_arch <- reporter$from_jsondir(reporter$to_jsondir(temp_dir))
   expect_identical(reporter$get_cards(), reporter_arch$get_cards())
   expect_identical(reporter$get_metadata(), reporter_arch$get_metadata())
 })
+
