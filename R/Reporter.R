@@ -215,6 +215,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' dir.create(tmp_dir)
     #' reporter$to_jsondir(tmp_dir)
     to_jsondir = function(output_dir) {
+      checkmate::assert_directory_exists(output_dir)
       json <- list(version = "1", cards = list())
       json[["metadata"]] <- self$get_metadata()
       for (card in self$get_cards()) {
