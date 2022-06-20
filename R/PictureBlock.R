@@ -115,15 +115,18 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @return invisibly self
     #' @examples
     #' block <- teal.reporter:::PictureBlock$new()
-    #' block$from_list(list(path = "file.png"))
+    #' file_path <- tempfile(fileext = ".png")
+    #' saveRDS(iris, file_path)
+    #' block$from_list(list(path = file_path))
     from_list = function(x, base_path = NULL) {
       checkmate::assert_list(x)
       checkmate::assert_names(names(x), must.include = "path")
       path <- if (!is.null(base_path)) {
         file.path(base_path, basename(x$path))
       } else {
-        basename(x$path)
+        x$path
       }
+      checkmate::assert_file_exists(path, extension = c("png", "PNG"))
       super$set_content(path)
       invisible(self)
     },
@@ -136,12 +139,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #' block$to_list()
     #' block$to_list("/path/sth")
     to_list = function(base_path = ".") {
-      path <- if (!is.null(base_path)) {
-        file.path(base_path, basename(super$get_content()))
-      } else {
-        basename(super$get_content())
-      }
-      list(path = path)
+      list(path = file.path(base_path, basename(super$get_content())))
     }
   ),
   private = list(

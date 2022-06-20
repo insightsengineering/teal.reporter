@@ -49,15 +49,18 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @return invisibly self
     #' @examples
     #' block <- teal.reporter:::TableBlock$new()
-    #' block$from_list(list(path = "file.RDS"))
+    #' file_path <- tempfile(fileext = ".RDS")
+    #' saveRDS(iris, file_path)
+    #' block$from_list(list(path = file_path))
     from_list = function(x, base_path = NULL) {
       checkmate::assert_list(x)
       checkmate::assert_names(names(x), must.include = "path")
       path <- if (!is.null(base_path)) {
         file.path(base_path, basename(x$path))
       } else {
-        basename(x$path)
+        x$path
       }
+      checkmate::assert_file_exists(path, extension = c("RDS", "Rds", "rds"))
       super$set_content(path)
       invisible(self)
     },

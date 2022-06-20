@@ -99,9 +99,11 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' archiver$read()$get_cards()[[1]]$get_content()
     #' archiver$get_output_dir()
-    #' archiver$read(archiver$get_output_dir())$get_cards()[[1]]$get_content()[[3]]$get_content()
+    #' blocks <- Reporter$new()$from_reporter(archiver$read())$get_blocks()
+    #' doc <- Renderer$new()$render(blocks)
     #'
-    #' doc <- Renderer$new()$render(Reporter$new()$from_reporter(archiver$read())$get_blocks())
+    #' archiver$read(archiver$get_output_dir())$get_cards()[[1]]$get_content()[[3]]$get_content()
+
     write = function(reporter) {
       checkmate::assert_class(reporter, "Reporter")
       unlink(list.files(private$output_dir, recursive = TRUE, full.names = TRUE))
@@ -137,10 +139,11 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' archiver$write(reporter)
     #'
     #' archiver$read()$get_cards()[[1]]$get_content()
-    #' archiver$get_output_dir()
+    #' list.files(archiver$get_output_dir())
     #' archiver$read(archiver$get_output_dir())$get_cards()[[1]]$get_content()[[3]]$get_content()
-    #'
-    #' doc <- Renderer$new()$render(Reporter$new()$from_reporter(archiver$read())$get_blocks())
+    #' reporter <- Reporter$new()$from_reporter(archiver$read())
+    #' doc <- Renderer$new()$render(reporter$get_blocks())
+    #' doc <- Renderer$new()$render(Reporter$new()$from_jsondir(archiver$get_output_dir())$get_blocks())
     read = function(path = NULL) {
       checkmate::assert(
         checkmate::check_null(path),
@@ -149,11 +152,15 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
 
       if (!is.null(path) && !identical(path, private$output_dir)) {
         unlink(list.files(private$output_dir, recursive = TRUE, full.names = TRUE))
-        file.copy(path, private$output_dir, recursive = TRUE)
+        file.copy(list.files(path, full.names = TRUE), private$output_dir)
       }
 
       if (length(list.files(private$output_dir))) {
-        Reporter$new()$from_jsondir(private$output_dir)
+        tmp_dir <- tempdir()
+        output_dir <- file.path(tmp_dir, sprintf("archive_output_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
+        dir.create(path = output_dir)
+        file.copy(list.files(private$output_dir, full.names = TRUE), output_dir)
+        Reporter$new()$from_jsondir(output_dir)
       } else {
         warning("The directory provided to the Archiver is empty.")
         Reporter$new()

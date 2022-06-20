@@ -259,6 +259,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter <- Reporter$new()
     #' tmp_dir <- file.path(tempdir(), "jsondir")
     #' dir.create(tmp_dir)
+    #' unlink(list.files(tmp_dir, recursive = TRUE))
     #' reporter$to_jsondir(tmp_dir)
     #' reporter$from_jsondir(tmp_dir)
     from_jsondir = function(output_dir) {
