@@ -78,6 +78,10 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     get_content = function() {
       private$content
     },
+    #' @description Removes all objects added to this `ReportCard`.
+    #'
+    #' @return invisibly self
+    #'
     reset = function() {
       private$content <- list()
       private$metadata <- list()
@@ -134,6 +138,9 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       private$name <- name
       invisible(self)
     },
+    #' @description Convert the `ReportCard` to a list.
+    #' @param output_dir `character` with a path to the dir where files will be copied.
+    #' @return `named list` a `ReportCard` representation.
     #' @examples
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
     #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
@@ -167,6 +174,19 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       new_card[["metadata"]] <- self$get_metadata()
       new_card
     },
+    #' @description Create the `ReportCard` from a list.
+    #' @param card `named list` a `ReportCard` representation.
+    #' @param output_dir `character` with a path to the dir where a file will be copied.
+    #' @return invisibly self
+    #' @examples
+    #' card <- ReportCard$new()$append_text("Some text")$append_plot(
+    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #' )$append_text("Some text")$append_metadata(key = "lm",
+    #'                   value = lm(Ozone ~ Solar.R, airquality))
+    #' card$get_content()
+    #'
+    #' ReportCard$new()$from_list(card$to_list(tempdir()), tempdir())
+    #'
     from_list = function(card, output_dir) {
       self$reset()
       blocks <- card$blocks

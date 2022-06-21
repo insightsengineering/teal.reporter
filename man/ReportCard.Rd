@@ -102,6 +102,19 @@ card$get_content()
 
 card$to_list(tempdir())
 
+
+## ------------------------------------------------
+## Method `ReportCard$from_list`
+## ------------------------------------------------
+
+card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)$append_text("Some text")$append_metadata(key = "lm",
+                  value = lm(Ozone ~ Solar.R, airquality))
+card$get_content()
+
+ReportCard$new()$from_list(card$to_list(tempdir()), tempdir())
+
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -293,10 +306,14 @@ card$get_content()
 \if{html}{\out{<a id="method-ReportCard-reset"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-reset}{}}}
 \subsection{Method \code{reset()}}{
+Removes all objects added to this \code{ReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$reset()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+invisibly self
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-get_metadata"></a>}}
@@ -411,10 +428,21 @@ invisibly self
 \if{html}{\out{<a id="method-ReportCard-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-to_list}{}}}
 \subsection{Method \code{to_list()}}{
+Convert the \code{ReportCard} to a list.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$to_list(output_dir)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{output_dir}}{\code{character} with a path to the dir where files will be copied.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\verb{named list} a \code{ReportCard} representation.
+}
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{card <- ReportCard$new()$append_text("Some text")$append_plot(
@@ -435,8 +463,36 @@ card$to_list(tempdir())
 \if{html}{\out{<a id="method-ReportCard-from_list"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-from_list}{}}}
 \subsection{Method \code{from_list()}}{
+Create the \code{ReportCard} from a list.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$from_list(card, output_dir)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{card}}{\verb{named list} a \code{ReportCard} representation.}
+
+\item{\code{output_dir}}{\code{character} with a path to the dir where a file will be copied.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)$append_text("Some text")$append_metadata(key = "lm",
+                  value = lm(Ozone ~ Solar.R, airquality))
+card$get_content()
+
+ReportCard$new()$from_list(card$to_list(tempdir()), tempdir())
+
+}
+\if{html}{\out{</div>}}
+
 }
 
 }

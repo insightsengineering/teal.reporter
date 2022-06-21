@@ -326,7 +326,7 @@ reporter$get_blocks()
 \if{latex}{\out{\hypertarget{method-Reporter-reset}{}}}
 \subsection{Method \code{reset()}}{
 Removes all \code{\link{ReportCard}} objects added to this \code{Reporter}.
-Additionally all metadata instead of the Reporter version are removed.
+Additionally all metadata are removed.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$reset()}\if{html}{\out{</div>}}
 }

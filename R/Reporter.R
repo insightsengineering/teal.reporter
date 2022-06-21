@@ -113,7 +113,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       blocks
     },
     #' @description Removes all [`ReportCard`] objects added to this `Reporter`.
-    #' Additionally all metadata instead of the Reporter version are removed.
+    #' Additionally all metadata are removed.
     #'
     #' @return invisibly self
     #'

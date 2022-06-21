@@ -101,3 +101,12 @@ testthat::test_that("JSONArchiver read back and all table/picture statics exists
   )
   expect_true(all(vapply(file_blocks, function(f) file.exists(f$get_content()), logical(1))))
 })
+
+testthat::test_that("JSONArchiver with an empty dir", {
+  temp_dir <- file.path(tempdir(), "test")
+  dir.create(temp_dir)
+
+  expect_warning(archiver$read(temp_dir), "The directory provided to the Archiver is empty.")
+
+  unlink(temp_dir, recursive = TRUE)
+})
