@@ -13,8 +13,9 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
       try(unlink(super$get_content()))
     },
     #' @description Create the `FileBlock` from a list.
-    #' The list should contain one named field, `"path"`.
-    #' @param x `named list` with one field `"path"`, a name of the file.
+    #' The list should contain one named field, `"basename"`.
+    #' @param x `named list` with one field `"basename"`, a name of the file.
+    #' @param output_dir `character` with a path to the dir where a file will be copied.
     #' @return invisibly self
     #' @examples
     #' block <- teal.reporter:::FileBlock$new()
@@ -33,7 +34,7 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
     #' @description Convert the `FileBlock` to a list.
-    #' @param output_dir `character` with a path to the dir where to crate the symbolic link for a file.
+    #' @param output_dir `character` with a path to the dir where a file will be copied.
     #' @return `named list` with a `basename` of the file.
     #' @examples
     #' block <- teal.reporter:::FileBlock$new()

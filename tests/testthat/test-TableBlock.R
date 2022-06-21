@@ -25,29 +25,23 @@ testthat::test_that("get_content returns character(0) on a newly initialized Tab
   testthat::expect_equal(TableBlock$new()$get_content(), character(0))
 })
 
-testthat::test_that("to_list returns a named list with a one field, a proper path", {
+temp_dir <- tempdir()
+
+testthat::test_that("to_list returns a named list with a one field, a proper file name", {
   block <- TableBlock$new()$set_content(iris)
-  temp_dir <- tempdir()
   testthat::expect_equal(block$to_list(temp_dir), list(basename = basename(block$get_content())))
 })
 
-testthat::test_that("to_list with base_path arg", {
-  block <- TableBlock$new()$set_content(iris)
-  temp_dir <- tempdir()
-  testthat::expect_identical(
-    block$to_list(temp_dir),
-    list(basename = basename(block$get_content()))
-  )
-  testthat::expect_true(file.exists(file.path(temp_dir, basename(block$get_content()))))
+# to_list
+testthat::test_that("to_list returns a named list with a one field, a proper path", {
+  tblock <- TableBlock$new()$set_content(iris)
+  expect_identical(tblock$to_list(temp_dir), list(basename = basename(tblock$get_content())))
 })
 
-testthat::test_that("from_list returns the same object as set_content", {
-  block <- TableBlock$new()$set_content(iris)
-  temp_dir <- tempdir()
-  testthat::expect_equal(
-    file.size(block$get_content()),
-    file.size(TableBlock$new()$from_list(list(basename = basename(block$get_content())),
-                               temp_dir)$get_content())
-  )
-  testthat::expect_true(file.exists(file.path(temp_dir, basename(block$get_content()))))
+# from_list
+testthat::test_that("from_list after to_list to save and retrive", {
+  tblock <- TableBlock$new()$set_content(iris)
+  expect_identical(file.size(TableBlock$new()$from_list(tblock$to_list(temp_dir),
+                                                          dirname(tblock$get_content()))$get_content()),
+                   file.size(tblock$get_content()))
 })

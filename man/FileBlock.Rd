@@ -67,15 +67,17 @@ Removes the temporary file created in the constructor.
 \if{latex}{\out{\hypertarget{method-FileBlock-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 Create the \code{FileBlock} from a list.
-The list should contain one named field, \code{"path"}.
+The list should contain one named field, \code{"basename"}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{FileBlock$from_list(x)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{FileBlock$from_list(x, output_dir)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{x}}{\verb{named list} with one field \code{"path"}, a name of the file.}
+\item{\code{x}}{\verb{named list} with one field \code{"basename"}, a name of the file.}
+
+\item{\code{output_dir}}{\code{character} with a path to the dir where a file will be copied.}
 }
 \if{html}{\out{</div>}}
 }
@@ -106,7 +108,7 @@ Convert the \code{FileBlock} to a list.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{output_dir}}{\code{character} with a path to the dir where to crate the symbolic link for a file.}
+\item{\code{output_dir}}{\code{character} with a path to the dir where a file will be copied.}
 }
 \if{html}{\out{</div>}}
 }

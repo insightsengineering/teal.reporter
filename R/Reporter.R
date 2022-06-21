@@ -225,7 +225,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
 
       cat(jsonlite::toJSON(json, auto_unbox = TRUE, force = TRUE),
-        file = file.path(output_dir, "Report.json")
+          file = file.path(output_dir, "Report.json")
       )
       output_dir
     },

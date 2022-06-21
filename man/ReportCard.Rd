@@ -112,6 +112,7 @@ card$to_list(tempdir())
 \item \href{#method-ReportCard-append_text}{\code{ReportCard$append_text()}}
 \item \href{#method-ReportCard-append_content}{\code{ReportCard$append_content()}}
 \item \href{#method-ReportCard-get_content}{\code{ReportCard$get_content()}}
+\item \href{#method-ReportCard-reset}{\code{ReportCard$reset()}}
 \item \href{#method-ReportCard-get_metadata}{\code{ReportCard$get_metadata()}}
 \item \href{#method-ReportCard-append_metadata}{\code{ReportCard$append_metadata()}}
 \item \href{#method-ReportCard-get_name}{\code{ReportCard$get_name()}}
@@ -289,6 +290,15 @@ card$get_content()
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ReportCard-reset"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-reset}{}}}
+\subsection{Method \code{reset()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$reset()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-get_metadata"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-get_metadata}{}}}
 \subsection{Method \code{get_metadata()}}{
@@ -426,7 +436,7 @@ card$to_list(tempdir())
 \if{latex}{\out{\hypertarget{method-ReportCard-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$from_list()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$from_list(card, output_dir)}\if{html}{\out{</div>}}
 }
 
 }
