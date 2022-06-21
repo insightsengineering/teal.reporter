@@ -77,7 +77,6 @@ testthat::test_that("JSONArchiver dectructor removes the temp dir", {
 })
 
 archiver <- JSONArchiver$new()
-expect_error(archiver$write(reporter), NA)
 
 testthat::test_that("JSONArchiver write a reporter", {
   expect_error(archiver$write(reporter), NA)
