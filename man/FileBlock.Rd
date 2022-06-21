@@ -69,16 +69,13 @@ Removes the temporary file created in the constructor.
 Create the \code{FileBlock} from a list.
 The list should contain one named field, \code{"path"}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{FileBlock$from_list(x, base_path = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{FileBlock$from_list(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{x}}{\verb{named list} with one field \code{"path"}, a path to the file.}
-
-\item{\code{base_path}}{\code{character} with a path to the dir with the file.
-If the argument is \code{NULL} then only \code{x} is used. Default \code{NULL}.}
+\item{\code{x}}{\verb{named list} with one field \code{"path"}, a name of the file.}
 }
 \if{html}{\out{</div>}}
 }
@@ -103,19 +100,18 @@ block$from_list(list(path = file_path))
 \subsection{Method \code{to_list()}}{
 Convert the \code{FileBlock} to a list.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{FileBlock$to_list(base_path = ".")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{FileBlock$to_list(output_dir)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{base_path}}{\code{character} with a path to the dir with the file.
-If the argument is \code{NULL} then only basename is returned. Default \code{.}.}
+\item{\code{output_dir}}{\code{character} with a path to the dir where to crate the symbolic link for a file.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\verb{named list} with a path to the file.
+\verb{named list} with a \code{basename} of the file.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

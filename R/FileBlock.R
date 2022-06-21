@@ -14,36 +14,34 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Create the `FileBlock` from a list.
     #' The list should contain one named field, `"path"`.
-    #' @param x `named list` with one field `"path"`, a path to the file.
-    #' @param base_path `character` with a path to the dir with the file.
-    #' If the argument is `NULL` then only `x` is used. Default `NULL`.
+    #' @param x `named list` with one field `"path"`, a name of the file.
     #' @return invisibly self
     #' @examples
     #' block <- teal.reporter:::FileBlock$new()
     #' file_path <- tempfile(fileext = ".png")
     #' saveRDS(iris, file_path)
     #' block$from_list(list(path = file_path))
-    from_list = function(x, base_path = NULL) {
+    from_list = function(x, output_dir) {
       checkmate::assert_list(x)
-      checkmate::assert_names(names(x), must.include = "path")
-      path <- if (!is.null(base_path)) {
-        file.path(base_path, basename(x$path))
-      } else {
-        x$path
-      }
-      checkmate::assert_file_exists(path)
-      super$set_content(path)
+      checkmate::assert_names(names(x), must.include = "basename")
+      path <- file.path(output_dir, x$basename)
+      file_type <- paste0(".", tools::file_ext(path))
+      checkmate::assert_file_exists(path, extension = file_type)
+      new_file_path <- tempfile(fileext = file_type)
+      file.copy(path, new_file_path)
+      super$set_content(new_file_path)
       invisible(self)
     },
     #' @description Convert the `FileBlock` to a list.
-    #' @param base_path `character` with a path to the dir with the file.
-    #' If the argument is `NULL` then only basename is returned. Default `.`.
-    #' @return `named list` with a path to the file.
+    #' @param output_dir `character` with a path to the dir where to crate the symbolic link for a file.
+    #' @return `named list` with a `basename` of the file.
     #' @examples
     #' block <- teal.reporter:::FileBlock$new()
     #' block$to_list()
-    to_list = function(base_path = ".") {
-      list(path = file.path(base_path, basename(super$get_content())))
+    to_list = function(output_dir) {
+      base_name <- basename(super$get_content())
+      file.copy(super$get_content(), file.path(output_dir, base_name))
+      list(basename = base_name)
     }
   ),
   lock_objects = TRUE,

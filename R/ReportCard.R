@@ -78,6 +78,11 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     get_content = function() {
       private$content
     },
+    reset = function() {
+      private$content <- list()
+      private$metadata <- list()
+      invisible(self)
+    },
     #' @description Returns the metadata of this `ReportCard`.
     #'
     #' @return `named list` list of elements.
@@ -127,6 +132,66 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     set_name = function(name) {
       checkmate::assert_string(name)
       private$name <- name
+      invisible(self)
+    },
+    #' @examples
+    #' card <- ReportCard$new()$append_text("Some text")$append_plot(
+    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #' )$append_text("Some text")$append_metadata(key = "lm",
+    #'                   value = lm(Ozone ~ Solar.R, airquality))
+    #' card$get_content()
+    #'
+    #' card$to_list(tempdir())
+    #'
+    to_list = function(output_dir) {
+      new_blocks <- list()
+      for (block in self$get_content()) {
+        block_class <- class(block)[1]
+        cblock <- switch(block_class,
+                         TextBlock = block$to_list(),
+                         PictureBlock = {
+                           block$to_list(output_dir)
+                         },
+                         TableBlock = {
+                           block$to_list(output_dir)
+                         },
+                         NewpageBlock = list(),
+                         NULL
+        )
+        new_block <- list()
+        new_block[[block_class]] <- cblock
+        new_blocks <- c(new_blocks, new_block)
+      }
+      new_card <- list()
+      new_card[["blocks"]] <- new_blocks
+      new_card[["metadata"]] <- self$get_metadata()
+      new_card
+    },
+    from_list = function(card, output_dir) {
+      self$reset()
+      blocks <- card$blocks
+      metadata <- card$metadata
+      blocks_names <- names(blocks)
+      blocks_names <- gsub("[.][0-9]*$", "", blocks_names)
+      for (iter_b in seq_along(blocks)) {
+        block_class <- blocks_names[iter_b]
+        block <- blocks[[iter_b]]
+        cblock <- switch(block_class,
+                         TextBlock = TextBlock$new()$from_list(block),
+                         PictureBlock = {
+                           PictureBlock$new()$from_list(block, output_dir)
+                         },
+                         TableBlock = {
+                           TableBlock$new()$from_list(block, output_dir)
+                         },
+                         NewpageBlock = NewpageBlock$new(),
+                         NULL
+        )
+        self$append_content(cblock)
+      }
+      for (meta in names(metadata)) {
+        self$append_metadata(meta, metadata[[meta]])
+      }
       invisible(self)
     }
   ),

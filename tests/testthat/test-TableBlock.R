@@ -27,21 +27,27 @@ testthat::test_that("get_content returns character(0) on a newly initialized Tab
 
 testthat::test_that("to_list returns a named list with a one field, a proper path", {
   block <- TableBlock$new()$set_content(iris)
-  testthat::expect_equal(block$to_list(), list(path = file.path(".", basename(block$get_content()))))
+  temp_dir <- tempdir()
+  testthat::expect_equal(block$to_list(temp_dir), list(basename = basename(block$get_content())))
 })
 
 testthat::test_that("to_list with base_path arg", {
   block <- TableBlock$new()$set_content(iris)
+  temp_dir <- tempdir()
   testthat::expect_identical(
-    block$to_list(dirname(block$get_content())),
-    list(path = block$get_content())
+    block$to_list(temp_dir),
+    list(basename = basename(block$get_content()))
   )
+  testthat::expect_true(file.exists(file.path(temp_dir, basename(block$get_content()))))
 })
 
 testthat::test_that("from_list returns the same object as set_content", {
   block <- TableBlock$new()$set_content(iris)
+  temp_dir <- tempdir()
   testthat::expect_equal(
-    block,
-    TableBlock$new()$from_list(list(path = block$get_content()), dirname(block$get_content()))
+    file.size(block$get_content()),
+    file.size(TableBlock$new()$from_list(list(basename = basename(block$get_content())),
+                               temp_dir)$get_content())
   )
+  testthat::expect_true(file.exists(file.path(temp_dir, basename(block$get_content()))))
 })

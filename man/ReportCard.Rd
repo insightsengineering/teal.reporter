@@ -89,6 +89,19 @@ ReportCard$new()$set_name("NAME")$get_name()
 ## ------------------------------------------------
 
 ReportCard$new()$set_name("NAME")$get_name()
+
+## ------------------------------------------------
+## Method `ReportCard$to_list`
+## ------------------------------------------------
+
+card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)$append_text("Some text")$append_metadata(key = "lm",
+                  value = lm(Ozone ~ Solar.R, airquality))
+card$get_content()
+
+card$to_list(tempdir())
+
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -103,6 +116,8 @@ ReportCard$new()$set_name("NAME")$get_name()
 \item \href{#method-ReportCard-append_metadata}{\code{ReportCard$append_metadata()}}
 \item \href{#method-ReportCard-get_name}{\code{ReportCard$get_name()}}
 \item \href{#method-ReportCard-set_name}{\code{ReportCard$set_name()}}
+\item \href{#method-ReportCard-to_list}{\code{ReportCard$to_list()}}
+\item \href{#method-ReportCard-from_list}{\code{ReportCard$from_list()}}
 \item \href{#method-ReportCard-clone}{\code{ReportCard$clone()}}
 }
 }
@@ -379,6 +394,39 @@ invisibly self
 }
 \if{html}{\out{</div>}}
 
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ReportCard-to_list"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-to_list}{}}}
+\subsection{Method \code{to_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$to_list(output_dir)}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)$append_text("Some text")$append_metadata(key = "lm",
+                  value = lm(Ozone ~ Solar.R, airquality))
+card$get_content()
+
+card$to_list(tempdir())
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ReportCard-from_list"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-from_list}{}}}
+\subsection{Method \code{from_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$from_list()}\if{html}{\out{</div>}}
 }
 
 }

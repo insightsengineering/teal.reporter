@@ -219,32 +219,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       json[["metadata"]] <- self$get_metadata()
       for (card in self$get_cards()) {
         card_class <- class(card)[1]
-        new_blocks <- list()
-        for (block in card$get_content()) {
-          block_class <- class(block)[1]
-          cblock <- switch(block_class,
-            TextBlock = block$to_list(),
-            PictureBlock = {
-              file.copy(block$get_content(), output_dir)
-              block$to_list()
-            },
-            TableBlock = {
-              file.copy(block$get_content(), output_dir)
-              block$to_list()
-            },
-            NewpageBlock = list(),
-            NULL
-          )
-          new_block <- list()
-          new_block[[block_class]] <- cblock
-          new_blocks <- c(new_blocks, new_block)
-        }
-        new_card <- list()
-        new_card[["blocks"]] <- new_blocks
-        new_card[["metadata"]] <- card$get_metadata()
-
         u_card <- list()
-        u_card[[card_class]] <- new_card
+        u_card[[card_class]] <- card$to_list(output_dir)
         json$cards <- c(json$cards, u_card)
       }
 
@@ -275,37 +251,11 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         cards_names <- gsub("[.][0-9]*$", "", cards_names)
         for (iter_c in seq_along(json$cards)) {
           card_class <- cards_names[iter_c]
+          card <- json$cards[[iter_c]]
           new_card <- switch(card_class,
-            ReportCard = ReportCard$new(),
-            TealReportCard = TealReportCard$new()
+            ReportCard = ReportCard$new()$from_list(card, output_dir),
+            TealReportCard = TealReportCard$new()$from_list(card, output_dir)
           )
-          blocks <- json$cards[[iter_c]]$blocks
-          metadata <- json$cards[[iter_c]]$metadata
-          blocks_names <- names(blocks)
-          blocks_names <- gsub("[.][0-9]*$", "", blocks_names)
-          for (iter_b in seq_along(blocks)) {
-            block_class <- blocks_names[iter_b]
-            block <- blocks[[iter_b]]
-            cblock <- switch(block_class,
-              TextBlock = TextBlock$new()$from_list(block),
-              PictureBlock = {
-                new_file_path <- tempfile(fileext = ".png")
-                file.copy(file.path(output_dir, basename(block$path)), new_file_path)
-                PictureBlock$new()$from_list(list(path = new_file_path))
-              },
-              TableBlock = {
-                new_file_path <- tempfile(fileext = ".RDS")
-                file.copy(file.path(output_dir, basename(block$path)), new_file_path)
-                TableBlock$new()$from_list(list(path = new_file_path))
-              },
-              NewpageBlock = NewpageBlock$new(),
-              NULL
-            )
-            new_card$append_content(cblock)
-          }
-          for (meta in names(metadata)) {
-            new_card$append_metadata(meta, metadata[[meta]])
-          }
           new_cards <- c(new_cards, new_card)
         }
       } else {
