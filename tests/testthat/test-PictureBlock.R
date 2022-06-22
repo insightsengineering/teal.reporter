@@ -99,7 +99,11 @@ testthat::test_that("to_list returns a named list with a one field, a proper pat
 testthat::test_that("from_list after to_list to save and retrive", {
   pblock <- PictureBlock$new()$set_content(ggplot2::ggplot(iris))
   temp_dir <- tempdir()
-  expect_identical(file.size(PictureBlock$new()$from_list(pblock$to_list(temp_dir),
-                                                          dirname(pblock$get_content()))$get_content()),
-                   file.size(pblock$get_content()))
+  expect_identical(
+    file.size(PictureBlock$new()$from_list(
+      pblock$to_list(temp_dir),
+      dirname(pblock$get_content())
+    )$get_content()),
+    file.size(pblock$get_content())
+  )
 })

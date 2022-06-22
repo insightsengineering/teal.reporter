@@ -155,15 +155,11 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       for (block in self$get_content()) {
         block_class <- class(block)[1]
         cblock <- switch(block_class,
-                         TextBlock = block$to_list(),
-                         PictureBlock = {
-                           block$to_list(output_dir)
-                         },
-                         TableBlock = {
-                           block$to_list(output_dir)
-                         },
-                         NewpageBlock = list(),
-                         NULL
+          TextBlock = block$to_list(),
+          PictureBlock = block$to_list(output_dir),
+          TableBlock = block$to_list(output_dir),
+          NewpageBlock = list(),
+          NULL
         )
         new_block <- list()
         new_block[[block_class]] <- cblock
@@ -197,15 +193,11 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
         block_class <- blocks_names[iter_b]
         block <- blocks[[iter_b]]
         cblock <- switch(block_class,
-                         TextBlock = TextBlock$new()$from_list(block),
-                         PictureBlock = {
-                           PictureBlock$new()$from_list(block, output_dir)
-                         },
-                         TableBlock = {
-                           TableBlock$new()$from_list(block, output_dir)
-                         },
-                         NewpageBlock = NewpageBlock$new(),
-                         NULL
+          TextBlock = TextBlock$new()$from_list(block),
+          PictureBlock = PictureBlock$new()$from_list(block, output_dir),
+          TableBlock = TableBlock$new()$from_list(block, output_dir),
+          NewpageBlock = NewpageBlock$new(),
+          NULL
         )
         self$append_content(cblock)
       }

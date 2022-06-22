@@ -41,7 +41,11 @@ testthat::test_that("to_list returns a named list with a one field, a proper pat
 # from_list
 testthat::test_that("from_list after to_list to save and retrive", {
   tblock <- TableBlock$new()$set_content(iris)
-  expect_identical(file.size(TableBlock$new()$from_list(tblock$to_list(temp_dir),
-                                                          dirname(tblock$get_content()))$get_content()),
-                   file.size(tblock$get_content()))
+  expect_identical(
+    file.size(TableBlock$new()$from_list(
+      tblock$to_list(temp_dir),
+      dirname(tblock$get_content())
+    )$get_content()),
+    file.size(tblock$get_content())
+  )
 })
