@@ -21,7 +21,7 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
     #' block <- teal.reporter:::FileBlock$new()
     #' file_path <- tempfile(fileext = ".png")
     #' saveRDS(iris, file_path)
-    #' block$from_list(list(path = file_path))
+    #' block$from_list(list(basename = basename(file_path)), dirname(file_path))
     from_list = function(x, output_dir) {
       checkmate::assert_list(x)
       checkmate::assert_names(names(x), must.include = "basename")
@@ -38,7 +38,7 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @return `named list` with a `basename` of the file.
     #' @examples
     #' block <- teal.reporter:::FileBlock$new()
-    #' block$to_list()
+    #' block$to_list(tempdir())
     to_list = function(output_dir) {
       base_name <- basename(super$get_content())
       file.copy(super$get_content(), file.path(output_dir, base_name))

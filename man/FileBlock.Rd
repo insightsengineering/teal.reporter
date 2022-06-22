@@ -17,14 +17,14 @@
 block <- teal.reporter:::FileBlock$new()
 file_path <- tempfile(fileext = ".png")
 saveRDS(iris, file_path)
-block$from_list(list(path = file_path))
+block$from_list(list(basename = basename(file_path)), dirname(file_path))
 
 ## ------------------------------------------------
 ## Method `FileBlock$to_list`
 ## ------------------------------------------------
 
 block <- teal.reporter:::FileBlock$new()
-block$to_list()
+block$to_list(tempdir())
 }
 \keyword{internal}
 \section{Super class}{
@@ -89,7 +89,7 @@ invisibly self
 \preformatted{block <- teal.reporter:::FileBlock$new()
 file_path <- tempfile(fileext = ".png")
 saveRDS(iris, file_path)
-block$from_list(list(path = file_path))
+block$from_list(list(basename = basename(file_path)), dirname(file_path))
 }
 \if{html}{\out{</div>}}
 
@@ -118,7 +118,7 @@ Convert the \code{FileBlock} to a list.
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{block <- teal.reporter:::FileBlock$new()
-block$to_list()
+block$to_list(tempdir())
 }
 \if{html}{\out{</div>}}
 
