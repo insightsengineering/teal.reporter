@@ -83,6 +83,7 @@ testthat::test_that("JSONArchiver write a reporter", {
 })
 
 testthat::test_that("JSONArchiver write a reporter with a json file and static files", {
+  expect_true(dir.exists(archiver$get_output_dir()))
   files <- list.files(archiver$get_output_dir())
   expect_true(length(files) == 4)
   expect_true("Report.json" %in% files)
@@ -95,6 +96,7 @@ testthat::test_that("JSONArchiver read back the Reporter instance", {
 })
 
 testthat::test_that("JSONArchiver read back and all table/picture statics exists", {
+  gc()
   file_blocks <- Filter(
     function(x) inherits(x, "PictureBlock") || inherits(x, "TableBlock"),
     archiver$read()$get_blocks()
@@ -109,4 +111,13 @@ testthat::test_that("JSONArchiver with an empty dir", {
   expect_warning(archiver$read(temp_dir), "The directory provided to the Archiver is empty.")
 
   unlink(temp_dir, recursive = TRUE)
+})
+
+testthat::test_that("JSONArchiver destructor remove its output_dir", {
+  archiver <- JSONArchiver$new()
+  archiver_path <- archiver$get_output_dir()
+  expect_true(dir.exists(archiver_path))
+  rm(archiver)
+  gc()
+  expect_false(dir.exists(archiver_path))
 })
