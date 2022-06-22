@@ -252,7 +252,7 @@ invisibly self
 \if{html}{\out{<a id="method-ReportCard-append_content"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-append_content}{}}}
 \subsection{Method \code{append_content()}}{
-Appends a ContentBlock to this \code{ReportCard}.
+Appends a \code{ContentBlock} to this \code{ReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_content(content)}\if{html}{\out{</div>}}
 }
@@ -436,7 +436,7 @@ Convert the \code{ReportCard} to a list.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{output_dir}}{\code{character} with a path to the dir where files will be copied.}
+\item{\code{output_dir}}{\code{character} with a path to the directory where files will be copied.}
 }
 \if{html}{\out{</div>}}
 }
@@ -473,7 +473,7 @@ Create the \code{ReportCard} from a list.
 \describe{
 \item{\code{card}}{\verb{named list} a \code{ReportCard} representation.}
 
-\item{\code{output_dir}}{\code{character} with a path to the dir where a file will be copied.}
+\item{\code{output_dir}}{\code{character} with a path to the directory where a file will be copied.}
 }
 \if{html}{\out{</div>}}
 }

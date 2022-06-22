@@ -54,7 +54,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       private$content <- append(private$content, TextBlock$new(text, style))
       invisible(self)
     },
-    #' @description Appends a ContentBlock to this `ReportCard`.
+    #' @description Appends a `ContentBlock` to this `ReportCard`.
     #'
     #' @param content (`ContentBlock`)
     #' @return invisibly self
@@ -139,7 +139,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
     #' @description Convert the `ReportCard` to a list.
-    #' @param output_dir `character` with a path to the dir where files will be copied.
+    #' @param output_dir `character` with a path to the directory where files will be copied.
     #' @return `named list` a `ReportCard` representation.
     #' @examples
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
@@ -172,7 +172,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Create the `ReportCard` from a list.
     #' @param card `named list` a `ReportCard` representation.
-    #' @param output_dir `character` with a path to the dir where a file will be copied.
+    #' @param output_dir `character` with a path to the directory where a file will be copied.
     #' @return invisibly self
     #' @examples
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(

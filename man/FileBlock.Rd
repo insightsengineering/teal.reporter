@@ -77,7 +77,7 @@ The list should contain one named field, \code{"basename"}.
 \describe{
 \item{\code{x}}{\verb{named list} with one field \code{"basename"}, a name of the file.}
 
-\item{\code{output_dir}}{\code{character} with a path to the dir where a file will be copied.}
+\item{\code{output_dir}}{\code{character} with a path to the directory where a file will be copied.}
 }
 \if{html}{\out{</div>}}
 }
@@ -108,7 +108,7 @@ Convert the \code{FileBlock} to a list.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{output_dir}}{\code{character} with a path to the dir where a file will be copied.}
+\item{\code{output_dir}}{\code{character} with a path to the directory where a file will be copied.}
 }
 \if{html}{\out{</div>}}
 }
