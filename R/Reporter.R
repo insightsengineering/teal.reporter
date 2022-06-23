@@ -206,45 +206,45 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
     #' @description Convert a Reporter to a list and transfer files
-    #' @param output_dir `character(1)` a path to the directory
+    #' @param output_dir `character(1)` a path to the directory where files will be copied.
     #' @return `named list` `Reporter` representation
     #' @examples
     #' reporter <- Reporter$new()
-    #' tmp_dir <- file.path(tempdir(), "jsondir")
+    #' tmp_dir <- file.path(tempdir(), "testdir")
     #' dir.create(tmp_dir)
     #' reporter$to_list(tmp_dir)
     to_list = function(output_dir) {
       checkmate::assert_directory_exists(output_dir)
-      json <- list(version = "1", cards = list())
-      json[["metadata"]] <- self$get_metadata()
+      rlist <- list(version = "1", cards = list())
+      rlist[["metadata"]] <- self$get_metadata()
       for (card in self$get_cards()) {
         card_class <- class(card)[1]
         u_card <- list()
         u_card[[card_class]] <- card$to_list(output_dir)
-        json$cards <- c(json$cards, u_card)
+        rlist$cards <- c(rlist$cards, u_card)
       }
-      json
+      rlist
     },
     #' @description Create/Recreate a Reporter from a list and directory with files
-    #' @param json `named list` `Reporter` representation.
-    #' @param output_dir `character(1)` a path to the directory
+    #' @param rlist `named list` `Reporter` representation.
+    #' @param output_dir `character(1)` a path to the directory from which files will be copied.
     #' @return invisibly self
     #' @examples
     #' reporter <- Reporter$new()
-    #' tmp_dir <- file.path(tempdir(), "jsondir")
+    #' tmp_dir <- file.path(tempdir(), "testdir")
     #' unlink(tmp_dir, recursive = TRUE)
     #' dir.create(tmp_dir)
     #' reporter$from_list(reporter$to_list(tmp_dir), tmp_dir)
-    from_list = function(json, output_dir) {
-      checkmate::assert_list(json)
+    from_list = function(rlist, output_dir) {
+      checkmate::assert_list(rlist)
       checkmate::assert_directory_exists(output_dir)
-      if (json$version == "1") {
+      if (rlist$version == "1") {
         new_cards <- list()
-        cards_names <- names(json$cards)
+        cards_names <- names(rlist$cards)
         cards_names <- gsub("[.][0-9]*$", "", cards_names)
-        for (iter_c in seq_along(json$cards)) {
+        for (iter_c in seq_along(rlist$cards)) {
           card_class <- cards_names[iter_c]
-          card <- json$cards[[iter_c]]
+          card <- rlist$cards[[iter_c]]
           new_card <- switch(card_class,
             ReportCard = ReportCard$new()$from_list(card, output_dir),
             TealReportCard = TealReportCard$new()$from_list(card, output_dir)
@@ -256,7 +256,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
       self$reset()
       self$append_cards(new_cards)
-      self$append_metadata(json$metadata)
+      self$append_metadata(rlist$metadata)
       invisible(self)
     }
   ),

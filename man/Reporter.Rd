@@ -129,7 +129,7 @@ reporter$from_reporter(reporter)
 ## ------------------------------------------------
 
 reporter <- Reporter$new()
-tmp_dir <- file.path(tempdir(), "jsondir")
+tmp_dir <- file.path(tempdir(), "testdir")
 dir.create(tmp_dir)
 reporter$to_list(tmp_dir)
 
@@ -138,7 +138,7 @@ reporter$to_list(tmp_dir)
 ## ------------------------------------------------
 
 reporter <- Reporter$new()
-tmp_dir <- file.path(tempdir(), "jsondir")
+tmp_dir <- file.path(tempdir(), "testdir")
 unlink(tmp_dir, recursive = TRUE)
 dir.create(tmp_dir)
 reporter$from_list(reporter$to_list(tmp_dir), tmp_dir)
@@ -491,7 +491,7 @@ Convert a Reporter to a list and transfer files
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{output_dir}}{\code{character(1)} a path to the directory}
+\item{\code{output_dir}}{\code{character(1)} a path to the directory where files will be copied.}
 }
 \if{html}{\out{</div>}}
 }
@@ -501,7 +501,7 @@ Convert a Reporter to a list and transfer files
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{reporter <- Reporter$new()
-tmp_dir <- file.path(tempdir(), "jsondir")
+tmp_dir <- file.path(tempdir(), "testdir")
 dir.create(tmp_dir)
 reporter$to_list(tmp_dir)
 }
@@ -516,15 +516,15 @@ reporter$to_list(tmp_dir)
 \subsection{Method \code{from_list()}}{
 Create/Recreate a Reporter from a list and directory with files
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$from_list(json, output_dir)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$from_list(rlist, output_dir)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{json}}{\verb{named list} \code{Reporter} representation.}
+\item{\code{rlist}}{\verb{named list} \code{Reporter} representation.}
 
-\item{\code{output_dir}}{\code{character(1)} a path to the directory}
+\item{\code{output_dir}}{\code{character(1)} a path to the directory from which files will be copied.}
 }
 \if{html}{\out{</div>}}
 }
@@ -534,7 +534,7 @@ invisibly self
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{reporter <- Reporter$new()
-tmp_dir <- file.path(tempdir(), "jsondir")
+tmp_dir <- file.path(tempdir(), "testdir")
 unlink(tmp_dir, recursive = TRUE)
 dir.create(tmp_dir)
 reporter$from_list(reporter$to_list(tmp_dir), tmp_dir)
