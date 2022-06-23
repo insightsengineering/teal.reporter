@@ -95,3 +95,53 @@ testthat::test_that("get_metadata", {
   testthat::expect_error(reporter$append_metadata(list(sth = "sth")), NA)
   testthat::expect_identical(reporter$get_metadata(), list(sth = "sth"))
 })
+
+testthat::test_that("from_reporter returns identical/equal object from the same reporter", {
+  expect_identical(reporter, reporter$from_reporter(reporter))
+})
+
+reporter1 <- Reporter$new()
+reporter1$append_cards(list(card1, card2))
+reporter2 <- Reporter$new()
+
+testthat::test_that("from_reporter does not return identical/equal object form other reporter", {
+  expect_false(identical(reporter1, reporter2$from_reporter(reporter1)))
+})
+
+testthat::test_that("from_reporter persists the cards structure", {
+  expect_identical(reporter1$get_cards(), reporter2$from_reporter(reporter1)$get_cards())
+})
+
+testthat::test_that("from_reporter persists the reactive_add_card count", {
+  expect_identical(
+    shiny::isolate(reporter1$get_reactive_add_card()),
+    shiny::isolate(reporter2$from_reporter(reporter1)$get_reactive_add_card())
+  )
+})
+
+testthat::test_that("to_jsondir require the existing directory path", {
+  expect_error(reporter1$to_list(), 'argument "output_dir" is missing, with no default')
+  expect_error(reporter1$to_list("/path/WRONG"), "Directory '/path/WRONG' does not exist.")
+})
+
+temp_dir <- file.path(tempdir(), "test")
+unlink(temp_dir, recursive = TRUE)
+dir.create(temp_dir)
+
+testthat::test_that("to_jsondir returns a list.", {
+  expect_equal(
+    list(version = "1", cards = list(), metadata = list()),
+    Reporter$new()$to_list(temp_dir)
+  )
+})
+
+testthat::test_that("to_jsondir and from_jsondir could be used to save and retrive a Reporter ", {
+  expect_identical(
+    length(reporter1$get_cards()),
+    length(Reporter$new()$from_list(reporter1$to_list(temp_dir), temp_dir)$get_cards())
+  )
+  expect_identical(
+    length(reporter1$get_blocks()),
+    length(Reporter$new()$from_list(reporter1$to_list(temp_dir), temp_dir)$get_blocks())
+  )
+})

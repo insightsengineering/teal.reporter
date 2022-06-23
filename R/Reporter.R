@@ -204,6 +204,60 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       self$append_cards(reporter$get_cards())
       self$append_metadata(reporter$get_metadata())
       invisible(self)
+    },
+    #' @description Convert a Reporter to a list and transfer files
+    #' @param output_dir `character(1)` a path to the directory
+    #' @return `named list` `Reporter` representation
+    #' @examples
+    #' reporter <- Reporter$new()
+    #' tmp_dir <- file.path(tempdir(), "jsondir")
+    #' dir.create(tmp_dir)
+    #' reporter$to_list(tmp_dir)
+    to_list = function(output_dir) {
+      checkmate::assert_directory_exists(output_dir)
+      json <- list(version = "1", cards = list())
+      json[["metadata"]] <- self$get_metadata()
+      for (card in self$get_cards()) {
+        card_class <- class(card)[1]
+        u_card <- list()
+        u_card[[card_class]] <- card$to_list(output_dir)
+        json$cards <- c(json$cards, u_card)
+      }
+      json
+    },
+    #' @description Create/Recreate a Reporter from a list and directory with files
+    #' @param json `named list` `Reporter` representation.
+    #' @param output_dir `character(1)` a path to the directory
+    #' @return invisibly self
+    #' @examples
+    #' reporter <- Reporter$new()
+    #' tmp_dir <- file.path(tempdir(), "jsondir")
+    #' unlink(tmp_dir, recursive = TRUE)
+    #' dir.create(tmp_dir)
+    #' reporter$from_list(reporter$to_list(tmp_dir), tmp_dir)
+    from_list = function(json, output_dir) {
+      checkmate::assert_list(json)
+      checkmate::assert_directory_exists(output_dir)
+      if (json$version == "1") {
+        new_cards <- list()
+        cards_names <- names(json$cards)
+        cards_names <- gsub("[.][0-9]*$", "", cards_names)
+        for (iter_c in seq_along(json$cards)) {
+          card_class <- cards_names[iter_c]
+          card <- json$cards[[iter_c]]
+          new_card <- switch(card_class,
+            ReportCard = ReportCard$new()$from_list(card, output_dir),
+            TealReportCard = TealReportCard$new()$from_list(card, output_dir)
+          )
+          new_cards <- c(new_cards, new_card)
+        }
+      } else {
+        stop("The provided version is not supported")
+      }
+      self$reset()
+      self$append_cards(new_cards)
+      self$append_metadata(json$metadata)
+      invisible(self)
     }
   ),
   private = list(

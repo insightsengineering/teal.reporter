@@ -144,14 +144,8 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
   private = list(
     to_jsondir = function(reporter, output_dir) {
       checkmate::assert_directory_exists(output_dir)
-      json <- list(version = "1", cards = list())
-      json[["metadata"]] <- reporter$get_metadata()
-      for (card in reporter$get_cards()) {
-        card_class <- class(card)[1]
-        u_card <- list()
-        u_card[[card_class]] <- card$to_list(output_dir)
-        json$cards <- c(json$cards, u_card)
-      }
+
+      json <- reporter$to_list(output_dir)
 
       cat(jsonlite::toJSON(json, auto_unbox = TRUE, force = TRUE),
         file = file.path(output_dir, "Report.json")
@@ -164,26 +158,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
       dir_files <- list.files(output_dir)
       which_json <- grep("json$", dir_files)
       json <- jsonlite::read_json(file.path(output_dir, dir_files[which_json]))
-      if (json$version == "1") {
-        new_cards <- list()
-        cards_names <- names(json$cards)
-        cards_names <- gsub("[.][0-9]*$", "", cards_names)
-        for (iter_c in seq_along(json$cards)) {
-          card_class <- cards_names[iter_c]
-          card <- json$cards[[iter_c]]
-          new_card <- switch(card_class,
-            ReportCard = ReportCard$new()$from_list(card, output_dir),
-            TealReportCard = TealReportCard$new()$from_list(card, output_dir)
-          )
-          new_cards <- c(new_cards, new_card)
-        }
-      } else {
-        stop("The provided version is not supported")
-      }
-      reporter <- Reporter$new()
-      reporter$append_cards(new_cards)
-      reporter$append_metadata(json$metadata)
-      reporter
+      Reporter$new()$from_list(json, output_dir)
     }
   ),
   lock_objects = TRUE,
