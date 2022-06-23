@@ -6,12 +6,12 @@ testthat::test_that("new returns an object of type Renderer", {
   testthat::expect_true(inherits(Renderer$new(), "Renderer"))
 })
 
-text_block1 <- teal.reporter::TextBlock$new()$set_content("text")$set_style("header2")
-text_block2 <- teal.reporter::TextBlock$new()$set_content("text")
+text_block1 <- TextBlock$new()$set_content("text")$set_style("header2")
+text_block2 <- TextBlock$new()$set_content("text")
 png_path <- system.file("img", "Rlogo.png", package = "png")
-picture_block <- teal.reporter::PictureBlock$new()$set_content(ggplot2::ggplot(iris))
-table_block <- teal.reporter::TableBlock$new()$set_content(iris)
-newpage_block <- teal.reporter::NewpageBlock$new()
+picture_block <- PictureBlock$new()$set_content(ggplot2::ggplot(iris))
+table_block <- TableBlock$new()$set_content(iris)
+newpage_block <- NewpageBlock$new()
 blocks <- list(text_block1, text_block2, picture_block, table_block, newpage_block)
 
 testthat::test_that("renderRmd asserts the argument is a list of TextBlocks/PictureBlock/NewpageBlock/TableBlock", {
