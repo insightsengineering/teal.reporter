@@ -24,7 +24,7 @@ table_res2 <- rtables::build_table(lyt, airquality)
 card2$append_table(table_res2)
 card2$append_table(iris)
 
-reporter <- teal.reporter::Reporter$new()
+reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 
 testthat::test_that("get_cards returns the same cards which was added to reporter", {
@@ -43,7 +43,7 @@ testthat::test_that("get_blocks by default adds NewpageBlock$new() between cards
   expect_equal(reporter$get_blocks(), reporter_blocks2)
 })
 
-reporter2 <- teal.reporter::Reporter$new()
+reporter2 <- Reporter$new()
 
 testthat::test_that("get_blocks and get_cards return empty list by default", {
   expect_identical(reporter2$get_blocks(), list())
@@ -52,7 +52,7 @@ testthat::test_that("get_blocks and get_cards return empty list by default", {
 
 testthat::test_that("The deep copy constructor copies the content files to new files", {
   card <- teal.reporter::ReportCard$new()$append_plot(ggplot2::ggplot(iris))
-  reporter <- teal.reporter::Reporter$new()$append_cards(list(card))
+  reporter <- Reporter$new()$append_cards(list(card))
   reporter_copy <- reporter$clone(deep = TRUE)
   original_content_file <- reporter$get_blocks()[[1]]$get_content()
   copied_content_file <- reporter_copy$get_blocks()[[1]]$get_content()
@@ -68,7 +68,7 @@ testthat::test_that("swap_cards", {
 })
 
 testthat::test_that("reactive_add_card", {
-  reporter <- teal.reporter::Reporter$new()
+  reporter <- Reporter$new()
   testthat::expect_error(reporter$get_reactive_add_card())
   testthat::expect_identical(shiny::isolate(reporter$get_reactive_add_card()), 0)
   reporter$append_cards(list(card1))
@@ -76,22 +76,22 @@ testthat::test_that("reactive_add_card", {
 })
 
 testthat::test_that("append_metadata accept only named list", {
-  reporter <- teal.reporter::Reporter$new()
+  reporter <- Reporter$new()
   testthat::expect_error(reporter$append_metadata(list(sth = "sth")), NA)
   testthat::expect_error(reporter$append_metadata("sth"), "'list', not 'character'")
   testthat::expect_error(reporter$append_metadata(list("sth")), "Must have names")
 })
 
 testthat::test_that("append_metadata accept only unique names which could not be repeated", {
-  reporter <- teal.reporter::Reporter$new()
+  reporter <- Reporter$new()
   testthat::expect_error(reporter$append_metadata(list(sth = "sth", sth = 2)), "but element 2 is duplicated")
-  reporter <- teal.reporter::Reporter$new()
+  reporter <- Reporter$new()
   testthat::expect_error(reporter$append_metadata(list(sth = "sth")), NA)
   testthat::expect_error(reporter$append_metadata(list(sth = "sth")), "failed: Must be TRUE")
 })
 
 testthat::test_that("get_metadata", {
-  reporter <- teal.reporter::Reporter$new()
+  reporter <- Reporter$new()
   testthat::expect_error(reporter$append_metadata(list(sth = "sth")), NA)
   testthat::expect_identical(reporter$get_metadata(), list(sth = "sth"))
 })

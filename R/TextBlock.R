@@ -64,7 +64,7 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     from_list = function(x) {
       checkmate::assert_list(x)
       checkmate::assert_names(names(x), must.include = c("text", "style"))
-      super$set_content(x$text)
+      self$set_content(x$text)
       self$set_style(x$style)
       invisible(self)
     },

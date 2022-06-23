@@ -76,7 +76,7 @@ testthat::test_that("JSONArchiver dectructor removes the temp dir", {
   testthat::expect_false(dir.exists(temp_dir))
 })
 
-archiver <- teal.reporter:::JSONArchiver$new()
+archiver <- JSONArchiver$new()
 
 testthat::test_that("JSONArchiver write a reporter", {
   testthat::expect_error(archiver$write(reporter), NA)
@@ -117,7 +117,7 @@ testthat::test_that("JSONArchiver with an empty dir", {
 })
 
 testthat::test_that("JSONArchiver destructor remove its output_dir", {
-  archiver <- teal.reporter:::JSONArchiver$new()
+  archiver <- JSONArchiver$new()
   archiver_path <- archiver$get_output_dir()
   testthat::expect_true(dir.exists(archiver_path))
   rm(archiver)
