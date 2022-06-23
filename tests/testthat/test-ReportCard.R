@@ -109,3 +109,43 @@ testthat::test_that("setting and getting a name to the ReportCard", {
   testthat::expect_identical(ReportCard$new()$set_name("NAME")$get_name(), "NAME")
   testthat::expect_identical(ReportCard$new()$get_name(), character(0))
 })
+
+card <- teal.reporter::ReportCard$new()
+
+card$append_text("Header 2 text", "header2")
+card$append_text("A paragraph of default text", "header2")
+card$append_plot(
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
+    ggplot2::geom_histogram()
+)
+
+picture_filename <- basename(card$get_content()[[3]]$get_content())
+temp_dir <- file.path(tempdir(), "test")
+dir.create(temp_dir)
+
+testthat::test_that("to_list internally triggers to_list on each Block", {
+  testthat::expect_identical(
+    card$to_list(temp_dir),
+    list(blocks = list(
+      TextBlock = list(text = "Header 2 text", style = "header2"),
+      TextBlock = list(text = "A paragraph of default text", style = "header2"),
+      PictureBlock = list(basename = picture_filename)
+    ), metadata = list())
+  )
+  testthat::expect_true(picture_filename %in% list.files(temp_dir))
+})
+
+testthat::test_that("from_list", {
+  cardf <- ReportCard$new()$from_list(
+    list(blocks = list(
+      TextBlock = list(text = "Header 2 text", style = "header2"),
+      TextBlock = list(text = "A paragraph of default text", style = "header2"),
+      PictureBlock = list(basename = picture_filename)
+    ), metadata = list()),
+    temp_dir
+  )
+  testthat::expect_true(inherits(cardf, "ReportCard"))
+  testthat::expect_length(cardf$get_content(), 3L)
+})
+
+unlink(temp_dir, recursive = TRUE)

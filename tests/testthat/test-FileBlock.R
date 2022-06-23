@@ -9,11 +9,11 @@ testthat::test_that("new returns an object of type FileBlock", {
 testthat::test_that("destructor removes the file", {
   temp_file <- tempfile(fileext = ".png")
   file.create(temp_file)
-  expect_true(file.exists(temp_file))
+  testthat::expect_true(file.exists(temp_file))
   block <- FileBlock$new()$set_content(temp_file)
   rm(block)
   gc()
-  expect_false(file.exists(temp_file))
+  testthat::expect_false(file.exists(temp_file))
 })
 
 testthat::test_that("to_list returns a named list with a one field", {

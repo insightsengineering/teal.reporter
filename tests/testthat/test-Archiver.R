@@ -29,70 +29,70 @@ testthat::test_that("new returns an object of type Archiver", {
 
 testthat::test_that("Archiver errors with the abstract methods", {
   archiver <- Archiver$new()
-  expect_error(archiver$read(), "Pure virtual method")
-  expect_error(archiver$write(), "Pure virtual method")
+  testthat::expect_error(archiver$read(), "Pure virtual method")
+  testthat::expect_error(archiver$write(), "Pure virtual method")
 })
 
 testthat::test_that("intialize FileArchiver", {
-  expect_error(FileArchiver$new(), NA)
+  testthat::expect_error(FileArchiver$new(), NA)
 })
 
 testthat::test_that("FileArchiver creates a temp directory when initialized", {
   archiver <- FileArchiver$new()
-  expect_true(dir.exists(archiver$get_output_dir()))
+  testthat::expect_true(dir.exists(archiver$get_output_dir()))
 })
 
 testthat::test_that("FileArchiver creates a temp directory when initialized, with a proper name", {
   archiver <- FileArchiver$new()
-  expect_true(grepl("archive_[0-9]{18,18}$", archiver$get_output_dir()))
+  testthat::expect_true(grepl("archive_[0-9]{18,18}$", archiver$get_output_dir()))
 })
 
 testthat::test_that("FileArchiver dectructor removes the temp dir", {
   archiver <- FileArchiver$new()
   temp_dir <- archiver$get_output_dir()
-  expect_true(dir.exists(temp_dir))
+  testthat::expect_true(dir.exists(temp_dir))
   rm(archiver)
   # we need a garbage collector
   gc()
-  expect_false(dir.exists(temp_dir))
+  testthat::expect_false(dir.exists(temp_dir))
 })
 
 testthat::test_that("intialize JSONArchiver", {
-  expect_error(JSONArchiver$new(), NA)
+  testthat::expect_error(JSONArchiver$new(), NA)
 })
 
 testthat::test_that("JSONArchiver creates a temp directory when initialized", {
   archiver <- JSONArchiver$new()
-  expect_true(dir.exists(archiver$get_output_dir()))
+  testthat::expect_true(dir.exists(archiver$get_output_dir()))
 })
 
 testthat::test_that("JSONArchiver dectructor removes the temp dir", {
   archiver <- JSONArchiver$new()
   temp_dir <- archiver$get_output_dir()
-  expect_true(dir.exists(temp_dir))
+  testthat::expect_true(dir.exists(temp_dir))
   rm(archiver)
   # we need a garbage collector
   gc()
-  expect_false(dir.exists(temp_dir))
+  testthat::expect_false(dir.exists(temp_dir))
 })
 
-archiver <- JSONArchiver$new()
+archiver <- teal.reporter:::JSONArchiver$new()
 
 testthat::test_that("JSONArchiver write a reporter", {
-  expect_error(archiver$write(reporter), NA)
+  testthat::expect_error(archiver$write(reporter), NA)
 })
 
 testthat::test_that("JSONArchiver write a reporter with a json file and static files", {
   expect_true(dir.exists(archiver$get_output_dir()))
   files <- list.files(archiver$get_output_dir())
-  expect_true(length(files) == 4)
-  expect_true("Report.json" %in% files)
+  testthat::expect_true(length(files) == 4)
+  testthat::expect_true("Report.json" %in% files)
 })
 
 testthat::test_that("JSONArchiver read back the Reporter instance", {
   expect_s3_class(archiver$read(), "Reporter")
-  expect_length(archiver$read()$get_cards(), 2L)
-  expect_length(archiver$read()$get_blocks(), 8L)
+  testthat::expect_length(archiver$read()$get_cards(), 2L)
+  testthat::expect_length(archiver$read()$get_blocks(), 8L)
 })
 
 testthat::test_that("JSONArchiver read back and all table/picture statics exists", {
@@ -101,23 +101,26 @@ testthat::test_that("JSONArchiver read back and all table/picture statics exists
     function(x) inherits(x, "PictureBlock") || inherits(x, "TableBlock"),
     archiver$read()$get_blocks()
   )
-  expect_true(all(vapply(file_blocks, function(f) file.exists(f$get_content()), logical(1))))
+  testthat::expect_true(all(vapply(file_blocks, function(f) file.exists(f$get_content()), logical(1))))
 })
 
 testthat::test_that("JSONArchiver with an empty dir", {
   temp_dir <- file.path(tempdir(), "test")
   dir.create(temp_dir)
 
-  expect_warning(archiver$read(temp_dir), "The directory provided to the Archiver is empty.")
+  testthat::expect_warning(
+    archiver$read(temp_dir),
+    "The directory provided to the Archiver is empty."
+  )
 
   unlink(temp_dir, recursive = TRUE)
 })
 
 testthat::test_that("JSONArchiver destructor remove its output_dir", {
-  archiver <- JSONArchiver$new()
+  archiver <- teal.reporter:::JSONArchiver$new()
   archiver_path <- archiver$get_output_dir()
-  expect_true(dir.exists(archiver_path))
+  testthat::expect_true(dir.exists(archiver_path))
   rm(archiver)
   gc()
-  expect_false(dir.exists(archiver_path))
+  testthat::expect_false(dir.exists(archiver_path))
 })
