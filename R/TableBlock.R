@@ -27,7 +27,6 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
     #' block$set_content(iris)
     #'
     set_content = function(content) {
-      is.character(content)
       checkmate::assert_multi_class(content, private$supported_tables)
       path <- tempfile(fileext = ".rds")
       saveRDS(content, file = path)

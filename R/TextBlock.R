@@ -74,7 +74,7 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #' block <- teal.reporter:::TextBlock$new()
     #' block$to_list()
     to_list = function() {
-      list(text = super$get_content(), style = self$get_style())
+      list(text = self$get_content(), style = self$get_style())
     }
   ),
   private = list(
