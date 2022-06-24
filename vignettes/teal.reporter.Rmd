@@ -42,7 +42,7 @@ If you want to let the users of your application preview a report and reorganize
 [the vignette on a "report previewer" module](./previewerReporter.html).
 
 ### Integration with `teal`
-If you are interested in how `teal.reporter` fits into [`teal`](https://github.com/insightsengineering/teal), look for
+If you are interested in how `teal.reporter` fits into [`teal`](https://insightsengineering.github.io/teal), look for
 [a vignette about it in `teal`](https://insightsengineering.github.io/teal/articles/adding_support_for_reporting.html).
 
 ### More control
