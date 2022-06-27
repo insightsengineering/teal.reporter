@@ -32,13 +32,13 @@ archiver <- teal.reporter:::Archiver$new()
 \if{html}{\out{<a id="method-Archiver-new"></a>}}
 \if{latex}{\out{\hypertarget{method-Archiver-new}{}}}
 \subsection{Method \code{new()}}{
-Returns a \code{Archiver} object.
+Returns an \code{Archiver} object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Archiver$new()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-a \code{Archiver} object
+an \code{Archiver} object
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
