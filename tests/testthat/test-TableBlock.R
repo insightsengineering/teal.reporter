@@ -39,6 +39,6 @@ testthat::test_that("set_content supports rtables object", {
         "mean (sd)" = rtables::rcell(c(mean(x), sd(x)), format = "xx.xx (xx.xx)"),
         "range" = diff(range(x))
       )
-  })
+    })
   testthat::expect_error(block$set_content(rtables::build_table(l, iris)), NA)
 })
