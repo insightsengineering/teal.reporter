@@ -24,3 +24,21 @@ testthat::test_that("set_content returns the TableBlock object", {
 testthat::test_that("get_content returns character(0) on a newly initialized TableBlock", {
   testthat::expect_equal(TableBlock$new()$get_content(), character(0))
 })
+
+testthat::test_that("set_content supports data.frame object", {
+  block <- TableBlock$new()
+  testthat::expect_error(block$set_content(iris), NA)
+})
+
+testthat::test_that("set_content supports rtables object", {
+  block <- TableBlock$new()
+  l <- rtables::basic_table() %>%
+    rtables::split_cols_by("Species") %>%
+    rtables::analyze("Sepal.Length", afun = function(x) {
+      list(
+        "mean (sd)" = rtables::rcell(c(mean(x), sd(x)), format = "xx.xx (xx.xx)"),
+        "range" = diff(range(x))
+      )
+  })
+  testthat::expect_error(block$set_content(rtables::build_table(l, iris)), NA)
+})

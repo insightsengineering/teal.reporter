@@ -7,22 +7,21 @@
 simple_reporter_ui(id)
 }
 \arguments{
-\item{id}{\code{character}}
+\item{id}{\code{character(1)} this \code{shiny} module's id.}
 }
 \value{
 \code{shiny.tag}
 }
 \description{
-three buttons for adding views, downloading and resetting the Report.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+three buttons for adding cards, downloading and resetting the Report.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }
 \examples{
 if (interactive()) {
   shiny::shinyApp(
-    ui = function(id) {
-      simple_reporter_ui("simple")
-    },
+    ui = shiny::fluidPage(simple_reporter_ui("simple")),
     server = function(input, output, session) {
       simple_reporter_srv("simple", Reporter$new(), function(card) card)
     }

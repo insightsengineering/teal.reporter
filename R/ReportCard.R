@@ -1,5 +1,6 @@
 #' @title `ReportCard`
-#' @description R6 class that supports creating a report card containing text, plot, table and
+#' @description `r lifecycle::badge("experimental")`
+#' R6 class that supports creating a report card containing text, plot, table and
 #' meta data blocks that can be appended and rendered to form a report output from a shiny app.
 #' @export
 #'
@@ -14,7 +15,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     initialize = function() {
       private$content <- list()
-      private$chr_converters <- list()
+      private$metadata <- list()
       invisible(self)
     },
     #' @description Appends a table to this `ReportCard`.
@@ -55,37 +56,26 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Returns the content of this `ReportCard`.
     #'
-    #' @param raw (`logical`) whether to include `content` as it was appended or apply `chr_converter`
-    #' functions on meta data objects.
     #' @return `list()` list of `TableBlock`, `TextBlock` and `PictureBlock`.
-    #' If the `raw` argument is `TRUE`, meta data objects in the form they were added will be returned. Otherwise,
-    #' given `chr_converter` function given will be applied on these objects.
-    #' Only metadata elements are named.
     #' @examples
-    #' card <- ReportCard$new()$append_text("Some text")$append_plot(
-    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-    #' )$append_metadata("rc", "a <- 2 + 2")
+    #' card <- ReportCard$new()$append_text("Some text")$append_metadata("rc", "a <- 2 + 2")
     #'
     #' card$get_content()
     #'
-    get_content = function(raw = FALSE) {
-      checkmate::assert_logical(raw)
-      if (!raw) {
-        lapply(
-          seq_along(private$content),
-          function(index) {
-            if (inherits(private$content[[index]], "ContentBlock")) {
-              private$content[[index]]
-            } else {
-              key <- names(private$content)[index]
-              chr_converter_func <- private$chr_converters[[key]]
-              TextBlock$new(chr_converter_func(private$content[[index]]))
-            }
-          }
-        )
-      } else {
-        private$content
-      }
+    #'
+    get_content = function() {
+      private$content
+    },
+    #' @description Returns the metadata of this `ReportCard`.
+    #'
+    #' @return `named list` list of elements.
+    #' @examples
+    #' card <- ReportCard$new()$append_text("Some text")$append_metadata("rc", "a <- 2 + 2")
+    #'
+    #' card$get_metadata()
+    #'
+    get_metadata = function() {
+      private$metadata
     },
     #' @description Appends content elements to this `ReportCard`.
     #'
@@ -94,41 +84,20 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param chr_converter (`function`) to convert a value to a character, by default `base::deparse1`.
     #' @return invisibly self
     #' @examples
-    #' custom_lm_chr_converter <- function(x) paste(capture.output(summary(x)), collapse = "\\n  ")
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
     #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )$append_text("Some text")$append_metadata(key = "lm",
-    #'                   value = lm(Ozone ~ Solar.R, airquality),
-    #'                   chr_converter = custom_lm_chr_converter)
+    #'                   value = lm(Ozone ~ Solar.R, airquality))
     #' card$get_content()
-    #' card$get_content(raw = TRUE)
+    #' card$get_metadata()
     #'
-    append_metadata = function(key, value, chr_converter = deparse1) {
+    append_metadata = function(key, value) {
       checkmate::assert_character(key, min.len = 0, max.len = 1)
-      checkmate::assert_false(checkmate::test_choice(key, names(private$chr_converters)))
-      checkmate::assert_function(chr_converter)
-      checkmate::assert_string(chr_converter(value))
-
+      checkmate::assert_false(key %in% names(private$metadata))
       meta_list <- list()
       meta_list[[key]] <- value
-      private$content <- append(private$content, meta_list)
-      private$chr_converters[[key]] <- chr_converter
+      private$metadata <- append(private$metadata, meta_list)
       invisible(self)
-    },
-    #' @description get all `chr_converter` functions of this `ReportCard`.
-    #' @return `named list`
-    #' @examples
-    #' custom_lm_chr_converter <- function(x) paste(capture.output(summary(x)), collapse = "\\n  ")
-    #' card <- ReportCard$new()$append_text("Some text")$append_plot(
-    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-    #' )$append_text("Some text")$append_metadata(key = "lm",
-    #'                   value = lm(Ozone ~ Solar.R, airquality),
-    #'                   chr_converter = custom_lm_chr_converter
-    #' )$append_metadata(key = "code", value = lm(Ozone ~ Solar.R, airquality))
-    #' card$get_chr_converters()
-    #'
-    get_chr_converters = function() {
-      private$chr_converters
     },
     #' @description get the Card name
     #'
@@ -152,7 +121,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
   ),
   private = list(
     content = list(),
-    chr_converters = list(),
+    metadata = list(),
     name = character(0),
     # @description The copy constructor.
     #

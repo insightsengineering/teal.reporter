@@ -1,8 +1,9 @@
 #' Add Card Button User Interface
-#' @description button for adding views/cards to the Report.
+#' @description `r lifecycle::badge("experimental")`
+#' button for adding views/cards to the Report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character`
+#' @param id `character(1)` this `shiny` module's id.
 #' @return `shiny::tagList`
 #' @export
 add_card_button_ui <- function(id) {
@@ -20,12 +21,30 @@ add_card_button_ui <- function(id) {
 }
 
 #' Add Card Button Server
-#' @description server for adding views/cards to the Report.
+#' @description `r lifecycle::badge("experimental")`
+#' server for adding views/cards to the Report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character`
-#' @param reporter `Reporter` instance.
-#' @param card_fun `function` which returns a `ReportCard` instance,
+#'
+#' @details
+#' This module allows using a child of [`ReportCard`] instead of [`ReportCard`].
+#' To properly support this, an instance of the child class must be passed
+#' as the default value of the `card` argument in the `card_fun` function.
+#' See below:
+#' ```{r}
+#' CustomReportCard <- R6::R6Class( # nolint: object_name_linter.
+#'   classname = "CustomReportCard",
+#'   inherit = teal.reporter::ReportCard
+#' )
+#'
+#' custom_function <- function(card = CustomReportCard$new()) {
+#'   card
+#' }
+#' ```
+#'
+#' @param id `character(1)` this `shiny` module's id.
+#' @param reporter [`Reporter`] instance.
+#' @param card_fun `function` which returns a [`ReportCard`] instance,
 #' the function have at`card`argument and optional `comment`.
 #' @return `shiny::moduleServer`
 #' @export
@@ -82,10 +101,14 @@ add_card_button_srv <- function(id, reporter, card_fun) {
 
       shiny::observeEvent(input$add_card_ok, {
         card_fun_args_nams <- names(formals(card_fun))
+        # The default_card is defined here because formals() returns a pairedlist object
+        # of formal parameter names and their default values. The values are missing
+        # if not defined and the missing check does not work if supplied formals(card_fun)[[1]]
+        default_card <- formals(card_fun)[[1]]
         card <- `if`(
-          is.null(formals(card_fun)[[1]]),
+          missing(default_card),
           ReportCard$new(),
-          eval(formals(card_fun)[[1]], envir = environment(card_fun))
+          eval(default_card, envir = environment(card_fun))
         )
         if (length(card_fun_args_nams) == 1) {
           card <- card_fun(card)

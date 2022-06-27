@@ -72,7 +72,8 @@ conv_str_logi <- function(input,
 
 #' @title Get document output types from the `rmarkdown` package
 #'
-#' @description get document output types from the `rmarkdown` package.
+#' @description `r lifecycle::badge("experimental")`
+#' get document output types from the `rmarkdown` package.
 #' @return `character` vector.
 #' @export
 #' @examples
@@ -84,8 +85,9 @@ rmd_outputs <- function() {
 
 #' @title Get document output arguments from the `rmarkdown` package
 #'
-#' @description get document output arguments from the `rmarkdown` package
-#' @param output_name `character``rmarkdown` output name.
+#' @description `r lifecycle::badge("experimental")`
+#' get document output arguments from the `rmarkdown` package
+#' @param output_name `character` `rmarkdown` output name.
 #' @param default_values `logical` if to return a default values for each argument.
 #' @export
 #' @examples
@@ -104,7 +106,7 @@ rmd_output_arguments <- function(output_name, default_values = FALSE) {
 }
 
 #' @title Parse a Named List to the `Rmd` `yaml` Header
-#' @description
+#' @description `r lifecycle::badge("experimental")`
 #' parse a named list to the `Rmd` `yaml` header, so the developer gets automatically tabulated `Rmd` `yaml` header.
 #' Only a non nested (flat) list will be processed,
 #' where as a nested list is directly processed with the [`yaml::as.yaml`] function.
@@ -112,13 +114,13 @@ rmd_output_arguments <- function(output_name, default_values = FALSE) {
 #' `c("author", "date", "title", "subtitle", "abstract", "keywords", "subject", "description", "category", "lang")`.
 #' Moreover all `output`field types in the `rmarkdown` package and their arguments are supported.
 #' @param input_list `named list` non nested with slots names and their values compatible with `Rmd` `yaml` header.
-#' @param as_header `logical` optionally wrap with result with the `teal.reporter::md_header`, default `TRUE`.
-#' @param convert_logi `logical`convert a character values to logical,
+#' @param as_header `logical` optionally wrap with result with the [md_header()], default `TRUE`.
+#' @param convert_logi `logical` convert a character values to logical,
 #'  if they are recognized as quoted `yaml` logical values , default `TRUE`.
-#' @param multi_output `logical`multi `output` slots in the `input` argument, default `FALSE`.
+#' @param multi_output `logical` multi `output` slots in the `input` argument, default `FALSE`.
 #' @param silent `logical` suppress messages and warnings, default `FALSE`.
 #' @return `character` with `rmd_yaml_header` class,
-#' result of [`yaml::as.yaml`], optionally wrapped with `teal.reporter::md_header`.
+#' result of [`yaml::as.yaml`], optionally wrapped with [md_header()].
 #' @export
 #' @examples
 #' # nested so using yaml::as.yaml directly
@@ -246,7 +248,8 @@ as_yaml_auto <- function(input_list,
 
 #' @title Print method for the `yaml_header` class
 #'
-#' @description Print method for the `yaml_header` class.
+#' @description `r lifecycle::badge("experimental")`
+#' Print method for the `yaml_header` class.
 #' @param x `rmd_yaml_header` class object.
 #' @param ... optional text.
 #' @return NULL

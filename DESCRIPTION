@@ -1,6 +1,7 @@
 Package: teal.reporter
 Title: Reporting tools for Shiny modules
-Version: 0.0.0.9015
+Version: 0.1.0.9003
+Date: 2022-06-09
 Authors@R: c(
     person("Maciej", "Nasinski", , "maciej.nasinski@contractors.roche.com", role = c("aut", "cre")),
     person("Konrad", "Pagacz", , "konrad.pagacz@contractors.roche.com", role = "aut"),
@@ -16,6 +17,7 @@ Imports:
     checkmate,
     grid,
     knitr,
+    lifecycle,
     R6,
     rmarkdown,
     rtables,
@@ -24,14 +26,19 @@ Imports:
     yaml,
     zip
 Suggests:
+    DT,
     ggplot2,
     lattice,
     png,
+    rtables (>= 0.5.1),
     testthat
 VignetteBuilder:
     knitr
+RdMacros:
+    lifecycle
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
+Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
