@@ -20,7 +20,6 @@ Imports:
     lifecycle,
     R6,
     rmarkdown,
-    rtables,
     shiny,
     shinyWidgets,
     yaml,
