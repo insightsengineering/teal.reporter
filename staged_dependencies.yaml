@@ -6,7 +6,7 @@ downstream_repos:
   insightsengineering/teals:
     repo: insightsengineering/teal
     host: https://github.com
-insightsengineering/teal.modules.clinical:
+  insightsengineering/teal.modules.clinical:
     repo: insightsengineering/teal.modules.clinical
     host: https://github.com
 upstream_repos:
