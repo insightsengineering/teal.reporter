@@ -49,3 +49,21 @@ testthat::test_that("from_list after to_list to save and retrive", {
     file.size(tblock$get_content())
   )
 })
+
+testthat::test_that("set_content supports data.frame object", {
+  block <- TableBlock$new()
+  testthat::expect_error(block$set_content(iris), NA)
+})
+
+testthat::test_that("set_content supports rtables object", {
+  block <- TableBlock$new()
+  l <- rtables::basic_table() %>%
+    rtables::split_cols_by("Species") %>%
+    rtables::analyze("Sepal.Length", afun = function(x) {
+      list(
+        "mean (sd)" = rtables::rcell(c(mean(x), sd(x)), format = "xx.xx (xx.xx)"),
+        "range" = diff(range(x))
+      )
+    })
+  testthat::expect_error(block$set_content(rtables::build_table(l, iris)), NA)
+})

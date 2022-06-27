@@ -52,7 +52,7 @@ Returns a new \code{TableBlock} object
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{table}}{(\code{data.frame}, \code{DT}, \code{rtables}, \code{TableTree}) a table assigned to this \code{TableBlock}}
+\item{\code{table}}{(\code{data.frame}, \code{rtables}, \code{TableTree}, \code{ElementaryTable}) a table assigned to this \code{TableBlock}}
 }
 \if{html}{\out{</div>}}
 }
@@ -72,7 +72,7 @@ Sets content of this \code{TableBlock}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{content}}{(\code{data.frame}, \code{rtables}) a table assigned to this \code{TableBlock}}
+\item{\code{content}}{(\code{data.frame}, \code{rtables}, \code{TableTree}, \code{ElementaryTable}) a table assigned to this \code{TableBlock}}
 }
 \if{html}{\out{</div>}}
 }
