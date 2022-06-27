@@ -3,9 +3,9 @@
 Archiver <- R6::R6Class( # nolint: object_name_linter.
   classname = "Archiver",
   public = list(
-    #' @description Returns a `Archiver` object.
+    #' @description Returns an `Archiver` object.
     #'
-    #' @return a `Archiver` object
+    #' @return an `Archiver` object
     #' @examples
     #' archiver <- teal.reporter:::Archiver$new()
     #'
