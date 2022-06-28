@@ -144,4 +144,3 @@ testthat::test_that("JSONArchiver destructor remove its output_dir", {
   gc()
   testthat::expect_false(dir.exists(archiver_path))
 })
-
