@@ -142,6 +142,26 @@ tmp_dir <- file.path(tempdir(), "testdir")
 unlink(tmp_dir, recursive = TRUE)
 dir.create(tmp_dir)
 reporter$from_list(reporter$to_list(tmp_dir), tmp_dir)
+
+## ------------------------------------------------
+## Method `Reporter$to_jsondir`
+## ------------------------------------------------
+
+reporter <- Reporter$new()
+tmp_dir <- file.path(tempdir(), "jsondir")
+dir.create(tmp_dir)
+reporter$to_jsondir(tmp_dir)
+
+## ------------------------------------------------
+## Method `Reporter$from_jsondir`
+## ------------------------------------------------
+
+reporter <- Reporter$new()
+tmp_dir <- file.path(tempdir(), "jsondir")
+dir.create(tmp_dir)
+unlink(list.files(tmp_dir, recursive = TRUE))
+reporter$to_jsondir(tmp_dir)
+reporter$from_jsondir(tmp_dir)
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -159,6 +179,8 @@ reporter$from_list(reporter$to_list(tmp_dir), tmp_dir)
 \item \href{#method-Reporter-from_reporter}{\code{Reporter$from_reporter()}}
 \item \href{#method-Reporter-to_list}{\code{Reporter$to_list()}}
 \item \href{#method-Reporter-from_list}{\code{Reporter$from_list()}}
+\item \href{#method-Reporter-to_jsondir}{\code{Reporter$to_jsondir()}}
+\item \href{#method-Reporter-from_jsondir}{\code{Reporter$from_jsondir()}}
 \item \href{#method-Reporter-clone}{\code{Reporter$clone()}}
 }
 }
@@ -538,6 +560,70 @@ tmp_dir <- file.path(tempdir(), "testdir")
 unlink(tmp_dir, recursive = TRUE)
 dir.create(tmp_dir)
 reporter$from_list(reporter$to_list(tmp_dir), tmp_dir)
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-to_jsondir"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-to_jsondir}{}}}
+\subsection{Method \code{to_jsondir()}}{
+Create/Recreate a Reporter to a directory with \code{JSON} file and static files
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$to_jsondir(output_dir)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{output_dir}}{\code{character(1)} a path to the directory where files will be copied, \code{JSON} and statics.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{reporter <- Reporter$new()
+tmp_dir <- file.path(tempdir(), "jsondir")
+dir.create(tmp_dir)
+reporter$to_jsondir(tmp_dir)
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-from_jsondir"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-from_jsondir}{}}}
+\subsection{Method \code{from_jsondir()}}{
+Create/Recreate a Reporter from a directory with \code{JSON} file and static files
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$from_jsondir(output_dir)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{output_dir}}{\code{character(1)} a path to the directory with files, \code{JSON} and statics.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{reporter <- Reporter$new()
+tmp_dir <- file.path(tempdir(), "jsondir")
+dir.create(tmp_dir)
+unlink(list.files(tmp_dir, recursive = TRUE))
+reporter$to_jsondir(tmp_dir)
+reporter$from_jsondir(tmp_dir)
 }
 \if{html}{\out{</div>}}
 

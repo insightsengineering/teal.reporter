@@ -96,7 +96,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     write = function(reporter) {
       checkmate::assert_class(reporter, "Reporter")
       unlink(list.files(private$output_dir, recursive = TRUE, full.names = TRUE))
-      private$to_jsondir(reporter, private$output_dir)
+      reporter$to_jsondir(private$output_dir)
       return(self)
     },
     #' @description read a `Reporter` instance from a directory with `JSONArchiver`.
@@ -134,31 +134,11 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
       }
 
       if (length(list.files(private$output_dir))) {
-        private$from_jsondir(private$output_dir)
+        Reporter$new()$from_jsondir(private$output_dir)
       } else {
         warning("The directory provided to the Archiver is empty.")
         Reporter$new()
       }
-    }
-  ),
-  private = list(
-    to_jsondir = function(reporter, output_dir) {
-      checkmate::assert_directory_exists(output_dir)
-
-      json <- reporter$to_list(output_dir)
-
-      cat(jsonlite::toJSON(json, auto_unbox = TRUE, force = TRUE),
-        file = file.path(output_dir, "Report.json")
-      )
-      output_dir
-    },
-    from_jsondir = function(output_dir) {
-      checkmate::assert_directory_exists(output_dir)
-      checkmate::assert_true(length(list.files(output_dir)) > 0)
-      dir_files <- list.files(output_dir)
-      which_json <- grep("json$", dir_files)
-      json <- jsonlite::read_json(file.path(output_dir, dir_files[which_json]))
-      Reporter$new()$from_list(json, output_dir)
     }
   ),
   lock_objects = TRUE,
