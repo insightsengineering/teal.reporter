@@ -75,3 +75,19 @@ testthat::test_that("add_card_button_srv supports passing no default object to c
     }
   )
 })
+
+testthat::test_that("add_card_button_srv try the card_fun", {
+  card_fun <- function(card) {
+    stop("ERROR")
+  }
+
+  shiny::testServer(
+    add_card_button_srv,
+    args = list(reporter = Reporter$new(), card_fun = card_fun),
+    expr = {
+      session$setInputs(`add_report_card_button` = 0)
+      expect_warning(session$setInputs(`add_card_ok` = 0))
+    }
+  )
+})
+
