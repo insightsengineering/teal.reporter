@@ -25,10 +25,11 @@ The implementation should consist of 5 steps:
 1. Create a `tabsetPanel` with the main app and the Previewer.
 2. Add modules user interface to the user interface of the app.
 3. Initialize Reporter instance.
-4. Create the Report Card function with two arguments: card and comment.
+4. Create the Report Card function with two optional arguments: card and comment.
 The function should build the Card step by step and assuming it is empty at the beginning,
 the optional comment argument is a string provided by the user when the card is added.
 If the comment argument is not specified then it is added automatically at the end of the Card.
+If the card argument is added then the `ReportCard` instance is automatically created for the user.
 This part requires the developer to use their imagination as to what the document page should look like.
 5. Invoke the servers with the reporter instance and the function to create the report card instance.
 
