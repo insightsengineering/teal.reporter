@@ -106,13 +106,14 @@ add_card_button_srv <- function(id, reporter, card_fun) {
         has_card_arg <- "card" %in% card_fun_args_nams
         has_comment_arg <- "comment" %in% card_fun_args_nams
 
-        if (!has_card_arg) {
-          if (has_comment_arg) {
-            card <- try(card_fun(comment = input$comment))
-          } else {
-            card <- try(card_fun())
-          }
-        } else {
+
+        arg_list <- list()
+
+        if (has_comment_arg) {
+          arg_list <- c(arg_list, list(comment = input$comment))
+        }
+
+        if (has_card_arg) {
           # The default_card is defined here because formals() returns a pairedlist object
           # of formal parameter names and their default values. The values are missing
           # if not defined and the missing check does not work if supplied formals(card_fun)[[1]]
@@ -122,12 +123,10 @@ add_card_button_srv <- function(id, reporter, card_fun) {
             ReportCard$new(),
             eval(default_card, envir = environment(card_fun))
           )
-          if (has_comment_arg) {
-            card <- try(card_fun(card = card, comment = input$comment))
-          } else {
-            card <- try(card_fun(card = card))
-          }
+          arg_list <- c(arg_list, list(card = card))
         }
+
+        card <- try(do.call(card_fun, arg_list))
 
         if (inherits(card, "try-error")) {
           msg <- paste0(
