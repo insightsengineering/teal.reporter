@@ -110,19 +110,36 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           ReportCard$new(),
           eval(default_card, envir = environment(card_fun))
         )
-        if (length(card_fun_args_nams) == 1) {
-          card <- card_fun(card)
-          if (length(input$comment) > 0 && input$comment != "") {
-            card$append_text("Comment", "header3")
-            card$append_text(input$comment)
-          }
+        has_own_comment <- length(card_fun_args_nams) == 2
+        if (has_own_comment) {
+          card <- try(card_fun(card, input$comment))
         } else {
-          card <- card_fun(card, input$comment)
+          card <- try(card_fun(card))
+          if (!inherits(card, "try-error")) {
+            if (length(input$comment) > 0 && input$comment != "") {
+              card$append_text("Comment", "header3")
+              card$append_text(input$comment)
+            }
+          }
         }
-        checkmate::assert_class(card, "ReportCard")
-        reporter$append_cards(list(card))
-        shiny::showNotification(sprintf("The card added successfully."))
-        shiny::removeModal()
+
+        if (inherits(card, "try-error")) {
+          msg <- paste0(
+            "The card could not be added to the report. ",
+            "Have the outputs for the report been created yet? If not please try again when they ",
+            "are ready. Otherwise contact your application developer"
+          )
+          warning(msg)
+          shiny::showNotification(
+            msg,
+            type = "error"
+          )
+        } else {
+          checkmate::assert_class(card, "ReportCard")
+          reporter$append_cards(list(card))
+          shiny::showNotification(sprintf("The card added successfully."), type = "message")
+          shiny::removeModal()
+        }
       })
     }
   )
