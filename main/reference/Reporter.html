@@ -12,7 +12,7 @@ R6 class that stores and manages report cards."><!-- mathjax --><script src="htt
     
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9004</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,12 +34,6 @@ R6 class that stores and manages report cards."><!-- mathjax --><script src="htt
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" href="https://insightsengineering.github.io/teal.reporter/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -90,7 +84,7 @@ R6 class that stores and manages report cards.</p>
 <h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
 <p>Returns a <code>Reporter</code> object.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -99,7 +93,8 @@ R6 class that stores and manages report cards.</p>
 </div>
 <div class="section">
 <h4 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h4>
-<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -107,7 +102,7 @@ R6 class that stores and manages report cards.</p>
 <h3 id="method-append-cards-">Method <code>append_cards()</code><a class="anchor" aria-label="anchor" href="#method-append-cards-"></a></h3>
 <p>Appends a table to this <code>Reporter</code>.</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="va">cards</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="va">cards</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -124,25 +119,26 @@ R6 class that stores and manages report cards.</p>
 </div>
 <div class="section">
 <h4 id="examples-1">Examples<a class="anchor" aria-label="anchor" href="#examples-1"></a></h4>
-<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span class="va">card1</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
-
-<span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span>
-<span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span>
-<span class="va">card1</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span>
- <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="va">card2</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
-
-<span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span>
-<span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span>
-<span class="va">lyt</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/analyze.html" class="external-link">analyze</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/split_rows_by.html" class="external-link">split_rows_by</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/basic_table.html" class="external-link">basic_table</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"Day"</span><span class="op">)</span>, <span class="st">"Ozone"</span>, afun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>
-<span class="va">table_res2</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/build_table.html" class="external-link">build_table</a></span><span class="op">(</span><span class="va">lyt</span>, <span class="va">airquality</span><span class="op">)</span>
-<span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">table_res2</span><span class="op">)</span>
-<span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>
-
-<span class="va">reporter</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
-<span class="va">reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">card1</span>, <span class="va">card2</span><span class="op">)</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">card1</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
+<span><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
+<span><span class="va">card1</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span>
+<span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">card2</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
+<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
+<span><span class="va">lyt</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/analyze.html" class="external-link">analyze</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/split_rows_by.html" class="external-link">split_rows_by</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/basic_table.html" class="external-link">basic_table</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"Day"</span><span class="op">)</span>, <span class="st">"Ozone"</span>, afun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
+<span><span class="va">table_res2</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/build_table.html" class="external-link">build_table</a></span><span class="op">(</span><span class="va">lyt</span>, <span class="va">airquality</span><span class="op">)</span></span>
+<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">table_res2</span><span class="op">)</span></span>
+<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">card1</span>, <span class="va">card2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -150,7 +146,7 @@ R6 class that stores and manages report cards.</p>
 <h3 id="method-get-cards-">Method <code>get_cards()</code><a class="anchor" aria-label="anchor" href="#method-get-cards-"></a></h3>
 <p>Returns cards of this <code>Reporter</code>.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Reporter</span><span class="op">$</span><span class="fu">get_cards</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Reporter</span><span class="op">$</span><span class="fu">get_cards</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -159,26 +155,26 @@ R6 class that stores and manages report cards.</p>
 </div>
 <div class="section">
 <h4 id="examples-2">Examples<a class="anchor" aria-label="anchor" href="#examples-2"></a></h4>
-<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span class="va">card1</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
-
-<span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span>
-<span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span>
-<span class="va">card1</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span>
- <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="va">card2</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
-
-<span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span>
-<span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span>
-<span class="va">lyt</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/analyze.html" class="external-link">analyze</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/split_rows_by.html" class="external-link">split_rows_by</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/basic_table.html" class="external-link">basic_table</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"Day"</span><span class="op">)</span>, <span class="st">"Ozone"</span>, afun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>
-<span class="va">table_res2</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/build_table.html" class="external-link">build_table</a></span><span class="op">(</span><span class="va">lyt</span>, <span class="va">airquality</span><span class="op">)</span>
-<span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">table_res2</span><span class="op">)</span>
-<span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>
-
-<span class="va">reporter</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
-<span class="va">reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">card1</span>, <span class="va">card2</span><span class="op">)</span><span class="op">)</span>
-<span class="va">reporter</span><span class="op">$</span><span class="fu">get_cards</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">card1</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
+<span><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
+<span><span class="va">card1</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span>
+<span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">card2</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
+<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
+<span><span class="va">lyt</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/analyze.html" class="external-link">analyze</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/split_rows_by.html" class="external-link">split_rows_by</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/basic_table.html" class="external-link">basic_table</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"Day"</span><span class="op">)</span>, <span class="st">"Ozone"</span>, afun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
+<span><span class="va">table_res2</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/build_table.html" class="external-link">build_table</a></span><span class="op">(</span><span class="va">lyt</span>, <span class="va">airquality</span><span class="op">)</span></span>
+<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">table_res2</span><span class="op">)</span></span>
+<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">card1</span>, <span class="va">card2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">reporter</span><span class="op">$</span><span class="fu">get_cards</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -186,7 +182,7 @@ R6 class that stores and manages report cards.</p>
 <h3 id="method-get-blocks-">Method <code>get_blocks()</code><a class="anchor" aria-label="anchor" href="#method-get-blocks-"></a></h3>
 <p>Returns blocks of all <code><a href="ReportCard.html">ReportCard</a></code> of this <code>Reporter</code>.</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Reporter</span><span class="op">$</span><span class="fu">get_blocks</span><span class="op">(</span>sep <span class="op">=</span> <span class="va"><a href="../reference/NewpageBlock.html">NewpageBlock</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Reporter</span><span class="op">$</span><span class="fu">get_blocks</span><span class="op">(</span>sep <span class="op">=</span> <span class="va"><a href="../reference/NewpageBlock.html">NewpageBlock</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -204,26 +200,27 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 </div>
 <div class="section">
 <h4 id="examples-3">Examples<a class="anchor" aria-label="anchor" href="#examples-3"></a></h4>
-<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span class="va">card1</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
-
-<span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span>
-<span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span>
-<span class="va">card1</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span>
- <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="va">card2</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
-
-<span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span>
-<span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span>
-<span class="va">lyt</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/analyze.html" class="external-link">analyze</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/split_rows_by.html" class="external-link">split_rows_by</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/basic_table.html" class="external-link">basic_table</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"Day"</span><span class="op">)</span>, <span class="st">"Ozone"</span>, afun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>
-<span class="va">table_res2</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/build_table.html" class="external-link">build_table</a></span><span class="op">(</span><span class="va">lyt</span>, <span class="va">airquality</span><span class="op">)</span>
-<span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">table_res2</span><span class="op">)</span>
-<span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>
-
-<span class="va">reporter</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
-<span class="va">reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">card1</span>, <span class="va">card2</span><span class="op">)</span><span class="op">)</span>
-<span class="va">reporter</span><span class="op">$</span><span class="fu">get_blocks</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">card1</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
+<span><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
+<span><span class="va">card1</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span>
+<span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">card2</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
+<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
+<span><span class="va">lyt</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/analyze.html" class="external-link">analyze</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/split_rows_by.html" class="external-link">split_rows_by</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/basic_table.html" class="external-link">basic_table</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"Day"</span><span class="op">)</span>, <span class="st">"Ozone"</span>, afun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
+<span><span class="va">table_res2</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/build_table.html" class="external-link">build_table</a></span><span class="op">(</span><span class="va">lyt</span>, <span class="va">airquality</span><span class="op">)</span></span>
+<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">table_res2</span><span class="op">)</span></span>
+<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">card1</span>, <span class="va">card2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">reporter</span><span class="op">$</span><span class="fu">get_blocks</span><span class="op">(</span><span class="op">)</span></span>
+<span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -231,7 +228,7 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <h3 id="method-reset-">Method <code>reset()</code><a class="anchor" aria-label="anchor" href="#method-reset-"></a></h3>
 <p>Removes all <code><a href="ReportCard.html">ReportCard</a></code> objects added to this <code>Reporter</code>.</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Reporter</span><span class="op">$</span><span class="fu">reset</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Reporter</span><span class="op">$</span><span class="fu">reset</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -243,7 +240,7 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <h3 id="method-remove-cards-">Method <code>remove_cards()</code><a class="anchor" aria-label="anchor" href="#method-remove-cards-"></a></h3>
 <p>remove a specific Card in the Reporter</p><div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Reporter</span><span class="op">$</span><span class="fu">remove_cards</span><span class="op">(</span>ids <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Reporter</span><span class="op">$</span><span class="fu">remove_cards</span><span class="op">(</span>ids <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -263,7 +260,7 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <h3 id="method-swap-cards-">Method <code>swap_cards()</code><a class="anchor" aria-label="anchor" href="#method-swap-cards-"></a></h3>
 <p>swap two cards in the Reporter</p><div class="section">
 <h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Reporter</span><span class="op">$</span><span class="fu">swap_cards</span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Reporter</span><span class="op">$</span><span class="fu">swap_cards</span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -287,7 +284,7 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <h3 id="method-get-reactive-add-card-">Method <code>get_reactive_add_card()</code><a class="anchor" aria-label="anchor" href="#method-get-reactive-add-card-"></a></h3>
 <p>get a value for the reactive value for the add card</p><div class="section">
 <h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Reporter</span><span class="op">$</span><span class="fu">get_reactive_add_card</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Reporter</span><span class="op">$</span><span class="fu">get_reactive_add_card</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -296,7 +293,7 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 </div>
 <div class="section">
 <h4 id="examples-4">Examples<a class="anchor" aria-label="anchor" href="#examples-4"></a></h4>
-<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/isolate.html" class="external-link">isolate</a></span><span class="op">(</span><span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">get_reactive_add_card</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/isolate.html" class="external-link">isolate</a></span><span class="op">(</span><span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">get_reactive_add_card</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -304,7 +301,7 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Reporter</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Reporter</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -322,67 +319,67 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
-<span class="r-in"><span class="co">## Method `Reporter$new`</span></span>
-<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
-<span class="r-in"><span class="co">## Method `Reporter$append_cards`</span></span>
-<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">card1</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">card1</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span>
-<span class="r-in"> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Reporter$new`</span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Reporter$append_cards`</span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">card1</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">card1</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span></span>
+<span class="r-in"><span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">card2</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">lyt</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/analyze.html" class="external-link">analyze</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/split_rows_by.html" class="external-link">split_rows_by</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/basic_table.html" class="external-link">basic_table</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"Day"</span><span class="op">)</span>, <span class="st">"Ozone"</span>, afun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">table_res2</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/build_table.html" class="external-link">build_table</a></span><span class="op">(</span><span class="va">lyt</span>, <span class="va">airquality</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">card2</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">lyt</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/analyze.html" class="external-link">analyze</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/split_rows_by.html" class="external-link">split_rows_by</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/basic_table.html" class="external-link">basic_table</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"Day"</span><span class="op">)</span>, <span class="st">"Ozone"</span>, afun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">table_res2</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/build_table.html" class="external-link">build_table</a></span><span class="op">(</span><span class="va">lyt</span>, <span class="va">airquality</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Split var [Day] was not character or factor. Converting to factor</span>
-<span class="r-in"><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">table_res2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">card1</span>, <span class="va">card2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
-<span class="r-in"><span class="co">## Method `Reporter$get_cards`</span></span>
-<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">card1</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">card1</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span>
-<span class="r-in"> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">table_res2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">card1</span>, <span class="va">card2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Reporter$get_cards`</span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">card1</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">card1</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span></span>
+<span class="r-in"><span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">card2</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">lyt</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/analyze.html" class="external-link">analyze</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/split_rows_by.html" class="external-link">split_rows_by</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/basic_table.html" class="external-link">basic_table</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"Day"</span><span class="op">)</span>, <span class="st">"Ozone"</span>, afun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">table_res2</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/build_table.html" class="external-link">build_table</a></span><span class="op">(</span><span class="va">lyt</span>, <span class="va">airquality</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">card2</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">lyt</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/analyze.html" class="external-link">analyze</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/split_rows_by.html" class="external-link">split_rows_by</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/basic_table.html" class="external-link">basic_table</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"Day"</span><span class="op">)</span>, <span class="st">"Ozone"</span>, afun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">table_res2</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/build_table.html" class="external-link">build_table</a></span><span class="op">(</span><span class="va">lyt</span>, <span class="va">airquality</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Split var [Day] was not character or factor. Converting to factor</span>
-<span class="r-in"><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">table_res2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">card1</span>, <span class="va">card2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">reporter</span><span class="op">$</span><span class="fu">get_cards</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">table_res2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">card1</span>, <span class="va">card2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">get_cards</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;ReportCard&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
@@ -421,33 +418,33 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span>     metadata: list</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     name: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
-<span class="r-in"><span class="co">## Method `Reporter$get_blocks`</span></span>
-<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">card1</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">card1</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span>
-<span class="r-in"> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Reporter$get_blocks`</span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">card1</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">card1</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span></span>
+<span class="r-in"><span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">card2</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">lyt</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/analyze.html" class="external-link">analyze</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/split_rows_by.html" class="external-link">split_rows_by</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/basic_table.html" class="external-link">basic_table</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"Day"</span><span class="op">)</span>, <span class="st">"Ozone"</span>, afun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">table_res2</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/build_table.html" class="external-link">build_table</a></span><span class="op">(</span><span class="va">lyt</span>, <span class="va">airquality</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">card2</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">lyt</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/analyze.html" class="external-link">analyze</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/split_rows_by.html" class="external-link">split_rows_by</a></span><span class="op">(</span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/basic_table.html" class="external-link">basic_table</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"Day"</span><span class="op">)</span>, <span class="st">"Ozone"</span>, afun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">table_res2</span> <span class="op">&lt;-</span> <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://roche.github.io/rtables/reference/build_table.html" class="external-link">build_table</a></span><span class="op">(</span><span class="va">lyt</span>, <span class="va">airquality</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Split var [Day] was not character or factor. Converting to factor</span>
-<span class="r-in"><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">table_res2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">card1</span>, <span class="va">card2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">reporter</span><span class="op">$</span><span class="fu">get_blocks</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">table_res2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">card1</span>, <span class="va">card2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">get_blocks</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;TextBlock&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
@@ -496,7 +493,7 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_dim: function (dim) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpK6kH8U/file1a3104db206.png</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpyUev27/file1996d8b7451.png</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis</span>
@@ -561,7 +558,7 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (table) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpK6kH8U/file1a3f4c80a1.rds</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpyUev27/file19932505f1b.rds</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_tables: data.frame rtables TableTree ElementaryTable</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -575,17 +572,17 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (table) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpK6kH8U/file1a3402d778a.rds</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpyUev27/file1997a0f29bb.rds</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_tables: data.frame rtables TableTree ElementaryTable</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
-<span class="r-in"><span class="co">## Method `Reporter$get_reactive_add_card`</span></span>
-<span class="r-in"><span class="co">## ------------------------------------------------</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/isolate.html" class="external-link">isolate</a></span><span class="op">(</span><span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">get_reactive_add_card</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Reporter$get_reactive_add_card`</span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/isolate.html" class="external-link">isolate</a></span><span class="op">(</span><span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">get_reactive_add_card</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 </code></pre></div>
     </div>
