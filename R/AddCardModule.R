@@ -47,7 +47,7 @@ add_card_button_ui <- function(id) {
 #' @param card_fun `function` which returns a [`ReportCard`] instance,
 #' the function has optional `card` and  `comment` arguments.
 #' If the `card` argument is added then the `ReportCard` instance is automatically created for the user.
-#' If the comment argument is not specified then it is added automatically at the end of the Card.
+#' If the `comment` argument is not specified then it is added automatically at the end of the Card.
 #' @return `shiny::moduleServer`
 #' @export
 add_card_button_srv <- function(id, reporter, card_fun) {
