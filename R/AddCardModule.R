@@ -116,7 +116,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           # The default_card is defined here because formals() returns a pairedlist object
           # of formal parameter names and their default values. The values are missing
           # if not defined and the missing check does not work if supplied formals(card_fun)[[1]]
-          default_card <- formals(card_fun)[[1]]
+          default_card <- formals(card_fun)$card
           card <- `if`(
             missing(default_card),
             ReportCard$new(),
