@@ -127,7 +127,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           msg <- paste0(
             "The card could not be added to the report. ",
             "Have the outputs for the report been created yet? If not please try again when they ",
-            "are ready. Otherwise contact your application developer" 
+            "are ready. Otherwise contact your application developer"
           )
           warning(msg)
           shiny::showNotification(
