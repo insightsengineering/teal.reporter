@@ -258,42 +258,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       self$append_cards(new_cards)
       self$append_metadata(rlist$metadata)
       invisible(self)
-    },
-    #' @description Create/Recreate a Reporter to a directory with `JSON` file and static files
-    #' @param output_dir `character(1)` a path to the directory where files will be copied, `JSON` and statics.
-    #' @return invisibly self
-    #' @examples
-    #' reporter <- Reporter$new()
-    #' tmp_dir <- file.path(tempdir(), "jsondir")
-    #' dir.create(tmp_dir)
-    #' reporter$to_jsondir(tmp_dir)
-    to_jsondir = function(output_dir) {
-      checkmate::assert_directory_exists(output_dir)
-      json <- self$to_list(output_dir)
-      cat(jsonlite::toJSON(json, auto_unbox = TRUE, force = TRUE),
-        file = file.path(output_dir, "Report.json")
-      )
-      output_dir
-    },
-    #' @description Create/Recreate a Reporter from a directory with `JSON` file and static files
-    #' @param output_dir `character(1)` a path to the directory with files, `JSON` and statics.
-    #' @return invisibly self
-    #' @examples
-    #' reporter <- Reporter$new()
-    #' tmp_dir <- file.path(tempdir(), "jsondir")
-    #' dir.create(tmp_dir)
-    #' unlink(list.files(tmp_dir, recursive = TRUE))
-    #' reporter$to_jsondir(tmp_dir)
-    #' reporter$from_jsondir(tmp_dir)
-    from_jsondir = function(output_dir) {
-      checkmate::assert_directory_exists(output_dir)
-      checkmate::assert_true(length(list.files(output_dir)) > 0)
-      dir_files <- list.files(output_dir)
-      which_json <- grep("json$", dir_files)
-      json <- jsonlite::read_json(file.path(output_dir, dir_files[which_json]))
-      self$reset()
-      self$from_list(json, output_dir)
-      invisible(self)
     }
   ),
   private = list(

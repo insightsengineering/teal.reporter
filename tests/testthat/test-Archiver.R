@@ -82,8 +82,6 @@ testthat::test_that("JSONArchiver write a reporter", {
   testthat::expect_error(archiver$write(reporter), NA)
 })
 
-path_with_files <- archiver$get_output_dir()
-
 testthat::test_that("JSONArchiver write a reporter with a json file and static files", {
   expect_true(dir.exists(archiver$get_output_dir()))
   files <- list.files(archiver$get_output_dir())
@@ -106,35 +104,17 @@ testthat::test_that("JSONArchiver read back and all table/picture statics exists
   testthat::expect_true(all(vapply(file_blocks, function(f) file.exists(f$get_content()), logical(1))))
 })
 
-archiver2 <- JSONArchiver$new()
-testthat::test_that("JSONArchiver read back the Reporter instance, from a path", {
-  reporter_temp <- archiver2$read(path_with_files)
-  expect_s3_class(reporter_temp, "Reporter")
-  testthat::expect_length(reporter_temp$get_cards(), 2L)
-  testthat::expect_length(reporter_temp$get_blocks(), 8L)
-})
-
-testthat::test_that("JSONArchiver read back and all table/picture statics exists, from a path", {
-  gc()
-  file_blocks <- Filter(
-    function(x) inherits(x, "PictureBlock") || inherits(x, "TableBlock"),
-    archiver2$read(path_with_files)$get_blocks()
-  )
-  testthat::expect_true(all(vapply(file_blocks, function(f) file.exists(f$get_content()), logical(1))))
-})
-
 testthat::test_that("JSONArchiver with an empty dir", {
   temp_dir <- file.path(tempdir(), "test")
   dir.create(temp_dir)
 
   testthat::expect_warning(
-    archiver2$read(temp_dir),
+    archiver$read(temp_dir),
     "The directory provided to the Archiver is empty."
   )
 
   unlink(temp_dir, recursive = TRUE)
 })
-
 
 testthat::test_that("JSONArchiver destructor remove its output_dir", {
   archiver <- JSONArchiver$new()
