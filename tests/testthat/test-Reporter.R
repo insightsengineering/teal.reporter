@@ -6,7 +6,7 @@ testthat::test_that("new returns an object of type Reporter", {
   testthat::expect_true(inherits(Reporter$new(), "Reporter"))
 })
 
-card1 <- ReportCard$new()
+card1 <- teal.reporter::ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text", "header2")
@@ -15,7 +15,7 @@ card1$append_plot(
     ggplot2::geom_histogram()
 )
 
-card2 <- ReportCard$new()
+card2 <- teal.reporter::ReportCard$new()
 
 card2$append_text("Header 2 text", "header2")
 card2$append_text("A paragraph of default text", "header2")
@@ -51,7 +51,7 @@ testthat::test_that("get_blocks and get_cards return empty list by default", {
 })
 
 testthat::test_that("The deep copy constructor copies the content files to new files", {
-  card <- ReportCard$new()$append_plot(ggplot2::ggplot(iris))
+  card <- teal.reporter::ReportCard$new()$append_plot(ggplot2::ggplot(iris))
   reporter <- Reporter$new()$append_cards(list(card))
   reporter_copy <- reporter$clone(deep = TRUE)
   original_content_file <- reporter$get_blocks()[[1]]$get_content()
@@ -70,7 +70,78 @@ testthat::test_that("swap_cards", {
 testthat::test_that("reactive_add_card", {
   reporter <- Reporter$new()
   testthat::expect_error(reporter$get_reactive_add_card())
-  testthat::expect_identical(isolate(reporter$get_reactive_add_card()), 0)
+  testthat::expect_identical(shiny::isolate(reporter$get_reactive_add_card()), 0)
   reporter$append_cards(list(card1))
-  testthat::expect_identical(isolate(reporter$get_reactive_add_card()), 1L)
+  testthat::expect_identical(shiny::isolate(reporter$get_reactive_add_card()), 1L)
+})
+
+testthat::test_that("append_metadata accept only named list", {
+  reporter <- Reporter$new()
+  testthat::expect_error(reporter$append_metadata(list(sth = "sth")), NA)
+  testthat::expect_error(reporter$append_metadata("sth"), "'list', not 'character'")
+  testthat::expect_error(reporter$append_metadata(list("sth")), "Must have names")
+})
+
+testthat::test_that("append_metadata accept only unique names which could not be repeated", {
+  reporter <- Reporter$new()
+  testthat::expect_error(reporter$append_metadata(list(sth = "sth", sth = 2)), "but element 2 is duplicated")
+  reporter <- Reporter$new()
+  testthat::expect_error(reporter$append_metadata(list(sth = "sth")), NA)
+  testthat::expect_error(reporter$append_metadata(list(sth = "sth")), "failed: Must be TRUE")
+})
+
+testthat::test_that("get_metadata", {
+  reporter <- Reporter$new()
+  testthat::expect_error(reporter$append_metadata(list(sth = "sth")), NA)
+  testthat::expect_identical(reporter$get_metadata(), list(sth = "sth"))
+})
+
+testthat::test_that("from_reporter returns identical/equal object from the same reporter", {
+  expect_identical(reporter, reporter$from_reporter(reporter))
+})
+
+reporter1 <- Reporter$new()
+reporter1$append_cards(list(card1, card2))
+reporter2 <- Reporter$new()
+
+testthat::test_that("from_reporter does not return identical/equal object form other reporter", {
+  expect_false(identical(reporter1, reporter2$from_reporter(reporter1)))
+})
+
+testthat::test_that("from_reporter persists the cards structure", {
+  expect_identical(reporter1$get_cards(), reporter2$from_reporter(reporter1)$get_cards())
+})
+
+testthat::test_that("from_reporter persists the reactive_add_card count", {
+  expect_identical(
+    shiny::isolate(reporter1$get_reactive_add_card()),
+    shiny::isolate(reporter2$from_reporter(reporter1)$get_reactive_add_card())
+  )
+})
+
+testthat::test_that("to_jsondir require the existing directory path", {
+  expect_error(reporter1$to_list(), 'argument "output_dir" is missing, with no default')
+  expect_error(reporter1$to_list("/path/WRONG"), "Directory '/path/WRONG' does not exist.")
+})
+
+temp_dir <- file.path(tempdir(), "test")
+unlink(temp_dir, recursive = TRUE)
+dir.create(temp_dir)
+
+testthat::test_that("to_jsondir returns a list.", {
+  expect_equal(
+    list(version = "1", cards = list(), metadata = list()),
+    Reporter$new()$to_list(temp_dir)
+  )
+})
+
+testthat::test_that("to_jsondir and from_jsondir could be used to save and retrive a Reporter ", {
+  expect_identical(
+    length(reporter1$get_cards()),
+    length(Reporter$new()$from_list(reporter1$to_list(temp_dir), temp_dir)$get_cards())
+  )
+  expect_identical(
+    length(reporter1$get_blocks()),
+    length(Reporter$new()$from_list(reporter1$to_list(temp_dir), temp_dir)$get_blocks())
+  )
 })

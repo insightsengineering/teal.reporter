@@ -25,6 +25,31 @@ testthat::test_that("get_content returns character(0) on a newly initialized Tab
   testthat::expect_equal(TableBlock$new()$get_content(), character(0))
 })
 
+temp_dir <- tempdir()
+
+testthat::test_that("to_list returns a named list with a one field, a proper file name", {
+  block <- TableBlock$new()$set_content(iris)
+  testthat::expect_equal(block$to_list(temp_dir), list(basename = basename(block$get_content())))
+})
+
+# to_list
+testthat::test_that("to_list returns a named list with a one field, a proper path", {
+  tblock <- TableBlock$new()$set_content(iris)
+  testthat::expect_identical(tblock$to_list(temp_dir), list(basename = basename(tblock$get_content())))
+})
+
+# from_list
+testthat::test_that("from_list after to_list to save and retrive", {
+  tblock <- TableBlock$new()$set_content(iris)
+  testthat::expect_identical(
+    file.size(TableBlock$new()$from_list(
+      tblock$to_list(temp_dir),
+      dirname(tblock$get_content())
+    )$get_content()),
+    file.size(tblock$get_content())
+  )
+})
+
 testthat::test_that("set_content supports data.frame object", {
   block <- TableBlock$new()
   testthat::expect_error(block$set_content(iris), NA)

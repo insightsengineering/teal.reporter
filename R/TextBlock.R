@@ -53,6 +53,28 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     get_available_styles = function() {
       private$styles
+    },
+    #' @description Create the `TextBlock` from a list.
+    #' @param x `named list` with two fields `c("text", "style")`.
+    #' Use the `get_available_styles` method to get all possible styles.
+    #' @return invisibly self
+    #' @examples
+    #' block <- teal.reporter:::TextBlock$new()
+    #' block$from_list(list(text = "sth", style = "default"))
+    from_list = function(x) {
+      checkmate::assert_list(x)
+      checkmate::assert_names(names(x), must.include = c("text", "style"))
+      self$set_content(x$text)
+      self$set_style(x$style)
+      invisible(self)
+    },
+    #' @description Convert the `TextBlock` to a list.
+    #' @return `named list` with a text and style.
+    #' @examples
+    #' block <- teal.reporter:::TextBlock$new()
+    #' block$to_list()
+    to_list = function() {
+      list(text = self$get_content(), style = self$get_style())
     }
   ),
   private = list(
