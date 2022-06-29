@@ -125,8 +125,9 @@ add_card_button_srv <- function(id, reporter, card_fun) {
 
         if (inherits(card, "try-error")) {
           msg <- paste0(
-            "The card was not added successfully.",
-            "Possibly the card_fun is invalid or the shiny process is not ready to be catched."
+            "The card could not be added to the report. ",
+            "Have the outputs for the report been created yet? If not please try again when they ",
+            "are ready. Otherwise contact your application developer" 
           )
           warning(msg)
           shiny::showNotification(
