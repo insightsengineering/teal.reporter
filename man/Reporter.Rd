@@ -100,6 +100,68 @@ reporter$get_blocks()
 ## ------------------------------------------------
 
 shiny::isolate(Reporter$new()$get_reactive_add_card())
+
+## ------------------------------------------------
+## Method `Reporter$get_metadata`
+## ------------------------------------------------
+
+reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
+reporter$get_metadata()
+
+
+## ------------------------------------------------
+## Method `Reporter$append_metadata`
+## ------------------------------------------------
+
+reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
+reporter$get_metadata()
+
+
+## ------------------------------------------------
+## Method `Reporter$from_reporter`
+## ------------------------------------------------
+
+reporter <- Reporter$new()
+reporter$from_reporter(reporter)
+
+## ------------------------------------------------
+## Method `Reporter$to_list`
+## ------------------------------------------------
+
+reporter <- Reporter$new()
+tmp_dir <- file.path(tempdir(), "testdir")
+dir.create(tmp_dir)
+reporter$to_list(tmp_dir)
+
+## ------------------------------------------------
+## Method `Reporter$from_list`
+## ------------------------------------------------
+
+reporter <- Reporter$new()
+tmp_dir <- file.path(tempdir(), "testdir")
+unlink(tmp_dir, recursive = TRUE)
+dir.create(tmp_dir)
+reporter$from_list(reporter$to_list(tmp_dir), tmp_dir)
+
+## ------------------------------------------------
+## Method `Reporter$to_jsondir`
+## ------------------------------------------------
+
+reporter <- Reporter$new()
+tmp_dir <- file.path(tempdir(), "jsondir")
+dir.create(tmp_dir)
+reporter$to_jsondir(tmp_dir)
+
+## ------------------------------------------------
+## Method `Reporter$from_jsondir`
+## ------------------------------------------------
+
+reporter <- Reporter$new()
+tmp_dir <- file.path(tempdir(), "jsondir")
+dir.create(tmp_dir)
+unlink(list.files(tmp_dir, recursive = TRUE))
+reporter$to_jsondir(tmp_dir)
+reporter$from_jsondir(tmp_dir)
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -112,6 +174,13 @@ shiny::isolate(Reporter$new()$get_reactive_add_card())
 \item \href{#method-Reporter-remove_cards}{\code{Reporter$remove_cards()}}
 \item \href{#method-Reporter-swap_cards}{\code{Reporter$swap_cards()}}
 \item \href{#method-Reporter-get_reactive_add_card}{\code{Reporter$get_reactive_add_card()}}
+\item \href{#method-Reporter-get_metadata}{\code{Reporter$get_metadata()}}
+\item \href{#method-Reporter-append_metadata}{\code{Reporter$append_metadata()}}
+\item \href{#method-Reporter-from_reporter}{\code{Reporter$from_reporter()}}
+\item \href{#method-Reporter-to_list}{\code{Reporter$to_list()}}
+\item \href{#method-Reporter-from_list}{\code{Reporter$from_list()}}
+\item \href{#method-Reporter-to_jsondir}{\code{Reporter$to_jsondir()}}
+\item \href{#method-Reporter-from_jsondir}{\code{Reporter$from_jsondir()}}
 \item \href{#method-Reporter-clone}{\code{Reporter$clone()}}
 }
 }
@@ -278,6 +347,7 @@ reporter$get_blocks()
 \if{latex}{\out{\hypertarget{method-Reporter-reset}{}}}
 \subsection{Method \code{reset()}}{
 Removes all \code{\link{ReportCard}} objects added to this \code{Reporter}.
+Additionally all metadata are removed.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$reset()}\if{html}{\out{</div>}}
 }
@@ -338,11 +408,222 @@ get a value for the reactive value for the add card
 }
 
 \subsection{Returns}{
-\code{reactive_add_card} filed value
+\code{reactive_add_card} field value
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{shiny::isolate(Reporter$new()$get_reactive_add_card())
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-get_metadata"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-get_metadata}{}}}
+\subsection{Method \code{get_metadata()}}{
+get metadata of this \code{Reporter}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_metadata()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+metadata
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
+reporter$get_metadata()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-append_metadata"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-append_metadata}{}}}
+\subsection{Method \code{append_metadata()}}{
+Appends metadata to this \code{Reporter}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$append_metadata(meta)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{meta}}{(\code{list}) of metadata.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
+reporter$get_metadata()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-from_reporter"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-from_reporter}{}}}
+\subsection{Method \code{from_reporter()}}{
+Create/Recreate a Reporter from another Reporter
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$from_reporter(reporter)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{reporter}}{\code{Reporter} instance.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{reporter <- Reporter$new()
+reporter$from_reporter(reporter)
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-to_list"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-to_list}{}}}
+\subsection{Method \code{to_list()}}{
+Convert a Reporter to a list and transfer files
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$to_list(output_dir)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{output_dir}}{\code{character(1)} a path to the directory where files will be copied.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\verb{named list} \code{Reporter} representation
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{reporter <- Reporter$new()
+tmp_dir <- file.path(tempdir(), "testdir")
+dir.create(tmp_dir)
+reporter$to_list(tmp_dir)
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-from_list"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-from_list}{}}}
+\subsection{Method \code{from_list()}}{
+Create/Recreate a Reporter from a list and directory with files
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$from_list(rlist, output_dir)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{rlist}}{\verb{named list} \code{Reporter} representation.}
+
+\item{\code{output_dir}}{\code{character(1)} a path to the directory from which files will be copied.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{reporter <- Reporter$new()
+tmp_dir <- file.path(tempdir(), "testdir")
+unlink(tmp_dir, recursive = TRUE)
+dir.create(tmp_dir)
+reporter$from_list(reporter$to_list(tmp_dir), tmp_dir)
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-to_jsondir"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-to_jsondir}{}}}
+\subsection{Method \code{to_jsondir()}}{
+Create/Recreate a Reporter to a directory with \code{JSON} file and static files
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$to_jsondir(output_dir)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{output_dir}}{\code{character(1)} a path to the directory where files will be copied, \code{JSON} and statics.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{reporter <- Reporter$new()
+tmp_dir <- file.path(tempdir(), "jsondir")
+dir.create(tmp_dir)
+reporter$to_jsondir(tmp_dir)
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-from_jsondir"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-from_jsondir}{}}}
+\subsection{Method \code{from_jsondir()}}{
+Create/Recreate a Reporter from a directory with \code{JSON} file and static files
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$from_jsondir(output_dir)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{output_dir}}{\code{character(1)} a path to the directory with files, \code{JSON} and statics.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{reporter <- Reporter$new()
+tmp_dir <- file.path(tempdir(), "jsondir")
+dir.create(tmp_dir)
+unlink(list.files(tmp_dir, recursive = TRUE))
+reporter$to_jsondir(tmp_dir)
+reporter$from_jsondir(tmp_dir)
 }
 \if{html}{\out{</div>}}
 

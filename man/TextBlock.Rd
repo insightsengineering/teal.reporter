@@ -40,6 +40,20 @@ block$get_style()
 block <- teal.reporter:::TextBlock$new()
 block$get_available_styles()
 
+
+## ------------------------------------------------
+## Method `TextBlock$from_list`
+## ------------------------------------------------
+
+block <- teal.reporter:::TextBlock$new()
+block$from_list(list(text = "sth", style = "default"))
+
+## ------------------------------------------------
+## Method `TextBlock$to_list`
+## ------------------------------------------------
+
+block <- teal.reporter:::TextBlock$new()
+block$to_list()
 }
 \keyword{internal}
 \section{Super class}{
@@ -52,6 +66,8 @@ block$get_available_styles()
 \item \href{#method-TextBlock-set_style}{\code{TextBlock$set_style()}}
 \item \href{#method-TextBlock-get_style}{\code{TextBlock$get_style()}}
 \item \href{#method-TextBlock-get_available_styles}{\code{TextBlock$get_available_styles()}}
+\item \href{#method-TextBlock-from_list}{\code{TextBlock$from_list()}}
+\item \href{#method-TextBlock-to_list}{\code{TextBlock$to_list()}}
 \item \href{#method-TextBlock-clone}{\code{TextBlock$clone()}}
 }
 }
@@ -172,6 +188,58 @@ a \code{character} array of styles
 \preformatted{block <- teal.reporter:::TextBlock$new()
 block$get_available_styles()
 
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TextBlock-from_list"></a>}}
+\if{latex}{\out{\hypertarget{method-TextBlock-from_list}{}}}
+\subsection{Method \code{from_list()}}{
+Create the \code{TextBlock} from a list.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TextBlock$from_list(x)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{\verb{named list} with two fields \code{c("text", "style")}.
+Use the \code{get_available_styles} method to get all possible styles.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- teal.reporter:::TextBlock$new()
+block$from_list(list(text = "sth", style = "default"))
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TextBlock-to_list"></a>}}
+\if{latex}{\out{\hypertarget{method-TextBlock-to_list}{}}}
+\subsection{Method \code{to_list()}}{
+Convert the \code{TextBlock} to a list.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TextBlock$to_list()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\verb{named list} with a text and style.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- teal.reporter:::TextBlock$new()
+block$to_list()
 }
 \if{html}{\out{</div>}}
 

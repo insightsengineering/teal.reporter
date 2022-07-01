@@ -3,7 +3,7 @@
 #'
 PictureBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "PictureBlock",
-  inherit = ContentBlock,
+  inherit = FileBlock,
   public = list(
     #' @description Returns a new `PictureBlock` object.
     #'
@@ -51,13 +51,6 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
         finally = grDevices::dev.off()
       )
       invisible(self)
-    },
-    #' @description Finalizes this `PictureBlock`.
-    #'
-    #' @details Removes the temporary file created in the constructor.
-    #'
-    finalize = function() {
-      try(unlink(super$get_content()))
     },
     #' @description Sets the title of this `PictureBlock`.
     #'

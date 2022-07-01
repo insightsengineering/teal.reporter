@@ -113,11 +113,13 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       blocks
     },
     #' @description Removes all [`ReportCard`] objects added to this `Reporter`.
+    #' Additionally all metadata are removed.
     #'
     #' @return invisibly self
     #'
     reset = function() {
       private$cards <- list()
+      private$metadata <- list()
       private$reactive_add_card(0)
       invisible(self)
     },
@@ -159,16 +161,144 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description get a value for the reactive value for the add card
     #'
-    #' @return `reactive_add_card` filed value
+    #' @return `reactive_add_card` field value
     #' @note The function has to be used in the shiny reactive context.
     #' @examples
     #' shiny::isolate(Reporter$new()$get_reactive_add_card())
     get_reactive_add_card = function() {
       private$reactive_add_card()
+    },
+    #' @description get metadata of this `Reporter`.
+    #'
+    #' @return metadata
+    #' @examples
+    #' reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
+    #' reporter$get_metadata()
+    #'
+    get_metadata = function() {
+      private$metadata
+    },
+    #' @description Appends metadata to this `Reporter`.
+    #'
+    #' @param meta (`list`) of metadata.
+    #' @return invisibly self
+    #' @examples
+    #' reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
+    #' reporter$get_metadata()
+    #'
+    append_metadata = function(meta) {
+      checkmate::assert_list(meta, names = "unique")
+      checkmate::assert_true(length(meta) == 0 || all(!names(meta) %in% names(private$metadata)))
+      private$metadata <- append(private$metadata, meta)
+      invisible(self)
+    },
+    #' @description Create/Recreate a Reporter from another Reporter
+    #' @param reporter `Reporter` instance.
+    #' @return invisibly self
+    #' @examples
+    #' reporter <- Reporter$new()
+    #' reporter$from_reporter(reporter)
+    from_reporter = function(reporter) {
+      checkmate::assert_class(reporter, "Reporter")
+      self$reset()
+      self$append_cards(reporter$get_cards())
+      self$append_metadata(reporter$get_metadata())
+      invisible(self)
+    },
+    #' @description Convert a Reporter to a list and transfer files
+    #' @param output_dir `character(1)` a path to the directory where files will be copied.
+    #' @return `named list` `Reporter` representation
+    #' @examples
+    #' reporter <- Reporter$new()
+    #' tmp_dir <- file.path(tempdir(), "testdir")
+    #' dir.create(tmp_dir)
+    #' reporter$to_list(tmp_dir)
+    to_list = function(output_dir) {
+      checkmate::assert_directory_exists(output_dir)
+      rlist <- list(version = "1", cards = list())
+      rlist[["metadata"]] <- self$get_metadata()
+      for (card in self$get_cards()) {
+        card_class <- class(card)[1]
+        u_card <- list()
+        u_card[[card_class]] <- card$to_list(output_dir)
+        rlist$cards <- c(rlist$cards, u_card)
+      }
+      rlist
+    },
+    #' @description Create/Recreate a Reporter from a list and directory with files
+    #' @param rlist `named list` `Reporter` representation.
+    #' @param output_dir `character(1)` a path to the directory from which files will be copied.
+    #' @return invisibly self
+    #' @examples
+    #' reporter <- Reporter$new()
+    #' tmp_dir <- file.path(tempdir(), "testdir")
+    #' unlink(tmp_dir, recursive = TRUE)
+    #' dir.create(tmp_dir)
+    #' reporter$from_list(reporter$to_list(tmp_dir), tmp_dir)
+    from_list = function(rlist, output_dir) {
+      checkmate::assert_list(rlist)
+      checkmate::assert_directory_exists(output_dir)
+      if (rlist$version == "1") {
+        new_cards <- list()
+        cards_names <- names(rlist$cards)
+        cards_names <- gsub("[.][0-9]*$", "", cards_names)
+        for (iter_c in seq_along(rlist$cards)) {
+          card_class <- cards_names[iter_c]
+          card <- rlist$cards[[iter_c]]
+          new_card <- switch(card_class,
+            ReportCard = ReportCard$new()$from_list(card, output_dir),
+            TealReportCard = TealReportCard$new()$from_list(card, output_dir)
+          )
+          new_cards <- c(new_cards, new_card)
+        }
+      } else {
+        stop("The provided version is not supported")
+      }
+      self$reset()
+      self$append_cards(new_cards)
+      self$append_metadata(rlist$metadata)
+      invisible(self)
+    },
+    #' @description Create/Recreate a Reporter to a directory with `JSON` file and static files
+    #' @param output_dir `character(1)` a path to the directory where files will be copied, `JSON` and statics.
+    #' @return invisibly self
+    #' @examples
+    #' reporter <- Reporter$new()
+    #' tmp_dir <- file.path(tempdir(), "jsondir")
+    #' dir.create(tmp_dir)
+    #' reporter$to_jsondir(tmp_dir)
+    to_jsondir = function(output_dir) {
+      checkmate::assert_directory_exists(output_dir)
+      json <- self$to_list(output_dir)
+      cat(jsonlite::toJSON(json, auto_unbox = TRUE, force = TRUE),
+        file = file.path(output_dir, "Report.json")
+      )
+      output_dir
+    },
+    #' @description Create/Recreate a Reporter from a directory with `JSON` file and static files
+    #' @param output_dir `character(1)` a path to the directory with files, `JSON` and statics.
+    #' @return invisibly self
+    #' @examples
+    #' reporter <- Reporter$new()
+    #' tmp_dir <- file.path(tempdir(), "jsondir")
+    #' dir.create(tmp_dir)
+    #' unlink(list.files(tmp_dir, recursive = TRUE))
+    #' reporter$to_jsondir(tmp_dir)
+    #' reporter$from_jsondir(tmp_dir)
+    from_jsondir = function(output_dir) {
+      checkmate::assert_directory_exists(output_dir)
+      checkmate::assert_true(length(list.files(output_dir)) > 0)
+      dir_files <- list.files(output_dir)
+      which_json <- grep("json$", dir_files)
+      json <- jsonlite::read_json(file.path(output_dir, dir_files[which_json]))
+      self$reset()
+      self$from_list(json, output_dir)
+      invisible(self)
     }
   ),
   private = list(
     cards = list(),
+    metadata = list(),
     reactive_add_card = NULL,
     # @description The copy constructor.
     #

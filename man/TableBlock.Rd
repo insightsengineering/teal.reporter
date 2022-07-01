@@ -19,15 +19,14 @@ block$set_content(iris)
 
 }
 \keyword{internal}
-\section{Super class}{
-\code{\link[teal.reporter:ContentBlock]{teal.reporter::ContentBlock}} -> \code{TableBlock}
+\section{Super classes}{
+\code{\link[teal.reporter:ContentBlock]{teal.reporter::ContentBlock}} -> \code{\link[teal.reporter:FileBlock]{teal.reporter::FileBlock}} -> \code{TableBlock}
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-TableBlock-new}{\code{TableBlock$new()}}
 \item \href{#method-TableBlock-set_content}{\code{TableBlock$set_content()}}
-\item \href{#method-TableBlock-finalize}{\code{TableBlock$finalize()}}
 \item \href{#method-TableBlock-clone}{\code{TableBlock$clone()}}
 }
 }
@@ -35,6 +34,9 @@ block$set_content(iris)
 <details open><summary>Inherited methods</summary>
 <ul>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-get_content'><code>teal.reporter::ContentBlock$get_content()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileBlock" data-id="finalize"><a href='../../teal.reporter/html/FileBlock.html#method-FileBlock-finalize'><code>teal.reporter::FileBlock$finalize()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileBlock" data-id="from_list"><a href='../../teal.reporter/html/FileBlock.html#method-FileBlock-from_list'><code>teal.reporter::FileBlock$from_list()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileBlock" data-id="to_list"><a href='../../teal.reporter/html/FileBlock.html#method-FileBlock-to_list'><code>teal.reporter::FileBlock$to_list()</code></a></li>
 </ul>
 </details>
 }}
@@ -89,20 +91,6 @@ block$set_content(iris)
 }
 \if{html}{\out{</div>}}
 
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TableBlock-finalize"></a>}}
-\if{latex}{\out{\hypertarget{method-TableBlock-finalize}{}}}
-\subsection{Method \code{finalize()}}{
-finalize of this \code{TableBlock}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TableBlock$finalize()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Removes the temporary file created in the constructor.
 }
 
 }

@@ -56,15 +56,14 @@ block$get_dim()
 
 }
 \keyword{internal}
-\section{Super class}{
-\code{\link[teal.reporter:ContentBlock]{teal.reporter::ContentBlock}} -> \code{PictureBlock}
+\section{Super classes}{
+\code{\link[teal.reporter:ContentBlock]{teal.reporter::ContentBlock}} -> \code{\link[teal.reporter:FileBlock]{teal.reporter::FileBlock}} -> \code{PictureBlock}
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-PictureBlock-new}{\code{PictureBlock$new()}}
 \item \href{#method-PictureBlock-set_content}{\code{PictureBlock$set_content()}}
-\item \href{#method-PictureBlock-finalize}{\code{PictureBlock$finalize()}}
 \item \href{#method-PictureBlock-set_title}{\code{PictureBlock$set_title()}}
 \item \href{#method-PictureBlock-get_title}{\code{PictureBlock$get_title()}}
 \item \href{#method-PictureBlock-set_dim}{\code{PictureBlock$set_dim()}}
@@ -76,6 +75,9 @@ block$get_dim()
 <details open><summary>Inherited methods</summary>
 <ul>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-get_content'><code>teal.reporter::ContentBlock$get_content()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileBlock" data-id="finalize"><a href='../../teal.reporter/html/FileBlock.html#method-FileBlock-finalize'><code>teal.reporter::FileBlock$finalize()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileBlock" data-id="from_list"><a href='../../teal.reporter/html/FileBlock.html#method-FileBlock-from_list'><code>teal.reporter::FileBlock$from_list()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileBlock" data-id="to_list"><a href='../../teal.reporter/html/FileBlock.html#method-FileBlock-to_list'><code>teal.reporter::FileBlock$to_list()</code></a></li>
 </ul>
 </details>
 }}
@@ -135,20 +137,6 @@ block$set_content(ggplot2::ggplotGrob(ggplot2::ggplot(iris)))
 }
 \if{html}{\out{</div>}}
 
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-PictureBlock-finalize"></a>}}
-\if{latex}{\out{\hypertarget{method-PictureBlock-finalize}{}}}
-\subsection{Method \code{finalize()}}{
-Finalizes this \code{PictureBlock}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PictureBlock$finalize()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Removes the temporary file created in the constructor.
 }
 
 }
