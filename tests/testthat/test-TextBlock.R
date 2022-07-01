@@ -57,3 +57,24 @@ testthat::test_that("get_style returns the set style", {
     TextBlock$new()$get_available_styles()[1]
   )
 })
+
+testthat::test_that("to_list returns a two field named list", {
+  testthat::expect_identical(
+    TextBlock$new()$set_content("test")$to_list(),
+    list(text = "test", style = "default")
+  )
+})
+
+testthat::test_that("from_list returns a similar output to set_content", {
+  testthat::expect_equal(
+    TextBlock$new()$from_list(list(text = "test", style = "default")),
+    TextBlock$new()$set_content("test")
+  )
+})
+
+testthat::test_that("from_list after to_list to save and retrive", {
+  testthat::expect_equal(
+    TextBlock$new()$from_list(TextBlock$new()$set_content("test")$to_list()),
+    TextBlock$new()$set_content("test")
+  )
+})

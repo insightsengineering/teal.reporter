@@ -3,7 +3,7 @@
 #'
 TableBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "TableBlock",
-  inherit = ContentBlock,
+  inherit = FileBlock,
   public = list(
     #' @description Returns a new `TableBlock` object
     #'
@@ -32,13 +32,6 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
       saveRDS(content, file = path)
       super$set_content(path)
       invisible(self)
-    },
-    #' @description finalize of this `TableBlock`.
-    #'
-    #' @details Removes the temporary file created in the constructor.
-    #'
-    finalize = function() {
-      try(unlink(super$get_content()))
     }
   ),
   private = list(

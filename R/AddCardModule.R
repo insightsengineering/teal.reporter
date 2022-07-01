@@ -45,13 +45,15 @@ add_card_button_ui <- function(id) {
 #' @param id `character(1)` this `shiny` module's id.
 #' @param reporter [`Reporter`] instance.
 #' @param card_fun `function` which returns a [`ReportCard`] instance,
-#' the function have at`card`argument and optional `comment`.
+#' the function has optional `card` and  `comment` arguments.
+#' If the `card` argument is added then the `ReportCard` instance is automatically created for the user.
+#' If the `comment` argument is not specified then it is added automatically at the end of the Card.
 #' @return `shiny::moduleServer`
 #' @export
 add_card_button_srv <- function(id, reporter, card_fun) {
   checkmate::assert_function(card_fun)
   checkmate::assert_class(reporter, "Reporter")
-  checkmate::assert_subset(names(formals(card_fun)), c("card", "comment"), empty.ok = FALSE)
+  checkmate::assert_subset(names(formals(card_fun)), c("card", "comment"), empty.ok = TRUE)
 
   shiny::moduleServer(
     id,
@@ -101,28 +103,52 @@ add_card_button_srv <- function(id, reporter, card_fun) {
 
       shiny::observeEvent(input$add_card_ok, {
         card_fun_args_nams <- names(formals(card_fun))
-        # The default_card is defined here because formals() returns a pairedlist object
-        # of formal parameter names and their default values. The values are missing
-        # if not defined and the missing check does not work if supplied formals(card_fun)[[1]]
-        default_card <- formals(card_fun)[[1]]
-        card <- `if`(
-          missing(default_card),
-          ReportCard$new(),
-          eval(default_card, envir = environment(card_fun))
-        )
-        if (length(card_fun_args_nams) == 1) {
-          card <- card_fun(card)
-          if (length(input$comment) > 0 && input$comment != "") {
+        has_card_arg <- "card" %in% card_fun_args_nams
+        has_comment_arg <- "comment" %in% card_fun_args_nams
+
+
+        arg_list <- list()
+
+        if (has_comment_arg) {
+          arg_list <- c(arg_list, list(comment = input$comment))
+        }
+
+        if (has_card_arg) {
+          # The default_card is defined here because formals() returns a pairedlist object
+          # of formal parameter names and their default values. The values are missing
+          # if not defined and the missing check does not work if supplied formals(card_fun)[[1]]
+          default_card <- formals(card_fun)$card
+          card <- `if`(
+            missing(default_card),
+            ReportCard$new(),
+            eval(default_card, envir = environment(card_fun))
+          )
+          arg_list <- c(arg_list, list(card = card))
+        }
+
+        card <- try(do.call(card_fun, arg_list))
+
+        if (inherits(card, "try-error")) {
+          msg <- paste0(
+            "The card could not be added to the report. ",
+            "Have the outputs for the report been created yet? If not please try again when they ",
+            "are ready. Otherwise contact your application developer"
+          )
+          warning(msg)
+          shiny::showNotification(
+            msg,
+            type = "error"
+          )
+        } else {
+          checkmate::assert_class(card, "ReportCard")
+          if (!has_comment_arg && length(input$comment) > 0 && input$comment != "") {
             card$append_text("Comment", "header3")
             card$append_text(input$comment)
           }
-        } else {
-          card <- card_fun(card, input$comment)
+          reporter$append_cards(list(card))
+          shiny::showNotification(sprintf("The card added successfully."), type = "message")
+          shiny::removeModal()
         }
-        checkmate::assert_class(card, "ReportCard")
-        reporter$append_cards(list(card))
-        shiny::showNotification(sprintf("The card added successfully."))
-        shiny::removeModal()
       })
     }
   )

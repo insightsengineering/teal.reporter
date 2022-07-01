@@ -41,6 +41,13 @@ card <- ReportCard$new()$append_text("A paragraph of default text")
 
 
 ## ------------------------------------------------
+## Method `ReportCard$append_content`
+## ------------------------------------------------
+
+card <- ReportCard$new()$append_content(teal.reporter:::NewpageBlock$new())
+
+
+## ------------------------------------------------
 ## Method `ReportCard$get_content`
 ## ------------------------------------------------
 
@@ -82,6 +89,32 @@ ReportCard$new()$set_name("NAME")$get_name()
 ## ------------------------------------------------
 
 ReportCard$new()$set_name("NAME")$get_name()
+
+## ------------------------------------------------
+## Method `ReportCard$to_list`
+## ------------------------------------------------
+
+card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)$append_text("Some text")$append_metadata(key = "lm",
+                  value = lm(Ozone ~ Solar.R, airquality))
+card$get_content()
+
+card$to_list(tempdir())
+
+
+## ------------------------------------------------
+## Method `ReportCard$from_list`
+## ------------------------------------------------
+
+card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)$append_text("Some text")$append_metadata(key = "lm",
+                  value = lm(Ozone ~ Solar.R, airquality))
+card$get_content()
+
+ReportCard$new()$from_list(card$to_list(tempdir()), tempdir())
+
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -90,11 +123,15 @@ ReportCard$new()$set_name("NAME")$get_name()
 \item \href{#method-ReportCard-append_table}{\code{ReportCard$append_table()}}
 \item \href{#method-ReportCard-append_plot}{\code{ReportCard$append_plot()}}
 \item \href{#method-ReportCard-append_text}{\code{ReportCard$append_text()}}
+\item \href{#method-ReportCard-append_content}{\code{ReportCard$append_content()}}
 \item \href{#method-ReportCard-get_content}{\code{ReportCard$get_content()}}
+\item \href{#method-ReportCard-reset}{\code{ReportCard$reset()}}
 \item \href{#method-ReportCard-get_metadata}{\code{ReportCard$get_metadata()}}
 \item \href{#method-ReportCard-append_metadata}{\code{ReportCard$append_metadata()}}
 \item \href{#method-ReportCard-get_name}{\code{ReportCard$get_name()}}
 \item \href{#method-ReportCard-set_name}{\code{ReportCard$set_name()}}
+\item \href{#method-ReportCard-to_list}{\code{ReportCard$to_list()}}
+\item \href{#method-ReportCard-from_list}{\code{ReportCard$from_list()}}
 \item \href{#method-ReportCard-clone}{\code{ReportCard$clone()}}
 }
 }
@@ -212,6 +249,35 @@ invisibly self
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ReportCard-append_content"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-append_content}{}}}
+\subsection{Method \code{append_content()}}{
+Appends a \code{ContentBlock} to this \code{ReportCard}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_content(content)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{content}}{(\code{ContentBlock})}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{card <- ReportCard$new()$append_content(teal.reporter:::NewpageBlock$new())
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-get_content"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-get_content}{}}}
 \subsection{Method \code{get_content()}}{
@@ -235,6 +301,19 @@ card$get_content()
 
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ReportCard-reset"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-reset}{}}}
+\subsection{Method \code{reset()}}{
+Removes all objects added to this \code{ReportCard}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$reset()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+invisibly self
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-get_metadata"></a>}}
@@ -264,7 +343,7 @@ card$get_metadata()
 \if{html}{\out{<a id="method-ReportCard-append_metadata"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-append_metadata}{}}}
 \subsection{Method \code{append_metadata()}}{
-Appends content elements to this \code{ReportCard}.
+Appends metadata to this \code{ReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_metadata(key, value)}\if{html}{\out{</div>}}
 }
@@ -275,8 +354,6 @@ Appends content elements to this \code{ReportCard}.
 \item{\code{key}}{(\code{character(1)}) name of meta data.}
 
 \item{\code{value}}{value of meta data.}
-
-\item{\code{chr_converter}}{(\code{function}) to convert a value to a character, by default \code{base::deparse1}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -341,6 +418,78 @@ invisibly self
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{ReportCard$new()$set_name("NAME")$get_name()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ReportCard-to_list"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-to_list}{}}}
+\subsection{Method \code{to_list()}}{
+Convert the \code{ReportCard} to a list.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$to_list(output_dir)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{output_dir}}{\code{character} with a path to the directory where files will be copied.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\verb{named list} a \code{ReportCard} representation.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)$append_text("Some text")$append_metadata(key = "lm",
+                  value = lm(Ozone ~ Solar.R, airquality))
+card$get_content()
+
+card$to_list(tempdir())
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ReportCard-from_list"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-from_list}{}}}
+\subsection{Method \code{from_list()}}{
+Create the \code{ReportCard} from a list.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$from_list(card, output_dir)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{card}}{\verb{named list} a \code{ReportCard} representation.}
+
+\item{\code{output_dir}}{\code{character} with a path to the directory where a file will be copied.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)$append_text("Some text")$append_metadata(key = "lm",
+                  value = lm(Ozone ~ Solar.R, airquality))
+card$get_content()
+
+ReportCard$new()$from_list(card$to_list(tempdir()), tempdir())
+
 }
 \if{html}{\out{</div>}}
 

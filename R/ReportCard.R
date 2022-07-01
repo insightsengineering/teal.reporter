@@ -54,6 +54,18 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       private$content <- append(private$content, TextBlock$new(text, style))
       invisible(self)
     },
+    #' @description Appends a `ContentBlock` to this `ReportCard`.
+    #'
+    #' @param content (`ContentBlock`)
+    #' @return invisibly self
+    #' @examples
+    #' card <- ReportCard$new()$append_content(teal.reporter:::NewpageBlock$new())
+    #'
+    append_content = function(content) {
+      checkmate::assert_class(content, "ContentBlock")
+      private$content <- append(private$content, content)
+      invisible(self)
+    },
     #' @description Returns the content of this `ReportCard`.
     #'
     #' @return `list()` list of `TableBlock`, `TextBlock` and `PictureBlock`.
@@ -66,6 +78,15 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     get_content = function() {
       private$content
     },
+    #' @description Removes all objects added to this `ReportCard`.
+    #'
+    #' @return invisibly self
+    #'
+    reset = function() {
+      private$content <- list()
+      private$metadata <- list()
+      invisible(self)
+    },
     #' @description Returns the metadata of this `ReportCard`.
     #'
     #' @return `named list` list of elements.
@@ -77,11 +98,10 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     get_metadata = function() {
       private$metadata
     },
-    #' @description Appends content elements to this `ReportCard`.
+    #' @description Appends metadata to this `ReportCard`.
     #'
     #' @param key (`character(1)`) name of meta data.
     #' @param value value of meta data.
-    #' @param chr_converter (`function`) to convert a value to a character, by default `base::deparse1`.
     #' @return invisibly self
     #' @examples
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
@@ -116,6 +136,74 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     set_name = function(name) {
       checkmate::assert_string(name)
       private$name <- name
+      invisible(self)
+    },
+    #' @description Convert the `ReportCard` to a list.
+    #' @param output_dir `character` with a path to the directory where files will be copied.
+    #' @return `named list` a `ReportCard` representation.
+    #' @examples
+    #' card <- ReportCard$new()$append_text("Some text")$append_plot(
+    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #' )$append_text("Some text")$append_metadata(key = "lm",
+    #'                   value = lm(Ozone ~ Solar.R, airquality))
+    #' card$get_content()
+    #'
+    #' card$to_list(tempdir())
+    #'
+    to_list = function(output_dir) {
+      new_blocks <- list()
+      for (block in self$get_content()) {
+        block_class <- class(block)[1]
+        cblock <- switch(block_class,
+          TextBlock = block$to_list(),
+          PictureBlock = block$to_list(output_dir),
+          TableBlock = block$to_list(output_dir),
+          NewpageBlock = list(),
+          NULL
+        )
+        new_block <- list()
+        new_block[[block_class]] <- cblock
+        new_blocks <- c(new_blocks, new_block)
+      }
+      new_card <- list()
+      new_card[["blocks"]] <- new_blocks
+      new_card[["metadata"]] <- self$get_metadata()
+      new_card
+    },
+    #' @description Create the `ReportCard` from a list.
+    #' @param card `named list` a `ReportCard` representation.
+    #' @param output_dir `character` with a path to the directory where a file will be copied.
+    #' @return invisibly self
+    #' @examples
+    #' card <- ReportCard$new()$append_text("Some text")$append_plot(
+    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #' )$append_text("Some text")$append_metadata(key = "lm",
+    #'                   value = lm(Ozone ~ Solar.R, airquality))
+    #' card$get_content()
+    #'
+    #' ReportCard$new()$from_list(card$to_list(tempdir()), tempdir())
+    #'
+    from_list = function(card, output_dir) {
+      self$reset()
+      blocks <- card$blocks
+      metadata <- card$metadata
+      blocks_names <- names(blocks)
+      blocks_names <- gsub("[.][0-9]*$", "", blocks_names)
+      for (iter_b in seq_along(blocks)) {
+        block_class <- blocks_names[iter_b]
+        block <- blocks[[iter_b]]
+        cblock <- switch(block_class,
+          TextBlock = TextBlock$new()$from_list(block),
+          PictureBlock = PictureBlock$new()$from_list(block, output_dir),
+          TableBlock = TableBlock$new()$from_list(block, output_dir),
+          NewpageBlock = NewpageBlock$new(),
+          NULL
+        )
+        self$append_content(cblock)
+      }
+      for (meta in names(metadata)) {
+        self$append_metadata(meta, metadata[[meta]])
+      }
       invisible(self)
     }
   ),
