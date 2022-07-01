@@ -12,7 +12,7 @@ TableBlock"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/
     
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9006</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,12 +34,6 @@ TableBlock"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" href="https://insightsengineering.github.io/teal.reporter/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -68,8 +62,8 @@ TableBlock"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/
 
 
     <div class="section level2">
-    <h2 id="super-class">Super class<a class="anchor" aria-label="anchor" href="#super-class"></a></h2>
-    <p><code><a href="ContentBlock.html">teal.reporter::ContentBlock</a></code> -&gt; <code>TableBlock</code></p>
+    <h2 id="super-classes">Super classes<a class="anchor" aria-label="anchor" href="#super-classes"></a></h2>
+    <p><code><a href="ContentBlock.html">teal.reporter::ContentBlock</a></code> -&gt; <code><a href="FileBlock.html">teal.reporter::FileBlock</a></code> -&gt; <code>TableBlock</code></p>
     </div>
     <div class="section level2">
     <h2 id="methods">Methods<a class="anchor" aria-label="anchor" href="#methods"></a></h2>
@@ -79,9 +73,11 @@ TableBlock"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/
 
 <ul><li><p><a href="#method-TableBlock-new"><code>TableBlock$new()</code></a></p></li>
 <li><p><a href="#method-TableBlock-set_content"><code>TableBlock$set_content()</code></a></p></li>
-<li><p><a href="#method-TableBlock-finalize"><code>TableBlock$finalize()</code></a></p></li>
 <li><p><a href="#method-TableBlock-clone"><code>TableBlock$clone()</code></a></p></li>
 </ul></div><p><details open><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content"><a href="ContentBlock.html#method-get_content"><code>teal.reporter::ContentBlock$get_content()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileBlock" data-id="finalize"><a href="FileBlock.html#method-finalize"><code>teal.reporter::FileBlock$finalize()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileBlock" data-id="from_list"><a href="FileBlock.html#method-from_list"><code>teal.reporter::FileBlock$from_list()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileBlock" data-id="to_list"><a href="FileBlock.html#method-to_list"><code>teal.reporter::FileBlock$to_list()</code></a></span></li>
 </ul></details></p><hr><a id="method-TableBlock-new"></a><div class="section">
 <h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
 <p>Returns a new <code>TableBlock</code> object</p><div class="section">
@@ -134,23 +130,10 @@ TableBlock"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/
 </div>
 
 
-</div><p></p><hr><a id="method-TableBlock-finalize"></a><div class="section">
-<h3 id="method-finalize-">Method <code>finalize()</code><a class="anchor" aria-label="anchor" href="#method-finalize-"></a></h3>
-<p>finalize of this <code>TableBlock</code>.</p><div class="section">
-<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TableBlock</span><span class="op">$</span><span class="fu">finalize</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="details-1">Details<a class="anchor" aria-label="anchor" href="#details-1"></a></h4>
-<p>Removes the temporary file created in the constructor.</p>
-</div>
-
-
 </div><p></p><hr><a id="method-TableBlock-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
+<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TableBlock</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 

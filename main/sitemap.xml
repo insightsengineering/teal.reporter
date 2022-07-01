@@ -40,7 +40,19 @@
     <loc>https://insightsengineering.github.io/teal.reporter/main/pull_request_template.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/main/reference/Archiver.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/teal.reporter/main/reference/ContentBlock.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/main/reference/FileArchiver.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/main/reference/FileBlock.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/main/reference/JSONArchiver.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.reporter/main/reference/NewpageBlock.html</loc>

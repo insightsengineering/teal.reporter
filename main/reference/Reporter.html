@@ -12,7 +12,7 @@ R6 class that stores and manages report cards."><!-- mathjax --><script src="htt
     
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9006</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,12 +34,6 @@ R6 class that stores and manages report cards."><!-- mathjax --><script src="htt
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" href="https://insightsengineering.github.io/teal.reporter/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -85,6 +79,13 @@ R6 class that stores and manages report cards.</p>
 <li><p><a href="#method-Reporter-remove_cards"><code>Reporter$remove_cards()</code></a></p></li>
 <li><p><a href="#method-Reporter-swap_cards"><code>Reporter$swap_cards()</code></a></p></li>
 <li><p><a href="#method-Reporter-get_reactive_add_card"><code>Reporter$get_reactive_add_card()</code></a></p></li>
+<li><p><a href="#method-Reporter-get_metadata"><code>Reporter$get_metadata()</code></a></p></li>
+<li><p><a href="#method-Reporter-append_metadata"><code>Reporter$append_metadata()</code></a></p></li>
+<li><p><a href="#method-Reporter-from_reporter"><code>Reporter$from_reporter()</code></a></p></li>
+<li><p><a href="#method-Reporter-to_list"><code>Reporter$to_list()</code></a></p></li>
+<li><p><a href="#method-Reporter-from_list"><code>Reporter$from_list()</code></a></p></li>
+<li><p><a href="#method-Reporter-to_jsondir"><code>Reporter$to_jsondir()</code></a></p></li>
+<li><p><a href="#method-Reporter-from_jsondir"><code>Reporter$from_jsondir()</code></a></p></li>
 <li><p><a href="#method-Reporter-clone"><code>Reporter$clone()</code></a></p></li>
 </ul></div><p></p><hr><a id="method-Reporter-new"></a><div class="section">
 <h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
@@ -232,7 +233,8 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 
 </div><p></p><hr><a id="method-Reporter-reset"></a><div class="section">
 <h3 id="method-reset-">Method <code>reset()</code><a class="anchor" aria-label="anchor" href="#method-reset-"></a></h3>
-<p>Removes all <code><a href="ReportCard.html">ReportCard</a></code> objects added to this <code>Reporter</code>.</p><div class="section">
+<p>Removes all <code><a href="ReportCard.html">ReportCard</a></code> objects added to this <code>Reporter</code>.
+Additionally all metadata are removed.</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Reporter</span><span class="op">$</span><span class="fu">reset</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
@@ -295,7 +297,7 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 
 <div class="section">
 <h4 id="returns-7">Returns<a class="anchor" aria-label="anchor" href="#returns-7"></a></h4>
-<p><code>reactive_add_card</code> filed value</p>
+<p><code>reactive_add_card</code> field value</p>
 </div>
 <div class="section">
 <h4 id="examples-4">Examples<a class="anchor" aria-label="anchor" href="#examples-4"></a></h4>
@@ -303,15 +305,206 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 </div>
 
 
-</div><p></p><hr><a id="method-Reporter-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
-<p>The objects of this class are cloneable with this method.</p><div class="section">
+</div><p></p><hr><a id="method-Reporter-get_metadata"></a><div class="section">
+<h3 id="method-get-metadata-">Method <code>get_metadata()</code><a class="anchor" aria-label="anchor" href="#method-get-metadata-"></a></h3>
+<p>get metadata of this <code>Reporter</code>.</p><div class="section">
 <h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Reporter</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Reporter</span><span class="op">$</span><span class="fu">get_metadata</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="returns-8">Returns<a class="anchor" aria-label="anchor" href="#returns-8"></a></h4>
+<p>metadata</p>
+</div>
+<div class="section">
+<h4 id="examples-5">Examples<a class="anchor" aria-label="anchor" href="#examples-5"></a></h4>
+<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>sth <span class="op">=</span> <span class="st">"sth"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">reporter</span><span class="op">$</span><span class="fu">get_metadata</span><span class="op">(</span><span class="op">)</span></span>
+<span></span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-Reporter-append_metadata"></a><div class="section">
+<h3 id="method-append-metadata-">Method <code>append_metadata()</code><a class="anchor" aria-label="anchor" href="#method-append-metadata-"></a></h3>
+<p>Appends metadata to this <code>Reporter</code>.</p><div class="section">
+<h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Reporter</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span><span class="va">meta</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>meta</code></dt>
+<dd><p>(<code>list</code>) of metadata.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-9">Returns<a class="anchor" aria-label="anchor" href="#returns-9"></a></h4>
+<p>invisibly self</p>
+</div>
+<div class="section">
+<h4 id="examples-6">Examples<a class="anchor" aria-label="anchor" href="#examples-6"></a></h4>
+<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>sth <span class="op">=</span> <span class="st">"sth"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">reporter</span><span class="op">$</span><span class="fu">get_metadata</span><span class="op">(</span><span class="op">)</span></span>
+<span></span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-Reporter-from_reporter"></a><div class="section">
+<h3 id="method-from-reporter-">Method <code>from_reporter()</code><a class="anchor" aria-label="anchor" href="#method-from-reporter-"></a></h3>
+<p>Create/Recreate a Reporter from another Reporter</p><div class="section">
+<h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Reporter</span><span class="op">$</span><span class="fu">from_reporter</span><span class="op">(</span><span class="va">reporter</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>reporter</code></dt>
+<dd><p><code>Reporter</code> instance.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-10">Returns<a class="anchor" aria-label="anchor" href="#returns-10"></a></h4>
+<p>invisibly self</p>
+</div>
+<div class="section">
+<h4 id="examples-7">Examples<a class="anchor" aria-label="anchor" href="#examples-7"></a></h4>
+<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">reporter</span><span class="op">$</span><span class="fu">from_reporter</span><span class="op">(</span><span class="va">reporter</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-Reporter-to_list"></a><div class="section">
+<h3 id="method-to-list-">Method <code>to_list()</code><a class="anchor" aria-label="anchor" href="#method-to-list-"></a></h3>
+<p>Convert a Reporter to a list and transfer files</p><div class="section">
+<h4 id="usage-11">Usage<a class="anchor" aria-label="anchor" href="#usage-11"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Reporter</span><span class="op">$</span><span class="fu">to_list</span><span class="op">(</span><span class="va">output_dir</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-6">Arguments<a class="anchor" aria-label="anchor" href="#arguments-6"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>output_dir</code></dt>
+<dd><p><code>character(1)</code> a path to the directory where files will be copied.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-11">Returns<a class="anchor" aria-label="anchor" href="#returns-11"></a></h4>
+<p><code>named list</code> <code>Reporter</code> representation</p>
+</div>
+<div class="section">
+<h4 id="examples-8">Examples<a class="anchor" aria-label="anchor" href="#examples-8"></a></h4>
+<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">tmp_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"testdir"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span>
+<span><span class="va">reporter</span><span class="op">$</span><span class="fu">to_list</span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-Reporter-from_list"></a><div class="section">
+<h3 id="method-from-list-">Method <code>from_list()</code><a class="anchor" aria-label="anchor" href="#method-from-list-"></a></h3>
+<p>Create/Recreate a Reporter from a list and directory with files</p><div class="section">
+<h4 id="usage-12">Usage<a class="anchor" aria-label="anchor" href="#usage-12"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Reporter</span><span class="op">$</span><span class="fu">from_list</span><span class="op">(</span><span class="va">rlist</span>, <span class="va">output_dir</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>rlist</code></dt>
+<dd><p><code>named list</code> <code>Reporter</code> representation.</p></dd>
+
+
+<dt><code>output_dir</code></dt>
+<dd><p><code>character(1)</code> a path to the directory from which files will be copied.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-12">Returns<a class="anchor" aria-label="anchor" href="#returns-12"></a></h4>
+<p>invisibly self</p>
+</div>
+<div class="section">
+<h4 id="examples-9">Examples<a class="anchor" aria-label="anchor" href="#examples-9"></a></h4>
+<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">tmp_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"testdir"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="va">tmp_dir</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span>
+<span><span class="va">reporter</span><span class="op">$</span><span class="fu">from_list</span><span class="op">(</span><span class="va">reporter</span><span class="op">$</span><span class="fu">to_list</span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span>, <span class="va">tmp_dir</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-Reporter-to_jsondir"></a><div class="section">
+<h3 id="method-to-jsondir-">Method <code>to_jsondir()</code><a class="anchor" aria-label="anchor" href="#method-to-jsondir-"></a></h3>
+<p>Create/Recreate a Reporter to a directory with <code>JSON</code> file and static files</p><div class="section">
+<h4 id="usage-13">Usage<a class="anchor" aria-label="anchor" href="#usage-13"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Reporter</span><span class="op">$</span><span class="fu">to_jsondir</span><span class="op">(</span><span class="va">output_dir</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-8">Arguments<a class="anchor" aria-label="anchor" href="#arguments-8"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>output_dir</code></dt>
+<dd><p><code>character(1)</code> a path to the directory where files will be copied, <code>JSON</code> and statics.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-13">Returns<a class="anchor" aria-label="anchor" href="#returns-13"></a></h4>
+<p>invisibly self</p>
+</div>
+<div class="section">
+<h4 id="examples-10">Examples<a class="anchor" aria-label="anchor" href="#examples-10"></a></h4>
+<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">tmp_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"jsondir"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span>
+<span><span class="va">reporter</span><span class="op">$</span><span class="fu">to_jsondir</span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-Reporter-from_jsondir"></a><div class="section">
+<h3 id="method-from-jsondir-">Method <code>from_jsondir()</code><a class="anchor" aria-label="anchor" href="#method-from-jsondir-"></a></h3>
+<p>Create/Recreate a Reporter from a directory with <code>JSON</code> file and static files</p><div class="section">
+<h4 id="usage-14">Usage<a class="anchor" aria-label="anchor" href="#usage-14"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Reporter</span><span class="op">$</span><span class="fu">from_jsondir</span><span class="op">(</span><span class="va">output_dir</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>output_dir</code></dt>
+<dd><p><code>character(1)</code> a path to the directory with files, <code>JSON</code> and statics.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-14">Returns<a class="anchor" aria-label="anchor" href="#returns-14"></a></h4>
+<p>invisibly self</p>
+</div>
+<div class="section">
+<h4 id="examples-11">Examples<a class="anchor" aria-label="anchor" href="#examples-11"></a></h4>
+<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">tmp_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"jsondir"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">tmp_dir</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">reporter</span><span class="op">$</span><span class="fu">to_jsondir</span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span>
+<span><span class="va">reporter</span><span class="op">$</span><span class="fu">from_jsondir</span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-Reporter-clone"></a><div class="section">
+<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+<p>The objects of this class are cloneable with this method.</p><div class="section">
+<h4 id="usage-15">Usage<a class="anchor" aria-label="anchor" href="#usage-15"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Reporter</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-10">Arguments<a class="anchor" aria-label="anchor" href="#arguments-10"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 
@@ -389,16 +582,20 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;ReportCard&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     append_content: function (content) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     append_metadata: function (key, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     append_plot: function (plot) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     append_table: function (table) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     append_text: function (text, style = TextBlock$new()$get_available_styles()[1]) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (card, output_dir) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_metadata: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_name: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     reset: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_name: function (name) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function (output_dir) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     content: list</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
@@ -408,16 +605,20 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;ReportCard&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     append_content: function (content) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     append_metadata: function (key, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     append_plot: function (plot) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     append_table: function (table) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     append_text: function (text, style = TextBlock$new()$get_available_styles()[1]) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (card, output_dir) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_metadata: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_name: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     reset: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_name: function (name) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function (output_dir) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     content: list</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
@@ -456,12 +657,14 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_available_styles: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_style: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (content = character(0), style = private$styles[1]) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_style: function (style) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     content: Header 2 text</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
@@ -473,12 +676,14 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_available_styles: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_style: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (content = character(0), style = private$styles[1]) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_style: function (style) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     content: A paragraph of default text</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
@@ -487,10 +692,11 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;PictureBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;FileBlock&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     finalize: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x, output_dir) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_dim: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_title: function () </span>
@@ -498,8 +704,9 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_dim: function (dim) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function (output_dir) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpNBJMAB/file19f23e2d627.png</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpS3xAW0/file19838767807.png</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis</span>
@@ -525,12 +732,14 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_available_styles: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_style: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (content = character(0), style = private$styles[1]) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_style: function (style) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     content: Header 2 text</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
@@ -542,12 +751,14 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_available_styles: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_style: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (content = character(0), style = private$styles[1]) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_style: function (style) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     content: A paragraph of default text</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
@@ -556,29 +767,33 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[7]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;TableBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;FileBlock&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     finalize: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x, output_dir) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (table) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function (output_dir) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpNBJMAB/file19f6f554354.rds</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpS3xAW0/file1985c368d51.rds</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_tables: data.frame rtables TableTree ElementaryTable</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[8]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;TableBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;FileBlock&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     finalize: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x, output_dir) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (table) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function (output_dir) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpNBJMAB/file19f2fd55ce7.rds</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpS3xAW0/file19813580493.rds</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_tables: data.frame rtables TableTree ElementaryTable</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -590,6 +805,86 @@ Pass <code>NULL</code> to return content without any additional elements. Defaul
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/isolate.html" class="external-link">isolate</a></span><span class="op">(</span><span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">get_reactive_add_card</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Reporter$get_metadata`</span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>sth <span class="op">=</span> <span class="st">"sth"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">get_metadata</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sth</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "sth"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Reporter$append_metadata`</span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>sth <span class="op">=</span> <span class="st">"sth"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">get_metadata</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sth</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "sth"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Reporter$from_reporter`</span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">from_reporter</span><span class="op">(</span><span class="va">reporter</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Reporter$to_list`</span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tmp_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"testdir"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">to_list</span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $version</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $cards</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> list()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $metadata</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> list()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Reporter$from_list`</span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tmp_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"testdir"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="va">tmp_dir</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">from_list</span><span class="op">(</span><span class="va">reporter</span><span class="op">$</span><span class="fu">to_list</span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span>, <span class="va">tmp_dir</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Reporter$to_jsondir`</span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tmp_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"jsondir"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">to_jsondir</span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpS3xAW0/jsondir"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Reporter$from_jsondir`</span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tmp_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"jsondir"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/tmp/RtmpS3xAW0/jsondir' already exists</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">tmp_dir</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">to_jsondir</span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpS3xAW0/jsondir"</span>
+<span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">from_jsondir</span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
