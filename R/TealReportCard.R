@@ -28,7 +28,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends the filter state list to the `content` and `metadata` of this `TealReportCard`.
     #'
     #' @param fs (`list`) a filter states.
-    #' @param format_fun (`list`) a function to format the filter states.
+    #' @param format_fun (`function`) a function to format the filter states.
     #' @return invisibly self
     #' @examples
     #' card <- TealReportCard$new()$append_fs(list(a = 1, b = 2))
