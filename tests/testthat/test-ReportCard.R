@@ -39,6 +39,13 @@ testthat::test_that("append_plot accepts a ggplot", {
   )
 })
 
+testthat::test_that("append_plot accepts a ggplot with a dim", {
+  testthat::expect_error(
+    ReportCard$new()$append_plot(ggplot2::ggplot(iris), c(1000L, 100L)),
+    regexp = NA
+  )
+})
+
 testthat::test_that("get_content returns a list of ContentBlock objects", {
   card <- ReportCard$new()
   card$append_text("test")$append_plot(ggplot2::ggplot(iris))$append_metadata("SRC", "A <- plot()")

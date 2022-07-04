@@ -44,6 +44,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       if (!is.null(dim) && length(dim) == 2) {
         pb$set_dim(dim)
       }
+      pb$set_content(plot)
       private$content <- append(private$content, pb)
       invisible(self)
     },
