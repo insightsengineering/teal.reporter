@@ -111,7 +111,7 @@ Appends the filter state list to the \code{content} and \code{metadata} of this 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{fs}}{(\code{list}) a filter states.}
+\item{\code{fs}}{(\code{list}) of filter states.}
 }
 \if{html}{\out{</div>}}
 }
