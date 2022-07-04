@@ -6,7 +6,7 @@
 * Decoupled the `metadata` and `content` in the `ReportCard`.
 * Added additional validation for the `card_fun` evaluation.
 * Added support for more arguments setup for a `card_fun` function in the `add_card_button_srv` module, specifically the `card_fun` could have any subset of the possible arguments.
-* Fixed how `trellis` plots are catched by the `append_plot` method in the `ReportCard`.
+* Fixed how `trellis` plots are catched by the `set_content` method in the `PictureBlock`.
 
 # teal.reporter 0.1.0
 
