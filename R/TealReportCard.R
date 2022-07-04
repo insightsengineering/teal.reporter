@@ -30,7 +30,6 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param fs (`list`) a filter states.
     #' @return invisibly self
     #' @examples
-    #' fs_inst <- fs$new()
     #' card <- TealReportCard$new()$append_fs(list(a = 1, b = 2))
     #' card$get_content()[[1]]$get_content()
     #'
@@ -49,7 +48,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param encodings (`list`) list of encodings selections of the teal app.
     #' @return invisibly self
     #' @examples
-    #' card <- TealReportCard$new()$append_encodings(list("variable 1 is X"))
+    #' card <- TealReportCard$new()$append_encodings(list(variable1 = "X"))
     #' card$get_content()[[1]]$get_content()
     #'
     append_encodings = function(encodings) {

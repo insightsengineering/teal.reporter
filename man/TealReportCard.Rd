@@ -25,7 +25,6 @@ card$get_content()[[1]]$get_content()
 ## Method `TealReportCard$append_fs`
 ## ------------------------------------------------
 
-fs_inst <- fs$new()
 card <- TealReportCard$new()$append_fs(list(a = 1, b = 2))
 card$get_content()[[1]]$get_content()
 
@@ -34,7 +33,7 @@ card$get_content()[[1]]$get_content()
 ## Method `TealReportCard$append_encodings`
 ## ------------------------------------------------
 
-card <- TealReportCard$new()$append_encodings(list("variable 1 is X"))
+card <- TealReportCard$new()$append_encodings(list(variable1 = "X"))
 card$get_content()[[1]]$get_content()
 
 }
@@ -121,8 +120,7 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{fs_inst <- fs$new()
-card <- TealReportCard$new()$append_fs(list(a = 1, b = 2))
+\preformatted{card <- TealReportCard$new()$append_fs(list(a = 1, b = 2))
 card$get_content()[[1]]$get_content()
 
 }
@@ -152,7 +150,7 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- TealReportCard$new()$append_encodings(list("variable 1 is X"))
+\preformatted{card <- TealReportCard$new()$append_encodings(list(variable1 = "X"))
 card$get_content()[[1]]$get_content()
 
 }
