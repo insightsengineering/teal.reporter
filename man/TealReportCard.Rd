@@ -105,22 +105,13 @@ card$get_content()[[1]]$get_content()
 \subsection{Method \code{append_fs()}}{
 Appends the filter state list to the \code{content} and \code{metadata} of this \code{TealReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_fs(
-  fs,
-  format_fun = function(fs) {
-     yaml::as.yaml(fs, handlers = list(POSIXct =
-    function(x) format(x, "\%Y-\%m-\%d"), POSIXlt = function(x) format(x, "\%Y-\%m-\%d"),
-    Date = function(x) format(x, "\%Y-\%m-\%d")))
- }
-)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_fs(fs)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{fs}}{(\code{list}) a filter states.}
-
-\item{\code{format_fun}}{(\code{function}) a function to format the filter states.}
 }
 \if{html}{\out{</div>}}
 }

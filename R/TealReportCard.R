@@ -28,22 +28,18 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends the filter state list to the `content` and `metadata` of this `TealReportCard`.
     #'
     #' @param fs (`list`) a filter states.
-    #' @param format_fun (`function`) a function to format the filter states.
     #' @return invisibly self
     #' @examples
     #' card <- TealReportCard$new()$append_fs(list(a = 1, b = 2))
     #' card$get_content()[[1]]$get_content()
     #'
-    append_fs = function(fs, format_fun = function(fs) {
-                           yaml::as.yaml(fs, handlers = list(
-                             POSIXct = function(x) format(x, "%Y-%m-%d"),
-                             POSIXlt = function(x) format(x, "%Y-%m-%d"),
-                             Date = function(x) format(x, "%Y-%m-%d")
-                           ))
-                         }) {
+    append_fs = function(fs) {
       checkmate::assert_list(fs)
-      checkmate::assert_function(format_fun)
-      super$append_text(format_fun(fs), "verbatim")
+      super$append_text(yaml::as.yaml(fs, handlers = list(
+        POSIXct = function(x) format(x, "%Y-%m-%d"),
+        POSIXlt = function(x) format(x, "%Y-%m-%d"),
+        Date = function(x) format(x, "%Y-%m-%d")
+      )), "verbatim")
       super$append_metadata("FS", fs)
       invisible(self)
     },
