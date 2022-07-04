@@ -25,29 +25,26 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
       super$append_metadata("SRC", src)
       invisible(self)
     },
-    #' @description Appends the filter state list to the `content` meta data  of this `TealReportCard`.
+    #' @description Appends the filter state list to the `content` and `metadata` of this `TealReportCard`.
     #'
-    #' @param fs (`FilteredData`) with filter states.
+    #' @param fs (`list`) a filter states.
     #' @return invisibly self
     #' @examples
-    #' # Artificial FilteredData class
-    #' fs <- R6::R6Class("FilteredData",
-    #'   public = list(
-    #'     get_filter_state = function() list(a = 1, b = 3),
-    #'     get_formatted_filter_state = function() "a = 1 and b = 3"
-    #'   )
-    #' )
     #' fs_inst <- fs$new()
-    #' card <- TealReportCard$new()$append_fs(fs_inst)
+    #' card <- TealReportCard$new()$append_fs(list(a = 1, b = 2))
     #' card$get_content()[[1]]$get_content()
     #'
     append_fs = function(fs) {
-      checkmate::assert_class(fs, "FilteredData")
-      super$append_text(fs$get_formatted_filter_state(), "verbatim")
-      super$append_metadata("FS", fs$get_filter_state())
+      checkmate::assert_list(fs)
+      super$append_text(yaml::as.yaml(fs, handlers = list(
+        POSIXct = function(x) format(x, "%Y-%m-%d"),
+        POSIXlt = function(x) format(x, "%Y-%m-%d"),
+        Date = function(x) format(x, "%Y-%m-%d")
+      )), "verbatim")
+      super$append_metadata("FS", fs)
       invisible(self)
     },
-    #' @description Appends the encodings list to the `content` meta data of this `TealReportCard`.
+    #' @description Appends the encodings list to the `content` and `metadata` of this `TealReportCard`.
     #'
     #' @param encodings (`list`) list of encodings selections of the teal app.
     #' @return invisibly self
@@ -57,7 +54,11 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     append_encodings = function(encodings) {
       checkmate::assert_list(encodings)
-      super$append_text(yaml::as.yaml(encodings), "verbatim")
+      super$append_text(yaml::as.yaml(encodings, handlers = list(
+        POSIXct = function(x) format(x, "%Y-%m-%d"),
+        POSIXlt = function(x) format(x, "%Y-%m-%d"),
+        Date = function(x) format(x, "%Y-%m-%d")
+      )), "verbatim")
       super$append_metadata("Encodings", encodings)
       invisible(self)
     }
