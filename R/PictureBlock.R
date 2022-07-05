@@ -44,7 +44,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
             print(content)
           } else if (inherits(content, "trellis")) {
             grid::grid.newpage()
-            grid::grid.grabExpr(print(content), warn = 0, wrap.grobs = TRUE)
+            grid::grid.draw(grid::grid.grabExpr(print(content), warn = 0, wrap.grobs = TRUE))
           }
           super$set_content(path)
         },

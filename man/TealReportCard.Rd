@@ -25,15 +25,7 @@ card$get_content()[[1]]$get_content()
 ## Method `TealReportCard$append_fs`
 ## ------------------------------------------------
 
-# Artificial FilteredData class
-fs <- R6::R6Class("FilteredData",
-  public = list(
-    get_filter_state = function() list(a = 1, b = 3),
-    get_formatted_filter_state = function() "a = 1 and b = 3"
-  )
-)
-fs_inst <- fs$new()
-card <- TealReportCard$new()$append_fs(fs_inst)
+card <- TealReportCard$new()$append_fs(list(a = 1, b = 2))
 card$get_content()[[1]]$get_content()
 
 
@@ -41,7 +33,7 @@ card$get_content()[[1]]$get_content()
 ## Method `TealReportCard$append_encodings`
 ## ------------------------------------------------
 
-card <- TealReportCard$new()$append_encodings(list("variable 1 is X"))
+card <- TealReportCard$new()$append_encodings(list(variable1 = "X"))
 card$get_content()[[1]]$get_content()
 
 }
@@ -111,7 +103,7 @@ card$get_content()[[1]]$get_content()
 \if{html}{\out{<a id="method-TealReportCard-append_fs"></a>}}
 \if{latex}{\out{\hypertarget{method-TealReportCard-append_fs}{}}}
 \subsection{Method \code{append_fs()}}{
-Appends the filter state list to the \code{content} meta data  of this \code{TealReportCard}.
+Appends the filter state list to the \code{content} and \code{metadata} of this \code{TealReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_fs(fs)}\if{html}{\out{</div>}}
 }
@@ -119,7 +111,7 @@ Appends the filter state list to the \code{content} meta data  of this \code{Tea
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{fs}}{(\code{FilteredData}) with filter states.}
+\item{\code{fs}}{(\code{list}) of filter states.}
 }
 \if{html}{\out{</div>}}
 }
@@ -128,15 +120,7 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Artificial FilteredData class
-fs <- R6::R6Class("FilteredData",
-  public = list(
-    get_filter_state = function() list(a = 1, b = 3),
-    get_formatted_filter_state = function() "a = 1 and b = 3"
-  )
-)
-fs_inst <- fs$new()
-card <- TealReportCard$new()$append_fs(fs_inst)
+\preformatted{card <- TealReportCard$new()$append_fs(list(a = 1, b = 2))
 card$get_content()[[1]]$get_content()
 
 }
@@ -149,7 +133,7 @@ card$get_content()[[1]]$get_content()
 \if{html}{\out{<a id="method-TealReportCard-append_encodings"></a>}}
 \if{latex}{\out{\hypertarget{method-TealReportCard-append_encodings}{}}}
 \subsection{Method \code{append_encodings()}}{
-Appends the encodings list to the \code{content} meta data of this \code{TealReportCard}.
+Appends the encodings list to the \code{content} and \code{metadata} of this \code{TealReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_encodings(encodings)}\if{html}{\out{</div>}}
 }
@@ -166,7 +150,7 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- TealReportCard$new()$append_encodings(list("variable 1 is X"))
+\preformatted{card <- TealReportCard$new()$append_encodings(list(variable1 = "X"))
 card$get_content()[[1]]$get_content()
 
 }
