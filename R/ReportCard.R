@@ -32,14 +32,20 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends a plot to this `ReportCard`.
     #'
     #' @param plot the appended plot
+    #' @param dim `integer vector` width and height in pixels.
     #' @return invisibly self
     #' @examples
     #' card <- ReportCard$new()$append_plot(
     #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )
     #'
-    append_plot = function(plot) {
-      private$content <- append(private$content, PictureBlock$new(plot))
+    append_plot = function(plot, dim = NULL) {
+      pb <- PictureBlock$new()
+      if (!is.null(dim) && length(dim) == 2) {
+        pb$set_dim(dim)
+      }
+      pb$set_content(plot)
+      private$content <- append(private$content, pb)
       invisible(self)
     },
     #' @description Appends a paragraph of text to this `ReportCard`.
