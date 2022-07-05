@@ -33,6 +33,26 @@ testthat::test_that("set_content returns the PictureBlock object", {
     block$set_content(ggplot2::ggplot(iris)),
     block
   )
+  testthat::expect_identical(
+    dim(png::readPNG(block$set_content(ggplot2::ggplot(iris))$get_content())),
+    c(600, 800, 4)
+  )
+})
+
+testthat::test_that("set_content catches a file with the 600x800 size", {
+  block <- PictureBlock$new()
+  testthat::expect_equal(
+    dim(png::readPNG(block$set_content(ggplot2::ggplot(iris))$get_content())),
+    c(600L, 800L, 4L)
+  )
+})
+
+testthat::test_that("set_content catches a file with a custom size", {
+  block <- PictureBlock$new()
+  testthat::expect_equal(
+    dim(png::readPNG(block$set_dim(c(1000L, 100L))$set_content(ggplot2::ggplot(iris))$get_content())),
+    c(c(100L, 1000L), 4L)
+  )
 })
 
 # get_content
