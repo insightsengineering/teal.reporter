@@ -14,7 +14,7 @@ meta data blocks that can be appended and rendered to form a report output from 
     
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9010</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,12 +36,6 @@ meta data blocks that can be appended and rendered to form a report output from 
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" href="https://insightsengineering.github.io/teal.reporter/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -138,13 +132,17 @@ meta data blocks that can be appended and rendered to form a report output from 
 <h3 id="method-append-plot-">Method <code>append_plot()</code><a class="anchor" aria-label="anchor" href="#method-append-plot-"></a></h3>
 <p>Appends a plot to this <code>ReportCard</code>.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ReportCard</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span><span class="va">plot</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ReportCard</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span><span class="va">plot</span>, dim <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>plot</code></dt>
 <dd><p>the appended plot</p></dd>
+
+
+<dt><code>dim</code></dt>
+<dd><p><code>integer vector</code> width and height in pixels.</p></dd>
 
 
 </dl><p></p></div>
@@ -563,7 +561,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function (output_dir) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpG0aaQz/file19f64e47648.png</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/Rtmpv0x2zG/file1a073674629.png</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis</span>
@@ -661,7 +659,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function (output_dir) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpG0aaQz/file19f9c1b610.png</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/Rtmpv0x2zG/file1a05cc90e55.png</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis</span>
@@ -700,7 +698,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$PictureBlock</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$PictureBlock$basename</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "file19f9c1b610.png"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "file1a05cc90e55.png"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$TextBlock</span>
@@ -771,7 +769,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function (output_dir) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpG0aaQz/file19f49dd817a.png</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/Rtmpv0x2zG/file1a020af58d6.png</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis</span>
