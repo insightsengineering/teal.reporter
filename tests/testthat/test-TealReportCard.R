@@ -41,31 +41,23 @@ testthat::test_that("TealReportCard$append_src returns self", {
 
 testthat::test_that("TealReportCard$append_encodings accepts list of character", {
   card <- TealReportCard$new()
-  testthat::expect_error(card$append_encodings(list("test")), regexp = NA)
+  testthat::expect_error(card$append_encodings(list(a = "test")), regexp = NA)
 })
 
 testthat::test_that("TealReportCard$append_encodings returns self", {
   card <- TealReportCard$new()
-  testthat::expect_identical(card$append_encodings(list("test_encodings")), card)
+  testthat::expect_identical(card$append_encodings(list(a = "test_encodings")), card)
 })
-
-fs <- R6::R6Class("FilteredData",
-  public = list(
-    get_filter_state = function() list(a = 1, b = 3),
-    get_formatted_filter_state = function() "TEST"
-  )
-)
-fs_inst <- fs$new()
 
 testthat::test_that("TealReportCard$append_fs accepts only a FilteredData", {
   card <- TealReportCard$new()
-  testthat::expect_error(card$append_fs(list(a = 1)),
-    regexp = "Must inherit from class 'FilteredData'"
+  testthat::expect_error(card$append_fs(c(a = 1, b = 2)),
+    regexp = "Assertion on 'fs' failed: Must be of type 'list', not 'double'."
   )
-  testthat::expect_error(card$append_fs(fs_inst), regexp = NA)
+  testthat::expect_error(card$append_fs(list(a = 1, b = 2)), regexp = NA)
 })
 
 testthat::test_that("TealReportCard$append_fs returns self", {
   card <- TealReportCard$new()
-  testthat::expect_identical(card$append_fs(fs_inst), card)
+  testthat::expect_identical(card$append_fs(list(a = 1, b = 2)), card)
 })
