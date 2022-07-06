@@ -76,6 +76,17 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
                                      date = as.character(Sys.Date()), output = "html_document"
                                    )) {
   checkmate::assert_class(reporter, "Reporter")
+  checkmate::assert_list(rmd_yaml_args)
+  
+  if ("pdf_document" %in% rmd_output && inherits(try(system2("pdflatex --version", stdout = TRUE)), "try-error")) {
+    warning("pdflatex is not available so the pdf_document output is hidden for use.")
+    shiny::showNotification(
+      ui = "pdflatex is not available so the pdf_document output is hidden for use.",
+      type = "warning"
+    )
+    rmd_output <- setdiff(rmd_output, "pdf_document")
+  }
+  
   shiny::moduleServer(
     id,
     function(input, output, session) {
