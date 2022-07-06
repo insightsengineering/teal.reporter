@@ -17,15 +17,7 @@ reporter_previewer_ui <- function(id, rmd_output = c(
                                     date = as.character(Sys.Date()), output = "html_document"
                                   )) {
   checkmate::assert_list(rmd_yaml_args)
-  if ("pdf_document" %in% rmd_output && inherits(try(system2("pdflatex --version", stdout = TRUE)), "try-error")) {
-    warning("pdflatex is not available so the pdf_document output is hidden for use.")
-    shiny::showNotification(
-      ui = "pdflatex is not available so the pdf_document output is hidden for use.",
-      type = "warning"
-    )
-    rmd_output <- setdiff(rmd_output, "pdf_document")
-  }
-  
+
   ns <- shiny::NS(id)
   encoding <- shiny::tagList(
     shiny::tags$h3("Download the Report"),
@@ -87,7 +79,7 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
                                    )) {
   checkmate::assert_class(reporter, "Reporter")
   checkmate::assert_list(rmd_yaml_args)
-  
+
   shiny::moduleServer(
     id,
     function(input, output, session) {
@@ -153,7 +145,14 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
           shiny::showNotification("Rendering and Downloading the document.")
           input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
           names(input_list) <- names(rmd_yaml_args)
-          report_render_and_compress(reporter, input_list, file)
+          res <- try(report_render_and_compress(reporter, input_list, file))
+          if (inherits(res, "try-error")) {
+            shiny::showNotification(
+              ui = "Report failed to be generated.",
+              action = "Please contact app developer",
+              type = "error"
+            )
+          }
         },
         contentType = "application/zip"
       )
