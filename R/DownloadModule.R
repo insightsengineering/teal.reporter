@@ -54,7 +54,11 @@ download_report_button_srv <- function(id,
   checkmate::assert_true(all(c("author", "title", "date", "output") %in% names(rmd_yaml_args)))
 
   if ("pdf_document" %in% rmd_output && inherits(try(system("pdflatex --version")), "try-error")) {
-    warning("pdflatex is not available so the pdf_document output is hidden from use.")
+    warning("pdflatex is not available so the pdf_document output is hidden for use.")
+    shiny::showNotification(
+      ui = "pdflatex is not available so the pdf_document output is hidden for use.",
+      type = "warning"
+    )
     rmd_output <- setdiff(rmd_output, "pdf_document")
   }
 
