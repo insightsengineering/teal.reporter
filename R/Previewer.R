@@ -145,14 +145,7 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
           shiny::showNotification("Rendering and Downloading the document.")
           input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
           names(input_list) <- names(rmd_yaml_args)
-          res <- try(report_render_and_compress(reporter, input_list, file))
-          if (inherits(res, "try-error")) {
-            shiny::showNotification(
-              ui = "Report failed to be generated.",
-              action = "Please contact app developer",
-              type = "error"
-            )
-          }
+          report_render_and_compress(reporter, input_list, file)
         },
         contentType = "application/zip"
       )
