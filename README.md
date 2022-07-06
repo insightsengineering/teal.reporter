@@ -19,6 +19,6 @@ if (!require("remotes")) install.packages("remotes")
 remotes::install_github("insightsengineering/teal.reporter@*release")
 ```
 
-A stable release of all `NEST` packages from June 2022 is also available [here](https://github.com/insightsengineering/depository#readme). 
+A stable release of all `NEST` packages from June 2022 is also available [here](https://github.com/insightsengineering/depository#readme).
 
 See package vignettes `browseVignettes(package = "teal.reporter")` for usage of this package.
