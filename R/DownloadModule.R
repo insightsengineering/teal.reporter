@@ -146,12 +146,13 @@ report_render_and_compress <- function(reporter, input_list, file = tempdir()) {
   checkmate::assert_string(file)
 
   if (identical("pdf_document", input_list$output) &&
-      inherits(try(system2("pdflatex --version", stdout = TRUE)), "try-error")) {
-    warning("pdflatex is not available so the pdf_document could not be rendered.")
+      inherits(try(system2("pdflatex --version", stdout = TRUE), silent = TRUE), "try-error")) {
     shiny::showNotification(
-      ui = "pdflatex is not available so the pdf_document could not be rendered.",
-      type = "warning"
+      ui = "pdflatex is not available so the pdf_document could not be rendered. Please use other output type.",
+      action = "Please contact app developer",
+      type = "error"
     )
+    stop("pdflatex is not available so the pdf_document could not be rendered.")
   }
 
   yaml_header <- as_yaml_auto(input_list)
