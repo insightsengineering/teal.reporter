@@ -16,7 +16,6 @@ reporter_previewer_ui <- function(id, rmd_output = c(
                                     author = "NEST", title = "Report",
                                     date = as.character(Sys.Date()), output = "html_document"
                                   )) {
-  checkmate::assert_list(rmd_output)
   checkmate::assert_list(rmd_yaml_args)
   if ("pdf_document" %in% rmd_output && inherits(try(system2("pdflatex --version", stdout = TRUE)), "try-error")) {
     warning("pdflatex is not available so the pdf_document output is hidden for use.")
