@@ -19,7 +19,8 @@ download_report_button_srv(
 \item{reporter}{\code{\link{Reporter}} instance.}
 
 \item{rmd_output}{\code{character} vector with \code{rmarkdown} output types,
-by default all possible \code{c("pdf_document", "html_document", "powerpoint_presentation", "word_document")}.}
+by default all possible \code{c("pdf_document", "html_document", "powerpoint_presentation", "word_document")}.
+\code{pdflatex} has to be installed to use the \code{"pdf_document"} output.}
 
 \item{rmd_yaml_args}{\verb{named list} vector with \code{Rmd} \code{yaml} header fields and their default values.
 Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document")}.

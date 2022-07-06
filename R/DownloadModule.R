@@ -29,6 +29,7 @@ download_report_button_ui <- function(id) {
 #' @param reporter [`Reporter`] instance.
 #' @param rmd_output `character` vector with `rmarkdown` output types,
 #' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
+#' `pdflatex` has to be installed to use the `"pdf_document"` output.
 #' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
 #' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document")`.
 #' Please update only values at this moment.
@@ -51,6 +52,11 @@ download_report_button_srv <- function(id,
   ))
   checkmate::assert_list(rmd_yaml_args, names = "named")
   checkmate::assert_true(all(c("author", "title", "date", "output") %in% names(rmd_yaml_args)))
+
+  if ("pdf_document" %in% rmd_output && inherits(try(system("pdflatex --version")), "try-error")) {
+    warning("pdflatex is not available so the pdf_document output is hidden from use.")
+    rmd_output <- setdiff(rmd_output, "pdf_document")
+  }
 
   shiny::moduleServer(
     id,
@@ -124,7 +130,14 @@ download_report_button_srv <- function(id,
           shiny::showNotification("Rendering and Downloading the document.")
           input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
           names(input_list) <- names(rmd_yaml_args)
-          report_render_and_compress(reporter, input_list, file)
+          res <- try(report_render_and_compress(reporter, input_list, file))
+          if (inherits(res, "try-error")) {
+            shiny::showNotification(
+              ui = "Report failed to be generated.",
+              action = "Please contact app developer",
+              type = "error"
+            )
+          }
         },
         contentType = "application/zip"
       )
@@ -154,14 +167,14 @@ report_render_and_compress <- function(reporter, input_list, file = tempdir()) {
     expr = zip::zipr(temp_zip_file, renderer$get_output_dir()),
     warning = function(cond) {
       shiny::showNotification(
-        ui = sprintf("Zipping folder warning!"),
+        ui = "Zipping folder warning!",
         action = "Please contact app developer",
         type = "warning"
       )
     },
     error = function(cond) {
       shiny::showNotification(
-        ui = sprintf("Zipping folder error!"),
+        ui = "Zipping folder error!",
         action = "Please contact app developer",
         type = "error"
       )
@@ -172,14 +185,14 @@ report_render_and_compress <- function(reporter, input_list, file = tempdir()) {
     expr = file.copy(temp_zip_file, file),
     warning = function(cond) {
       shiny::showNotification(
-        ui = sprintf("Copying file warning!"),
+        ui = "Copying file warning!",
         action = "Please contact app developer",
         type = "warning"
       )
     },
     error = function(cond) {
       shiny::showNotification(
-        ui = sprintf("Copying file error!"),
+        ui = "Copying file error!",
         action = "Please contact app developer",
         type = "error"
       )

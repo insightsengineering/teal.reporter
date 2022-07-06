@@ -30,7 +30,8 @@ Suggests:
     lattice,
     png,
     rtables (>= 0.5.1),
-    testthat
+    testthat,
+    tinytex
 VignetteBuilder:
     knitr
 RdMacros:
