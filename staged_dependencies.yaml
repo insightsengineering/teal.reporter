@@ -3,11 +3,14 @@ current_repo:
   repo: insightsengineering/teal.reporter
   host: https://github.com
 downstream_repos:
-  insightsengineering/teals:
+  insightsengineering/teal:
     repo: insightsengineering/teal
     host: https://github.com
   insightsengineering/teal.modules.clinical:
     repo: insightsengineering/teal.modules.clinical
+    host: https://github.com
+  insightsengineering/teal.goshawk:
+    repo: insightsengineering/teal.goshawk
     host: https://github.com
   insightsengineering/teal.modules.general:
     repo: insightsengineering/teal.modules.general
