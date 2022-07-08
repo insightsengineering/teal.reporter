@@ -16,6 +16,8 @@ reporter_previewer_ui <- function(id, rmd_output = c(
                                     author = "NEST", title = "Report",
                                     date = as.character(Sys.Date()), output = "html_document"
                                   )) {
+  checkmate::assert_list(rmd_yaml_args)
+
   ns <- shiny::NS(id)
   encoding <- shiny::tagList(
     shiny::tags$h3("Download the Report"),
@@ -76,6 +78,8 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
                                      date = as.character(Sys.Date()), output = "html_document"
                                    )) {
   checkmate::assert_class(reporter, "Reporter")
+  checkmate::assert_list(rmd_yaml_args)
+
   shiny::moduleServer(
     id,
     function(input, output, session) {
