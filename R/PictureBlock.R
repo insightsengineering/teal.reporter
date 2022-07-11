@@ -40,7 +40,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
           if (inherits(content, "grob")) {
             grid::grid.newpage()
             grid::grid.draw(content)
-          } else if (inherits(content, "gg") || inherits(content, "Heatmap")) {
+          } else if (inherits(content, c("gg", "Heatmap")) {
             print(content)
           } else if (inherits(content, "trellis")) {
             grid::grid.newpage()
