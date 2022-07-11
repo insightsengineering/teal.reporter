@@ -40,7 +40,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
           if (inherits(content, "grob")) {
             grid::grid.newpage()
             grid::grid.draw(content)
-          } else if (inherits(content, "gg")) {
+          } else if (inherits(content, "gg") || inherits(content, "Heatmap")) {
             print(content)
           } else if (inherits(content, "trellis")) {
             grid::grid.newpage()
@@ -102,7 +102,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     }
   ),
   private = list(
-    supported_plots = c("ggplot", "grob", "trellis"),
+    supported_plots = c("ggplot", "grob", "trellis", "Heatmap"),
     type = character(0),
     title = "",
     dim = c(800, 600)
