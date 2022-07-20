@@ -42,9 +42,9 @@ block$to_list(tempdir())
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-get_content'><code>teal.reporter::ContentBlock$get_content()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="initialize"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-initialize'><code>teal.reporter::ContentBlock$initialize()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="set_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-set_content'><code>teal.reporter::ContentBlock$set_content()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-get_content'><code>teal.reporter::ContentBlock$get_content()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="initialize"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-initialize'><code>teal.reporter::ContentBlock$initialize()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="set_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-set_content'><code>teal.reporter::ContentBlock$set_content()</code></a></span></li>
 </ul>
 </details>
 }}

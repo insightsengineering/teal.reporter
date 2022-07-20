@@ -40,8 +40,8 @@ archiver$get_output_dir()
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="Archiver" data-id="read"><a href='../../teal.reporter/html/Archiver.html#method-Archiver-read'><code>teal.reporter::Archiver$read()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="Archiver" data-id="write"><a href='../../teal.reporter/html/Archiver.html#method-Archiver-write'><code>teal.reporter::Archiver$write()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="Archiver" data-id="read"><a href='../../teal.reporter/html/Archiver.html#method-Archiver-read'><code>teal.reporter::Archiver$read()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="Archiver" data-id="write"><a href='../../teal.reporter/html/Archiver.html#method-Archiver-write'><code>teal.reporter::Archiver$write()</code></a></span></li>
 </ul>
 </details>
 }}
