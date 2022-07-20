@@ -61,3 +61,35 @@ testthat::test_that("TealReportCard$append_fs returns self", {
   card <- TealReportCard$new()
   testthat::expect_identical(card$append_fs(list(a = 1, b = 2)), card)
 })
+
+testthat::test_that("TealReportCard$append_fs appends throws error if attribute is not character or NULL", {
+  # NULL
+  card <- TealReportCard$new()
+  testthat::expect_error(card$append_fs(list(a = 1)), NA)
+
+  # character
+  card <- TealReportCard$new()
+  fs <- list(a = 1, b = 2)
+  attr(fs, "formatted") <- "attr is not NULL"
+  testthat::expect_error(fs, NA)
+
+  # non-character, non-NULL
+  card <- TealReportCard$new()
+  fs <- list(a = 1, b = 2)
+  attr(fs, "formatted") <- 1
+  testthat::expect_error(card$append_fs(fs), "Assertion on 'attr_fs' failed")
+})
+
+testthat::test_that("TealReportCard$append_fs appends text according to the attribute of the input list", {
+  # attribute is NULL
+  card <- TealReportCard$new()
+  card$append_fs(list(a = 1))
+  testthat::expect_identical(card$get_content()[[1]]$get_content(), "a: 1.0\n")
+
+  # attribute is not NULL
+  card <- TealReportCard$new()
+  fs <- list(a = 1, b = 2)
+  attr(fs, "formatted") <- "attr is not NULL"
+  card$append_fs(fs)
+  testthat::expect_identical(card$get_content()[[1]]$get_content(), "attr is not NULL")
+})

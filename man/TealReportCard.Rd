@@ -104,6 +104,8 @@ card$get_content()[[1]]$get_content()
 \if{latex}{\out{\hypertarget{method-TealReportCard-append_fs}{}}}
 \subsection{Method \code{append_fs()}}{
 Appends the filter state list to the \code{content} and \code{metadata} of this \code{TealReportCard}.
+If the filter state list has an attribute named \code{formatted}, it appends it to the card otherwise it uses
+the default \code{yaml::as.yaml} to format the list.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_fs(fs)}\if{html}{\out{</div>}}
 }
