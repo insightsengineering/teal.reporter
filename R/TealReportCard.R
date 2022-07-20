@@ -35,11 +35,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     append_fs = function(fs) {
       checkmate::assert_list(fs)
-      super$append_text(yaml::as.yaml(fs, handlers = list(
-        POSIXct = function(x) format(x, "%Y-%m-%d"),
-        POSIXlt = function(x) format(x, "%Y-%m-%d"),
-        Date = function(x) format(x, "%Y-%m-%d")
-      )), "verbatim")
+      super$append_text(attr(fs, "formatted"), "verbatim")
       super$append_metadata("FS", fs)
       invisible(self)
     },
