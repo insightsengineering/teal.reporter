@@ -52,19 +52,19 @@ card$get_content()[[1]]$get_content()
 \if{html}{\out{
 <details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_content"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-append_content'><code>teal.reporter::ReportCard$append_content()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_metadata"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-append_metadata'><code>teal.reporter::ReportCard$append_metadata()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_plot"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-append_plot'><code>teal.reporter::ReportCard$append_plot()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_table"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-append_table'><code>teal.reporter::ReportCard$append_table()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_text"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-append_text'><code>teal.reporter::ReportCard$append_text()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="from_list"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-from_list'><code>teal.reporter::ReportCard$from_list()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="get_content"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-get_content'><code>teal.reporter::ReportCard$get_content()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="get_metadata"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-get_metadata'><code>teal.reporter::ReportCard$get_metadata()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="get_name"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-get_name'><code>teal.reporter::ReportCard$get_name()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="initialize"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-initialize'><code>teal.reporter::ReportCard$initialize()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="reset"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-reset'><code>teal.reporter::ReportCard$reset()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="set_name"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-set_name'><code>teal.reporter::ReportCard$set_name()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="to_list"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-to_list'><code>teal.reporter::ReportCard$to_list()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_content"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-append_content'><code>teal.reporter::ReportCard$append_content()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_metadata"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-append_metadata'><code>teal.reporter::ReportCard$append_metadata()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_plot"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-append_plot'><code>teal.reporter::ReportCard$append_plot()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_table"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-append_table'><code>teal.reporter::ReportCard$append_table()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_text"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-append_text'><code>teal.reporter::ReportCard$append_text()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="from_list"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-from_list'><code>teal.reporter::ReportCard$from_list()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="get_content"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-get_content'><code>teal.reporter::ReportCard$get_content()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="get_metadata"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-get_metadata'><code>teal.reporter::ReportCard$get_metadata()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="get_name"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-get_name'><code>teal.reporter::ReportCard$get_name()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="initialize"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-initialize'><code>teal.reporter::ReportCard$initialize()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="reset"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-reset'><code>teal.reporter::ReportCard$reset()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="set_name"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-set_name'><code>teal.reporter::ReportCard$set_name()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="to_list"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-to_list'><code>teal.reporter::ReportCard$to_list()</code></a></span></li>
 </ul>
 </details>
 }}

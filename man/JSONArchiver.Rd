@@ -67,9 +67,9 @@ doc <- teal.reporter:::Renderer$new()$render(blocks)
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileArchiver" data-id="finalize"><a href='../../teal.reporter/html/FileArchiver.html#method-FileArchiver-finalize'><code>teal.reporter::FileArchiver$finalize()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileArchiver" data-id="get_output_dir"><a href='../../teal.reporter/html/FileArchiver.html#method-FileArchiver-get_output_dir'><code>teal.reporter::FileArchiver$get_output_dir()</code></a></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileArchiver" data-id="initialize"><a href='../../teal.reporter/html/FileArchiver.html#method-FileArchiver-initialize'><code>teal.reporter::FileArchiver$initialize()</code></a></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileArchiver" data-id="finalize"><a href='../../teal.reporter/html/FileArchiver.html#method-FileArchiver-finalize'><code>teal.reporter::FileArchiver$finalize()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileArchiver" data-id="get_output_dir"><a href='../../teal.reporter/html/FileArchiver.html#method-FileArchiver-get_output_dir'><code>teal.reporter::FileArchiver$get_output_dir()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileArchiver" data-id="initialize"><a href='../../teal.reporter/html/FileArchiver.html#method-FileArchiver-initialize'><code>teal.reporter::FileArchiver$initialize()</code></a></span></li>
 </ul>
 </details>
 }}
