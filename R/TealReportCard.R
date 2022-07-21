@@ -21,6 +21,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card$get_content()[[1]]$get_content()
     append_src = function(src) {
       checkmate::assert_character(src, min.len = 0, max.len = 1)
+      self$append_text("Show R Code", "header3")
       self$append_text(src, "verbatim")
       self$append_metadata("SRC", src)
       invisible(self)
@@ -40,14 +41,18 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
       attr_fs <- attr(fs, "formatted")
       checkmate::assert_character(attr_fs, null.ok = TRUE)
 
-      if (is.null(attr_fs)) {
+      if (length(fs) != 0) {
+        self$append_text("Filter State", "header3")
+      }
+
+      if (attr_fs != "" & length(fs) != 0) {
+        self$append_text(attr_fs, "verbatim")
+      } else if (attr_fs == "" & length(fs) != 0) {
         self$append_text(yaml::as.yaml(fs, handlers = list(
           POSIXct = function(x) format(x, "%Y-%m-%d"),
           POSIXlt = function(x) format(x, "%Y-%m-%d"),
           Date = function(x) format(x, "%Y-%m-%d")
         )), "verbatim")
-      } else {
-        self$append_text(attr_fs, "verbatim")
       }
       self$append_metadata("FS", fs)
       invisible(self)
@@ -62,6 +67,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     append_encodings = function(encodings) {
       checkmate::assert_list(encodings)
+      card$append_text("Selected Options", "header3")
       self$append_text(yaml::as.yaml(encodings, handlers = list(
         POSIXct = function(x) format(x, "%Y-%m-%d"),
         POSIXlt = function(x) format(x, "%Y-%m-%d"),
