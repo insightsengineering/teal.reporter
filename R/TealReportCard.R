@@ -67,7 +67,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     append_encodings = function(encodings) {
       checkmate::assert_list(encodings)
-      card$append_text("Selected Options", "header3")
+      self$append_text("Selected Options", "header3")
       self$append_text(yaml::as.yaml(encodings, handlers = list(
         POSIXct = function(x) format(x, "%Y-%m-%d"),
         POSIXlt = function(x) format(x, "%Y-%m-%d"),
