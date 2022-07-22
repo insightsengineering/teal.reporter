@@ -39,10 +39,9 @@ reporter_previewer_ui <- function(id, rmd_output = c(
       href = "",
       target = "_blank",
       download = NA,
-      shiny::icon("download"),
-      "Download Report"
+      shiny::tags$span("Download Report", shiny::icon("download"))
     ),
-    teal.reporter::reset_report_button_ui(ns("resetButtonPreviewer"))
+    teal.reporter::reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset")
   )
 
   shiny::fluidRow(
@@ -97,7 +96,8 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
 
         if (length(cards)) {
           shiny::tags$div(
-            class = "panel-group", id = "accordion",
+            class = "panel-group reporter_previewer_panel",
+            id = "accordion",
             lapply(seq_along(cards), function(ic) {
               shiny::tags$div(
                 id = paste0("panel_card_", ic),
@@ -110,7 +110,10 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
         } else {
           shiny::tags$div(
             id = "reporter_previewer_panel_no_cards",
-            shiny::tags$p(style = "color:red;", shiny::tags$strong("No Cards added"))
+            shiny::tags$p(
+              class = "p--state-danger",
+              shiny::tags$strong("No Cards added")
+            )
           )
         }
       })
@@ -181,19 +184,7 @@ block_to_html <- function(b) {
 
 add_previewer_css <- function() {
   shiny::singleton(
-    shiny::tags$head(shiny::tags$style("
-                      span.preview_card_control  i:hover {
-                        color: blue;
-                      }
-
-                      .isDisabled {
-                        color: currentColor;
-                        cursor: not-allowed;
-                        pointer-events: none;
-                        opacity: 0.5;
-                        text-decoration: none;
-                      }
-                       "))
+    shiny::tags$head(shiny::includeCSS(system.file("css/Previewer.css", package = "teal.reporter")))
   )
 }
 

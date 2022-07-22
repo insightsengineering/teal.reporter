@@ -4,10 +4,12 @@
 \alias{add_card_button_ui}
 \title{Add Card Button User Interface}
 \usage{
-add_card_button_ui(id)
+add_card_button_ui(id, label = "")
 }
 \arguments{
 \item{id}{\code{character(1)} this \code{shiny} module's id.}
+
+\item{label}{\code{character(1)} label before the icon.}
 }
 \value{
 \code{shiny::tagList}

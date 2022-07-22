@@ -4,10 +4,12 @@
 \alias{reset_report_button_ui}
 \title{Reset Button Reporter User Interface}
 \usage{
-reset_report_button_ui(id)
+reset_report_button_ui(id, label = "")
 }
 \arguments{
 \item{id}{\code{character(1)} this \code{shiny} module's id.}
+
+\item{label}{\code{character(1)} label before the icon.}
 }
 \value{
 \code{shiny::tagList}

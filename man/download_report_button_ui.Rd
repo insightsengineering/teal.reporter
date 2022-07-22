@@ -4,10 +4,12 @@
 \alias{download_report_button_ui}
 \title{Download Button Reporter User Interface}
 \usage{
-download_report_button_ui(id)
+download_report_button_ui(id, label = "")
 }
 \arguments{
 \item{id}{\code{character(1)} this \code{shiny} module's id.}
+
+\item{label}{\code{character(1)} label before the icon.}
 }
 \value{
 \code{shiny::tagList}

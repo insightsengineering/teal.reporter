@@ -4,6 +4,7 @@
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
+#' @param label `character(1)` label before the icon.
 #' @return `shiny.tag`
 #' @export
 #'
@@ -16,16 +17,22 @@
 #'     }
 #'   )
 #' }
-simple_reporter_ui <- function(id) {
+simple_reporter_ui <- function(id, label = "") {
   ns <- shiny::NS(id)
   shiny::div(
+    class = "simple-reporter-container",
+    shiny::singleton(
+      shiny::tags$head(shiny::includeCSS(system.file("css/Reporter.css", package = "teal.reporter")))
+    ),
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/SimpleReporter.css", package = "teal.reporter")))
     ),
-    add_card_button_ui(ns("add_report_card_simple")),
-    download_report_button_ui(ns("download_button_simple")),
-    reset_report_button_ui(ns("reset_button_simple")),
-    class = "simple-reporter-container"
+    shiny::tags$span(
+      label,
+      add_card_button_ui(ns("add_report_card_simple")),
+      download_report_button_ui(ns("download_button_simple")),
+      reset_report_button_ui(ns("reset_button_simple"))
+    )
   )
 }
 

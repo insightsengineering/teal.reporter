@@ -4,9 +4,10 @@
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
+#' @param label `character(1)` label before the icon.
 #' @return `shiny::tagList`
 #' @export
-reset_report_button_ui <- function(id) {
+reset_report_button_ui <- function(id, label = "") {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::tags$button(
@@ -15,7 +16,7 @@ reset_report_button_ui <- function(id) {
       class = "btn btn-warning action-button",
       `data-val` = shiny::restoreInput(id = ns("reset_reporter"), default = NULL),
       NULL,
-      "Reset Reporter"
+      shiny::tags$span(label, shiny::icon("remove"))
     )
   )
 }
@@ -44,9 +45,11 @@ reset_report_button_srv <- function(id, reporter) {
           shiny::modalDialog(
             shiny::tags$h3("Reset the Report"),
             shiny::tags$hr(),
-            shiny::tags$strong(shiny::tags$p(
-              "Are you sure you want to reset the report? (This will remove ALL previously added cards)."
-            )),
+            shiny::tags$strong(
+              shiny::tags$p(
+                "Are you sure you want to reset the report? (This will remove ALL previously added cards)."
+              )
+            ),
             footer = shiny::tagList(
               shiny::tags$button(
                 type = "button",

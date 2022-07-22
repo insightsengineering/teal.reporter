@@ -4,18 +4,22 @@
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
+#' @param label `character(1)` label before the icon.
 #' @return `shiny::tagList`
 #' @export
-download_report_button_ui <- function(id) {
+download_report_button_ui <- function(id, label = "") {
   ns <- shiny::NS(id)
   shiny::tagList(
+    shiny::singleton(
+      shiny::tags$head(shiny::includeCSS(system.file("css/Reporter.css", package = "teal.reporter")))
+    ),
     shiny::tags$button(
       id = ns("download_button"),
       type = "button",
       class = "btn btn-primary action-button",
       `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
       NULL,
-      "Download Report"
+      shiny::tags$span(label, shiny::icon("download"))
     )
   )
 }
@@ -57,7 +61,7 @@ download_report_button_srv <- function(id,
     id,
     function(input, output, session) {
       ns <- session$ns
-      download_modal <- function(failed = FALSE) {
+      download_modal <- function() {
         nr_cards <- length(reporter$get_cards())
         downb <- shiny::tags$a(
           id = ns("download_data"),
@@ -75,12 +79,17 @@ download_report_button_srv <- function(id,
           shiny::tags$hr(),
           if (length(reporter$get_cards()) == 0) {
             shiny::tags$div(
-              shiny::tags$p(shiny::tags$strong("No Cards Added"), style = "color: red; margin-bottom:15px;")
+              style = "margin-bottom:15px;",
+              shiny::tags$p(
+                class = "p--state-danger",
+                shiny::tags$strong("No Cards Added")
+              )
             )
           } else {
             shiny::tags$div(
-              style = "color: green; margin-bottom:15px;",
+              style = "margin-bottom:15px;",
               shiny::tags$p(
+                class = "p--state-success",
                 shiny::tags$strong(paste("Number of cards: ", nr_cards))
               ),
             )
@@ -96,9 +105,6 @@ download_report_button_srv <- function(id,
               selected = rmd_yaml_args$output
             )
           ),
-          if (failed) {
-            shiny::tags$div(shiny::tags$b("Invalid", style = "color: red;"))
-          },
           footer = shiny::tagList(
             shiny::tags$button(
               type = "button",

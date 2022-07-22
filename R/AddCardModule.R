@@ -4,9 +4,10 @@
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
+#' @param label `character(1)` label before the icon.
 #' @return `shiny::tagList`
 #' @export
-add_card_button_ui <- function(id) {
+add_card_button_ui <- function(id, label = "") {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::tags$button(
@@ -15,7 +16,7 @@ add_card_button_ui <- function(id) {
       class = "btn btn-primary action-button",
       `data-val` = shiny::restoreInput(id = ns("add_report_card_button"), default = NULL),
       NULL,
-      "Add Card"
+      shiny::tags$span(label, shiny::icon("plus"))
     )
   )
 }
@@ -59,7 +60,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
     id,
     function(input, output, session) {
       ns <- session$ns
-      add_modal <- function(failed = FALSE) {
+      add_modal <- function() {
         shiny::modalDialog(
           easyClose = TRUE,
           shiny::tags$h3("Add a card to the Report"),
@@ -71,11 +72,6 @@ add_card_button_srv <- function(id, reporter, card_fun) {
             placeholder = "Add a comment here...",
             width = "100%"
           ),
-          if (failed) {
-            shiny::tags$div(
-              shiny::tags$b("Invalid", style = "color: red;")
-            )
-          },
           footer = shiny::tagList(
             shiny::tags$button(
               type = "button",

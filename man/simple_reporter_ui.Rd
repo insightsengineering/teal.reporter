@@ -4,10 +4,12 @@
 \alias{simple_reporter_ui}
 \title{Simple Reporter User Interface}
 \usage{
-simple_reporter_ui(id)
+simple_reporter_ui(id, label = "")
 }
 \arguments{
 \item{id}{\code{character(1)} this \code{shiny} module's id.}
+
+\item{label}{\code{character(1)} label before the icon.}
 }
 \value{
 \code{shiny.tag}
