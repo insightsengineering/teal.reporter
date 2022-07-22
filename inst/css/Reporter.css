@@ -5,3 +5,15 @@
 .p--state-success {
   color: green;
 }
+
+.reset--hover:hover .reset--before::before {
+  content: 'Reset';
+}
+
+.add--hover:hover .add--before::before {
+  content: 'Add Card';
+}
+
+.download--hover:hover .download--before::before {
+  content: 'Download';
+}

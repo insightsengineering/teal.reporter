@@ -4,7 +4,7 @@
 \alias{simple_reporter_ui}
 \title{Simple Reporter User Interface}
 \usage{
-simple_reporter_ui(id, label = "")
+simple_reporter_ui(id)
 }
 \arguments{
 \item{id}{\code{character(1)} this \code{shiny} module's id.}

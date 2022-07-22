@@ -4,12 +4,13 @@
 \alias{download_report_button_ui}
 \title{Download Button Reporter User Interface}
 \usage{
-download_report_button_ui(id, label = "")
+download_report_button_ui(id, label = NULL)
 }
 \arguments{
 \item{id}{\code{character(1)} this \code{shiny} module's id.}
 
-\item{label}{\code{character(1)} label before the icon.}
+\item{label}{\code{character(1)} label before icon, if used then dynamic hover label is not available.
+By default \code{NULL} so a dynamic hover label is used.}
 }
 \value{
 \code{shiny::tagList}

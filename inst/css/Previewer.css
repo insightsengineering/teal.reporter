@@ -9,3 +9,11 @@ span.preview_card_control  i:hover {
   opacity: 0.5;
   text-decoration: none;
 }
+
+.icon_previewer {
+  float:right;
+  margin-left:10px;
+  margin-right:10px;
+  margin-top:10px;
+  color:#337ab7;
+}

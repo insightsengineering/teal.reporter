@@ -4,10 +4,11 @@
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
-#' @param label `character(1)` label before the icon.
+#' @param label `character(1)` label before icon, if used then dynamic hover label is not available.
+#' By default `NULL` so a dynamic hover label is used.
 #' @return `shiny::tagList`
 #' @export
-download_report_button_ui <- function(id, label = "") {
+download_report_button_ui <- function(id, label = NULL) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::singleton(
@@ -15,11 +16,16 @@ download_report_button_ui <- function(id, label = "") {
     ),
     shiny::tags$button(
       id = ns("download_button"),
+      class = "download--hover",
       type = "button",
       class = "btn btn-primary action-button",
       `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
       NULL,
-      shiny::tags$span(label, shiny::icon("download"))
+      shiny::tags$span(
+        class = if (is.null(label)) "download--before",
+        if (!is.null(label)) label,
+        shiny::icon("download")
+      )
     )
   )
 }
@@ -71,7 +77,7 @@ download_report_button_srv <- function(id,
           target = "_blank",
           download = NA,
           shiny::icon("download"),
-          "Download Report"
+          "Download"
         )
         shiny::modalDialog(
           easyClose = TRUE,

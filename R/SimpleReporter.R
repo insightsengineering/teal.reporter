@@ -17,18 +17,13 @@
 #'     }
 #'   )
 #' }
-simple_reporter_ui <- function(id, label = "") {
+simple_reporter_ui <- function(id) {
   ns <- shiny::NS(id)
-  shiny::div(
-    class = "simple-reporter-container",
+  shiny::tagList(
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/Reporter.css", package = "teal.reporter")))
     ),
-    shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/SimpleReporter.css", package = "teal.reporter")))
-    ),
-    shiny::tags$span(
-      label,
+    shiny::tags$div(
       add_card_button_ui(ns("add_report_card_simple")),
       download_report_button_ui(ns("download_button_simple")),
       reset_report_button_ui(ns("reset_button_simple"))

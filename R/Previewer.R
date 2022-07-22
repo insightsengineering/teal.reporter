@@ -39,7 +39,7 @@ reporter_previewer_ui <- function(id, rmd_output = c(
       href = "",
       target = "_blank",
       download = NA,
-      shiny::tags$span("Download Report", shiny::icon("download"))
+      shiny::tags$span("Download", shiny::icon("download"))
     ),
     teal.reporter::reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset")
   )
@@ -235,8 +235,7 @@ nav_previewer_icon <- function(name, icon_name, idx, size = 1L) {
   checkmate::assert_int(size)
 
   shiny::tags$span(
-    class = name, `data-cardid` = idx,
-    style = "float:right;margin-left:10px;margin-right:10px;margin-top:10px;color:#337ab7;",
+    class = paste(name, "icon_previewer"), `data-cardid` = idx,
     shiny::icon(icon_name, sprintf("fa-%sx", size))
   )
 }
