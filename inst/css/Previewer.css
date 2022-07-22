@@ -2,7 +2,7 @@ span.preview_card_control  i:hover {
   color: blue;
 }
 
-.isDisabled {
+.icon--isDisabled {
   color: currentColor;
   cursor: not-allowed;
   pointer-events: none;
