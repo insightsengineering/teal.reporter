@@ -1,7 +1,9 @@
+// highlight the icon when hover
 span.preview_card_control  i:hover {
   color: blue;
 }
 
+// Disable the icon
 .icon--isDisabled {
   color: currentColor;
   cursor: not-allowed;
@@ -10,6 +12,7 @@ span.preview_card_control  i:hover {
   text-decoration: none;
 }
 
+// icons in the previewer
 .icon_previewer {
   float:right;
   margin-left:10px;
