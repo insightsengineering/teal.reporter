@@ -81,6 +81,12 @@ testthat::test_that("TealReportCard$append_fs returns title and content", {
   testthat::expect_identical(card$get_content()[[2]]$get_content(), "a: 1.0\nb: 2.0\n")
 })
 
+testthat::test_that("TealReportCard$append_fs does not append filter state if list is empty", {
+  card <- TealReportCard$new()
+  card$append_fs(list())
+  testthat::expect_equal(length(card$get_content()), 0)
+})
+
 testthat::test_that("TealReportCard$append_fs appends throws error if attribute is not character or NULL", {
   # NULL
   card <- TealReportCard$new()
