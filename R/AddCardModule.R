@@ -16,13 +16,13 @@ add_card_button_ui <- function(id, label = NULL) {
         shiny::tags$head(shiny::includeCSS(system.file("css/Reporter.css", package = "teal.reporter")))
       ),
       id = ns("add_report_card_button"),
-      class = "add--hover",
+      class = "add_card--hover",
       type = "button",
       class = "btn btn-primary action-button",
       `data-val` = shiny::restoreInput(id = ns("add_report_card_button"), default = NULL),
       NULL,
       shiny::tags$span(
-        class = if (is.null(label)) "add--before",
+        class = if (is.null(label)) "add_card--before",
         if (!is.null(label)) label,
         shiny::icon("plus")
       )

@@ -16,13 +16,13 @@ reset_report_button_ui <- function(id, label = NULL) {
     ),
     shiny::tags$button(
       id = ns("reset_reporter"),
-      class = "reset--hover",
+      class = "reset_report--hover",
       type = "button",
       class = "btn btn-warning action-button",
       `data-val` = shiny::restoreInput(id = ns("reset_reporter"), default = NULL),
       NULL,
       shiny::tags$span(
-        class = if (is.null(label)) "reset--before",
+        class = if (is.null(label)) "reset_report--before",
         if (!is.null(label)) label,
         shiny::icon("times")
       )

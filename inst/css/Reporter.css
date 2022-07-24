@@ -17,14 +17,14 @@
 
 /* dynamic labels before icons */
 
-.reset--hover:hover .reset--before::before {
+.reset_report--hover:hover .reset_report--before::before {
     content: 'Reset';
 }
 
-.add--hover:hover .add--before::before {
+.add_card--hover:hover .add_card--before::before {
     content: 'Add Card';
 }
 
-.download--hover:hover .download--before::before {
+.download_report--hover:hover .download_report--before::before {
     content: 'Download';
 }
