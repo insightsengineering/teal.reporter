@@ -19,13 +19,13 @@
 }
 
 .-mx-4 {
-    margin-left: 1rem;
-    margin-right: 1rem;
+    margin-left: -1rem;
+    margin-right: -1rem;
 }
 
 .-my-3 {
-    margin-top: 0.75rem;
-    margin-down: 0.75rem;
+    margin-top: -0.75rem;
+    margin-down: -0.75rem;
 }
 
 /* highlight the icon when hover */
