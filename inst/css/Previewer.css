@@ -1,9 +1,39 @@
-// highlight the icon when hover
+/* tailwindcss inspired naming */
+
+.overflow-auto {
+    overflow: auto;
+}
+
+.block {
+    display: block;
+}
+
+.px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.py-3 {
+    padding-top: 0.75rem;
+    padding-down: 0.75rem;
+}
+
+.-mx-4 {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.-my-3 {
+    margin-top: 0.75rem;
+    margin-down: 0.75rem;
+}
+
+/* highlight the icon when hover */
 span.preview_card_control  i:hover {
   color: blue;
 }
 
-// Disable the icon
+/* Disable the icon */
 .icon--isDisabled {
   color: currentColor;
   cursor: not-allowed;
@@ -12,7 +42,7 @@ span.preview_card_control  i:hover {
   text-decoration: none;
 }
 
-// icons in the previewer
+/* icons in the previewer */
 .icon_previewer {
   float:right;
   margin-left:10px;

@@ -1,14 +1,21 @@
-// success and danger paragraphs
 
-.p--state-danger {
-  color: red;
+/* tailwindcss inspired naming */
+
+.mb-4 {
+  margin-bottom: 1rem;
 }
 
-.p--state-success {
-  color: green;
+/* success and danger paragraphs */
+
+.text-red-600 {
+  color: rgba(220, 38, 38, 1);
 }
 
-// dynamic labels before icons
+.text-green-600 {
+  color: rgba(5, 150, 105, 1);
+}
+
+/* dynamic labels before icons */
 
 .reset--hover:hover .reset--before::before {
   content: 'Reset';

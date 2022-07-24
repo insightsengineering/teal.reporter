@@ -66,6 +66,7 @@ reporter_previewer_ui <- function(id, rmd_output = c(
 #' Reporter Previewer Server
 #' @description `r lifecycle::badge("experimental")`
 #' server supporting the functionalities of the reporter previewer
+#' For more details see the vignette: `vignette("previewerReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
 #' @param reporter `Reporter` instance
 #' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
@@ -111,7 +112,7 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
           shiny::tags$div(
             id = "reporter_previewer_panel_no_cards",
             shiny::tags$p(
-              class = "p--state-danger",
+              class = "text-red-600",
               shiny::tags$strong("No Cards added")
             )
           )
@@ -260,7 +261,7 @@ previewer_collapse_body <- function(idx, card_blocks) {
 
 previewer_collapse_head <- function(idx, card_name) {
   shiny::tags$div(
-    class = "panel-heading", style = "overflow:auto;",
+    class = "panel-heading overflow-auto",
     shiny::tags$h4(
       class = "panel-title",
       shiny::tags$span(
@@ -271,8 +272,7 @@ previewer_collapse_head <- function(idx, card_name) {
           nav_previewer_icon(name = "card_down_id", icon_name = "arrow-down", idx = idx, size = 1)
         ),
         shiny::tags$a(
-          class = "accordion-toggle",
-          style = "display: block;padding: 10px 15px;margin: -10px -15px;",
+          class = "accordion-toggle block py-3 px-4 -my-3 -my-4",
           `data-toggle` = "collapse", `data-parent` = "#accordion", href = paste0("#collapse", idx),
           shiny::tags$h4(paste0("Card ", idx, ": ", card_name), shiny::icon("caret-down"))
         )
