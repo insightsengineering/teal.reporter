@@ -30,24 +30,24 @@
 
 /* highlight the icon when hover */
 span.preview_card_control  i:hover {
-  color: blue;
+    color: blue;
 }
 
 
 /* Disable any anchor with disabled class */
 
 a.disabled {
-  color: grey;
-  cursor: not-allowed;
-  pointer-events: none;
-  text-decoration: none;
+    color: grey;
+    cursor: not-allowed;
+    pointer-events: none;
+    text-decoration: none;
 }
 
 /* icons in the previewer */
 .icon_previewer {
-  float:right;
-  margin-left:10px;
-  margin-right:10px;
-  margin-top:10px;
-  color:#337ab7;
+    float:right;
+    margin-left:10px;
+    margin-right:10px;
+    margin-top:10px;
+    color:#337ab7;
 }

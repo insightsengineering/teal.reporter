@@ -2,29 +2,29 @@
 /* tailwindcss inspired naming */
 
 .mb-4 {
-  margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 /* success and danger paragraphs */
 
 .text-red-600 {
-  color: rgba(220, 38, 38, 1);
+    color: rgba(220, 38, 38, 1);
 }
 
 .text-green-600 {
-  color: rgba(5, 150, 105, 1);
+    color: rgba(5, 150, 105, 1);
 }
 
 /* dynamic labels before icons */
 
 .reset--hover:hover .reset--before::before {
-  content: 'Reset';
+    content: 'Reset';
 }
 
 .add--hover:hover .add--before::before {
-  content: 'Add Card';
+    content: 'Add Card';
 }
 
 .download--hover:hover .download--before::before {
-  content: 'Download';
+    content: 'Download';
 }
