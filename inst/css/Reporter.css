@@ -18,7 +18,7 @@
 /* dynamic labels before icons */
 
 .reset_report--hover:hover .reset_report--before::before {
-    content: 'Reset';
+    content: 'Reset Report';
 }
 
 .add_card--hover:hover .add_card--before::before {
@@ -26,5 +26,5 @@
 }
 
 .download_report--hover:hover .download_report--before::before {
-    content: 'Download';
+    content: 'Download Report';
 }

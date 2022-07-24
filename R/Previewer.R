@@ -39,9 +39,9 @@ reporter_previewer_ui <- function(id, rmd_output = c(
       href = "",
       target = "_blank",
       download = NA,
-      shiny::tags$span("Download", shiny::icon("download"))
+      shiny::tags$span("Download Report", shiny::icon("download"))
     ),
-    teal.reporter::reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset")
+    teal.reporter::reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
   )
 
   shiny::fluidRow(

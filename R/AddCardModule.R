@@ -72,7 +72,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
       add_modal <- function() {
         shiny::modalDialog(
           easyClose = TRUE,
-          shiny::tags$h3("Add a card to the Report"),
+          shiny::tags$h3("Add a Card to the Report"),
           shiny::tags$hr(),
           shiny::textAreaInput(
             ns("comment"),
