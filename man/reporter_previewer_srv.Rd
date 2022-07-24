@@ -23,4 +23,5 @@ Please update only values at this moment.}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 server supporting the functionalities of the reporter previewer
+For more details see the vignette: \code{vignette("previewerReporter", "teal.reporter")}.
 }
