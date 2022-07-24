@@ -33,12 +33,13 @@ span.preview_card_control  i:hover {
   color: blue;
 }
 
-/* Disable the icon */
-.icon--isDisabled {
-  color: currentColor;
+
+/* Disable any anchor with disabled class */
+
+a.disabled {
+  color: grey;
   cursor: not-allowed;
   pointer-events: none;
-  opacity: 0.5;
   text-decoration: none;
 }
 

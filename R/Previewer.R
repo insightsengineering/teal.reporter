@@ -218,9 +218,9 @@ add_previewer_js <- function(ns) {
               let accor = $(this).find("#accordion");
               let down_button = $("#%s");
               if (accor && (accor.length === 0)) {
-                down_button.addClass("icon--isDisabled");
+                down_button.addClass("disabled");
               } else {
-                down_button.removeClass("icon--isDisabled");
+                down_button.removeClass("disabled");
               }
              });
 
