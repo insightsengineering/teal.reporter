@@ -15,7 +15,7 @@
 
 .py-3 {
     padding-top: 0.75rem;
-    padding-down: 0.75rem;
+    padding-bottom: 0.75rem;
 }
 
 .-mx-4 {
@@ -25,7 +25,7 @@
 
 .-my-3 {
     margin-top: -0.75rem;
-    margin-down: -0.75rem;
+    margin-bottom: -0.75rem;
 }
 
 /* highlight the icon when hover */
