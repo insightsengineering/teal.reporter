@@ -87,7 +87,7 @@ download_report_button_srv <- function(id,
             shiny::tags$div(
               class = "mb-4",
               shiny::tags$p(
-                class = "text-red-600",
+                class = "text-danger",
                 shiny::tags$strong("No Cards Added")
               )
             )
@@ -95,7 +95,7 @@ download_report_button_srv <- function(id,
             shiny::tags$div(
               class = "mb-4",
               shiny::tags$p(
-                class = "text-green-600",
+                class = "text-success",
                 shiny::tags$strong(paste("Number of cards: ", nr_cards))
               ),
             )

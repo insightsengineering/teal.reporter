@@ -9,16 +9,6 @@
     padding: 0.25rem;
 }
 
-/* success and danger paragraphs */
-
-.text-red-600 {
-    color: rgba(220, 38, 38, 1);
-}
-
-.text-green-600 {
-    color: rgba(5, 150, 105, 1);
-}
-
 .block {
     display: block;
 }

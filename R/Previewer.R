@@ -112,7 +112,7 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
           shiny::tags$div(
             id = "reporter_previewer_panel_no_cards",
             shiny::tags$p(
-              class = "text-red-600",
+              class = "text-danger",
               shiny::tags$strong("No Cards added")
             )
           )
