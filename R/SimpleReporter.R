@@ -21,7 +21,7 @@ simple_reporter_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/Reporter.css", package = "teal.reporter")))
+      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
     shiny::tags$div(
       class = "block mb-4 p-1",

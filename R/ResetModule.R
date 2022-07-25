@@ -12,7 +12,7 @@ reset_report_button_ui <- function(id, label = NULL) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/Reporter.css", package = "teal.reporter")))
+      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
     shiny::tags$button(
       id = ns("reset_reporter"),

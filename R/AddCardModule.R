@@ -13,7 +13,7 @@ add_card_button_ui <- function(id, label = NULL) {
   shiny::tagList(
     shiny::tags$button(
       shiny::singleton(
-        shiny::tags$head(shiny::includeCSS(system.file("css/Reporter.css", package = "teal.reporter")))
+        shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
       ),
       id = ns("add_report_card_button"),
       class = "add_card--hover",
