@@ -71,8 +71,6 @@ server <- function(input, output, session) {
     ### REPORTER
     teal.reporter::simple_reporter_ui("simple_reporter"),
     ###
-    tags$br(),
-    tags$br(),
     if (input$tabs == "Plot") {
 
         sliderInput(

@@ -24,6 +24,7 @@ simple_reporter_ui <- function(id) {
       shiny::tags$head(shiny::includeCSS(system.file("css/Reporter.css", package = "teal.reporter")))
     ),
     shiny::tags$div(
+      class = "block mb-4",
       add_card_button_ui(ns("add_report_card_simple")),
       download_report_button_ui(ns("download_button_simple")),
       reset_report_button_ui(ns("reset_button_simple"))
