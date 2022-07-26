@@ -276,7 +276,7 @@ previewer_collapse_head <- function(idx, card_name) {
       shiny::tags$span(
         shiny::tags$span(
           class = "preview_card_control",
-          nav_previewer_icon(name = "card_remove_id", icon_name = "times", idx = idx, size = 1),
+          nav_previewer_icon(name = "card_remove_id", icon_name = "xmark", idx = idx, size = 1),
           nav_previewer_icon(name = "card_up_id", icon_name = "arrow-up", idx = idx, size = 1),
           nav_previewer_icon(name = "card_down_id", icon_name = "arrow-down", idx = idx, size = 1)
         ),
