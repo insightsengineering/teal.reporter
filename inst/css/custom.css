@@ -1,6 +1,22 @@
 /* teal.reporter custom css */
 
-/* tailwindcss inspired naming */
+.overflow-auto {
+  overflow: auto;
+}
+
+.block {
+  display: block;
+}
+
+.-mx-4 {
+  margin-left: -1rem;
+  margin-right: -1rem;
+}
+
+.-my-3 {
+  margin-top: -0.75rem;
+  margin-bottom: -0.75rem;
+}
 
 .mb-4 {
   margin-bottom: 1rem;
@@ -10,12 +26,18 @@
   margin-top: 1rem;
 }
 
-.p-1 {
-  padding: 0.25rem;
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
-.block {
-  display: block;
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.p-1 {
+  padding: 0.25rem;
 }
 
 /* dynamic labels before icons */
