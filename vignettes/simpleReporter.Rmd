@@ -51,12 +51,13 @@ ui <- fluidPage(
     ),
     mainPanel(
       ### REPORTER
-      teal.reporter::add_card_button_ui("addReportCard"),
-      teal.reporter::download_report_button_ui("downloadButton"),
-      teal.reporter::reset_report_button_ui("resetButton"),
+      shiny::tags$div(
+        teal.reporter::add_card_button_ui("addReportCard"),
+        teal.reporter::download_report_button_ui("downloadButton"),
+        teal.reporter::reset_report_button_ui("resetButton")
+      ),
       ###
-      tags$br(),
-      tags$br(),
+      shiny::tags$br(),
       tabsetPanel(
         id = "tabs",
         tabPanel("Plot", plotOutput("dist_plot")),
@@ -149,8 +150,6 @@ ui <- fluidPage(
       ### REPORTER
       teal.reporter::simple_reporter_ui("simpleReporter"),
       ###
-      tags$br(),
-      tags$br(),
       tabsetPanel(
         id = "tabs",
         tabPanel("Plot", plotOutput("dist_plot")),

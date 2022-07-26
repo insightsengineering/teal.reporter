@@ -39,10 +39,9 @@ reporter_previewer_ui <- function(id, rmd_output = c(
       href = "",
       target = "_blank",
       download = NA,
-      shiny::icon("download"),
-      "Download Report"
+      shiny::tags$span("Download Report", shiny::icon("download"))
     ),
-    teal.reporter::reset_report_button_ui(ns("resetButtonPreviewer"))
+    teal.reporter::reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
   )
 
   shiny::fluidRow(
@@ -67,6 +66,7 @@ reporter_previewer_ui <- function(id, rmd_output = c(
 #' Reporter Previewer Server
 #' @description `r lifecycle::badge("experimental")`
 #' server supporting the functionalities of the reporter previewer
+#' For more details see the vignette: `vignette("previewerReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
 #' @param reporter `Reporter` instance
 #' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
@@ -97,7 +97,8 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
 
         if (length(cards)) {
           shiny::tags$div(
-            class = "panel-group", id = "accordion",
+            class = "panel-group reporter_previewer_panel",
+            id = "accordion",
             lapply(seq_along(cards), function(ic) {
               shiny::tags$div(
                 id = paste0("panel_card_", ic),
@@ -110,7 +111,10 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
         } else {
           shiny::tags$div(
             id = "reporter_previewer_panel_no_cards",
-            shiny::tags$p(style = "color:red;", shiny::tags$strong("No Cards added"))
+            shiny::tags$p(
+              class = "text-danger",
+              shiny::tags$strong("No Cards added")
+            )
           )
         }
       })
@@ -181,19 +185,7 @@ block_to_html <- function(b) {
 
 add_previewer_css <- function() {
   shiny::singleton(
-    shiny::tags$head(shiny::tags$style("
-                      span.preview_card_control  i:hover {
-                        color: blue;
-                      }
-
-                      .isDisabled {
-                        color: currentColor;
-                        cursor: not-allowed;
-                        pointer-events: none;
-                        opacity: 0.5;
-                        text-decoration: none;
-                      }
-                       "))
+    shiny::tags$head(shiny::includeCSS(system.file("css/Previewer.css", package = "teal.reporter")))
   )
 }
 
@@ -226,9 +218,9 @@ add_previewer_js <- function(ns) {
               let accor = $(this).find("#accordion");
               let down_button = $("#%s");
               if (accor && (accor.length === 0)) {
-                down_button.addClass("isDisabled");
+                down_button.addClass("disabled");
               } else {
-                down_button.removeClass("isDisabled");
+                down_button.removeClass("disabled");
               }
              });
 
@@ -244,8 +236,7 @@ nav_previewer_icon <- function(name, icon_name, idx, size = 1L) {
   checkmate::assert_int(size)
 
   shiny::tags$span(
-    class = name, `data-cardid` = idx,
-    style = "float:right;margin-left:10px;margin-right:10px;margin-top:10px;color:#337ab7;",
+    class = paste(name, "icon_previewer"), `data-cardid` = idx,
     shiny::icon(icon_name, sprintf("fa-%sx", size))
   )
 }
@@ -270,7 +261,7 @@ previewer_collapse_body <- function(idx, card_blocks) {
 
 previewer_collapse_head <- function(idx, card_name) {
   shiny::tags$div(
-    class = "panel-heading", style = "overflow:auto;",
+    class = "panel-heading overflow-auto",
     shiny::tags$h4(
       class = "panel-title",
       shiny::tags$span(
@@ -281,8 +272,7 @@ previewer_collapse_head <- function(idx, card_name) {
           nav_previewer_icon(name = "card_down_id", icon_name = "arrow-down", idx = idx, size = 1)
         ),
         shiny::tags$a(
-          class = "accordion-toggle",
-          style = "display: block;padding: 10px 15px;margin: -10px -15px;",
+          class = "accordion-toggle block py-3 px-4 -my-3 -my-4",
           `data-toggle` = "collapse", `data-parent` = "#accordion", href = paste0("#collapse", idx),
           shiny::tags$h4(paste0("Card ", idx, ": ", card_name), shiny::icon("caret-down"))
         )

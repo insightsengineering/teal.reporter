@@ -4,18 +4,30 @@
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
+#' @param label `character(1)` label before the icon, if used then dynamic hover label is not available.
+#' By default `NULL` so a dynamic hover label is used.
 #' @return `shiny::tagList`
 #' @export
-download_report_button_ui <- function(id) {
+download_report_button_ui <- function(id, label = NULL) {
+  checkmate::assert_string(label, null.ok = TRUE)
+
   ns <- shiny::NS(id)
   shiny::tagList(
+    shiny::singleton(
+      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
+    ),
     shiny::tags$button(
       id = ns("download_button"),
+      class = "download_report--hover",
       type = "button",
       class = "btn btn-primary action-button",
       `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
       NULL,
-      "Download Report"
+      shiny::tags$span(
+        class = if (is.null(label)) "download_report--before",
+        if (!is.null(label)) label,
+        shiny::icon("download")
+      )
     )
   )
 }
@@ -57,7 +69,7 @@ download_report_button_srv <- function(id,
     id,
     function(input, output, session) {
       ns <- session$ns
-      download_modal <- function(failed = FALSE) {
+      download_modal <- function() {
         nr_cards <- length(reporter$get_cards())
         downb <- shiny::tags$a(
           id = ns("download_data"),
@@ -67,7 +79,7 @@ download_report_button_srv <- function(id,
           target = "_blank",
           download = NA,
           shiny::icon("download"),
-          "Download Report"
+          "Download"
         )
         shiny::modalDialog(
           easyClose = TRUE,
@@ -75,12 +87,17 @@ download_report_button_srv <- function(id,
           shiny::tags$hr(),
           if (length(reporter$get_cards()) == 0) {
             shiny::tags$div(
-              shiny::tags$p(shiny::tags$strong("No Cards Added"), style = "color: red; margin-bottom:15px;")
+              class = "mb-4",
+              shiny::tags$p(
+                class = "text-danger",
+                shiny::tags$strong("No Cards Added")
+              )
             )
           } else {
             shiny::tags$div(
-              style = "color: green; margin-bottom:15px;",
+              class = "mb-4",
               shiny::tags$p(
+                class = "text-success",
                 shiny::tags$strong(paste("Number of cards: ", nr_cards))
               ),
             )
@@ -96,9 +113,6 @@ download_report_button_srv <- function(id,
               selected = rmd_yaml_args$output
             )
           ),
-          if (failed) {
-            shiny::tags$div(shiny::tags$b("Invalid", style = "color: red;"))
-          },
           footer = shiny::tagList(
             shiny::tags$button(
               type = "button",

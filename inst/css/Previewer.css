@@ -1,0 +1,54 @@
+/* teal.reporter Previewer css */
+/* tailwindcss inspired naming */
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.block {
+  display: block;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.-mx-4 {
+  margin-left: -1rem;
+  margin-right: -1rem;
+}
+
+.-my-3 {
+  margin-top: -0.75rem;
+  margin-bottom: -0.75rem;
+}
+
+/* highlight the icon when hover */
+span.preview_card_control  i:hover {
+  color: blue;
+}
+
+
+/* Disable any anchor with disabled class */
+
+a.disabled {
+  color: grey;
+  cursor: not-allowed;
+  pointer-events: none;
+  text-decoration: none;
+}
+
+/* icons in the previewer */
+.icon_previewer {
+  float:right;
+  margin-left:10px;
+  margin-right:10px;
+  margin-top:10px;
+  color:#337ab7;
+}

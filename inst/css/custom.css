@@ -1,0 +1,28 @@
+/* teal.reporter custom css */
+/* tailwindcss inspired naming */
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.p-1 {
+  padding: 0.25rem;
+}
+
+.block {
+  display: block;
+}
+
+/* dynamic labels before icons */
+
+.reset_report--hover:hover .reset_report--before::before {
+  content: 'Reset';
+}
+
+.add_card--hover:hover .add_card--before::before {
+  content: 'Add Card';
+}
+
+.download_report--hover:hover .download_report--before::before {
+  content: 'Download';
+}
