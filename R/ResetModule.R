@@ -26,7 +26,7 @@ reset_report_button_ui <- function(id, label = NULL) {
       shiny::tags$span(
         class = if (is.null(label)) "reset_report--before",
         if (!is.null(label)) label,
-        shiny::icon("times")
+        shiny::icon("xmark")
       )
     )
   )
