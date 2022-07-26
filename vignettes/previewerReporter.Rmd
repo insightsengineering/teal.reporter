@@ -68,11 +68,10 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   output$encoding <- renderUI({
     sidebarPanel(
-    ### REPORTER
-    teal.reporter::simple_reporter_ui("simple_reporter"),
-    ###
-    if (input$tabs == "Plot") {
-
+      ### REPORTER
+      teal.reporter::simple_reporter_ui("simple_reporter"),
+      ###
+      if (input$tabs == "Plot") {
         sliderInput(
           "binwidth",
           "binwidth",
@@ -80,16 +79,16 @@ server <- function(input, output, session) {
           max = 10,
           value = 8
         )
-    } else if (input$tabs %in% c("Table", "Table DataFrame", "Table DataTable")) {
+      } else if (input$tabs %in% c("Table", "Table DataFrame", "Table DataTable")) {
         selectInput(
           "stat",
           label = "Statistic",
           choices = c("mean", "median", "sd"),
           "mean"
         )
-    } else {
-      NULL
-    }
+      } else {
+        NULL
+      }
     )
   })
 
