@@ -112,7 +112,7 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
           shiny::tags$div(
             id = "reporter_previewer_panel_no_cards",
             shiny::tags$p(
-              class = "text-danger",
+              class = "text-danger mt-4",
               shiny::tags$strong("No Cards added")
             )
           )
@@ -184,8 +184,13 @@ block_to_html <- function(b) {
 }
 
 add_previewer_css <- function() {
-  shiny::singleton(
-    shiny::tags$head(shiny::includeCSS(system.file("css/Previewer.css", package = "teal.reporter")))
+  tagList(
+    shiny::singleton(
+      shiny::tags$head(shiny::includeCSS(system.file("css/Previewer.css", package = "teal.reporter")))
+    ),
+    shiny::singleton(
+      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
+    )
   )
 }
 
