@@ -46,9 +46,9 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
         self$append_text("Filter State", "header3")
       }
 
-      if (!is.null(attr_fs) & length(fs) != 0) {
+      if (!is.null(attr_fs) && length(fs) != 0) {
         self$append_text(attr_fs, "verbatim")
-      } else if (is.null(attr_fs) & length(fs) != 0) {
+      } else if (is.null(attr_fs) && length(fs) != 0) {
         self$append_text(yaml::as.yaml(fs, handlers = list(
           POSIXct = function(x) format(x, "%Y-%m-%d"),
           POSIXlt = function(x) format(x, "%Y-%m-%d"),
