@@ -29,6 +29,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends the filter state list to the `content` and `metadata` of this `TealReportCard`.
     #'  If the filter state list has an attribute named `formatted`, it appends it to the card otherwise it uses
     #'  the default `yaml::as.yaml` to format the list.
+    #'  If the filter state list is empty, nothing is appended to the `content`.
     #'
     #' @param fs (`list`) of filter states.
     #' @return invisibly self
