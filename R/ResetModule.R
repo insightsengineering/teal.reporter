@@ -4,11 +4,13 @@
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
-#' @param label `character(1)` label before icon, if used then dynamic hover label is not available.
+#' @param label `character(1)` label before the icon, if used then dynamic hover label is not available.
 #' By default `NULL` so a dynamic hover label is used.
 #' @return `shiny::tagList`
 #' @export
 reset_report_button_ui <- function(id, label = NULL) {
+  checkmate::assert_string(label, null.ok = TRUE)
+
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::singleton(

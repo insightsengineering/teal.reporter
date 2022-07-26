@@ -4,9 +4,13 @@
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
+#' @param label `character(1)` label before the icon, if used then dynamic hover label is not available.
+#' By default `NULL` so a dynamic hover label is used.
 #' @return `shiny::tagList`
 #' @export
-add_card_button_ui <- function(id) {
+add_card_button_ui <- function(id, label = NULL) {
+  checkmate::assert_string(label, null.ok = TRUE)
+
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::tags$button(
@@ -20,7 +24,8 @@ add_card_button_ui <- function(id) {
       `data-val` = shiny::restoreInput(id = ns("add_report_card_button"), default = NULL),
       NULL,
       shiny::tags$span(
-        class = "add_card--before",
+        class = if (is.null(label)) "add_card--before",
+        if (!is.null(label)) label,
         shiny::icon("plus")
       )
     )

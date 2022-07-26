@@ -4,7 +4,6 @@
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
-#' @param label `character(1)` label before the icon.
 #' @return `shiny.tag`
 #' @export
 #'

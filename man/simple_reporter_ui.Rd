@@ -8,8 +8,6 @@ simple_reporter_ui(id)
 }
 \arguments{
 \item{id}{\code{character(1)} this \code{shiny} module's id.}
-
-\item{label}{\code{character(1)} label before the icon.}
 }
 \value{
 \code{shiny.tag}
