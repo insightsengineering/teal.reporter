@@ -6,9 +6,7 @@
 #' @param id `character(1)` this `shiny` module's id.
 #' @return `shiny::tagList`
 #' @export
-add_card_button_ui <- function(id, label = NULL) {
-  checkmate::assert_string(label, null.ok = TRUE)
-
+add_card_button_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::tags$button(

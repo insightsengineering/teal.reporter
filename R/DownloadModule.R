@@ -7,8 +7,6 @@
 #' @return `shiny::tagList`
 #' @export
 download_report_button_ui <- function(id) {
-  checkmate::assert_string(label, null.ok = TRUE)
-
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::singleton(

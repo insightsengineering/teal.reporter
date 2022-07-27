@@ -4,7 +4,7 @@
 \alias{add_card_button_ui}
 \title{Add Card Button User Interface}
 \usage{
-add_card_button_ui(id, label = NULL)
+add_card_button_ui(id)
 }
 \arguments{
 \item{id}{\code{character(1)} this \code{shiny} module's id.}
