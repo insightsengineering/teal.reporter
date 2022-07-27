@@ -52,6 +52,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
             POSIXlt = function(x) format(x, "%Y-%m-%d"),
             Date = function(x) format(x, "%Y-%m-%d")
           )), "verbatim")
+        }
       }
       self$append_metadata("FS", fs)
       invisible(self)
