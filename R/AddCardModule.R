@@ -10,12 +10,19 @@ add_card_button_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::tags$button(
+      shiny::singleton(
+        shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
+      ),
       id = ns("add_report_card_button"),
+      class = "add_card--hover",
       type = "button",
       class = "btn btn-primary action-button",
       `data-val` = shiny::restoreInput(id = ns("add_report_card_button"), default = NULL),
       NULL,
-      "Add Card"
+      shiny::tags$span(
+        class = "add_card--after",
+        shiny::icon("plus")
+      )
     )
   )
 }
@@ -59,10 +66,10 @@ add_card_button_srv <- function(id, reporter, card_fun) {
     id,
     function(input, output, session) {
       ns <- session$ns
-      add_modal <- function(failed = FALSE) {
+      add_modal <- function() {
         shiny::modalDialog(
           easyClose = TRUE,
-          shiny::tags$h3("Add a card to the Report"),
+          shiny::tags$h3("Add a Card to the Report"),
           shiny::tags$hr(),
           shiny::textAreaInput(
             ns("comment"),
@@ -71,11 +78,6 @@ add_card_button_srv <- function(id, reporter, card_fun) {
             placeholder = "Add a comment here...",
             width = "100%"
           ),
-          if (failed) {
-            shiny::tags$div(
-              shiny::tags$b("Invalid", style = "color: red;")
-            )
-          },
           footer = shiny::tagList(
             shiny::tags$button(
               type = "button",

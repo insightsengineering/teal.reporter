@@ -18,14 +18,20 @@
 #' }
 simple_reporter_ui <- function(id) {
   ns <- shiny::NS(id)
-  shiny::div(
+  shiny::tagList(
     shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/SimpleReporter.css", package = "teal.reporter")))
+      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
-    add_card_button_ui(ns("add_report_card_simple")),
-    download_report_button_ui(ns("download_button_simple")),
-    reset_report_button_ui(ns("reset_button_simple")),
-    class = "simple-reporter-container"
+    shiny::tags$div(
+      class = "block mb-4 p-1",
+      shiny::tags$label(class = "text-primary block", shiny::tags$strong("Reporter")),
+      shiny::tags$div(
+        class = "flex justify-start",
+        add_card_button_ui(ns("add_report_card_simple")),
+        download_report_button_ui(ns("download_button_simple")),
+        reset_report_button_ui(ns("reset_button_simple"))
+      )
+    )
   )
 }
 

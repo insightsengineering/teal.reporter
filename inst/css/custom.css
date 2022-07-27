@@ -1,0 +1,78 @@
+/* teal.reporter custom css */
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.block {
+  display: block;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.-mx-4 {
+  margin-left: -1rem;
+  margin-right: -1rem;
+}
+
+.-my-3 {
+  margin-top: -0.75rem;
+  margin-bottom: -0.75rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.p-1 {
+  padding: 0.25rem;
+}
+
+/* dynamic labels after icons */
+
+.reset_report--hover {
+  min-width: 55px;
+  margin: 0 1px;
+}
+
+.reset_report--hover:hover .reset_report--after::after {
+  content: 'Reset';
+}
+
+.add_card--hover {
+  min-width: 55px;
+  margin: 0 1px;
+}
+
+.add_card--hover:hover .add_card--after::after {
+  content: 'Add Card';
+}
+
+.download_report--hover {
+  min-width: 55px;
+  margin: 0 1px;
+}
+
+.download_report--hover:hover .download_report--after::after {
+  content: 'Download';
+}

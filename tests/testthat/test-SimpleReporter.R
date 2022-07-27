@@ -58,5 +58,5 @@ testthat::test_that("simple_reporter_srv - add a Card to Reporter", {
 })
 
 testthat::test_that("simple_reporter_ui - returns a shiny.tag", {
-  testthat::expect_true(inherits(simple_reporter_ui("sth"), "shiny.tag"))
+  testthat::expect_true(inherits(simple_reporter_ui("sth"), "shiny.tag.list"))
 })
