@@ -1,4 +1,4 @@
-# teal.reporter 0.1.0.9025
+# teal.reporter 0.1.0.9026
 
 * Added the `Archiver` class which enables saving and loading back the `Report` in the `shiny` session.
 * Added `to_list` and `from_list` methods to all content related classes.
