@@ -4,11 +4,9 @@
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
-#' @param label `character(1)` label before the icon, if used then dynamic hover label is not available.
-#' By default `NULL` so a dynamic hover label is used.
 #' @return `shiny::tagList`
 #' @export
-download_report_button_ui <- function(id, label = NULL) {
+download_report_button_ui <- function(id) {
   checkmate::assert_string(label, null.ok = TRUE)
 
   ns <- shiny::NS(id)
@@ -24,8 +22,7 @@ download_report_button_ui <- function(id, label = NULL) {
       `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
       NULL,
       shiny::tags$span(
-        class = if (is.null(label)) "download_report--before",
-        if (!is.null(label)) label,
+        class = "download_report--before",
         shiny::icon("download")
       )
     )
