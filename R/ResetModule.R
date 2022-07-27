@@ -24,7 +24,7 @@ reset_report_button_ui <- function(id, label = NULL) {
       `data-val` = shiny::restoreInput(id = ns("reset_reporter"), default = NULL),
       NULL,
       shiny::tags$span(
-        class = if (is.null(label)) "reset_report--before",
+        class = if (is.null(label)) "reset_report--after",
         if (!is.null(label)) label,
         shiny::icon("xmark")
       )

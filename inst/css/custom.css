@@ -8,6 +8,14 @@
   display: block;
 }
 
+.flex {
+  display: flex;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
 .-mx-4 {
   margin-left: -1rem;
   margin-right: -1rem;
@@ -40,16 +48,31 @@
   padding: 0.25rem;
 }
 
-/* dynamic labels before icons */
+/* dynamic labels after icons */
 
-.reset_report--hover:hover .reset_report--before::before {
+.reset_report--hover {
+  min-width: 55px;
+  margin: 0 1px;
+}
+
+.reset_report--hover:hover .reset_report--after::after {
   content: 'Reset';
 }
 
-.add_card--hover:hover .add_card--before::before {
+.add_card--hover {
+  min-width: 55px;
+  margin: 0 1px;
+}
+
+.add_card--hover:hover .add_card--after::after {
   content: 'Add Card';
 }
 
-.download_report--hover:hover .download_report--before::before {
+.download_report--hover {
+  min-width: 55px;
+  margin: 0 1px;
+}
+
+.download_report--hover:hover .download_report--after::after {
   content: 'Download';
 }

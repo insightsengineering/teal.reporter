@@ -20,7 +20,7 @@ add_card_button_ui <- function(id) {
       `data-val` = shiny::restoreInput(id = ns("add_report_card_button"), default = NULL),
       NULL,
       shiny::tags$span(
-        class = "add_card--before",
+        class = "add_card--after",
         shiny::icon("plus")
       )
     )

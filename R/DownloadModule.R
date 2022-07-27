@@ -20,7 +20,7 @@ download_report_button_ui <- function(id) {
       `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
       NULL,
       shiny::tags$span(
-        class = "download_report--before",
+        class = "download_report--after",
         shiny::icon("download")
       )
     )
