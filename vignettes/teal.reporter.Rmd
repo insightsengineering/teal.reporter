@@ -17,16 +17,17 @@ so its users do not have to copy-paste and save every finding or write their own
 your module with minimal input from users of the `shiny` modules and from you as its developer.
 
 And it can be done as easy as adding one of the reporting tools to your module:
+
 ```{r}
 library(teal.reporter)
 ui <- shiny::fluidPage(simple_reporter_ui("simple"))
 server <- function(input, output, session) {
   # The bulk of your module logic here
 
-  create_module_report <- function(card) {
+  create_module_card <- function(card) {
     card$append_text("This is the content of the report from the `simple` module")
   }
-  simple_reporter_srv("simple", Reporter$new(), create_module_report)
+  simple_reporter_srv("simple", Reporter$new(), create_module_card)
 }
 
 if (interactive()) shiny::shinyApp(ui, server)
