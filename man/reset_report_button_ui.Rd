@@ -9,8 +9,8 @@ reset_report_button_ui(id, label = NULL)
 \arguments{
 \item{id}{\code{character(1)} this \code{shiny} module's id.}
 
-\item{label}{\code{character(1)} label before the icon, if used then dynamic hover label is not available.
-By default \code{NULL} so a dynamic hover label is used.}
+\item{label}{\code{character(1)} label before the icon.
+By default \code{NULL}.}
 }
 \value{
 \code{shiny::tagList}

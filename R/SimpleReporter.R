@@ -26,7 +26,7 @@ simple_reporter_ui <- function(id) {
       class = "block mb-4 p-1",
       shiny::tags$label(class = "text-primary block -ml-1", shiny::tags$strong("Reporter")),
       shiny::tags$div(
-        class = "flex justify-start",
+        class = "simple_reporter-container",
         add_card_button_ui(ns("add_report_card_simple")),
         download_report_button_ui(ns("download_button_simple")),
         reset_report_button_ui(ns("reset_button_simple"))

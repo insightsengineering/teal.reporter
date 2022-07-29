@@ -4,8 +4,8 @@
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
-#' @param label `character(1)` label before the icon, if used then dynamic hover label is not available.
-#' By default `NULL` so a dynamic hover label is used.
+#' @param label `character(1)` label before the icon.
+#' By default `NULL`.
 #' @return `shiny::tagList`
 #' @export
 reset_report_button_ui <- function(id, label = NULL) {
@@ -18,13 +18,12 @@ reset_report_button_ui <- function(id, label = NULL) {
     ),
     shiny::tags$button(
       id = ns("reset_reporter"),
-      class = "reset_report--hover",
       type = "button",
-      class = "btn btn-warning action-button",
+      class = "simple_report_button btn btn-warning action-button",
+      title = "Reset",
       `data-val` = shiny::restoreInput(id = ns("reset_reporter"), default = NULL),
       NULL,
       shiny::tags$span(
-        class = if (is.null(label)) "reset_report--after",
         if (!is.null(label)) label,
         shiny::icon("xmark")
       )
