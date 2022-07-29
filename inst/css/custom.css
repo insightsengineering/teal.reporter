@@ -54,7 +54,7 @@
 
 /* dynamic labels after icons */
 
-.simple_reporter-container {
+.simple_reporter_container {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
