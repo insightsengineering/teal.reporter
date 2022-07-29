@@ -14,13 +14,12 @@ download_report_button_ui <- function(id) {
     ),
     shiny::tags$button(
       id = ns("download_button"),
-      class = "download_report--hover",
       type = "button",
-      class = "btn btn-primary action-button",
+      class = "simple_report_button btn btn-primary action-button",
+      title = "Downlaod",
       `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
       NULL,
       shiny::tags$span(
-        class = "download_report--after",
         shiny::icon("download")
       )
     )

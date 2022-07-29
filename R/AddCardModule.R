@@ -9,18 +9,17 @@
 add_card_button_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
+    shiny::singleton(
+      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
+    ),
     shiny::tags$button(
-      shiny::singleton(
-        shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-      ),
       id = ns("add_report_card_button"),
-      class = "add_card--hover",
       type = "button",
-      class = "btn btn-primary action-button",
+      class = "simple_report_button btn btn-primary action-button",
+      title = "Add Card",
       `data-val` = shiny::restoreInput(id = ns("add_report_card_button"), default = NULL),
       NULL,
       shiny::tags$span(
-        class = "add_card--after",
         shiny::icon("plus")
       )
     )
