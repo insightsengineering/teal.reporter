@@ -22,3 +22,10 @@ remotes::install_github("insightsengineering/teal.reporter@*release")
 A stable release of all `NEST` packages from June 2022 is also available [here](https://github.com/insightsengineering/depository#readme).
 
 See package vignettes `browseVignettes(package = "teal.reporter")` for usage of this package.
+
+[![Stargazers repo roster for @insightsengineering/teal.reporter](https://reporoster.com/stars/insightsengineering/teal.reporter)](https://github.com/insightsengineering/teal.reporter/stargazers)
+[![Forkers repo roster for @insightsengineering/teal.reporter](https://reporoster.com/forks/insightsengineering/teal.reporter)](https://github.com/insightsengineering/teal.reporter/network/members)
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/insightsengineering/teal.reporter.svg)](https://starchart.cc/insightsengineering/teal.reporter)
