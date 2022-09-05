@@ -47,7 +47,7 @@ reporter_previewer_ui <- function(id, rmd_output = c(
   shiny::fluidRow(
     add_previewer_js(ns),
     add_previewer_css(),
-    shiny::tags$div(
+    shiny::tagList(
       shiny::tags$div(
         class = "col-md-3",
         shiny::tags$div(class = "well", encoding)
