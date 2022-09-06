@@ -1,14 +1,14 @@
 Package: teal.reporter
-Title: Reporting tools for Shiny modules
+Title: Reporting Tools for Shiny Modules
 Version: 0.1.0.9027
-Date: 2022-06-09
+Date: 2022-09-02
 Authors@R: c(
     person("Maciej", "Nasinski", , "maciej.nasinski@contractors.roche.com", role = c("aut", "cre")),
     person("Konrad", "Pagacz", , "konrad.pagacz@contractors.roche.com", role = "aut"),
     person("Mahmoud", "Hallal", , "mahmoud.hallal@roche.com", role = "aut"),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
-Description: Reporting tools for Shiny modules.
+Description: Reporting tools for your shiny modules to generate reproducible analysis.
 License: Apache License 2.0 | file LICENSE
 URL: https://github.com/insightsengineering/teal.reporter,
     https://insightsengineering.github.io/teal.reporter/
