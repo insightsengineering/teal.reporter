@@ -55,7 +55,7 @@ reporter_previewer_ui <- function(id, rmd_output = c(
       shiny::tags$div(
         class = "col-md-9",
         shiny::tags$div(
-          id = "reporter_previewer_panel",
+          id = "reporter_previewer",
           shiny::uiOutput(ns("pcards"))
         )
       )
