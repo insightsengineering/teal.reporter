@@ -97,8 +97,8 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
 
         if (length(cards)) {
           shiny::tags$div(
-            class = "panel-group reporter_previewer_panel",
-            id = "accordion",
+            class = "panel-group",
+            id = "reporter_previewer_panel",
             lapply(seq_along(cards), function(ic) {
               shiny::tags$div(
                 id = paste0("panel_card_", ic),
@@ -278,7 +278,7 @@ previewer_collapse_head <- function(idx, card_name) {
         ),
         shiny::tags$a(
           class = "accordion-toggle block py-3 px-4 -my-3 -my-4",
-          `data-toggle` = "collapse", `data-bs-toggle` = "collapse", `data-parent` = "#accordion", href = paste0("#collapse", idx),
+          `data-toggle` = "collapse", `data-bs-toggle` = "collapse", `data-parent` = "#reporter_previewer_panel", href = paste0("#collapse", idx),
           shiny::tags$h4(paste0("Card ", idx, ": ", card_name), shiny::icon("caret-down"))
         )
       )
