@@ -278,7 +278,7 @@ previewer_collapse_head <- function(idx, card_name) {
         ),
         shiny::tags$a(
           class = "accordion-toggle block py-3 px-4 -my-3 -my-4",
-          `data-toggle` = "collapse", `data-parent` = "#accordion", href = paste0("#collapse", idx),
+          `data-toggle` = "collapse", `data-bs-toggle` = "collapse", `data-parent` = "#accordion", href = paste0("#collapse", idx),
           shiny::tags$h4(paste0("Card ", idx, ": ", card_name), shiny::icon("caret-down"))
         )
       )
