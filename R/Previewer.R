@@ -97,10 +97,10 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
 
         if (length(cards)) {
           shiny::tags$div(
-            class = "panel-group",
+            class = "panel-group accordion",
             id = "reporter_previewer_panel",
             lapply(seq_along(cards), function(ic) {
-                previewer_collapse_item(ic, cards[[ic]]$get_name(), cards[[ic]]$get_content())
+              previewer_collapse_item(ic, cards[[ic]]$get_name(), cards[[ic]]$get_content())
             })
           )
         } else {
@@ -214,8 +214,8 @@ add_previewer_js <- function(ns) {
               Shiny.setInputValue("%s", val, {priority: "event"});
              });
 
-             $("body").on("DOMSubtreeModified", "#reporter_previewer_panel", function() {
-              let accor = $(this).find("#accordion");
+             $("body").on("DOMSubtreeModified", "#reporter_previewer", function() {
+              let accor = $(this).find("#reporter_previewer_panel");
               let down_button = $("#%s");
               if (accor && (accor.length === 0)) {
                 down_button.addClass("disabled");
@@ -241,8 +241,7 @@ nav_previewer_icon <- function(name, icon_name, idx, size = 1L) {
   )
 }
 
-previewer_collapse_item <- function(idx , card_name, card_blocks) {
-
+previewer_collapse_item <- function(idx, card_name, card_blocks) {
   shiny::tags$div(.renderHook = function(x) {
     # get theme and version
     theme <- bslib::bs_current_theme()
@@ -269,7 +268,7 @@ previewer_collapse_item <- function(idx , card_name, card_blocks) {
               ),
               shiny::tags$a(
                 class = "accordion-toggle block py-3 px-4 -my-3 -my-4",
-                `data-toggle` = "collapse", `data-parent` = "#accordion", href = paste0("#collapse", idx),
+                `data-toggle` = "collapse", `data-parent` = "#reporter_previewer_panel", href = paste0("#collapse", idx),
                 shiny::tags$h4(paste0("Card ", idx, ": ", card_name), shiny::icon("caret-down"))
               )
             )
@@ -289,7 +288,7 @@ previewer_collapse_item <- function(idx , card_name, card_blocks) {
               )
             )
           )
-      )
+        )
       )
     } else {
       shiny::tags$div(
@@ -308,14 +307,16 @@ previewer_collapse_item <- function(idx , card_name, card_blocks) {
               ),
               shiny::tags$a(
                 class = "accordion-toggle block py-3 px-4 -my-3 -my-4",
-                `data-toggle` = "collapse", `data-bs-toggle` = "collapse", `data-parent` = "#accordion", href = paste0("#collapse", idx),
+                `data-toggle` = "collapse", `data-bs-toggle` = "collapse", href = paste0("#collapse", idx),
                 shiny::tags$h4(paste0("Card ", idx, ": ", card_name), shiny::icon("caret-down"))
               )
             )
           )
         ),
         shiny::tags$div(
-          id = paste0("collapse", idx), class = "collapse out",
+          id = paste0("collapse", idx),
+          class = "collapse out",
+          `data-parent` = "#reporter_previewer_panel",
           shiny::tags$div(
             class = "card-body",
             shiny::tags$div(
@@ -331,6 +332,5 @@ previewer_collapse_item <- function(idx , card_name, card_blocks) {
         )
       )
     }
-
   })
 }
