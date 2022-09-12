@@ -152,6 +152,7 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
   )
 }
 
+#' @keywords internal
 block_to_html <- function(b) {
   block_class <- class(b)[1]
   b_content <- b$get_content()
@@ -178,6 +179,7 @@ block_to_html <- function(b) {
   )
 }
 
+#' @keywords internal
 add_previewer_css <- function() {
   tagList(
     shiny::singleton(
@@ -189,6 +191,7 @@ add_previewer_css <- function() {
   )
 }
 
+#' @keywords internal
 add_previewer_js <- function(ns) {
   shiny::singleton(
     shiny::tags$head(shiny::tags$script(
@@ -230,6 +233,7 @@ add_previewer_js <- function(ns) {
   )
 }
 
+#' @keywords internal
 nav_previewer_icon <- function(name, icon_name, idx, size = 1L) {
   checkmate::assert_string(name)
   checkmate::assert_string(icon_name)
@@ -241,6 +245,7 @@ nav_previewer_icon <- function(name, icon_name, idx, size = 1L) {
   )
 }
 
+#' @keywords internal
 previewer_collapse_item <- function(idx, card_name, card_blocks) {
   shiny::tags$div(.renderHook = function(x) {
     # get theme and version
@@ -268,7 +273,9 @@ previewer_collapse_item <- function(idx, card_name, card_blocks) {
               ),
               shiny::tags$a(
                 class = "accordion-toggle block py-3 px-4 -my-3 -my-4",
-                `data-toggle` = "collapse", `data-parent` = "#reporter_previewer_panel", href = paste0("#collapse", idx),
+                `data-toggle` = "collapse",
+                `data-parent` = "#reporter_previewer_panel",
+                href = paste0("#collapse", idx),
                 shiny::tags$h4(paste0("Card ", idx, ": ", card_name), shiny::icon("caret-down"))
               )
             )
@@ -307,7 +314,11 @@ previewer_collapse_item <- function(idx, card_name, card_blocks) {
               ),
               shiny::tags$a(
                 class = "accordion-toggle block py-3 px-4 -my-3 -my-4",
-                `data-toggle` = "collapse", `data-bs-toggle` = "collapse", href = paste0("#collapse", idx),
+                # bs4
+                `data-toggle` = "collapse",
+                # bs5
+                `data-bs-toggle` = "collapse",
+                href = paste0("#collapse", idx),
                 shiny::tags$h4(paste0("Card ", idx, ": ", card_name), shiny::icon("caret-down"))
               )
             )
