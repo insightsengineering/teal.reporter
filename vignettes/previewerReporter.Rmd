@@ -38,13 +38,17 @@ The code added to introduce the reporter is wrapped in the `### REPORTER` code b
 
 ```{r}
 ui <- fluidPage(
+  # please, specify specific bootstrap version and theme
+  theme = bslib::bs_theme(version = "4"), 
   titlePanel(""),
   tabsetPanel(
     tabPanel(
       "main App",
       tags$br(),
       sidebarLayout(
-        uiOutput("encoding"),
+        sidebarPanel(
+          uiOutput("encoding")
+        ),
         mainPanel(
           tabsetPanel(
             id = "tabs",
@@ -64,10 +68,9 @@ ui <- fluidPage(
     ###
   )
 )
-
 server <- function(input, output, session) {
   output$encoding <- renderUI({
-    sidebarPanel(
+    tagList(
       ### REPORTER
       teal.reporter::simple_reporter_ui("simple_reporter"),
       ###
@@ -91,18 +94,15 @@ server <- function(input, output, session) {
       }
     )
   })
-
   plot <- reactive({
     req(input$binwidth)
     x <- mtcars$mpg
     ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg)) +
       ggplot2::geom_histogram(binwidth = input$binwidth)
   })
-
   output$dist_plot <- renderPlot({
     plot()
   })
-
   table <- reactive({
     req(input$stat)
     lyt <- basic_table() %>%
@@ -110,11 +110,9 @@ server <- function(input, output, session) {
       analyze("Ozone", afun = eval(str2expression(input$stat)))
     build_table(lyt, airquality)
   })
-
   output$table <- renderPrint({
     table()
   })
-
   table2 <- reactive({
     req(input$stat)
     data <- aggregate(
@@ -124,15 +122,12 @@ server <- function(input, output, session) {
     colnames(data) <- c("Month", input$stat)
     data
   })
-
   output$table2 <- renderPrint({
     print.data.frame(table2())
   })
-
   output$table3 <- renderDataTable({
     DT::datatable(table2())
   })
-
   ### REPORTER
   reporter <- teal.reporter::Reporter$new()
   card_fun <- function(card = ReportCard$new(), comment) {
@@ -189,7 +184,6 @@ server <- function(input, output, session) {
     }
     card
   }
-
   teal.reporter::simple_reporter_srv("simple_reporter", reporter = reporter, card_fun = card_fun)
   teal.reporter::reporter_previewer_srv("prev", reporter)
   ###
