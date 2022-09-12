@@ -246,6 +246,16 @@ nav_previewer_icon <- function(name, icon_name, idx, size = 1L) {
 }
 
 #' @keywords internal
+nav_previewer_icons <- function(idx, size = 1L) {
+  shiny::tags$span(
+    class = "preview_card_control",
+    nav_previewer_icon(name = "card_remove_id", icon_name = "xmark", idx = idx, size = size),
+    nav_previewer_icon(name = "card_up_id", icon_name = "arrow-up", idx = idx, size = size),
+    nav_previewer_icon(name = "card_down_id", icon_name = "arrow-down", idx = idx, size = size)
+  )
+}
+
+#' @keywords internal
 previewer_collapse_item <- function(idx, card_name, card_blocks) {
   shiny::tags$div(.renderHook = function(x) {
     # get theme and version
@@ -262,17 +272,12 @@ previewer_collapse_item <- function(idx, card_name, card_blocks) {
         class = "panel panel-default",
         shiny::tags$div(
           class = "panel-heading overflow-auto",
-          shiny::tags$h4(
+          shiny::tags$div(
             class = "panel-title",
             shiny::tags$span(
-              shiny::tags$span(
-                class = "preview_card_control",
-                nav_previewer_icon(name = "card_remove_id", icon_name = "xmark", idx = idx, size = 1),
-                nav_previewer_icon(name = "card_up_id", icon_name = "arrow-up", idx = idx, size = 1),
-                nav_previewer_icon(name = "card_down_id", icon_name = "arrow-down", idx = idx, size = 1)
-              ),
+              nav_previewer_icons(idx = idx),
               shiny::tags$a(
-                class = "accordion-toggle block py-3 px-4 -my-3 -my-4",
+                class = "accordion-toggle block py-3 px-4 -my-3 -mx-4",
                 `data-toggle` = "collapse",
                 `data-parent` = "#reporter_previewer_panel",
                 href = paste0("#collapse", idx),
@@ -303,23 +308,21 @@ previewer_collapse_item <- function(idx, card_name, card_blocks) {
         class = "card",
         shiny::tags$div(
           class = "overflow-auto",
-          shiny::tags$h4(
+          shiny::tags$div(
             class = "card-header",
             shiny::tags$span(
-              shiny::tags$span(
-                class = "preview_card_control",
-                nav_previewer_icon(name = "card_remove_id", icon_name = "xmark", idx = idx, size = 1),
-                nav_previewer_icon(name = "card_up_id", icon_name = "arrow-up", idx = idx, size = 1),
-                nav_previewer_icon(name = "card_down_id", icon_name = "arrow-down", idx = idx, size = 1)
-              ),
+              nav_previewer_icons(idx = idx),
               shiny::tags$a(
-                class = "accordion-toggle block py-3 px-4 -my-3 -my-4",
+                class = "accordion-toggle block py-3 px-4 -my-3 -mx-4",
                 # bs4
                 `data-toggle` = "collapse",
                 # bs5
                 `data-bs-toggle` = "collapse",
                 href = paste0("#collapse", idx),
-                shiny::tags$h4(paste0("Card ", idx, ": ", card_name), shiny::icon("caret-down"))
+                shiny::tags$h4(
+                  paste0("Card ", idx, ": ", card_name),
+                  shiny::icon("caret-down")
+                )
               )
             )
           )
@@ -327,7 +330,9 @@ previewer_collapse_item <- function(idx, card_name, card_blocks) {
         shiny::tags$div(
           id = paste0("collapse", idx),
           class = "collapse out",
+          # bs4
           `data-parent` = "#reporter_previewer_panel",
+          # bs5
           `data-bs-parent` = "#reporter_previewer_panel",
           shiny::tags$div(
             class = "card-body",
