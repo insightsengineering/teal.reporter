@@ -47,7 +47,7 @@ reporter_previewer_ui <- function(id, rmd_output = c(
   shiny::fluidRow(
     add_previewer_js(ns),
     add_previewer_css(),
-    shiny::tags$div(
+    shiny::tagList(
       shiny::tags$div(
         class = "col-md-3",
         shiny::tags$div(class = "well", encoding)
@@ -55,7 +55,7 @@ reporter_previewer_ui <- function(id, rmd_output = c(
       shiny::tags$div(
         class = "col-md-9",
         shiny::tags$div(
-          id = "reporter_previewer_panel",
+          id = "reporter_previewer",
           shiny::uiOutput(ns("pcards"))
         )
       )
@@ -97,15 +97,10 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
 
         if (length(cards)) {
           shiny::tags$div(
-            class = "panel-group reporter_previewer_panel",
-            id = "accordion",
+            class = "panel-group accordion",
+            id = "reporter_previewer_panel",
             lapply(seq_along(cards), function(ic) {
-              shiny::tags$div(
-                id = paste0("panel_card_", ic),
-                class = "panel panel-default",
-                previewer_collapse_head(ic, cards[[ic]]$get_name()),
-                previewer_collapse_body(ic, cards[[ic]]$get_content())
-              )
+              previewer_collapse_item(ic, cards[[ic]]$get_name(), cards[[ic]]$get_content())
             })
           )
         } else {
@@ -157,6 +152,7 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
   )
 }
 
+#' @keywords internal
 block_to_html <- function(b) {
   block_class <- class(b)[1]
   b_content <- b$get_content()
@@ -183,6 +179,7 @@ block_to_html <- function(b) {
   )
 }
 
+#' @keywords internal
 add_previewer_css <- function() {
   shiny::tagList(
     shiny::singleton(
@@ -194,6 +191,7 @@ add_previewer_css <- function() {
   )
 }
 
+#' @keywords internal
 add_previewer_js <- function(ns) {
   shiny::singleton(
     shiny::tags$head(shiny::tags$script(
@@ -219,8 +217,8 @@ add_previewer_js <- function(ns) {
               Shiny.setInputValue("%s", val, {priority: "event"});
              });
 
-             $("body").on("DOMSubtreeModified", "#reporter_previewer_panel", function() {
-              let accor = $(this).find("#accordion");
+             $("body").on("DOMSubtreeModified", "#reporter_previewer", function() {
+              let accor = $(this).find("#reporter_previewer_panel");
               let down_button = $("#%s");
               if (accor && (accor.length === 0)) {
                 down_button.addClass("disabled");
@@ -235,6 +233,7 @@ add_previewer_js <- function(ns) {
   )
 }
 
+#' @keywords internal
 nav_previewer_icon <- function(name, icon_name, idx, size = 1L) {
   checkmate::assert_string(name)
   checkmate::assert_string(icon_name)
@@ -246,42 +245,109 @@ nav_previewer_icon <- function(name, icon_name, idx, size = 1L) {
   )
 }
 
-previewer_collapse_body <- function(idx, card_blocks) {
-  shiny::tags$div(
-    id = paste0("collapse", idx), class = "panel-collapse collapse out",
-    shiny::tags$div(
-      class = "panel-body",
-      shiny::tags$div(
-        id = paste0("card", idx),
-        lapply(
-          card_blocks,
-          function(b) {
-            block_to_html(b)
-          }
-        )
-      )
-    )
+#' @keywords internal
+nav_previewer_icons <- function(idx, size = 1L) {
+  shiny::tags$span(
+    class = "preview_card_control",
+    nav_previewer_icon(name = "card_remove_id", icon_name = "xmark", idx = idx, size = size),
+    nav_previewer_icon(name = "card_up_id", icon_name = "arrow-up", idx = idx, size = size),
+    nav_previewer_icon(name = "card_down_id", icon_name = "arrow-down", idx = idx, size = size)
   )
 }
 
-previewer_collapse_head <- function(idx, card_name) {
-  shiny::tags$div(
-    class = "panel-heading overflow-auto",
-    shiny::tags$h4(
-      class = "panel-title",
-      shiny::tags$span(
-        shiny::tags$span(
-          class = "preview_card_control",
-          nav_previewer_icon(name = "card_remove_id", icon_name = "xmark", idx = idx, size = 1),
-          nav_previewer_icon(name = "card_up_id", icon_name = "arrow-up", idx = idx, size = 1),
-          nav_previewer_icon(name = "card_down_id", icon_name = "arrow-down", idx = idx, size = 1)
+#' @keywords internal
+previewer_collapse_item <- function(idx, card_name, card_blocks) {
+  shiny::tags$div(.renderHook = function(x) {
+    # get theme and version
+    theme <- bslib::bs_current_theme()
+    version <- if (bslib::is_bs_theme(theme)) {
+      bslib::theme_version(theme)
+    } else {
+      "3"
+    }
+
+    if (version == "3") {
+      shiny::tags$div(
+        id = paste0("panel_card_", idx),
+        class = "panel panel-default",
+        shiny::tags$div(
+          class = "panel-heading overflow-auto",
+          shiny::tags$div(
+            class = "panel-title",
+            shiny::tags$span(
+              nav_previewer_icons(idx = idx),
+              shiny::tags$a(
+                class = "accordion-toggle block py-3 px-4 -my-3 -mx-4",
+                `data-toggle` = "collapse",
+                `data-parent` = "#reporter_previewer_panel",
+                href = paste0("#collapse", idx),
+                shiny::tags$h4(paste0("Card ", idx, ": ", card_name), shiny::icon("caret-down"))
+              )
+            )
+          )
         ),
-        shiny::tags$a(
-          class = "accordion-toggle block py-3 px-4 -my-3 -my-4",
-          `data-toggle` = "collapse", `data-parent` = "#accordion", href = paste0("#collapse", idx),
-          shiny::tags$h4(paste0("Card ", idx, ": ", card_name), shiny::icon("caret-down"))
+        shiny::tags$div(
+          id = paste0("collapse", idx), class = "collapse out",
+          shiny::tags$div(
+            class = "panel-body",
+            shiny::tags$div(
+              id = paste0("card", idx),
+              lapply(
+                card_blocks,
+                function(b) {
+                  block_to_html(b)
+                }
+              )
+            )
+          )
         )
       )
-    )
-  )
+    } else {
+      shiny::tags$div(
+        id = paste0("panel_card_", idx),
+        class = "card",
+        shiny::tags$div(
+          class = "overflow-auto",
+          shiny::tags$div(
+            class = "card-header",
+            shiny::tags$span(
+              nav_previewer_icons(idx = idx),
+              shiny::tags$a(
+                class = "accordion-toggle block py-3 px-4 -my-3 -mx-4",
+                # bs4
+                `data-toggle` = "collapse",
+                # bs5
+                `data-bs-toggle` = "collapse",
+                href = paste0("#collapse", idx),
+                shiny::tags$h4(
+                  paste0("Card ", idx, ": ", card_name),
+                  shiny::icon("caret-down")
+                )
+              )
+            )
+          )
+        ),
+        shiny::tags$div(
+          id = paste0("collapse", idx),
+          class = "collapse out",
+          # bs4
+          `data-parent` = "#reporter_previewer_panel",
+          # bs5
+          `data-bs-parent` = "#reporter_previewer_panel",
+          shiny::tags$div(
+            class = "card-body",
+            shiny::tags$div(
+              id = paste0("card", idx),
+              lapply(
+                card_blocks,
+                function(b) {
+                  block_to_html(b)
+                }
+              )
+            )
+          )
+        )
+      )
+    }
+  })
 }
