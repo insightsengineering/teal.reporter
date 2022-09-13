@@ -181,7 +181,7 @@ block_to_html <- function(b) {
 
 #' @keywords internal
 add_previewer_css <- function() {
-  tagList(
+  shiny::tagList(
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/Previewer.css", package = "teal.reporter")))
     ),
