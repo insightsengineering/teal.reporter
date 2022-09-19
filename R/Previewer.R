@@ -240,7 +240,9 @@ nav_previewer_icon <- function(name, icon_name, idx, size = 1L) {
   checkmate::assert_int(size)
 
   shiny::tags$span(
-    class = paste(name, "icon_previewer"), `data-cardid` = idx,
+    class = paste(name, "icon_previewer"),
+    # data field needed to record clicked card on the js side
+    `data-cardid` = idx,
     shiny::icon(icon_name, sprintf("fa-%sx", size))
   )
 }
