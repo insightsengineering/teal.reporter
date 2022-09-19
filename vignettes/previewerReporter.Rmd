@@ -39,7 +39,7 @@ The code added to introduce the reporter is wrapped in the `### REPORTER` code b
 ```{r}
 ui <- fluidPage(
   # please, specify specific bootstrap version and theme
-  theme = bslib::bs_theme(version = "4"), 
+  theme = bslib::bs_theme(version = "4"),
   titlePanel(""),
   tabsetPanel(
     tabPanel(
