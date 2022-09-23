@@ -260,13 +260,8 @@ nav_previewer_icons <- function(idx, size = 1L) {
 #' @keywords internal
 previewer_collapse_item <- function(idx, card_name, card_blocks) {
   shiny::tags$div(.renderHook = function(x) {
-    # get theme and version
-    theme <- bslib::bs_current_theme()
-    version <- if (bslib::is_bs_theme(theme)) {
-      bslib::theme_version(theme)
-    } else {
-      "3"
-    }
+    # get bs version
+    version <- get_bs_version()
 
     if (version == "3") {
       shiny::tags$div(
