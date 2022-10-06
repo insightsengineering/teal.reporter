@@ -35,7 +35,8 @@ download_report_button_ui <- function(id) {
 #' @param reporter [`Reporter`] instance.
 #' @param rmd_output `character` vector with `rmarkdown` output types,
 #' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
-#' `pdflatex` has to be installed to use the `"pdf_document"` output.
+#' `pdflatex` has to be installed to use the `"pdf_document"` output. If vector is named then the names
+#' will appear in the `UI`.
 #' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
 #' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document")`.
 #' Please update only values at this moment.
@@ -44,8 +45,8 @@ download_report_button_ui <- function(id) {
 download_report_button_srv <- function(id,
                                        reporter,
                                        rmd_output = c(
-                                         "html_document", "pdf_document",
-                                         "powerpoint_presentation", "word_document"
+                                         "html" = "html_document", "pdf" = "pdf_document",
+                                         "powerpoint" = "powerpoint_presentation", "word" = "word_document"
                                        ),
                                        rmd_yaml_args = list(
                                          author = "NEST", title = "Report",

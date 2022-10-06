@@ -10,6 +10,7 @@
 * Fixed how `trellis` plots are catched by the `set_content` method in the `PictureBlock`.
 * Updated `append_fs` method in the `TealReportCard`, to accept a `list` object.
 * Updated support for `Heatmap` plots in `PictureBlock`.
+* Made the document type names more user friendly when downloading the report.
 
 # teal.reporter 0.1.0
 
