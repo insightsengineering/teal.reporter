@@ -1,4 +1,4 @@
-# teal.reporter 0.1.0.9029
+# teal.reporter 0.1.0.9030
 
 ### New features
 * Added the `Archiver` class which enables saving and loading back the `Report` in the `shiny` session.
