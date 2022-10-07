@@ -105,7 +105,7 @@ server <- function(input, output, session) {
       ggplot2::geom_histogram(binwidth = input$binwidth)
   })
   output$dist_plot <- renderPlot(plot())
-  
+
   table <- reactive({
     req(input$stat)
     lyt <- basic_table() %>%
@@ -114,7 +114,7 @@ server <- function(input, output, session) {
     build_table(lyt, airquality)
   })
   output$table <- renderPrint(table())
-  
+
   table2 <- reactive({
     req(input$stat)
     data <- aggregate(
@@ -126,7 +126,7 @@ server <- function(input, output, session) {
   })
   output$table2 <- renderPrint(print.data.frame(table2()))
   output$table3 <- DT::renderDataTable(table2())
-  
+
   ### REPORTER
   reporter <- teal.reporter::Reporter$new()
   card_fun <- function(card = ReportCard$new(), comment) {
