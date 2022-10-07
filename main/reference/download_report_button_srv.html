@@ -36,12 +36,6 @@ For more details see the vignette: vignette("simpleReporter", "teal.reporter").'
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -74,8 +68,8 @@ server for downloading the Report.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">download_report_button_srv</span><span class="op">(</span></span>
 <span>  <span class="va">id</span>,</span>
 <span>  <span class="va">reporter</span>,</span>
-<span>  rmd_output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"html_document"</span>, <span class="st">"pdf_document"</span>, <span class="st">"powerpoint_presentation"</span>,</span>
-<span>    <span class="st">"word_document"</span><span class="op">)</span>,</span>
+<span>  rmd_output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>html <span class="op">=</span> <span class="st">"html_document"</span>, pdf <span class="op">=</span> <span class="st">"pdf_document"</span>, powerpoint <span class="op">=</span></span>
+<span>    <span class="st">"powerpoint_presentation"</span>, word <span class="op">=</span> <span class="st">"word_document"</span><span class="op">)</span>,</span>
 <span>  rmd_yaml_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>author <span class="op">=</span> <span class="st">"NEST"</span>, title <span class="op">=</span> <span class="st">"Report"</span>, date <span class="op">=</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, output <span class="op">=</span> <span class="st">"html_document"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -94,7 +88,8 @@ server for downloading the Report.</p>
 <dt>rmd_output</dt>
 <dd><p><code>character</code> vector with <code>rmarkdown</code> output types,
 by default all possible <code>c("pdf_document", "html_document", "powerpoint_presentation", "word_document")</code>.
-<code>pdflatex</code> has to be installed to use the <code>"pdf_document"</code> output.</p></dd>
+<code>pdflatex</code> has to be installed to use the <code>"pdf_document"</code> output. If vector is named then the names
+will appear in the <code>UI</code>.</p></dd>
 
 
 <dt>rmd_yaml_args</dt>
