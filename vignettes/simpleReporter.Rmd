@@ -34,6 +34,7 @@ This part requires the developer to use their imagination as to what the documen
 For clarity, in the app below the code added to introduce the reporter is wrapped in the `### REPORTER` code blocks.
 
 First, load the required packages:
+
 ```{r message = FALSE}
 library(shiny)
 library(teal.reporter)
