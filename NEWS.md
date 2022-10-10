@@ -18,6 +18,7 @@
 
 ### Bug fixes
 * Fixed how `trellis` plots are catched by the `set_content` method in the `PictureBlock`.
+* Fixed the plot height in a report document.
 
 ### Miscellaneous
 * Added `to_list` and `from_list` methods to all content related classes.
