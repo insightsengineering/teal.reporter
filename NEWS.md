@@ -1,4 +1,4 @@
-# teal.reporter 0.1.0.9029
+# teal.reporter 0.1.0.9030
 
 ### New features
 * Added the `Archiver` class which enables saving and loading back the `Report` in the `shiny` session.
@@ -14,6 +14,7 @@
 * Added support for `Heatmap` plots in `PictureBlock`.
 * Updated `append_encodings`, `append_src` and `append_fs` to automatically add titles.
 * Updated vignettes and README content.
+* Made the document type names more user friendly when downloading the report.
 
 ### Bug fixes
 * Fixed how `trellis` plots are catched by the `set_content` method in the `PictureBlock`.
@@ -21,7 +22,6 @@
 ### Miscellaneous
 * Added `to_list` and `from_list` methods to all content related classes.
 * Decoupled the `metadata` and `content` in the `ReportCard`.
-
 
 # teal.reporter 0.1.0
 
