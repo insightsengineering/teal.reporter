@@ -149,7 +149,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       basename_pic <- basename(block$get_content())
       file.copy(block$get_content(), file.path(private$output_dir, basename_pic))
       title <- block$get_title()
-      sprintf("![%s](%s){width=%s, height=%s}", title, basename_pic, block$get_dim()[1], block$get_dim()[2]) # nolint
+      sprintf("![%s](%s){width=%s height=%s}", title, basename_pic, block$get_dim()[1], block$get_dim()[2]) # nolint
     },
     tableBlock2md = function(block) {
       basename_table <- basename(block$get_content())
