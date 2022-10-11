@@ -7,14 +7,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r message = FALSE}
-library(shiny)
-library(teal.reporter)
-library(ggplot2)
-library(rtables)
-library(DT)
-```
-
 Reporter Previewer is a shiny module to visualize and manipulate the already added report Cards, and eventually downloading a report document.
 Reporter Previewer is extended by the base modules introduced in the `simpleReporter` vignette.
 
@@ -36,6 +28,18 @@ This part requires the developer to use their imagination as to what the documen
 
 The code added to introduce the reporter is wrapped in the `### REPORTER` code blocks.
 
+First, load the required packages:
+
+```{r message = FALSE}
+library(shiny)
+library(teal.reporter)
+library(ggplot2)
+library(rtables)
+library(DT)
+```
+
+A basic shiny app with the previewer module:
+
 ```{r}
 ui <- fluidPage(
   # please, specify specific bootstrap version and theme
@@ -55,7 +59,7 @@ ui <- fluidPage(
             tabPanel("Plot", plotOutput("dist_plot")),
             tabPanel("Table", verbatimTextOutput("table")),
             tabPanel("Table DataFrame", verbatimTextOutput("table2")),
-            tabPanel("Table DataTable", dataTableOutput("table3"))
+            tabPanel("Table DataTable", DT::dataTableOutput("table3"))
           )
         )
       )
@@ -100,9 +104,8 @@ server <- function(input, output, session) {
     ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg)) +
       ggplot2::geom_histogram(binwidth = input$binwidth)
   })
-  output$dist_plot <- renderPlot({
-    plot()
-  })
+  output$dist_plot <- renderPlot(plot())
+
   table <- reactive({
     req(input$stat)
     lyt <- basic_table() %>%
@@ -110,9 +113,8 @@ server <- function(input, output, session) {
       analyze("Ozone", afun = eval(str2expression(input$stat)))
     build_table(lyt, airquality)
   })
-  output$table <- renderPrint({
-    table()
-  })
+  output$table <- renderPrint(table())
+
   table2 <- reactive({
     req(input$stat)
     data <- aggregate(
@@ -122,12 +124,9 @@ server <- function(input, output, session) {
     colnames(data) <- c("Month", input$stat)
     data
   })
-  output$table2 <- renderPrint({
-    print.data.frame(table2())
-  })
-  output$table3 <- renderDataTable({
-    DT::datatable(table2())
-  })
+  output$table2 <- renderPrint(print.data.frame(table2()))
+  output$table3 <- DT::renderDataTable(table2())
+
   ### REPORTER
   reporter <- teal.reporter::Reporter$new()
   card_fun <- function(card = ReportCard$new(), comment) {

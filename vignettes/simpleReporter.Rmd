@@ -14,13 +14,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r message = FALSE}
-library(shiny)
-library(teal.reporter)
-library(ggplot2)
-library(rtables)
-```
-
 Simple Reporter is a shiny module for capturing app views during the session, and eventually downloading
 a report document. The Simple Reporter module consists of two separate modules one for each of the two buttons,
 Add Card and Download Report buttons modules.
@@ -39,6 +32,15 @@ This part requires the developer to use their imagination as to what the documen
 4. Invoke the servers with the reporter instance and the function to create the report card instance.
 
 For clarity, in the app below the code added to introduce the reporter is wrapped in the `### REPORTER` code blocks.
+
+First, load the required packages:
+
+```{r message = FALSE}
+library(shiny)
+library(teal.reporter)
+library(ggplot2)
+library(rtables)
+```
 
 Simple Reporter shiny app with separate modules for each button:
 
