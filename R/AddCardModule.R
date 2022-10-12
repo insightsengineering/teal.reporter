@@ -9,6 +9,9 @@
 add_card_button_ui <- function(id) {
   ns <- shiny::NS(id)
 
+  # Buttons
+  # with custom css and
+  # js code to disable the add card button when clicked to prevent multi-clicks
   shiny::tagList(
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
@@ -120,6 +123,8 @@ add_card_button_srv <- function(id, reporter, card_fun) {
         shiny::showModal(add_modal())
       })
 
+      # the button is disabled when clicked to prevent multi-clicks
+      # please check the ui part for more information
       shiny::observeEvent(input$add_card_ok, {
         card_fun_args_nams <- names(formals(card_fun))
         has_card_arg <- "card" %in% card_fun_args_nams
