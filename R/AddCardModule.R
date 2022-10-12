@@ -8,9 +8,27 @@
 #' @export
 add_card_button_ui <- function(id) {
   ns <- shiny::NS(id)
+
   shiny::tagList(
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
+    ),
+    shiny::singleton(
+      shiny::tags$head(
+        shiny::tags$script(
+          shiny::HTML(
+            sprintf(
+              '
+              $(document).ready(function(event) {
+                $("body").on("click", "#%s", function() {
+                  $(this).addClass("disabled");
+                })
+              })',
+              ns("add_card_ok")
+            )
+          )
+        )
+      )
     ),
     shiny::tags$button(
       id = ns("add_report_card_button"),
@@ -77,7 +95,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
             placeholder = "Add a comment here...",
             width = "100%"
           ),
-          footer = shiny::tagList(
+          footer = shiny::div(
             shiny::tags$button(
               type = "button",
               class = "btn btn-danger",
