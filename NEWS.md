@@ -15,6 +15,7 @@
 * Updated `append_encodings`, `append_src` and `append_fs` to automatically add titles.
 * Updated vignettes and README content.
 * Made the document type names more user friendly when downloading the report.
+* Improved the add reporter card button to be disabled when clicked.
 
 ### Bug fixes
 * Fixed how `trellis` plots are catched by the `set_content` method in the `PictureBlock`.
