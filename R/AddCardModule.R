@@ -172,7 +172,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           shiny::showNotification(sprintf("The card added successfully."), type = "message")
           shiny::removeModal()
         }
-      })
+      }, once = TRUE)
     }
   )
 }
