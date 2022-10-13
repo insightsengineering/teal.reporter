@@ -23,7 +23,7 @@ add_card_button_ui <- function(id) {
               '
               $(document).ready(function(event) {
                 $("body").on("click", "#%s", function() {
-                  $(this).addClass("disabled");
+                  $(this).addClass("addcard_disabled disabled");
                 })
               })',
               ns("add_card_ok")

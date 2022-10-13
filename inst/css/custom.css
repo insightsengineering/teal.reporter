@@ -65,7 +65,7 @@
   margin: 1px 1px;
 }
 
-button.disabled {
+button.addcard_disabled {
   color: grey;
   cursor: not-allowed;
   pointer-events: none;
