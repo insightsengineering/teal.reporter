@@ -23,7 +23,7 @@ add_card_button_ui <- function(id) {
               '
               $(document).ready(function(event) {
                 $("body").on("click", "#%s", function() {
-                  $(this).addClass("addcard_disabled disabled");
+                  $(this).addClass("disabled");
                 })
               })',
               ns("add_card_ok")
@@ -172,7 +172,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           shiny::showNotification(sprintf("The card added successfully."), type = "message")
           shiny::removeModal()
         }
-      })
+      }, once = TRUE)
     }
   )
 }
