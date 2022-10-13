@@ -64,3 +64,8 @@
   min-width: 55px;
   margin: 1px 1px;
 }
+
+button.addcard_disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}

@@ -23,7 +23,7 @@ add_card_button_ui <- function(id) {
               '
               $(document).ready(function(event) {
                 $("body").on("click", "#%s", function() {
-                  $(this).addClass("disabled");
+                  $(this).addClass("addcard_disabled disabled");
                 })
               })',
               ns("add_card_ok")
@@ -124,58 +124,58 @@ add_card_button_srv <- function(id, reporter, card_fun) {
 
       # the add card button is disabled when clicked to prevent multi-clicks
       # please check the ui part for more information
-      shiny::observeEvent(input$add_card_ok,
-        {
-          card_fun_args_nams <- names(formals(card_fun))
-          has_card_arg <- "card" %in% card_fun_args_nams
-          has_comment_arg <- "comment" %in% card_fun_args_nams
+      shiny::observeEvent(input$add_card_ok, {
+        card_fun_args_nams <- names(formals(card_fun))
+        has_card_arg <- "card" %in% card_fun_args_nams
+        has_comment_arg <- "comment" %in% card_fun_args_nams
 
 
-          arg_list <- list()
+        arg_list <- list()
 
-          if (has_comment_arg) {
-            arg_list <- c(arg_list, list(comment = input$comment))
+        if (has_comment_arg) {
+          arg_list <- c(arg_list, list(comment = input$comment))
+        }
+
+        if (has_card_arg) {
+          # The default_card is defined here because formals() returns a pairedlist object
+          # of formal parameter names and their default values. The values are missing
+          # if not defined and the missing check does not work if supplied formals(card_fun)[[1]]
+          default_card <- formals(card_fun)$card
+          card <- `if`(
+            missing(default_card),
+            ReportCard$new(),
+            eval(default_card, envir = environment(card_fun))
+          )
+          arg_list <- c(arg_list, list(card = card))
+        }
+
+        card <- try(do.call(card_fun, arg_list))
+
+        if (inherits(card, "try-error")) {
+          msg <- paste0(
+            "The card could not be added to the report. ",
+            "Have the outputs for the report been created yet? If not please try again when they ",
+            "are ready. Otherwise contact your application developer"
+          )
+          warning(msg)
+          shiny::showNotification(
+            msg,
+            type = "error"
+          )
+        } else {
+          checkmate::assert_class(card, "ReportCard")
+          if (!has_comment_arg && length(input$comment) > 0 && input$comment != "") {
+            card$append_text("Comment", "header3")
+            card$append_text(input$comment)
           }
-
-          if (has_card_arg) {
-            # The default_card is defined here because formals() returns a pairedlist object
-            # of formal parameter names and their default values. The values are missing
-            # if not defined and the missing check does not work if supplied formals(card_fun)[[1]]
-            default_card <- formals(card_fun)$card
-            card <- `if`(
-              missing(default_card),
-              ReportCard$new(),
-              eval(default_card, envir = environment(card_fun))
-            )
-            arg_list <- c(arg_list, list(card = card))
-          }
-
-          card <- try(do.call(card_fun, arg_list))
-
-          if (inherits(card, "try-error")) {
-            msg <- paste0(
-              "The card could not be added to the report. ",
-              "Have the outputs for the report been created yet? If not please try again when they ",
-              "are ready. Otherwise contact your application developer"
-            )
-            warning(msg)
-            shiny::showNotification(
-              msg,
-              type = "error"
-            )
-          } else {
-            checkmate::assert_class(card, "ReportCard")
-            if (!has_comment_arg && length(input$comment) > 0 && input$comment != "") {
-              card$append_text("Comment", "header3")
-              card$append_text(input$comment)
-            }
-            reporter$append_cards(list(card))
-            shiny::showNotification(sprintf("The card added successfully."), type = "message")
-            shiny::removeModal()
-          }
-        },
-        once = TRUE
-      )
+          reporter$append_cards(list(card))
+          shiny::showNotification(sprintf("The card added successfully."), type = "message")
+          shiny::removeModal()
+          reporter$append_cards(list(card))
+          shiny::showNotification(sprintf("The card added successfully."), type = "message")
+          shiny::removeModal()
+        }
+      })
     }
   )
 }
