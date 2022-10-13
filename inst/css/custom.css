@@ -66,8 +66,6 @@
 }
 
 button.addcard_disabled {
-  color: grey;
   cursor: not-allowed;
   pointer-events: none;
-  text-decoration: none;
 }
