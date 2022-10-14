@@ -1,7 +1,7 @@
 Package: teal.reporter
 Title: Reporting Tools for Shiny Modules
-Version: 0.1.0.9031
-Date: 2022-10-12
+Version: 0.1.1
+Date: 2022-10-14
 Authors@R: c(
     person("Maciej", "Nasinski", , "maciej.nasinski@contractors.roche.com", role = c("aut", "cre")),
     person("Konrad", "Pagacz", , "konrad.pagacz@contractors.roche.com", role = "aut"),
