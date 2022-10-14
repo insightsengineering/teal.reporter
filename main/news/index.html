@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9030</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,12 +34,6 @@
 <li class="active nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -61,17 +55,17 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.1.0.9030" id="tealreporter-0109030">teal.reporter 0.1.0.9030<a class="anchor" aria-label="anchor" href="#tealreporter-0109030"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.1.1" id="tealreporter-011">teal.reporter 0.1.1<a class="anchor" aria-label="anchor" href="#tealreporter-011"></a></h2>
 <div class="section level4">
-<h4 id="new-features-0-1-0-9030">New features<a class="anchor" aria-label="anchor" href="#new-features-0-1-0-9030"></a></h4>
+<h4 id="new-features-0-1-1">New features<a class="anchor" aria-label="anchor" href="#new-features-0-1-1"></a></h4>
 <ul><li>Added the <code>Archiver</code> class which enables saving and loading back the <code>Report</code> in the <code>shiny</code> session.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="breaking-changes-0-1-0-9030">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-1-0-9030"></a></h4>
+<h4 id="breaking-changes-0-1-1">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-1-1"></a></h4>
 <ul><li>Updated <code>append_fs</code> method in the <code>TealReportCard</code> to accept a <code>list</code> object.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="enhancements-0-1-0-9030">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-1-0-9030"></a></h4>
+<h4 id="enhancements-0-1-1">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-1-1"></a></h4>
 <ul><li>Added support for the <code>ElementaryTree</code> class in the <code>append_table</code> method of <code>ReportCard</code>.</li>
 <li>Added additional validation for the <code>card_fun</code> evaluation.</li>
 <li>Added support for more arguments setup for a <code>card_fun</code> function in the <code>add_card_button_srv</code> module, the <code>card_fun</code> could have any subset of the possible arguments now.</li>
@@ -83,11 +77,11 @@
 <li>Improved the add reporter card button to be disabled when clicked.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="bug-fixes-0-1-0-9030">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-1-0-9030"></a></h4>
+<h4 id="bug-fixes-0-1-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-1-1"></a></h4>
 <ul><li>Fixed how <code>trellis</code> plots are catched by the <code>set_content</code> method in the <code>PictureBlock</code>.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="miscellaneous-0-1-0-9030">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-1-0-9030"></a></h4>
+<h4 id="miscellaneous-0-1-1">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-1-1"></a></h4>
 <ul><li>Added <code>to_list</code> and <code>from_list</code> methods to all content related classes.</li>
 <li>Decoupled the <code>metadata</code> and <code>content</code> in the <code>ReportCard</code>.</li>
 </ul></div>
