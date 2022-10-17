@@ -32,6 +32,21 @@ add_card_button_ui <- function(id) {
         )
       )
     ),
+    shiny::singleton(
+      shiny::tags$head(
+        shiny::tags$script(
+          shiny::HTML(
+            "
+            $(document).ready(function() {
+              $('body').on('shown.bs.modal', (e) => {
+                $(e.target).find('textarea').focus();
+              });
+            })
+            "
+          )
+        )
+      )
+    ),
     shiny::tags$button(
       id = ns("add_report_card_button"),
       type = "button",
