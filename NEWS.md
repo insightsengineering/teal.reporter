@@ -3,6 +3,7 @@
 ### New features
 
 * When adding a card, the cursor is focused in the comment block.
+* Report Previewer renders markdown as in downloaded document.
 
 # teal.reporter 0.1.1
 
