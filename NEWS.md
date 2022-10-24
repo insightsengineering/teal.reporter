@@ -3,7 +3,7 @@
 ### New features
 
 * Updated the comment block to have an active cursor when adding a card.
-* Report Previewer renders markdown as in downloaded document.
+* Updated report previewer to render markdown as in the downloaded document.
 
 # teal.reporter 0.1.1
 
