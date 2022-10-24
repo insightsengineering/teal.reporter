@@ -32,21 +32,6 @@ add_card_button_ui <- function(id) {
         )
       )
     ),
-    shiny::singleton(
-      shiny::tags$head(
-        shiny::tags$script(
-          shiny::HTML(
-            "
-            $(document).ready(function() {
-              $('body').on('shown.bs.modal', (e) => {
-                $(e.target).find('textarea').focus();
-              });
-            })
-            "
-          )
-        )
-      )
-    ),
     shiny::tags$button(
       id = ns("add_report_card_button"),
       type = "button",
@@ -111,6 +96,18 @@ add_card_button_srv <- function(id, reporter, card_fun) {
             value = "",
             placeholder = "Add a comment here...",
             width = "100%"
+          ),
+          shiny::tags$script(
+            shiny::HTML(
+              sprintf(
+                "
+                $('#shiny-modal').on('shown.bs.modal', () => {
+                  $('#%s').focus()
+                })
+                ",
+                ns("comment")
+              )
+            )
           ),
           footer = shiny::div(
             shiny::tags$button(
