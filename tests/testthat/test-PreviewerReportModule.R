@@ -123,3 +123,25 @@ testthat::test_that("reporter_previewer_ui - returns a tagList", {
     inherits(reporter_previewer_ui("sth"), c("shiny.tag"))
   )
 })
+
+testthat::test_that("render_text_block_preview - markdown renders to html fragment", {
+
+  block <- TextBlock$new()
+
+  block$set_content(
+    "
+  this is a multiline comment
+
+  line 2
+
+  line 3
+  "
+  )
+
+  block_html <- render_text_block_preview(block$get_content())
+
+  testthat::expect_equal(
+    as.character(block_html),
+    "<p>this is a multiline comment</p><p>line 2</p><p>line 3</p>"
+  )
+})
