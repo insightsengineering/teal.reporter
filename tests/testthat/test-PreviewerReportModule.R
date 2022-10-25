@@ -125,7 +125,6 @@ testthat::test_that("reporter_previewer_ui - returns a tagList", {
 })
 
 testthat::test_that("render_text_block_preview - markdown renders to html fragment", {
-
   block <- TextBlock$new()
 
   block$set_content(
