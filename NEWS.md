@@ -1,5 +1,10 @@
 # teal.reporter 0.1.1.9000
 
+### New features
+
+* Updated the comment block to have an active cursor when adding a card.
+* Updated report previewer to render markdown as in the downloaded document.
+
 # teal.reporter 0.1.1
 
 ### New features
