@@ -166,7 +166,7 @@ block_to_html <- function(b) {
         header3 = shiny::tags$h3(b_content),
         header4 = shiny::tags$h4(b_content),
         verbatim = shiny::tags$pre(b_content),
-        render_text_block_preview(b_content)
+        shiny::tags$pre(b_content)
       )
     },
     PictureBlock = shiny::tags$img(src = knitr::image_uri(b_content)),
@@ -178,16 +178,6 @@ block_to_html <- function(b) {
     },
     NewpageBlock = shiny::tags$br(),
     ""
-  )
-}
-
-#' @keywords internal
-render_text_block_preview <- function(block_content) {
-  shiny::HTML(
-    markdown::markdownToHTML(
-      text = block_content,
-      fragment.only = TRUE
-    )
   )
 }
 

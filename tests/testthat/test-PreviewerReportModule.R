@@ -131,17 +131,15 @@ testthat::test_that("render_text_block_preview - markdown renders to html fragme
   block$set_content(
     "
   this is a multiline comment
-
   line 2
-
   line 3
   "
   )
 
-  block_html <- render_text_block_preview(block$get_content())
+  block_html <- block_to_html(block)
 
   testthat::expect_equal(
     as.character(block_html),
-    "<p>this is a multiline comment</p>\n\n<p>line 2</p>\n\n<p>line 3</p>\n"
+    "<pre>\n  this is a multiline comment\n  line 2\n  line 3\n  </pre>"
   )
 })
