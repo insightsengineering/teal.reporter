@@ -142,6 +142,6 @@ testthat::test_that("render_text_block_preview - markdown renders to html fragme
 
   testthat::expect_equal(
     as.character(block_html),
-    "<p>this is a multiline comment</p><p>line 2</p><p>line 3</p>"
+    "<p>this is a multiline comment</p>\n\n<p>line 2</p>\n\n<p>line 3</p>\n"
   )
 })

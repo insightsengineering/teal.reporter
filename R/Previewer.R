@@ -183,18 +183,12 @@ block_to_html <- function(b) {
 
 #' @keywords internal
 render_text_block_preview <- function(block_content) {
-  file <- tempfile()
-  on.exit(rm(file))
-  # need at least a title to prevent warnings
-  header <- "---\ntitle: 'title'\n---\n"
-  writeLines(paste0(header, block_content), file)
-  html <- rmarkdown::render(
-    file,
-    output_format = "html_fragment",
-    quiet = TRUE,
-    params = list(title = "")
+  shiny::HTML(
+    markdown::markdownToHTML(
+      text = block_content,
+      fragment.only = TRUE
+    )
   )
-  shiny::HTML(paste(readLines(html), collapse = ""))
 }
 
 #' @keywords internal
