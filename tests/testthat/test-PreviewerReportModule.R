@@ -123,5 +123,3 @@ testthat::test_that("reporter_previewer_ui - returns a tagList", {
     inherits(reporter_previewer_ui("sth"), c("shiny.tag"))
   )
 })
-
-
