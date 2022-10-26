@@ -2,7 +2,7 @@
 
 ### New features
 
-* Updated the AddCardModule comment input to have an active cursor when adding a card.
+* Updated the `AddCardModule` comment input to have an active cursor when adding a card.
 * Updated report previewer to support preview of multiline comment.
 
 # teal.reporter 0.1.1
