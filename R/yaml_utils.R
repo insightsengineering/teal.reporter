@@ -180,7 +180,8 @@ as_yaml_auto <- function(input_list,
   }
 
   is_nested <- function(x) any(unlist(lapply(x, is.list)))
-  if (is_nested(input_list)) {
+  input_list_no_params <- input_list[names(input_list) != "params"]
+  if (is_nested(input_list_no_params)) {
     result <- input_list
   } else {
     result <- list()
@@ -189,7 +190,8 @@ as_yaml_auto <- function(input_list,
     # top fields
     top_fields <- c(
       "author", "date", "title", "subtitle", "abstract",
-      "keywords", "subject", "description", "category", "lang"
+      "keywords", "subject", "description", "category", "lang",
+      "params"
     )
     for (itop in top_fields) {
       if (itop %in% input_nams) {

@@ -79,7 +79,7 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
   ),
   private = list(
     style = character(0),
-    styles = c("default", "header2", "header3", "verbatim")
+    styles = c("default", "header2", "header3", "verbatim", "rcode")
   ),
   lock_objects = TRUE,
   lock_class = TRUE

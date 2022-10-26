@@ -8,6 +8,10 @@
   display: block;
 }
 
+.inline {
+  display: inline;
+}
+
 .flex {
   display: flex;
 }
@@ -37,6 +41,16 @@
 .mt-4 {
   margin-top: 1rem;
 }
+
+.my-4 {
+  margin: 1rem 0;
+}
+
+.my-2 {
+  margin: 0.5rem 0;
+}
+
+
 
 .px-4 {
   padding-left: 1rem;

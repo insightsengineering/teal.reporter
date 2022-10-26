@@ -140,6 +140,13 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       switch(text_style,
         "default" = block_content,
         "verbatim" = paste0("\n```\n", block_content, "\n```\n"),
+        "rcode" =
+          paste(
+            sprintf(
+              "```{r, echo=isTRUE(params$showrcode), eval=FALSE}\n# Show R Code\n\n%s\n```\n",
+              block_content
+            )
+          ),
         "header2" = paste0("## ", block_content),
         "header3" = paste0("### ", block_content),
         block_content
