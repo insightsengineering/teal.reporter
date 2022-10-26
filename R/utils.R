@@ -22,9 +22,9 @@ get_bs_version <- function() {
 #'  name of the panel item element. If supplied, this will register a shiny input variable that
 #'  indicates whether the panel item is open or collapsed and is accessed with `input$input_id`.
 #'
-#' @return (`shiny.tag.list`)
+#' @return (`shiny.tag`)
 #'
-#' @export
+#' @keywords internal
 panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
   stopifnot(checkmate::test_character(title, len = 1) || inherits(title, c("shiny.tag", "shiny.tag.list", "html")))
   checkmate::assert_flag(collapsed)
