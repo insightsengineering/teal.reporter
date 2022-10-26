@@ -83,3 +83,12 @@ testthat::test_that("report_render_and_compress - render an html document", {
   testthat::expect_true(any(grepl("[.]Rmd", files)))
   testthat::expect_true(any(grepl("[.]html", files)))
 })
+
+testthat::test_that("any_rcode_block", {
+  testthat::expect_false(any_rcode_block(reporter))
+  card_t <- TealReportCard$new()
+  card_t$append_text("Header 2 text", "header2")
+  card_t$append_src("2+2")
+  reporter$append_cards(list(card_t))
+  testthat::expect_true(any_rcode_block(reporter))
+})

@@ -65,7 +65,7 @@ rmd_yaml_args = list(
           shiny::textInput(ns("author"), label = "Author:", value = rmd_yaml_args$author),
           shiny::textInput(ns("title"), label = "Title:", value = rmd_yaml_args$title),
           shiny::dateInput(ns("date"), "Date:", value = rmd_yaml_args$date),
-          if (any_rcode_fun(reporter)) {
+          if (any_rcode_block(reporter)) {
             shiny::checkboxInput(
               ns("showrcode"),
               label = "Include Show R Code",

@@ -100,7 +100,7 @@ download_report_button_srv <- function(id,
           shiny::textInput(ns("author"), label = "Author:", value = rmd_yaml_args$author),
           shiny::textInput(ns("title"), label = "Title:", value = rmd_yaml_args$title),
           shiny::dateInput(ns("date"), "Date:", value = rmd_yaml_args$date),
-          if (any_rcode_fun(reporter)) {
+          if (any_rcode_block(reporter)) {
             shiny::checkboxInput(
               ns("showrcode"),
               label = "Include Show R Code",
@@ -236,7 +236,7 @@ report_render_and_compress <- function(reporter, input_list, file = tempdir()) {
 
 
 #' @keywords internal
-any_rcode_fun <- function(reporter){
+any_rcode_block <- function(reporter){
   any(
     vapply(
       Filter(
