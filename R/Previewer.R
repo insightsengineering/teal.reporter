@@ -12,7 +12,7 @@ reporter_previewer_ui <- function(id) {
     shiny::tagList(
       shiny::tags$div(
         class = "col-md-3",
-        shiny::tags$div(class = "well", shiny::uiOutput(ns("encoding")), )
+        shiny::tags$div(class = "well", shiny::uiOutput(ns("encoding")))
       ),
       shiny::tags$div(
         class = "col-md-9",

@@ -100,7 +100,11 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
     }
 
     shiny::tagList(
-      shiny::singleton(shiny::includeCSS(system.file("custom.css", package = "teal.reporter"))),
+      shiny::singleton(
+        shiny::tags$head(
+          shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter"))
+        )
+      ),
       res_tag
     )
   })
