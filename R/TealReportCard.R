@@ -21,8 +21,7 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card$get_content()[[1]]$get_content()
     append_src = function(src) {
       checkmate::assert_character(src, min.len = 0, max.len = 1)
-      self$append_text("Show R Code", "header3")
-      self$append_text(src, "verbatim")
+      self$append_text(src, "rcode")
       self$append_metadata("SRC", src)
       invisible(self)
     },

@@ -100,6 +100,13 @@ download_report_button_srv <- function(id,
           shiny::textInput(ns("author"), label = "Author:", value = rmd_yaml_args$author),
           shiny::textInput(ns("title"), label = "Title:", value = rmd_yaml_args$title),
           shiny::dateInput(ns("date"), "Date:", value = rmd_yaml_args$date),
+          if (any_rcode_block(reporter)) {
+            shiny::checkboxInput(
+              ns("showrcode"),
+              label = "Include Show R Code",
+              value = FALSE
+            )
+          },
           shiny::tags$div(
             shinyWidgets::pickerInput(
               inputId = ns("output"),
@@ -134,6 +141,7 @@ download_report_button_srv <- function(id,
           shiny::showNotification("Rendering and Downloading the document.")
           input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
           names(input_list) <- names(rmd_yaml_args)
+          if (!is.null(input$showrcode)) input_list$params <- list(showrcode = isTRUE(input$showrcode))
           report_render_and_compress(reporter, input_list, file)
         },
         contentType = "application/zip"
@@ -225,3 +233,19 @@ report_render_and_compress <- function(reporter, input_list, file = tempdir()) {
   rm(renderer)
   invisible(file)
 }
+
+
+#' @keywords internal
+any_rcode_block <- function(reporter){
+  any(
+    vapply(
+      Filter(
+        function(e) inherits(e, "TextBlock"),
+        reporter$get_blocks()
+      ),
+      function(b) b$get_style() == "rcode",
+      logical(1)
+    )
+  )
+}
+
