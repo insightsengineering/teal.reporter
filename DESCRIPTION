@@ -18,6 +18,7 @@ Imports:
     bslib,
     checkmate,
     grid,
+    htmltools,
     knitr,
     lifecycle,
     R6,

@@ -34,30 +34,30 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
   panel_id <- paste0(input_id, "_panel_body_", sample(1:10000, 1))
 
 
-  tags$div(.renderHook = function(res_tag) {
+  shiny::tags$div(.renderHook = function(res_tag) {
     bs_version <- get_bs_version()
 
     # alter tag structure
     if (bs_version == "3") {
       res_tag$children <- list(
-        tags$div(
+        shiny::tags$div(
           class = "panel panel-default",
-          tags$div(
+          shiny::tags$div(
             id = div_id,
             class = paste("panel-heading", ifelse(collapsed, "collapsed", "")),
             `data-toggle` = "collapse",
             href = paste0("#", panel_id),
             `aria-expanded` = ifelse(collapsed, "false", "true"),
-            icon("angle-down", class = "dropdown-icon"),
-            tags$label(
+            shiny::icon("angle-down", class = "dropdown-icon"),
+            shiny::tags$label(
               class = "panel-title inline",
               title,
             )
           ),
-          tags$div(
+          shiny::tags$div(
             class = paste("panel-collapse collapse", ifelse(collapsed, "", "in")),
             id = panel_id,
-            tags$div(
+            shiny::tags$div(
               class = "panel-body",
               ...
             )
@@ -66,11 +66,11 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
       )
     } else if (bs_version %in% c("4", "5")) {
       res_tag$children <- list(
-        tags$div(
+        shiny::tags$div(
           class = "card my-2",
-          tags$div(
+          shiny::tags$div(
             class = "card-header",
-            tags$div(
+            shiny::tags$div(
               class = ifelse(collapsed, "collapsed", ""),
               # bs4
               `data-toggle` = "collapse",
@@ -78,17 +78,17 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
               `data-bs-toggle` = "collapse",
               href = paste0("#", panel_id),
               `aria-expanded` = ifelse(collapsed, "false", "true"),
-              icon("angle-down", class = "dropdown-icon"),
-              tags$label(
+              shiny::icon("angle-down", class = "dropdown-icon"),
+              shiny::tags$label(
                 class = "card-title inline",
                 title,
               )
             )
           ),
-          tags$div(
+          shiny::tags$div(
             id = panel_id,
             class = paste("collapse", ifelse(collapsed, "", "show")),
-            tags$div(
+            shiny::tags$div(
               class = "card-body",
               ...
             )
@@ -99,7 +99,7 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
       stop("Bootstrap 3, 4, and 5 are supported.")
     }
 
-    tagList(
+    shiny::tagList(
       shiny::singleton(shiny::includeCSS(system.file("custom.css", package = "teal.reporter"))),
       res_tag
     )
