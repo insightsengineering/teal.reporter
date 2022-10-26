@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage line-rate="0.840616966580977" branch-rate="0" lines-covered="981" lines-valid="1167" branches-covered="0" branches-valid="0" complexity="0" version="3.6.1" timestamp="2022-10-26 13:07:46">
+<coverage line-rate="0.837745516652434" branch-rate="0" lines-covered="981" lines-valid="1171" branches-covered="0" branches-valid="0" complexity="0" version="3.6.1" timestamp="2022-10-26 18:21:15">
   <sources/>
   <packages>
-    <package name="teal.reporter" line-rate="0.840616966580977" branch-rate="0" complexity="0">
+    <package name="teal.reporter" line-rate="0.837745516652434" branch-rate="0" complexity="0">
       <classes>
         <class name="AddCardModule.R" filename="R/AddCardModule.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
@@ -3095,7 +3095,7 @@
             <line number="77" hits="16" branch="false"/>
           </lines>
         </class>
-        <class name="utils.R" filename="R/utils.R" line-rate="0.162162162162162" branch-rate="0" complexity="0">
+        <class name="utils.R" filename="R/utils.R" line-rate="0.153846153846154" branch-rate="0" complexity="0">
           <methods>
             <method name="get_bs_version" signature="" line-rate="0.75" branch-rate="0">
               <lines>
@@ -3105,7 +3105,7 @@
                 <line number="9" hits="15" branch="false"/>
               </lines>
             </method>
-            <method name="panel_item" signature="" line-rate="0.128571428571429" branch-rate="0">
+            <method name="panel_item" signature="" line-rate="0.121621621621622" branch-rate="0">
               <lines>
                 <line number="29" hits="1" branch="false"/>
                 <line number="30" hits="1" branch="false"/>
@@ -3176,7 +3176,11 @@
                 <line number="103" hits="0" branch="false"/>
                 <line number="104" hits="0" branch="false"/>
                 <line number="105" hits="0" branch="false"/>
-                <line number="106" hits="1" branch="false"/>
+                <line number="106" hits="0" branch="false"/>
+                <line number="107" hits="0" branch="false"/>
+                <line number="108" hits="0" branch="false"/>
+                <line number="109" hits="0" branch="false"/>
+                <line number="110" hits="1" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -3254,7 +3258,11 @@
             <line number="103" hits="0" branch="false"/>
             <line number="104" hits="0" branch="false"/>
             <line number="105" hits="0" branch="false"/>
-            <line number="106" hits="1" branch="false"/>
+            <line number="106" hits="0" branch="false"/>
+            <line number="107" hits="0" branch="false"/>
+            <line number="108" hits="0" branch="false"/>
+            <line number="109" hits="0" branch="false"/>
+            <line number="110" hits="1" branch="false"/>
           </lines>
         </class>
         <class name="yaml_utils.R" filename="R/yaml_utils.R" line-rate="0.973684210526316" branch-rate="0" complexity="0">
