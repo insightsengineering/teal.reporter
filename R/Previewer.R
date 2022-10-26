@@ -38,7 +38,10 @@ reporter_previewer_ui <- function(id) {
 #' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document")`.
 #' Please update only values at this moment.
 #' @export
-reporter_previewer_srv <- function(id, reporter, rmd_output = c(
+
+reporter_previewer_srv <- function(id,
+                                   reporter,
+                                   rmd_output = c(
                                      "html" = "html_document", "pdf" = "pdf_document",
                                      "powerpoint" = "powerpoint_presentation",
                                      "word" = "word_document"
