@@ -12,7 +12,7 @@ reporter_previewer_ui <- function(id) {
     shiny::tagList(
       shiny::tags$div(
         class = "col-md-3",
-        shiny::tags$div(class = "well", shiny::uiOutput(ns("encoding")),)
+        shiny::tags$div(class = "well", shiny::uiOutput(ns("encoding")), )
       ),
       shiny::tags$div(
         class = "col-md-9",
@@ -39,14 +39,14 @@ reporter_previewer_ui <- function(id) {
 #' Please update only values at this moment.
 #' @export
 reporter_previewer_srv <- function(id, reporter, rmd_output = c(
-  "html" = "html_document", "pdf" = "pdf_document",
-  "powerpoint" = "powerpoint_presentation",
-  "word" = "word_document"
-),
-rmd_yaml_args = list(
-  author = "NEST", title = "Report",
-  date = as.character(Sys.Date()), output = "html_document"
-)) {
+                                     "html" = "html_document", "pdf" = "pdf_document",
+                                     "powerpoint" = "powerpoint_presentation",
+                                     "word" = "word_document"
+                                   ),
+                                   rmd_yaml_args = list(
+                                     author = "NEST", title = "Report",
+                                     date = as.character(Sys.Date()), output = "html_document"
+                                   )) {
   checkmate::assert_class(reporter, "Reporter")
   checkmate::assert_list(rmd_yaml_args)
 
@@ -81,15 +81,15 @@ rmd_yaml_args = list(
             )
           ),
           htmltools::tagAppendAttributes(
-          shiny::tags$a(
-            id = ns("download_data_prev"),
-            class = "btn btn-primary shiny-download-link",
-            href = "",
-            target = "_blank",
-            download = NA,
-            shiny::tags$span("Download Report", shiny::icon("download"))
-          ),
-          class = if (length(reporter$get_cards())) "" else "disabled"
+            shiny::tags$a(
+              id = ns("download_data_prev"),
+              class = "btn btn-primary shiny-download-link",
+              href = "",
+              target = "_blank",
+              download = NA,
+              shiny::tags$span("Download Report", shiny::icon("download"))
+            ),
+            class = if (length(reporter$get_cards())) "" else "disabled"
           ),
           teal.reporter::reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
         )

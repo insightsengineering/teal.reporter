@@ -69,7 +69,7 @@ download_report_button_srv <- function(id,
         downb <- shiny::tags$a(
           id = ns("download_data"),
           class = paste("btn btn-primary shiny-download-link", if (nr_cards) NULL else "disabled"),
-          style =  if (nr_cards) NULL else "pointer-events: none;",
+          style = if (nr_cards) NULL else "pointer-events: none;",
           href = "",
           target = "_blank",
           download = NA,
@@ -236,7 +236,7 @@ report_render_and_compress <- function(reporter, input_list, file = tempdir()) {
 
 
 #' @keywords internal
-any_rcode_block <- function(reporter){
+any_rcode_block <- function(reporter) {
   any(
     vapply(
       Filter(
@@ -248,4 +248,3 @@ any_rcode_block <- function(reporter){
     )
   )
 }
-
