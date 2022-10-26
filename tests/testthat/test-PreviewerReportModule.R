@@ -124,21 +124,4 @@ testthat::test_that("reporter_previewer_ui - returns a tagList", {
   )
 })
 
-testthat::test_that("render_text_block_preview - markdown renders to html fragment", {
-  block <- TextBlock$new()
 
-  block$set_content(
-    "
-  this is a multiline comment
-  line 2
-  line 3
-  "
-  )
-
-  block_html <- block_to_html(block)
-
-  testthat::expect_equal(
-    as.character(block_html),
-    "<pre>\n  this is a multiline comment\n  line 2\n  line 3\n  </pre>"
-  )
-})
