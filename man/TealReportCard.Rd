@@ -75,13 +75,15 @@ card$get_content()[[1]]$get_content()
 \subsection{Method \code{append_src()}}{
 Appends the source code to the \code{content} meta data of this \code{TealReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_src(src)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_src(src, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{src}}{(\code{character(1)}) code as text.}
+
+\item{\code{...}}{any \code{rmarkdown} R chunk parameter and its value.}
 }
 \if{html}{\out{</div>}}
 }
