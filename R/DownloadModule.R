@@ -237,14 +237,10 @@ report_render_and_compress <- function(reporter, input_list, file = tempdir()) {
 
 #' @keywords internal
 any_rcode_block <- function(reporter) {
-  any(
-    vapply(
-      Filter(
-        function(e) inherits(e, "TextBlock"),
-        reporter$get_blocks()
-      ),
-      function(b) b$get_style() == "rcode",
-      logical(1)
+  length(
+    Filter(
+      function(e) inherits(e, "RcodeBlock"),
+      reporter$get_blocks()
     )
-  )
+  ) > 0
 }

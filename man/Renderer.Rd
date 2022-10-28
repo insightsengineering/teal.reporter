@@ -36,6 +36,7 @@ lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "
 table_res2 <- rtables::build_table(lyt, airquality)
 card2$append_table(table_res2)
 card2$append_table(iris)
+card2$append_rcode("2+2", echo=FALSE)
 
 reporter <- teal.reporter:::Reporter$new()
 reporter$append_cards(list(card1, card2))
@@ -175,6 +176,7 @@ lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "
 table_res2 <- rtables::build_table(lyt, airquality)
 card2$append_table(table_res2)
 card2$append_table(iris)
+card2$append_rcode("2+2", echo=FALSE)
 
 reporter <- teal.reporter:::Reporter$new()
 reporter$append_cards(list(card1, card2))

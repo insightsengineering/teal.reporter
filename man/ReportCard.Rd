@@ -41,6 +41,13 @@ card <- ReportCard$new()$append_text("A paragraph of default text")
 
 
 ## ------------------------------------------------
+## Method `ReportCard$append_rcode`
+## ------------------------------------------------
+
+card <- ReportCard$new()$append_rcode("A paragraph of default text", echo = FALSE)
+
+
+## ------------------------------------------------
 ## Method `ReportCard$append_content`
 ## ------------------------------------------------
 
@@ -123,6 +130,7 @@ ReportCard$new()$from_list(card$to_list(tempdir()), tempdir())
 \item \href{#method-ReportCard-append_table}{\code{ReportCard$append_table()}}
 \item \href{#method-ReportCard-append_plot}{\code{ReportCard$append_plot()}}
 \item \href{#method-ReportCard-append_text}{\code{ReportCard$append_text()}}
+\item \href{#method-ReportCard-append_rcode}{\code{ReportCard$append_rcode()}}
 \item \href{#method-ReportCard-append_content}{\code{ReportCard$append_content()}}
 \item \href{#method-ReportCard-get_content}{\code{ReportCard$get_content()}}
 \item \href{#method-ReportCard-reset}{\code{ReportCard$reset()}}
@@ -243,6 +251,37 @@ invisibly self
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{card <- ReportCard$new()$append_text("A paragraph of default text")
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ReportCard-append_rcode"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-append_rcode}{}}}
+\subsection{Method \code{append_rcode()}}{
+Appends a rmarkdown R chunk to this \code{ReportCard}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_rcode(text, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{text}}{(\code{character(0)} or \code{character(1)}) the text}
+
+\item{\code{...}}{any rmarkdown R chunk parameter and its value.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisibly self
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{card <- ReportCard$new()$append_rcode("A paragraph of default text", echo = FALSE)
 
 }
 \if{html}{\out{</div>}}

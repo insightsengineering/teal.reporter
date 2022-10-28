@@ -176,10 +176,10 @@ block_to_html <- function(b) {
         header3 = shiny::tags$h3(b_content),
         header4 = shiny::tags$h4(b_content),
         verbatim = shiny::tags$pre(b_content),
-        rcode = panel_item("R Code", shiny::tags$pre(b_content)),
         b_content
       )
     },
+    RcodeBlock = panel_item("R Code", shiny::tags$pre(b_content)),
     PictureBlock = shiny::tags$img(src = knitr::image_uri(b_content)),
     TableBlock = {
       b_table <- readRDS(b_content)

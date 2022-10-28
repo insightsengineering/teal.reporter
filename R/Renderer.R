@@ -43,6 +43,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' table_res2 <- rtables::build_table(lyt, airquality)
     #' card2$append_table(table_res2)
     #' card2$append_table(iris)
+    #' card2$append_rcode("2+2", echo=FALSE)
     #'
     #' reporter <- teal.reporter:::Reporter$new()
     #' reporter$append_cards(list(card1, card2))
@@ -57,7 +58,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' yaml_header <- teal.reporter:::md_header(yaml::as.yaml(yaml_l))
     #' result_path <- teal.reporter:::Renderer$new()$renderRmd(reporter$get_blocks(), yaml_header)
     renderRmd = function(blocks, yaml_header) {
-      checkmate::assert_list(blocks, c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock"))
+      checkmate::assert_list(blocks, c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock"))
       if (missing(yaml_header)) {
         yaml_header <- md_header(yaml::as.yaml(list(title = "Report")))
       }
@@ -134,17 +135,22 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
   ),
   private = list(
     output_dir = character(0),
+    rcodeBlock2md = function(block) {
+      params <- block$get_params()
+      block_content <- block$get_content()
+      if (!is.logical(params[["echo"]])) params[["echo"]] <- "isTRUE(params$showrcode)"
+      sprintf(
+        "\n```{r, %s}\n%s\n```\n",
+        paste(names(params), params, sep = "=", collapse = ", "),
+        block_content
+      )
+    },
     textBlock2md = function(block) {
       text_style <- block$get_style()
       block_content <- block$get_content()
       switch(text_style,
         "default" = block_content,
         "verbatim" = sprintf("\n```\n%s\n```\n", block_content),
-        "rcode" =
-          sprintf(
-            "```{r, echo=isTRUE(params$showrcode), eval=FALSE}\n# Show R Code\n\n%s\n```\n",
-            block_content
-          ),
         "header2" = paste0("## ", block_content),
         "header3" = paste0("### ", block_content),
         block_content
@@ -167,6 +173,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         TextBlock = private$textBlock2md(block),
         PictureBlock = private$pictureBlock2md(block),
         TableBlock = private$tableBlock2md(block),
+        RcodeBlock = private$rcodeBlock2md(block),
         NewpageBlock = block$get_content(),
         ""
       )
