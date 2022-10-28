@@ -2,6 +2,7 @@
 
 ### New features
 * Added additional input when needed to decided if Show R Code should be part of the report.
+* Added support for global knitr options in the render method in the Render class.
 
 ### Breaking changes
 * Simplified `reporter_previewer_ui` to contain just `id` argument.
