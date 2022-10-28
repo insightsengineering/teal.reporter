@@ -3,7 +3,7 @@
 ### New features
 * Added the collapsible panel for the Show R Code in the previewer.
 * Added additional input when needed to decided if Show R Code should be part of the report.
-* Added the new `rcode` `TextBlock` style.
+* Added the new `RcodeBlock` block for a custom `rmarkdown` r chunk.
 
 ### Breaking changes
 * Simplified `reporter_previewer_ui` to contain only `id` argument.
