@@ -141,16 +141,9 @@ reporter_previewer_srv <- function(id, reporter, rmd_output = c(
           shiny::showNotification("Rendering and Downloading the document.")
           input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
           names(input_list) <- names(rmd_yaml_args)
-          if (is.logical(input$showrcode)) {
-            for (iter in seq_along(blocks)) {
-              if (inherits(reporter$get_blocks()[[iter]], "RcodeBlock")) {
-                params <- reporter$get_blocks()[[iter]]$get_params()
-                params$echo <- input$showrcode
-                reporter$get_blocks()[[iter]]$set_params(params)
-              }
-            }
-          }
-          report_render_and_compress(reporter, input_list, file)
+          global_knitr <- list()
+          if (is.logical(input$showrcode)) global_knitr <- list(echo = input$showrcode)
+          report_render_and_compress(reporter, input_list, global_knitr, file)
         },
         contentType = "application/zip"
       )

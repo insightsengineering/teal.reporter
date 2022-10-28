@@ -25,6 +25,9 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param blocks `list` of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
     #' @param yaml_header `character` a `rmarkdown` `yaml` header.
+    #' @param global_knitr `list` a global knitr parameters, like echo.
+    #' But if local parameter is set it will have priority.
+    #' Defaults to empty `list()`.
     #' @return `character` a `Rmd` text (`yaml` header + body), ready to be rendered.
     #' @examples
     #' card1 <- teal.reporter:::ReportCard$new()
@@ -56,16 +59,24 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' yaml_header <- teal.reporter:::md_header(yaml::as.yaml(yaml_l))
     #' result_path <- teal.reporter:::Renderer$new()$renderRmd(reporter$get_blocks(), yaml_header)
-    renderRmd = function(blocks, yaml_header) {
+    renderRmd = function(blocks, yaml_header, global_knitr = list()) {
       checkmate::assert_list(blocks, c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock"))
       if (missing(yaml_header)) {
         yaml_header <- md_header(yaml::as.yaml(list(title = "Report")))
       }
-
       parsed_yaml <- yaml_header
-      parsed_blocks <- paste(unlist(lapply(blocks, function(b) private$block2md(b))), collapse = "\n\n")
+      parsed_global_knitr <- sprintf(
+        "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n```\n",
+        paste(names(global_knitr), global_knitr, sep = "=", collapse = ", ")
+      )
+      parsed_blocks <- paste(
+        unlist(
+          lapply(blocks, function(b) private$block2md(b))
+        ),
+        collapse = "\n\n"
+      )
 
-      rmd_text <- paste0(parsed_yaml, "\n", parsed_blocks, "\n")
+      rmd_text <- paste0(parsed_yaml, "\n\n", parsed_global_knitr, "\n\n", parsed_blocks, "\n")
       tmp <- tempfile(fileext = ".Rmd")
       input_path <- file.path(
         private$output_dir,
@@ -78,6 +89,9 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param blocks `list` of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
     #' @param yaml_header `character` an `rmarkdown` `yaml` header.
+    #' @param global_knitr `list` a global knitr parameters, like echo.
+    #' But if local parameter is set it will have priority.
+    #' Defaults to empty `list()`.
     #' @param ... `rmarkdown::render` arguments, `input` and `output_dir` should not be updated.
     #' @return `character` path to the output
     #' @examples
@@ -108,9 +122,9 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' yaml_header <- teal.reporter:::md_header(yaml::as.yaml(yaml_l))
     #' result_path <- teal.reporter:::Renderer$new()$render(reporter$get_blocks(), yaml_header)
-    render = function(blocks, yaml_header, ...) {
+    render = function(blocks, yaml_header, global_knitr = list(), ...) {
       args <- list(...)
-      input_path <- self$renderRmd(blocks, yaml_header)
+      input_path <- self$renderRmd(blocks, yaml_header, global_knitr)
       args <- append(args, list(
         input = input_path,
         output_dir = private$output_dir,

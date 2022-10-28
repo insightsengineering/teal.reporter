@@ -131,16 +131,9 @@ download_report_button_srv <- function(id,
           shiny::showNotification("Rendering and Downloading the document.")
           input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
           names(input_list) <- names(rmd_yaml_args)
-          if (is.logical(input$showrcode)) {
-            for (iter in seq_along(blocks)) {
-              if (inherits(reporter$get_blocks()[[iter]], "RcodeBlock")) {
-                params <- reporter$get_blocks()[[iter]]$get_params()
-                params$echo <- input$showrcode
-                reporter$get_blocks()[[iter]]$set_params(params)
-              }
-            }
-          }
-          report_render_and_compress(reporter, input_list, file)
+          global_knitr <- list()
+          if (is.logical(input$showrcode)) global_knitr <- list(echo = input$showrcode)
+          report_render_and_compress(reporter, input_list, global_knitr, file)
         },
         contentType = "application/zip"
       )
@@ -152,10 +145,12 @@ download_report_button_srv <- function(id,
 #' @description render the report and zip the created directory.
 #' @param reporter [`Reporter`] instance.
 #' @param input_list `list` like shiny input converted to a regular named list.
+#' @param global_knitr `list` a global knitr parameters, like echo.
+#' But if local parameter is set it will have priority.
 #' @param file `character` where to copy the returned directory.
 #' @return `file` argument, invisibly.
 #' @keywords internal
-report_render_and_compress <- function(reporter, input_list, file = tempdir()) {
+report_render_and_compress <- function(reporter, input_list, global_knitr, file = tempdir()) {
   checkmate::assert_class(reporter, "Reporter")
   checkmate::assert_list(input_list, names = "named")
   checkmate::assert_string(file)
@@ -174,7 +169,7 @@ report_render_and_compress <- function(reporter, input_list, file = tempdir()) {
   renderer <- Renderer$new()
 
   tryCatch(
-    renderer$render(reporter$get_blocks(), yaml_header),
+    renderer$render(reporter$get_blocks(), yaml_header, global_knitr),
     warning = function(cond) {
       shiny::showNotification(
         ui = "Render document warning!",
