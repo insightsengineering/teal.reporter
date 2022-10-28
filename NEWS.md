@@ -3,6 +3,9 @@
 ### New features
 * Added the new `RcodeBlock` block for a custom `rmarkdown` r chunk.
 
+### Miscellaneous
+* Updated `append_src` method of `TealReportCard` to not add additional "R Code" Subtitle.
+
 # teal.reporter 0.1.1
 
 ### New features
