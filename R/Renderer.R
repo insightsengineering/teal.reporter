@@ -76,7 +76,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         collapse = "\n\n"
       )
 
-      rmd_text <- paste0(parsed_yaml, "\n\n", parsed_global_knitr, "\n\n", parsed_blocks, "\n")
+      rmd_text <- paste0(parsed_yaml, "\n", parsed_global_knitr, "\n", parsed_blocks, "\n")
       tmp <- tempfile(fileext = ".Rmd")
       input_path <- file.path(
         private$output_dir,
