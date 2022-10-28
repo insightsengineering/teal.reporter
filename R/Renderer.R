@@ -145,6 +145,16 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         block_content
       )
     },
+    rcodeBlock2md = function(block) {
+      params <- block$get_params()
+      block_content <- block$get_content()
+      params[["echo"]] <- "isTRUE(params$showrcode)"
+      sprintf(
+        "\n```{r, %s}\n%s\n```\n",
+        paste(names(params), params, sep = "=", collapse = ", "),
+        block_content
+      )
+    },
     pictureBlock2md = function(block) {
       basename_pic <- basename(block$get_content())
       file.copy(block$get_content(), file.path(private$output_dir, basename_pic))

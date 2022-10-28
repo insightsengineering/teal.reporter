@@ -97,17 +97,14 @@ download_report_button_srv <- function(id,
               ),
             )
           },
-          shiny::textInput(ns("author"), label = "Author:", value = rmd_yaml_args$author),
-          shiny::textInput(ns("title"), label = "Title:", value = rmd_yaml_args$title),
-          shiny::dateInput(ns("date"), "Date:", value = rmd_yaml_args$date),
-          shiny::tags$div(
-            shinyWidgets::pickerInput(
-              inputId = ns("output"),
-              label = "Choose a document type: ",
-              choices = rmd_output,
-              selected = rmd_yaml_args$output
+          reporter_download_inputs(rmd_yaml_args),
+          if (any_rcode_block(reporter)) {
+            shiny::checkboxInput(
+              ns("showrcode"),
+              label = "R Code: echo=TRUE",
+              value = FALSE
             )
-          ),
+          },
           footer = shiny::tagList(
             shiny::tags$button(
               type = "button",
@@ -134,6 +131,7 @@ download_report_button_srv <- function(id,
           shiny::showNotification("Rendering and Downloading the document.")
           input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
           names(input_list) <- names(rmd_yaml_args)
+          if (!is.null(input$showrcode)) input_list$params <- list(showrcode = isTRUE(input$showrcode))
           report_render_and_compress(reporter, input_list, file)
         },
         contentType = "application/zip"
@@ -225,3 +223,36 @@ report_render_and_compress <- function(reporter, input_list, file = tempdir()) {
   rm(renderer)
   invisible(file)
 }
+
+
+#' @keywords internal
+reporter_download_inputs <- function(rmd_yaml_args) {
+  shiny::tagList(
+    lapply(names(rmd_yaml_args), function(e) {
+      switch(
+        author = shiny::textInput(ns("author"), label = "Author:", value = rmd_yaml_args$author),
+        title = shiny::textInput(ns("title"), label = "Title:", value = rmd_yaml_args$title),
+        date = shiny::dateInput(ns("date"), "Date:", value = rmd_yaml_args$date),
+        output = shiny::tags$div(
+          shinyWidgets::pickerInput(
+            inputId = ns("output"),
+            label = "Choose a document type: ",
+            choices = rmd_output,
+            selected = rmd_yaml_args$output
+          )
+        )
+      )
+    })
+  )
+}
+
+#' @keywords internal
+any_rcode_block <- function(reporter) {
+  length(
+    Filter(
+      function(e) inherits(e, "RcodeBlock"),
+      reporter$get_blocks()
+    )
+  ) > 0
+}
+
