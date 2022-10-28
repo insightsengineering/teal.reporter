@@ -1,5 +1,8 @@
 # teal.reporter 0.1.1.9000
 
+### New features
+* Added the new `RcodeBlock` block for a custom `rmarkdown` r chunk.
+
 # teal.reporter 0.1.1
 
 ### New features
