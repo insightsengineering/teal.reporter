@@ -131,7 +131,15 @@ download_report_button_srv <- function(id,
           shiny::showNotification("Rendering and Downloading the document.")
           input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
           names(input_list) <- names(rmd_yaml_args)
-          if (!is.null(input$showrcode)) input_list$params <- list(showrcode = isTRUE(input$showrcode))
+          if (is.logical(input$showrcode)) {
+            for (iter in seq_along(blocks)) {
+              if (inherits(reporter$get_blocks()[[iter]], "RcodeBlock")) {
+                params <- reporter$get_blocks()[[iter]]$get_params()
+                params$echo <- input$showrcode
+                reporter$get_blocks()[[iter]]$set_params(params)
+              }
+            }
+          }
           report_render_and_compress(reporter, input_list, file)
         },
         contentType = "application/zip"
@@ -255,4 +263,3 @@ any_rcode_block <- function(reporter) {
     )
   ) > 0
 }
-

@@ -4,7 +4,6 @@
 #' @param id `character(1)` this `shiny` module's id.
 #' @export
 reporter_previewer_ui <- function(id) {
-
   ns <- shiny::NS(id)
 
   shiny::fluidRow(
@@ -39,11 +38,11 @@ reporter_previewer_ui <- function(id) {
 #' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document")`.
 #' Please update only values at this moment.
 #' @export
-reporter_previewer_srv <- function(id, reporter,  rmd_output = c(
-  "html" = "html_document", "pdf" = "pdf_document",
-  "powerpoint" = "powerpoint_presentation",
-  "word" = "word_document"
-), rmd_yaml_args = list(
+reporter_previewer_srv <- function(id, reporter, rmd_output = c(
+                                     "html" = "html_document", "pdf" = "pdf_document",
+                                     "powerpoint" = "powerpoint_presentation",
+                                     "word" = "word_document"
+                                   ), rmd_yaml_args = list(
                                      author = "NEST", title = "Report",
                                      date = as.character(Sys.Date()), output = "html_document"
                                    )) {
@@ -142,7 +141,15 @@ reporter_previewer_srv <- function(id, reporter,  rmd_output = c(
           shiny::showNotification("Rendering and Downloading the document.")
           input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
           names(input_list) <- names(rmd_yaml_args)
-          if (!is.null(input$showrcode)) input_list$params <- list(showrcode = isTRUE(input$showrcode))
+          if (is.logical(input$showrcode)) {
+            for (iter in seq_along(blocks)) {
+              if (inherits(reporter$get_blocks()[[iter]], "RcodeBlock")) {
+                params <- reporter$get_blocks()[[iter]]$get_params()
+                params$echo <- input$showrcode
+                reporter$get_blocks()[[iter]]$set_params(params)
+              }
+            }
+          }
           report_render_and_compress(reporter, input_list, file)
         },
         contentType = "application/zip"
