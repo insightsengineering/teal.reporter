@@ -1,5 +1,8 @@
 # teal.reporter 0.1.1.9000
 
+### New features
+* Added the collapsible panel for the Show R Code in the previewer.
+
 # teal.reporter 0.1.1
 
 ### New features
