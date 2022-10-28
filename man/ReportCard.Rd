@@ -262,7 +262,7 @@ invisibly self
 \if{html}{\out{<a id="method-ReportCard-append_rcode"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-append_rcode}{}}}
 \subsection{Method \code{append_rcode()}}{
-Appends a rmarkdown R chunk to this \code{ReportCard}.
+Appends a \code{rmarkdown} R chunk to this \code{ReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_rcode(text, ...)}\if{html}{\out{</div>}}
 }
@@ -272,7 +272,7 @@ Appends a rmarkdown R chunk to this \code{ReportCard}.
 \describe{
 \item{\code{text}}{(\code{character(0)} or \code{character(1)}) the text}
 
-\item{\code{...}}{any rmarkdown R chunk parameter and its value.}
+\item{\code{...}}{any \code{rmarkdown} R chunk parameter and its value.}
 }
 \if{html}{\out{</div>}}
 }

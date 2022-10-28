@@ -9,7 +9,7 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @details Returns a `RcodeBlock` object with no content and no parameters.
     #'
     #' @param content (`character(1)` or `character(0)`) a string assigned to this `RcodeBlock`
-    #' @param ... any rmarkdown R chunk parameter and it value.
+    #' @param ... any `rmarkdown` R chunk parameter and it value.
     #'
     #' @return `RcodeBlock`
     #' @examples
@@ -24,7 +24,7 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @details The parameters has bearing on the rendering of this block.
     #'
-    #' @param params (`list`) any rmarkdown R chunk parameter and its value.
+    #' @param params (`list`) any `rmarkdown` R chunk parameter and its value.
     #' @return invisibly self
     #' @examples
     #' block <- teal.reporter:::RcodeBlock$new()
@@ -71,7 +71,7 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
     #' @description Convert the `RcodeBlock` to a list.
-    #' @return `named list` with a text and params.
+    #' @return `named list` with a text and `params`.
     #' @examples
     #' block <- teal.reporter:::RcodeBlock$new()
     #' block$to_list()

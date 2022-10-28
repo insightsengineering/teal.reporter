@@ -71,7 +71,7 @@ reporter_previewer_srv <- function(id,
           if (any_rcode_block(reporter)) {
             shiny::checkboxInput(
               ns("showrcode"),
-              label = "Include Show R Code",
+              label = "R Code: echo=TRUE",
               value = FALSE
             )
           },

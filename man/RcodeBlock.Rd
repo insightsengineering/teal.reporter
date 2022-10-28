@@ -93,7 +93,7 @@ Returns a \code{RcodeBlock} object.
 \describe{
 \item{\code{content}}{(\code{character(1)} or \code{character(0)}) a string assigned to this \code{RcodeBlock}}
 
-\item{\code{...}}{any rmarkdown R chunk parameter and it value.}
+\item{\code{...}}{any \code{rmarkdown} R chunk parameter and it value.}
 }
 \if{html}{\out{</div>}}
 }
@@ -126,7 +126,7 @@ Sets the parameters of this \code{RcodeBlock}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{params}}{(\code{list}) any rmarkdown R chunk parameter and its value.}
+\item{\code{params}}{(\code{list}) any \code{rmarkdown} R chunk parameter and its value.}
 }
 \if{html}{\out{</div>}}
 }
@@ -234,7 +234,7 @@ Convert the \code{RcodeBlock} to a list.
 }
 
 \subsection{Returns}{
-\verb{named list} with a text and params.
+\verb{named list} with a text and \code{params}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

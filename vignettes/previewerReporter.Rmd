@@ -129,12 +129,12 @@ server <- function(input, output, session) {
 
   ### REPORTER
   reporter <- teal.reporter::Reporter$new()
-  card_fun <- function(card = TealReportCard$new(), comment) {
+  card_fun <- function(card = ReportCard$new(), comment) {
     if (input$tabs == "Plot") {
       card$set_name("Plot Module")
       card$append_text("My plot", "header2")
       card$append_plot(plot())
-      card$append_src(
+      card$append_rcode(
         paste(
           c(
             "x <- mtcars$mpg",
@@ -142,13 +142,15 @@ server <- function(input, output, session) {
             paste0("ggplot2::geom_histogram(binwidth = ", input$binwidth, ")")
           ),
           collapse = "\n"
-        )
+        ),
+        echo = TRUE,
+        eval = FALSE
       )
     } else if (input$tabs == "Table") {
       card$set_name("Table Module rtables")
       card$append_text("My rtables", "header2")
       card$append_table(table())
-      card$append_src(
+      card$append_rcode(
         paste(
           c(
             "lyt <- rtables::basic_table() %>%",
@@ -157,24 +159,15 @@ server <- function(input, output, session) {
             "rtables::build_table(lyt, airquality)"
           ),
           collapse = "\n"
-        )
+        ),
+        echo = TRUE,
+        eval = FALSE
       )
     } else if (input$tabs %in% c("Table DataFrame", "Table DataTable")) {
       card$set_name("Table Module DF")
       card$append_text("My Table DF", "header2")
       card$append_table(table2())
-      card$append_src(
-        paste0(
-          c(
-            'data <- aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), ',
-            input$stat,
-            ", na.rm = TRUE)\n",
-            'colnames(data) <- c("Month", ', paste0('"', input$stat, '"'), ")\n",
-            "data"
-          ),
-          collapse = ""
-        )
-      )
+      # Here r code added as a regular verbatim text
       card$append_text(
         paste0(
           c(
