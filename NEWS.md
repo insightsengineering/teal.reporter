@@ -1,5 +1,11 @@
 # teal.reporter 0.1.1.9000
 
+### New features
+* Added additional input when needed to decided if Show R Code should be part of the report.
+
+### Breaking changes
+* Simplified `reporter_previewer_ui` to contain just `id` argument.
+
 # teal.reporter 0.1.1
 
 ### New features
