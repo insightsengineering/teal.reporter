@@ -60,6 +60,18 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       private$content <- append(private$content, TextBlock$new(text, style))
       invisible(self)
     },
+    #' @description Appends a `rmarkdown` R chunk to this `ReportCard`.
+    #'
+    #' @param text (`character(0)` or `character(1)`) the text
+    #' @param ... any `rmarkdown` R chunk parameter and its value.
+    #' @return invisibly self
+    #' @examples
+    #' card <- ReportCard$new()$append_rcode("2+2", echo = FALSE)
+    #'
+    append_rcode = function(text, ...) {
+      private$content <- append(private$content, RcodeBlock$new(text, ...))
+      invisible(self)
+    },
     #' @description Appends a `ContentBlock` to this `ReportCard`.
     #'
     #' @param content (`ContentBlock`)

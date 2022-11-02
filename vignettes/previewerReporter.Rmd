@@ -134,7 +134,7 @@ server <- function(input, output, session) {
       card$set_name("Plot Module")
       card$append_text("My plot", "header2")
       card$append_plot(plot())
-      card$append_text(
+      card$append_rcode(
         paste(
           c(
             "x <- mtcars$mpg",
@@ -143,13 +143,14 @@ server <- function(input, output, session) {
           ),
           collapse = "\n"
         ),
-        "verbatim"
+        echo = TRUE,
+        eval = FALSE
       )
     } else if (input$tabs == "Table") {
       card$set_name("Table Module rtables")
       card$append_text("My rtables", "header2")
       card$append_table(table())
-      card$append_text(
+      card$append_rcode(
         paste(
           c(
             "lyt <- rtables::basic_table() %>%",
@@ -158,12 +159,15 @@ server <- function(input, output, session) {
             "rtables::build_table(lyt, airquality)"
           ),
           collapse = "\n"
-        ), "verbatim"
+        ),
+        echo = TRUE,
+        eval = FALSE
       )
     } else if (input$tabs %in% c("Table DataFrame", "Table DataTable")) {
       card$set_name("Table Module DF")
       card$append_text("My Table DF", "header2")
       card$append_table(table2())
+      # Here r code added as a regular verbatim text
       card$append_text(
         paste0(
           c(
