@@ -163,6 +163,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     },
     rcodeBlock2md = function(block) {
       params <- block$get_params()
+      params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
       block_content <- block$get_content()
       sprintf(
         "\n```{r, %s}\n%s\n```\n",
