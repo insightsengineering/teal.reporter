@@ -97,6 +97,18 @@ add_card_button_srv <- function(id, reporter, card_fun) {
             placeholder = "Add a comment here...",
             width = "100%"
           ),
+          shiny::tags$script(
+            shiny::HTML(
+              sprintf(
+                "
+                $('#shiny-modal').on('shown.bs.modal', () => {
+                  $('#%s').focus()
+                })
+                ",
+                ns("comment")
+              )
+            )
+          ),
           footer = shiny::div(
             shiny::tags$button(
               type = "button",
