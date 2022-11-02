@@ -101,7 +101,7 @@ download_report_button_srv <- function(id,
           if (any_rcode_block(reporter)) {
             shiny::checkboxInput(
               ns("showrcode"),
-              label = "R Code: echo=TRUE",
+              label = "Include R Code",
               value = FALSE
             )
           },
@@ -251,10 +251,11 @@ reporter_download_inputs <- function(rmd_yaml_args) {
 
 #' @keywords internal
 any_rcode_block <- function(reporter) {
-  length(
-    Filter(
+  any(
+    vapply(
+      reporter$get_blocks(),
       function(e) inherits(e, "RcodeBlock"),
-      reporter$get_blocks()
+      logical(1)
     )
-  ) > 0
+  )
 }
