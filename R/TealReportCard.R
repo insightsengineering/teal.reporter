@@ -13,16 +13,21 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends the source code to the `content` meta data of this `TealReportCard`.
     #'
     #' @param src (`character(1)`) code as text.
+    #' @param ... any `rmarkdown` R chunk parameter and its value.
+    #' But `eval` parameter is always set to `FALSE`.
     #' @return invisibly self
     #' @examples
     #' card <- TealReportCard$new()$append_src(
     #'   "ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()"
     #' )
     #' card$get_content()[[1]]$get_content()
-    append_src = function(src) {
+    append_src = function(src, ...) {
       checkmate::assert_character(src, min.len = 0, max.len = 1)
-      self$append_text("Show R Code", "header3")
-      self$append_text(src, "verbatim")
+      params <- list(...)
+      params$eval <- FALSE
+      rblock <- RcodeBlock$new(src)
+      rblock$set_params(params)
+      self$append_content(rblock)
       self$append_metadata("SRC", src)
       invisible(self)
     },

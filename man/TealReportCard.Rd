@@ -55,6 +55,7 @@ card$get_content()[[1]]$get_content()
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_content"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-append_content'><code>teal.reporter::ReportCard$append_content()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_metadata"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-append_metadata'><code>teal.reporter::ReportCard$append_metadata()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_plot"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-append_plot'><code>teal.reporter::ReportCard$append_plot()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_rcode"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-append_rcode'><code>teal.reporter::ReportCard$append_rcode()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_table"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-append_table'><code>teal.reporter::ReportCard$append_table()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_text"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-append_text'><code>teal.reporter::ReportCard$append_text()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="from_list"><a href='../../teal.reporter/html/ReportCard.html#method-ReportCard-from_list'><code>teal.reporter::ReportCard$from_list()</code></a></span></li>
@@ -74,13 +75,16 @@ card$get_content()[[1]]$get_content()
 \subsection{Method \code{append_src()}}{
 Appends the source code to the \code{content} meta data of this \code{TealReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_src(src)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TealReportCard$append_src(src, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{src}}{(\code{character(1)}) code as text.}
+
+\item{\code{...}}{any \code{rmarkdown} R chunk parameter and its value.
+But \code{eval} parameter is always set to \code{FALSE}.}
 }
 \if{html}{\out{</div>}}
 }
