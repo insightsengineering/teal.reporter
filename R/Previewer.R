@@ -61,7 +61,7 @@ reporter_previewer_srv <- function(id, reporter, rmd_output = c(
         shiny::tagList(
           shiny::tags$h3("Download the Report"),
           shiny::tags$hr(),
-          reporter_download_inputs(rmd_yaml_args, rmd_output, ns),
+          reporter_download_inputs(rmd_yaml_args, rmd_output, session),
           if (any_rcode_block(reporter)) {
             shiny::checkboxInput(
               ns("showrcode"),

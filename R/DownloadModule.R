@@ -97,7 +97,7 @@ download_report_button_srv <- function(id,
               ),
             )
           },
-          reporter_download_inputs(rmd_yaml_args, rmd_output, ns),
+          reporter_download_inputs(rmd_yaml_args, rmd_output, session),
           if (any_rcode_block(reporter)) {
             shiny::checkboxInput(
               ns("showrcode"),
@@ -229,17 +229,17 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
 
 
 #' @keywords internal
-reporter_download_inputs <- function(rmd_yaml_args, rmd_output, ns) {
+reporter_download_inputs <- function(rmd_yaml_args, rmd_output, session) {
   shiny::tagList(
     lapply(names(rmd_yaml_args), function(e) {
       switch(
         e,
-        author = shiny::textInput(ns("author"), label = "Author:", value = rmd_yaml_args$author),
-        title = shiny::textInput(ns("title"), label = "Title:", value = rmd_yaml_args$title),
-        date = shiny::dateInput(ns("date"), "Date:", value = rmd_yaml_args$date),
+        author = shiny::textInput(session$ns("author"), label = "Author:", value = rmd_yaml_args$author),
+        title = shiny::textInput(session$ns("title"), label = "Title:", value = rmd_yaml_args$title),
+        date = shiny::dateInput(session$ns("date"), "Date:", value = rmd_yaml_args$date),
         output = shiny::tags$div(
           shinyWidgets::pickerInput(
-            inputId = ns("output"),
+            inputId = session$ns("output"),
             label = "Choose a document type: ",
             choices = rmd_output,
             selected = rmd_yaml_args$output
