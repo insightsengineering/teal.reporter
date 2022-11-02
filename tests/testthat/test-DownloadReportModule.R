@@ -62,22 +62,24 @@ card1$append_plot(
 reporter <- Reporter$new()
 reporter$append_cards(list(card1))
 input <- list(author = "NEST", title = "Report", output = "html_document")
+knitr_args <- list()
 temp_dir <- tempdir()
 
 testthat::test_that("report_render_and_compress - valid arguments", {
-  testthat::expect_error(report_render_and_compress(reporter, input, temp_dir), NA)
+  testthat::expect_error(report_render_and_compress(reporter, input, knitr_args, temp_dir), NA)
 })
 
 testthat::test_that("report_render_and_compress - invalid arguments", {
-  testthat::expect_error(report_render_and_compress(reporter, list(), temp_zip))
-  testthat::expect_error(report_render_and_compress(reporter, input, 2))
-  testthat::expect_error(report_render_and_compress(reporter, list, ""))
+  testthat::expect_error(report_render_and_compress(reporter, list(), list(), temp_zip))
+  testthat::expect_error(report_render_and_compress(reporter, input, list(), 2))
+  testthat::expect_error(report_render_and_compress(reporter, list, list(), ""))
 })
 
 testthat::test_that("report_render_and_compress - render an html document", {
   input <- list(author = "NEST", title = "Report", output = "html_document")
   temp_dir <- tempdir()
-  res_path <- report_render_and_compress(reporter, input, temp_dir)
+  knitr_args <- list()
+  res_path <- report_render_and_compress(reporter, input, knitr_args, temp_dir)
   expect_identical(res_path, temp_dir)
   files <- list.files(temp_dir, recursive = TRUE)
   testthat::expect_true(any(grepl("[.]Rmd", files)))
