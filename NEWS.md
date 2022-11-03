@@ -11,6 +11,9 @@
 ### Miscellaneous
 * Updated `append_src` method of `TealReportCard` to not add additional "R Code" Subtitle.
 
+### New features
+* Added the collapsible panel for the Show R Code in the previewer.
+
 # teal.reporter 0.1.1
 
 ### New features
