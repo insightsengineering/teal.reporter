@@ -67,7 +67,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       }
       parsed_yaml <- yaml_header
       parsed_global_knitr <- sprintf(
-        "\n```{r setup, include=FALSE}\noptions(width = 80)\nknitr::opts_chunk$set(%s)\n```\n",
+        "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n```\n",
         capture.output(dput(global_knitr))
       )
       parsed_blocks <- paste(
