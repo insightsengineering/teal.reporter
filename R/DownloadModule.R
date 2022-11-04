@@ -145,7 +145,7 @@ download_report_button_srv <- function(id,
 #' @description render the report and zip the created directory.
 #' @param reporter [`Reporter`] instance.
 #' @param input_list `list` like shiny input converted to a regular named list.
-#' @param global_knitr `list` a global knitr parameters, like echo.
+#' @param global_knitr `list` a global `knitr` parameters, like echo.
 #' But if local parameter is set it will have priority.
 #' @param file `character` where to copy the returned directory.
 #' @return `file` argument, invisibly.

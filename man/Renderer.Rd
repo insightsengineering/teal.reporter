@@ -154,7 +154,7 @@ getting the \code{Rmd} text which could be easily rendered later.
 
 \item{\code{yaml_header}}{\code{character} a \code{rmarkdown} \code{yaml} header.}
 
-\item{\code{global_knitr}}{\code{list} a global knitr parameters, like echo.
+\item{\code{global_knitr}}{\code{list} a global \code{knitr} parameters, like echo.
 But if local parameter is set it will have priority.
 Defaults to empty \code{list()}.}
 }
@@ -217,7 +217,7 @@ Renders the content of this \code{Report} to the output file
 
 \item{\code{yaml_header}}{\code{character} an \code{rmarkdown} \code{yaml} header.}
 
-\item{\code{global_knitr}}{\code{list} a global knitr parameters, like echo.
+\item{\code{global_knitr}}{\code{list} a global \code{knitr} parameters, like echo.
 But if local parameter is set it will have priority.
 Defaults to empty \code{list()}.}
 

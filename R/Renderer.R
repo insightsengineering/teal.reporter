@@ -25,7 +25,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param blocks `list` of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
     #' @param yaml_header `character` a `rmarkdown` `yaml` header.
-    #' @param global_knitr `list` a global knitr parameters, like echo.
+    #' @param global_knitr `list` a global `knitr` parameters, like echo.
     #' But if local parameter is set it will have priority.
     #' Defaults to empty `list()`.
     #' @return `character` a `Rmd` text (`yaml` header + body), ready to be rendered.
@@ -90,7 +90,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param blocks `list` of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
     #' @param yaml_header `character` an `rmarkdown` `yaml` header.
-    #' @param global_knitr `list` a global knitr parameters, like echo.
+    #' @param global_knitr `list` a global `knitr` parameters, like echo.
     #' But if local parameter is set it will have priority.
     #' Defaults to empty `list()`.
     #' @param ... `rmarkdown::render` arguments, `input` and `output_dir` should not be updated.
