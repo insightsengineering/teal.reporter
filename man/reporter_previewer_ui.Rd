@@ -4,24 +4,10 @@
 \alias{reporter_previewer_ui}
 \title{Reporter Previewer User Interface}
 \usage{
-reporter_previewer_ui(
-  id,
-  rmd_output = c(html = "html_document", pdf = "pdf_document", powerpoint =
-    "powerpoint_presentation", word = "word_document"),
-  rmd_yaml_args = list(author = "NEST", title = "Report", date =
-    as.character(Sys.Date()), output = "html_document")
-)
+reporter_previewer_ui(id)
 }
 \arguments{
 \item{id}{\code{character(1)} this \code{shiny} module's id.}
-
-\item{rmd_output}{\code{character} vector with \code{rmarkdown} output types,
-by default all possible \code{c("pdf_document", "html_document", "powerpoint_presentation", "word_document")}.
-If vector is named then those names will appear in the \code{UI}.}
-
-\item{rmd_yaml_args}{\verb{named list} vector with \code{Rmd} \code{yaml} header fields and their default values.
-Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document")}.
-Please update only values at this moment.}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
