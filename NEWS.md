@@ -5,6 +5,20 @@
 * Updated the `AddCardModule` comment input to have an active cursor when adding a card.
 * Updated report previewer to support preview of multiline comment.
 
+### New features
+* Added the new `RcodeBlock` block for a custom `rmarkdown` r chunk.
+
+### Miscellaneous
+* Updated `append_src` method of `TealReportCard` to not add additional "R Code" Subtitle.
+
+### New features
+* Added additional input when needed to decide if "Show R Code" should be part of the rendered report.
+* Added support for global `knitr` options in the render method in the Render class.
+* Added the collapsible panel for the Show R Code in the previewer.
+
+### Breaking changes
+* Simplified `reporter_previewer_ui` to contain just `id` argument.
+
 # teal.reporter 0.1.1
 
 ### New features

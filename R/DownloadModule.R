@@ -69,7 +69,7 @@ download_report_button_srv <- function(id,
         downb <- shiny::tags$a(
           id = ns("download_data"),
           class = paste("btn btn-primary shiny-download-link", if (nr_cards) NULL else "disabled"),
-          style =  if (nr_cards) NULL else "pointer-events: none;",
+          style = if (nr_cards) NULL else "pointer-events: none;",
           href = "",
           target = "_blank",
           download = NA,
@@ -97,17 +97,14 @@ download_report_button_srv <- function(id,
               ),
             )
           },
-          shiny::textInput(ns("author"), label = "Author:", value = rmd_yaml_args$author),
-          shiny::textInput(ns("title"), label = "Title:", value = rmd_yaml_args$title),
-          shiny::dateInput(ns("date"), "Date:", value = rmd_yaml_args$date),
-          shiny::tags$div(
-            shinyWidgets::pickerInput(
-              inputId = ns("output"),
-              label = "Choose a document type: ",
-              choices = rmd_output,
-              selected = rmd_yaml_args$output
+          reporter_download_inputs(rmd_yaml_args, rmd_output, session),
+          if (any_rcode_block(reporter)) {
+            shiny::checkboxInput(
+              ns("showrcode"),
+              label = "Include R Code",
+              value = FALSE
             )
-          ),
+          },
           footer = shiny::tagList(
             shiny::tags$button(
               type = "button",
@@ -134,7 +131,9 @@ download_report_button_srv <- function(id,
           shiny::showNotification("Rendering and Downloading the document.")
           input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
           names(input_list) <- names(rmd_yaml_args)
-          report_render_and_compress(reporter, input_list, file)
+          global_knitr <- list()
+          if (is.logical(input$showrcode)) global_knitr <- list(echo = input$showrcode)
+          report_render_and_compress(reporter, input_list, global_knitr, file)
         },
         contentType = "application/zip"
       )
@@ -146,10 +145,12 @@ download_report_button_srv <- function(id,
 #' @description render the report and zip the created directory.
 #' @param reporter [`Reporter`] instance.
 #' @param input_list `list` like shiny input converted to a regular named list.
+#' @param global_knitr `list` a global `knitr` parameters, like echo.
+#' But if local parameter is set it will have priority.
 #' @param file `character` where to copy the returned directory.
 #' @return `file` argument, invisibly.
 #' @keywords internal
-report_render_and_compress <- function(reporter, input_list, file = tempdir()) {
+report_render_and_compress <- function(reporter, input_list, global_knitr, file = tempdir()) {
   checkmate::assert_class(reporter, "Reporter")
   checkmate::assert_list(input_list, names = "named")
   checkmate::assert_string(file)
@@ -168,7 +169,7 @@ report_render_and_compress <- function(reporter, input_list, file = tempdir()) {
   renderer <- Renderer$new()
 
   tryCatch(
-    renderer$render(reporter$get_blocks(), yaml_header),
+    renderer$render(reporter$get_blocks(), yaml_header, global_knitr),
     warning = function(cond) {
       shiny::showNotification(
         ui = "Render document warning!",
@@ -224,4 +225,37 @@ report_render_and_compress <- function(reporter, input_list, file = tempdir()) {
 
   rm(renderer)
   invisible(file)
+}
+
+
+#' @keywords internal
+reporter_download_inputs <- function(rmd_yaml_args, rmd_output, session) {
+  shiny::tagList(
+    lapply(names(rmd_yaml_args), function(e) {
+      switch(e,
+        author = shiny::textInput(session$ns("author"), label = "Author:", value = rmd_yaml_args$author),
+        title = shiny::textInput(session$ns("title"), label = "Title:", value = rmd_yaml_args$title),
+        date = shiny::dateInput(session$ns("date"), "Date:", value = rmd_yaml_args$date),
+        output = shiny::tags$div(
+          shinyWidgets::pickerInput(
+            inputId = session$ns("output"),
+            label = "Choose a document type: ",
+            choices = rmd_output,
+            selected = rmd_yaml_args$output
+          )
+        )
+      )
+    })
+  )
+}
+
+#' @keywords internal
+any_rcode_block <- function(reporter) {
+  any(
+    vapply(
+      reporter$get_blocks(),
+      function(e) inherits(e, "RcodeBlock"),
+      logical(1)
+    )
+  )
 }
