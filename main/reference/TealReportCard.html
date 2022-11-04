@@ -18,7 +18,7 @@ meta data."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/
     
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1.9001</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,14 +42,6 @@ meta data."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.1.1">v0.1.1</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -97,6 +89,7 @@ meta data.</p>
 </ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_content"><a href="ReportCard.html#method-append_content"><code>teal.reporter::ReportCard$append_content()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_metadata"><a href="ReportCard.html#method-append_metadata"><code>teal.reporter::ReportCard$append_metadata()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_plot"><a href="ReportCard.html#method-append_plot"><code>teal.reporter::ReportCard$append_plot()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_rcode"><a href="ReportCard.html#method-append_rcode"><code>teal.reporter::ReportCard$append_rcode()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_table"><a href="ReportCard.html#method-append_table"><code>teal.reporter::ReportCard$append_table()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="append_text"><a href="ReportCard.html#method-append_text"><code>teal.reporter::ReportCard$append_text()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ReportCard" data-id="from_list"><a href="ReportCard.html#method-from_list"><code>teal.reporter::ReportCard$from_list()</code></a></span></li>
@@ -111,13 +104,18 @@ meta data.</p>
 <h3 id="method-append-src-">Method <code>append_src()</code><a class="anchor" aria-label="anchor" href="#method-append-src-"></a></h3>
 <p>Appends the source code to the <code>content</code> meta data of this <code>TealReportCard</code>.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TealReportCard</span><span class="op">$</span><span class="fu">append_src</span><span class="op">(</span><span class="va">src</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TealReportCard</span><span class="op">$</span><span class="fu">append_src</span><span class="op">(</span><span class="va">src</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>src</code></dt>
 <dd><p>(<code>character(1)</code>) code as text.</p></dd>
+
+
+<dt><code>...</code></dt>
+<dd><p>any <code>rmarkdown</code> R chunk parameter and its value.
+But <code>eval</code> parameter is always set to <code>FALSE</code>.</p></dd>
 
 
 </dl><p></p></div>
@@ -223,7 +221,7 @@ If the filter state list is empty, nothing is appended to the <code>content</cod
 <span class="r-in"><span>  <span class="st">"ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">card</span><span class="op">$</span><span class="fu">get_content</span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">get_content</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Show R Code"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co">## Method `TealReportCard$append_fs`</span></span></span>
