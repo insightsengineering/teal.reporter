@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage line-rate="0.838976052848885" branch-rate="0" lines-covered="1016" lines-valid="1211" branches-covered="0" branches-valid="0" complexity="0" version="3.6.1" timestamp="2022-11-04 08:52:23">
+<coverage line-rate="0.838842975206612" branch-rate="0" lines-covered="1015" lines-valid="1210" branches-covered="0" branches-valid="0" complexity="0" version="3.6.1" timestamp="2022-11-04 12:25:44">
   <sources/>
   <packages>
-    <package name="teal.reporter" line-rate="0.838976052848885" branch-rate="0" complexity="0">
+    <package name="teal.reporter" line-rate="0.838842975206612" branch-rate="0" complexity="0">
       <classes>
         <class name="AddCardModule.R" filename="R/AddCardModule.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
@@ -506,7 +506,7 @@
             <line number="66" hits="143" branch="false"/>
           </lines>
         </class>
-        <class name="DownloadModule.R" filename="R/DownloadModule.R" line-rate="0.746113989637306" branch-rate="0" complexity="0">
+        <class name="DownloadModule.R" filename="R/DownloadModule.R" line-rate="0.744791666666667" branch-rate="0" complexity="0">
           <methods>
             <method name="download_report_button_ui" signature="" line-rate="1" branch-rate="0">
               <lines>
@@ -707,18 +707,17 @@
                 <line number="247" hits="8" branch="false"/>
                 <line number="248" hits="8" branch="false"/>
                 <line number="249" hits="8" branch="false"/>
-                <line number="250" hits="8" branch="false"/>
               </lines>
             </method>
             <method name="any_rcode_block" signature="" line-rate="1" branch-rate="0">
               <lines>
+                <line number="254" hits="10" branch="false"/>
                 <line number="255" hits="10" branch="false"/>
                 <line number="256" hits="10" branch="false"/>
                 <line number="257" hits="10" branch="false"/>
                 <line number="258" hits="10" branch="false"/>
                 <line number="259" hits="10" branch="false"/>
                 <line number="260" hits="10" branch="false"/>
-                <line number="261" hits="10" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -908,14 +907,13 @@
             <line number="247" hits="8" branch="false"/>
             <line number="248" hits="8" branch="false"/>
             <line number="249" hits="8" branch="false"/>
-            <line number="250" hits="8" branch="false"/>
+            <line number="254" hits="10" branch="false"/>
             <line number="255" hits="10" branch="false"/>
             <line number="256" hits="10" branch="false"/>
             <line number="257" hits="10" branch="false"/>
             <line number="258" hits="10" branch="false"/>
             <line number="259" hits="10" branch="false"/>
             <line number="260" hits="10" branch="false"/>
-            <line number="261" hits="10" branch="false"/>
           </lines>
         </class>
         <class name="FileBlock.R" filename="R/FileBlock.R" line-rate="1" branch-rate="0" complexity="0">
