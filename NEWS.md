@@ -12,7 +12,12 @@
 * Updated `append_src` method of `TealReportCard` to not add additional "R Code" Subtitle.
 
 ### New features
+* Added additional input when needed to decide if "Show R Code" should be part of the rendered report.
+* Added support for global `knitr` options in the render method in the Render class.
 * Added the collapsible panel for the Show R Code in the previewer.
+
+### Breaking changes
+* Simplified `reporter_previewer_ui` to contain just `id` argument.
 
 # teal.reporter 0.1.1
 

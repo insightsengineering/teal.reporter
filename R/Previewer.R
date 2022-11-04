@@ -2,49 +2,9 @@
 #' @description `r lifecycle::badge("experimental")`
 #' reporter previewer user interface to visualize and manipulate the already added report Cards
 #' @param id `character(1)` this `shiny` module's id.
-#' @param rmd_output `character` vector with `rmarkdown` output types,
-#' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
-#' If vector is named then those names will appear in the `UI`.
-#' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
-#' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document")`.
-#' Please update only values at this moment.
 #' @export
-reporter_previewer_ui <- function(id, rmd_output = c(
-                                    "html" = "html_document", "pdf" = "pdf_document",
-                                    "powerpoint" = "powerpoint_presentation",
-                                    "word" = "word_document"
-                                  ),
-                                  rmd_yaml_args = list(
-                                    author = "NEST", title = "Report",
-                                    date = as.character(Sys.Date()), output = "html_document"
-                                  )) {
-  checkmate::assert_list(rmd_yaml_args)
-
+reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
-  encoding <- shiny::tagList(
-    shiny::tags$h3("Download the Report"),
-    shiny::tags$hr(),
-    shiny::textInput(ns("author"), label = "Author:", value = rmd_yaml_args$author),
-    shiny::textInput(ns("title"), label = "Title:", value = rmd_yaml_args$title),
-    shiny::dateInput(ns("date"), "Date:", value = rmd_yaml_args$date),
-    shiny::tags$div(
-      shinyWidgets::pickerInput(
-        inputId = ns("output"),
-        label = "Choose a document type: ",
-        choices = rmd_output,
-        selected = rmd_yaml_args$output
-      )
-    ),
-    shiny::tags$a(
-      id = ns("download_data_prev"),
-      class = "btn btn-primary shiny-download-link",
-      href = "",
-      target = "_blank",
-      download = NA,
-      shiny::tags$span("Download Report", shiny::icon("download"))
-    ),
-    teal.reporter::reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
-  )
 
   shiny::fluidRow(
     add_previewer_js(ns),
@@ -52,7 +12,7 @@ reporter_previewer_ui <- function(id, rmd_output = c(
     shiny::tagList(
       shiny::tags$div(
         class = "col-md-3",
-        shiny::tags$div(class = "well", encoding)
+        shiny::tags$div(class = "well", shiny::uiOutput(ns("encoding")))
       ),
       shiny::tags$div(
         class = "col-md-9",
@@ -71,11 +31,18 @@ reporter_previewer_ui <- function(id, rmd_output = c(
 #' For more details see the vignette: `vignette("previewerReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
 #' @param reporter `Reporter` instance
+#' @param rmd_output `character` vector with `rmarkdown` output types,
+#' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
+#' If vector is named then those names will appear in the `UI`.
 #' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
 #' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document")`.
 #' Please update only values at this moment.
 #' @export
-reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
+reporter_previewer_srv <- function(id, reporter, rmd_output = c(
+                                     "html" = "html_document", "pdf" = "pdf_document",
+                                     "powerpoint" = "powerpoint_presentation",
+                                     "word" = "word_document"
+                                   ), rmd_yaml_args = list(
                                      author = "NEST", title = "Report",
                                      date = as.character(Sys.Date()), output = "html_document"
                                    )) {
@@ -88,6 +55,34 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
       ns <- session$ns
 
       teal.reporter::reset_report_button_srv("resetButtonPreviewer", reporter)
+
+      output$encoding <- shiny::renderUI({
+        reporter$get_reactive_add_card()
+        shiny::tagList(
+          shiny::tags$h3("Download the Report"),
+          shiny::tags$hr(),
+          reporter_download_inputs(rmd_yaml_args, rmd_output, session),
+          if (any_rcode_block(reporter)) {
+            shiny::checkboxInput(
+              ns("showrcode"),
+              label = "Include R Code",
+              value = FALSE
+            )
+          },
+          htmltools::tagAppendAttributes(
+            shiny::tags$a(
+              id = ns("download_data_prev"),
+              class = "btn btn-primary shiny-download-link",
+              href = "",
+              target = "_blank",
+              download = NA,
+              shiny::tags$span("Download Report", shiny::icon("download"))
+            ),
+            class = if (length(reporter$get_cards())) "" else "disabled"
+          ),
+          teal.reporter::reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
+        )
+      })
 
       output$pcards <- shiny::renderUI({
         reporter$get_reactive_add_card()
@@ -146,7 +141,9 @@ reporter_previewer_srv <- function(id, reporter, rmd_yaml_args = list(
           shiny::showNotification("Rendering and Downloading the document.")
           input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
           names(input_list) <- names(rmd_yaml_args)
-          report_render_and_compress(reporter, input_list, file)
+          global_knitr <- list()
+          if (is.logical(input$showrcode)) global_knitr <- list(echo = input$showrcode)
+          report_render_and_compress(reporter, input_list, global_knitr, file)
         },
         contentType = "application/zip"
       )
@@ -219,19 +216,8 @@ add_previewer_js <- function(ns) {
               let val = $(this).data("cardid");
               Shiny.setInputValue("%s", val, {priority: "event"});
              });
-
-             $("body").on("DOMSubtreeModified", "#reporter_previewer", function() {
-              let accor = $(this).find("#reporter_previewer_panel");
-              let down_button = $("#%s");
-              if (accor && (accor.length === 0)) {
-                down_button.addClass("disabled");
-              } else {
-                down_button.removeClass("disabled");
-              }
-             });
-
           });
-         ', ns("card_remove_id"), ns("card_up_id"), ns("card_down_id"), ns("download_data_prev")))
+         ', ns("card_remove_id"), ns("card_up_id"), ns("card_down_id")))
     ))
   )
 }
