@@ -69,7 +69,7 @@ download_report_button_srv <- function(id,
         downb <- shiny::tags$a(
           id = ns("download_data"),
           class = paste("btn btn-primary shiny-download-link", if (nr_cards) NULL else "disabled"),
-          style =  if (nr_cards) NULL else "pointer-events: none;",
+          style = if (nr_cards) NULL else "pointer-events: none;",
           href = "",
           target = "_blank",
           download = NA,
@@ -232,8 +232,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
 reporter_download_inputs <- function(rmd_yaml_args, rmd_output, session) {
   shiny::tagList(
     lapply(names(rmd_yaml_args), function(e) {
-      switch(
-        e,
+      switch(e,
         author = shiny::textInput(session$ns("author"), label = "Author:", value = rmd_yaml_args$author),
         title = shiny::textInput(session$ns("title"), label = "Title:", value = rmd_yaml_args$title),
         date = shiny::dateInput(session$ns("date"), "Date:", value = rmd_yaml_args$date),
