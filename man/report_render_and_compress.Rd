@@ -4,12 +4,20 @@
 \alias{report_render_and_compress}
 \title{Render the Report}
 \usage{
-report_render_and_compress(reporter, input_list, file = tempdir())
+report_render_and_compress(
+  reporter,
+  input_list,
+  global_knitr,
+  file = tempdir()
+)
 }
 \arguments{
 \item{reporter}{\code{\link{Reporter}} instance.}
 
 \item{input_list}{\code{list} like shiny input converted to a regular named list.}
+
+\item{global_knitr}{\code{list} a global knitr parameters, like echo.
+But if local parameter is set it will have priority.}
 
 \item{file}{\code{character} where to copy the returned directory.}
 }
