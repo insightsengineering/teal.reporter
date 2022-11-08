@@ -1,4 +1,8 @@
-# teal.reporter
+# teal.reporter,
+
+<!-- start badges -->
+[![Code Coverage](https://raw.githubusercontent.com/insightsengineering/teal.reporter/_xml_coverage_reports/data/main/badge.svg)](https://raw.githubusercontent.com/insightsengineering/teal.reporter/_xml_coverage_reports/data/main/coverage.xml)
+<!-- end badges -->
 
 `teal.reporter` enables `shiny` and `teal` applications to include reporting functionality.
 The `shiny` app developer (or `teal` module developer) specifies the content of the report and the `teal.reporter` package handles everything else.
