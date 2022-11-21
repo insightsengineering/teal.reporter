@@ -38,7 +38,7 @@ download_report_button_ui <- function(id) {
 #' `pdflatex` has to be installed to use the `"pdf_document"` output. If vector is named then the names
 #' will appear in the `UI`.
 #' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
-#' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document")`.
+#' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)`.
 #' Please update only values at this moment.
 #' @return `shiny::moduleServer`
 #' @export
@@ -50,7 +50,8 @@ download_report_button_srv <- function(id,
                                        ),
                                        rmd_yaml_args = list(
                                          author = "NEST", title = "Report",
-                                         date = as.character(Sys.Date()), output = "html_document"
+                                         date = as.character(Sys.Date()), output = "html_document",
+                                         toc = FALSE
                                        )) {
   checkmate::assert_class(reporter, "Reporter")
   checkmate::assert_subset(rmd_output, c(
@@ -58,7 +59,7 @@ download_report_button_srv <- function(id,
     "powerpoint_presentation", "word_document"
   ))
   checkmate::assert_list(rmd_yaml_args, names = "named")
-  checkmate::assert_true(all(c("author", "title", "date", "output") %in% names(rmd_yaml_args)))
+  checkmate::assert_true(all(c("author", "title", "date", "output", "toc") %in% names(rmd_yaml_args)))
 
   shiny::moduleServer(
     id,
@@ -243,7 +244,8 @@ reporter_download_inputs <- function(rmd_yaml_args, rmd_output, session) {
             choices = rmd_output,
             selected = rmd_yaml_args$output
           )
-        )
+        ),
+        toc = shiny::checkboxInput(session$ns("toc"), label = "table of content", value = rmd_yaml_args$toc)
       )
     })
   )
