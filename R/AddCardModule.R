@@ -144,7 +144,6 @@ add_card_button_srv <- function(id, reporter, card_fun) {
       # the add card button is disabled when clicked to prevent multi-clicks
       # please check the ui part for more information
       shiny::observeEvent(input$add_card_ok, {
-
         card_fun_args_nams <- names(formals(card_fun))
         has_card_arg <- "card" %in% card_fun_args_nams
         has_comment_arg <- "comment" %in% card_fun_args_nams
