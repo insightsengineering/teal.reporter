@@ -89,14 +89,13 @@ add_card_button_srv <- function(id, reporter, card_fun) {
         shiny::modalDialog(
           easyClose = TRUE,
           shiny::tags$h3("Add a Card to the Report"),
-          shiny::textAreaInput(
+          shiny::textInput(
             ns("label"),
             "Card Name",
             value = "",
             placeholder = "Add the card title here",
             width = "100%"
           ),
-          shiny::tags$hr(),
           shiny::textAreaInput(
             ns("comment"),
             "Comment",
@@ -193,7 +192,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
             card$append_text(input$comment)
           }
 
-          if (!has_label_arg && input$label == "") {
+          if (!has_label_arg && input$label == "" && length(card$get_name()) == 0) {
             card$set_name("")
           } else if (!has_label_arg && length(input$label) > 0 && input$label != "") {
             card$set_name(input$label)
