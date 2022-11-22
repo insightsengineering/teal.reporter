@@ -79,7 +79,7 @@ add_card_button_ui <- function(id) {
 add_card_button_srv <- function(id, reporter, card_fun) {
   checkmate::assert_function(card_fun)
   checkmate::assert_class(reporter, "Reporter")
-  checkmate::assert_subset(names(formals(card_fun)), c("card", "label", "comment"), empty.ok = TRUE)
+  checkmate::assert_subset(names(formals(card_fun)), c("card", "comment"), empty.ok = TRUE)
 
   shiny::moduleServer(
     id,
@@ -154,10 +154,6 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           arg_list <- c(arg_list, list(comment = input$comment))
         }
 
-        if (has_label_arg && length(input$label) > 0 && input$label != "") {
-          arg_list <- c(arg_list, list(label = input$label))
-        }
-
         if (has_card_arg) {
           # The default_card is defined here because formals() returns a pairedlist object
           # of formal parameter names and their default values. The values are missing
@@ -191,9 +187,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
             card$append_text(input$comment)
           }
 
-          if (!has_label_arg && input$label == "" && length(card$get_name()) == 0) {
-            card$set_name("")
-          } else if (!has_label_arg && length(input$label) > 0 && input$label != "") {
+          if (length(input$label) > 0 && input$label != "") {
             card$set_name(input$label)
           }
 
