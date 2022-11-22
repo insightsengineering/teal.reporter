@@ -245,7 +245,7 @@ reporter_download_inputs <- function(rmd_yaml_args, rmd_output, session) {
             selected = rmd_yaml_args$output
           )
         ),
-        toc = shiny::checkboxInput(session$ns("toc"), label = "table of content", value = rmd_yaml_args$toc)
+        toc = shiny::checkboxInput(session$ns("toc"), label = "Include Table of Contents", value = rmd_yaml_args$toc)
       )
     })
   )

@@ -4,7 +4,7 @@
 
 * Updated the `AddCardModule` comment input to have an active cursor when adding a card.
 * Updated report previewer to support preview of multiline comment.
-* Added support for a table of content for reporter documents.
+* Added support for a table of contents for reporter documents.
 
 ### New features
 * Added the new `RcodeBlock` block for a custom `rmarkdown` r chunk.
