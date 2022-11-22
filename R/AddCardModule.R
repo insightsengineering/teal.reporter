@@ -79,7 +79,7 @@ add_card_button_ui <- function(id) {
 add_card_button_srv <- function(id, reporter, card_fun) {
   checkmate::assert_function(card_fun)
   checkmate::assert_class(reporter, "Reporter")
-  checkmate::assert_subset(names(formals(card_fun)), c("card", "comment"), empty.ok = TRUE)
+  checkmate::assert_subset(names(formals(card_fun)), c("card", "label", "comment"), empty.ok = TRUE)
 
   shiny::moduleServer(
     id,
@@ -89,6 +89,13 @@ add_card_button_srv <- function(id, reporter, card_fun) {
         shiny::modalDialog(
           easyClose = TRUE,
           shiny::tags$h3("Add a Card to the Report"),
+          shiny::textAreaInput(
+            ns("label"),
+            "Card Name",
+            value = "",
+            placeholder = "Add the card title here",
+            width = "100%"
+          ),
           shiny::tags$hr(),
           shiny::textAreaInput(
             ns("comment"),
@@ -137,15 +144,20 @@ add_card_button_srv <- function(id, reporter, card_fun) {
       # the add card button is disabled when clicked to prevent multi-clicks
       # please check the ui part for more information
       shiny::observeEvent(input$add_card_ok, {
+
         card_fun_args_nams <- names(formals(card_fun))
         has_card_arg <- "card" %in% card_fun_args_nams
         has_comment_arg <- "comment" %in% card_fun_args_nams
-
+        has_label_arg <- "label" %in% card_fun_args_nams
 
         arg_list <- list()
 
         if (has_comment_arg) {
           arg_list <- c(arg_list, list(comment = input$comment))
+        }
+
+        if (has_label_arg && length(input$label) > 0 && input$label != "") {
+          arg_list <- c(arg_list, list(label = input$label))
         }
 
         if (has_card_arg) {
@@ -180,6 +192,13 @@ add_card_button_srv <- function(id, reporter, card_fun) {
             card$append_text("Comment", "header3")
             card$append_text(input$comment)
           }
+
+          if (!has_label_arg && input$label == "") {
+            card$set_name("")
+          } else if (!has_label_arg && length(input$label) > 0 && input$label != "") {
+            card$set_name(input$label)
+          }
+
           reporter$append_cards(list(card))
           shiny::showNotification(sprintf("The card added successfully."), type = "message")
           shiny::removeModal()

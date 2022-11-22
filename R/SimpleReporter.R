@@ -45,7 +45,7 @@ simple_reporter_ui <- function(id) {
 #' @param id `character(1)` this `shiny` module's id.
 #' @param reporter [`Reporter`] instance.
 #' @param card_fun `function` which returns a [`ReportCard`] instance,
-#' the function have at`card`argument and optional `comment`.
+#' the function has a `card` argument and optional `comment` and `label` arguments.
 #' @return `shiny::moduleServer`
 #' @export
 simple_reporter_srv <- function(id, reporter, card_fun) {
