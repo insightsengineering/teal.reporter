@@ -17,6 +17,7 @@ testthat::test_that("reporter_previewer_srv - render and downlaod a document", {
       session$setInputs(`output` = "html_document")
       session$setInputs(`title` = "TITLE")
       session$setInputs(`author` = "AUTHOR")
+      session$setInputs(`toc` = FALSE)
       session$setInputs(`download_data_prev` = 0)
 
       f <- output$download_data_prev
