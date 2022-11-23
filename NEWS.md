@@ -1,9 +1,10 @@
-# teal.reporter 0.1.1.9004
+# teal.reporter 0.1.1.9005
 
 ### New features
 
 * Updated the `AddCardModule` comment input to have an active cursor when adding a card.
 * Updated report previewer to support preview of multiline comment.
+* Added support for a table of contents for reporter documents.
 
 ### New features
 * Added the new `RcodeBlock` block for a custom `rmarkdown` r chunk.

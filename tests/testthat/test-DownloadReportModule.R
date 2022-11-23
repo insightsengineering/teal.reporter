@@ -18,6 +18,7 @@ testthat::test_that("download_report_button_srv - render and downlaod a document
       session$setInputs(`output` = "html_document")
       session$setInputs(`title` = "TITLE")
       session$setInputs(`author` = "AUTHOR")
+      session$setInputs(`toc` = TRUE)
       session$setInputs(`download_data` = 0)
 
       f <- output$download_data
@@ -76,7 +77,7 @@ testthat::test_that("report_render_and_compress - invalid arguments", {
 })
 
 testthat::test_that("report_render_and_compress - render an html document", {
-  input <- list(author = "NEST", title = "Report", output = "html_document")
+  input <- list(author = "NEST", title = "Report", output = "html_document", toc = FALSE)
   temp_dir <- tempdir()
   knitr_args <- list()
   res_path <- report_render_and_compress(reporter, input, knitr_args, temp_dir)
