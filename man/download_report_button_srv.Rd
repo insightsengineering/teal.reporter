@@ -10,7 +10,7 @@ download_report_button_srv(
   rmd_output = c(html = "html_document", pdf = "pdf_document", powerpoint =
     "powerpoint_presentation", word = "word_document"),
   rmd_yaml_args = list(author = "NEST", title = "Report", date =
-    as.character(Sys.Date()), output = "html_document")
+    as.character(Sys.Date()), output = "html_document", toc = FALSE)
 )
 }
 \arguments{
@@ -24,7 +24,7 @@ by default all possible \code{c("pdf_document", "html_document", "powerpoint_pre
 will appear in the \code{UI}.}
 
 \item{rmd_yaml_args}{\verb{named list} vector with \code{Rmd} \code{yaml} header fields and their default values.
-Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document")}.
+Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)}.
 Please update only values at this moment.}
 }
 \value{
