@@ -16,7 +16,7 @@ the function has optional \code{card} and  \code{comment} arguments.
 If the \code{card} argument is added then the \code{ReportCard} instance is automatically created for the user.
 If the \code{comment} argument is not specified then it is added automatically at the end of the Card.
 The card name set by default in \code{card_fun} will be overcome by the \code{label} input which will be set automatically
-at the end of the card.}
+when adding a card.}
 }
 \value{
 \code{shiny::moduleServer}
