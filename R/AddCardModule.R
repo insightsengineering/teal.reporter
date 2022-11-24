@@ -74,6 +74,9 @@ add_card_button_ui <- function(id) {
 #' the function has optional `card` and  `comment` arguments.
 #' If the `card` argument is added then the `ReportCard` instance is automatically created for the user.
 #' If the `comment` argument is not specified then it is added automatically at the end of the Card.
+#' The card name set by default in `card_fun` will be overcome by the `label` input which will be set automatically
+#' at the end of the card.
+#'
 #' @return `shiny::moduleServer`
 #' @export
 add_card_button_srv <- function(id, reporter, card_fun) {
