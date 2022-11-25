@@ -14,7 +14,9 @@ add_card_button_srv(id, reporter, card_fun)
 \item{card_fun}{\code{function} which returns a \code{\link{ReportCard}} instance,
 the function has optional \code{card} and  \code{comment} arguments.
 If the \code{card} argument is added then the \code{ReportCard} instance is automatically created for the user.
-If the \code{comment} argument is not specified then it is added automatically at the end of the Card.}
+If the \code{comment} argument is not specified then it is added automatically at the end of the Card.
+The card name set by default in \code{card_fun} will be overcome by the \code{label} input which will be set automatically
+when adding a card.}
 }
 \value{
 \code{shiny::moduleServer}

@@ -74,6 +74,10 @@ add_card_button_ui <- function(id) {
 #' the function has optional `card` and  `comment` arguments.
 #' If the `card` argument is added then the `ReportCard` instance is automatically created for the user.
 #' If the `comment` argument is not specified then it is added automatically at the end of the Card.
+#' The card name set by default in `card_fun` will be overcome by the `label` input which will be set automatically
+#' when adding a card.
+#'
+#'
 #' @return `shiny::moduleServer`
 #' @export
 add_card_button_srv <- function(id, reporter, card_fun) {
@@ -90,6 +94,13 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           easyClose = TRUE,
           shiny::tags$h3("Add a Card to the Report"),
           shiny::tags$hr(),
+          shiny::textInput(
+            ns("label"),
+            "Card Name",
+            value = "",
+            placeholder = "Add the card title here",
+            width = "100%"
+          ),
           shiny::textAreaInput(
             ns("comment"),
             "Comment",
@@ -141,7 +152,6 @@ add_card_button_srv <- function(id, reporter, card_fun) {
         has_card_arg <- "card" %in% card_fun_args_nams
         has_comment_arg <- "comment" %in% card_fun_args_nams
 
-
         arg_list <- list()
 
         if (has_comment_arg) {
@@ -180,6 +190,11 @@ add_card_button_srv <- function(id, reporter, card_fun) {
             card$append_text("Comment", "header3")
             card$append_text(input$comment)
           }
+
+          if (length(input$label) == 1 && input$label != "") {
+            card$set_name(input$label)
+          }
+
           reporter$append_cards(list(card))
           shiny::showNotification(sprintf("The card added successfully."), type = "message")
           shiny::removeModal()

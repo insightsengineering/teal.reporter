@@ -2,23 +2,24 @@
 
 ### New features
 
+* Added the new `RcodeBlock` block for a custom `rmarkdown` r chunk.
+* Added the collapsible panel for the Show R Code in the previewer.
+* Added additional input when needed to decide if "Show R Code" should be part of the rendered report.
+* Added the possibility to add a personalized card name when adding a card. 
+
+### Breaking changes
+
+* Simplified `reporter_previewer_ui` to contain just `id` argument.
+
+### Enhancements
+
 * Updated the `AddCardModule` comment input to have an active cursor when adding a card.
 * Updated report previewer to support preview of multiline comment.
 * Added support for a table of contents for reporter documents.
-
-### New features
-* Added the new `RcodeBlock` block for a custom `rmarkdown` r chunk.
+* Added support for global `knitr` options in the render method in the Render class.
 
 ### Miscellaneous
 * Updated `append_src` method of `TealReportCard` to not add additional "R Code" Subtitle.
-
-### New features
-* Added additional input when needed to decide if "Show R Code" should be part of the rendered report.
-* Added support for global `knitr` options in the render method in the Render class.
-* Added the collapsible panel for the Show R Code in the previewer.
-
-### Breaking changes
-* Simplified `reporter_previewer_ui` to contain just `id` argument.
 
 # teal.reporter 0.1.1
 

@@ -12,7 +12,7 @@ simple_reporter_srv(id, reporter, card_fun)
 \item{reporter}{\code{\link{Reporter}} instance.}
 
 \item{card_fun}{\code{function} which returns a \code{\link{ReportCard}} instance,
-the function have at\code{card}argument and optional \code{comment}.}
+the function has a \code{card} argument and an optional \code{comment} argument.}
 }
 \value{
 \code{shiny::moduleServer}
