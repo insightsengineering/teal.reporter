@@ -6,6 +6,7 @@
 * Added the collapsible panel for the Show R Code in the previewer.
 * Added additional input when needed to decide if "Show R Code" should be part of the rendered report.
 * Added the possibility to add a personalized card name when adding a card. 
+* Added support for custom inputs for download and previewer modules.
 
 ### Breaking changes
 
