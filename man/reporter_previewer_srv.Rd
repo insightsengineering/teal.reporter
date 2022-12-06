@@ -24,7 +24,8 @@ If vector is named then those names will appear in the \code{UI}.}
 
 \item{rmd_yaml_args}{\verb{named list} vector with \code{Rmd} \code{yaml} header fields and their default values.
 Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)}.
-Please update only values at this moment.}
+The \code{list} must include at least \code{"output"} field.
+The default value for \code{"output"} has to be in the \code{rmd_output} vector.}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}

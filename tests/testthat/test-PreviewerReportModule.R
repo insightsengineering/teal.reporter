@@ -34,6 +34,49 @@ testthat::test_that("reporter_previewer_srv - render and downlaod a document", {
   )
 })
 
+
+testthat::test_that("reporter_previewer_srv - subset of rmd_yaml_args", {
+  rmd_yaml_args_correct <- list(
+    correct1 = list(
+      author = "NEST", title = "Report",
+      date = as.character(Sys.Date()), output = "html_document",
+      toc = FALSE
+    ),
+    correct2 = list(
+      author = "NEST", title = "Report",
+      date = as.character(Sys.Date()), output = "html_document"
+    ),
+    correct3 = list(output = "html_document")
+  )
+
+  rmd_yaml_args_wrong <- list(
+    wrong1 = list(author = "NEST", title = "Report"),
+    wrong2 = list(output = "WRONG_document"),
+    wrong3 = list()
+  )
+
+  for (iset in seq_along(rmd_yaml_args_correct)) {
+    testthat::expect_silent(
+      shiny::testServer(
+        reporter_previewer_srv,
+        args = list(reporter = reporter, rmd_yaml_args = rmd_yaml_args_correct[[iset]]),
+        expr = {}
+      )
+    )
+  }
+
+  for (iset in seq_along(rmd_yaml_args_wrong)) {
+    testthat::expect_error(
+      shiny::testServer(
+        reporter_previewer_srv,
+        args = list(reporter = reporter, rmd_yaml_args = rmd_yaml_args_wrong[[iset]]),
+        expr = {}
+      ),
+      "Assertion"
+    )
+  }
+})
+
 reporter <- Reporter$new()
 reporter$append_cards(list(card1))
 testthat::test_that("reporter_previewer_srv - remove a card", {

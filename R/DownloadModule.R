@@ -39,7 +39,8 @@ download_report_button_ui <- function(id) {
 #' will appear in the `UI`.
 #' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
 #' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)`.
-#' Please update only values at this moment.
+#' The `list` must include at least "output" field.
+#' The default value for `"output"` has to be in the `rmd_output` vector.
 #' @return `shiny::moduleServer`
 #' @export
 download_report_button_srv <- function(id,
@@ -54,12 +55,21 @@ download_report_button_srv <- function(id,
                                          toc = FALSE
                                        )) {
   checkmate::assert_class(reporter, "Reporter")
-  checkmate::assert_subset(rmd_output, c(
-    "html_document", "pdf_document",
-    "powerpoint_presentation", "word_document"
-  ))
+  checkmate::assert_subset(
+    rmd_output,
+    c(
+      "html_document", "pdf_document",
+      "powerpoint_presentation", "word_document"
+    ),
+    empty.ok = FALSE
+  )
   checkmate::assert_list(rmd_yaml_args, names = "named")
-  checkmate::assert_true(all(c("author", "title", "date", "output", "toc") %in% names(rmd_yaml_args)))
+  checkmate::assert_names(
+    names(rmd_yaml_args),
+    subset = c("author", "title", "date", "output", "toc"),
+    must.include = "output"
+  )
+  checkmate::assert_true(rmd_yaml_args[["output"]] %in% rmd_output)
 
   shiny::moduleServer(
     id,
@@ -98,14 +108,12 @@ download_report_button_srv <- function(id,
               ),
             )
           },
-          reporter_download_inputs(rmd_yaml_args, rmd_output, session),
-          if (any_rcode_block(reporter)) {
-            shiny::checkboxInput(
-              ns("showrcode"),
-              label = "Include R Code",
-              value = FALSE
-            )
-          },
+          reporter_download_inputs(
+            rmd_yaml_args = rmd_yaml_args,
+            rmd_output = rmd_output,
+            showrcode = any_rcode_block(reporter),
+            session = session
+          ),
           footer = shiny::tagList(
             shiny::tags$button(
               type = "button",
@@ -230,7 +238,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
 
 
 #' @keywords internal
-reporter_download_inputs <- function(rmd_yaml_args, rmd_output, session) {
+reporter_download_inputs <- function(rmd_yaml_args, rmd_output, showrcode, session) {
   shiny::tagList(
     lapply(names(rmd_yaml_args), function(e) {
       switch(e,
@@ -247,7 +255,14 @@ reporter_download_inputs <- function(rmd_yaml_args, rmd_output, session) {
         ),
         toc = shiny::checkboxInput(session$ns("toc"), label = "Include Table of Contents", value = rmd_yaml_args$toc)
       )
-    })
+    }),
+    if (showrcode) {
+      shiny::checkboxInput(
+        session$ns("showrcode"),
+        label = "Include R Code",
+        value = FALSE
+      )
+    }
   )
 }
 

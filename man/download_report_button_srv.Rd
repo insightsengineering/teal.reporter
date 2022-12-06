@@ -25,7 +25,8 @@ will appear in the \code{UI}.}
 
 \item{rmd_yaml_args}{\verb{named list} vector with \code{Rmd} \code{yaml} header fields and their default values.
 Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)}.
-Please update only values at this moment.}
+The \code{list} must include at least "output" field.
+The default value for \code{"output"} has to be in the \code{rmd_output} vector.}
 }
 \value{
 \code{shiny::moduleServer}
