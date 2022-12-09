@@ -70,7 +70,8 @@ testthat::test_that("reporter_previewer_srv - subset of rmd_yaml_args", {
       shiny::testServer(
         reporter_previewer_srv,
         args = list(reporter = reporter, rmd_yaml_args = rmd_yaml_args_wrong[[iset]]),
-        expr = {}
+        expr = {
+        }
       ),
       "Assertion"
     )
