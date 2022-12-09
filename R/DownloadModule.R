@@ -40,7 +40,7 @@ download_report_button_ui <- function(id) {
 #' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
 #' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)`.
 #' The `list` must include at least "output" field.
-#' The default value for `"output"` has to be in the `rmd_output` vector.
+#' The default value for `"output"` needs to be an element of `rmd_output` vector.
 #' @return `shiny::moduleServer`
 #' @export
 download_report_button_srv <- function(id,
