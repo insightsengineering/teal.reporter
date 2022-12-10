@@ -16,7 +16,7 @@ download_report_button_ui <- function(id) {
       id = ns("download_button"),
       type = "button",
       class = "simple_report_button btn btn-primary action-button",
-      title = "Downlaod",
+      title = "Download",
       `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
       NULL,
       shiny::tags$span(
