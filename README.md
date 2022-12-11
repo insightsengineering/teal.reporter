@@ -1,4 +1,4 @@
-# teal.reporter,
+# teal.reporter
 
 <!-- start badges -->
 [![Check 🛠](https://github.com/insightsengineering/teal.reporter/actions/workflows/check.yaml/badge.svg)](https://github.com/insightsengineering/teal.reporter/actions/workflows/check.yaml)
