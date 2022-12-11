@@ -19,7 +19,6 @@
 [![Open Issues](https://img.shields.io/github/issues-raw/insightsengineering/teal.reporter?color=red\&label=open%20issues)](https://github.com/insightsengineering/teal.reporter/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
 <!-- end badges -->
 
-
 `teal.reporter` enables `shiny` and `teal` applications to include reporting functionality.
 The `shiny` app developer (or `teal` module developer) specifies the content of the report and the `teal.reporter` package handles everything else.
 
