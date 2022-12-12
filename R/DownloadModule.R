@@ -33,14 +33,7 @@ download_report_button_ui <- function(id) {
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
 #' @param reporter [`Reporter`] instance.
-#' @param rmd_output `character` vector with `rmarkdown` output types,
-#' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
-#' `pdflatex` has to be installed to use the `"pdf_document"` output. If vector is named then the names
-#' will appear in the `UI`.
-#' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
-#' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)`.
-#' The `list` must include at least "output" field.
-#' The default value for `"output"` needs to be an element of `rmd_output` vector.
+#' @inheritParams reporter_download_inputs
 #' @return `shiny::moduleServer`
 #' @export
 download_report_button_srv <- function(id,
@@ -236,7 +229,15 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
   invisible(file)
 }
 
-
+#' Get the custom list of User Interface inputs
+#' @param rmd_output `character` vector with `rmarkdown` output types,
+#' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
+#' If vector is named then those names will appear in the `UI`.
+#' @param rmd_yaml_args `named list` with `Rmd` `yaml` header fields and their default values.
+#' This `list` will result in the custom subset of User Interface inputs for the download reporter functionality.
+#' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)`.
+#' The `list` must include at least `"output"` field.
+#' The default value for `"output"` has to be in the `rmd_output` argument.
 #' @keywords internal
 reporter_download_inputs <- function(rmd_yaml_args, rmd_output, showrcode, session) {
   shiny::tagList(

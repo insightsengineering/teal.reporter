@@ -20,13 +20,13 @@ download_report_button_srv(
 
 \item{rmd_output}{\code{character} vector with \code{rmarkdown} output types,
 by default all possible \code{c("pdf_document", "html_document", "powerpoint_presentation", "word_document")}.
-\code{pdflatex} has to be installed to use the \code{"pdf_document"} output. If vector is named then the names
-will appear in the \code{UI}.}
+If vector is named then those names will appear in the \code{UI}.}
 
-\item{rmd_yaml_args}{\verb{named list} vector with \code{Rmd} \code{yaml} header fields and their default values.
+\item{rmd_yaml_args}{\verb{named list} with \code{Rmd} \code{yaml} header fields and their default values.
+This \code{list} will result in the custom subset of User Interface inputs for the download reporter functionality.
 Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)}.
-The \code{list} must include at least "output" field.
-The default value for \code{"output"} needs to be an element of \code{rmd_output} vector.}
+The \code{list} must include at least \code{"output"} field.
+The default value for \code{"output"} has to be in the \code{rmd_output} argument.}
 }
 \value{
 \code{shiny::moduleServer}
