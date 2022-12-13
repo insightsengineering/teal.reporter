@@ -46,14 +46,7 @@ simple_reporter_ui <- function(id) {
 #' @param reporter [`Reporter`] instance.
 #' @param card_fun `function` which returns a [`ReportCard`] instance,
 #' the function has a `card` argument and an optional `comment` argument.
-#' @param rmd_output `character` vector with `rmarkdown` output types,
-#' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
-#' `pdflatex` has to be installed to use the `"pdf_document"` output. If vector is named then the names
-#' will appear in the `UI`.
-#' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
-#' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)`.
-#' The `list` must include at least "output" field.
-#' The default value for `"output"` has to be in the `rmd_output` vector.
+#' @inheritParams reporter_download_inputs
 #' @return `shiny::moduleServer`
 #' @export
 simple_reporter_srv <- function(id,
