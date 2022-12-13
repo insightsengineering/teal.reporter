@@ -36,6 +36,7 @@ testthat::test_that("download_report_button_srv - render and downlaod a document
 })
 
 testthat::test_that("download_report_button_srv - subset of rmd_yaml_args", {
+
   rmd_yaml_args_correct <- list(
     correct1 = list(
       author = "NEST", title = "Report",
