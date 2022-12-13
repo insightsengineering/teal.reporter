@@ -190,7 +190,7 @@ server <- function(input, output, session) {
   }
   teal.reporter::simple_reporter_srv("simple_reporter", reporter = reporter, card_fun = card_fun)
   teal.reporter::reporter_previewer_srv("prev", reporter)
-  teal.reporter::simple_archiver_srv("achive", reporter)
+  teal.reporter::simple_archiver_srv("simple_achiver", reporter)
   ###
 }
 
