@@ -68,6 +68,7 @@ download_report_button_srv <- function(id,
     id,
     function(input, output, session) {
       ns <- session$ns
+
       download_modal <- function() {
         nr_cards <- length(reporter$get_cards())
         downb <- shiny::tags$a(
