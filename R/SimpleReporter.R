@@ -46,14 +46,31 @@ simple_reporter_ui <- function(id) {
 #' @param reporter [`Reporter`] instance.
 #' @param card_fun `function` which returns a [`ReportCard`] instance,
 #' the function has a `card` argument and an optional `comment` argument.
+#' @inheritParams reporter_download_inputs
 #' @return `shiny::moduleServer`
 #' @export
-simple_reporter_srv <- function(id, reporter, card_fun) {
+simple_reporter_srv <- function(id,
+                                reporter,
+                                card_fun,
+                                rmd_output = c(
+                                  "html" = "html_document", "pdf" = "pdf_document",
+                                  "powerpoint" = "powerpoint_presentation", "word" = "word_document"
+                                ),
+                                rmd_yaml_args = list(
+                                  author = "NEST", title = "Report",
+                                  date = as.character(Sys.Date()), output = "html_document",
+                                  toc = FALSE
+                                )) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
       add_card_button_srv("add_report_card_simple", reporter = reporter, card_fun = card_fun)
-      download_report_button_srv("download_button_simple", reporter = reporter)
+      download_report_button_srv(
+        "download_button_simple",
+        reporter = reporter, 
+        rmd_output = rmd_output, 
+        rmd_yaml_args = rmd_yaml_args
+      )
       reset_report_button_srv("reset_button_simple", reporter = reporter)
     }
   )
