@@ -4,7 +4,15 @@
 \alias{simple_reporter_srv}
 \title{Simple Reporter Server}
 \usage{
-simple_reporter_srv(id, reporter, card_fun)
+simple_reporter_srv(
+  id,
+  reporter,
+  card_fun,
+  rmd_output = c(html = "html_document", pdf = "pdf_document", powerpoint =
+    "powerpoint_presentation", word = "word_document"),
+  rmd_yaml_args = list(author = "NEST", title = "Report", date =
+    as.character(Sys.Date()), output = "html_document", toc = FALSE)
+)
 }
 \arguments{
 \item{id}{\code{character(1)} this \code{shiny} module's id.}
@@ -13,6 +21,16 @@ simple_reporter_srv(id, reporter, card_fun)
 
 \item{card_fun}{\code{function} which returns a \code{\link{ReportCard}} instance,
 the function has a \code{card} argument and an optional \code{comment} argument.}
+
+\item{rmd_output}{\code{character} vector with \code{rmarkdown} output types,
+by default all possible \code{c("pdf_document", "html_document", "powerpoint_presentation", "word_document")}.
+If vector is named then those names will appear in the \code{UI}.}
+
+\item{rmd_yaml_args}{\verb{named list} with \code{Rmd} \code{yaml} header fields and their default values.
+This \code{list} will result in the custom subset of User Interface inputs for the download reporter functionality.
+Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)}.
+The \code{list} must include at least \code{"output"} field.
+The default value for \code{"output"} has to be in the \code{rmd_output} argument.}
 }
 \value{
 \code{shiny::moduleServer}
