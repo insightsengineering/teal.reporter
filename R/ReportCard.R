@@ -186,6 +186,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       new_card <- list()
       new_card[["blocks"]] <- new_blocks
       new_card[["metadata"]] <- self$get_metadata()
+      new_card[["name"]] <- self$get_name()
       new_card
     },
     #' @description Create the `ReportCard` from a list.
@@ -205,6 +206,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       self$reset()
       blocks <- card$blocks
       metadata <- card$metadata
+      name <- card$name
       blocks_names <- names(blocks)
       blocks_names <- gsub("[.][0-9]*$", "", blocks_names)
       for (iter_b in seq_along(blocks)) {
@@ -222,6 +224,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       for (meta in names(metadata)) {
         self$append_metadata(meta, metadata[[meta]])
       }
+      self$set_name(name)
       invisible(self)
     }
   ),
