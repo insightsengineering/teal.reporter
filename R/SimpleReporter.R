@@ -67,8 +67,8 @@ simple_reporter_srv <- function(id,
       add_card_button_srv("add_report_card_simple", reporter = reporter, card_fun = card_fun)
       download_report_button_srv(
         "download_button_simple",
-        reporter = reporter, 
-        rmd_output = rmd_output, 
+        reporter = reporter,
+        rmd_output = rmd_output,
         rmd_yaml_args = rmd_yaml_args
       )
       reset_report_button_srv("reset_button_simple", reporter = reporter)
