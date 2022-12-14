@@ -33,13 +33,7 @@ download_report_button_ui <- function(id) {
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
 #' @param reporter [`Reporter`] instance.
-#' @param rmd_output `character` vector with `rmarkdown` output types,
-#' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
-#' `pdflatex` has to be installed to use the `"pdf_document"` output. If vector is named then the names
-#' will appear in the `UI`.
-#' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
-#' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)`.
-#' Please update only values at this moment.
+#' @inheritParams reporter_download_inputs
 #' @return `shiny::moduleServer`
 #' @export
 download_report_button_srv <- function(id,
@@ -54,17 +48,27 @@ download_report_button_srv <- function(id,
                                          toc = FALSE
                                        )) {
   checkmate::assert_class(reporter, "Reporter")
-  checkmate::assert_subset(rmd_output, c(
-    "html_document", "pdf_document",
-    "powerpoint_presentation", "word_document"
-  ))
+  checkmate::assert_subset(
+    rmd_output,
+    c(
+      "html_document", "pdf_document",
+      "powerpoint_presentation", "word_document"
+    ),
+    empty.ok = FALSE
+  )
   checkmate::assert_list(rmd_yaml_args, names = "named")
-  checkmate::assert_true(all(c("author", "title", "date", "output", "toc") %in% names(rmd_yaml_args)))
+  checkmate::assert_names(
+    names(rmd_yaml_args),
+    subset = c("author", "title", "date", "output", "toc"),
+    must.include = "output"
+  )
+  checkmate::assert_true(rmd_yaml_args[["output"]] %in% rmd_output)
 
   shiny::moduleServer(
     id,
     function(input, output, session) {
       ns <- session$ns
+
       download_modal <- function() {
         nr_cards <- length(reporter$get_cards())
         downb <- shiny::tags$a(
@@ -98,14 +102,12 @@ download_report_button_srv <- function(id,
               ),
             )
           },
-          reporter_download_inputs(rmd_yaml_args, rmd_output, session),
-          if (any_rcode_block(reporter)) {
-            shiny::checkboxInput(
-              ns("showrcode"),
-              label = "Include R Code",
-              value = FALSE
-            )
-          },
+          reporter_download_inputs(
+            rmd_yaml_args = rmd_yaml_args,
+            rmd_output = rmd_output,
+            showrcode = any_rcode_block(reporter),
+            session = session
+          ),
           footer = shiny::tagList(
             shiny::tags$button(
               type = "button",
@@ -228,9 +230,17 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
   invisible(file)
 }
 
-
+#' Get the custom list of User Interface inputs
+#' @param rmd_output `character` vector with `rmarkdown` output types,
+#' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
+#' If vector is named then those names will appear in the `UI`.
+#' @param rmd_yaml_args `named list` with `Rmd` `yaml` header fields and their default values.
+#' This `list` will result in the custom subset of User Interface inputs for the download reporter functionality.
+#' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)`.
+#' The `list` must include at least `"output"` field.
+#' The default value for `"output"` has to be in the `rmd_output` argument.
 #' @keywords internal
-reporter_download_inputs <- function(rmd_yaml_args, rmd_output, session) {
+reporter_download_inputs <- function(rmd_yaml_args, rmd_output, showrcode, session) {
   shiny::tagList(
     lapply(names(rmd_yaml_args), function(e) {
       switch(e,
@@ -247,7 +257,14 @@ reporter_download_inputs <- function(rmd_yaml_args, rmd_output, session) {
         ),
         toc = shiny::checkboxInput(session$ns("toc"), label = "Include Table of Contents", value = rmd_yaml_args$toc)
       )
-    })
+    }),
+    if (showrcode) {
+      shiny::checkboxInput(
+        session$ns("showrcode"),
+        label = "Include R Code",
+        value = FALSE
+      )
+    }
   )
 }
 
