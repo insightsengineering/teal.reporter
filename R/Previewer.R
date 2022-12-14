@@ -31,14 +31,11 @@ reporter_previewer_ui <- function(id) {
 #' For more details see the vignette: `vignette("previewerReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
 #' @param reporter `Reporter` instance
-#' @param rmd_output `character` vector with `rmarkdown` output types,
-#' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
-#' If vector is named then those names will appear in the `UI`.
-#' @param rmd_yaml_args `named list` vector with `Rmd` `yaml` header fields and their default values.
-#' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)`.
-#' Please update only values at this moment.
+#' @inheritParams reporter_download_inputs
 #' @export
-reporter_previewer_srv <- function(id, reporter, rmd_output = c(
+reporter_previewer_srv <- function(id,
+                                   reporter,
+                                   rmd_output = c(
                                      "html" = "html_document", "pdf" = "pdf_document",
                                      "powerpoint" = "powerpoint_presentation",
                                      "word" = "word_document"
@@ -48,7 +45,21 @@ reporter_previewer_srv <- function(id, reporter, rmd_output = c(
                                      toc = FALSE
                                    )) {
   checkmate::assert_class(reporter, "Reporter")
-  checkmate::assert_list(rmd_yaml_args)
+  checkmate::assert_subset(
+    rmd_output,
+    c(
+      "html_document", "pdf_document",
+      "powerpoint_presentation", "word_document"
+    ),
+    empty.ok = FALSE
+  )
+  checkmate::assert_list(rmd_yaml_args, names = "named")
+  checkmate::assert_names(
+    names(rmd_yaml_args),
+    subset = c("author", "title", "date", "output", "toc"),
+    must.include = "output"
+  )
+  checkmate::assert_true(rmd_yaml_args[["output"]] %in% rmd_output)
 
   shiny::moduleServer(
     id,
@@ -62,14 +73,12 @@ reporter_previewer_srv <- function(id, reporter, rmd_output = c(
         shiny::tagList(
           shiny::tags$h3("Download the Report"),
           shiny::tags$hr(),
-          reporter_download_inputs(rmd_yaml_args, rmd_output, session),
-          if (any_rcode_block(reporter)) {
-            shiny::checkboxInput(
-              ns("showrcode"),
-              label = "Include R Code",
-              value = FALSE
-            )
-          },
+          reporter_download_inputs(
+            rmd_yaml_args = rmd_yaml_args,
+            rmd_output = rmd_output,
+            showrcode = any_rcode_block(reporter),
+            session = session
+          ),
           htmltools::tagAppendAttributes(
             shiny::tags$a(
               id = ns("download_data_prev"),
