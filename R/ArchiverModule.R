@@ -54,8 +54,9 @@ archiver_load_srv <- function(id, reporter) {
           shiny::tags$hr(),
           shiny::selectInput(ns("archiver_format"), label = "Archiver Format", choices = "JSON", selected = "JSON"),
           shiny::fileInput(ns("archiver_zip"), "Choose Archiver File to Load (a zip file)",
-                    multiple = FALSE,
-                    accept = c(".zip")),
+            multiple = FALSE,
+            accept = c(".zip")
+          ),
           footer = shiny::div(
             shiny::tags$button(
               type = "button",
