@@ -83,30 +83,12 @@ archiver_load_srv <- function(id, reporter) {
       })
 
       shiny::observeEvent(input$load_archiver, {
-        tmp_dir <- tempdir()
-        output_dir <- file.path(tmp_dir, sprintf("archiver_load_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
-        dir.create(path = output_dir)
-        if (!is.null(input$archiver_zip[["datapath"]])) {
-          tryCatch(
-            expr = zip::unzip(input$archiver_zip[["datapath"]], exdir = output_dir, junkpaths = TRUE),
-            warning = function(cond) {
-              shiny::showNotification(
-                ui = "Unzipping folder warning!",
-                action = "Please contact app developer",
-                type = "warning"
-              )
-            },
-            error = function(cond) {
-              shiny::showNotification(
-                ui = "Unzipping folder error!",
-                action = "Please contact app developer",
-                type = "error"
-              )
-            }
-          )
-          reporter$from_jsondir(output_dir)
-          shiny::removeModal()
-        }
+        switch(input$archiver_format,
+          JSON = load_json_archiver(reporter, input$archiver_zip[["datapath"]]),
+          stop("The provided archiver format is not supported")
+        )
+
+        shiny::removeModal()
       })
     }
   )
@@ -195,14 +177,54 @@ archiver_save_srv <- function(id, reporter) {
         shiny::showModal(archiver_modal())
       })
 
-      output$save_archiver <- shiny::downloadHandler(
-        filename = function() {
-          paste("archiver_", format(Sys.time(), "%y%m%d%H%M%S"), ".zip", sep = "")
-        },
-        content = function(file) {
-          shiny::showNotification("Compressing and Downloading the Archive.")
+      output$save_archiver <- archiver_download_handler(reporter, type = "JSON")
+    }
+  )
+}
+
+#' @keywords internal
+load_json_archiver <- function(reporter, zip_path) {
+  tmp_dir <- tempdir()
+  output_dir <- file.path(tmp_dir, sprintf("archiver_load_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
+  dir.create(path = output_dir)
+  if (!is.null(zip_path)) {
+    tryCatch(
+      expr = zip::unzip(zip_path, exdir = output_dir, junkpaths = TRUE),
+      warning = function(cond) {
+        shiny::showNotification(
+          ui = "Unzipping folder warning!",
+          action = "Please contact app developer",
+          type = "warning"
+        )
+      },
+      error = function(cond) {
+        shiny::showNotification(
+          ui = "Unzipping folder error!",
+          action = "Please contact app developer",
+          type = "error"
+        )
+      }
+    )
+    reporter$from_jsondir(output_dir)
+  }
+}
+
+#' @keywords internal
+archiver_download_handler <- function(reporter, type) {
+  shiny::downloadHandler(
+    filename = function() {
+      paste("archiver_", format(Sys.time(), "%y%m%d%H%M%S"), ".zip", sep = "")
+    },
+    content = function(file) {
+      shiny::showNotification("Compressing and Downloading the Archive.")
+
+      switch(type,
+        JSON = {
           tmp_dir <- tempdir()
-          output_dir <- file.path(tmp_dir, sprintf("archiver_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
+          output_dir <- file.path(
+            tmp_dir,
+            sprintf("archiver_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4")))
+          )
           dir.create(path = output_dir)
           archiver_dir <- reporter$to_jsondir(output_dir)
           temp_zip_file <- tempfile(fileext = ".zip")
@@ -241,9 +263,9 @@ archiver_save_srv <- function(id, reporter) {
               )
             }
           )
-        },
-        contentType = "application/zip"
+        }
       )
-    }
+    },
+    contentType = "application/zip"
   )
 }

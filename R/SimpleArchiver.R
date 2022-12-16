@@ -6,16 +6,6 @@
 #' @param id `character(1)` this `shiny` module's id.
 #' @return `shiny.tag`
 #' @export
-#'
-#' @examples
-#' if (interactive()) {
-#'   shiny::shinyApp(
-#'     ui = shiny::fluidPage(simple_reporter_ui("simple")),
-#'     server = function(input, output, session) {
-#'       simple_reporter_srv("simple", Reporter$new(), function(card) card)
-#'     }
-#'   )
-#' }
 simple_archiver_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(

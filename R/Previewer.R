@@ -74,6 +74,7 @@ reporter_previewer_srv <- function(id,
         shiny::tagList(
           tags$div(
             id = "previewer_reporter_encoding",
+            class = "previewer_well_internal",
             shiny::tags$h3("Download the Report"),
             shiny::tags$hr(),
             reporter_download_inputs(
@@ -82,52 +83,64 @@ reporter_previewer_srv <- function(id,
               showrcode = any_rcode_block(reporter),
               session = session
             ),
-            htmltools::tagAppendAttributes(
-              shiny::tags$a(
-                id = ns("download_data_prev"),
-                class = "btn btn-primary shiny-download-link",
-                href = "",
-                target = "_blank",
-                download = NA,
-                shiny::tags$span("Download Report", shiny::icon("download"))
+            shiny::tags$div(
+              id = "previewer_reporter_buttons",
+              class = "previewer_buttons_line",
+              htmltools::tagAppendAttributes(
+                shiny::tags$a(
+                  id = ns("download_data_prev"),
+                  class = "btn btn-primary shiny-download-link",
+                  href = "",
+                  target = "_blank",
+                  download = NA,
+                  shiny::tags$span("Download Report", shiny::icon("download"))
+                ),
+                class = if (nr_cards) "" else "disabled"
               ),
-              class = if (nr_cards) "" else "disabled"
-            ),
-            teal.reporter::reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
+              teal.reporter::reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
+            )
           ),
           tags$div(
             id = "previewer_archiver_encoding",
-            tags$h3("Archiver"),
+            class = "previewer_well_internal",
+            shiny::tags$h3("Archiver"),
             shiny::tags$hr(),
-            shiny::selectInput(ns("archiver_format"), label = "Archiver Format", choices = "JSON", selected = "JSON"),
             tags$div(
               id = "previewer_archiver_encoding_save",
-              shiny::tags$h4("Save the Archiver"),
-              shiny::tags$a(
-                id = ns("save_archiver_previewer"),
-                class = paste("btn btn-primary shiny-download-link", if (nr_cards) NULL else "disabled"),
-                style = if (nr_cards) NULL else "pointer-events: none;",
-                href = "",
-                target = "_blank",
-                download = NA,
-                shiny::icon("download"),
-                "Save"
+              class = "mb-4",
+              shiny::tags$div(
+                id = "previewer_archiver_encoding_save_button",
+                class = "previewer_buttons_line",
+                shiny::tags$a(
+                  id = ns("save_archiver_previewer"),
+                  class = paste("btn btn-primary shiny-download-link", if (nr_cards) NULL else "disabled"),
+                  style = if (nr_cards) NULL else "pointer-events: none;",
+                  href = "",
+                  target = "_blank",
+                  download = NA,
+                  shiny::icon("download"),
+                  "Save"
+                )
               )
             ),
             tags$div(
               id = "previewer_archiver_encoding_load",
-              shiny::tags$h4("Load the Archiver"),
+              class = "mb-4",
               shiny::fileInput(ns("archiver_zip"), "Choose Archiver File to Load (a zip file)",
                 multiple = FALSE,
                 accept = c(".zip")
               ),
-              shiny::tags$button(
-                id = ns("load_archiver_previewer"),
-                type = "button",
-                class = "btn btn-primary action-button",
-                `data-val` = shiny::restoreInput(id = ns("load_archiver"), default = NULL),
-                NULL,
-                "Load"
+              shiny::tags$div(
+                id = "previewer_archiver_encoding_load_button",
+                class = "previewer_buttons_line",
+                shiny::tags$button(
+                  id = ns("load_archiver_previewer"),
+                  type = "button",
+                  class = "btn btn-primary action-button",
+                  `data-val` = shiny::restoreInput(id = ns("load_archiver"), default = NULL),
+                  NULL,
+                  "Load"
+                )
               )
             )
           )
@@ -161,84 +174,15 @@ reporter_previewer_srv <- function(id,
         }
       })
 
-      output$save_archiver_previewer <- shiny::downloadHandler(
-        filename = function() {
-          paste("archiver_", format(Sys.time(), "%y%m%d%H%M%S"), ".zip", sep = "")
-        },
-        content = function(file) {
-          shiny::showNotification("Compressing and Downloading the Archive.")
-          tmp_dir <- tempdir()
-          output_dir <- file.path(
-            tmp_dir,
-            sprintf("archiver_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4")))
-          )
-          dir.create(path = output_dir)
-          archiver_dir <- reporter$to_jsondir(output_dir)
-          temp_zip_file <- tempfile(fileext = ".zip")
-          tryCatch(
-            expr = zip::zipr(temp_zip_file, archiver_dir),
-            warning = function(cond) {
-              shiny::showNotification(
-                ui = "Zipping folder warning!",
-                action = "Please contact app developer",
-                type = "warning"
-              )
-            },
-            error = function(cond) {
-              shiny::showNotification(
-                ui = "Zipping folder error!",
-                action = "Please contact app developer",
-                type = "error"
-              )
-            }
-          )
-
-          tryCatch(
-            expr = file.copy(temp_zip_file, file),
-            warning = function(cond) {
-              shiny::showNotification(
-                ui = "Copying file warning!",
-                action = "Please contact app developer",
-                type = "warning"
-              )
-            },
-            error = function(cond) {
-              shiny::showNotification(
-                ui = "Copying file error!",
-                action = "Please contact app developer",
-                type = "error"
-              )
-            }
-          )
-        },
-        contentType = "application/zip"
-      )
+      output$save_archiver_previewer <- archiver_download_handler(reporter, type = "JSON")
 
       shiny::observeEvent(input$load_archiver_previewer, {
-        tmp_dir <- tempdir()
-        output_dir <- file.path(tmp_dir, sprintf("archiver_load_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
-        dir.create(path = output_dir)
-        if (!is.null(input$archiver_zip[["datapath"]])) {
-          tryCatch(
-            expr = zip::unzip(input$archiver_zip[["datapath"]], exdir = output_dir, junkpaths = TRUE),
-            warning = function(cond) {
-              shiny::showNotification(
-                ui = "Unzipping folder warning!",
-                action = "Please contact app developer",
-                type = "warning"
-              )
-            },
-            error = function(cond) {
-              shiny::showNotification(
-                ui = "Unzipping folder error!",
-                action = "Please contact app developer",
-                type = "error"
-              )
-            }
-          )
-          reporter$from_jsondir(output_dir)
-          shiny::removeModal()
-        }
+        switch(input$archiver_format,
+          JSON = load_json_archiver(reporter, input$archiver_zip[["datapath"]]),
+          stop("The provided archiver format is not supported")
+        )
+
+        shiny::removeModal()
       })
 
       shiny::observeEvent(input$card_remove_id, {
