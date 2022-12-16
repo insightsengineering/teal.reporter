@@ -174,8 +174,17 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     pictureBlock2md = function(block) {
       basename_pic <- basename(block$get_content())
       file.copy(block$get_content(), file.path(private$output_dir, basename_pic))
+      params <- c(
+        `out.width` = "'100%'",
+        `out.height` = "'100%'"
+      )
       title <- block$get_title()
-      sprintf("![%s](%s){width=%s, height=%s}", title, basename_pic, block$get_dim()[1], block$get_dim()[2]) # nolint
+      if (length(title)) params["fig.cap"] <- shQuote(title)
+      sprintf(
+        "\n```{r, %s}\nknitr::include_graphics(path = '%s')\n```\n",
+        paste(names(params), params, sep = "=", collapse = ", "),
+        basename_pic
+      )
     },
     tableBlock2md = function(block) {
       basename_table <- basename(block$get_content())
