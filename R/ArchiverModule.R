@@ -177,7 +177,16 @@ archiver_save_srv <- function(id, reporter) {
         shiny::showModal(archiver_modal())
       })
 
-      output$save_archiver <- archiver_download_handler(reporter, type = "JSON")
+      output$save_archiver <-  shiny::downloadHandler(
+        filename = function() {
+          paste("archiver_", format(Sys.time(), "%y%m%d%H%M%S"), ".zip", sep = "")
+        },
+        content = function(file) {
+          shiny::showNotification("Compressing and Downloading the Archive.")
+          archiver_download_handler_engine(reporter, type = "JSON", file)
+        },
+        contentType = "application/zip"
+      )
     }
   )
 }
@@ -212,14 +221,7 @@ load_json_archiver <- function(reporter, zip_path, filename) {
 }
 
 #' @keywords internal
-archiver_download_handler <- function(reporter, type) {
-  shiny::downloadHandler(
-    filename = function() {
-      paste("archiver_", format(Sys.time(), "%y%m%d%H%M%S"), ".zip", sep = "")
-    },
-    content = function(file) {
-      shiny::showNotification("Compressing and Downloading the Archive.")
-
+archiver_download_handler_engine <- function(reporter, type, file) {
       switch(type,
         JSON = {
           tmp_dir <- tempdir()
@@ -267,7 +269,4 @@ archiver_download_handler <- function(reporter, type) {
           )
         }
       )
-    },
-    contentType = "application/zip"
-  )
 }

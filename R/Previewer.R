@@ -175,7 +175,16 @@ reporter_previewer_srv <- function(id,
         }
       })
 
-      output$save_archiver_previewer <- archiver_download_handler(reporter, type = "JSON")
+      output$save_archiver_previewer <- shiny::downloadHandler(
+        filename = function() {
+          paste("archiver_", format(Sys.time(), "%y%m%d%H%M%S"), ".zip", sep = "")
+        },
+        content = function(file) {
+          shiny::showNotification("Compressing and Downloading the Archive.")
+          archiver_download_handler_engine(reporter, type = "JSON", file)
+        },
+        contentType = "application/zip"
+      )
 
       shiny::observeEvent(input$load_archiver_previewer, {
         switch("JSON",
