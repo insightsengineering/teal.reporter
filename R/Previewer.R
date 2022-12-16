@@ -179,7 +179,7 @@ reporter_previewer_srv <- function(id,
 
       shiny::observeEvent(input$load_archiver_previewer, {
         switch("JSON",
-          JSON = load_json_archiver(reporter, input$archiver_zip[["datapath"]]),
+          JSON = load_json_archiver(reporter, input$archiver_zip[["datapath"]], input$archiver_zip[["name"]]),
           stop("The provided archiver format is not supported")
         )
 

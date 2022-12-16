@@ -84,7 +84,7 @@ archiver_load_srv <- function(id, reporter) {
 
       shiny::observeEvent(input$load_archiver, {
         switch("JSON",
-          JSON = load_json_archiver(reporter, input$archiver_zip[["datapath"]]),
+          JSON = load_json_archiver(reporter, input$archiver_zip[["datapath"]], input$archiver_zip[["name"]]),
           stop("The provided archiver format is not supported")
         )
 
@@ -183,11 +183,11 @@ archiver_save_srv <- function(id, reporter) {
 }
 
 #' @keywords internal
-load_json_archiver <- function(reporter, zip_path) {
+load_json_archiver <- function(reporter, zip_path, filename) {
   tmp_dir <- tempdir()
   output_dir <- file.path(tmp_dir, sprintf("archiver_load_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
   dir.create(path = output_dir)
-  if (!is.null(zip_path)) {
+  if (!is.null(zip_path) && grepl("archiver_", filename)) {
     tryCatch(
       expr = zip::unzip(zip_path, exdir = output_dir, junkpaths = TRUE),
       warning = function(cond) {
@@ -206,6 +206,8 @@ load_json_archiver <- function(reporter, zip_path) {
       }
     )
     reporter$from_jsondir(output_dir)
+  } else {
+    shiny::showNotification("Faild to Load the archiver file.", type = "error")
   }
 }
 
