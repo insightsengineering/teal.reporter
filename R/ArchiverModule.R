@@ -177,7 +177,7 @@ archiver_save_srv <- function(id, reporter) {
         shiny::showModal(archiver_modal())
       })
 
-      output$save_archiver <-  shiny::downloadHandler(
+      output$save_archiver <- shiny::downloadHandler(
         filename = function() {
           paste("archiver_", format(Sys.time(), "%y%m%d%H%M%S"), ".zip", sep = "")
         },
@@ -216,57 +216,57 @@ load_json_archiver <- function(reporter, zip_path, filename) {
     )
     reporter$from_jsondir(output_dir)
   } else {
-    shiny::showNotification("Faild to Load the archiver file.", type = "error")
+    shiny::showNotification("Failed to load the archiver file.", type = "error")
   }
 }
 
 #' @keywords internal
 archiver_download_handler_engine <- function(reporter, type, file) {
-      switch(type,
-        JSON = {
-          tmp_dir <- tempdir()
-          output_dir <- file.path(
-            tmp_dir,
-            sprintf("archiver_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4")))
+  switch(type,
+    JSON = {
+      tmp_dir <- tempdir()
+      output_dir <- file.path(
+        tmp_dir,
+        sprintf("archiver_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4")))
+      )
+      dir.create(path = output_dir)
+      archiver_dir <- reporter$to_jsondir(output_dir)
+      temp_zip_file <- tempfile(fileext = ".zip")
+      tryCatch(
+        expr = zip::zipr(temp_zip_file, archiver_dir),
+        warning = function(cond) {
+          shiny::showNotification(
+            ui = "Zipping folder warning!",
+            action = "Please contact app developer",
+            type = "warning"
           )
-          dir.create(path = output_dir)
-          archiver_dir <- reporter$to_jsondir(output_dir)
-          temp_zip_file <- tempfile(fileext = ".zip")
-          tryCatch(
-            expr = zip::zipr(temp_zip_file, archiver_dir),
-            warning = function(cond) {
-              shiny::showNotification(
-                ui = "Zipping folder warning!",
-                action = "Please contact app developer",
-                type = "warning"
-              )
-            },
-            error = function(cond) {
-              shiny::showNotification(
-                ui = "Zipping folder error!",
-                action = "Please contact app developer",
-                type = "error"
-              )
-            }
-          )
-
-          tryCatch(
-            expr = file.copy(temp_zip_file, file),
-            warning = function(cond) {
-              shiny::showNotification(
-                ui = "Copying file warning!",
-                action = "Please contact app developer",
-                type = "warning"
-              )
-            },
-            error = function(cond) {
-              shiny::showNotification(
-                ui = "Copying file error!",
-                action = "Please contact app developer",
-                type = "error"
-              )
-            }
+        },
+        error = function(cond) {
+          shiny::showNotification(
+            ui = "Zipping folder error!",
+            action = "Please contact app developer",
+            type = "error"
           )
         }
       )
+
+      tryCatch(
+        expr = file.copy(temp_zip_file, file),
+        warning = function(cond) {
+          shiny::showNotification(
+            ui = "Copying file warning!",
+            action = "Please contact app developer",
+            type = "warning"
+          )
+        },
+        error = function(cond) {
+          shiny::showNotification(
+            ui = "Copying file error!",
+            action = "Please contact app developer",
+            type = "error"
+          )
+        }
+      )
+    }
+  )
 }
