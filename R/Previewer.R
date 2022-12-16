@@ -105,6 +105,7 @@ reporter_previewer_srv <- function(id,
             class = "previewer_well_internal",
             shiny::tags$h3("Archiver"),
             shiny::tags$hr(),
+            shiny::tags$p("Format: JSON", title = "zip file with JSON and static files"),
             tags$div(
               id = "previewer_archiver_encoding_save",
               class = "mb-4",
@@ -177,7 +178,7 @@ reporter_previewer_srv <- function(id,
       output$save_archiver_previewer <- archiver_download_handler(reporter, type = "JSON")
 
       shiny::observeEvent(input$load_archiver_previewer, {
-        switch(input$archiver_format,
+        switch("JSON",
           JSON = load_json_archiver(reporter, input$archiver_zip[["datapath"]]),
           stop("The provided archiver format is not supported")
         )

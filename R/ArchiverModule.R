@@ -52,7 +52,7 @@ archiver_load_srv <- function(id, reporter) {
           easyClose = TRUE,
           shiny::tags$h3("Load the Archiver"),
           shiny::tags$hr(),
-          shiny::selectInput(ns("archiver_format"), label = "Archiver Format", choices = "JSON", selected = "JSON"),
+          shiny::tags$p("Format: JSON", title = "zip file with JSON and static files"),
           shiny::fileInput(ns("archiver_zip"), "Choose Archiver File to Load (a zip file)",
             multiple = FALSE,
             accept = c(".zip")
@@ -83,7 +83,7 @@ archiver_load_srv <- function(id, reporter) {
       })
 
       shiny::observeEvent(input$load_archiver, {
-        switch(input$archiver_format,
+        switch("JSON",
           JSON = load_json_archiver(reporter, input$archiver_zip[["datapath"]]),
           stop("The provided archiver format is not supported")
         )
@@ -149,7 +149,7 @@ archiver_save_srv <- function(id, reporter) {
           shiny::tags$h3("Save the Archiver"),
           shiny::tags$hr(),
           shiny::tags$h5("Save Your Work for Later"),
-          shiny::selectInput(ns("archiver_format"), label = "Archiver Format", choices = "JSON", selected = "JSON"),
+          shiny::tags$p("Format: JSON", title = "zip file with JSON and static files"),
           footer = shiny::div(
             shiny::tags$button(
               type = "button",
