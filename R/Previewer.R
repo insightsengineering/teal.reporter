@@ -124,15 +124,16 @@ reporter_previewer_srv <- function(id,
       shiny::observeEvent(input$card_remove_id, {
         shiny::showModal(
           shiny::modalDialog(
-          title = sprintf(
-            "Do you really want to remove the card %s from the Report?",
-            input$card_remove_id
-          ),
-          footer = shiny::tagList(
-            shiny::modalButton("Cancel"),
-            shiny::actionButton(ns("remove_card_ok"), "OK", class = "btn-warning")
+            title = sprintf(
+              "Do you really want to remove the card %s from the Report?",
+              input$card_remove_id
+            ),
+            footer = shiny::tagList(
+              shiny::modalButton("Cancel"),
+              shiny::actionButton(ns("remove_card_ok"), "OK", class = "btn-warning")
+            )
           )
-          ))
+        )
       })
 
       shiny::observeEvent(input$remove_card_ok, {
