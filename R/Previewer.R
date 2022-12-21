@@ -124,9 +124,14 @@ reporter_previewer_srv <- function(id,
       shiny::observeEvent(input$card_remove_id, {
         shiny::showModal(
           shiny::modalDialog(
-            title = sprintf(
-              "Do you really want to remove the card %s from the Report?",
-              input$card_remove_id
+            title = "Remove the Report Card",
+            shiny::tags$p(
+              shiny::HTML(
+                sprintf(
+                  "Do you really want to remove <strong>the card %s</strong> from the Report?",
+                  input$card_remove_id
+                )
+              )
             ),
             footer = shiny::tagList(
               shiny::modalButton("Cancel"),
