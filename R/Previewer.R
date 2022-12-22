@@ -134,7 +134,14 @@ reporter_previewer_srv <- function(id,
               )
             ),
             footer = shiny::tagList(
-              shiny::modalButton("Cancel"),
+              shiny::tags$button(
+                type = "button",
+                class = "btn btn-danger",
+                `data-dismiss` = "modal",
+                `data-bs-dismiss` = "modal",
+                NULL,
+                "Cancel"
+              ),
               shiny::actionButton(ns("remove_card_ok"), "OK", class = "btn-warning")
             )
           )
