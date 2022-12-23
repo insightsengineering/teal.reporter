@@ -1,11 +1,11 @@
 pandoc: 2.19.2
-pkgdown: 2.0.6
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   previewerReporter: previewerReporter.html
   simpleReporter: simpleReporter.html
   teal-reporter: teal-reporter.html
-last_built: 2022-12-14T08:37Z
+last_built: 2022-12-23T08:09Z
 urls:
   reference: https://insightsengineering.github.io/teal.reporter/main/reference
   article: https://insightsengineering.github.io/teal.reporter/main/articles
