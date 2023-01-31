@@ -1,4 +1,4 @@
-# teal.reporter 0.1.1.9009
+# teal.reporter 0.1.1.9010
 
 ### New features
 
@@ -18,6 +18,7 @@
 * Updated report previewer to support preview of multiline comment.
 * Added support for a table of contents for reporter documents.
 * Added support for global `knitr` options in the render method in the Render class.
+* Improved look of the remove card modal in the previewer module.
 
 ### Miscellaneous
 * Updated `append_src` method of `TealReportCard` to not add additional "R Code" Subtitle.

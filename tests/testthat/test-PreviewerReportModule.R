@@ -88,6 +88,7 @@ testthat::test_that("reporter_previewer_srv - remove a card", {
     expr = {
       len_prior <- length(reporter$get_cards())
       session$setInputs(`card_remove_id` = 1L)
+      session$setInputs(`remove_card_ok` = TRUE)
       len_post <- length(reporter$get_cards())
 
       testthat::expect_identical(len_prior, len_post + 1L)

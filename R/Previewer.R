@@ -122,7 +122,35 @@ reporter_previewer_srv <- function(id,
       })
 
       shiny::observeEvent(input$card_remove_id, {
+        shiny::showModal(
+          shiny::modalDialog(
+            title = "Remove the Report Card",
+            shiny::tags$p(
+              shiny::HTML(
+                sprintf(
+                  "Do you really want to remove <strong>the card %s</strong> from the Report?",
+                  input$card_remove_id
+                )
+              )
+            ),
+            footer = shiny::tagList(
+              shiny::tags$button(
+                type = "button",
+                class = "btn btn-danger",
+                `data-dismiss` = "modal",
+                `data-bs-dismiss` = "modal",
+                NULL,
+                "Cancel"
+              ),
+              shiny::actionButton(ns("remove_card_ok"), "OK", class = "btn-warning")
+            )
+          )
+        )
+      })
+
+      shiny::observeEvent(input$remove_card_ok, {
         reporter$remove_cards(input$card_remove_id)
+        shiny::removeModal()
       })
 
       shiny::observeEvent(input$card_up_id, {
@@ -209,12 +237,7 @@ add_previewer_js <- function(ns) {
           $(document).ready(function(event) {
             $("body").on("click", "span.card_remove_id", function() {
               let val = $(this).data("cardid");
-              let msg_confirm = "Do you really want to remove the card " + val + " from the Report?";
-              let answer = confirm(msg_confirm);
-              if (answer) {
-                Shiny.setInputValue("%s", val, {priority: "event"});
-                $("#panel_card_" + val).remove();
-              }
+              Shiny.setInputValue("%s", val, {priority: "event"});
             });
 
             $("body").on("click", "span.card_up_id", function() {
