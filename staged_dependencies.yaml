@@ -25,6 +25,6 @@ downstream_repos:
     repo: insightsengineering/teal.modules.helios
     host: https://github.com
 upstream_repos:
-  Roche/rtables:
-    repo: Roche/rtables
+  insightsengineering/rtables:
+    repo: insightsengineering/rtables
     host: https://github.com
