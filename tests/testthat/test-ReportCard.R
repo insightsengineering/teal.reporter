@@ -136,9 +136,8 @@ testthat::test_that("setting and getting a name to the ReportCard", {
 })
 
 card <- ReportCard$new()
-
 card$append_text("Header 2 text", "header2")
-card$append_text("A paragraph of default text", "header2")
+card$append_rcode("2 + 2", echo = TRUE)
 card$append_plot(
   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
     ggplot2::geom_histogram()
@@ -153,9 +152,9 @@ testthat::test_that("to_list internally triggers to_list on each Block", {
     card$to_list(temp_dir),
     list(blocks = list(
       TextBlock = list(text = "Header 2 text", style = "header2"),
-      TextBlock = list(text = "A paragraph of default text", style = "header2"),
+      RcodeBlock = list(text = "2 + 2", params = list(echo = TRUE)),
       PictureBlock = list(basename = picture_filename)
-    ), metadata = list())
+    ), metadata = list(), name = character(0))
   )
   testthat::expect_true(picture_filename %in% list.files(temp_dir))
 })

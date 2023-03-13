@@ -152,7 +152,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @examples
     #' ReportCard$new()$set_name("NAME")$get_name()
     set_name = function(name) {
-      checkmate::assert_string(name)
+      checkmate::assert_character(name)
       private$name <- name
       invisible(self)
     },
@@ -174,6 +174,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
         block_class <- class(block)[1]
         cblock <- switch(block_class,
           TextBlock = block$to_list(),
+          RcodeBlock = block$to_list(),
           PictureBlock = block$to_list(output_dir),
           TableBlock = block$to_list(output_dir),
           NewpageBlock = list(),
@@ -186,6 +187,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       new_card <- list()
       new_card[["blocks"]] <- new_blocks
       new_card[["metadata"]] <- self$get_metadata()
+      new_card[["name"]] <- self$get_name()
       new_card
     },
     #' @description Create the `ReportCard` from a list.
@@ -205,12 +207,15 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       self$reset()
       blocks <- card$blocks
       metadata <- card$metadata
+      name <- card$name
+      if (length(name) == 0) name <- character(0)
       blocks_names <- names(blocks)
       blocks_names <- gsub("[.][0-9]*$", "", blocks_names)
       for (iter_b in seq_along(blocks)) {
         block_class <- blocks_names[iter_b]
         block <- blocks[[iter_b]]
         cblock <- switch(block_class,
+          RcodeBlock = RcodeBlock$new()$from_list(block),
           TextBlock = TextBlock$new()$from_list(block),
           PictureBlock = PictureBlock$new()$from_list(block, output_dir),
           TableBlock = TableBlock$new()$from_list(block, output_dir),
@@ -222,6 +227,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       for (meta in names(metadata)) {
         self$append_metadata(meta, metadata[[meta]])
       }
+      self$set_name(name)
       invisible(self)
     }
   ),

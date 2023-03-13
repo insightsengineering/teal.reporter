@@ -192,19 +192,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$metadata <- append(private$metadata, meta)
       invisible(self)
     },
-    #' @description Create/Recreate a Reporter from another Reporter
-    #' @param reporter `Reporter` instance.
-    #' @return invisibly self
-    #' @examples
-    #' reporter <- Reporter$new()
-    #' reporter$from_reporter(reporter)
-    from_reporter = function(reporter) {
-      checkmate::assert_class(reporter, "Reporter")
-      self$reset()
-      self$append_cards(reporter$get_cards())
-      self$append_metadata(reporter$get_metadata())
-      invisible(self)
-    },
     #' @description Convert a Reporter to a list and transfer files
     #' @param output_dir `character(1)` a path to the directory where files will be copied.
     #' @return `named list` `Reporter` representation
