@@ -63,13 +63,13 @@ reset_report_button_srv <- function(id, reporter) {
             footer = shiny::tagList(
               shiny::tags$button(
                 type = "button",
-                class = "btn btn-danger",
+                class = "btn btn-secondary",
                 `data-dismiss` = "modal",
                 `data-bs-dismiss` = "modal",
                 NULL,
                 "Cancel"
               ),
-              shiny::actionButton(ns("reset_reporter_ok"), "Reset", class = "btn-warning")
+              shiny::actionButton(ns("reset_reporter_ok"), "Reset", class = "btn-danger")
             )
           )
         )

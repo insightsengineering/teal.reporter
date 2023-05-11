@@ -136,13 +136,13 @@ reporter_previewer_srv <- function(id,
             footer = shiny::tagList(
               shiny::tags$button(
                 type = "button",
-                class = "btn btn-danger",
+                class = "btn btn-secondary",
                 `data-dismiss` = "modal",
                 `data-bs-dismiss` = "modal",
                 NULL,
                 "Cancel"
               ),
-              shiny::actionButton(ns("remove_card_ok"), "OK", class = "btn-warning")
+              shiny::actionButton(ns("remove_card_ok"), "OK", class = "btn-danger")
             )
           )
         )
