@@ -123,7 +123,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           footer = shiny::div(
             shiny::tags$button(
               type = "button",
-              class = "btn btn-danger",
+              class = "btn btn-secondary",
               `data-dismiss` = "modal",
               `data-bs-dismiss` = "modal",
               NULL,

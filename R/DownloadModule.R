@@ -111,7 +111,7 @@ download_report_button_srv <- function(id,
           footer = shiny::tagList(
             shiny::tags$button(
               type = "button",
-              class = "btn btn-danger",
+              class = "btn btn-secondary",
               `data-dismiss` = "modal",
               `data-bs-dismiss` = "modal",
               NULL,
