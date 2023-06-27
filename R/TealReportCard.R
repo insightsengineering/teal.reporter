@@ -43,11 +43,34 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card$get_content()[[1]]$get_content()
     #'
     append_fs = function(fs) {
+      # todo: whole class should be moved to teal
       checkmate::assert_class(fs, "teal_slices")
-
       if (length(fs) != 0) {
+        states_list <- lapply(fs, function(x) {
+          x_list <- reactiveValuesToList(x)
+          if (
+            inherits(x_list$choices, c("integer", "numeric", "Date", "POSIXct", "POSIXlt")) &&
+            length(x_list$choices) == 2 &&
+            length(x_list$selected) == 2
+          ) {
+            x_list$range <- paste(x_list$selected, collapse = " - ")
+            x_list["selected"] <- NULL
+          }
+          if (!is.null(x$arg)) {
+            x_list$arg <- if (x$arg == "subset") "Genes" else "Samples"
+          }
+
+          x_list <- x_list[
+            c("dataname", "varname", "experiment", "arg", "expr", "selected", "range", "keep_na", "keep_inf")
+          ]
+          names(x_list) <- c("Dataset name", "Variable name", "Experiment", "Filtering by", "Applied expression",
+                             "Selected Values", "Selected range", "Include NA values", "Include Inf values")
+
+          Filter(Negate(is.null), x_list)
+        })
+
         self$append_text("Filter State", "header3")
-        self$append_text(format(fs), "verbatim")
+        self$append_text(yaml::as.yaml(states_list), "verbatim")
       }
       self$append_metadata("FS", fs)
       invisible(self)
