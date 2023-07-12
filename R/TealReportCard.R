@@ -47,11 +47,11 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
       checkmate::assert_class(fs, "teal_slices")
       if (length(fs) != 0) {
         states_list <- lapply(fs, function(x) {
-          x_list <- reactiveValuesToList(x)
+          x_list <- shiny::isolate(shiny::reactiveValuesToList(x))
           if (
             inherits(x_list$choices, c("integer", "numeric", "Date", "POSIXct", "POSIXlt")) &&
-            length(x_list$choices) == 2 &&
-            length(x_list$selected) == 2
+              length(x_list$choices) == 2 &&
+              length(x_list$selected) == 2
           ) {
             x_list$range <- paste(x_list$selected, collapse = " - ")
             x_list["selected"] <- NULL
@@ -63,8 +63,10 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
           x_list <- x_list[
             c("dataname", "varname", "experiment", "arg", "expr", "selected", "range", "keep_na", "keep_inf")
           ]
-          names(x_list) <- c("Dataset name", "Variable name", "Experiment", "Filtering by", "Applied expression",
-                             "Selected Values", "Selected range", "Include NA values", "Include Inf values")
+          names(x_list) <- c(
+            "Dataset name", "Variable name", "Experiment", "Filtering by", "Applied expression",
+            "Selected Values", "Selected range", "Include NA values", "Include Inf values"
+          )
 
           Filter(Negate(is.null), x_list)
         })
