@@ -22,14 +22,6 @@ card <- TealReportCard$new()$append_src(
 card$get_content()[[1]]$get_content()
 
 ## ------------------------------------------------
-## Method `TealReportCard$append_fs`
-## ------------------------------------------------
-
-card <- TealReportCard$new()$append_fs(list(a = 1, b = 2))
-card$get_content()[[1]]$get_content()
-
-
-## ------------------------------------------------
 ## Method `TealReportCard$append_encodings`
 ## ------------------------------------------------
 
@@ -125,16 +117,6 @@ If the filter state list is empty, nothing is appended to the \code{content}.
 \subsection{Returns}{
 invisibly self
 }
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- TealReportCard$new()$append_fs(list(a = 1, b = 2))
-card$get_content()[[1]]$get_content()
-
-}
-\if{html}{\out{</div>}}
-
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TealReportCard-append_encodings"></a>}}

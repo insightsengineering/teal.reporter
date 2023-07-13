@@ -38,10 +38,6 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param fs (`list`) of filter states.
     #' @return invisibly self
-    #' @examples
-    #' card <- TealReportCard$new()$append_fs(list(a = 1, b = 2))
-    #' card$get_content()[[1]]$get_content()
-    #'
     append_fs = function(fs) {
       # todo: whole class should be moved to teal
       checkmate::assert_class(fs, "teal_slices")
@@ -56,8 +52,8 @@ TealReportCard <- R6::R6Class( # nolint: object_name_linter.
             x_list$range <- paste(x_list$selected, collapse = " - ")
             x_list["selected"] <- NULL
           }
-          if (!is.null(x$arg)) {
-            x_list$arg <- if (x$arg == "subset") "Genes" else "Samples"
+          if (!is.null(x_list$arg)) {
+            x_list$arg <- if (x_list$arg == "subset") "Genes" else "Samples"
           }
 
           x_list <- x_list[
