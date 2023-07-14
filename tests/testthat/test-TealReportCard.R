@@ -1,3 +1,13 @@
+teal_slices <- function(...) {
+  structure(list(...), class = "teal_slices")
+}
+teal_slice <- function(dataname, varname) {
+  structure(
+    shiny::reactiveValues(dataname = dataname, varname = varname),
+    class = "teal_slice"
+  )
+}
+
 testthat::test_that("TealReportCard object can be initialized", {
   testthat::expect_error(TealReportCard$new(), regexp = NA)
 })
@@ -63,57 +73,28 @@ testthat::test_that("TealReportCard$append_encodings returns title and content",
 testthat::test_that("TealReportCard$append_fs accepts only a FilteredData", {
   card <- TealReportCard$new()
   testthat::expect_error(card$append_fs(c(a = 1, b = 2)),
-    regexp = "Assertion on 'fs' failed: Must be of type 'list', not 'double'."
+    regexp = "Assertion on 'fs' failed: Must inherit from class 'teal_slices', but has class 'numeric'."
   )
-  testthat::expect_error(card$append_fs(list(a = 1, b = 2)), regexp = NA)
+  testthat::expect_error(card$append_fs(teal_slices(teal_slice(dataname = "a", varname = "b"))), regexp = NA)
 })
 
 testthat::test_that("TealReportCard$append_fs returns self", {
   card <- TealReportCard$new()
-  testthat::expect_identical(card$append_fs(list(a = 1, b = 2)), card)
+  testthat::expect_identical(
+    card$append_fs(teal_slices(teal_slice(dataname = "a", varname = "b"))),
+    card
+  )
 })
 
 testthat::test_that("TealReportCard$append_fs returns title and content", {
   card <- TealReportCard$new()
-  card$append_fs(list(a = 1, b = 2))
+  card$append_fs(teal_slices(teal_slice(dataname = "a", varname = "b")))
   testthat::expect_identical(card$get_content()[[1]]$get_content(), "Filter State")
-  testthat::expect_identical(card$get_content()[[2]]$get_content(), "a: 1.0\nb: 2.0\n")
+  testthat::expect_identical(card$get_content()[[2]]$get_content(), "- Dataset name: a\n  Variable name: b\n")
 })
 
 testthat::test_that("TealReportCard$append_fs does not append filter state if list is empty", {
   card <- TealReportCard$new()
-  card$append_fs(list())
+  card$append_fs(teal_slices())
   testthat::expect_equal(length(card$get_content()), 0)
-})
-
-testthat::test_that("TealReportCard$append_fs appends throws error if attribute is not character or NULL", {
-  # NULL
-  card <- TealReportCard$new()
-  testthat::expect_error(card$append_fs(list(a = 1)), NA)
-
-  # character
-  card <- TealReportCard$new()
-  fs <- list(a = 1, b = 2)
-  attr(fs, "formatted") <- "attr is not NULL"
-  testthat::expect_error(fs, NA)
-
-  # non-character, non-NULL
-  card <- TealReportCard$new()
-  fs <- list(a = 1, b = 2)
-  attr(fs, "formatted") <- 1
-  testthat::expect_error(card$append_fs(fs), "Assertion on 'attr_fs' failed")
-})
-
-testthat::test_that("TealReportCard$append_fs appends text according to the attribute of the input list", {
-  # attribute is NULL
-  card <- TealReportCard$new()
-  card$append_fs(list(a = 1))
-  testthat::expect_identical(card$get_content()[[2]]$get_content(), "a: 1.0\n")
-
-  # attribute is not NULL
-  card <- TealReportCard$new()
-  fs <- list(a = 1, b = 2)
-  attr(fs, "formatted") <- "attr is not NULL"
-  card$append_fs(fs)
-  testthat::expect_identical(card$get_content()[[2]]$get_content(), "attr is not NULL")
 })
