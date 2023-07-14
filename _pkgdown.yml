@@ -5,8 +5,6 @@ template:
   package: nesttemplate
 
 navbar:
-  right:
-    - icon: fa-github
   structure:
     left: [intro, reference, articles, tutorials, news, reports]
     right: [search, github]
