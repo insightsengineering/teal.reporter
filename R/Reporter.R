@@ -218,6 +218,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       rlist <- list(version = "1", cards = list())
       rlist[["metadata"]] <- self$get_metadata()
       for (card in self$get_cards()) {
+        # we want to have list names being a class names to indicate the class for $from_list
         card_class <- class(card)[1]
         u_card <- list()
         u_card[[card_class]] <- card$to_list(output_dir)

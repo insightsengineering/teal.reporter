@@ -150,6 +150,23 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
   ),
   private = list(
     output_dir = character(0),
+    # factory method
+    block2md = function(block) {
+      if (inherits(block, "TextBlock")) {
+        private$textBlock2md(block)
+      } else if (inherits(block, "RcodeBlock")) {
+        private$rcodeBlock2md(block)
+      } else if (inherits(block, "PictureBlock")) {
+        private$pictureBlock2md(block)
+      } else if (inherits(block, "TableBlock")) {
+        private$tableBlock2md(block)
+      } else if (inherits(block, "NewpageBlock")) {
+        block$get_content()
+      } else {
+        stop("Unknown block class")
+      }
+    },
+    # card specific methods
     textBlock2md = function(block) {
       text_style <- block$get_style()
       block_content <- block$get_content()
@@ -190,17 +207,6 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       basename_table <- basename(block$get_content())
       file.copy(block$get_content(), file.path(private$output_dir, basename_table))
       sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename_table)
-    },
-    block2md = function(block) {
-      block_class <- class(block)[1]
-      switch(block_class,
-        TextBlock = private$textBlock2md(block),
-        RcodeBlock = private$rcodeBlock2md(block),
-        PictureBlock = private$pictureBlock2md(block),
-        TableBlock = private$tableBlock2md(block),
-        NewpageBlock = block$get_content(),
-        ""
-      )
     }
   ),
   lock_objects = TRUE,
