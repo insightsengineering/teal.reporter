@@ -26,7 +26,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card <- ReportCard$new()$append_table(iris)
     #'
     append_table = function(table) {
-      private$content <- append(private$content, TableBlock$new(table))
+      self$append_content(TableBlock$new(table))
       invisible(self)
     },
     #' @description Appends a plot to this `ReportCard`.
@@ -45,7 +45,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
         pb$set_dim(dim)
       }
       pb$set_content(plot)
-      private$content <- append(private$content, pb)
+      self$append_content(pb)
       invisible(self)
     },
     #' @description Appends a paragraph of text to this `ReportCard`.
@@ -57,7 +57,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card <- ReportCard$new()$append_text("A paragraph of default text")
     #'
     append_text = function(text, style = TextBlock$new()$get_available_styles()[1]) {
-      private$content <- append(private$content, TextBlock$new(text, style))
+      self$append_content(TextBlock$new(text, style))
       invisible(self)
     },
     #' @description Appends a `rmarkdown` R chunk to this `ReportCard`.
@@ -69,7 +69,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card <- ReportCard$new()$append_rcode("2+2", echo = FALSE)
     #'
     append_rcode = function(text, ...) {
-      private$content <- append(private$content, RcodeBlock$new(text, ...))
+      self$append_content(RcodeBlock$new(text, ...))
       invisible(self)
     },
     #' @description Appends a `ContentBlock` to this `ReportCard`.
