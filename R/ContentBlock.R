@@ -37,6 +37,18 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     get_content = function() {
       private$content
+    },
+    #' @description Create the `ContentBlock` from a list.
+    #' @param x `named list` with two fields `c("text", "style")`.
+    #' Use the `get_available_styles` method to get all possible styles.
+    #' @return invisibly self
+    from_list = function(x) {
+      invisible(self)
+    },
+    #' @description Convert the `ContentBlock` to a list.
+    #' @return `named list` with a text and style.
+    to_list = function() {
+      list()
     }
   ),
   private = list(

@@ -31,8 +31,10 @@ block <- teal.reporter:::NewpageBlock$new()
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="from_list"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-from_list'><code>teal.reporter::ContentBlock$from_list()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-get_content'><code>teal.reporter::ContentBlock$get_content()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="set_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-set_content'><code>teal.reporter::ContentBlock$set_content()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="to_list"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-to_list'><code>teal.reporter::ContentBlock$to_list()</code></a></span></li>
 </ul>
 </details>
 }}
