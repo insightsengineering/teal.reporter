@@ -174,6 +174,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
         block_class <- class(block)[1]
         cblock <- switch(block_class,
           TextBlock = block$to_list(),
+          RcodeBlock = block$to_list(),
           PictureBlock = block$to_list(output_dir),
           TableBlock = block$to_list(output_dir),
           NewpageBlock = list(),
@@ -212,6 +213,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
         block <- blocks[[iter_b]]
         cblock <- switch(block_class,
           TextBlock = TextBlock$new()$from_list(block),
+          RcodeBlock = RcodeBlock$new()$from_list(block),
           PictureBlock = PictureBlock$new()$from_list(block, output_dir),
           TableBlock = TableBlock$new()$from_list(block, output_dir),
           NewpageBlock = NewpageBlock$new(),
