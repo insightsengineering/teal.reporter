@@ -191,30 +191,30 @@ reporter_previewer_srv <- function(id,
 
 #' @keywords internal
 block_to_html <- function(b) {
-  block_class <- class(b)[1]
   b_content <- b$get_content()
-  switch(block_class,
-    TextBlock = {
-      switch(b$get_style(),
-        header1 = shiny::tags$h1(b_content),
-        header2 = shiny::tags$h2(b_content),
-        header3 = shiny::tags$h3(b_content),
-        header4 = shiny::tags$h4(b_content),
-        verbatim = shiny::tags$pre(b_content),
-        shiny::tags$pre(b_content)
-      )
-    },
-    RcodeBlock = panel_item("R Code", shiny::tags$pre(b_content)),
-    PictureBlock = shiny::tags$img(src = knitr::image_uri(b_content)),
-    TableBlock = {
-      b_table <- readRDS(b_content)
-      shiny::tags$pre(
-        paste(utils::capture.output(print(b_table)), collapse = "\n")
-      )
-    },
-    NewpageBlock = shiny::tags$br(),
-    ""
-  )
+  if (inherits(b, "TextBlock")) {
+    switch(b$get_style(),
+      header1 = shiny::tags$h1(b_content),
+      header2 = shiny::tags$h2(b_content),
+      header3 = shiny::tags$h3(b_content),
+      header4 = shiny::tags$h4(b_content),
+      verbatim = shiny::tags$pre(b_content),
+      shiny::tags$pre(b_content)
+    )
+  } else if (inherits(b, "RcodeBlock")) {
+    panel_item("R Code", shiny::tags$pre(b_content))
+  } else if (inherits(b, "PictureBlock")) {
+    shiny::tags$img(src = knitr::image_uri(b_content))
+  } else if (inherits(b, "TableBlock")) {
+    b_table <- readRDS(b_content)
+    shiny::tags$pre(
+      paste(utils::capture.output(print(b_table)), collapse = "\n")
+    )
+  } else if (inherits(b, "NewpageBlock")) {
+    shiny::tags$br()
+  } else {
+    stop("Unknown block class")
+  }
 }
 
 #' @keywords internal

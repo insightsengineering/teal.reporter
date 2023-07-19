@@ -3,7 +3,6 @@
 S3method(print,rmd_yaml_header)
 export(ReportCard)
 export(Reporter)
-export(TealReportCard)
 export(add_card_button_srv)
 export(add_card_button_ui)
 export(as_yaml_auto)

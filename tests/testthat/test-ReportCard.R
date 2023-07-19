@@ -46,6 +46,21 @@ testthat::test_that("append_plot accepts a ggplot with a dim", {
   )
 })
 
+testthat::test_that("append_rcode accepts a character", {
+  testthat::expect_error(
+    ReportCard$new()$append_rcode("x <- 2"),
+    regexp = NA
+  )
+})
+
+
+testthat::test_that("append_rcode returns self", {
+  testthat::expect_error(
+    ReportCard$new()$append_rcode("x <- 2"),
+    regexp = NA
+  )
+})
+
 testthat::test_that("get_content returns a list of ContentBlock objects", {
   card <- ReportCard$new()
   card$append_text("test")$append_plot(ggplot2::ggplot(iris))$append_metadata("SRC", "A <- plot()")
@@ -136,15 +151,13 @@ testthat::test_that("setting and getting a name to the ReportCard", {
 })
 
 card <- ReportCard$new()
-
+rcode <- "ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()"
 card$append_text("Header 2 text", "header2")
 card$append_text("A paragraph of default text", "header2")
-card$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
-    ggplot2::geom_histogram()
-)
+card$append_rcode(rcode)
+card$append_plot(eval(str2lang(rcode)))
 
-picture_filename <- basename(card$get_content()[[3]]$get_content())
+picture_filename <- basename(card$get_content()[[4]]$get_content())
 temp_dir <- file.path(tempdir(), "test")
 dir.create(temp_dir)
 
@@ -154,6 +167,7 @@ testthat::test_that("to_list internally triggers to_list on each Block", {
     list(blocks = list(
       TextBlock = list(text = "Header 2 text", style = "header2"),
       TextBlock = list(text = "A paragraph of default text", style = "header2"),
+      RcodeBlock = list(text = rcode, params = list()),
       PictureBlock = list(basename = picture_filename)
     ), metadata = list())
   )
@@ -165,12 +179,13 @@ testthat::test_that("from_list", {
     list(blocks = list(
       TextBlock = list(text = "Header 2 text", style = "header2"),
       TextBlock = list(text = "A paragraph of default text", style = "header2"),
+      RcodeBlock = list(text = rcode, params = list()),
       PictureBlock = list(basename = picture_filename)
     ), metadata = list()),
     temp_dir
   )
   testthat::expect_true(inherits(cardf, "ReportCard"))
-  testthat::expect_length(cardf$get_content(), 3L)
+  testthat::expect_length(cardf$get_content(), 4L)
 })
 
 unlink(temp_dir, recursive = TRUE)

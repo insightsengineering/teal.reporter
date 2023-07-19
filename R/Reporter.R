@@ -218,6 +218,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       rlist <- list(version = "1", cards = list())
       rlist[["metadata"]] <- self$get_metadata()
       for (card in self$get_cards()) {
+        # we want to have list names being a class names to indicate the class for $from_list
         card_class <- class(card)[1]
         u_card <- list()
         u_card[[card_class]] <- card$to_list(output_dir)
@@ -245,10 +246,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         for (iter_c in seq_along(rlist$cards)) {
           card_class <- cards_names[iter_c]
           card <- rlist$cards[[iter_c]]
-          new_card <- switch(card_class,
-            ReportCard = ReportCard$new()$from_list(card, output_dir),
-            TealReportCard = TealReportCard$new()$from_list(card, output_dir)
-          )
+          new_card <- eval(str2lang(sprintf("%s$new()", card_class)))
+          new_card$from_list(card, output_dir)
           new_cards <- c(new_cards, new_card)
         }
       } else {

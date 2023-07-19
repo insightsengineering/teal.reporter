@@ -26,7 +26,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card <- ReportCard$new()$append_table(iris)
     #'
     append_table = function(table) {
-      private$content <- append(private$content, TableBlock$new(table))
+      self$append_content(TableBlock$new(table))
       invisible(self)
     },
     #' @description Appends a plot to this `ReportCard`.
@@ -45,7 +45,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
         pb$set_dim(dim)
       }
       pb$set_content(plot)
-      private$content <- append(private$content, pb)
+      self$append_content(pb)
       invisible(self)
     },
     #' @description Appends a paragraph of text to this `ReportCard`.
@@ -57,7 +57,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card <- ReportCard$new()$append_text("A paragraph of default text")
     #'
     append_text = function(text, style = TextBlock$new()$get_available_styles()[1]) {
-      private$content <- append(private$content, TextBlock$new(text, style))
+      self$append_content(TextBlock$new(text, style))
       invisible(self)
     },
     #' @description Appends a `rmarkdown` R chunk to this `ReportCard`.
@@ -69,7 +69,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card <- ReportCard$new()$append_rcode("2+2", echo = FALSE)
     #'
     append_rcode = function(text, ...) {
-      private$content <- append(private$content, RcodeBlock$new(text, ...))
+      self$append_content(RcodeBlock$new(text, ...))
       invisible(self)
     },
     #' @description Appends a `ContentBlock` to this `ReportCard`.
@@ -172,13 +172,13 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       new_blocks <- list()
       for (block in self$get_content()) {
         block_class <- class(block)[1]
-        cblock <- switch(block_class,
-          TextBlock = block$to_list(),
-          PictureBlock = block$to_list(output_dir),
-          TableBlock = block$to_list(output_dir),
-          NewpageBlock = list(),
-          NULL
-        )
+        cblock <- if (inherits(block, "FileBlock")) {
+          block$to_list(output_dir)
+        } else if (inherits(block, "ContentBlock")) {
+          block$to_list()
+        } else {
+          list()
+        }
         new_block <- list()
         new_block[[block_class]] <- cblock
         new_blocks <- c(new_blocks, new_block)
@@ -210,13 +210,14 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       for (iter_b in seq_along(blocks)) {
         block_class <- blocks_names[iter_b]
         block <- blocks[[iter_b]]
-        cblock <- switch(block_class,
-          TextBlock = TextBlock$new()$from_list(block),
-          PictureBlock = PictureBlock$new()$from_list(block, output_dir),
-          TableBlock = TableBlock$new()$from_list(block, output_dir),
-          NewpageBlock = NewpageBlock$new(),
+        cblock <- eval(str2lang(sprintf("%s$new()", block_class)))
+        if (inherits(cblock, "FileBlock")) {
+          cblock$from_list(block, output_dir)
+        } else if (inherits(cblock, "ContentBlock")) {
+          cblock$from_list(block)
+        } else {
           NULL
-        )
+        }
         self$append_content(cblock)
       }
       for (meta in names(metadata)) {
