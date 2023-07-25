@@ -97,7 +97,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
       checkmate::assert_class(reporter, "Reporter")
       unlink(list.files(private$output_dir, recursive = TRUE, full.names = TRUE))
       reporter$to_jsondir(private$output_dir)
-      return(self)
+      self
     },
     #' @description read a `Reporter` instance from a directory with `JSONArchiver`.
     #'
