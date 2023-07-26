@@ -30,7 +30,7 @@ Imports:
     zip
 Suggests:
     DT (>= 0.13),
-    ggplot2,
+    ggplot2 (>= 3.4.0),
     lattice (>= 0.18-4),
     png,
     rtables (>= 0.5.1),
