@@ -30,7 +30,7 @@ This package provides:
 
 ## Installation
 
-From July 2023 it is recommended to install packages from publicly available repositories.
+From July 2023 `insightsengineering` packages are available on [r-universe](https://r-universe.dev/).
 
 ```r
 # stable versions
