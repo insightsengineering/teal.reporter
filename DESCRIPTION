@@ -25,9 +25,9 @@ Imports:
     R6,
     rmarkdown (>= 2.19),
     shiny (>= 1.6.0),
-    shinyWidgets,
+    shinyWidgets (>= 0.5.1),
     yaml (>= 1.1.0),
-    zip
+    zip (>= 1.1.0)
 Suggests:
     DT (>= 0.13),
     ggplot2 (>= 3.4.0),
