@@ -3,9 +3,10 @@ Title: Reporting Tools for Shiny Modules
 Version: 0.1.1.9019
 Date: 2023-07-25
 Authors@R: c(
-    person("Maciej", "Nasinski", , "maciej.nasinski@contractors.roche.com", role = c("aut", "cre")),
-    person("Konrad", "Pagacz", , "konrad.pagacz@contractors.roche.com", role = "aut"),
-    person("Mahmoud", "Hallal", , "mahmoud.hallal@roche.com", role = "aut"),
+    person("Dawid", "Kaledkowski", email = "dawid.kaledkowski@roche.com", role = "cre"),
+    person("Maciej", "Nasinski", role = "aut"),
+    person("Konrad", "Pagacz", role = "aut"),
+    person("Mahmoud", "Hallal", "mahmoud.hallal@roche.com", role = "aut"),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
 Description: Reporting tools for your shiny modules to generate
