@@ -1,12 +1,12 @@
 Package: teal.reporter
 Title: Reporting Tools for Shiny Modules
-Version: 0.1.1.9019
-Date: 2023-07-25
+Version: 0.1.1.9020
+Date: 2023-07-27
 Authors@R: c(
-    person("Dawid", "Kaledkowski", email = "dawid.kaledkowski@roche.com", role = "cre"),
+    person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = "cre"),
     person("Maciej", "Nasinski", role = "aut"),
     person("Konrad", "Pagacz", role = "aut"),
-    person("Mahmoud", "Hallal", "mahmoud.hallal@roche.com", role = "aut"),
+    person(c("Mahmoud", "mahmoud.hallal@roche.com"), "Hallal", role = "aut"),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
 Description: Reporting tools for your shiny modules to generate
