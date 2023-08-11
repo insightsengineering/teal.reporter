@@ -1,11 +1,11 @@
-# teal.reporter 0.1.1.9020
+# teal.reporter 0.2.0
 
 ### New features
 
 * Added the new `RcodeBlock` block for a custom `rmarkdown` r chunk.
 * Added the collapsible panel for the Show R Code in the previewer.
 * Added additional input when needed to decide if "Show R Code" should be part of the rendered report.
-* Added the possibility to add a personalized card name when adding a card. 
+* Added the possibility to add a personalized card name when adding a card.
 * Added support for custom inputs for download and previewer modules.
 
 ### Breaking changes
@@ -36,7 +36,7 @@
 * Added support for the `ElementaryTree` class in the `append_table` method of `ReportCard`.
 * Added additional validation for the `card_fun` evaluation.
 * Added support for more arguments setup for a `card_fun` function in the `add_card_button_srv` module, the `card_fun` could have any subset of the possible arguments now.
-* Added the optional `dim` argument to the `append_plot` method in `ReportCard`. 
+* Added the optional `dim` argument to the `append_plot` method in `ReportCard`.
 * Added support for `Heatmap` plots in `PictureBlock`.
 * Updated `append_encodings`, `append_src` and `append_fs` to automatically add titles.
 * Updated vignettes and README content.
