@@ -1,5 +1,9 @@
 # teal.reporter 0.2.0.9002
 
+### Miscellaneous
+
+* Specify minimal version of dependent packages.
+
 # teal.reporter 0.2.0
 
 ### New features
@@ -25,7 +29,6 @@
 
 ### Miscellaneous
 * Updated `append_src` method of `TealReportCard` to not add additional "R Code" Subtitle.
-* Specify minimal version of dependent packages.
 
 # teal.reporter 0.1.1
 
