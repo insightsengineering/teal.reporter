@@ -48,13 +48,6 @@ card <- ReportCard$new()$append_rcode("2+2", echo = FALSE)
 
 
 ## ------------------------------------------------
-## Method `ReportCard$append_content`
-## ------------------------------------------------
-
-card <- ReportCard$new()$append_content(teal.reporter:::NewpageBlock$new())
-
-
-## ------------------------------------------------
 ## Method `ReportCard$get_content`
 ## ------------------------------------------------
 
@@ -308,15 +301,6 @@ Appends a \code{ContentBlock} to this \code{ReportCard}.
 \subsection{Returns}{
 invisibly self
 }
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- ReportCard$new()$append_content(teal.reporter:::NewpageBlock$new())
-
-}
-\if{html}{\out{</div>}}
-
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-get_content"></a>}}

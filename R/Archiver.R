@@ -1,5 +1,6 @@
 #' @title `Archiver`
 #' @keywords internal
+#' @noRd
 Archiver <- R6::R6Class( # nolint: object_name_linter.
   classname = "Archiver",
   public = list(
@@ -32,6 +33,7 @@ Archiver <- R6::R6Class( # nolint: object_name_linter.
 
 #' @title `RDSArchiver`
 #' @keywords internal
+#' @noRd
 FileArchiver <- R6::R6Class( # nolint: object_name_linter.
   classname = "FileArchiver",
   inherit = Archiver,
@@ -70,6 +72,7 @@ FileArchiver <- R6::R6Class( # nolint: object_name_linter.
 
 #' @title `JSONArchiver`
 #' @keywords internal
+#' @noRd
 JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
   classname = "JSONArchiver",
   inherit = FileArchiver,
@@ -79,7 +82,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' @param reporter `Reporter` instance.
     #' @return invisibly self
     #' @examples
-    #' card1 <- teal.reporter:::ReportCard$new()
+    #' card1 <- teal.reporter::ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text", "header2")
@@ -87,7 +90,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )
     #'
-    #' reporter <- teal.reporter:::Reporter$new()
+    #' reporter <- teal.reporter::Reporter$new()
     #' reporter$append_cards(list(card1))
     #'
     #' archiver <- teal.reporter:::JSONArchiver$new()
@@ -104,7 +107,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' @param path `character(1)` a path to the directory with all proper files.
     #' @return `Reporter` instance.
     #' @examples
-    #' card1 <- teal.reporter:::ReportCard$new()
+    #' card1 <- teal.reporter::ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text", "header2")
@@ -112,7 +115,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )
     #'
-    #' reporter <- teal.reporter:::Reporter$new()
+    #' reporter <- teal.reporter::Reporter$new()
     #' reporter$append_cards(list(card1))
     #'
     #' archiver <- teal.reporter:::JSONArchiver$new()
@@ -120,7 +123,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' archiver$get_output_dir()
     #'
     #' archiver$read()$get_cards()[[1]]$get_content()
-    #' blocks <- teal.reporter:::Reporter$new()$from_reporter(archiver$read())$get_blocks()
+    #' blocks <- teal.reporter::Reporter$new()$from_reporter(archiver$read())$get_blocks()
     #' doc <- teal.reporter:::Renderer$new()$render(blocks)
     read = function(path = NULL) {
       checkmate::assert(

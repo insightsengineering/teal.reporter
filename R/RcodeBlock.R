@@ -1,5 +1,6 @@
 #' @title `RcodeBlock`
 #' @keywords internal
+#' @noRd
 RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "RcodeBlock",
   inherit = ContentBlock,

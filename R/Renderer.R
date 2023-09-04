@@ -1,5 +1,6 @@
 #' @title `Renderer`
 #' @keywords internal
+#' @noRd
 Renderer <- R6::R6Class( # nolint: object_name_linter.
   classname = "Renderer",
   public = list(
@@ -30,7 +31,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' Defaults to empty `list()`.
     #' @return `character` a `Rmd` text (`yaml` header + body), ready to be rendered.
     #' @examples
-    #' card1 <- teal.reporter:::ReportCard$new()
+    #' card1 <- teal.reporter::ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text")
@@ -38,7 +39,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )
     #'
-    #' card2 <- teal.reporter:::ReportCard$new()
+    #' card2 <- teal.reporter::ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
     #' card2$append_text("A paragraph of default text", "header2")
@@ -48,7 +49,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' card2$append_table(iris)
     #' card2$append_rcode("2+2", echo = FALSE)
     #'
-    #' reporter <- teal.reporter:::Reporter$new()
+    #' reporter <- teal.reporter::Reporter$new()
     #' reporter$append_cards(list(card1, card2))
     #'
     #' yaml_l <- list(
@@ -96,14 +97,14 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @param ... `rmarkdown::render` arguments, `input` and `output_dir` should not be updated.
     #' @return `character` path to the output
     #' @examples
-    #' card1 <- teal.reporter:::ReportCard$new()
+    #' card1 <- teal.reporter::ReportCard$new()
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text")
     #' card1$append_plot(
     #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )
     #'
-    #' card2 <- teal.reporter:::ReportCard$new()
+    #' card2 <- teal.reporter::ReportCard$new()
     #' card2$append_text("Header 2 text", "header2")
     #' card2$append_text("A paragraph of default text", "header2")
     #' lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
@@ -112,7 +113,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' card2$append_table(iris)
     #' card2$append_rcode("2+2", echo = FALSE)
     #'
-    #' reporter <- teal.reporter:::Reporter$new()
+    #' reporter <- teal.reporter::Reporter$new()
     #' reporter$append_cards(list(card1, card2))
     #'
     #' yaml_l <- list(

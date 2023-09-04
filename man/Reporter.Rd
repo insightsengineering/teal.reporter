@@ -16,14 +16,14 @@ The function has to be used in the shiny reactive context.
 ## Method `Reporter$new`
 ## ------------------------------------------------
 
-reporter <- teal.reporter:::Reporter$new()
+reporter <- teal.reporter::Reporter$new()
 
 
 ## ------------------------------------------------
 ## Method `Reporter$append_cards`
 ## ------------------------------------------------
 
-card1 <- teal.reporter:::ReportCard$new()
+card1 <- teal.reporter::ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text", "header2")
@@ -31,7 +31,7 @@ card1$append_plot(
  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
 )
 
-card2 <- teal.reporter:::ReportCard$new()
+card2 <- teal.reporter::ReportCard$new()
 
 card2$append_text("Header 2 text", "header2")
 card2$append_text("A paragraph of default text", "header2")
@@ -40,7 +40,7 @@ table_res2 <- rtables::build_table(lyt, airquality)
 card2$append_table(table_res2)
 card2$append_table(iris)
 
-reporter <- teal.reporter:::Reporter$new()
+reporter <- teal.reporter::Reporter$new()
 reporter$append_cards(list(card1, card2))
 
 
@@ -48,7 +48,7 @@ reporter$append_cards(list(card1, card2))
 ## Method `Reporter$get_cards`
 ## ------------------------------------------------
 
-card1 <- teal.reporter:::ReportCard$new()
+card1 <- teal.reporter::ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text", "header2")
@@ -56,7 +56,7 @@ card1$append_plot(
  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
 )
 
-card2 <- teal.reporter:::ReportCard$new()
+card2 <- teal.reporter::ReportCard$new()
 
 card2$append_text("Header 2 text", "header2")
 card2$append_text("A paragraph of default text", "header2")
@@ -65,7 +65,7 @@ table_res2 <- rtables::build_table(lyt, airquality)
 card2$append_table(table_res2)
 card2$append_table(iris)
 
-reporter <- teal.reporter:::Reporter$new()
+reporter <- teal.reporter::Reporter$new()
 reporter$append_cards(list(card1, card2))
 reporter$get_cards()
 
@@ -73,7 +73,7 @@ reporter$get_cards()
 ## Method `Reporter$get_blocks`
 ## ------------------------------------------------
 
-card1 <- teal.reporter:::ReportCard$new()
+card1 <- teal.reporter::ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text", "header2")
@@ -81,7 +81,7 @@ card1$append_plot(
  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
 )
 
-card2 <- teal.reporter:::ReportCard$new()
+card2 <- teal.reporter::ReportCard$new()
 
 card2$append_text("Header 2 text", "header2")
 card2$append_text("A paragraph of default text", "header2")
@@ -90,7 +90,7 @@ table_res2 <- rtables::build_table(lyt, airquality)
 card2$append_table(table_res2)
 card2$append_table(iris)
 
-reporter <- teal.reporter:::Reporter$new()
+reporter <- teal.reporter::Reporter$new()
 reporter$append_cards(list(card1, card2))
 reporter$get_blocks()
 
@@ -198,7 +198,7 @@ a \code{Reporter} object
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{reporter <- teal.reporter:::Reporter$new()
+\preformatted{reporter <- teal.reporter::Reporter$new()
 
 }
 \if{html}{\out{</div>}}
@@ -227,7 +227,7 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{card1 <- teal.reporter:::ReportCard$new()
+\preformatted{card1 <- teal.reporter::ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text", "header2")
@@ -235,7 +235,7 @@ card1$append_plot(
  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
 )
 
-card2 <- teal.reporter:::ReportCard$new()
+card2 <- teal.reporter::ReportCard$new()
 
 card2$append_text("Header 2 text", "header2")
 card2$append_text("A paragraph of default text", "header2")
@@ -244,7 +244,7 @@ table_res2 <- rtables::build_table(lyt, airquality)
 card2$append_table(table_res2)
 card2$append_table(iris)
 
-reporter <- teal.reporter:::Reporter$new()
+reporter <- teal.reporter::Reporter$new()
 reporter$append_cards(list(card1, card2))
 
 }
@@ -267,7 +267,7 @@ Returns cards of this \code{Reporter}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{card1 <- teal.reporter:::ReportCard$new()
+\preformatted{card1 <- teal.reporter::ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text", "header2")
@@ -275,7 +275,7 @@ card1$append_plot(
  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
 )
 
-card2 <- teal.reporter:::ReportCard$new()
+card2 <- teal.reporter::ReportCard$new()
 
 card2$append_text("Header 2 text", "header2")
 card2$append_text("A paragraph of default text", "header2")
@@ -284,7 +284,7 @@ table_res2 <- rtables::build_table(lyt, airquality)
 card2$append_table(table_res2)
 card2$append_table(iris)
 
-reporter <- teal.reporter:::Reporter$new()
+reporter <- teal.reporter::Reporter$new()
 reporter$append_cards(list(card1, card2))
 reporter$get_cards()
 }
@@ -315,7 +315,7 @@ Pass \code{NULL} to return content without any additional elements. Default: \co
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{card1 <- teal.reporter:::ReportCard$new()
+\preformatted{card1 <- teal.reporter::ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text", "header2")
@@ -323,7 +323,7 @@ card1$append_plot(
  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
 )
 
-card2 <- teal.reporter:::ReportCard$new()
+card2 <- teal.reporter::ReportCard$new()
 
 card2$append_text("Header 2 text", "header2")
 card2$append_text("A paragraph of default text", "header2")
@@ -332,7 +332,7 @@ table_res2 <- rtables::build_table(lyt, airquality)
 card2$append_table(table_res2)
 card2$append_table(iris)
 
-reporter <- teal.reporter:::Reporter$new()
+reporter <- teal.reporter::Reporter$new()
 reporter$append_cards(list(card1, card2))
 reporter$get_blocks()
 

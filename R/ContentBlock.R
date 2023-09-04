@@ -1,5 +1,6 @@
 #' @title `ContentBlock`
 #' @keywords internal
+#' @noRd
 ContentBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "ContentBlock",
   public = list(

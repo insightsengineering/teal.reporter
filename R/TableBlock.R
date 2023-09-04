@@ -1,6 +1,6 @@
 #' @title `TableBlock`
 #' @keywords internal
-#'
+#' @noRd
 TableBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "TableBlock",
   inherit = FileBlock,

@@ -2,6 +2,7 @@
 #' @description add quoted attribute for `yaml` package
 #' @param x `character`
 #' @keywords internal
+#' @noRd
 #' @examples
 #' yaml <- list(
 #'   author = teal.reporter:::yaml_quoted("NEST"),
@@ -19,6 +20,7 @@ yaml_quoted <- function(x) {
 #' @description wrap a `yaml` string to the `markdown` header.
 #' @param x `character` `yaml` formatted string.
 #' @keywords internal
+#' @noRd
 #' @examples
 #' yaml <- list(
 #'   author = teal.reporter:::yaml_quoted("NEST"),
@@ -40,6 +42,7 @@ md_header <- function(x) {
 #' @param silent `logical` if to suppress the messages and warnings.
 #' @return `input` argument or the appropriate `logical` value.
 #' @keywords internal
+#' @noRd
 #' @examples
 #' teal.reporter:::conv_str_logi("TRUE")
 #' teal.reporter:::conv_str_logi("True")

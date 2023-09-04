@@ -1,6 +1,6 @@
 #' @title `FileBlock`
 #' @keywords internal
-#'
+#' @noRd
 FileBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "FileBlock",
   inherit = ContentBlock,
