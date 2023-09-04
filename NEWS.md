@@ -1,5 +1,7 @@
 # teal.reporter 0.2.0.9002
 
+* Fixed CRAN requirements for the first CRAN submission.
+
 # teal.reporter 0.2.0
 
 ### New features
