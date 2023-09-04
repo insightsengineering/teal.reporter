@@ -10,7 +10,8 @@ Authors@R: c(
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
 Description: 
-    Prebuilt 'shiny' modules containting tools for generation of reports, supporint reproducible research and analysis.
+    Prebuilt 'shiny' modules containting tools for the generation of 'rmarkdown 'reports, supporting reproducible 
+    research and analysis.
 License: Apache License 2.0
 URL: https://github.com/insightsengineering/teal.reporter,
     https://insightsengineering.github.io/teal.reporter/
