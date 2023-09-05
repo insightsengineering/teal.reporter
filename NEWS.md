@@ -1,4 +1,8 @@
-# teal.reporter 0.2.0.9002
+# teal.reporter 0.2.0.9003
+
+### Miscellaneous
+
+* Specify minimal version of dependent packages.
 
 * Fixed CRAN requirements for the first CRAN submission.
 * Removed manual pages for non-exported objects.
