@@ -1,5 +1,9 @@
 # teal.reporter 0.2.0.9002
 
+### Miscellaneous
+
+* Specify minimal version of dependent packages.
+
 # teal.reporter 0.2.0
 
 ### New features
