@@ -2,15 +2,6 @@
 #' @description add quoted attribute for `yaml` package
 #' @param x `character`
 #' @keywords internal
-#' @noRd
-#' @examples
-#' yaml <- list(
-#'   author = teal.reporter:::yaml_quoted("NEST"),
-#'   title = teal.reporter:::yaml_quoted("Report"),
-#'   date = teal.reporter:::yaml_quoted("07/04/2019"),
-#'   output = list(pdf_document = list(keep_tex = TRUE))
-#' )
-#' yaml::as.yaml(yaml)
 yaml_quoted <- function(x) {
   attr(x, "quoted") <- TRUE
   x
@@ -20,15 +11,6 @@ yaml_quoted <- function(x) {
 #' @description wrap a `yaml` string to the `markdown` header.
 #' @param x `character` `yaml` formatted string.
 #' @keywords internal
-#' @noRd
-#' @examples
-#' yaml <- list(
-#'   author = teal.reporter:::yaml_quoted("NEST"),
-#'   title = teal.reporter:::yaml_quoted("Report"),
-#'   date = teal.reporter:::yaml_quoted("07/04/2019"),
-#'   output = list(pdf_document = list(keep_tex = TRUE))
-#' )
-#' teal.reporter:::md_header(yaml::as.yaml(yaml))
 md_header <- function(x) {
   paste0("---\n", x, "---\n")
 }
@@ -42,15 +24,6 @@ md_header <- function(x) {
 #' @param silent `logical` if to suppress the messages and warnings.
 #' @return `input` argument or the appropriate `logical` value.
 #' @keywords internal
-#' @noRd
-#' @examples
-#' teal.reporter:::conv_str_logi("TRUE")
-#' teal.reporter:::conv_str_logi("True")
-#'
-#' teal.reporter:::conv_str_logi("off")
-#' teal.reporter:::conv_str_logi("n")
-#'
-#' teal.reporter:::conv_str_logi("sth")
 conv_str_logi <- function(input,
                           name = "",
                           pos_logi = c("TRUE", "true", "True", "yes", "y", "Y", "on"),

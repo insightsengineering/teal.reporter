@@ -160,3 +160,35 @@ block$get_style()
 block$get_available_styles()
 block$from_list(list(text = "sth", style = "default"))
 block$to_list()
+
+# yaml_utils.R ----
+
+## yaml_quoted ----
+
+yaml <- list(
+  author = teal.reporter:::yaml_quoted("NEST"),
+  title = teal.reporter:::yaml_quoted("Report"),
+  date = teal.reporter:::yaml_quoted("07/04/2019"),
+  output = list(pdf_document = list(keep_tex = TRUE))
+)
+yaml::as.yaml(yaml)
+
+## md_header ----
+
+yaml <- list(
+  author = teal.reporter:::yaml_quoted("NEST"),
+  title = teal.reporter:::yaml_quoted("Report"),
+  date = teal.reporter:::yaml_quoted("07/04/2019"),
+  output = list(pdf_document = list(keep_tex = TRUE))
+)
+teal.reporter:::md_header(yaml::as.yaml(yaml))
+
+## conv_str_logi ----
+
+teal.reporter:::conv_str_logi("TRUE")
+teal.reporter:::conv_str_logi("True")
+
+teal.reporter:::conv_str_logi("off")
+teal.reporter:::conv_str_logi("n")
+
+teal.reporter:::conv_str_logi("sth")
