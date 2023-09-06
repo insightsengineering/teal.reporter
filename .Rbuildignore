@@ -1,4 +1,5 @@
 LICENSE
+dev/internal_examples.R
 ^.*\.Rproj$
 ^Jenkinsfile$
 ^Makefile$

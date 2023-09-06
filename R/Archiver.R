@@ -1,15 +1,11 @@
 #' @title `Archiver`
 #' @keywords internal
-#' @noRd
 Archiver <- R6::R6Class( # nolint: object_name_linter.
   classname = "Archiver",
   public = list(
     #' @description Returns an `Archiver` object.
     #'
     #' @return an `Archiver` object
-    #' @examples
-    #' archiver <- teal.reporter:::Archiver$new()
-    #'
     initialize = function() {
       invisible(self)
     },
@@ -33,7 +29,6 @@ Archiver <- R6::R6Class( # nolint: object_name_linter.
 
 #' @title `RDSArchiver`
 #' @keywords internal
-#' @noRd
 FileArchiver <- R6::R6Class( # nolint: object_name_linter.
   classname = "FileArchiver",
   inherit = Archiver,
@@ -41,9 +36,6 @@ FileArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' @description Returns a `FileArchiver` object.
     #'
     #' @return a `FileArchiver` object
-    #' @examples
-    #' archiver <- teal.reporter:::FileArchiver$new()
-    #'
     initialize = function() {
       tmp_dir <- tempdir()
       output_dir <- file.path(tmp_dir, sprintf("archive_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
@@ -58,9 +50,6 @@ FileArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' @description get `output_dir` field
     #'
     #' @return `character` a `output_dir` field path.
-    #' @examples
-    #' archiver <- teal.reporter:::FileArchiver$new()
-    #' archiver$get_output_dir()
     get_output_dir = function() {
       private$output_dir
     }
@@ -72,7 +61,6 @@ FileArchiver <- R6::R6Class( # nolint: object_name_linter.
 
 #' @title `JSONArchiver`
 #' @keywords internal
-#' @noRd
 JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
   classname = "JSONArchiver",
   inherit = FileArchiver,
@@ -80,22 +68,8 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' @description write a `Reporter` instance in to this `JSONArchiver` object.
     #'
     #' @param reporter `Reporter` instance.
+    #'
     #' @return invisibly self
-    #' @examples
-    #' card1 <- teal.reporter::ReportCard$new()
-    #'
-    #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text", "header2")
-    #' card1$append_plot(
-    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-    #' )
-    #'
-    #' reporter <- teal.reporter::Reporter$new()
-    #' reporter$append_cards(list(card1))
-    #'
-    #' archiver <- teal.reporter:::JSONArchiver$new()
-    #' archiver$write(reporter)
-    #' archiver$get_output_dir()
     write = function(reporter) {
       checkmate::assert_class(reporter, "Reporter")
       unlink(list.files(private$output_dir, recursive = TRUE, full.names = TRUE))
@@ -105,26 +79,8 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' @description read a `Reporter` instance from a directory with `JSONArchiver`.
     #'
     #' @param path `character(1)` a path to the directory with all proper files.
+    #'
     #' @return `Reporter` instance.
-    #' @examples
-    #' card1 <- teal.reporter::ReportCard$new()
-    #'
-    #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text", "header2")
-    #' card1$append_plot(
-    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-    #' )
-    #'
-    #' reporter <- teal.reporter::Reporter$new()
-    #' reporter$append_cards(list(card1))
-    #'
-    #' archiver <- teal.reporter:::JSONArchiver$new()
-    #' archiver$write(reporter)
-    #' archiver$get_output_dir()
-    #'
-    #' archiver$read()$get_cards()[[1]]$get_content()
-    #' blocks <- teal.reporter::Reporter$new()$from_reporter(archiver$read())$get_blocks()
-    #' doc <- teal.reporter:::Renderer$new()$render(blocks)
     read = function(path = NULL) {
       checkmate::assert(
         checkmate::check_null(path),
