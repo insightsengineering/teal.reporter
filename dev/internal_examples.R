@@ -1,4 +1,3 @@
-
 # Archiver.R ----
 
 ## Archiver ----
@@ -17,7 +16,8 @@ card1 <- teal.reporter::ReportCard$new()
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text", "header2")
 card1$append_plot(
- ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
+    ggplot2::geom_histogram()
 )
 
 reporter <- teal.reporter::Reporter$new()
@@ -90,7 +90,8 @@ card1 <- teal.reporter::ReportCard$new()
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text")
 card1$append_plot(
- ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
+    ggplot2::geom_histogram()
 )
 
 card2 <- teal.reporter::ReportCard$new()
@@ -122,7 +123,8 @@ card1 <- teal.reporter::ReportCard$new()
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text")
 card1$append_plot(
- ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
+    ggplot2::geom_histogram()
 )
 
 card2 <- teal.reporter::ReportCard$new()
