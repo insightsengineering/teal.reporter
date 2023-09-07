@@ -28,6 +28,7 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     set_content = function(content) {
       checkmate::assert_multi_class(content, private$supported_tables)
+      content <- to_flextable(content)
       path <- tempfile(fileext = ".rds")
       saveRDS(content, file = path)
       super$set_content(path)

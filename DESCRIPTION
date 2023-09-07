@@ -34,6 +34,7 @@ Suggests:
     lattice (>= 0.18-4),
     png,
     rtables (>= 0.5.1),
+    flextable,
     testthat (>= 3.0.4),
     tinytex
 VignetteBuilder:
