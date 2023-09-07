@@ -27,14 +27,14 @@ Imports:
     shiny (>= 1.6.0),
     shinyWidgets (>= 0.5.1),
     yaml (>= 1.1.0),
-    zip (>= 1.1.0)
+    zip (>= 1.1.0),
+    flextable
 Suggests:
     DT (>= 0.13),
     ggplot2 (>= 3.4.0),
     lattice (>= 0.18-4),
     png,
     rtables (>= 0.5.1),
-    flextable,
     testthat (>= 3.0.4),
     tinytex
 VignetteBuilder:

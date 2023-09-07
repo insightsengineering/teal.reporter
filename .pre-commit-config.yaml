@@ -26,6 +26,7 @@ repos:
           - shinyWidgets
           - yaml
           - zip
+          - flextable
       - id: spell-check
         name: Check spelling with `spelling`
         exclude: >

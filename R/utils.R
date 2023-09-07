@@ -159,7 +159,7 @@ to_flextable <- function(content) {
         flextable::width(width = dim(ft)$widths*pgwidth / flextable::flextable_dim(ft)$widths) # adjust width of each column as percentage of total width
     }
   } else {
-    content
+    ft <- content #update logic for ElementaryTable class
   }
   return(ft)
 }
