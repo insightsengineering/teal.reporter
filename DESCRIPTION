@@ -41,34 +41,12 @@ VignetteBuilder:
     knitr
 RdMacros:
     lifecycle
-<<<<<<< HEAD
-Config/Needs/verdepcheck:
-    rstudio/bslib,
-    mllg/checkmate,
-    rstudio/htmltools,
-    yihui/knitr,
-    r-lib/lifecycle,
-    r-lib/R6,
-    rstudio/rmarkdown,
-    rstudio/shiny,
-    dreamRs/shinyWidgets,
-    yaml=vubiostat/r-yaml,
-    r-lib/zip,
-    rstudio/DT,
-    tidyverse/ggplot2,
-    deepayan/lattice,
-    cran/png,
-    insightsengineering/rtables,
-    r-lib/testthat,
-    rstudio/tinytex
-=======
 Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate,
     rstudio/htmltools, yihui/knitr, r-lib/lifecycle, r-lib/R6,
     rstudio/rmarkdown, rstudio/shiny, dreamRs/shinyWidgets,
     yaml=vubiostat/r-yaml, r-lib/zip, rstudio/DT, tidyverse/ggplot2,
     deepayan/lattice, cran/png, insightsengineering/rtables,
     r-lib/testthat, rstudio/tinytex
->>>>>>> main
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US
