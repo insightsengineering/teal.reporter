@@ -70,9 +70,11 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n```\n",
         capture.output(dput(global_knitr))
       )
+
+      report_type <- reverse_yaml_field(yaml_header, "output")
       parsed_blocks <- paste(
         unlist(
-          lapply(blocks, function(b) private$block2md(b))
+          lapply(blocks, function(b) private$block2md(b, report_type))
         ),
         collapse = "\n\n"
       )
@@ -151,15 +153,15 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
   private = list(
     output_dir = character(0),
     # factory method
-    block2md = function(block) {
+    block2md = function(block, report_type) {
       if (inherits(block, "TextBlock")) {
-        private$textBlock2md(block)
+        private$textBlock2md(block, report_type)
       } else if (inherits(block, "RcodeBlock")) {
-        private$rcodeBlock2md(block)
+        private$rcodeBlock2md(block, report_type)
       } else if (inherits(block, "PictureBlock")) {
-        private$pictureBlock2md(block)
+        private$pictureBlock2md(block, report_type)
       } else if (inherits(block, "TableBlock")) {
-        private$tableBlock2md(block)
+        private$tableBlock2md(block, report_type)
       } else if (inherits(block, "NewpageBlock")) {
         block$get_content()
       } else {
@@ -167,7 +169,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       }
     },
     # card specific methods
-    textBlock2md = function(block) {
+    textBlock2md = function(block, report_type) {
       text_style <- block$get_style()
       block_content <- block$get_content()
       switch(text_style,
@@ -178,7 +180,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         block_content
       )
     },
-    rcodeBlock2md = function(block) {
+    rcodeBlock2md = function(block, report_type) {
       params <- block$get_params()
       params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
       block_content <- block$get_content()
@@ -188,7 +190,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         block_content
       )
     },
-    pictureBlock2md = function(block) {
+    pictureBlock2md = function(block, report_type) {
       basename_pic <- basename(block$get_content())
       file.copy(block$get_content(), file.path(private$output_dir, basename_pic))
       params <- c(
@@ -203,7 +205,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         basename_pic
       )
     },
-    tableBlock2md = function(block) {
+    tableBlock2md = function(block, report_type) {
       basename_table <- basename(block$get_content())
       file.copy(block$get_content(), file.path(private$output_dir, basename_table))
       sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename_table)

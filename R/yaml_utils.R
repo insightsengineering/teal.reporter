@@ -246,6 +246,42 @@ as_yaml_auto <- function(input_list,
   structure(result, class = "rmd_yaml_header")
 }
 
+#' Extract a Field from YAML and Optionally Retrieve Names from a List
+#'
+#' This function parses a YAML text and extracts the specified field. It provides
+#' the option to retrieve the names of elements from a list if the field contains a list.
+#'
+#' @param yaml_text A character vector containing the YAML text.
+#' @param field_name The name of the field to extract.
+#' @param check_list Logical, indicating whether to check if the result is a list
+#'                   and retrieve the names of list elements. Default is TRUE.
+#'
+#' @return If `check_list` is TRUE and the result is a list, it returns the names of
+#'         elements in the list; otherwise, it returns the extracted field.
+#'
+#' @examples
+#' yaml_text <- "\nauthor: NEST\ntitle: Report\noutput:\n  powerpoint_presentation:\n    toc: yes\n"
+#' reverse_yaml_field(yaml_text, "output") # Returns a character vector with "Reading" and "Cooking"
+
+#'
+#' @export
+reverse_yaml_field <- function(yaml_text, field_name, check_list = TRUE) {
+  checkmate::assert_multi_class(yaml_text, c("rmd_yaml_header", "character"))
+  checkmate::assert_string(field_name)
+  checkmate::assert_logical(check_list)
+  # Parse the YAML text
+  yaml_obj <- yaml::yaml.load(yaml_text)
+
+  # Extract the specified field
+  if (field_name %in% names(yaml_obj)) {
+    result <- yaml_obj[[field_name]]
+    if (check_list && is.list(result)) {
+      return(names(result))
+    }
+    return(result)
+  }
+}
+
 #' @title Print method for the `yaml_header` class
 #'
 #' @description `r lifecycle::badge("experimental")`
