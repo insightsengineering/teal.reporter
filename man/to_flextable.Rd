@@ -2,7 +2,9 @@
 % Please edit documentation in R/utils.R
 \name{to_flextable}
 \alias{to_flextable}
-\title{Convert to Flextable}
+\title{Convert content into a \code{flextable}, merge cells with \code{colspan} > 1
+align columns to the center, and row names to the left
+Indent the row names by 10 times indentation}
 \usage{
 to_flextable(content)
 }

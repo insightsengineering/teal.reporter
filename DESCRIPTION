@@ -27,8 +27,7 @@ Imports:
     shiny (>= 1.6.0),
     shinyWidgets (>= 0.5.1),
     yaml (>= 1.1.0),
-    zip (>= 1.1.0),
-    flextable
+    zip (>= 1.1.0)
 Suggests:
     DT (>= 0.13),
     ggplot2 (>= 3.4.0),
@@ -36,6 +35,7 @@ Suggests:
     png,
     rtables (>= 0.5.1),
     testthat (>= 3.0.4),
+    flextable,
     tinytex
 VignetteBuilder:
     knitr
