@@ -112,11 +112,11 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
 
 #' Convert to Flextable
 #'
-#' Convert content into a flextable, merge cells with colspan > 1
+#' Convert content into a `flextable`, merge cells with `colspan` > 1
 #' align columns to the center, and row names to the left
 #' Indent the row names by 10 times indentation
 #'
-#' @param content Supported formats: "data.frame", "rtables", "TableTree", "ElementaryTable"
+#' @param content Supported formats: `data.frame`, `rtables`, `TableTree`, `ElementaryTable`
 
 #' @return (`flextable`)
 #'
@@ -147,23 +147,27 @@ to_flextable <- function(content) {
         dim(ft)$widths[1],
         dim(ft)$widths[-1] - dim(ft)$widths[-1] + sum(dim(ft)$widths[-1]) / (ncol(mf$strings) - 1)
       )) # even the non-label column width
-  } else {
+  } else if (inherits(content, "data.frame")) {
     ft <- flextable::flextable(content)
+  } else {
+    ft <- content
   }
 
-  if (flextable::flextable_dim(ft)$widths > 10) {
-    pgwidth <- 10.5
-    # adjust width of each column as percentage of total width
+  if (inherits(ft, "flextable")) {
+    # Adding theme_booktabs theme and styling
     ft <- ft %>%
-      flextable::width(width = dim(ft)$widths * pgwidth / flextable::flextable_dim(ft)$widths)
-  }
+      flextable::theme_booktabs() %>%
+      flextable::font(fontname = "arial", part = "all") %>%
+      flextable::fontsize(size = 8, part = "body") %>%
+      flextable::bold(part = "header")
 
-  # adding theme_booktabs theme and styling.
-  ft <- ft %>%
-    flextable::theme_booktabs() %>%
-    flextable::font(fontname = "arial", part = "all") %>%
-    flextable::fontsize(size = 8, part = "body") %>%
-    flextable::bold(part = "header")
+    if (inherits(ft, "flextable") && flextable::flextable_dim(ft)$widths > 10) {
+      pgwidth <- 10.5
+      # adjust width of each column as percentage of total width
+      ft <- ft %>%
+        flextable::width(width = dim(ft)$widths * pgwidth / flextable::flextable_dim(ft)$widths)
+    }
+  }
 
   ft
 }
