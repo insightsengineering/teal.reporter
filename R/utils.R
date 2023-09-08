@@ -117,9 +117,10 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
 #' Indent the row names by 10 times indentation.
 #'
 #' @param content Supported formats: "data.frame", "rtables", "TableTree", "ElementaryTable"
+
+#' @return (`flextable`)
 #'
-#' @export
-#'
+#' @keywords internal
 to_flextable <- function(content) {
   if (inherits(content, "data.frame")) {
     ft <- flextable::flextable(content)
@@ -145,7 +146,7 @@ to_flextable <- function(content) {
       flextable::align_text_col(align = "center", header = TRUE) %>%
       flextable::align(i = seq_len(nrow(content)), j = 1, align = "left") %>% # row names align to left
       padding_lst(mf$row_info$indent) %>%
-      flextable::padding(padding.top = 3, padding.bottom = 3, part = "all") %>%
+      flextable::padding(padding.top = 1, padding.bottom = 1, part = "all") %>%
       flextable::autofit(add_h = 0)
 
     ft <- ft %>%
@@ -160,9 +161,17 @@ to_flextable <- function(content) {
         flextable::width(width = dim(ft)$widths * pgwidth / flextable::flextable_dim(ft)$widths) # adjust width of each column as percentage of total width
     }
   } else {
-    ft <- content # update logic for ElementaryTable class
+    ft <- flextable::flextable(content)
   }
-  return(ft)
+
+  # adding theme_booktabs theme and styling.
+  ft <- ft %>%
+    flextable::theme_booktabs() %>%
+    flextable::font(fontname = "arial", part = "all") %>%
+    flextable::fontsize(size = 8, part = "body") %>%
+    flextable::bold(part = "header")
+
+  ft
 }
 
 #' @noRd
@@ -179,6 +188,8 @@ get_merge_index_single <- function(span) {
 }
 
 #' @noRd
+#'
+#' @keywords internal
 get_merge_index <- function(spans) {
   ret <- lapply(seq_len(nrow(spans)), function(i) {
     ri <- spans[i, ]
@@ -191,6 +202,8 @@ get_merge_index <- function(spans) {
 }
 
 #' @noRd
+#'
+#' @keywords internal
 merge_at_indice <- function(ft, lst, part) {
   Reduce(function(ft, ij) {
     flextable::merge_at(ft, i = ij$i, j = ij$j, part = part)
@@ -198,6 +211,8 @@ merge_at_indice <- function(ft, lst, part) {
 }
 
 #' @noRd
+#'
+#' @keywords internal
 padding_lst <- function(ft, indents) {
   Reduce(function(ft, s) {
     flextable::padding(ft, s, 1, padding.left = (indents[s] + 1) * 10)
