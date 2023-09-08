@@ -122,14 +122,7 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
 #'
 #' @keywords internal
 to_flextable <- function(content) {
-  if (inherits(content, "data.frame")) {
-    ft <- flextable::flextable(content)
-    if (flextable::flextable_dim(ft)$widths > 10) {
-      pgwidth <- 10.5
-      ft <- ft %>%
-        flextable::width(width = dim(ft)$widths * pgwidth / flextable::flextable_dim(ft)$widths) # adjust width of each column as percentage of total width
-    }
-  } else if (inherits(content, c("rtables", "TableTree"))) {
+  if (inherits(content, c("rtables", "TableTree"))) {
     mf <- rtables::matrix_form(content)
     nr_header <- attr(mf, "nrow_header")
     non_total_coln <- c(TRUE, !grepl("All Patients", names(content)))
@@ -141,8 +134,8 @@ to_flextable <- function(content) {
       flextable::add_header(values = header_df)
 
     ft <- ft %>%
-      merge_at_indice(lst = get_merge_index(mf$spans[(nr_header + 1):nrow(mf$spans), , drop = F]), part = "body") %>%
-      merge_at_indice(lst = get_merge_index(mf$spans[1:nr_header, , drop = F]), part = "header") %>%
+      merge_at_indice(lst = get_merge_index(mf$spans[(nr_header + 1):nrow(mf$spans), , drop = FALSE]), part = "body") %>%
+      merge_at_indice(lst = get_merge_index(mf$spans[1:nr_header, , drop = FALSE]), part = "header") %>%
       flextable::align_text_col(align = "center", header = TRUE) %>%
       flextable::align(i = seq_len(nrow(content)), j = 1, align = "left") %>% # row names align to left
       padding_lst(mf$row_info$indent) %>%
@@ -154,14 +147,15 @@ to_flextable <- function(content) {
         dim(ft)$widths[1],
         dim(ft)$widths[-1] - dim(ft)$widths[-1] + sum(dim(ft)$widths[-1]) / (ncol(mf$strings) - 1)
       )) # even the non-label column width
-
-    if (flextable::flextable_dim(ft)$widths > 10) {
-      pgwidth <- 10.5
-      ft <- ft %>%
-        flextable::width(width = dim(ft)$widths * pgwidth / flextable::flextable_dim(ft)$widths) # adjust width of each column as percentage of total width
-    }
   } else {
     ft <- flextable::flextable(content)
+  }
+
+  if (flextable::flextable_dim(ft)$widths > 10) {
+    pgwidth <- 10.5
+    # adjust width of each column as percentage of total width
+    ft <- ft %>%
+      flextable::width(width = dim(ft)$widths * pgwidth / flextable::flextable_dim(ft)$widths)
   }
 
   # adding theme_booktabs theme and styling.
