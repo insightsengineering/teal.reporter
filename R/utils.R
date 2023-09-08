@@ -120,7 +120,7 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
 #'
 #' @keywords internal
 to_flextable <- function(content) {
-  if (inherits(content, c("rtables", "TableTree"))) {
+  if (inherits(content, c("rtables", "TableTree", "ElementaryTable"))) {
     mf <- rtables::matrix_form(content)
     nr_header <- attr(mf, "nrow_header")
     non_total_coln <- c(TRUE, !grepl("All Patients", names(content)))
@@ -146,7 +146,6 @@ to_flextable <- function(content) {
       dim(ft)$widths[1],
       dim(ft)$widths[-1] - dim(ft)$widths[-1] + sum(dim(ft)$widths[-1]) / (ncol(mf$strings) - 1)
     )
-
     ft <- flextable::width(ft, width = width_vector)
   } else if (inherits(content, "data.frame")) {
     ft <- flextable::flextable(content)
@@ -155,10 +154,7 @@ to_flextable <- function(content) {
   }
 
   if (inherits(ft, "flextable")) {
-    ft <- flextable::theme_booktabs(ft)
-    ft <- flextable::font(ft, fontname = "arial", part = "all")
-    ft <- flextable::fontsize(ft, size = 8, part = "body")
-    ft <- flextable::bold(ft, part = "header")
+    ft <- custom_theme(ft)
 
     if (inherits(ft, "flextable") && flextable::flextable_dim(ft)$widths > 10) {
       pgwidth <- 10.5
@@ -170,6 +166,15 @@ to_flextable <- function(content) {
   ft
 }
 
+#' @noRd
+custom_theme <- function(ft) {
+  ft <- flextable::fontsize(ft, size = 8, part = "body")
+  ft <- flextable::bold(ft, part = "header")
+  ft <- flextable::theme_booktabs(ft)
+  ft <- flextable::hline(ft, border = flextable::fp_border_default(width =1, color = "grey"))
+  ft <- flextable::border_outer(ft)
+  ft
+}
 
 #' @noRd
 get_merge_index_single <- function(span) {
