@@ -171,7 +171,7 @@ custom_theme <- function(ft) {
   ft <- flextable::fontsize(ft, size = 8, part = "body")
   ft <- flextable::bold(ft, part = "header")
   ft <- flextable::theme_booktabs(ft)
-  ft <- flextable::hline(ft, border = flextable::fp_border_default(width =1, color = "grey"))
+  ft <- flextable::hline(ft, border = flextable::fp_border_default(width = 1, color = "grey"))
   ft <- flextable::border_outer(ft)
   ft
 }
