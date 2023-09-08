@@ -1,5 +1,5 @@
 Package: teal.reporter
-Title: Reporting Tools for Shiny Modules
+Title: Reporting Tools for 'shiny' Modules
 Version: 0.2.1
 Date: 2023-09-05
 Authors@R: c(
