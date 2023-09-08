@@ -13,8 +13,8 @@ to_flextable(content)
 (\code{flextable})
 }
 \description{
-Convert content into a flextable, merge cells with colspan > 1,
-align columns to the center, and row names to the left.
-Indent the row names by 10 times indentation.
+Convert content into a flextable, merge cells with colspan > 1
+align columns to the center, and row names to the left
+Indent the row names by 10 times indentation
 }
 \keyword{internal}
