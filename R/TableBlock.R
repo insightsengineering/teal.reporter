@@ -1,6 +1,5 @@
 #' @title `TableBlock`
 #' @keywords internal
-#'
 TableBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "TableBlock",
   inherit = FileBlock,
@@ -8,8 +7,8 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @description Returns a new `TableBlock` object
     #'
     #' @param table (`data.frame`, `rtables`, `TableTree`, `ElementaryTable`) a table assigned to this `TableBlock`
-    #' @return a `TableBlock` object
     #'
+    #' @return a `TableBlock` object
     initialize = function(table) {
       if (!missing(table)) {
         self$set_content(table)
@@ -21,11 +20,8 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @details throws if argument is not a table-like object.
     #'
     #' @param content (`data.frame`, `rtables`, `TableTree`, `ElementaryTable`) a table assigned to this `TableBlock`
-    #' @return invisibly self
-    #' @examples
-    #' block <- teal.reporter:::TableBlock$new()
-    #' block$set_content(iris)
     #'
+    #' @return invisibly self
     set_content = function(content) {
       checkmate::assert_multi_class(content, private$supported_tables)
       path <- tempfile(fileext = ".rds")

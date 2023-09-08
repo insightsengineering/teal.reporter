@@ -8,31 +8,6 @@
 
 \code{ContentBlock}
 }
-\examples{
-
-## ------------------------------------------------
-## Method `ContentBlock$new`
-## ------------------------------------------------
-
-block <- teal.reporter:::ContentBlock$new()
-
-
-## ------------------------------------------------
-## Method `ContentBlock$set_content`
-## ------------------------------------------------
-
-block <- teal.reporter:::ContentBlock$new()
-block$set_content("Base64 encoded picture")
-
-
-## ------------------------------------------------
-## Method `ContentBlock$get_content`
-## ------------------------------------------------
-
-block <- teal.reporter:::ContentBlock$new()
-block$get_content()
-
-}
 \keyword{internal}
 \section{Methods}{
 \subsection{Public methods}{
@@ -61,15 +36,6 @@ Returns a \code{ContentBlock} object with no content and the default style.
 \subsection{Returns}{
 \code{ContentBlock}
 }
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- teal.reporter:::ContentBlock$new()
-
-}
-\if{html}{\out{</div>}}
-
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ContentBlock-set_content"></a>}}
@@ -90,16 +56,6 @@ Sets content of this \code{ContentBlock}.
 \subsection{Returns}{
 invisibly self
 }
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- teal.reporter:::ContentBlock$new()
-block$set_content("Base64 encoded picture")
-
-}
-\if{html}{\out{</div>}}
-
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ContentBlock-get_content"></a>}}
@@ -113,16 +69,6 @@ Returns the absolute path to content of this \code{ContentBlock}
 \subsection{Returns}{
 \code{character} content of this \code{ContentBlock}
 }
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- teal.reporter:::ContentBlock$new()
-block$get_content()
-
-}
-\if{html}{\out{</div>}}
-
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ContentBlock-from_list"></a>}}
