@@ -3,10 +3,7 @@
 ### Miscellaneous
 
 * Specify minimal version of dependent packages.
-
-### Miscellaneous
-
-* Specify minimal version of dependent packages.
+* Updated TableBlock to convert tables into flextables,to show in rendered report.
 
 # teal.reporter 0.2.0
 
