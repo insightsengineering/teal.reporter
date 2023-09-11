@@ -149,18 +149,13 @@ to_flextable <- function(content) {
     ft <- flextable::width(ft, width = width_vector)
   } else if (inherits(content, "data.frame")) {
     ft <- flextable::flextable(content)
-  } else {
-    ft <- content
   }
 
-  if (inherits(ft, "flextable")) {
-    ft <- custom_theme(ft)
-
-    if (inherits(ft, "flextable") && flextable::flextable_dim(ft)$widths > 10) {
-      pgwidth <- 10.5
-      width_vector <- dim(ft)$widths * pgwidth / flextable::flextable_dim(ft)$widths
-      ft <- flextable::width(ft, width = width_vector)
-    }
+  ft <- custom_theme(ft)
+  if (flextable::flextable_dim(ft)$widths > 10) {
+    pgwidth <- 10.5
+    width_vector <- dim(ft)$widths * pgwidth / flextable::flextable_dim(ft)$widths
+    ft <- flextable::width(ft, width = width_vector)
   }
 
   ft
