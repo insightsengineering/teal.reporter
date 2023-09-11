@@ -56,7 +56,7 @@ pak::pak("insightsengineering/teal.reporter")
 
 ## Usage
 
-To understand how to use this package, please refer to the [Getting Started with teal.reporter](https://insightsengineering.github.io/teal.reporter/latest-tag/articles/teal-reporter.html) article, which provides multiple examples of code implementation.
+To understand how to use this package, please refer to the [Getting Started](https://insightsengineering.github.io/teal.reporter/latest-tag/articles/teal-reporter.html) article, which provides multiple examples of code implementation.
 
 
 ## Getting help
