@@ -14,7 +14,7 @@ meta data blocks that can be appended and rendered to form a report output from 
     
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,6 +47,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/release-candidate">release-candidate</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1-rc2">v0.2.1-rc2</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1-rc1">v0.2.1-rc1</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1">v0.2.1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.0">v0.2.0</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.1.1">v0.1.1</a> </div></li>
 <!-- end dropdown for versions -->
@@ -261,12 +262,6 @@ meta data blocks that can be appended and rendered to form a report output from 
 <h4 id="returns-5">Returns<a class="anchor" aria-label="anchor" href="#returns-5"></a></h4>
 <p>invisibly self</p>
 </div>
-<div class="section">
-<h4 id="examples-5">Examples<a class="anchor" aria-label="anchor" href="#examples-5"></a></h4>
-<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_content</span><span class="op">(</span><span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="../reference/NewpageBlock.html">NewpageBlock</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
-</div>
-
 
 </div><p></p><hr><a id="method-ReportCard-get_content"></a><div class="section">
 <h3 id="method-get-content-">Method <code>get_content()</code><a class="anchor" aria-label="anchor" href="#method-get-content-"></a></h3>
@@ -280,7 +275,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 <p><code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> list of <code>TableBlock</code>, <code>TextBlock</code> and <code>PictureBlock</code>.</p>
 </div>
 <div class="section">
-<h4 id="examples-6">Examples<a class="anchor" aria-label="anchor" href="#examples-6"></a></h4>
+<h4 id="examples-5">Examples<a class="anchor" aria-label="anchor" href="#examples-5"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span><span class="st">"rc"</span>, <span class="st">"a &lt;- 2 + 2"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">card</span><span class="op">$</span><span class="fu">get_content</span><span class="op">(</span><span class="op">)</span></span>
@@ -313,7 +308,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 <p><code>named list</code> list of elements.</p>
 </div>
 <div class="section">
-<h4 id="examples-7">Examples<a class="anchor" aria-label="anchor" href="#examples-7"></a></h4>
+<h4 id="examples-6">Examples<a class="anchor" aria-label="anchor" href="#examples-6"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span><span class="st">"rc"</span>, <span class="st">"a &lt;- 2 + 2"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">card</span><span class="op">$</span><span class="fu">get_metadata</span><span class="op">(</span><span class="op">)</span></span>
@@ -345,7 +340,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 <p>invisibly self</p>
 </div>
 <div class="section">
-<h4 id="examples-8">Examples<a class="anchor" aria-label="anchor" href="#examples-8"></a></h4>
+<h4 id="examples-7">Examples<a class="anchor" aria-label="anchor" href="#examples-7"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span>key <span class="op">=</span> <span class="st">"lm"</span>,</span>
@@ -368,7 +363,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 <p><code>character</code> a Card name</p>
 </div>
 <div class="section">
-<h4 id="examples-9">Examples<a class="anchor" aria-label="anchor" href="#examples-9"></a></h4>
+<h4 id="examples-8">Examples<a class="anchor" aria-label="anchor" href="#examples-8"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">set_name</span><span class="op">(</span><span class="st">"NAME"</span><span class="op">)</span><span class="op">$</span><span class="fu">get_name</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -393,7 +388,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 <p>invisibly self</p>
 </div>
 <div class="section">
-<h4 id="examples-10">Examples<a class="anchor" aria-label="anchor" href="#examples-10"></a></h4>
+<h4 id="examples-9">Examples<a class="anchor" aria-label="anchor" href="#examples-9"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">set_name</span><span class="op">(</span><span class="st">"NAME"</span><span class="op">)</span><span class="op">$</span><span class="fu">get_name</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -418,7 +413,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 <p><code>named list</code> a <code>ReportCard</code> representation.</p>
 </div>
 <div class="section">
-<h4 id="examples-11">Examples<a class="anchor" aria-label="anchor" href="#examples-11"></a></h4>
+<h4 id="examples-10">Examples<a class="anchor" aria-label="anchor" href="#examples-10"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span>key <span class="op">=</span> <span class="st">"lm"</span>,</span>
@@ -454,7 +449,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 <p>invisibly self</p>
 </div>
 <div class="section">
-<h4 id="examples-12">Examples<a class="anchor" aria-label="anchor" href="#examples-12"></a></h4>
+<h4 id="examples-11">Examples<a class="anchor" aria-label="anchor" href="#examples-11"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span>key <span class="op">=</span> <span class="st">"lm"</span>,</span>
@@ -525,13 +520,6 @@ meta data blocks that can be appended and rendered to form a report output from 
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va">ReportCard</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_rcode</span><span class="op">(</span><span class="st">"2+2"</span>, echo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `ReportCard$append_content`</span></span></span>
-<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va">ReportCard</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_content</span><span class="op">(</span><span class="fu">teal.reporter</span><span class="fu">:::</span><span class="va"><a href="NewpageBlock.html">NewpageBlock</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
@@ -620,7 +608,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function (output_dir) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/Rtmpd4Xsr6/file19c3f0ce1bb.png</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/Rtmp5AEkRC/file1995fe57434.png</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis Heatmap</span>
@@ -718,7 +706,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function (output_dir) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/Rtmpd4Xsr6/file19c4f9805bf.png</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/Rtmp5AEkRC/file1992053127b.png</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis Heatmap</span>
@@ -757,7 +745,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$PictureBlock</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$PictureBlock$basename</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "file19c4f9805bf.png"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "file1992053127b.png"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$TextBlock</span>
@@ -828,7 +816,7 @@ meta data blocks that can be appended and rendered to form a report output from 
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function (output_dir) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/Rtmpd4Xsr6/file19c206130ca.png</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/Rtmp5AEkRC/file1994b9f9124.png</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis Heatmap</span>
