@@ -29,13 +29,4 @@ conv_str_logi(
 \description{
 convert a character of a \code{yaml} boolean to a logical value.
 }
-\examples{
-teal.reporter:::conv_str_logi("TRUE")
-teal.reporter:::conv_str_logi("True")
-
-teal.reporter:::conv_str_logi("off")
-teal.reporter:::conv_str_logi("n")
-
-teal.reporter:::conv_str_logi("sth")
-}
 \keyword{internal}

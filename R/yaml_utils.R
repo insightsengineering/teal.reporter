@@ -2,14 +2,6 @@
 #' @description add quoted attribute for `yaml` package
 #' @param x `character`
 #' @keywords internal
-#' @examples
-#' yaml <- list(
-#'   author = teal.reporter:::yaml_quoted("NEST"),
-#'   title = teal.reporter:::yaml_quoted("Report"),
-#'   date = teal.reporter:::yaml_quoted("07/04/2019"),
-#'   output = list(pdf_document = list(keep_tex = TRUE))
-#' )
-#' yaml::as.yaml(yaml)
 yaml_quoted <- function(x) {
   attr(x, "quoted") <- TRUE
   x
@@ -19,14 +11,6 @@ yaml_quoted <- function(x) {
 #' @description wrap a `yaml` string to the `markdown` header.
 #' @param x `character` `yaml` formatted string.
 #' @keywords internal
-#' @examples
-#' yaml <- list(
-#'   author = teal.reporter:::yaml_quoted("NEST"),
-#'   title = teal.reporter:::yaml_quoted("Report"),
-#'   date = teal.reporter:::yaml_quoted("07/04/2019"),
-#'   output = list(pdf_document = list(keep_tex = TRUE))
-#' )
-#' teal.reporter:::md_header(yaml::as.yaml(yaml))
 md_header <- function(x) {
   paste0("---\n", x, "---\n")
 }
@@ -40,14 +24,6 @@ md_header <- function(x) {
 #' @param silent `logical` if to suppress the messages and warnings.
 #' @return `input` argument or the appropriate `logical` value.
 #' @keywords internal
-#' @examples
-#' teal.reporter:::conv_str_logi("TRUE")
-#' teal.reporter:::conv_str_logi("True")
-#'
-#' teal.reporter:::conv_str_logi("off")
-#' teal.reporter:::conv_str_logi("n")
-#'
-#' teal.reporter:::conv_str_logi("sth")
 conv_str_logi <- function(input,
                           name = "",
                           pos_logi = c("TRUE", "true", "True", "yes", "y", "Y", "on"),
@@ -114,13 +90,13 @@ rmd_output_arguments <- function(output_name, default_values = FALSE) {
 #' `c("author", "date", "title", "subtitle", "abstract", "keywords", "subject", "description", "category", "lang")`.
 #' Moreover all `output`field types in the `rmarkdown` package and their arguments are supported.
 #' @param input_list `named list` non nested with slots names and their values compatible with `Rmd` `yaml` header.
-#' @param as_header `logical` optionally wrap with result with the [md_header()], default `TRUE`.
+#' @param as_header `logical` optionally wrap with result with the internal `md_header()`, default `TRUE`.
 #' @param convert_logi `logical` convert a character values to logical,
 #'  if they are recognized as quoted `yaml` logical values , default `TRUE`.
 #' @param multi_output `logical` multi `output` slots in the `input` argument, default `FALSE`.
 #' @param silent `logical` suppress messages and warnings, default `FALSE`.
 #' @return `character` with `rmd_yaml_header` class,
-#' result of [`yaml::as.yaml`], optionally wrapped with [md_header()].
+#' result of [`yaml::as.yaml`], optionally wrapped with internal `md_header()`.
 #' @export
 #' @examples
 #' # nested so using yaml::as.yaml directly

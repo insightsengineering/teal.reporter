@@ -12,13 +12,4 @@ md_header(x)
 \description{
 wrap a \code{yaml} string to the \code{markdown} header.
 }
-\examples{
-yaml <- list(
-  author = teal.reporter:::yaml_quoted("NEST"),
-  title = teal.reporter:::yaml_quoted("Report"),
-  date = teal.reporter:::yaml_quoted("07/04/2019"),
-  output = list(pdf_document = list(keep_tex = TRUE))
-)
-teal.reporter:::md_header(yaml::as.yaml(yaml))
-}
 \keyword{internal}

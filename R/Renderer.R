@@ -8,8 +8,6 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @details Returns a `Renderer` object.
     #'
     #' @return `Renderer` object.
-    #' @examples
-    #' renderer <- teal.reporter:::Renderer$new()
     initialize = function() {
       tmp_dir <- tempdir()
       output_dir <- file.path(tmp_dir, sprintf("report_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
@@ -28,38 +26,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @param global_knitr `list` a global `knitr` parameters, like echo.
     #' But if local parameter is set it will have priority.
     #' Defaults to empty `list()`.
+    #'
     #' @return `character` a `Rmd` text (`yaml` header + body), ready to be rendered.
-    #' @examples
-    #' card1 <- teal.reporter:::ReportCard$new()
-    #'
-    #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text")
-    #' card1$append_plot(
-    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-    #' )
-    #'
-    #' card2 <- teal.reporter:::ReportCard$new()
-    #'
-    #' card2$append_text("Header 2 text", "header2")
-    #' card2$append_text("A paragraph of default text", "header2")
-    #' lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
-    #' table_res2 <- rtables::build_table(lyt, airquality)
-    #' card2$append_table(table_res2)
-    #' card2$append_table(iris)
-    #' card2$append_rcode("2+2", echo = FALSE)
-    #'
-    #' reporter <- teal.reporter:::Reporter$new()
-    #' reporter$append_cards(list(card1, card2))
-    #'
-    #' yaml_l <- list(
-    #'   author = teal.reporter:::yaml_quoted("NEST"),
-    #'   title = teal.reporter:::yaml_quoted("Report"),
-    #'   date = teal.reporter:::yaml_quoted("07/04/2019"),
-    #'   output = list(html_document = list(toc = FALSE))
-    #' )
-    #'
-    #' yaml_header <- teal.reporter:::md_header(yaml::as.yaml(yaml_l))
-    #' result_path <- teal.reporter:::Renderer$new()$renderRmd(reporter$get_blocks(), yaml_header)
     renderRmd = function(blocks, yaml_header, global_knitr = list()) {
       checkmate::assert_list(blocks, c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock"))
       if (missing(yaml_header)) {
@@ -94,37 +62,9 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @param global_knitr `list` a global `knitr` parameters, like echo.
     #' But if local parameter is set it will have priority.
     #' Defaults to empty `list()`.
-    #' @param ... `rmarkdown::render` arguments, `input` and `output_dir` should not be updated.
+    #' @param ... `rmarkdown::render` arguments, `input` and `output_dir` should not be updated.z
+    #'
     #' @return `character` path to the output
-    #' @examples
-    #' card1 <- teal.reporter:::ReportCard$new()
-    #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text")
-    #' card1$append_plot(
-    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
-    #' )
-    #'
-    #' card2 <- teal.reporter:::ReportCard$new()
-    #' card2$append_text("Header 2 text", "header2")
-    #' card2$append_text("A paragraph of default text", "header2")
-    #' lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
-    #' table_res2 <- rtables::build_table(lyt, airquality)
-    #' card2$append_table(table_res2)
-    #' card2$append_table(iris)
-    #' card2$append_rcode("2+2", echo = FALSE)
-    #'
-    #' reporter <- teal.reporter:::Reporter$new()
-    #' reporter$append_cards(list(card1, card2))
-    #'
-    #' yaml_l <- list(
-    #'   author = teal.reporter:::yaml_quoted("NEST"),
-    #'   title = teal.reporter:::yaml_quoted("Report"),
-    #'   date = teal.reporter:::yaml_quoted("07/04/2019"),
-    #'   output = list(html_document = list(toc = FALSE))
-    #' )
-    #'
-    #' yaml_header <- teal.reporter:::md_header(yaml::as.yaml(yaml_l))
-    #' result_path <- teal.reporter:::Renderer$new()$render(reporter$get_blocks(), yaml_header)
     render = function(blocks, yaml_header, global_knitr = list(), ...) {
       args <- list(...)
       input_path <- self$renderRmd(blocks, yaml_header, global_knitr)
@@ -142,9 +82,6 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @description get `output_dir` field
     #'
     #' @return `character` a `output_dir` field path.
-    #' @examples
-    #' renderer <- teal.reporter:::Renderer$new()
-    #' renderer$get_output_dir()
     get_output_dir = function() {
       private$output_dir
     }
