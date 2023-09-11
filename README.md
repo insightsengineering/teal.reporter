@@ -1,8 +1,14 @@
 # teal.reporter
 
 <!-- start badges -->
+
+[![CRAN Version](https://www.r-pkg.org/badges/version/teal.reporter?color=green)](https://cran.r-project.org/package=teal.reporter)
+[![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/teal.reporter?color=green)](https://cran.r-project.org/package=teal.reporter)
+[![Last Month Downloads](http://cranlogs.r-pkg.org/badges/last-month/teal.reporter?color=green)](https://cran.r-project.org/package=teal.reporter)
+[![Last Week Downloads](http://cranlogs.r-pkg.org/badges/last-week/teal.reporter?color=green)](https://cran.r-project.org/package=teal.reporter)
+
 [![Check 🛠](https://github.com/insightsengineering/teal.reporter/actions/workflows/check.yaml/badge.svg)](https://insightsengineering.github.io/teal.reporter/main/unit-test-report/)
-[![Docs 📚](https://github.com/insightsengineering/teal.reporter/actions/workflows/docs.yaml/badge.svg)](https://insightsengineering.github.io/teal.reporter/)
+[![Docs 📚](https://github.com/insightsengineering/teal.reporter/actions/workflows/docs.yaml/badge.svg)](https://insightsengineering.github.io/teal.reporter/latest-tag/)
 [![Code Coverage 📔](https://raw.githubusercontent.com/insightsengineering/teal.reporter/_xml_coverage_reports/data/main/badge.svg)](https://insightsengineering.github.io/teal.reporter/main/coverage-report/)
 
 ![GitHub forks](https://img.shields.io/github/forks/insightsengineering/teal.reporter?style=social)
@@ -48,7 +54,14 @@ install.packages('teal.reporter', repos = c('https://pharmaverse.r-universe.dev'
 pak::pak("insightsengineering/teal.reporter")
 ```
 
-See package vignettes `browseVignettes(package = "teal.reporter")` for usage of this package.
+## Usage
+
+To understand how to use this package, please refer to the [Simple Reporter](https://insightsengineering.github.io/teal.reporter/latest-tag/articles/simpleReporter.html) and [Reporter Previewer](https://insightsengineering.github.io/teal.reporter/latest-tag/articles/previewerReporter.html) articles, which provides multiple examples of code implementation.
+
+
+## Getting help
+
+If you encounter a bug or you have a feature request - please file an issue. For questions, discussions and staying up to date, please use the "teal" channel in the [`pharmaverse` slack workspace](https://pharmaverse.slack.com).
 
 ## Stargazers and Forkers
 
