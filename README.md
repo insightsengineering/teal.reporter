@@ -30,14 +30,22 @@ This package provides:
 
 ## Installation
 
-From July 2023 `insightsengineering` packages are available on [r-universe](https://r-universe.dev/).
-
 ```r
 # stable versions
-install.packages('teal.reporter', repos = c('https://insightsengineering.r-universe.dev', 'https://cloud.r-project.org'))
+install.packages('teal.reporter')
 
+# install.packages("pak")
+pak::pak("insightsengineering/teal.reporter@*release")
+```
+
+Alternatively, you might want to use the development version available on [r-universe](https://r-universe.dev/).
+
+```r
 # beta versions
 install.packages('teal.reporter', repos = c('https://pharmaverse.r-universe.dev', 'https://cloud.r-project.org'))
+
+# install.packages("pak")
+pak::pak("insightsengineering/teal.reporter")
 ```
 
 See package vignettes `browseVignettes(package = "teal.reporter")` for usage of this package.
