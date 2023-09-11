@@ -47,3 +47,14 @@ reference:
     contents:
       - ReportCard
       - Reporter
+articles:
+  - title: Getting Started
+    navbar: Getting Started
+    contents:
+    - teal-reporter
+    - simpleReporter
+
+  - title: Reporter Previewer
+    navbar: Reporter Previewer
+    contents:
+    - previewerReporter
