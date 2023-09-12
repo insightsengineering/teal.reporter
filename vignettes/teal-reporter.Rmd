@@ -1,6 +1,5 @@
 ---
 title: "Getting Started with teal.reporter"
-date: "2022-06-08"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Getting Started with teal.reporter}
