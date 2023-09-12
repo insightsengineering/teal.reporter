@@ -58,7 +58,6 @@ pak::pak("insightsengineering/teal.reporter")
 
 To understand how to use this package, please refer to the [Getting Started](https://insightsengineering.github.io/teal.reporter/latest-tag/articles/teal-reporter.html) article, which provides multiple examples of code implementation.
 
-
 ## Getting help
 
 If you encounter a bug or you have a feature request - please file an issue. For questions, discussions and staying up to date, please use the "teal" channel in the [`pharmaverse` slack workspace](https://pharmaverse.slack.com).
