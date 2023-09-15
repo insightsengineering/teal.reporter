@@ -149,6 +149,8 @@ to_flextable <- function(content) {
     ft <- flextable::width(ft, width = width_vector)
   } else if (inherits(content, "data.frame")) {
     ft <- flextable::flextable(content)
+  } else {
+    stop(paste0("Unsupported class `(", format(class(content)), ")` when exporting table")
   }
 
   ft <- custom_theme(ft)
