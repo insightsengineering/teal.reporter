@@ -17,7 +17,7 @@ testthat::test_that("Test to_flextable: unsupported class", {
   expect_error(to_flextable(unsupported_data), "Unsupported class")
 })
 
-test_that("custom theme to flextable", {
+test_that("custom_theme to flextable", {
   sample_ft <- flextable::qflextable(head(mtcars))
   themed_ft <- custom_theme(sample_ft)
   expect_is(themed_ft, "flextable")
