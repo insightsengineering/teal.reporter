@@ -131,8 +131,8 @@ to_flextable <- function(content) {
     ft <- flextable::delete_part(ft, part = "header")
     ft <- flextable::add_header(ft, values = header_df)
 
-    merge_index_body <- get_merge_index(mf$spans[(nr_header + 1):nrow(mf$spans), , drop = FALSE])
-    merge_index_header <- get_merge_index(mf$spans[1:nr_header, , drop = FALSE])
+    merge_index_body <- get_merge_index(mf$spans[seq(nr_header + 1, nrow(mf$spans)), , drop = FALSE])
+    merge_index_header <- get_merge_index(mf$spans[seq_len(nr_header), , drop = FALSE])
 
     ft <- merge_at_indice(ft, lst = merge_index_body, part = "body")
     ft <- merge_at_indice(ft, lst = merge_index_header, part = "header")
