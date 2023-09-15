@@ -150,7 +150,7 @@ to_flextable <- function(content) {
   } else if (inherits(content, "data.frame")) {
     ft <- flextable::flextable(content)
   } else {
-    stop(paste0("Unsupported class `(", format(class(content)), ")` when exporting table")
+    stop(paste0("Unsupported class `(", format(class(content)), ")` when exporting table"))
   }
 
   ft <- custom_theme(ft)
@@ -163,7 +163,10 @@ to_flextable <- function(content) {
   ft
 }
 
+#' Apply a custom theme to a `flextable`
 #' @noRd
+#'
+#' @keywords internal
 custom_theme <- function(ft) {
   ft <- flextable::fontsize(ft, size = 8, part = "body")
   ft <- flextable::bold(ft, part = "header")
@@ -173,7 +176,12 @@ custom_theme <- function(ft) {
   ft
 }
 
+#' Get the merge index for a single span.
+#' This function retrieves the merge index for a single span,
+#' which is used in merging cells.
 #' @noRd
+#'
+#' @keywords internal
 get_merge_index_single <- function(span) {
   ret <- list()
   j <- 1
@@ -186,6 +194,8 @@ get_merge_index_single <- function(span) {
   return(ret)
 }
 
+#' Get the merge index for multiple spans.
+#' This function merges cells in a `flextable` at specified row and column indices.
 #' @noRd
 #'
 #' @keywords internal
@@ -200,6 +210,7 @@ get_merge_index <- function(spans) {
   unlist(ret, recursive = FALSE, use.names = FALSE)
 }
 
+#' Merge cells in a `flextable` at specified indices
 #' @noRd
 #'
 #' @keywords internal
@@ -209,6 +220,8 @@ merge_at_indice <- function(ft, lst, part) {
   }, lst, ft)
 }
 
+#' Apply padding to a `flextable` based on indentation levels.
+#' This function applies padding to a `flextable` based on indentation levels provided as a vector.
 #' @noRd
 #'
 #' @keywords internal
