@@ -124,8 +124,8 @@ to_flextable <- function(content) {
     mf <- rtables::matrix_form(content)
     nr_header <- attr(mf, "nrow_header")
     non_total_coln <- c(TRUE, !grepl("All Patients", names(content)))
-    df <- as.data.frame(mf$strings[(nr_header + 1):(nrow(mf$strings)), , drop = FALSE])
-    header_df <- as.data.frame(mf$strings[1:nr_header, , drop = FALSE])
+    df <- as.data.frame(mf$strings[seq(nr_header + 1, nrow(mf$strings)), , drop = FALSE])
+    header_df <- as.data.frame(mf$strings[seq_len(nr_header), , drop = FALSE])
 
     ft <- flextable::flextable(df)
     ft <- flextable::delete_part(ft, part = "header")
