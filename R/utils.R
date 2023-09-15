@@ -144,7 +144,7 @@ to_flextable <- function(content) {
 
     width_vector <- c(
       dim(ft)$widths[1],
-      dim(ft)$widths[-1] - dim(ft)$widths[-1] + sum(dim(ft)$widths[-1]) / (ncol(mf$strings) - 1)
+      rep(sum(dim(ft)$widths[-1]), length(dim(ft)$widths) - 1) / (ncol(mf$strings) - 1)
     )
     ft <- flextable::width(ft, width = width_vector)
   } else if (inherits(content, "data.frame")) {
