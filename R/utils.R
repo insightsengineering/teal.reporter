@@ -179,7 +179,7 @@ get_merge_index_single <- function(span) {
   j <- 1
   while (j < length(span)) {
     if (span[j] != 1) {
-      ret <- c(ret, list(j:(j + span[j] - 1)))
+      ret <- c(ret, list(seq(j, j + span[j] - 1)))
     }
     j <- j + span[j]
   }
