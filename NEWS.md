@@ -5,6 +5,7 @@
 ### Miscellaneous
 
 * Specify minimal version of dependent packages.
+* Updated `TableBlock` to convert tables into `flextables` to show in rendered report.
 * Fixed CRAN requirements for the first CRAN submission.
 * Removed manual pages for non-exported objects.
 

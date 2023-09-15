@@ -109,3 +109,109 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
     )
   })
 }
+
+#' Convert content into a `flextable`, merge cells with `colspan` > 1
+#' align columns to the center, and row names to the left
+#' Indent the row names by 10 times indentation
+#'
+#' @param content Supported formats: `data.frame`, `rtables`, `TableTree`, `ElementaryTable`
+
+#' @return (`flextable`)
+#'
+#' @keywords internal
+to_flextable <- function(content) {
+  if (inherits(content, c("rtables", "TableTree", "ElementaryTable"))) {
+    mf <- rtables::matrix_form(content)
+    nr_header <- attr(mf, "nrow_header")
+    non_total_coln <- c(TRUE, !grepl("All Patients", names(content)))
+    df <- as.data.frame(mf$strings[(nr_header + 1):(nrow(mf$strings)), , drop = FALSE])
+    header_df <- as.data.frame(mf$strings[1:nr_header, , drop = FALSE])
+
+    ft <- flextable::flextable(df)
+    ft <- flextable::delete_part(ft, part = "header")
+    ft <- flextable::add_header(ft, values = header_df)
+
+    merge_index_body <- get_merge_index(mf$spans[(nr_header + 1):nrow(mf$spans), , drop = FALSE])
+    merge_index_header <- get_merge_index(mf$spans[1:nr_header, , drop = FALSE])
+
+    ft <- merge_at_indice(ft, lst = merge_index_body, part = "body")
+    ft <- merge_at_indice(ft, lst = merge_index_header, part = "header")
+    ft <- flextable::align_text_col(ft, align = "center", header = TRUE)
+    ft <- flextable::align(ft, i = seq_len(nrow(content)), j = 1, align = "left")
+    ft <- padding_lst(ft, mf$row_info$indent)
+    ft <- flextable::padding(ft, padding.top = 1, padding.bottom = 1, part = "all")
+    ft <- flextable::autofit(ft, add_h = 0)
+
+    width_vector <- c(
+      dim(ft)$widths[1],
+      dim(ft)$widths[-1] - dim(ft)$widths[-1] + sum(dim(ft)$widths[-1]) / (ncol(mf$strings) - 1)
+    )
+    ft <- flextable::width(ft, width = width_vector)
+  } else if (inherits(content, "data.frame")) {
+    ft <- flextable::flextable(content)
+  }
+
+  ft <- custom_theme(ft)
+  if (flextable::flextable_dim(ft)$widths > 10) {
+    pgwidth <- 10.5
+    width_vector <- dim(ft)$widths * pgwidth / flextable::flextable_dim(ft)$widths
+    ft <- flextable::width(ft, width = width_vector)
+  }
+
+  ft
+}
+
+#' @noRd
+custom_theme <- function(ft) {
+  ft <- flextable::fontsize(ft, size = 8, part = "body")
+  ft <- flextable::bold(ft, part = "header")
+  ft <- flextable::theme_booktabs(ft)
+  ft <- flextable::hline(ft, border = flextable::fp_border_default(width = 1, color = "grey"))
+  ft <- flextable::border_outer(ft)
+  ft
+}
+
+#' @noRd
+get_merge_index_single <- function(span) {
+  ret <- list()
+  j <- 1
+  while (j < length(span)) {
+    if (span[j] != 1) {
+      ret <- c(ret, list(j:(j + span[j] - 1)))
+    }
+    j <- j + span[j]
+  }
+  return(ret)
+}
+
+#' @noRd
+#'
+#' @keywords internal
+get_merge_index <- function(spans) {
+  ret <- lapply(seq_len(nrow(spans)), function(i) {
+    ri <- spans[i, ]
+    r <- get_merge_index_single(ri)
+    lapply(r, function(s) {
+      list(j = s, i = i)
+    })
+  })
+  unlist(ret, recursive = FALSE, use.names = FALSE)
+}
+
+#' @noRd
+#'
+#' @keywords internal
+merge_at_indice <- function(ft, lst, part) {
+  Reduce(function(ft, ij) {
+    flextable::merge_at(ft, i = ij$i, j = ij$j, part = part)
+  }, lst, ft)
+}
+
+#' @noRd
+#'
+#' @keywords internal
+padding_lst <- function(ft, indents) {
+  Reduce(function(ft, s) {
+    flextable::padding(ft, s, 1, padding.left = (indents[s] + 1) * 10)
+  }, seq_len(length(indents)), ft)
+}
