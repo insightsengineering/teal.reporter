@@ -230,3 +230,44 @@ padding_lst <- function(ft, indents) {
     flextable::padding(ft, s, 1, padding.left = (indents[s] + 1) * 10)
   }, seq_len(length(indents)), ft)
 }
+
+#' Split a text block into smaller blocks with a specified number of lines.
+#'
+#' This function takes a block of text and divides it into smaller blocks, each containing
+#' a specified number of lines.
+#'
+#' @param block_text A character vector containing the input block of text.
+#' @param n The number of lines per block.
+#'
+#' @return A list of character vectors, where each element is a smaller block of text
+#'         containing 'n' lines. If the input block of text has fewer lines than 'n', the
+#'         entire block is returned as a single element list.
+#'
+#' @examples
+#' block_text <- "Line 1\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6"
+#' n <- 3
+#' split_text_into_blocks(block_text, n)
+#'
+#' @export
+split_text_into_blocks <- function(block_text, n) {
+  lines <- strsplit(block_text, "\n")[[1]]
+  num_lines <- length(lines)
+
+  if (num_lines <= n) {
+    return(list(block_text))
+  }
+
+  num_blocks <- ceiling(num_lines / n)
+  blocks <- vector("list", length = num_blocks)
+
+  for (i in 1:num_blocks) {
+    start <- (i - 1) * n + 1
+    end <- min(i * n, num_lines)
+    block <- paste(lines[start:end], collapse = "\n")
+    blocks[[i]] <- block
+  }
+
+  return(blocks)
+}
+
+

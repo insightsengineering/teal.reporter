@@ -116,21 +116,37 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         block_content
       )
     },
+    # rcodeBlock2md = function(block) {
+    #   params <- block$get_params()
+    #   params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
+    #   block_content <- block$get_content()
+    #   paste(
+    #     sep = "\n",
+    #     collapse = "\n",
+    #     "### ",
+    #     sprintf(
+    #       "```{r, %s}", paste(names(params), params, sep = "=", collapse = ", ")
+    #     ),
+    #     block_content,
+    #     "```",
+    #     ""
+    #   )
+    # },
     rcodeBlock2md = function(block) {
-      params <- block$get_params()
-      params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
-      block_content <- block$get_content()
-      paste(
-        sep = "\n",
-        collapse = "\n",
-        "### ",
-        sprintf(
-          "```{r, %s}", paste(names(params), params, sep = "=", collapse = ", ")
-        ),
-        block_content,
-        "```",
-        ""
+      params <- lapply(block$get_params(), function(param) {
+        if (is.character(param)) {
+          shQuote(param)
+        } else {
+          param
+        }
+      })
+
+      code_block <- sprintf(
+        "```{r, %s}",
+        paste(names(params), params, sep = "=", collapse = ", ")
       )
+
+      paste("###", code_block, block$get_content(), "```", sep = "\n")
     },
     pictureBlock2md = function(block) {
       basename_pic <- basename(block$get_content())
