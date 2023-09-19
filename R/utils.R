@@ -305,4 +305,3 @@ reverse_yaml_field <- function(yaml_text, field_name, check_list = TRUE) {
     return(result)
   }
 }
-
