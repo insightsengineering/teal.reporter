@@ -28,8 +28,7 @@ Imports:
     shiny (>= 1.6.0),
     shinyWidgets (>= 0.5.1),
     yaml (>= 1.1.0),
-    zip (>= 1.1.0),
-    flextable (>= 0.9.2)
+    zip (>= 1.1.0)
 Suggests:
     DT (>= 0.13),
     ggplot2 (>= 3.4.0),
