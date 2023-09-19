@@ -48,6 +48,9 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       ft <- flextable::fontsize(ft, size = 8, part = 'body')
       ft <- flextable::bg(x = ft,bg = 'lightgrey')
       ft <- flextable::border_outer(ft)
+      if(flextable_dim(ft)$widths > 10) {
+      ft <- width(ft, width = 10)
+    }
       ft
     }"
         } else {
@@ -137,13 +140,14 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
       block_content <- block$get_content()
       if(report_type == "powerpoint_presentation") {
-        block_content_lst <- split_text_into_blocks(block_content, 10)
+        block_content_lst <- split_text_into_blocks(block_content, 30)
         paste(
           unlist(
             lapply(seq_along(block_content_lst), function(b) {
+              browser()
               sprintf(
-                "\n```{r, echo=FALSE}\ncode_block(data.frame(\n'%s'))\n```\n",
-                block_content_lst[[b]]
+                "### \n\n```{r, echo=FALSE}\ncode_block(data.frame(\n%s))\n```\n",
+                shQuote(block_content_lst[[b]])
               )
             })
           ),
@@ -151,7 +155,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         )
       } else {
         sprintf(
-          "\n```{r, %s}\n%s\n```\n",
+          "### \n\n```{r, %s}\n%s\n```\n",
           paste(names(params), params, sep = "=", collapse = ", "),
           block_content
         )
