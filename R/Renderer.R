@@ -139,7 +139,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       params <- block$get_params()
       params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
       block_content <- block$get_content()
-      if(report_type == "powerpoint_presentation") {
+      if (report_type == "powerpoint_presentation") {
         block_content_lst <- split_text_into_blocks(block_content, 30)
         paste(
           unlist(

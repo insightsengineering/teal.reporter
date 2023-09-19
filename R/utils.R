@@ -115,7 +115,7 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
 #' Indent the row names by 10 times indentation
 #'
 #' @param content Supported formats: `data.frame`, `rtables`, `TableTree`, `ElementaryTable`
-
+#'
 #' @return (`flextable`)
 #'
 #' @keywords internal
@@ -243,12 +243,7 @@ padding_lst <- function(ft, indents) {
 #'         containing 'n' lines. If the input block of text has fewer lines than 'n', the
 #'         entire block is returned as a single element list.
 #'
-#' @examples
-#' block_text <- "Line 1\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6"
-#' n <- 3
-#' split_text_into_blocks(block_text, n)
-#'
-#' @export
+#' @keywords internal
 split_text_into_blocks <- function(block_text, n) {
   lines <- strsplit(block_text, "\n")[[1]]
   num_lines <- length(lines)
@@ -283,12 +278,7 @@ split_text_into_blocks <- function(block_text, n) {
 #' @return If `check_list` is TRUE and the result is a list, it returns the names of
 #'         elements in the list; otherwise, it returns the extracted field.
 #'
-#' @examples
-#' yaml_text <- "\nauthor: NEST\ntitle: Report\noutput:\n  powerpoint_presentation:\n    toc: yes\n"
-#' reverse_yaml_field(yaml_text, "output") # Returns a character vector with "Reading" and "Cooking"
-
-#'
-#' @export
+#' @keywords internal
 reverse_yaml_field <- function(yaml_text, field_name, check_list = TRUE) {
   checkmate::assert_multi_class(yaml_text, c("rmd_yaml_header", "character"))
   checkmate::assert_string(field_name)
