@@ -38,6 +38,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n```\n",
         capture.output(dput(global_knitr))
       )
+
       parsed_blocks <- paste(
         unlist(
           lapply(blocks, function(b) private$block2md(b))
@@ -119,10 +120,16 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       params <- block$get_params()
       params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
       block_content <- block$get_content()
-      sprintf(
-        "\n```{r, %s}\n%s\n```\n",
-        paste(names(params), params, sep = "=", collapse = ", "),
-        block_content
+      paste(
+        sep = "\n",
+        collapse = "\n",
+        "### ",
+        sprintf(
+          "```{r, %s}", paste(names(params), params, sep = "=", collapse = ", ")
+        ),
+        block_content,
+        "```",
+        ""
       )
     },
     pictureBlock2md = function(block) {
