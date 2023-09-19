@@ -33,26 +33,29 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       if (missing(yaml_header)) {
         yaml_header <- md_header(yaml::as.yaml(list(title = "Report")))
       }
-      parsed_yaml <- yaml_header
-      report_type <- reverse_yaml_field(parsed_yaml, "output")
+      report_type <- reverse_yaml_field(yaml_header, "output")
       parsed_global_knitr <- sprintf(
         "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n%s\n```\n",
         capture.output(dput(global_knitr)),
-        if (report_type == "powerpoint_presentation") {
-          "# additional function to parse code block into a table for PPT
-          library('flextable')
-    code_block <- function(df) {
-      ft <- flextable::flextable(df)
-      ft <- flextable::delete_part(ft, part = 'header')
-      ft <- flextable::autofit(ft, add_h = 0)
-      ft <- flextable::fontsize(ft, size = 8, part = 'body')
-      ft <- flextable::bg(x = ft,bg = 'lightgrey')
-      ft <- flextable::border_outer(ft)
-      if(flextable_dim(ft)$widths > 10) {
-      ft <- width(ft, width = 10)
-    }
-      ft
-    }"
+        if (identical(report_type, "powerpoint_presentation")) {
+          paste(
+            "# additional function to parse code block into a table for PPT",
+            "library('flextable')",
+            "code_block <- function(code_block) {",
+            "  df <- data.frame(code_block)",
+            "  ft <- flextable::flextable(df)",
+            "  ft <- flextable::delete_part(ft, part = 'header')",
+            "  ft <- flextable::autofit(ft, add_h = 0)",
+            "  ft <- flextable::fontsize(ft, size = 7, part = 'body')",
+            "  ft <- flextable::bg(x = ft,bg = 'lightgrey')",
+            "  ft <- flextable::border_outer(ft)",
+            "  if(flextable_dim(ft)$widths > 8) {",
+            "    ft <- width(ft, width = 8)",
+            "  }",
+            "  ft",
+            "}",
+            collapse = "\n"
+          )
         } else {
           ""
         }
@@ -65,7 +68,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         collapse = "\n\n"
       )
 
-      rmd_text <- paste0(parsed_yaml, "\n", parsed_global_knitr, "\n", parsed_blocks, "\n")
+      rmd_text <- paste0(yaml_header, "\n", parsed_global_knitr, "\n", parsed_blocks, "\n")
       tmp <- tempfile(fileext = ".Rmd")
       input_path <- file.path(
         private$output_dir,
@@ -139,12 +142,11 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       params <- block$get_params()
       params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
       block_content <- block$get_content()
-      if (report_type == "powerpoint_presentation") {
+      if (identical(report_type, "powerpoint_presentation")) {
         block_content_lst <- split_text_into_blocks(block_content, 30)
         paste(
           unlist(
             lapply(seq_along(block_content_lst), function(b) {
-              browser()
               sprintf(
                 "### \n\n```{r, echo=FALSE}\ncode_block(data.frame(\n%s))\n```\n",
                 shQuote(block_content_lst[[b]])
