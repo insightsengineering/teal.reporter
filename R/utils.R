@@ -239,9 +239,8 @@ padding_lst <- function(ft, indents) {
 #' @param block_text `character` string containing the input block of text
 #' @param n `integer` number of lines per block
 #'
-#' @return A list of character vectors, where each element is a smaller block of text
-#'         containing 'n' lines. If the input block of text has fewer lines than 'n', the
-#'         entire block is returned as a single element list.
+#' @return 
+#' List of character strings with up to `n` lines in each element.
 #'
 #' @keywords internal
 split_text_block <- function(x, n) {
