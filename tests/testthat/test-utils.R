@@ -66,4 +66,3 @@ test_that("split_text_block - n greater than the number of line breaks", {
   result <- split_text_block(block_text, n)
   expect_equal(result, block_text)
 })
-
