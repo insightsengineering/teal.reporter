@@ -115,7 +115,7 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
 #' Indent the row names by 10 times indentation
 #'
 #' @param content Supported formats: `data.frame`, `rtables`, `TableTree`, `ElementaryTable`
-
+#'
 #' @return (`flextable`)
 #'
 #' @keywords internal
@@ -229,4 +229,64 @@ padding_lst <- function(ft, indents) {
   Reduce(function(ft, s) {
     flextable::padding(ft, s, 1, padding.left = (indents[s] + 1) * 10)
   }, seq_len(length(indents)), ft)
+}
+
+#' Split a text block into smaller blocks with a specified number of lines.
+#'
+#' Divide text block into smaller blocks.
+#'
+#' A single character string containing a text block of multiple lines (separated by `\n`) 
+#' is split into multiple strings with n or less lines each.
+#'
+#' @param block_text `character` string containing the input block of text
+#' @param n `integer` number of lines per block
+#'
+#' @return 
+#' List of character strings with up to `n` lines in each element.
+#'
+#' @keywords internal
+split_text_block <- function(x, n) {
+  checkmate::assert_string(x)
+  checkmate::assert_integerish(n, lower = 1L, len = 1L)
+  
+  lines <- strsplit(x, "\n")[[1]]
+  
+  if (length(lines) <= n) {
+    return(list(x))
+  }
+  
+  nblocks <- ceiling(length(lines) / n)
+  ind <- rep(1:nblocks, each = n)[1:length(lines)]
+  unname(tapply(lines, ind, paste, collapse = "\n"))
+}
+
+#' Extract a Field from YAML and Optionally Retrieve Names from a List
+#'
+#' This function parses a YAML text and extracts the specified field. It provides
+#' the option to retrieve the names of elements from a list if the field contains a list.
+#'
+#' @param yaml_text A character vector containing the `yaml` text.
+#' @param field_name The name of the field to extract.
+#' @param check_list Logical, indicating whether to check if the result is a list
+#'                   and retrieve the names of list elements. Default is TRUE.
+#'
+#' @return If `check_list` is TRUE and the result is a list, it returns the names of
+#'         elements in the list; otherwise, it returns the extracted field.
+#'
+#' @keywords internal
+reverse_yaml_field <- function(yaml_text, field_name, check_list = TRUE) {
+  checkmate::assert_multi_class(yaml_text, c("rmd_yaml_header", "character"))
+  checkmate::assert_string(field_name)
+  checkmate::assert_logical(check_list)
+  # Parse the YAML text
+  yaml_obj <- yaml::yaml.load(yaml_text)
+
+  # Extract the specified field
+  if (field_name %in% names(yaml_obj)) {
+    result <- yaml_obj[[field_name]]
+    if (check_list && is.list(result)) {
+      return(names(result))
+    }
+    return(result)
+  }
 }

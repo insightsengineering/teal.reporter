@@ -33,20 +33,43 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       if (missing(yaml_header)) {
         yaml_header <- md_header(yaml::as.yaml(list(title = "Report")))
       }
-      parsed_yaml <- yaml_header
+      report_type <- reverse_yaml_field(yaml_header, "output")
       parsed_global_knitr <- sprintf(
-        "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n```\n",
-        capture.output(dput(global_knitr))
+        "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n%s\n```\n",
+        capture.output(dput(global_knitr)),
+        if (identical(report_type, "powerpoint_presentation")) {
+          paste(
+            "# additional function to parse code block into a table for PPT",
+            "library('flextable')",
+            "code_block <- function(code_block) {",
+            "  df <- data.frame(code_block)",
+            "  ft <- flextable::flextable(df)",
+            "  ft <- flextable::delete_part(ft, part = 'header')",
+            "  ft <- flextable::autofit(ft, add_h = 0)",
+            "  ft <- flextable::fontsize(ft, size = 7, part = 'body')",
+            "  ft <- flextable::bg(x = ft,bg = 'lightgrey')",
+            "  ft <- flextable::border_outer(ft)",
+            "  ft <- flextable::font(ft, fontname = 'Courier New')",
+            "  if(flextable_dim(ft)$widths > 8) {",
+            "    ft <- width(ft, width = 8)",
+            "  }",
+            "  ft",
+            "}",
+            sep = "\n"
+          )
+        } else {
+          ""
+        }
       )
 
       parsed_blocks <- paste(
         unlist(
-          lapply(blocks, function(b) private$block2md(b))
+          lapply(blocks, function(b) private$block2md(b, report_type = report_type))
         ),
         collapse = "\n\n"
       )
 
-      rmd_text <- paste0(parsed_yaml, "\n", parsed_global_knitr, "\n", parsed_blocks, "\n")
+      rmd_text <- paste0(yaml_header, "\n", parsed_global_knitr, "\n", parsed_blocks, "\n")
       tmp <- tempfile(fileext = ".Rmd")
       input_path <- file.path(
         private$output_dir,
@@ -89,15 +112,15 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
   private = list(
     output_dir = character(0),
     # factory method
-    block2md = function(block) {
+    block2md = function(block, report_type) {
       if (inherits(block, "TextBlock")) {
-        private$textBlock2md(block)
+        private$textBlock2md(block, report_type)
       } else if (inherits(block, "RcodeBlock")) {
-        private$rcodeBlock2md(block)
+        private$rcodeBlock2md(block, report_type)
       } else if (inherits(block, "PictureBlock")) {
-        private$pictureBlock2md(block)
+        private$pictureBlock2md(block, report_type)
       } else if (inherits(block, "TableBlock")) {
-        private$tableBlock2md(block)
+        private$tableBlock2md(block, report_type)
       } else if (inherits(block, "NewpageBlock")) {
         block$get_content()
       } else {
@@ -105,7 +128,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       }
     },
     # card specific methods
-    textBlock2md = function(block) {
+    textBlock2md = function(block, report_type) {
       text_style <- block$get_style()
       block_content <- block$get_content()
       switch(text_style,
@@ -116,23 +139,32 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         block_content
       )
     },
-    rcodeBlock2md = function(block) {
+    rcodeBlock2md = function(block, report_type) {
       params <- block$get_params()
       params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
       block_content <- block$get_content()
-      paste(
-        sep = "\n",
-        collapse = "\n",
-        "### ",
+      if (identical(report_type, "powerpoint_presentation")) {
+        block_content_lst <- split_text_into_blocks(block_content, 30)
+        paste(
+          unlist(
+            lapply(seq_along(block_content_lst), function(b) {
+              sprintf(
+                "---\n\n```{r, echo=FALSE}\ncode_block(data.frame(\n%s))\n```\n",
+                shQuote(block_content_lst[[b]])
+              )
+            })
+          ),
+          collapse = "\n\n"
+        )
+      } else {
         sprintf(
-          "```{r, %s}", paste(names(params), params, sep = "=", collapse = ", ")
-        ),
-        block_content,
-        "```",
-        ""
-      )
+          "--- \n\n```{r, %s}\n%s\n```\n",
+          paste(names(params), params, sep = "=", collapse = ", "),
+          block_content
+        )
+      }
     },
-    pictureBlock2md = function(block) {
+    pictureBlock2md = function(block, report_type) {
       basename_pic <- basename(block$get_content())
       file.copy(block$get_content(), file.path(private$output_dir, basename_pic))
       params <- c(
@@ -147,7 +179,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         basename_pic
       )
     },
-    tableBlock2md = function(block) {
+    tableBlock2md = function(block, report_type) {
       basename_table <- basename(block$get_content())
       file.copy(block$get_content(), file.path(private$output_dir, basename_table))
       sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename_table)
