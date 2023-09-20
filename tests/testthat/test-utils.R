@@ -51,3 +51,12 @@ test_that("padding_lst applies padding to a flextable based on indentation level
   padded_ft <- padding_lst(sample_ft, sample_indents)
   expect_is(padded_ft, "flextable")
 })
+
+test_that("split_text_into_blocks", {
+  block_text <- "Line 1\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6"
+  n <- 2
+  result <- split_text_into_blocks(block_text, n)
+  expected_result <- list("Line 1\nLine 2", "Line 3\nLine 4", "Line 5\nLine 6")
+  expect_equal(result, expected_result)
+})
+
