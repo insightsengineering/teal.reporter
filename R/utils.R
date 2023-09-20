@@ -235,26 +235,26 @@ padding_lst <- function(ft, indents) {
 #'
 #' Divide text block into smaller blocks.
 #'
-#' A single character string containing a text block of multiple lines (separated by `\n`) 
+#' A single character string containing a text block of multiple lines (separated by `\n`)
 #' is split into multiple strings with n or less lines each.
 #'
 #' @param block_text `character` string containing the input block of text
 #' @param n `integer` number of lines per block
 #'
-#' @return 
+#' @return
 #' List of character strings with up to `n` lines in each element.
 #'
 #' @keywords internal
 split_text_block <- function(x, n) {
   checkmate::assert_string(x)
   checkmate::assert_integerish(n, lower = 1L, len = 1L)
-  
+
   lines <- strsplit(x, "\n")[[1]]
-  
+
   if (length(lines) <= n) {
     return(list(x))
   }
-  
+
   nblocks <- ceiling(length(lines) / n)
   ind <- rep(1:nblocks, each = n)[1:length(lines)]
   unname(tapply(lines, ind, paste, collapse = "\n"))
