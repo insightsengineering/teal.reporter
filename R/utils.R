@@ -233,8 +233,10 @@ padding_lst <- function(ft, indents) {
 
 #' Split a text block into smaller blocks with a specified number of lines.
 #'
-#' This function takes a block of text and divides it into smaller blocks, each containing
-#' a specified number of lines.
+#' Divide text block into smaller blocks.
+#'
+#' A single character string containing a text block of multiple lines (separated by `\n`) 
+#' is split into multiple strings with n or less lines each.
 #'
 #' @param block_text `character` string containing the input block of text
 #' @param n `integer` number of lines per block
