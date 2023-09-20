@@ -236,8 +236,8 @@ padding_lst <- function(ft, indents) {
 #' This function takes a block of text and divides it into smaller blocks, each containing
 #' a specified number of lines.
 #'
-#' @param block_text A character vector containing the input block of text.
-#' @param n The number of lines per block.
+#' @param block_text `character` string containing the input block of text
+#' @param n `integer` number of lines per block
 #'
 #' @return A list of character vectors, where each element is a smaller block of text
 #'         containing 'n' lines. If the input block of text has fewer lines than 'n', the
