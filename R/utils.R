@@ -244,25 +244,19 @@ padding_lst <- function(ft, indents) {
 #'         entire block is returned as a single element list.
 #'
 #' @keywords internal
-split_text_into_blocks <- function(block_text, n) {
-  lines <- strsplit(block_text, "\n")[[1]]
-  num_lines <- length(lines)
-
-  if (num_lines <= n) {
-    return(list(block_text))
+split_text_block <- function(x, n) {
+  checkmate::assert_string(x)
+  checkmate::assert_integerish(n, lower = 1L, len = 1L)
+  
+  lines <- strsplit(x, "\n")[[1]]
+  
+  if (length(lines) <= n) {
+    return(list(x))
   }
-
-  num_blocks <- ceiling(num_lines / n)
-  blocks <- vector("list", length = num_blocks)
-
-  for (i in 1:num_blocks) {
-    start <- (i - 1) * n + 1
-    end <- min(i * n, num_lines)
-    block <- paste(lines[start:end], collapse = "\n")
-    blocks[[i]] <- block
-  }
-
-  return(blocks)
+  
+  nblocks <- ceiling(length(lines) / n)
+  ind <- rep(1:nblocks, each = n)[1:length(lines)]
+  unname(tapply(lines, ind, paste, collapse = "\n"))
 }
 
 #' Extract a Field from YAML and Optionally Retrieve Names from a List
