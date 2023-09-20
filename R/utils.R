@@ -233,34 +233,29 @@ padding_lst <- function(ft, indents) {
 
 #' Split a text block into smaller blocks with a specified number of lines.
 #'
-#' This function takes a block of text and divides it into smaller blocks, each containing
-#' a specified number of lines.
+#' Divide text block into smaller blocks.
 #'
-#' @param block_text A character vector containing the input block of text.
-#' @param n The number of lines per block.
+#' A single character string containing a text block of multiple lines (separated by `\n`)
+#' is split into multiple strings with n or less lines each.
 #'
-#' @return A list of character vectors, where each element is a smaller block of text
-#'         containing 'n' lines. If the input block of text has fewer lines than 'n', the
-#'         entire block is returned as a single element list.
+#' @param block_text `character` string containing the input block of text
+#' @param n `integer` number of lines per block
+#'
+#' @return
+#' List of character strings with up to `n` lines in each element.
 #'
 #' @keywords internal
-split_text_into_blocks <- function(block_text, n) {
-  lines <- strsplit(block_text, "\n")[[1]]
-  num_lines <- length(lines)
+split_text_block <- function(x, n) {
+  checkmate::assert_string(x)
+  checkmate::assert_integerish(n, lower = 1L, len = 1L)
 
-  if (num_lines <= n) {
-    return(list(block_text))
+  lines <- strsplit(x, "\n")[[1]]
+
+  if (length(lines) <= n) {
+    return(list(x))
   }
 
-  num_blocks <- ceiling(num_lines / n)
-  blocks <- vector("list", length = num_blocks)
-
-  for (i in 1:num_blocks) {
-    start <- (i - 1) * n + 1
-    end <- min(i * n, num_lines)
-    block <- paste(lines[start:end], collapse = "\n")
-    blocks[[i]] <- block
-  }
-
-  return(blocks)
+  nblocks <- ceiling(length(lines) / n)
+  ind <- rep(1:nblocks, each = n)[1:length(lines)]
+  unname(tapply(lines, ind, paste, collapse = "\n"))
 }
