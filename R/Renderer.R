@@ -49,12 +49,13 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
             "  ft <- flextable::fontsize(ft, size = 7, part = 'body')",
             "  ft <- flextable::bg(x = ft,bg = 'lightgrey')",
             "  ft <- flextable::border_outer(ft)",
+            "  ft <- flextable::font(ft, fontname = 'Courier New')",
             "  if(flextable_dim(ft)$widths > 8) {",
             "    ft <- width(ft, width = 8)",
             "  }",
             "  ft",
             "}",
-            collapse = "\n"
+            sep = "\n"
           )
         } else {
           ""
@@ -148,7 +149,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
           unlist(
             lapply(seq_along(block_content_lst), function(b) {
               sprintf(
-                "### \n\n```{r, echo=FALSE}\ncode_block(data.frame(\n%s))\n```\n",
+                "---\n\n```{r, echo=FALSE}\ncode_block(data.frame(\n%s))\n```\n",
                 shQuote(block_content_lst[[b]])
               )
             })
@@ -157,7 +158,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         )
       } else {
         sprintf(
-          "### \n\n```{r, %s}\n%s\n```\n",
+          "--- \n\n```{r, %s}\n%s\n```\n",
           paste(names(params), params, sep = "=", collapse = ", "),
           block_content
         )
