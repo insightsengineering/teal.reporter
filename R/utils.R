@@ -270,7 +270,7 @@ split_text_into_blocks <- function(block_text, n) {
 #' This function parses a YAML text and extracts the specified field. It provides
 #' the option to retrieve the names of elements from a list if the field contains a list.
 #'
-#' @param yaml_text A character vector containing the YAML text.
+#' @param yaml_text A character vector containing the `yaml` text.
 #' @param field_name The name of the field to extract.
 #' @param check_list Logical, indicating whether to check if the result is a list
 #'                   and retrieve the names of list elements. Default is TRUE.

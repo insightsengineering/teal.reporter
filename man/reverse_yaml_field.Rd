@@ -7,7 +7,7 @@
 reverse_yaml_field(yaml_text, field_name, check_list = TRUE)
 }
 \arguments{
-\item{yaml_text}{A character vector containing the YAML text.}
+\item{yaml_text}{A character vector containing the \code{yaml} text.}
 
 \item{field_name}{The name of the field to extract.}
 
