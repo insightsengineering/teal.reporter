@@ -39,7 +39,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n%s\n```\n",
         capture.output(dput(global_knitr)),
         if (identical(private$report_type, "powerpoint_presentation")) {
-          paste(capture.output(code_block_function), collapse = "\n")
+          paste0("code_block <- ", paste(deparse(format_code_block_for_slide), collapse = "\n"))
         } else {
           character(0)
         }
@@ -132,7 +132,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         paste(
           sprintf(
             "---\n\n```{r, echo=FALSE}\ncode_block(\n%s)\n```\n",
-            shQuote(block_content_lst)
+            sQuote(block_content_lst, q = FALSE)
           ),
           collapse = "\n\n"
         )

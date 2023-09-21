@@ -168,6 +168,7 @@ to_flextable <- function(content) {
 #'
 #' @keywords internal
 custom_theme <- function(ft) {
+  checkmate::assert_class(ft, "flextable")
   ft <- flextable::fontsize(ft, size = 8, part = "body")
   ft <- flextable::bold(ft, part = "header")
   ft <- flextable::theme_booktabs(ft)
@@ -267,7 +268,7 @@ split_text_block <- function(x, n) {
 #' @noRd
 #'
 #' @keywords internal
-code_block_function <- function(code_block) {
+format_code_block_for_slide <- function(code_block) {
   df <- data.frame(code_block)
   ft <- flextable::flextable(df)
   ft <- flextable::delete_part(ft, part = "header")
