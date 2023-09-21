@@ -2,7 +2,7 @@
 % Please edit documentation in R/yaml_utils.R
 \name{reverse_yaml_field}
 \alias{reverse_yaml_field}
-\title{Extract a Field from \code{YAML} and Optionally Retrieve Names from a List}
+\title{Extract a Field from \code{yaml} and Optionally Retrieve Names from a List}
 \usage{
 reverse_yaml_field(yaml_text, field_name)
 }
