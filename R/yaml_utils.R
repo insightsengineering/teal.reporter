@@ -239,9 +239,9 @@ print.rmd_yaml_header <- function(x, ...) {
   cat(x, ...)
 }
 
-#' Extract a Field from YAML and Optionally Retrieve Names from a List
+#' Extract a Field from `YAML` and Optionally Retrieve Names from a List
 #'
-#' This function parses a YAML text and extracts the specified field. It provides
+#' This function parses a `YAML` text and extracts the specified field. It provides
 #' the option to retrieve the names of elements from a list if the field contains a list.
 #'
 #' @param yaml_text A character vector containing the `yaml` text.
