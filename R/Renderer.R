@@ -127,7 +127,6 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       params <- block$get_params()
       params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
       block_content <- block$get_content()
-      browser()
       if (identical(private$report_type, "powerpoint_presentation")) {
         block_content_lst <- split_text_block(block_content, 30)
         paste(
