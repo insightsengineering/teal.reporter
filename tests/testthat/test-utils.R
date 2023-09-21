@@ -67,3 +67,8 @@ test_that("split_text_block - n greater than the number of line breaks", {
   expect_equal(result, block_text)
 })
 
+test_that("code_block_function", {
+  code_block <- "library(flextable)\nprint('Hello, world!')"
+  formatted_table <- code_block_function(code_block)
+  expect_is(formatted_table, "flextable")
+})

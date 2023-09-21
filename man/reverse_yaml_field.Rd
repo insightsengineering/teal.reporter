@@ -10,13 +10,10 @@ reverse_yaml_field(yaml_text, field_name, check_list = TRUE)
 \item{yaml_text}{A character vector containing the \code{yaml} text.}
 
 \item{field_name}{The name of the field to extract.}
-
-\item{check_list}{Logical, indicating whether to check if the result is a list
-and retrieve the names of list elements. Default is TRUE.}
 }
 \value{
-If \code{check_list} is TRUE and the result is a list, it returns the names of
-elements in the list; otherwise, it returns the extracted field.
+it returns the names of elements in the list; otherwise,
+it returns the extracted field.
 }
 \description{
 This function parses a YAML text and extracts the specified field. It provides

@@ -246,11 +246,9 @@ print.rmd_yaml_header <- function(x, ...) {
 #'
 #' @param yaml_text A character vector containing the `yaml` text.
 #' @param field_name The name of the field to extract.
-#' @param check_list Logical, indicating whether to check if the result is a list
-#'                   and retrieve the names of list elements. Default is TRUE.
 #'
-#' @return If `check_list` is TRUE and the result is a list, it returns the names of
-#'         elements in the list; otherwise, it returns the extracted field.
+#' @return it returns the names of elements in the list; otherwise,
+#'  it returns the extracted field.
 #'
 #' @keywords internal
 reverse_yaml_field <- function(yaml_text, field_name, check_list = TRUE) {

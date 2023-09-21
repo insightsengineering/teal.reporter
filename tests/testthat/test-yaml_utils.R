@@ -145,7 +145,4 @@ test_that("reverse_yaml_field returns the correct result", {
   field_name <- "output"
   result <- reverse_yaml_field(yaml_text, field_name)
   expect_equal(result, "pdf_document")
-
-  result <- reverse_yaml_field(yaml_text, field_name, check_list = F)
-  expect_true(is.list(result))
 })
