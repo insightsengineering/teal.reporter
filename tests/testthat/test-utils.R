@@ -57,7 +57,7 @@ block_text <- "Line 1\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6"
 test_that("split_text_block - splits text block into equal parts", {
   n <- 2
   result <- split_text_block(block_text, n)
-  expected_result <- as.array(c("Line 1\nLine 2", "Line 3\nLine 4", "Line 5\nLine 6"))
+  expected_result <- list("Line 1\nLine 2", "Line 3\nLine 4", "Line 5\nLine 6")
   expect_equal(result, expected_result)
 })
 

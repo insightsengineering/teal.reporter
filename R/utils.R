@@ -258,7 +258,7 @@ split_text_block <- function(x, n) {
 
   nblocks <- ceiling(length(lines) / n)
   ind <- rep(1:nblocks, each = n)[seq_along(lines)]
-  unname(tapply(lines, ind, paste, collapse = "\n"))
+  unname(lapply(split(lines, ind), paste, collapse = "\n"))
 }
 
 #' Process a Code Block for Rendering
