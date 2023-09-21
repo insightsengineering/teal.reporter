@@ -128,11 +128,11 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
       block_content <- block$get_content()
       if (identical(private$report_type, "powerpoint_presentation")) {
-        block_content_lst <- split_text_block(block_content, 30)
+        block_content <- split_text_block(block_content, 30)
         paste(
           sprintf(
             "---\n\n```{r, echo=FALSE}\ncode_block(\n%s)\n```\n",
-            sQuote(block_content_lst, q = FALSE)
+            shQuote(block_content, type = "cmd")
           ),
           collapse = "\n\n"
         )
