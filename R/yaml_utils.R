@@ -251,19 +251,17 @@ print.rmd_yaml_header <- function(x, ...) {
 #'  it returns the extracted field.
 #'
 #' @keywords internal
-reverse_yaml_field <- function(yaml_text, field_name, check_list = TRUE) {
+reverse_yaml_field <- function(yaml_text, field_name) {
   checkmate::assert_multi_class(yaml_text, c("rmd_yaml_header", "character"))
   checkmate::assert_string(field_name)
-  checkmate::assert_logical(check_list)
-  # Parse the YAML text
-  yaml_obj <- yaml::yaml.load(yaml_text)
 
-  # Extract the specified field
+  yaml_obj <- yaml::yaml.load(yaml_text)
+  result <- NULL
   if (field_name %in% names(yaml_obj)) {
     result <- yaml_obj[[field_name]]
-    if (check_list && is.list(result)) {
-      return(names(result))
+    if (is.list(result)) {
+      result <- names(result)
     }
-    return(result)
   }
+  result
 }

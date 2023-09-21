@@ -4,7 +4,7 @@
 \alias{reverse_yaml_field}
 \title{Extract a Field from YAML and Optionally Retrieve Names from a List}
 \usage{
-reverse_yaml_field(yaml_text, field_name, check_list = TRUE)
+reverse_yaml_field(yaml_text, field_name)
 }
 \arguments{
 \item{yaml_text}{A character vector containing the \code{yaml} text.}
