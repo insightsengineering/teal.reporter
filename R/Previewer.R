@@ -208,7 +208,7 @@ block_to_html <- function(b) {
   } else if (inherits(b, "TableBlock")) {
     b_table <- readRDS(b_content)
     shiny::tags$pre(
-      paste(utils::capture.output(print(b_table)), collapse = "\n")
+      flextable::htmltools_value(b_table)
     )
   } else if (inherits(b, "NewpageBlock")) {
     shiny::tags$br()

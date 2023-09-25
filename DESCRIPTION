@@ -1,7 +1,7 @@
 Package: teal.reporter
-Title: Reporting Tools for Shiny Modules
-Version: 0.2.0.9003
-Date: 2023-09-05
+Title: Reporting Tools for 'shiny' Modules
+Version: 0.2.1.9003
+Date: 2023-09-19
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = "cre"),
     person("Maciej", "Nasinski", role = "aut"),
@@ -9,8 +9,8 @@ Authors@R: c(
     person(c("Mahmoud", "mahmoud.hallal@roche.com"), "Hallal", role = "aut"),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
-Description: 
-    Prebuilt 'shiny' modules containting tools for generation of reports, supporint reproducible research and analysis.
+Description: Prebuilt 'shiny' modules containing tools for the generation
+    of 'rmarkdown' reports, supporting reproducible research and analysis.
 License: Apache License 2.0
 URL: https://github.com/insightsengineering/teal.reporter,
     https://insightsengineering.github.io/teal.reporter/
@@ -18,6 +18,7 @@ BugReports: https://github.com/insightsengineering/teal.reporter/issues
 Imports:
     bslib,
     checkmate (>= 2.1.0),
+    flextable (>= 0.9.2),
     grid,
     htmltools (>= 0.5.4),
     knitr (>= 1.34),
@@ -43,9 +44,9 @@ RdMacros:
 Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate,
     rstudio/htmltools, yihui/knitr, r-lib/lifecycle, r-lib/R6,
     rstudio/rmarkdown, rstudio/shiny, dreamRs/shinyWidgets,
-    yaml=vubiostat/r-yaml, r-lib/zip, rstudio/DT, tidyverse/ggplot2,
-    deepayan/lattice, cran/png, insightsengineering/rtables,
-    r-lib/testthat, rstudio/tinytex
+    yaml=vubiostat/r-yaml, r-lib/zip, davidgohel/flextable, rstudio/DT,
+    tidyverse/ggplot2, deepayan/lattice, cran/png,
+    insightsengineering/rtables, r-lib/testthat, rstudio/tinytex
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US

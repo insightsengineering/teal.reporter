@@ -1,8 +1,14 @@
 # teal.reporter
 
 <!-- start badges -->
+
+[![CRAN Version](https://www.r-pkg.org/badges/version/teal.reporter?color=green)](https://cran.r-project.org/package=teal.reporter)
+[![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/teal.reporter?color=green)](https://cran.r-project.org/package=teal.reporter)
+[![Last Month Downloads](http://cranlogs.r-pkg.org/badges/last-month/teal.reporter?color=green)](https://cran.r-project.org/package=teal.reporter)
+[![Last Week Downloads](http://cranlogs.r-pkg.org/badges/last-week/teal.reporter?color=green)](https://cran.r-project.org/package=teal.reporter)
+
 [![Check 🛠](https://github.com/insightsengineering/teal.reporter/actions/workflows/check.yaml/badge.svg)](https://insightsengineering.github.io/teal.reporter/main/unit-test-report/)
-[![Docs 📚](https://github.com/insightsengineering/teal.reporter/actions/workflows/docs.yaml/badge.svg)](https://insightsengineering.github.io/teal.reporter/)
+[![Docs 📚](https://github.com/insightsengineering/teal.reporter/actions/workflows/docs.yaml/badge.svg)](https://insightsengineering.github.io/teal.reporter/latest-tag/)
 [![Code Coverage 📔](https://raw.githubusercontent.com/insightsengineering/teal.reporter/_xml_coverage_reports/data/main/badge.svg)](https://insightsengineering.github.io/teal.reporter/main/coverage-report/)
 
 ![GitHub forks](https://img.shields.io/github/forks/insightsengineering/teal.reporter?style=social)
@@ -19,8 +25,7 @@
 [![Open Issues](https://img.shields.io/github/issues-raw/insightsengineering/teal.reporter?color=red\&label=open%20issues)](https://github.com/insightsengineering/teal.reporter/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
 <!-- end badges -->
 
-`teal.reporter` enables `shiny` and `teal` applications to include reporting functionality.
-The `shiny` app developer (or `teal` module developer) specifies the content of the report and the `teal.reporter` package handles everything else.
+`teal.reporter` empowers both `shiny` and `teal` applications to seamlessly integrate reporting functionality. Developers, whether working on a `shiny` app or a `teal` module, define the report's content, while `teal.reporter` takes care of the rest.
 
 This package provides:
 
@@ -30,17 +35,33 @@ This package provides:
 
 ## Installation
 
-From July 2023 `insightsengineering` packages are available on [r-universe](https://r-universe.dev/).
-
 ```r
 # stable versions
-install.packages('teal.reporter', repos = c('https://insightsengineering.r-universe.dev', 'https://cloud.r-project.org'))
+install.packages('teal.reporter')
 
-# beta versions
-install.packages('teal.reporter', repos = c('https://pharmaverse.r-universe.dev', 'https://cloud.r-project.org'))
+# install.packages("pak")
+pak::pak("insightsengineering/teal.reporter@*release")
 ```
 
-See package vignettes `browseVignettes(package = "teal.reporter")` for usage of this package.
+Alternatively, you might want to use the development version available on [r-universe](https://r-universe.dev/).
+
+```r
+# beta versions
+install.packages('teal.reporter', repos = c('https://pharmaverse.r-universe.dev', getOption('repos')))
+
+# install.packages("pak")
+pak::pak("insightsengineering/teal.reporter")
+```
+
+## Usage
+
+To understand how to use this package, please refer to the [Getting Started](https://insightsengineering.github.io/teal.reporter/latest-tag/articles/teal-reporter.html) article, which provides multiple examples of code implementation.
+
+![Showcase](https://github.com/insightsengineering/teal.reporter/blob/main/assets/img/showcase.gif)
+
+## Getting help
+
+If you encounter a bug or you have a feature request - please file an issue. For questions, discussions and staying up to date, please use the "teal" channel in the [`pharmaverse` slack workspace](https://pharmaverse.slack.com).
 
 ## Stargazers and Forkers
 
