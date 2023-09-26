@@ -239,16 +239,14 @@ print.rmd_yaml_header <- function(x, ...) {
   cat(x, ...)
 }
 
-#' Extract a Field from `yaml` and Optionally Retrieve Names from a List
-#'
-#' This function parses a `YAML` text and extracts the specified field. It provides
-#' the option to retrieve the names of elements from a list if the field contains a list.
+#' Parses `yaml` text, extracting the specified field. Returns list names if it's a list;
+#' otherwise, the field itself.
 #'
 #' @param yaml_text A character vector containing the `yaml` text.
 #' @param field_name The name of the field to extract.
 #'
-#' @return it returns the names of elements in the list; otherwise,
-#'  it returns the extracted field.
+#' @return if the field is a list, it returns the names of elements in the list; otherwise,
+#' it returns the extracted field.
 #'
 #' @keywords internal
 reverse_yaml_field <- function(yaml_text, field_name) {
@@ -256,12 +254,10 @@ reverse_yaml_field <- function(yaml_text, field_name) {
   checkmate::assert_string(field_name)
 
   yaml_obj <- yaml::yaml.load(yaml_text)
-  result <- NULL
-  if (field_name %in% names(yaml_obj)) {
-    result <- yaml_obj[[field_name]]
-    if (is.list(result)) {
-      result <- names(result)
-    }
+
+  result <- yaml_obj[[field_name]]
+  if (is.list(result)) {
+    result <- names(result)
   }
   result
 }

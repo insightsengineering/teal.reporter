@@ -261,15 +261,13 @@ split_text_block <- function(x, n) {
   unname(lapply(split(lines, ind), paste, collapse = "\n"))
 }
 
-#' Process a Code Block for Rendering
-#'
-#' This internal function formats a code block for rendering as part of an R Markdown document.
-#' It takes a code block as input and formats it to display code in a flextable within a slide.
+#' This function converts code text into an formatted flextable,
+#' designed for enhancing code readability in R Markdown presentations.
 #' @noRd
 #'
 #' @keywords internal
-format_code_block_for_slide <- function(code_block) {
-  df <- data.frame(code_block)
+format_code_block_for_slide <- function(code_text) {
+  df <- data.frame(code_text)
   ft <- flextable::flextable(df)
   ft <- flextable::delete_part(ft, part = "header")
   ft <- flextable::autofit(ft, add_h = 0)

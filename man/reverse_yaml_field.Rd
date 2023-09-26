@@ -2,7 +2,8 @@
 % Please edit documentation in R/yaml_utils.R
 \name{reverse_yaml_field}
 \alias{reverse_yaml_field}
-\title{Extract a Field from \code{yaml} and Optionally Retrieve Names from a List}
+\title{Parses \code{yaml} text, extracting the specified field. Returns list names if it's a list;
+otherwise, the field itself.}
 \usage{
 reverse_yaml_field(yaml_text, field_name)
 }
@@ -12,11 +13,11 @@ reverse_yaml_field(yaml_text, field_name)
 \item{field_name}{The name of the field to extract.}
 }
 \value{
-it returns the names of elements in the list; otherwise,
+if the field is a list, it returns the names of elements in the list; otherwise,
 it returns the extracted field.
 }
 \description{
-This function parses a \code{YAML} text and extracts the specified field. It provides
-the option to retrieve the names of elements from a list if the field contains a list.
+Parses \code{yaml} text, extracting the specified field. Returns list names if it's a list;
+otherwise, the field itself.
 }
 \keyword{internal}

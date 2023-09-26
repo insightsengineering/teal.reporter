@@ -126,9 +126,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     rcodeBlock2md = function(block) {
       params <- block$get_params()
       params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
-      block_content <- block$get_content()
       if (identical(private$report_type, "powerpoint_presentation")) {
-        block_content_list <- split_text_block(block_content, 30)
+        block_content_list <- split_text_block(block$get_content(), 30)
         paste(
           sprintf(
             "---\n\n```{r, echo=FALSE}\ncode_block(\n%s)\n```\n",
@@ -140,7 +139,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         sprintf(
           "--- \n\n```{r, %s}\n%s\n```\n",
           paste(names(params), params, sep = "=", collapse = ", "),
-          block_content
+          block$get_content()
         )
       }
     },
