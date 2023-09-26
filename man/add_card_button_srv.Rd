@@ -11,12 +11,13 @@ add_card_button_srv(id, reporter, card_fun)
 
 \item{reporter}{\code{\link{Reporter}} instance.}
 
-\item{card_fun}{\code{function} which returns a \code{\link{ReportCard}} instance,
-the function has optional \code{card} and  \code{comment} arguments.
-If the \code{card} argument is added then the \code{ReportCard} instance is automatically created for the user.
-If the \code{comment} argument is not specified then it is added automatically at the end of the Card.
-The card name set by default in \code{card_fun} will be overcome by the \code{label} input which will be set automatically
-when adding a card.}
+\item{card_fun}{\code{function} which returns a \code{\link{ReportCard}} instance. It can have optional \code{card} and \code{comment}
+parameters. If \code{card} parameter is added, then the \code{ReportCard} instance is created for the user. Use \code{comment}
+parameter to pass it's value whenever you prefer with \code{card$append_text()} - if \code{card_fun} does not have \code{comment}
+parameter, then \code{comment} from \verb{Add Card} UI module will be added at the end of the content of the card. If \code{label}
+parameter is provided, you can use it to customize appearance of the \verb{card name} and use if to specify \code{card} content
+with \code{card$append_text()} - if \code{card_fun} does not have \code{label} parameter, then \verb{card name} will be set to the name
+passed in \verb{Add Card} UI module, but no text will be added to the content of the \code{card}.}
 }
 \value{
 \code{shiny::moduleServer}
