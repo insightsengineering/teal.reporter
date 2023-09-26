@@ -133,8 +133,9 @@ to_flextable <- function(content) {
 
     # Add titles
     ft <- flextable::set_caption(ft, flextable::as_paragraph(
-      flextable::as_b(mf$main_title), "\n", paste(mf$subtitles, collapse = "\n")),
-      align_with_table = FALSE
+      flextable::as_b(mf$main_title), "\n", paste(mf$subtitles, collapse = "\n")
+    ),
+    align_with_table = FALSE
     )
 
     merge_index_body <- get_merge_index(mf$spans[seq(nr_header + 1, nrow(mf$spans)), , drop = FALSE])
@@ -159,7 +160,7 @@ to_flextable <- function(content) {
     ft <- flextable::add_footer_lines(
       ft, flextable::as_paragraph(flextable::as_chunk(mf$main_footer, props = flextable::fp_text_default(font.size = 8)))
     )
-    if (length(mf$main_footer) > 0 && length(mf$prov_footer) > 0)  ft <- flextable::add_footer_lines(ft, c("\n"))
+    if (length(mf$main_footer) > 0 && length(mf$prov_footer) > 0) ft <- flextable::add_footer_lines(ft, c("\n"))
     ft <- flextable::add_footer_lines(
       ft, flextable::as_paragraph(flextable::as_chunk(mf$prov_footer, props = flextable::fp_text_default(font.size = 8)))
     )
