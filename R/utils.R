@@ -114,13 +114,13 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
 #' align columns to the center, and row names to the left
 #' Indent the row names by 10 times indentation
 #'
-#' @param content Supported formats: `data.frame`, `rtables`, `TableTree`, `ElementaryTable`
+#' @param content Supported formats: `data.frame`, `rtables`, `TableTree`, `ElementaryTable`, `listing_df`
 
 #' @return (`flextable`)
 #'
 #' @keywords internal
 to_flextable <- function(content) {
-  if (inherits(content, c("rtables", "TableTree", "ElementaryTable"))) {
+  if (inherits(content, c("rtables", "TableTree", "ElementaryTable", "listing_df"))) {
     mf <- rtables::matrix_form(content)
     nr_header <- attr(mf, "nrow_header")
     non_total_coln <- c(TRUE, !grepl("All Patients", names(content)))
