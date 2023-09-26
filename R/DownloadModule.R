@@ -136,6 +136,11 @@ download_report_button_srv <- function(id,
           names(input_list) <- names(rmd_yaml_args)
           global_knitr <- list()
           if (is.logical(input$showrcode)) global_knitr <- list(echo = input$showrcode)
+          if (requireNamespace("formatR", quietly = TRUE)) {
+            global_knitr <- append(global_knitr, list(tidy.opts = list(width.cutoff = 60), tidy = TRUE))
+          } else {
+            message("For better code formatting, consider installing the formatR package.")
+          }
           report_render_and_compress(reporter, input_list, global_knitr, file)
         },
         contentType = "application/zip"
