@@ -70,7 +70,7 @@ add_card_button_ui <- function(id) {
 #'
 #' @param id `character(1)` this `shiny` module's id.
 #' @param reporter [`Reporter`] instance.
-#' @param card_fun `function` which returns a [`ReportCard`] instance. It can have optional `card` and `comment`
+#' @param card_fun `function` which returns a [`ReportCard`] instance. It can have optional `card`, `comment` and `label`
 #' parameters. If `card` parameter is added, then the `ReportCard` instance is created for the user. Use `comment`
 #' parameter to pass it's value whenever you prefer with `card$append_text()` - if `card_fun` does not have `comment`
 #' parameter, then `comment` from `Add Card UI` module will be added at the end of the content of the card. If `label`
