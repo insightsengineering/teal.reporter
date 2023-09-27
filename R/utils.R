@@ -157,13 +157,13 @@ to_flextable <- function(content) {
     ft <- custom_theme(ft)
 
     # Add footers
-    ft <- flextable::add_footer_lines(
-      ft, flextable::as_paragraph(flextable::as_chunk(mf$main_footer, props = flextable::fp_text_default(font.size = 8)))
-    )
+    ft <- flextable::add_footer_lines(ft, flextable::as_paragraph(
+      flextable::as_chunk(mf$main_footer, props = flextable::fp_text_default(font.size = 8))
+    ))
     if (length(mf$main_footer) > 0 && length(mf$prov_footer) > 0) ft <- flextable::add_footer_lines(ft, c("\n"))
-    ft <- flextable::add_footer_lines(
-      ft, flextable::as_paragraph(flextable::as_chunk(mf$prov_footer, props = flextable::fp_text_default(font.size = 8)))
-    )
+    ft <- flextable::add_footer_lines(ft, flextable::as_paragraph(
+      flextable::as_chunk(mf$prov_footer, props = flextable::fp_text_default(font.size = 8))
+    ))
   } else if (inherits(content, "data.frame")) {
     ft <- flextable::flextable(content)
     ft <- custom_theme(ft)
