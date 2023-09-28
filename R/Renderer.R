@@ -38,19 +38,19 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       format_code_block_for_slide <- function() {
         paste0(
           c(
-            'code_block <- function (code_text) {',
-            '  df <- data.frame(code_text)',
-            '  ft <- flextable::flextable(df)',
+            "code_block <- function (code_text) {",
+            "  df <- data.frame(code_text)",
+            "  ft <- flextable::flextable(df)",
             '  ft <- flextable::delete_part(ft, part = "header")',
-            '  ft <- flextable::autofit(ft, add_h = 0)',
+            "  ft <- flextable::autofit(ft, add_h = 0)",
             '  ft <- flextable::fontsize(ft, size = 7, part = "body")',
             '  ft <- flextable::bg(x = ft, bg = "lightgrey")',
-            '  ft <- flextable::border_outer(ft)',
-            '  if (flextable::flextable_dim(ft)$widths > 8) {',
-            '    ft <- flextable::width(ft, width = 8)',
-            '  }',
-            '  ft',
-            '}'
+            "  ft <- flextable::border_outer(ft)",
+            "  if (flextable::flextable_dim(ft)$widths > 8) {",
+            "    ft <- flextable::width(ft, width = 8)",
+            "  }",
+            "  ft",
+            "}"
           ),
           collapse = "\n"
         )
