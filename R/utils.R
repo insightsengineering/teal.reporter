@@ -270,7 +270,7 @@ split_text_block <- function(x, n) {
   lines <- strsplit(x, "\n")[[1]]
 
   if (length(lines) <= n) {
-    return(x)
+    return(list(x))
   }
 
   nblocks <- ceiling(length(lines) / n)
