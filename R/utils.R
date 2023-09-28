@@ -277,22 +277,3 @@ split_text_block <- function(x, n) {
   ind <- rep(1:nblocks, each = n)[seq_along(lines)]
   unname(lapply(split(lines, ind), paste, collapse = "\n"))
 }
-
-#' This function converts code text into an formatted flextable,
-#' designed for enhancing code readability in R Markdown presentations.
-#' @noRd
-#'
-#' @keywords internal
-format_code_block_for_slide <- function(code_text) {
-  df <- data.frame(code_text)
-  ft <- flextable::flextable(df)
-  ft <- flextable::delete_part(ft, part = "header")
-  ft <- flextable::autofit(ft, add_h = 0)
-  ft <- flextable::fontsize(ft, size = 7, part = "body")
-  ft <- flextable::bg(x = ft, bg = "lightgrey")
-  ft <- flextable::border_outer(ft)
-  if (flextable::flextable_dim(ft)$widths > 8) {
-    ft <- flextable::width(ft, width = 8)
-  }
-  ft
-}
