@@ -114,13 +114,13 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
 #' align columns to the center, and row names to the left
 #' Indent the row names by 10 times indentation
 #'
-#' @param content Supported formats: `data.frame`, `rtables`, `TableTree`, `ElementaryTable`
+#' @param content Supported formats: `data.frame`, `rtables`, `TableTree`, `ElementaryTable`, `listing_df`
 
 #' @return (`flextable`)
 #'
 #' @keywords internal
 to_flextable <- function(content) {
-  if (inherits(content, c("rtables", "TableTree", "ElementaryTable"))) {
+  if (inherits(content, c("rtables", "TableTree", "ElementaryTable", "listing_df"))) {
     mf <- rtables::matrix_form(content)
     nr_header <- attr(mf, "nrow_header")
     non_total_coln <- c(TRUE, !grepl("All Patients", names(content)))
@@ -130,6 +130,13 @@ to_flextable <- function(content) {
     ft <- flextable::flextable(df)
     ft <- flextable::delete_part(ft, part = "header")
     ft <- flextable::add_header(ft, values = header_df)
+
+    # Add titles
+    ft <- flextable::set_caption(ft, flextable::as_paragraph(
+      flextable::as_b(mf$main_title), "\n", paste(mf$subtitles, collapse = "\n")
+    ),
+    align_with_table = FALSE
+    )
 
     merge_index_body <- get_merge_index(mf$spans[seq(nr_header + 1, nrow(mf$spans)), , drop = FALSE])
     merge_index_header <- get_merge_index(mf$spans[seq_len(nr_header), , drop = FALSE])
@@ -147,13 +154,23 @@ to_flextable <- function(content) {
       rep(sum(dim(ft)$widths[-1]), length(dim(ft)$widths) - 1) / (ncol(mf$strings) - 1)
     )
     ft <- flextable::width(ft, width = width_vector)
+    ft <- custom_theme(ft)
+
+    # Add footers
+    ft <- flextable::add_footer_lines(ft, flextable::as_paragraph(
+      flextable::as_chunk(mf$main_footer, props = flextable::fp_text_default(font.size = 8))
+    ))
+    if (length(mf$main_footer) > 0 && length(mf$prov_footer) > 0) ft <- flextable::add_footer_lines(ft, c("\n"))
+    ft <- flextable::add_footer_lines(ft, flextable::as_paragraph(
+      flextable::as_chunk(mf$prov_footer, props = flextable::fp_text_default(font.size = 8))
+    ))
   } else if (inherits(content, "data.frame")) {
     ft <- flextable::flextable(content)
+    ft <- custom_theme(ft)
   } else {
     stop(paste0("Unsupported class `(", format(class(content)), ")` when exporting table"))
   }
 
-  ft <- custom_theme(ft)
   if (flextable::flextable_dim(ft)$widths > 10) {
     pgwidth <- 10.5
     width_vector <- dim(ft)$widths * pgwidth / flextable::flextable_dim(ft)$widths
