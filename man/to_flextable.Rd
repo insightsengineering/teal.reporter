@@ -9,7 +9,7 @@ Indent the row names by 10 times indentation}
 to_flextable(content)
 }
 \arguments{
-\item{content}{Supported formats: \code{data.frame}, \code{rtables}, \code{TableTree}, \code{ElementaryTable}}
+\item{content}{Supported formats: \code{data.frame}, \code{rtables}, \code{TableTree}, \code{ElementaryTable}, \code{listing_df}}
 }
 \value{
 (\code{flextable})
