@@ -115,7 +115,7 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
 #' Indent the row names by 10 times indentation
 #'
 #' @param content Supported formats: `data.frame`, `rtables`, `TableTree`, `ElementaryTable`, `listing_df`
-
+#'
 #' @return (`flextable`)
 #'
 #' @keywords internal
@@ -185,6 +185,7 @@ to_flextable <- function(content) {
 #'
 #' @keywords internal
 custom_theme <- function(ft) {
+  checkmate::assert_class(ft, "flextable")
   ft <- flextable::fontsize(ft, size = 8, part = "body")
   ft <- flextable::bold(ft, part = "header")
   ft <- flextable::theme_booktabs(ft)
@@ -246,4 +247,33 @@ padding_lst <- function(ft, indents) {
   Reduce(function(ft, s) {
     flextable::padding(ft, s, 1, padding.left = (indents[s] + 1) * 10)
   }, seq_len(length(indents)), ft)
+}
+
+#' Split a text block into smaller blocks with a specified number of lines.
+#'
+#' Divide text block into smaller blocks.
+#'
+#' A single character string containing a text block of multiple lines (separated by `\n`)
+#' is split into multiple strings with n or less lines each.
+#'
+#' @param block_text `character` string containing the input block of text
+#' @param n `integer` number of lines per block
+#'
+#' @return
+#' List of character strings with up to `n` lines in each element.
+#'
+#' @keywords internal
+split_text_block <- function(x, n) {
+  checkmate::assert_string(x)
+  checkmate::assert_integerish(n, lower = 1L, len = 1L)
+
+  lines <- strsplit(x, "\n")[[1]]
+
+  if (length(lines) <= n) {
+    return(x)
+  }
+
+  nblocks <- ceiling(length(lines) / n)
+  ind <- rep(1:nblocks, each = n)[seq_along(lines)]
+  unname(lapply(split(lines, ind), paste, collapse = "\n"))
 }

@@ -139,3 +139,10 @@ testthat::test_that("as_yaml_auto - accept multi outputs with the multi_output a
     NA
   )
 })
+
+test_that("get_yaml_field returns the correct result", {
+  yaml_text <- "---\nauthor: ''\ndate: '2022-04-29'\noutput:\n  pdf_document:\n    toc: yes\n    keep_tex: yes\n---\n"
+  field_name <- "output"
+  result <- get_yaml_field(yaml_text, field_name)
+  expect_equal(result, "pdf_document")
+})
