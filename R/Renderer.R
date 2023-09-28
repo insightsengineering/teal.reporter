@@ -34,7 +34,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         yaml_header <- md_header(yaml::as.yaml(list(title = "Report")))
       }
 
-      private$report_type <- reverse_yaml_field(yaml_header, "output")
+      private$report_type <- get_yaml_field(yaml_header, "output")
       parsed_global_knitr <- sprintf(
         "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n%s\n```\n",
         capture.output(dput(global_knitr)),
