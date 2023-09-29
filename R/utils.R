@@ -114,13 +114,13 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
 #' align columns to the center, and row names to the left
 #' Indent the row names by 10 times indentation
 #'
-#' @param content Supported formats: `data.frame`, `rtables`, `TableTree`, `ElementaryTable`
-
+#' @param content Supported formats: `data.frame`, `rtables`, `TableTree`, `ElementaryTable`, `listing_df`
+#'
 #' @return (`flextable`)
 #'
 #' @keywords internal
 to_flextable <- function(content) {
-  if (inherits(content, c("rtables", "TableTree", "ElementaryTable"))) {
+  if (inherits(content, c("rtables", "TableTree", "ElementaryTable", "listing_df"))) {
     mf <- rtables::matrix_form(content)
     nr_header <- attr(mf, "nrow_header")
     non_total_coln <- c(TRUE, !grepl("All Patients", names(content)))
@@ -130,6 +130,13 @@ to_flextable <- function(content) {
     ft <- flextable::flextable(df)
     ft <- flextable::delete_part(ft, part = "header")
     ft <- flextable::add_header(ft, values = header_df)
+
+    # Add titles
+    ft <- flextable::set_caption(ft, flextable::as_paragraph(
+      flextable::as_b(mf$main_title), "\n", paste(mf$subtitles, collapse = "\n")
+    ),
+    align_with_table = FALSE
+    )
 
     merge_index_body <- get_merge_index(mf$spans[seq(nr_header + 1, nrow(mf$spans)), , drop = FALSE])
     merge_index_header <- get_merge_index(mf$spans[seq_len(nr_header), , drop = FALSE])
@@ -147,13 +154,23 @@ to_flextable <- function(content) {
       rep(sum(dim(ft)$widths[-1]), length(dim(ft)$widths) - 1) / (ncol(mf$strings) - 1)
     )
     ft <- flextable::width(ft, width = width_vector)
+    ft <- custom_theme(ft)
+
+    # Add footers
+    ft <- flextable::add_footer_lines(ft, flextable::as_paragraph(
+      flextable::as_chunk(mf$main_footer, props = flextable::fp_text_default(font.size = 8))
+    ))
+    if (length(mf$main_footer) > 0 && length(mf$prov_footer) > 0) ft <- flextable::add_footer_lines(ft, c("\n"))
+    ft <- flextable::add_footer_lines(ft, flextable::as_paragraph(
+      flextable::as_chunk(mf$prov_footer, props = flextable::fp_text_default(font.size = 8))
+    ))
   } else if (inherits(content, "data.frame")) {
     ft <- flextable::flextable(content)
+    ft <- custom_theme(ft)
   } else {
     stop(paste0("Unsupported class `(", format(class(content)), ")` when exporting table"))
   }
 
-  ft <- custom_theme(ft)
   if (flextable::flextable_dim(ft)$widths > 10) {
     pgwidth <- 10.5
     width_vector <- dim(ft)$widths * pgwidth / flextable::flextable_dim(ft)$widths
@@ -168,6 +185,7 @@ to_flextable <- function(content) {
 #'
 #' @keywords internal
 custom_theme <- function(ft) {
+  checkmate::assert_class(ft, "flextable")
   ft <- flextable::fontsize(ft, size = 8, part = "body")
   ft <- flextable::bold(ft, part = "header")
   ft <- flextable::theme_booktabs(ft)
@@ -229,4 +247,33 @@ padding_lst <- function(ft, indents) {
   Reduce(function(ft, s) {
     flextable::padding(ft, s, 1, padding.left = (indents[s] + 1) * 10)
   }, seq_len(length(indents)), ft)
+}
+
+#' Split a text block into smaller blocks with a specified number of lines.
+#'
+#' Divide text block into smaller blocks.
+#'
+#' A single character string containing a text block of multiple lines (separated by `\n`)
+#' is split into multiple strings with n or less lines each.
+#'
+#' @param block_text `character` string containing the input block of text
+#' @param n `integer` number of lines per block
+#'
+#' @return
+#' List of character strings with up to `n` lines in each element.
+#'
+#' @keywords internal
+split_text_block <- function(x, n) {
+  checkmate::assert_string(x)
+  checkmate::assert_integerish(n, lower = 1L, len = 1L)
+
+  lines <- strsplit(x, "\n")[[1]]
+
+  if (length(lines) <= n) {
+    return(list(x))
+  }
+
+  nblocks <- ceiling(length(lines) / n)
+  ind <- rep(1:nblocks, each = n)[seq_along(lines)]
+  unname(lapply(split(lines, ind), paste, collapse = "\n"))
 }
