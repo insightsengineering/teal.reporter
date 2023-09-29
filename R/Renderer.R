@@ -28,16 +28,12 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @return `character` a `Rmd` text (`yaml` header + body), ready to be rendered.
     renderRmd = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr")) {
       checkmate::assert_list(blocks, c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock"))
-      checkmate::assert_list(global_knitr)
+      checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
 
-      valid_options <- names(knitr::opts_chunk$get())
-      global_knitr <- global_knitr[names(global_knitr) %in% valid_options]
-      if (!all(names(global_knitr) %in% valid_options)) {
-        message("Invalid options removed from global_knitr.")
-      }
       if (missing(yaml_header)) {
         yaml_header <- md_header(yaml::as.yaml(list(title = "Report")))
       }
+
       if (requireNamespace("formatR", quietly = TRUE)) {
         global_knitr[["tidy"]] <- TRUE
       } else {

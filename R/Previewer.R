@@ -47,6 +47,7 @@ reporter_previewer_srv <- function(id,
                                      toc = FALSE
                                    )) {
   checkmate::assert_class(reporter, "Reporter")
+  checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
   checkmate::assert_subset(
     rmd_output,
     c(
