@@ -97,6 +97,9 @@
     <loc>https://insightsengineering.github.io/teal.reporter/reference/get_bs_version.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/get_yaml_field.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/index.html</loc>
   </url>
   <url>
@@ -137,6 +140,9 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/simple_reporter_ui.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/split_text_block.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/teal.reporter.html</loc>
