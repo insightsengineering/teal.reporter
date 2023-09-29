@@ -56,7 +56,7 @@ getting the \code{Rmd} text which could be easily rendered later.
 \if{html}{\out{<div class="r">}}\preformatted{Renderer$renderRmd(
   blocks,
   yaml_header,
-  global_knitr = list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = TRUE)
+  global_knitr = list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = FALSE)
 )}\if{html}{\out{</div>}}
 }
 
@@ -86,7 +86,7 @@ Renders the content of this \code{Report} to the output file
 \if{html}{\out{<div class="r">}}\preformatted{Renderer$render(
   blocks,
   yaml_header,
-  global_knitr = list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = TRUE),
+  global_knitr = list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = FALSE),
   ...
 )}\if{html}{\out{</div>}}
 }
@@ -99,7 +99,7 @@ Renders the content of this \code{Report} to the output file
 \item{\code{yaml_header}}{\code{character} an \code{rmarkdown} \code{yaml} header.}
 
 \item{\code{global_knitr}}{\code{list} a global \code{knitr} parameters for customizing the rendering process.
-Defaults to \code{list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = TRUE)}.}
+Defaults to \code{list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = FALSE)}.}
 
 \item{\code{...}}{\code{rmarkdown::render} arguments, \code{input} and \code{output_dir} should not be updated.z}
 }

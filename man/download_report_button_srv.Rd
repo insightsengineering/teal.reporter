@@ -7,7 +7,7 @@
 download_report_button_srv(
   id,
   reporter,
-  global_knitr = list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = TRUE),
+  global_knitr = list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = FALSE),
   rmd_output = c(html = "html_document", pdf = "pdf_document", powerpoint =
     "powerpoint_presentation", word = "word_document"),
   rmd_yaml_args = list(author = "NEST", title = "Report", date =
@@ -20,7 +20,7 @@ download_report_button_srv(
 \item{reporter}{\code{\link{Reporter}} instance.}
 
 \item{global_knitr}{\code{list} a global \code{knitr} parameters for customizing the rendering process.
-Defaults to \code{list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = TRUE)}.}
+Defaults to \code{list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = FALSE)}.}
 
 \item{rmd_output}{\code{character} vector with \code{rmarkdown} output types,
 by default all possible \code{c("pdf_document", "html_document", "powerpoint_presentation", "word_document")}.

@@ -34,13 +34,13 @@ download_report_button_ui <- function(id) {
 #' @param id `character(1)` this `shiny` module's id.
 #' @param reporter [`Reporter`] instance.
 #' @param global_knitr `list` a global `knitr` parameters for customizing the rendering process.
-#' Defaults to `list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = TRUE)`.
+#' Defaults to `list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = FALSE)`.
 #' @inheritParams reporter_download_inputs
 #' @return `shiny::moduleServer`
 #' @export
 download_report_button_srv <- function(id,
                                        reporter,
-                                       global_knitr = list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = TRUE),
+                                       global_knitr = list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = FALSE),
                                        rmd_output = c(
                                          "html" = "html_document", "pdf" = "pdf_document",
                                          "powerpoint" = "powerpoint_presentation", "word" = "word_document"

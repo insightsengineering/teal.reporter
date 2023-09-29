@@ -1,4 +1,4 @@
-# teal.reporter 0.2.1.9004
+# teal.reporter 0.2.1.9005
 
 * Supports automatic `Rcode` formatting using the suggested `formatR` package in reports.
 
