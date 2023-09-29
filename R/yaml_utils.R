@@ -238,3 +238,26 @@ as_yaml_auto <- function(input_list,
 print.rmd_yaml_header <- function(x, ...) {
   cat(x, ...)
 }
+
+#' Parses `yaml` text, extracting the specified field. Returns list names if it's a list;
+#' otherwise, the field itself.
+#'
+#' @param yaml_text A character vector containing the `yaml` text.
+#' @param field_name The name of the field to extract.
+#'
+#' @return if the field is a list, it returns the names of elements in the list; otherwise,
+#' it returns the extracted field.
+#'
+#' @keywords internal
+get_yaml_field <- function(yaml_text, field_name) {
+  checkmate::assert_multi_class(yaml_text, c("rmd_yaml_header", "character"))
+  checkmate::assert_string(field_name)
+
+  yaml_obj <- yaml::yaml.load(yaml_text)
+
+  result <- yaml_obj[[field_name]]
+  if (is.list(result)) {
+    result <- names(result)
+  }
+  result
+}
