@@ -52,17 +52,17 @@ test_that("padding_lst applies padding to a flextable based on indentation level
   expect_is(padded_ft, "flextable")
 })
 
-l <- 5
-block_text <- paste(paste(rep("Line", l), seq_len(l)), collapse = "\n")
+line_break <- 5
+block_text <- paste(paste(rep("Line", line_break), seq_len(line_break)), collapse = "\n")
 
-test_that("split_text_block - n < l : splits text block into blocks no longer than n lines", {
+test_that("split_text_block - n < line_break : splits text block into blocks no longer than n lines", {
   n <- 2
   result <- split_text_block(block_text, n)
   result_lines <- lapply(result, function(x) strsplit(x, "\n")[[1]])
   lapply(result_lines, function(x) expect_lte(length(x), n))
 })
 
-test_that("split_text_block - n >= l: returns single block with original text", {
+test_that("split_text_block - n >= line_break: returns single block with original text", {
   n <- 7
   result <- split_text_block(block_text, n)
   expect_equal(result, list(block_text))
