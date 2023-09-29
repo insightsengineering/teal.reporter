@@ -34,7 +34,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
 
       valid_options <- names(knitr::opts_chunk$get())
       global_knitr <- global_knitr[names(global_knitr) %in% valid_options]
-      if(!all(names(global_knitr) %in% valid_options)) {
+      if (!all(names(global_knitr) %in% valid_options)) {
         message("Invalid options removed from global_knitr.")
       }
       if (missing(yaml_header)) {
