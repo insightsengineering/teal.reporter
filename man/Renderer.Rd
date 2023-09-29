@@ -53,7 +53,11 @@ Finalizes a \code{Renderer} object.
 \subsection{Method \code{renderRmd()}}{
 getting the \code{Rmd} text which could be easily rendered later.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Renderer$renderRmd(blocks, yaml_header, global_knitr = list())}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Renderer$renderRmd(
+  blocks,
+  yaml_header,
+  global_knitr = list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = FALSE)
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -79,7 +83,12 @@ Defaults to empty \code{list()}.}
 \subsection{Method \code{render()}}{
 Renders the content of this \code{Report} to the output file
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Renderer$render(blocks, yaml_header, global_knitr = list(), ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Renderer$render(
+  blocks,
+  yaml_header,
+  global_knitr = list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = FALSE),
+  ...
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -89,9 +98,8 @@ Renders the content of this \code{Report} to the output file
 
 \item{\code{yaml_header}}{\code{character} an \code{rmarkdown} \code{yaml} header.}
 
-\item{\code{global_knitr}}{\code{list} a global \code{knitr} parameters, like echo.
-But if local parameter is set it will have priority.
-Defaults to empty \code{list()}.}
+\item{\code{global_knitr}}{\code{list} a global \code{knitr} parameters for customizing the rendering process.
+Defaults to \code{list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = FALSE)}.}
 
 \item{\code{...}}{\code{rmarkdown::render} arguments, \code{input} and \code{output_dir} should not be updated.z}
 }
