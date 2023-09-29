@@ -31,6 +31,7 @@ Imports:
     zip (>= 1.1.0)
 Suggests:
     DT (>= 0.13),
+    formatR,
     ggplot2 (>= 3.4.0),
     lattice (>= 0.18-4),
     png,
