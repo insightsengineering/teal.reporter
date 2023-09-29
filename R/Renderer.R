@@ -28,15 +28,20 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' Defaults to empty `list()`.
     #'
     #' @return `character` a `Rmd` text (`yaml` header + body), ready to be rendered.
-    renderRmd = function(blocks, yaml_header, global_knitr = list()) {
+    renderRmd = function(blocks, yaml_header, global_knitr = list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = TRUE)) {
       checkmate::assert_list(blocks, c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock"))
+      checkmate::assert_list(global_knitr)
+
+      valid_options <- names(knitr::opts_chunk$get())
+      global_knitr <- global_knitr[names(global_knitr) %in% valid_options]
+      if(!all(names(global_knitr) %in% valid_options)) {
+        message("Invalid options removed from global_knitr.")
+      }
       if (missing(yaml_header)) {
         yaml_header <- md_header(yaml::as.yaml(list(title = "Report")))
       }
       parsed_yaml <- yaml_header
-      if (requireNamespace("formatR", quietly = TRUE)) {
-        global_knitr <- append(global_knitr, list(tidy.opts = list(width.cutoff = 60), tidy = TRUE))
-      } else {
+      if (!requireNamespace("formatR", quietly = TRUE)) {
         message("For better code formatting, consider installing the formatR package.")
       }
       parsed_global_knitr <- sprintf(
@@ -64,13 +69,12 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param blocks `list` of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
     #' @param yaml_header `character` an `rmarkdown` `yaml` header.
-    #' @param global_knitr `list` a global `knitr` parameters, like echo.
-    #' But if local parameter is set it will have priority.
-    #' Defaults to empty `list()`.
+    #' @param global_knitr `list` a global `knitr` parameters for customizing the rendering process.
+    #' Defaults to `list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = TRUE)`.
     #' @param ... `rmarkdown::render` arguments, `input` and `output_dir` should not be updated.z
     #'
     #' @return `character` path to the output
-    render = function(blocks, yaml_header, global_knitr = list(), ...) {
+    render = function(blocks, yaml_header, global_knitr = list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = TRUE), ...) {
       args <- list(...)
       input_path <- self$renderRmd(blocks, yaml_header, global_knitr)
       args <- append(args, list(
