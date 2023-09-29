@@ -47,14 +47,13 @@ simple_reporter_ui <- function(id) {
 #' @param card_fun `function` which returns a [`ReportCard`] instance,
 #' the function has a `card` argument and an optional `comment` argument.
 #' @param global_knitr `list` a global `knitr` parameters for customizing the rendering process.
-#' Defaults to `list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = FALSE)`.
 #' @inheritParams reporter_download_inputs
 #' @return `shiny::moduleServer`
 #' @export
 simple_reporter_srv <- function(id,
                                 reporter,
                                 card_fun,
-                                global_knitr = list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = FALSE),
+                                global_knitr = getOption("teal.reporter.global_knitr"),
                                 rmd_output = c(
                                   "html" = "html_document", "pdf" = "pdf_document",
                                   "powerpoint" = "powerpoint_presentation", "word" = "word_document"

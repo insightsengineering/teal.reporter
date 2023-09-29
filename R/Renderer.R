@@ -23,12 +23,10 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param blocks `list` of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
     #' @param yaml_header `character` a `rmarkdown` `yaml` header.
-    #' @param global_knitr `list` a global `knitr` parameters, like echo.
-    #' But if local parameter is set it will have priority.
-    #' Defaults to empty `list()`.
+    #' @param global_knitr `list` a global `knitr` parameters for customizing the rendering process.
     #'
     #' @return `character` a `Rmd` text (`yaml` header + body), ready to be rendered.
-    renderRmd = function(blocks, yaml_header, global_knitr = list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = FALSE)) {
+    renderRmd = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr")) {
       checkmate::assert_list(blocks, c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock"))
       checkmate::assert_list(global_knitr)
 
@@ -97,11 +95,10 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @param blocks `list` of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
     #' @param yaml_header `character` an `rmarkdown` `yaml` header.
     #' @param global_knitr `list` a global `knitr` parameters for customizing the rendering process.
-    #' Defaults to `list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = FALSE)`.
     #' @param ... `rmarkdown::render` arguments, `input` and `output_dir` should not be updated.z
     #'
     #' @return `character` path to the output
-    render = function(blocks, yaml_header, global_knitr = list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = FALSE), ...) {
+    render = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
       args <- list(...)
       input_path <- self$renderRmd(blocks, yaml_header, global_knitr)
       args <- append(args, list(
