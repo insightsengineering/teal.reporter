@@ -34,6 +34,11 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         yaml_header <- md_header(yaml::as.yaml(list(title = "Report")))
       }
       parsed_yaml <- yaml_header
+      if (requireNamespace("formatR", quietly = TRUE)) {
+        global_knitr <- append(global_knitr, list(tidy.opts = list(width.cutoff = 60), tidy = TRUE))
+      } else {
+        message("For better code formatting, consider installing the formatR package.")
+      }
       parsed_global_knitr <- sprintf(
         "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n```\n",
         capture.output(dput(global_knitr))

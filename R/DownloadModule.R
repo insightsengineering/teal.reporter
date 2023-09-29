@@ -33,11 +33,13 @@ download_report_button_ui <- function(id) {
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
 #' @param reporter [`Reporter`] instance.
+#' @param global_knitr `list` a global `knitr` parameters, like echo.
 #' @inheritParams reporter_download_inputs
 #' @return `shiny::moduleServer`
 #' @export
 download_report_button_srv <- function(id,
                                        reporter,
+                                       global_knitr = list(),
                                        rmd_output = c(
                                          "html" = "html_document", "pdf" = "pdf_document",
                                          "powerpoint" = "powerpoint_presentation", "word" = "word_document"
@@ -134,13 +136,7 @@ download_report_button_srv <- function(id,
           shiny::showNotification("Rendering and Downloading the document.")
           input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
           names(input_list) <- names(rmd_yaml_args)
-          global_knitr <- list()
-          if (is.logical(input$showrcode)) global_knitr <- list(echo = input$showrcode)
-          if (requireNamespace("formatR", quietly = TRUE)) {
-            global_knitr <- append(global_knitr, list(tidy.opts = list(width.cutoff = 60), tidy = TRUE))
-          } else {
-            message("For better code formatting, consider installing the formatR package.")
-          }
+          if (is.logical(input$showrcode)) global_knitr <- append(global_knitr, list(echo = input$showrcode))
           report_render_and_compress(reporter, input_list, global_knitr, file)
         },
         contentType = "application/zip"
