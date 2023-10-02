@@ -10,9 +10,13 @@
   toset <- !(names(default_global_knitr) %in% names(op))
   if (any(toset)) options(default_global_knitr[toset])
 
-  if (!requireNamespace("formatR", quietly = TRUE)) {
-    message("For better code formatting, consider installing the formatR package.")
-  }
-
   invisible()
+}
+
+.onAttach <- function(libname, pkgname) {
+  packageStartupMessage(
+    if (!requireNamespace("formatR", quietly = TRUE)) {
+      "For better code formatting, consider installing the formatR package."
+    }
+  )
 }
