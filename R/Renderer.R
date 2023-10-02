@@ -36,8 +36,6 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
 
       if (requireNamespace("formatR", quietly = TRUE)) {
         global_knitr[["tidy"]] <- TRUE
-      } else {
-        message("For better code formatting, consider installing the formatR package.")
       }
 
       private$report_type <- get_yaml_field(yaml_header, "output")
