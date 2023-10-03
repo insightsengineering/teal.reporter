@@ -4,7 +4,7 @@
   default_global_knitr <- list(teal.reporter.global_knitr = list(
     echo = TRUE,
     tidy.opts = list(width.cutoff = 60),
-    tidy = FALSE
+    tidy = requireNamespace("formatR", quietly = TRUE)
   ))
 
   if (!("teal.reporter.global_knitr" %in% names(op))) {

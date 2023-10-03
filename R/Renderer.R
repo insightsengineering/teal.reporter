@@ -34,10 +34,6 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         yaml_header <- md_header(yaml::as.yaml(list(title = "Report")))
       }
 
-      if (requireNamespace("formatR", quietly = TRUE)) {
-        global_knitr[["tidy"]] <- TRUE
-      }
-
       private$report_type <- get_yaml_field(yaml_header, "output")
       format_code_block_function <- paste0(
         c(
