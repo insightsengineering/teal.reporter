@@ -14,7 +14,7 @@ For more details see the vignette: vignette("simpleReporter", "teal.reporter").'
     
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1.9004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1.9005</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,19 +38,6 @@ For more details see the vignette: vignette("simpleReporter", "teal.reporter").'
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/release-candidate">release-candidate</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1-rc2">v0.2.1-rc2</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1-rc1">v0.2.1-rc1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1">v0.2.1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.0">v0.2.0</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.1.1">v0.1.1</a> </div></li>
-<!-- end dropdown for versions -->
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-reports">Reports</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-reports">
@@ -101,12 +88,13 @@ server for adding views/cards to the Report.</p>
 
 
 <dt>card_fun</dt>
-<dd><p><code>function</code> which returns a <code><a href="ReportCard.html">ReportCard</a></code> instance,
-the function has optional <code>card</code> and  <code>comment</code> arguments.
-If the <code>card</code> argument is added then the <code>ReportCard</code> instance is automatically created for the user.
-If the <code>comment</code> argument is not specified then it is added automatically at the end of the Card.
-The card name set by default in <code>card_fun</code> will be overcome by the <code>label</code> input which will be set automatically
-when adding a card.</p></dd>
+<dd><p><code>function</code> which returns a <code><a href="ReportCard.html">ReportCard</a></code> instance. It can have optional <code>card</code>, <code>comment</code> and
+<code>label</code> parameters. If <code>card</code> parameter is added, then the <code>ReportCard</code> instance is created for the user.
+Use <code>comment</code> parameter to pass it's value whenever you prefer with <code>card$append_text()</code> - if <code>card_fun</code> does not
+have <code>comment</code> parameter, then <code>comment</code> from <code>Add Card UI</code> module will be added at the end of the content of the
+card. If <code>label</code> parameter is provided, you can use it to customize appearance of the <code>card name</code> and use if to
+specify <code>card</code> content with <code>card$append_text()</code> - if <code>card_fun</code> does not have <code>label</code> parameter, then <code>card name</code>
+will be set to the name passed in <code>Add Card UI</code> module, but no text will be added to the content of the <code>card</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
