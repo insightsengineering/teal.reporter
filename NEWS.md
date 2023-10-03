@@ -1,4 +1,4 @@
-# teal.reporter 0.2.1.9005
+# teal.reporter 0.2.1.9006
 
 * `add_card_button_srv` allows to specify `card_fun` with `label` parameter for card's title & content customization.
 
