@@ -7,8 +7,9 @@
     tidy = FALSE
   ))
 
-  toset <- !(names(default_global_knitr) %in% names(op))
-  if (any(toset)) options(default_global_knitr[toset])
+  if (!("teal.reporter.global_knitr" %in% names(op))) {
+    options(default_global_knitr)
+  }
 
   invisible()
 }
