@@ -70,20 +70,20 @@ add_card_button_ui <- function(id) {
 #'
 #' @param id `character(1)` this `shiny` module's id.
 #' @param reporter [`Reporter`] instance.
-#' @param card_fun `function` which returns a [`ReportCard`] instance,
-#' the function has optional `card` and  `comment` arguments.
-#' If the `card` argument is added then the `ReportCard` instance is automatically created for the user.
-#' If the `comment` argument is not specified then it is added automatically at the end of the Card.
-#' The card name set by default in `card_fun` will be overcome by the `label` input which will be set automatically
-#' when adding a card.
-#'
+#' @param card_fun `function` which returns a [`ReportCard`] instance. It can have optional `card`, `comment` and
+#' `label` parameters. If `card` parameter is added, then the `ReportCard` instance is created for the user.
+#' Use `comment` parameter to pass it's value whenever you prefer with `card$append_text()` - if `card_fun` does not
+#' have `comment` parameter, then `comment` from `Add Card UI` module will be added at the end of the content of the
+#' card. If `label` parameter is provided, you can use it to customize appearance of the `card name` and use if to
+#' specify `card` content with `card$append_text()` - if `card_fun` does not have `label` parameter, then `card name`
+#' will be set to the name passed in `Add Card UI` module, but no text will be added to the content of the `card`.
 #'
 #' @return `shiny::moduleServer`
 #' @export
 add_card_button_srv <- function(id, reporter, card_fun) {
   checkmate::assert_function(card_fun)
   checkmate::assert_class(reporter, "Reporter")
-  checkmate::assert_subset(names(formals(card_fun)), c("card", "comment"), empty.ok = TRUE)
+  checkmate::assert_subset(names(formals(card_fun)), c("card", "comment", "label"), empty.ok = TRUE)
 
   shiny::moduleServer(
     id,
@@ -151,11 +151,15 @@ add_card_button_srv <- function(id, reporter, card_fun) {
         card_fun_args_nams <- names(formals(card_fun))
         has_card_arg <- "card" %in% card_fun_args_nams
         has_comment_arg <- "comment" %in% card_fun_args_nams
+        has_label_arg <- "label" %in% card_fun_args_nams
 
         arg_list <- list()
 
         if (has_comment_arg) {
           arg_list <- c(arg_list, list(comment = input$comment))
+        }
+        if (has_label_arg) {
+          arg_list <- c(arg_list, list(label = input$label))
         }
 
         if (has_card_arg) {
@@ -191,7 +195,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
             card$append_text(input$comment)
           }
 
-          if (length(input$label) == 1 && input$label != "") {
+          if (!has_label_arg && length(input$label) == 1 && input$label != "") {
             card$set_name(input$label)
           }
 

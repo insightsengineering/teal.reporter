@@ -1,5 +1,7 @@
 # teal.reporter 0.2.1.9005
 
+* `add_card_button_srv` allows to specify `card_fun` with `label` parameter for card's title & content customization.
+
 # teal.reporter 0.2.1
 
 ### Miscellaneous
@@ -8,6 +10,8 @@
 * Updated `TableBlock` to convert tables into `flextables` to show in rendered report.
 * Fixed CRAN requirements for the first CRAN submission.
 * Removed manual pages for non-exported objects.
+
+* Fixed CRAN requirements for the first CRAN submission.
 
 # teal.reporter 0.2.0
 
