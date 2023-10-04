@@ -8,6 +8,7 @@ simple_reporter_srv(
   id,
   reporter,
   card_fun,
+  global_knitr = getOption("teal.reporter.global_knitr"),
   rmd_output = c(html = "html_document", pdf = "pdf_document", powerpoint =
     "powerpoint_presentation", word = "word_document"),
   rmd_yaml_args = list(author = "NEST", title = "Report", date =
@@ -21,6 +22,8 @@ simple_reporter_srv(
 
 \item{card_fun}{\code{function} which returns a \code{\link{ReportCard}} instance,
 the function has a \code{card} argument and an optional \code{comment} argument.}
+
+\item{global_knitr}{\code{list} a global \code{knitr} parameters for customizing the rendering process.}
 
 \item{rmd_output}{\code{character} vector with \code{rmarkdown} output types,
 by default all possible \code{c("pdf_document", "html_document", "powerpoint_presentation", "word_document")}.
@@ -42,4 +45,13 @@ The add module has \code{add_report_card_simple} id, the download module the \co
 and the reset module the \code{reset_button_simple} id.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
+}
+\details{
+To access the default values for the \code{global_knitr} parameter,
+use \code{getOption('teal.reporter.global_knitr')}. These defaults include:
+\itemize{
+\item \code{echo = TRUE}
+\item \code{tidy.opts = list(width.cutoff = 60)}
+\item \code{tidy = TRUE}  if \code{formatR} package is installed, \code{FALSE} otherwise
+}
 }
