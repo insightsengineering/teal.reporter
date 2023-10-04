@@ -12,7 +12,7 @@ Renderer"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/ma
     
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1.9006</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,19 +36,6 @@ Renderer"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/ma
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/release-candidate">release-candidate</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1-rc2">v0.2.1-rc2</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1-rc1">v0.2.1-rc1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1">v0.2.1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.0">v0.2.0</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.1.1">v0.1.1</a> </div></li>
-<!-- end dropdown for versions -->
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-reports">Reports</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-reports">
@@ -124,7 +111,11 @@ Renderer"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/ma
 <h3 id="method-renderrmd-">Method <code>renderRmd()</code><a class="anchor" aria-label="anchor" href="#method-renderrmd-"></a></h3>
 <p>getting the <code>Rmd</code> text which could be easily rendered later.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Renderer</span><span class="op">$</span><span class="fu">renderRmd</span><span class="op">(</span><span class="va">blocks</span>, <span class="va">yaml_header</span>, global_knitr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Renderer</span><span class="op">$</span><span class="fu">renderRmd</span><span class="op">(</span></span>
+<span>  <span class="va">blocks</span>,</span>
+<span>  <span class="va">yaml_header</span>,</span>
+<span>  global_knitr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"teal.reporter.global_knitr"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -134,17 +125,24 @@ Renderer"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/ma
 
 
 <dt><code>yaml_header</code></dt>
-<dd><p><code>character</code> a <code>rmarkdown</code> <code>yaml</code> header.</p></dd>
+<dd><p><code>character</code> an <code>rmarkdown</code> <code>yaml</code> header.</p></dd>
 
 
 <dt><code>global_knitr</code></dt>
-<dd><p><code>list</code> a global <code>knitr</code> parameters, like echo.
-But if local parameter is set it will have priority.
-Defaults to empty <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code>.</p></dd>
+<dd><p><code>list</code> a of <code>knitr</code> parameters (passed to <code>knitr::opts_chunk$set</code>)
+for customizing the rendering process.</p></dd>
 
 
 </dl><p></p></div>
 </div>
+<div class="section">
+<h4 id="details-1">Details<a class="anchor" aria-label="anchor" href="#details-1"></a></h4>
+<p>To access the default values for the <code>global_knitr</code> parameter,
+use <code>getOption('teal.reporter.global_knitr')</code>. These defaults include:</p><ul><li><p><code>echo = TRUE</code></p></li>
+<li><p><code>tidy.opts = list(width.cutoff = 60)</code></p></li>
+<li><p><code>tidy = TRUE</code>  if <code>formatR</code> package is installed, <code>FALSE</code> otherwise</p></li>
+</ul></div>
+
 <div class="section">
 <h4 id="returns-1">Returns<a class="anchor" aria-label="anchor" href="#returns-1"></a></h4>
 <p><code>character</code> a <code>Rmd</code> text (<code>yaml</code> header + body), ready to be rendered.</p>
@@ -154,7 +152,12 @@ Defaults to empty <code><a href="https://rdrr.io/r/base/list.html" class="extern
 <h3 id="method-render-">Method <code>render()</code><a class="anchor" aria-label="anchor" href="#method-render-"></a></h3>
 <p>Renders the content of this <code>Report</code> to the output file</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Renderer</span><span class="op">$</span><span class="fu">render</span><span class="op">(</span><span class="va">blocks</span>, <span class="va">yaml_header</span>, global_knitr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Renderer</span><span class="op">$</span><span class="fu">render</span><span class="op">(</span></span>
+<span>  <span class="va">blocks</span>,</span>
+<span>  <span class="va">yaml_header</span>,</span>
+<span>  global_knitr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"teal.reporter.global_knitr"</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -168,17 +171,24 @@ Defaults to empty <code><a href="https://rdrr.io/r/base/list.html" class="extern
 
 
 <dt><code>global_knitr</code></dt>
-<dd><p><code>list</code> a global <code>knitr</code> parameters, like echo.
-But if local parameter is set it will have priority.
-Defaults to empty <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code>.</p></dd>
+<dd><p><code>list</code> a of <code>knitr</code> parameters (passed to <code>knitr::opts_chunk$set</code>)
+for customizing the rendering process.</p></dd>
 
 
 <dt><code>...</code></dt>
-<dd><p><code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">rmarkdown::render</a></code> arguments, <code>input</code> and <code>output_dir</code> should not be updated.z</p></dd>
+<dd><p><code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">rmarkdown::render</a></code> arguments, <code>input</code> and <code>output_dir</code> should not be updated.</p></dd>
 
 
 </dl><p></p></div>
 </div>
+<div class="section">
+<h4 id="details-2">Details<a class="anchor" aria-label="anchor" href="#details-2"></a></h4>
+<p>To access the default values for the <code>global_knitr</code> parameter,
+use <code>getOption('teal.reporter.global_knitr')</code>. These defaults include:</p><ul><li><p><code>echo = TRUE</code></p></li>
+<li><p><code>tidy.opts = list(width.cutoff = 60)</code></p></li>
+<li><p><code>tidy = TRUE</code>  if <code>formatR</code> package is installed, <code>FALSE</code> otherwise</p></li>
+</ul></div>
+
 <div class="section">
 <h4 id="returns-2">Returns<a class="anchor" aria-label="anchor" href="#returns-2"></a></h4>
 <p><code>character</code> path to the output</p>
