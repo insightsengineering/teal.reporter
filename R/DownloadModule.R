@@ -41,7 +41,7 @@ download_report_button_ui <- function(id) {
 #'  use `getOption("teal.reporter.global_knitr")`. These defaults include:
 #' - `echo`: `TRUE`
 #' - `tidy.opts`: `list(width.cutoff = 60)`
-#' - `tidy`: This option is automatically set to `TRUE` if the `formatR` package is present in the namespace;
+#' - `tidy = TRUE`  if `formatR` package is installed, `FALSE` otherwise
 #'  otherwise, it is set to `FALSE`.
 #'
 #' @export
