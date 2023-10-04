@@ -22,14 +22,16 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @description getting the `Rmd` text which could be easily rendered later.
     #'
     #' @param blocks `list` of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
-    #' @param yaml_header `character` a `rmarkdown` `yaml` header.
-    #' @param global_knitr `list` a global `knitr` parameters, like echo.
-    #' But if local parameter is set it will have priority.
-    #' Defaults to empty `list()`.
+    #' @param yaml_header `character` an `rmarkdown` `yaml` header.
+    #' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`)
+    #'  for customizing the rendering process.
+    #' @details `r global_knitr_details()`
     #'
     #' @return `character` a `Rmd` text (`yaml` header + body), ready to be rendered.
-    renderRmd = function(blocks, yaml_header, global_knitr = list()) {
+    renderRmd = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr")) {
       checkmate::assert_list(blocks, c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock"))
+      checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
+
       if (missing(yaml_header)) {
         yaml_header <- md_header(yaml::as.yaml(list(title = "Report")))
       }
@@ -84,13 +86,13 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param blocks `list` of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
     #' @param yaml_header `character` an `rmarkdown` `yaml` header.
-    #' @param global_knitr `list` a global `knitr` parameters, like echo.
-    #' But if local parameter is set it will have priority.
-    #' Defaults to empty `list()`.
-    #' @param ... `rmarkdown::render` arguments, `input` and `output_dir` should not be updated.z
+    #' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`)
+    #'  for customizing the rendering process.
+    #' @param ... `rmarkdown::render` arguments, `input` and `output_dir` should not be updated.
+    #' @details `r global_knitr_details()`
     #'
     #' @return `character` path to the output
-    render = function(blocks, yaml_header, global_knitr = list(), ...) {
+    render = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
       args <- list(...)
       input_path <- self$renderRmd(blocks, yaml_header, global_knitr)
       args <- append(args, list(

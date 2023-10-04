@@ -2,6 +2,8 @@
 
 * `add_card_button_srv` allows to specify `card_fun` with `label` parameter for card's title & content customization.
 
+* Supports automatic `Rcode` formatting using the suggested `formatR` package in reports.
+
 # teal.reporter 0.2.1
 
 ### Miscellaneous

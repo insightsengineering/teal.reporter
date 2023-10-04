@@ -31,10 +31,15 @@ reporter_previewer_ui <- function(id) {
 #' For more details see the vignette: `vignette("previewerReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
 #' @param reporter `Reporter` instance
+#' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`)
+#'  for customizing the rendering process.
 #' @inheritParams reporter_download_inputs
+#' @details `r global_knitr_details()`
+#'
 #' @export
 reporter_previewer_srv <- function(id,
                                    reporter,
+                                   global_knitr = getOption("teal.reporter.global_knitr"),
                                    rmd_output = c(
                                      "html" = "html_document", "pdf" = "pdf_document",
                                      "powerpoint" = "powerpoint_presentation",
@@ -45,6 +50,7 @@ reporter_previewer_srv <- function(id,
                                      toc = FALSE
                                    )) {
   checkmate::assert_class(reporter, "Reporter")
+  checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
   checkmate::assert_subset(
     rmd_output,
     c(
@@ -179,8 +185,7 @@ reporter_previewer_srv <- function(id,
           shiny::showNotification("Rendering and Downloading the document.")
           input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
           names(input_list) <- names(rmd_yaml_args)
-          global_knitr <- list()
-          if (is.logical(input$showrcode)) global_knitr <- list(echo = input$showrcode)
+          if (is.logical(input$showrcode)) global_knitr[["echo"]] <- input$showrcode
           report_render_and_compress(reporter, input_list, global_knitr, file)
         },
         contentType = "application/zip"
