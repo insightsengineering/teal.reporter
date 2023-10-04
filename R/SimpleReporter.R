@@ -48,6 +48,13 @@ simple_reporter_ui <- function(id) {
 #' the function has a `card` argument and an optional `comment` argument.
 #' @param global_knitr `list` a global `knitr` parameters for customizing the rendering process.
 #' @inheritParams reporter_download_inputs
+#' @details To access the default values for the `global_knitr` parameter,
+#'  use `getOption("teal.reporter.global_knitr")`.These defaults include:
+#' - `echo`: `TRUE`
+#' - `tidy.opts`: `list(width.cutoff = 60)`
+#' - `tidy`: This option is automatically set to `TRUE` if the `formatR` package is present in the namespace;
+#'  otherwise, it is set to `FALSE`.
+#'
 #' @return `shiny::moduleServer`
 #' @export
 simple_reporter_srv <- function(id,
