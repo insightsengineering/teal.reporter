@@ -25,7 +25,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @param yaml_header `character` an `rmarkdown` `yaml` header.
     #' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`)
     #'  for customizing the rendering process.
-    #' @inherit simple_reporter_srv details
+    #' @details `r global_knitr_details()`
     #'
     #' @return `character` a `Rmd` text (`yaml` header + body), ready to be rendered.
     renderRmd = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr")) {
@@ -89,7 +89,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`)
     #'  for customizing the rendering process.
     #' @param ... `rmarkdown::render` arguments, `input` and `output_dir` should not be updated.
-    #' @inherit simple_reporter_srv details
+    #' @details `r global_knitr_details()`
     #'
     #' @return `character` path to the output
     render = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), ...) {

@@ -37,7 +37,7 @@ download_report_button_ui <- function(id) {
 #'  for customizing the rendering process.
 #' @inheritParams reporter_download_inputs
 #' @return `shiny::moduleServer`
-#' @inherit simple_reporter_srv details
+#' @details `r global_knitr_details()`
 #'
 #' @export
 download_report_button_srv <- function(id,

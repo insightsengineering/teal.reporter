@@ -48,7 +48,7 @@ For more details see the vignette: \code{vignette("simpleReporter", "teal.report
 }
 \details{
 To access the default values for the \code{global_knitr} parameter,
-use \code{getOption("teal.reporter.global_knitr")}. These defaults include:
+use \code{getOption('teal.reporter.global_knitr')}. These defaults include:
 \itemize{
 \item \code{echo = TRUE}
 \item \code{tidy.opts = list(width.cutoff = 60)}

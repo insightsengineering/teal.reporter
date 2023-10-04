@@ -8,15 +8,6 @@
 
 \code{Renderer}
 }
-\details{
-To access the default values for the \code{global_knitr} parameter,
-use \code{getOption("teal.reporter.global_knitr")}. These defaults include:
-\itemize{
-\item \code{echo = TRUE}
-\item \code{tidy.opts = list(width.cutoff = 60)}
-\item \code{tidy = TRUE}  if \code{formatR} package is installed, \code{FALSE} otherwise
-}
-}
 \keyword{internal}
 \section{Methods}{
 \subsection{Public methods}{
@@ -81,6 +72,16 @@ for customizing the rendering process.}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Details}{
+To access the default values for the \code{global_knitr} parameter,
+use \code{getOption('teal.reporter.global_knitr')}. These defaults include:
+\itemize{
+\item \code{echo = TRUE}
+\item \code{tidy.opts = list(width.cutoff = 60)}
+\item \code{tidy = TRUE}  if \code{formatR} package is installed, \code{FALSE} otherwise
+}
+}
+
 \subsection{Returns}{
 \code{character} a \code{Rmd} text (\code{yaml} header + body), ready to be rendered.
 }
@@ -113,6 +114,16 @@ for customizing the rendering process.}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Details}{
+To access the default values for the \code{global_knitr} parameter,
+use \code{getOption('teal.reporter.global_knitr')}. These defaults include:
+\itemize{
+\item \code{echo = TRUE}
+\item \code{tidy.opts = list(width.cutoff = 60)}
+\item \code{tidy = TRUE}  if \code{formatR} package is installed, \code{FALSE} otherwise
+}
+}
+
 \subsection{Returns}{
 \code{character} path to the output
 }

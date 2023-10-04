@@ -34,7 +34,7 @@ reporter_previewer_ui <- function(id) {
 #' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`)
 #'  for customizing the rendering process.
 #' @inheritParams reporter_download_inputs
-#' @inherit simple_reporter_srv details
+#' @details `r global_knitr_details()`
 #'
 #' @export
 reporter_previewer_srv <- function(id,
