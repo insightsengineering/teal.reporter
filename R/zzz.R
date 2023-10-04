@@ -1,5 +1,4 @@
 .onLoad <- function(libname, pkgname) {
-  # adapted from https://r-pkgs.org/code.html#sec-code-onLoad-onAttach
   op <- options()
   default_global_knitr <- list(teal.reporter.global_knitr = list(
     echo = TRUE,
