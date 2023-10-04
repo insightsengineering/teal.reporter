@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.83914590747331" branch-rate="0" lines-covered="1179" lines-valid="1405" branches-covered="0" branches-valid="0" complexity="0" version="3.6.2" timestamp="2023-10-04 11:34:40.826561">
+<coverage line-rate="0.836763662171753" branch-rate="0" lines-covered="1179" lines-valid="1409" branches-covered="0" branches-valid="0" complexity="0" version="3.6.2" timestamp="2023-10-04 12:25:26.736537">
   <sources>
     <source>/__w/teal.reporter/teal.reporter/teal.reporter</source>
   </sources>
   <packages>
-    <package name="teal.reporter" line-rate="0.83914590747331" branch-rate="0" complexity="0">
+    <package name="teal.reporter" line-rate="0.836763662171753" branch-rate="0" complexity="0">
       <classes>
         <class name="AddCardModule.R" filename="R/AddCardModule.R" line-rate="0.986111111111111" branch-rate="0" complexity="0">
           <methods>
@@ -3630,7 +3630,7 @@
             <line number="60" hits="16" branch="false"/>
           </lines>
         </class>
-        <class name="utils.R" filename="R/utils.R" line-rate="0.544910179640719" branch-rate="0" complexity="0">
+        <class name="utils.R" filename="R/utils.R" line-rate="0.532163742690059" branch-rate="0" complexity="0">
           <methods>
             <method name="get_bs_version" signature="" line-rate="0.75" branch-rate="0" complexity="0">
               <lines>
@@ -3837,6 +3837,10 @@
                 <line number="290" hits="0" branch="false"/>
                 <line number="291" hits="0" branch="false"/>
                 <line number="292" hits="0" branch="false"/>
+                <line number="293" hits="0" branch="false"/>
+                <line number="294" hits="0" branch="false"/>
+                <line number="295" hits="0" branch="false"/>
+                <line number="296" hits="0" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -4008,6 +4012,10 @@
             <line number="290" hits="0" branch="false"/>
             <line number="291" hits="0" branch="false"/>
             <line number="292" hits="0" branch="false"/>
+            <line number="293" hits="0" branch="false"/>
+            <line number="294" hits="0" branch="false"/>
+            <line number="295" hits="0" branch="false"/>
+            <line number="296" hits="0" branch="false"/>
           </lines>
         </class>
         <class name="yaml_utils.R" filename="R/yaml_utils.R" line-rate="0.975308641975309" branch-rate="0" complexity="0">
