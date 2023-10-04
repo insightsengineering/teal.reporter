@@ -37,12 +37,7 @@ download_report_button_ui <- function(id) {
 #'  for customizing the rendering process.
 #' @inheritParams reporter_download_inputs
 #' @return `shiny::moduleServer`
-#' @details To access the default values for the `global_knitr` parameter,
-#'  use `getOption("teal.reporter.global_knitr")`. These defaults include:
-#' - `echo`: `TRUE`
-#' - `tidy.opts`: `list(width.cutoff = 60)`
-#' - `tidy = TRUE`  if `formatR` package is installed, `FALSE` otherwise
-#'  otherwise, it is set to `FALSE`.
+#' @inherit simple_reporter_srv details
 #'
 #' @export
 download_report_button_srv <- function(id,

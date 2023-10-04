@@ -39,11 +39,10 @@ For more details see the vignette: \code{vignette("previewerReporter", "teal.rep
 }
 \details{
 To access the default values for the \code{global_knitr} parameter,
-use \code{getOption("teal.reporter.global_knitr")}.These defaults include:
+use \code{getOption("teal.reporter.global_knitr")}. These defaults include:
 \itemize{
-\item \code{echo}: \code{TRUE}
-\item \code{tidy.opts}: \code{list(width.cutoff = 60)}
-\item \code{tidy}: This option is automatically set to \code{TRUE} if the \code{formatR} package is present in the namespace;
-otherwise, it is set to \code{FALSE}.
+\item \code{echo = TRUE}
+\item \code{tidy.opts = list(width.cutoff = 60)}
+\item \code{tidy = TRUE}  if \code{formatR} package is installed, \code{FALSE} otherwise
 }
 }
