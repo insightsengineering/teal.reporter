@@ -19,7 +19,7 @@ download_report_button_srv(
 
 \item{reporter}{\code{\link{Reporter}} instance.}
 
-\item{global_knitr}{\code{list} a global \code{knitr} parameters for customizing the rendering process.}
+\item{global_knitr}{\code{list} a of \code{knitr} parameters (passed to \code{knitr::opts_chunk$set}) for customizing the rendering process.}
 
 \item{rmd_output}{\code{character} vector with \code{rmarkdown} output types,
 by default all possible \code{c("pdf_document", "html_document", "powerpoint_presentation", "word_document")}.
@@ -39,4 +39,14 @@ The default value for \code{"output"} has to be in the \code{rmd_output} argumen
 server for downloading the Report.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
+}
+\details{
+To access the default values for the \code{global_knitr} parameter, use \code{getOption("teal.reporter.global_knitr")}.
+These defaults include:
+\itemize{
+\item \code{echo}: \code{TRUE}
+\item \code{tidy.opts}: \code{list(width.cutoff = 60)}
+\item \code{tidy}: This option is automatically set to \code{TRUE} if the \code{formatR} package is present in the namespace;
+otherwise, it is set to \code{FALSE}.
+}
 }

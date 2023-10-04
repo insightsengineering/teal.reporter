@@ -23,7 +23,13 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param blocks `list` of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
     #' @param yaml_header `character` a `rmarkdown` `yaml` header.
-    #' @param global_knitr `list` a global `knitr` parameters for customizing the rendering process.
+    #' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`) for customizing the rendering process.
+    #' @details To access the default values for the `global_knitr` parameter, use `getOption("teal.reporter.global_knitr")`.
+    #' These defaults include:
+    #' - `echo`: `TRUE`
+    #' - `tidy.opts`: `list(width.cutoff = 60)`
+    #' - `tidy`: This option is automatically set to `TRUE` if the `formatR` package is present in the namespace;
+    #'  otherwise, it is set to `FALSE`.
     #'
     #' @return `character` a `Rmd` text (`yaml` header + body), ready to be rendered.
     renderRmd = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr")) {

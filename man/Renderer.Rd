@@ -67,10 +67,21 @@ getting the \code{Rmd} text which could be easily rendered later.
 
 \item{\code{yaml_header}}{\code{character} a \code{rmarkdown} \code{yaml} header.}
 
-\item{\code{global_knitr}}{\code{list} a global \code{knitr} parameters for customizing the rendering process.}
+\item{\code{global_knitr}}{\code{list} a of \code{knitr} parameters (passed to \code{knitr::opts_chunk$set}) for customizing the rendering process.}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Details}{
+To access the default values for the \code{global_knitr} parameter, use \code{getOption("teal.reporter.global_knitr")}.
+These defaults include:
+\itemize{
+\item \code{echo}: \code{TRUE}
+\item \code{tidy.opts}: \code{list(width.cutoff = 60)}
+\item \code{tidy}: This option is automatically set to \code{TRUE} if the \code{formatR} package is present in the namespace;
+otherwise, it is set to \code{FALSE}.
+}
+}
+
 \subsection{Returns}{
 \code{character} a \code{Rmd} text (\code{yaml} header + body), ready to be rendered.
 }
