@@ -284,10 +284,14 @@ split_text_block <- function(x, n) {
 #'
 #' @keywords internal
 global_knitr_details <- function() {
-  paste0(c(" To access the default values for the `global_knitr` parameter,",
-  "  use `getOption('teal.reporter.global_knitr')`. These defaults include:",
-  " - `echo = TRUE`",
-  " - `tidy.opts = list(width.cutoff = 60)`",
-  " - `tidy = TRUE`  if `formatR` package is installed, `FALSE` otherwise"),
-  collapse = "\n")
+  paste0(
+    c(
+      " To access the default values for the `global_knitr` parameter,",
+      "  use `getOption('teal.reporter.global_knitr')`. These defaults include:",
+      " - `echo = TRUE`",
+      " - `tidy.opts = list(width.cutoff = 60)`",
+      " - `tidy = TRUE`  if `formatR` package is installed, `FALSE` otherwise"
+    ),
+    collapse = "\n"
+  )
 }
