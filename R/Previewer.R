@@ -31,7 +31,7 @@ reporter_previewer_ui <- function(id) {
 #' For more details see the vignette: `vignette("previewerReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
 #' @param reporter `Reporter` instance
-#' @param global_knitr `list` a global `knitr` parameters for customizing the rendering process.
+#' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`) for customizing the rendering process.
 #' @inheritParams reporter_download_inputs
 #' @export
 reporter_previewer_srv <- function(id,
