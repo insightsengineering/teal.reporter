@@ -19,7 +19,7 @@ reporter_previewer_srv(
 
 \item{reporter}{\code{Reporter} instance}
 
-\item{global_knitr}{\code{list} a global \code{knitr} parameters for customizing the rendering process.}
+\item{global_knitr}{\code{list} a of \code{knitr} parameters (passed to \code{knitr::opts_chunk$set}) for customizing the rendering process.}
 
 \item{rmd_output}{\code{character} vector with \code{rmarkdown} output types,
 by default all possible \code{c("pdf_document", "html_document", "powerpoint_presentation", "word_document")}.
