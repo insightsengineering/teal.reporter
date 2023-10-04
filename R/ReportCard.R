@@ -60,7 +60,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       self$append_content(TextBlock$new(text, style))
       invisible(self)
     },
-    #' @description Appends a `rmarkdown` R chunk to this `ReportCard`.
+    #' @description Appends an `rmarkdown` R chunk to this `ReportCard`.
     #'
     #' @param text (`character(0)` or `character(1)`) the text
     #' @param ... any `rmarkdown` R chunk parameter and its value.
