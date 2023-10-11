@@ -47,3 +47,6 @@ reference:
     contents:
       - ReportCard
       - Reporter
+  - title: Report card template
+    contents:
+      - card_template
