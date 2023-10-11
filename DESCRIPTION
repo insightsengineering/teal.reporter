@@ -27,6 +27,7 @@ Imports:
     rmarkdown (>= 2.19),
     shiny (>= 1.6.0),
     shinyWidgets (>= 0.5.1),
+    teal (>= 0.14.0),
     yaml (>= 1.1.0),
     zip (>= 1.1.0)
 Suggests:
@@ -44,10 +45,11 @@ RdMacros:
     lifecycle
 Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate,
     rstudio/htmltools, yihui/knitr, r-lib/lifecycle, r-lib/R6,
-    rstudio/rmarkdown, rstudio/shiny, dreamRs/shinyWidgets,
-    yaml=vubiostat/r-yaml, r-lib/zip, davidgohel/flextable, rstudio/DT,
-    yihui/formatR, tidyverse/ggplot2, deepayan/lattice, cran/png,
-    insightsengineering/rtables, r-lib/testthat, rstudio/tinytex
+    rstudio/rmarkdown, rstudio/shiny, dreamRs/shinyWidgets, 
+    insightsengineering/teal, yaml=vubiostat/r-yaml, r-lib/zip,
+    davidgohel/flextable, rstudio/DT, yihui/formatR, tidyverse/ggplot2,
+    deepayan/lattice, cran/png, insightsengineering/rtables,
+    r-lib/testthat, rstudio/tinytex
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US
