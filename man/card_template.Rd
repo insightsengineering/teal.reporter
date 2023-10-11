@@ -25,4 +25,3 @@ of the filter state in the report}
 This function generates a report card with a title,
 an optional description, and the option to append the filter state list.
 }
-\keyword{internal}

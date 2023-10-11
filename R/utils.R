@@ -310,7 +310,7 @@ global_knitr_details <- function() {
 #'
 #' @return (`TealReportCard`) populated with a title, description and filter state
 #'
-#' @keywords internal
+#' @export
 card_template <- function(title, label, description = NULL, with_filter, filter_panel_api) {
   checkmate::assert_string(title)
   checkmate::assert_string(label)
