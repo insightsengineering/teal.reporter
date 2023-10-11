@@ -36,6 +36,7 @@ Suggests:
     lattice (>= 0.18-4),
     png,
     rtables (>= 0.5.1),
+    teal.slice (>= 0.4.0),
     testthat (>= 3.0.4),
     tinytex
 VignetteBuilder:
@@ -47,7 +48,8 @@ Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate,
     rstudio/rmarkdown, rstudio/shiny, dreamRs/shinyWidgets,
     yaml=vubiostat/r-yaml, r-lib/zip, davidgohel/flextable, rstudio/DT,
     yihui/formatR, tidyverse/ggplot2, deepayan/lattice, cran/png,
-    insightsengineering/rtables, r-lib/testthat, rstudio/tinytex
+    insightsengineering/rtables, insightsengineering/teal.slice,
+    r-lib/testthat, rstudio/tinytex
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US
