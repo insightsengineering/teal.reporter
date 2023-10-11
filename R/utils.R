@@ -278,6 +278,24 @@ split_text_block <- function(x, n) {
   unname(lapply(split(lines, ind), paste, collapse = "\n"))
 }
 
+#' Retrieve text details for global_knitr options
+#' This function returns a character string describing the default settings for the global_knitr options.
+#' @noRd
+#'
+#' @keywords internal
+global_knitr_details <- function() {
+  paste0(
+    c(
+      " To access the default values for the `global_knitr` parameter,",
+      "  use `getOption('teal.reporter.global_knitr')`. These defaults include:",
+      " - `echo = TRUE`",
+      " - `tidy.opts = list(width.cutoff = 60)`",
+      " - `tidy = TRUE`  if `formatR` package is installed, `FALSE` otherwise"
+    ),
+    collapse = "\n"
+  )
+}
+
 #' Template function to generate reporter card.
 #'
 #' This function generates a report card with a title,

@@ -7,6 +7,7 @@
 reporter_previewer_srv(
   id,
   reporter,
+  global_knitr = getOption("teal.reporter.global_knitr"),
   rmd_output = c(html = "html_document", pdf = "pdf_document", powerpoint =
     "powerpoint_presentation", word = "word_document"),
   rmd_yaml_args = list(author = "NEST", title = "Report", date =
@@ -17,6 +18,9 @@ reporter_previewer_srv(
 \item{id}{\code{character(1)} this \code{shiny} module's id.}
 
 \item{reporter}{\code{Reporter} instance}
+
+\item{global_knitr}{\code{list} a of \code{knitr} parameters (passed to \code{knitr::opts_chunk$set})
+for customizing the rendering process.}
 
 \item{rmd_output}{\code{character} vector with \code{rmarkdown} output types,
 by default all possible \code{c("pdf_document", "html_document", "powerpoint_presentation", "word_document")}.
@@ -32,4 +36,13 @@ The default value for \code{"output"} has to be in the \code{rmd_output} argumen
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 server supporting the functionalities of the reporter previewer
 For more details see the vignette: \code{vignette("previewerReporter", "teal.reporter")}.
+}
+\details{
+To access the default values for the \code{global_knitr} parameter,
+use \code{getOption('teal.reporter.global_knitr')}. These defaults include:
+\itemize{
+\item \code{echo = TRUE}
+\item \code{tidy.opts = list(width.cutoff = 60)}
+\item \code{tidy = TRUE}  if \code{formatR} package is installed, \code{FALSE} otherwise
+}
 }
