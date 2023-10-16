@@ -116,7 +116,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
                   $('#%s').focus()
                 })
                 ",
-                ns("comment")
+                ns("label")
               )
             )
           ),
