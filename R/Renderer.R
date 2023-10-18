@@ -151,14 +151,14 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         block_content_list <- split_text_block(block$get_content(), 30)
         paste(
           sprintf(
-            "---\n\n```{r, echo=FALSE}\ncode_block(\n%s)\n```\n",
+            "\\newpage\n\n---\n\n```{r, echo=FALSE}\ncode_block(\n%s)\n```\n",
             shQuote(block_content_list, type = "cmd")
           ),
           collapse = "\n\n"
         )
       } else {
         sprintf(
-          "--- \n\n```{r, %s}\n%s\n```\n",
+          "\\newpage\n\n--- \n\n```{r, %s}\n%s\n```\n",
           paste(names(params), params, sep = "=", collapse = ", "),
           block$get_content()
         )
@@ -174,7 +174,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       title <- block$get_title()
       if (length(title)) params["fig.cap"] <- shQuote(title)
       sprintf(
-        "\n```{r, %s}\nknitr::include_graphics(path = '%s')\n```\n",
+        "\n```{r, echo = FALSE, %s}\nknitr::include_graphics(path = '%s')\n```\n",
         paste(names(params), params, sep = "=", collapse = ", "),
         basename_pic
       )
