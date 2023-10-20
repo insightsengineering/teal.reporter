@@ -37,30 +37,27 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       }
 
       private$report_type <- get_yaml_field(yaml_header, "output")
-      format_code_block_function <- paste0(
-        c(
-          "code_block <- function (code_text) {",
-          "  df <- data.frame(code_text)",
-          "  ft <- flextable::flextable(df)",
-          "  ft <- flextable::delete_part(ft, part = 'header')",
-          "  ft <- flextable::autofit(ft, add_h = 0)",
-          "  ft <- flextable::fontsize(ft, size = 7, part = 'body')",
-          "  ft <- flextable::bg(x = ft, bg = 'lightgrey')",
-          "  ft <- flextable::border_outer(ft)",
-          "  if (flextable::flextable_dim(ft)$widths > 8) {",
-          "    ft <- flextable::width(ft, width = 8)",
-          "  }",
-          "  ft",
-          "}"
-        ),
-        collapse = "\n"
-      )
 
       parsed_global_knitr <- sprintf(
         "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n%s\n```\n",
         capture.output(dput(global_knitr)),
         if (identical(private$report_type, "powerpoint_presentation")) {
-          format_code_block_function
+          format_code_block_function <- quote(
+            code_block <- function(code_text) {
+              df <- data.frame(code_text)
+              ft <- flextable::flextable(df)
+              ft <- flextable::delete_part(ft, part = "header")
+              ft <- flextable::autofit(ft, add_h = 0)
+              ft <- flextable::fontsize(ft, size = 7, part = "body")
+              ft <- flextable::bg(x = ft, bg = "lightgrey")
+              ft <- flextable::border_outer(ft)
+              if (flextable::flextable_dim(ft)$widths > 8) {
+                ft <- flextable::width(ft, width = 8)
+              }
+              ft
+            }
+          )
+          paste(deparse(format_code_block_function), collapse = "\n")
         } else {
           ""
         }
