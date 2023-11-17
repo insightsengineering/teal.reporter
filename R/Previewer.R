@@ -62,7 +62,7 @@ reporter_previewer_srv <- function(id,
   checkmate::assert_list(rmd_yaml_args, names = "named")
   checkmate::assert_names(
     names(rmd_yaml_args),
-    subset = c("author", "title", "date", "output", "toc"),
+    subset.of = c("author", "title", "date", "output", "toc"),
     must.include = "output"
   )
   checkmate::assert_true(rmd_yaml_args[["output"]] %in% rmd_output)
