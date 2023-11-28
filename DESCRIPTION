@@ -1,7 +1,7 @@
 Package: teal.reporter
 Title: Reporting Tools for 'shiny' Modules
-Version: 0.2.1.9012
-Date: 2023-11-17
+Version: 0.2.1.9013
+Date: 2023-11-28
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = "cre"),
     person("Maciej", "Nasinski", role = "aut"),
