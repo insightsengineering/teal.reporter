@@ -44,3 +44,4 @@ coverage.*
 ^renv$
 ^renv\.lock$
 SECURITY.md
+^pkgdown$
