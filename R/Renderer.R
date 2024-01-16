@@ -22,21 +22,45 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @description getting the `Rmd` text which could be easily rendered later.
     #'
     #' @param blocks `list` of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
-    #' @param yaml_header `character` a `rmarkdown` `yaml` header.
-    #' @param global_knitr `list` a global `knitr` parameters, like echo.
-    #' But if local parameter is set it will have priority.
-    #' Defaults to empty `list()`.
+    #' @param yaml_header `character` an `rmarkdown` `yaml` header.
+    #' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`)
+    #'  for customizing the rendering process.
+    #' @details `r global_knitr_details()`
     #'
     #' @return `character` a `Rmd` text (`yaml` header + body), ready to be rendered.
-    renderRmd = function(blocks, yaml_header, global_knitr = list()) {
+    renderRmd = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr")) {
       checkmate::assert_list(blocks, c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock"))
+      checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
+
       if (missing(yaml_header)) {
         yaml_header <- md_header(yaml::as.yaml(list(title = "Report")))
       }
-      parsed_yaml <- yaml_header
+
+      private$report_type <- get_yaml_field(yaml_header, "output")
+
       parsed_global_knitr <- sprintf(
-        "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n```\n",
-        capture.output(dput(global_knitr))
+        "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n%s\n```\n",
+        capture.output(dput(global_knitr)),
+        if (identical(private$report_type, "powerpoint_presentation")) {
+          format_code_block_function <- quote(
+            code_block <- function(code_text) {
+              df <- data.frame(code_text)
+              ft <- flextable::flextable(df)
+              ft <- flextable::delete_part(ft, part = "header")
+              ft <- flextable::autofit(ft, add_h = 0)
+              ft <- flextable::fontsize(ft, size = 7, part = "body")
+              ft <- flextable::bg(x = ft, bg = "lightgrey")
+              ft <- flextable::border_outer(ft)
+              if (flextable::flextable_dim(ft)$widths > 8) {
+                ft <- flextable::width(ft, width = 8)
+              }
+              ft
+            }
+          )
+          paste(deparse(format_code_block_function), collapse = "\n")
+        } else {
+          ""
+        }
       )
 
       parsed_blocks <- paste(
@@ -46,7 +70,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         collapse = "\n\n"
       )
 
-      rmd_text <- paste0(parsed_yaml, "\n", parsed_global_knitr, "\n", parsed_blocks, "\n")
+      rmd_text <- paste0(yaml_header, "\n", parsed_global_knitr, "\n", parsed_blocks, "\n")
       tmp <- tempfile(fileext = ".Rmd")
       input_path <- file.path(
         private$output_dir,
@@ -59,13 +83,13 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param blocks `list` of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
     #' @param yaml_header `character` an `rmarkdown` `yaml` header.
-    #' @param global_knitr `list` a global `knitr` parameters, like echo.
-    #' But if local parameter is set it will have priority.
-    #' Defaults to empty `list()`.
-    #' @param ... `rmarkdown::render` arguments, `input` and `output_dir` should not be updated.z
+    #' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`)
+    #'  for customizing the rendering process.
+    #' @param ... `rmarkdown::render` arguments, `input` and `output_dir` should not be updated.
+    #' @details `r global_knitr_details()`
     #'
     #' @return `character` path to the output
-    render = function(blocks, yaml_header, global_knitr = list(), ...) {
+    render = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
       args <- list(...)
       input_path <- self$renderRmd(blocks, yaml_header, global_knitr)
       args <- append(args, list(
@@ -88,6 +112,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
   ),
   private = list(
     output_dir = character(0),
+    report_type = NULL,
     # factory method
     block2md = function(block) {
       if (inherits(block, "TextBlock")) {
@@ -119,18 +144,22 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     rcodeBlock2md = function(block) {
       params <- block$get_params()
       params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
-      block_content <- block$get_content()
-      paste(
-        sep = "\n",
-        collapse = "\n",
-        "### ",
+      if (identical(private$report_type, "powerpoint_presentation")) {
+        block_content_list <- split_text_block(block$get_content(), 30)
+        paste(
+          sprintf(
+            "\\newpage\n\n---\n\n```{r, echo=FALSE}\ncode_block(\n%s)\n```\n",
+            shQuote(block_content_list, type = "cmd")
+          ),
+          collapse = "\n\n"
+        )
+      } else {
         sprintf(
-          "```{r, %s}", paste(names(params), params, sep = "=", collapse = ", ")
-        ),
-        block_content,
-        "```",
-        ""
-      )
+          "\\newpage\n\n--- \n\n```{r, %s}\n%s\n```\n",
+          paste(names(params), params, sep = "=", collapse = ", "),
+          block$get_content()
+        )
+      }
     },
     pictureBlock2md = function(block) {
       basename_pic <- basename(block$get_content())
@@ -142,7 +171,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       title <- block$get_title()
       if (length(title)) params["fig.cap"] <- shQuote(title)
       sprintf(
-        "\n```{r, %s}\nknitr::include_graphics(path = '%s')\n```\n",
+        "\n```{r, echo = FALSE, %s}\nknitr::include_graphics(path = '%s')\n```\n",
         paste(names(params), params, sep = "=", collapse = ", "),
         basename_pic
       )

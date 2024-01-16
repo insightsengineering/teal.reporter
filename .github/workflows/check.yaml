@@ -27,6 +27,7 @@ jobs:
     with:
       additional-env-vars: |
         _R_CHECK_CRAN_INCOMING_REMOTE_=false
+        _R_CHECK_EXAMPLE_TIMING_THRESHOLD_=10
       additional-r-cmd-check-params: --as-cran
       enforce-note-blocklist: true
       note-blocklist: |
@@ -37,6 +38,7 @@ jobs:
         checking S3 generic/method consistency .* NOTE
         checking Rd .usage sections .* NOTE
         checking for unstated dependencies in vignettes .* NOTE
+        checking top-level files .* NOTE
       unit-test-report-brand: >-
         https://raw.githubusercontent.com/insightsengineering/hex-stickers/main/thumbs/teal.png
   coverage:

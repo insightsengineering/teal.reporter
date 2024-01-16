@@ -1,7 +1,7 @@
 Package: teal.reporter
 Title: Reporting Tools for 'shiny' Modules
-Version: 0.2.1.9003
-Date: 2023-09-19
+Version: 0.2.1.9014
+Date: 2023-12-13
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = "cre"),
     person("Maciej", "Nasinski", role = "aut"),
@@ -31,6 +31,7 @@ Imports:
     zip (>= 1.1.0)
 Suggests:
     DT (>= 0.13),
+    formatR (>= 1.5),
     ggplot2 (>= 3.4.0),
     lattice (>= 0.18-4),
     png,
@@ -45,7 +46,7 @@ Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate,
     rstudio/htmltools, yihui/knitr, r-lib/lifecycle, r-lib/R6,
     rstudio/rmarkdown, rstudio/shiny, dreamRs/shinyWidgets,
     yaml=vubiostat/r-yaml, r-lib/zip, davidgohel/flextable, rstudio/DT,
-    tidyverse/ggplot2, deepayan/lattice, cran/png,
+    yihui/formatR, tidyverse/ggplot2, deepayan/lattice, cran/png,
     insightsengineering/rtables, r-lib/testthat, rstudio/tinytex
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
