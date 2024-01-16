@@ -13,7 +13,7 @@ yaml_quoted(x)
 add quoted attribute for \code{yaml} package
 }
 \examples{
-yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter").
+yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
 yaml <- list(
   author = yaml_quoted("NEST"),
   title = yaml_quoted("Report"),

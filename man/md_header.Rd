@@ -13,7 +13,7 @@ md_header(x)
 wrap a \code{yaml} string to the \code{markdown} header.
 }
 \examples{
-yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter").
+yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
 yaml <- list(
   author = yaml_quoted("NEST"),
   title = yaml_quoted("Report"),

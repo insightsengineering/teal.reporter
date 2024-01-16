@@ -3,7 +3,7 @@
 #' @param x `character`
 #' @keywords internal
 #' @examples
-#' yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter").
+#' yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
 #' yaml <- list(
 #'   author = yaml_quoted("NEST"),
 #'   title = yaml_quoted("Report"),
@@ -21,7 +21,7 @@ yaml_quoted <- function(x) {
 #' @param x `character` `yaml` formatted string.
 #' @keywords internal
 #' @examples
-#' yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter").
+#' yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
 #' yaml <- list(
 #'   author = yaml_quoted("NEST"),
 #'   title = yaml_quoted("Report"),
