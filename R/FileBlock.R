@@ -18,7 +18,7 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return invisibly self
     #' @examples
-    #' block <- getFromNamespace("FileBlock", "teal.reporter")
+    #' block <- getFromNamespace("FileBlock", "teal.reporter")$new()
     #' file_path <- tempfile(fileext = ".png")
     #' saveRDS(iris, file_path)
     #' block$from_list(list(basename = basename(file_path)), dirname(file_path))
@@ -40,7 +40,7 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `named list` with a `basename` of the file.
     #' @examples
-    #' block <- getFromNamespace("FileBlock", "teal.reporter")
+    #' block <- getFromNamespace("FileBlock", "teal.reporter")$new()
     #' block$to_list(tempdir())
     #'
     to_list = function(output_dir) {
