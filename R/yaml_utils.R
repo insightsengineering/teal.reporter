@@ -28,7 +28,7 @@ yaml_quoted <- function(x) {
 #'   date = yaml_quoted("07/04/2019"),
 #'   output = list(pdf_document = list(keep_tex = TRUE))
 #' )
-#' getFromNamespace("md_header", "teal.reporter").(yaml::as.yaml(yaml))
+#' getFromNamespace("md_header", "teal.reporter")(yaml::as.yaml(yaml))
 md_header <- function(x) {
   paste0("---\n", x, "---\n")
 }
