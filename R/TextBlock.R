@@ -12,6 +12,9 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @param style (`character(1)`) one of: `"default"`, `"header2"`, `"header3"` `"verbatim"`
     #'
     #' @return `TextBlock`
+    #' @examples
+    #' block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+    #'
     initialize = function(content = character(0), style = private$styles[1]) {
       super$set_content(content)
       self$set_style(style)
@@ -24,6 +27,10 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @param style (`character(1)`) one of: `"default"`, `"header2"`, `"header3"` `"verbatim"`
     #'
     #' @return invisibly self
+    #' @examples
+    #' block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+    #' block$set_style("header2")
+    #'
     set_style = function(style) {
       private$style <- match.arg(style, private$styles)
       invisible(self)
@@ -31,12 +38,20 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @description Returns the style of this `TextBlock`.
     #'
     #' @return `character(1)` the style of this `TextBlock`
+    #' @examples
+    #' block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+    #' block$get_style()
+    #'
     get_style = function() {
       private$style
     },
     #' @description Returns an array of styles available to this `TextBlock`.
     #'
     #' @return a `character` array of styles
+    #' @examples
+    #' block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+    #' block$get_available_styles()
+    #'
     get_available_styles = function() {
       private$styles
     },
@@ -46,6 +61,10 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #' Use the `get_available_styles` method to get all possible styles.
     #'
     #' @return invisibly self
+    #' @examples
+    #' block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+    #' block$from_list(list(text = "sth", style = "default"))
+    #'
     from_list = function(x) {
       checkmate::assert_list(x)
       checkmate::assert_names(names(x), must.include = c("text", "style"))
@@ -56,6 +75,10 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @description Convert the `TextBlock` to a list.
     #'
     #' @return `named list` with a text and style.
+    #' @examples
+    #' block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+    #' block$to_list()
+    #'
     to_list = function() {
       list(text = self$get_content(), style = self$get_style())
     }

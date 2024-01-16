@@ -17,6 +17,12 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @param output_dir `character` with a path to the directory where a file will be copied.
     #'
     #' @return invisibly self
+    #' @examples
+    #' block <- getFromNamespace("FileBlock", "teal.reporter")
+    #' file_path <- tempfile(fileext = ".png")
+    #' saveRDS(iris, file_path)
+    #' block$from_list(list(basename = basename(file_path)), dirname(file_path))
+    #'
     from_list = function(x, output_dir) {
       checkmate::assert_list(x)
       checkmate::assert_names(names(x), must.include = "basename")
@@ -33,6 +39,10 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @param output_dir `character` with a path to the directory where a file will be copied.
     #'
     #' @return `named list` with a `basename` of the file.
+    #' @examples
+    #' block <- getFromNamespace("FileBlock", "teal.reporter")
+    #' block$to_list(tempdir())
+    #'
     to_list = function(output_dir) {
       base_name <- basename(super$get_content())
       file.copy(super$get_content(), file.path(output_dir, base_name))

@@ -2,6 +2,15 @@
 #' @description add quoted attribute for `yaml` package
 #' @param x `character`
 #' @keywords internal
+#' @examples
+#' yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter").
+#' yaml <- list(
+#'   author = yaml_quoted("NEST"),
+#'   title = yaml_quoted("Report"),
+#'   date = yaml_quoted("07/04/2019"),
+#'   output = list(pdf_document = list(keep_tex = TRUE))
+#' )
+#' yaml::as.yaml(yaml)
 yaml_quoted <- function(x) {
   attr(x, "quoted") <- TRUE
   x
@@ -11,6 +20,15 @@ yaml_quoted <- function(x) {
 #' @description wrap a `yaml` string to the `markdown` header.
 #' @param x `character` `yaml` formatted string.
 #' @keywords internal
+#' @examples
+#' yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter").
+#' yaml <- list(
+#'   author = yaml_quoted("NEST"),
+#'   title = yaml_quoted("Report"),
+#'   date = yaml_quoted("07/04/2019"),
+#'   output = list(pdf_document = list(keep_tex = TRUE))
+#' )
+#' getFromNamespace("md_header", "teal.reporter").(yaml::as.yaml(yaml))
 md_header <- function(x) {
   paste0("---\n", x, "---\n")
 }
@@ -24,6 +42,16 @@ md_header <- function(x) {
 #' @param silent `logical` if to suppress the messages and warnings.
 #' @return `input` argument or the appropriate `logical` value.
 #' @keywords internal
+#' @examples
+#'
+#' conv_str_logi <- getFromNamespace("conv_str_logi", "teal.reporter").
+#' conv_str_logi("TRUE")
+#' conv_str_logi("True")
+#'
+#' conv_str_logi("off")
+#' conv_str_logi("n")
+#'
+#' conv_str_logi("sth")
 conv_str_logi <- function(input,
                           name = "",
                           pos_logi = c("TRUE", "true", "True", "yes", "y", "Y", "on"),

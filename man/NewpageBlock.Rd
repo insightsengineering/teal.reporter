@@ -8,6 +8,15 @@
 
 \code{NewpageBlock}
 }
+\examples{
+
+## ------------------------------------------------
+## Method `NewpageBlock$new`
+## ------------------------------------------------
+
+block <- getFromNamespace("NewpageBlock", "teal.reporter")$new()
+
+}
 \keyword{internal}
 \section{Super class}{
 \code{\link[teal.reporter:ContentBlock]{teal.reporter::ContentBlock}} -> \code{NewpageBlock}
@@ -45,6 +54,15 @@ Returns a \code{NewpageBlock} object with no content and the default style.
 \subsection{Returns}{
 \code{NewpageBlock}
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- getFromNamespace("NewpageBlock", "teal.reporter")$new()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-NewpageBlock-clone"></a>}}

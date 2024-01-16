@@ -8,6 +8,92 @@
 
 \code{Renderer}
 }
+\examples{
+
+## ------------------------------------------------
+## Method `Renderer$new`
+## ------------------------------------------------
+
+renderer <- getFromNamespace("Renderer", "teal.reporter")$new()
+
+
+## ------------------------------------------------
+## Method `Renderer$renderRmd`
+## ------------------------------------------------
+
+card1 <- getFromNamespace("ReportCard", "teal.reporter")$new()
+
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text")
+card1$append_plot(
+ ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)
+
+card2 <- getFromNamespace("ReportCard", "teal.reporter")$new()
+
+card2$append_text("Header 2 text", "header2")
+card2$append_text("A paragraph of default text", "header2")
+lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
+table_res2 <- rtables::build_table(lyt, airquality)
+card2$append_table(table_res2)
+card2$append_table(iris)
+card2$append_rcode("2+2", echo = FALSE)
+
+reporter <- getFromNamespace("Reporter", "teal.reporter")$new()
+reporter$append_cards(list(card1, card2))
+
+yaml_l <- list(
+  author = getFromNamespace("yaml_quoted", "teal.reporter")("NEST"),
+  title = getFromNamespace("yaml_quoted", "teal.reporter")("Report"),
+  date = getFromNamespace("yaml_quoted", "teal.reporter")("07/04/2019"),
+  output = list(html_document = list(toc = FALSE))
+)
+
+yaml_header <- getFromNamespace("md_header", "teal.reporter")(yaml::as.yaml(yaml_l))
+result_path <- getFromNamespace("Renderer", "teal.reporter")$new()$renderRmd(reporter$get_blocks(), yaml_header)
+
+
+## ------------------------------------------------
+## Method `Renderer$render`
+## ------------------------------------------------
+
+card1 <- getFromNamespace("ReportCard", "teal.reporter")$new()
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text")
+card1$append_plot(
+ ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)
+
+card2 <- getFromNamespace("ReportCard", "teal.reporter")$new()
+card2$append_text("Header 2 text", "header2")
+card2$append_text("A paragraph of default text", "header2")
+lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
+table_res2 <- rtables::build_table(lyt, airquality)
+card2$append_table(table_res2)
+card2$append_table(iris)
+card2$append_rcode("2+2", echo = FALSE)
+reporter <- getFromNamespace("Reporter", "teal.reporter")$new()
+reporter$append_cards(list(card1, card2))
+
+yaml_l <- list(
+  author = getFromNamespace("yaml_quoted", "teal.reporter")("NEST"),
+  title = getFromNamespace("yaml_quoted", "teal.reporter")("Report"),
+  date = getFromNamespace("yaml_quoted", "teal.reporter")("07/04/2019"),
+  output = list(html_document = list(toc = FALSE))
+)
+
+yaml_header <- getFromNamespace("md_header", "teal.reporter")(yaml::as.yaml(yaml_l))
+result_path <- getFromNamespace("Renderer", "teal.reporter")$new()$render(reporter$get_blocks(), yaml_header)
+
+
+## ------------------------------------------------
+## Method `Renderer$get_output_dir`
+## ------------------------------------------------
+
+renderer <- getFromNamespace("Renderer", "teal.reporter")$new()
+renderer$get_output_dir()
+
+}
 \keyword{internal}
 \section{Methods}{
 \subsection{Public methods}{
@@ -36,6 +122,15 @@ Returns a \code{Renderer} object.
 \subsection{Returns}{
 \code{Renderer} object.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{renderer <- getFromNamespace("Renderer", "teal.reporter")$new()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Renderer-finalize"></a>}}
@@ -85,6 +180,44 @@ use \code{getOption('teal.reporter.global_knitr')}. These defaults include:
 \subsection{Returns}{
 \code{character} a \code{Rmd} text (\code{yaml} header + body), ready to be rendered.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{card1 <- getFromNamespace("ReportCard", "teal.reporter")$new()
+
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text")
+card1$append_plot(
+ ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)
+
+card2 <- getFromNamespace("ReportCard", "teal.reporter")$new()
+
+card2$append_text("Header 2 text", "header2")
+card2$append_text("A paragraph of default text", "header2")
+lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
+table_res2 <- rtables::build_table(lyt, airquality)
+card2$append_table(table_res2)
+card2$append_table(iris)
+card2$append_rcode("2+2", echo = FALSE)
+
+reporter <- getFromNamespace("Reporter", "teal.reporter")$new()
+reporter$append_cards(list(card1, card2))
+
+yaml_l <- list(
+  author = getFromNamespace("yaml_quoted", "teal.reporter")("NEST"),
+  title = getFromNamespace("yaml_quoted", "teal.reporter")("Report"),
+  date = getFromNamespace("yaml_quoted", "teal.reporter")("07/04/2019"),
+  output = list(html_document = list(toc = FALSE))
+)
+
+yaml_header <- getFromNamespace("md_header", "teal.reporter")(yaml::as.yaml(yaml_l))
+result_path <- getFromNamespace("Renderer", "teal.reporter")$new()$renderRmd(reporter$get_blocks(), yaml_header)
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Renderer-render"></a>}}
@@ -127,6 +260,41 @@ use \code{getOption('teal.reporter.global_knitr')}. These defaults include:
 \subsection{Returns}{
 \code{character} path to the output
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{card1 <- getFromNamespace("ReportCard", "teal.reporter")$new()
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text")
+card1$append_plot(
+ ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)
+
+card2 <- getFromNamespace("ReportCard", "teal.reporter")$new()
+card2$append_text("Header 2 text", "header2")
+card2$append_text("A paragraph of default text", "header2")
+lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
+table_res2 <- rtables::build_table(lyt, airquality)
+card2$append_table(table_res2)
+card2$append_table(iris)
+card2$append_rcode("2+2", echo = FALSE)
+reporter <- getFromNamespace("Reporter", "teal.reporter")$new()
+reporter$append_cards(list(card1, card2))
+
+yaml_l <- list(
+  author = getFromNamespace("yaml_quoted", "teal.reporter")("NEST"),
+  title = getFromNamespace("yaml_quoted", "teal.reporter")("Report"),
+  date = getFromNamespace("yaml_quoted", "teal.reporter")("07/04/2019"),
+  output = list(html_document = list(toc = FALSE))
+)
+
+yaml_header <- getFromNamespace("md_header", "teal.reporter")(yaml::as.yaml(yaml_l))
+result_path <- getFromNamespace("Renderer", "teal.reporter")$new()$render(reporter$get_blocks(), yaml_header)
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Renderer-get_output_dir"></a>}}
@@ -140,6 +308,16 @@ get \code{output_dir} field
 \subsection{Returns}{
 \code{character} a \code{output_dir} field path.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{renderer <- getFromNamespace("Renderer", "teal.reporter")$new()
+renderer$get_output_dir()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Renderer-clone"></a>}}

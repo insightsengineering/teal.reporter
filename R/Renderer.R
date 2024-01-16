@@ -8,6 +8,9 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @details Returns a `Renderer` object.
     #'
     #' @return `Renderer` object.
+    #' @examples
+    #' renderer <- getFromNamespace("Renderer", "teal.reporter")$new()
+    #'
     initialize = function() {
       tmp_dir <- tempdir()
       output_dir <- file.path(tmp_dir, sprintf("report_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
@@ -28,6 +31,38 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @details `r global_knitr_details()`
     #'
     #' @return `character` a `Rmd` text (`yaml` header + body), ready to be rendered.
+    #' @examples
+    #' card1 <- getFromNamespace("ReportCard", "teal.reporter")$new()
+    #'
+    #' card1$append_text("Header 2 text", "header2")
+    #' card1$append_text("A paragraph of default text")
+    #' card1$append_plot(
+    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #' )
+    #'
+    #' card2 <- getFromNamespace("ReportCard", "teal.reporter")$new()
+    #'
+    #' card2$append_text("Header 2 text", "header2")
+    #' card2$append_text("A paragraph of default text", "header2")
+    #' lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
+    #' table_res2 <- rtables::build_table(lyt, airquality)
+    #' card2$append_table(table_res2)
+    #' card2$append_table(iris)
+    #' card2$append_rcode("2+2", echo = FALSE)
+    #'
+    #' reporter <- getFromNamespace("Reporter", "teal.reporter")$new()
+    #' reporter$append_cards(list(card1, card2))
+    #'
+    #' yaml_l <- list(
+    #'   author = getFromNamespace("yaml_quoted", "teal.reporter")("NEST"),
+    #'   title = getFromNamespace("yaml_quoted", "teal.reporter")("Report"),
+    #'   date = getFromNamespace("yaml_quoted", "teal.reporter")("07/04/2019"),
+    #'   output = list(html_document = list(toc = FALSE))
+    #' )
+    #'
+    #' yaml_header <- getFromNamespace("md_header", "teal.reporter")(yaml::as.yaml(yaml_l))
+    #' result_path <- getFromNamespace("Renderer", "teal.reporter")$new()$renderRmd(reporter$get_blocks(), yaml_header)
+    #'
     renderRmd = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr")) {
       checkmate::assert_list(blocks, c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock"))
       checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
@@ -89,6 +124,35 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @details `r global_knitr_details()`
     #'
     #' @return `character` path to the output
+    #' @examples
+    #' card1 <- getFromNamespace("ReportCard", "teal.reporter")$new()
+    #' card1$append_text("Header 2 text", "header2")
+    #' card1$append_text("A paragraph of default text")
+    #' card1$append_plot(
+    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #' )
+    #'
+    #' card2 <- getFromNamespace("ReportCard", "teal.reporter")$new()
+    #' card2$append_text("Header 2 text", "header2")
+    #' card2$append_text("A paragraph of default text", "header2")
+    #' lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
+    #' table_res2 <- rtables::build_table(lyt, airquality)
+    #' card2$append_table(table_res2)
+    #' card2$append_table(iris)
+    #' card2$append_rcode("2+2", echo = FALSE)
+    #' reporter <- getFromNamespace("Reporter", "teal.reporter")$new()
+    #' reporter$append_cards(list(card1, card2))
+    #'
+    #' yaml_l <- list(
+    #'   author = getFromNamespace("yaml_quoted", "teal.reporter")("NEST"),
+    #'   title = getFromNamespace("yaml_quoted", "teal.reporter")("Report"),
+    #'   date = getFromNamespace("yaml_quoted", "teal.reporter")("07/04/2019"),
+    #'   output = list(html_document = list(toc = FALSE))
+    #' )
+    #'
+    #' yaml_header <- getFromNamespace("md_header", "teal.reporter")(yaml::as.yaml(yaml_l))
+    #' result_path <- getFromNamespace("Renderer", "teal.reporter")$new()$render(reporter$get_blocks(), yaml_header)
+    #'
     render = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
       args <- list(...)
       input_path <- self$renderRmd(blocks, yaml_header, global_knitr)
@@ -106,6 +170,10 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @description get `output_dir` field
     #'
     #' @return `character` a `output_dir` field path.
+    #' @examples
+    #' renderer <- getFromNamespace("Renderer", "teal.reporter")$new()
+    #' renderer$get_output_dir()
+    #'
     get_output_dir = function() {
       private$output_dir
     }

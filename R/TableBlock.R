@@ -24,6 +24,10 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
     #'   this `TableBlock`
     #'
     #' @return invisibly self
+    #' @examples
+    #' block <- getFromNamespace("TableBlock", "teal.reporter")$new()
+    #' block$set_content(iris)
+    #'
     set_content = function(content) {
       checkmate::assert_multi_class(content, private$supported_tables)
       content <- to_flextable(content)

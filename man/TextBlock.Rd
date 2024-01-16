@@ -8,6 +8,55 @@
 
 \code{TextBlock}
 }
+\examples{
+
+## ------------------------------------------------
+## Method `TextBlock$new`
+## ------------------------------------------------
+
+block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+
+
+## ------------------------------------------------
+## Method `TextBlock$set_style`
+## ------------------------------------------------
+
+block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+block$set_style("header2")
+
+
+## ------------------------------------------------
+## Method `TextBlock$get_style`
+## ------------------------------------------------
+
+block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+block$get_style()
+
+
+## ------------------------------------------------
+## Method `TextBlock$get_available_styles`
+## ------------------------------------------------
+
+block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+block$get_available_styles()
+
+
+## ------------------------------------------------
+## Method `TextBlock$from_list`
+## ------------------------------------------------
+
+block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+block$from_list(list(text = "sth", style = "default"))
+
+
+## ------------------------------------------------
+## Method `TextBlock$to_list`
+## ------------------------------------------------
+
+block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+block$to_list()
+
+}
 \keyword{internal}
 \section{Super class}{
 \code{\link[teal.reporter:ContentBlock]{teal.reporter::ContentBlock}} -> \code{TextBlock}
@@ -57,6 +106,15 @@ Returns a \code{TextBlock} object with no content and the default style.
 \subsection{Returns}{
 \code{TextBlock}
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TextBlock-set_style"></a>}}
@@ -81,6 +139,16 @@ The style has bearing on the rendering of this block.
 \subsection{Returns}{
 invisibly self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+block$set_style("header2")
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TextBlock-get_style"></a>}}
@@ -94,6 +162,16 @@ Returns the style of this \code{TextBlock}.
 \subsection{Returns}{
 \code{character(1)} the style of this \code{TextBlock}
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+block$get_style()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TextBlock-get_available_styles"></a>}}
@@ -107,6 +185,16 @@ Returns an array of styles available to this \code{TextBlock}.
 \subsection{Returns}{
 a \code{character} array of styles
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+block$get_available_styles()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TextBlock-from_list"></a>}}
@@ -128,6 +216,16 @@ Use the \code{get_available_styles} method to get all possible styles.}
 \subsection{Returns}{
 invisibly self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+block$from_list(list(text = "sth", style = "default"))
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TextBlock-to_list"></a>}}
@@ -141,6 +239,16 @@ Convert the \code{TextBlock} to a list.
 \subsection{Returns}{
 \verb{named list} with a text and style.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+block$to_list()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TextBlock-clone"></a>}}

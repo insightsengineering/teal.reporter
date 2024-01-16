@@ -8,6 +8,50 @@
 
 \code{JSONArchiver}
 }
+\examples{
+
+## ------------------------------------------------
+## Method `JSONArchiver$write`
+## ------------------------------------------------
+
+card1 <- getFromNamespace("ReportCard", "teal.reporter")$new()
+
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text", "header2")
+card1$append_plot(
+ ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)
+
+reporter <- getFromNamespace("Reporter", "teal.reporter")$new()
+reporter$append_cards(list(card1))
+
+archiver <- getFromNamespace("JSONArchiver", "teal.reporter")$new()
+archiver$write(reporter)
+archiver$get_output_dir()
+
+## ------------------------------------------------
+## Method `JSONArchiver$read`
+## ------------------------------------------------
+
+card1 <- getFromNamespace("ReportCard", "teal.reporter")$new()
+
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text", "header2")
+card1$append_plot(
+ ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)
+
+reporter <- getFromNamespace("Reporter", "teal.reporter")$new()
+reporter$append_cards(list(card1))
+
+archiver <- getFromNamespace("JSONArchiver", "teal.reporter")$new()
+archiver$write(reporter)
+archiver$get_output_dir()
+
+archiver$read()$get_cards()[[1]]$get_content()
+blocks <- getFromNamespace("Reporter", "teal.reporter")$new()$from_reporter(archiver$read())$get_blocks()
+doc <- getFromNamespace("Renderer", "teal.reporter")$new()$render(blocks)
+}
 \keyword{internal}
 \section{Super classes}{
 \code{\link[teal.reporter:Archiver]{teal.reporter::Archiver}} -> \code{\link[teal.reporter:FileArchiver]{teal.reporter::FileArchiver}} -> \code{JSONArchiver}
@@ -48,6 +92,27 @@ write a \code{Reporter} instance in to this \code{JSONArchiver} object.
 \subsection{Returns}{
 invisibly self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{card1 <- getFromNamespace("ReportCard", "teal.reporter")$new()
+
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text", "header2")
+card1$append_plot(
+ ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)
+
+reporter <- getFromNamespace("Reporter", "teal.reporter")$new()
+reporter$append_cards(list(card1))
+
+archiver <- getFromNamespace("JSONArchiver", "teal.reporter")$new()
+archiver$write(reporter)
+archiver$get_output_dir()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-JSONArchiver-read"></a>}}
@@ -68,6 +133,31 @@ read a \code{Reporter} instance from a directory with \code{JSONArchiver}.
 \subsection{Returns}{
 \code{Reporter} instance.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{card1 <- getFromNamespace("ReportCard", "teal.reporter")$new()
+
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text", "header2")
+card1$append_plot(
+ ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+)
+
+reporter <- getFromNamespace("Reporter", "teal.reporter")$new()
+reporter$append_cards(list(card1))
+
+archiver <- getFromNamespace("JSONArchiver", "teal.reporter")$new()
+archiver$write(reporter)
+archiver$get_output_dir()
+
+archiver$read()$get_cards()[[1]]$get_content()
+blocks <- getFromNamespace("Reporter", "teal.reporter")$new()$from_reporter(archiver$read())$get_blocks()
+doc <- getFromNamespace("Renderer", "teal.reporter")$new()$render(blocks)
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-JSONArchiver-clone"></a>}}

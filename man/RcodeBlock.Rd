@@ -8,6 +8,55 @@
 
 \code{RcodeBlock}
 }
+\examples{
+
+## ------------------------------------------------
+## Method `RcodeBlock$new`
+## ------------------------------------------------
+
+block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+
+
+## ------------------------------------------------
+## Method `RcodeBlock$set_params`
+## ------------------------------------------------
+
+block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+block$set_params(list(echo = TRUE))
+
+
+## ------------------------------------------------
+## Method `RcodeBlock$get_params`
+## ------------------------------------------------
+
+block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+block$get_params()
+
+
+## ------------------------------------------------
+## Method `RcodeBlock$get_available_params`
+## ------------------------------------------------
+
+block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+block$get_available_params()
+
+
+## ------------------------------------------------
+## Method `RcodeBlock$from_list`
+## ------------------------------------------------
+
+block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+block$from_list(list(text = "sth", params = list()))
+
+
+## ------------------------------------------------
+## Method `RcodeBlock$to_list`
+## ------------------------------------------------
+
+block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+block$to_list()
+
+}
 \keyword{internal}
 \section{Super class}{
 \code{\link[teal.reporter:ContentBlock]{teal.reporter::ContentBlock}} -> \code{RcodeBlock}
@@ -57,6 +106,15 @@ Returns a \code{RcodeBlock} object with no content and no parameters.
 \subsection{Returns}{
 \code{RcodeBlock}
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-RcodeBlock-set_params"></a>}}
@@ -81,6 +139,16 @@ The parameters has bearing on the rendering of this block.
 \subsection{Returns}{
 invisibly self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+block$set_params(list(echo = TRUE))
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-RcodeBlock-get_params"></a>}}
@@ -94,6 +162,16 @@ Returns the parameters of this \code{RcodeBlock}.
 \subsection{Returns}{
 \code{character} the parameters of this \code{RcodeBlock}
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+block$get_params()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-RcodeBlock-get_available_params"></a>}}
@@ -107,6 +185,16 @@ Returns an array of parameters available to this \code{RcodeBlock}.
 \subsection{Returns}{
 a \code{character} array of parameters
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+block$get_available_params()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-RcodeBlock-from_list"></a>}}
@@ -128,6 +216,16 @@ Use the \code{get_available_params} method to get all possible parameters.}
 \subsection{Returns}{
 invisibly self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+block$from_list(list(text = "sth", params = list()))
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-RcodeBlock-to_list"></a>}}
@@ -141,6 +239,16 @@ Convert the \code{RcodeBlock} to a list.
 \subsection{Returns}{
 \verb{named list} with a text and \code{params}.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+block$to_list()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-RcodeBlock-clone"></a>}}
