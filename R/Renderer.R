@@ -61,7 +61,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' )
     #'
     #' yaml_header <- getFromNamespace("md_header", "teal.reporter")(yaml::as.yaml(yaml_l))
-    #' result_path <- getFromNamespace("Renderer", "teal.reporter")$new()$renderRmd(reporter$get_blocks(), yaml_header)
+    #' renderer <- getFromNamespace("Renderer", "teal.reporter")$new()
+    #' result_path <- renderer$renderRmd(reporter$get_blocks(), yaml_header)
     #'
     renderRmd = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr")) {
       checkmate::assert_list(blocks, c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock"))
@@ -151,7 +152,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' )
     #'
     #' yaml_header <- getFromNamespace("md_header", "teal.reporter")(yaml::as.yaml(yaml_l))
-    #' result_path <- getFromNamespace("Renderer", "teal.reporter")$new()$render(reporter$get_blocks(), yaml_header)
+    #' renderer <- getFromNamespace("Renderer", "teal.reporter")$new()
+    #' result_path <- renderer$render(reporter$get_blocks(), yaml_header)
     #'
     render = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
       args <- list(...)

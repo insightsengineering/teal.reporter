@@ -120,7 +120,8 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' archiver$get_output_dir()
     #'
     #' archiver$read()$get_cards()[[1]]$get_content()
-    #' blocks <- getFromNamespace("Reporter", "teal.reporter")$new()$from_reporter(archiver$read())$get_blocks()
+    #' blocks <- getFromNamespace("Reporter", "teal.reporter")$new()
+    #' blocks <- blocks$from_reporter(archiver$read())$get_blocks()
     #' doc <- getFromNamespace("Renderer", "teal.reporter")$new()$render(blocks)
     read = function(path = NULL) {
       checkmate::assert(

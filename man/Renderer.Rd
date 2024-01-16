@@ -50,7 +50,8 @@ yaml_l <- list(
 )
 
 yaml_header <- getFromNamespace("md_header", "teal.reporter")(yaml::as.yaml(yaml_l))
-result_path <- getFromNamespace("Renderer", "teal.reporter")$new()$renderRmd(reporter$get_blocks(), yaml_header)
+renderer <- getFromNamespace("Renderer", "teal.reporter")$new()
+result_path <- renderer$renderRmd(reporter$get_blocks(), yaml_header)
 
 
 ## ------------------------------------------------
@@ -83,7 +84,8 @@ yaml_l <- list(
 )
 
 yaml_header <- getFromNamespace("md_header", "teal.reporter")(yaml::as.yaml(yaml_l))
-result_path <- getFromNamespace("Renderer", "teal.reporter")$new()$render(reporter$get_blocks(), yaml_header)
+renderer <- getFromNamespace("Renderer", "teal.reporter")$new()
+result_path <- renderer$render(reporter$get_blocks(), yaml_header)
 
 
 ## ------------------------------------------------
@@ -211,7 +213,8 @@ yaml_l <- list(
 )
 
 yaml_header <- getFromNamespace("md_header", "teal.reporter")(yaml::as.yaml(yaml_l))
-result_path <- getFromNamespace("Renderer", "teal.reporter")$new()$renderRmd(reporter$get_blocks(), yaml_header)
+renderer <- getFromNamespace("Renderer", "teal.reporter")$new()
+result_path <- renderer$renderRmd(reporter$get_blocks(), yaml_header)
 
 }
 \if{html}{\out{</div>}}
@@ -288,7 +291,8 @@ yaml_l <- list(
 )
 
 yaml_header <- getFromNamespace("md_header", "teal.reporter")(yaml::as.yaml(yaml_l))
-result_path <- getFromNamespace("Renderer", "teal.reporter")$new()$render(reporter$get_blocks(), yaml_header)
+renderer <- getFromNamespace("Renderer", "teal.reporter")$new()
+result_path <- renderer$render(reporter$get_blocks(), yaml_header)
 
 }
 \if{html}{\out{</div>}}
