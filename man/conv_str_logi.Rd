@@ -31,7 +31,7 @@ convert a character of a \code{yaml} boolean to a logical value.
 }
 \examples{
 
-conv_str_logi <- getFromNamespace("conv_str_logi", "teal.reporter").
+conv_str_logi <- getFromNamespace("conv_str_logi", "teal.reporter")
 conv_str_logi("TRUE")
 conv_str_logi("True")
 
