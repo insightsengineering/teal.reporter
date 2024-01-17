@@ -14,8 +14,8 @@
 ## Method `TableBlock$set_content`
 ## ------------------------------------------------
 
-table_block <- getFromNamespace("TableBlock", "teal.reporter")
-block <- table_block$new()
+TableBlock <- getFromNamespace("TableBlock", "teal.reporter")
+block <- TableBlock$new()
 block$set_content(iris)
 
 }
@@ -88,8 +88,8 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{table_block <- getFromNamespace("TableBlock", "teal.reporter")
-block <- table_block$new()
+\preformatted{TableBlock <- getFromNamespace("TableBlock", "teal.reporter")
+block <- TableBlock$new()
 block$set_content(iris)
 
 }

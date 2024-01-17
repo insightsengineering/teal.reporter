@@ -40,8 +40,8 @@ FileArchiver <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return a `FileArchiver` object
     #' @examples
-    #' archiver <- getFromNamespace("FileArchiver", "teal.reporter")
-    #' archiver$new()
+    #' FileArchiver <- getFromNamespace("FileArchiver", "teal.reporter")
+    #' FileArchiver$new()
     initialize = function() {
       tmp_dir <- tempdir()
       output_dir <- file.path(tmp_dir, sprintf("archive_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
@@ -57,8 +57,8 @@ FileArchiver <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `character` a `output_dir` field path.
     #' @examples
-    #' archiver <- getFromNamespace("FileArchiver", "teal.reporter")
-    #' archiver$new()$get_output_dir()
+    #' FileArchiver <- getFromNamespace("FileArchiver", "teal.reporter")
+    #' FileArchiver$new()$get_output_dir()
     get_output_dir = function() {
       private$output_dir
     }
@@ -80,8 +80,8 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return invisibly self
     #' @examples
-    #' report_card <- getFromNamespace("ReportCard", "teal.reporter")
-    #' card1 <- report_card$new()
+    #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
+    #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text", "header2")
@@ -89,11 +89,12 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )
     #'
-    #' reporter <- getFromNamespace("Reporter", "teal.reporter")
-    #' reporter$new()$append_cards(list(card1))
+    #' Reporter <- getFromNamespace("Reporter", "teal.reporter")
+    #' reporter <- Reporter$new()
+    #' reporter$append_cards(list(card1))
     #'
-    #' json_archiver <- getFromNamespace("JSONArchiver", "teal.reporter")
-    #' archiver <- json_archiver$new()
+    #' JSONArchiver <- getFromNamespace("JSONArchiver", "teal.reporter")
+    #' archiver <- JSONArchiver$new()
     #' archiver$write(reporter)
     #' archiver$get_output_dir()
     write = function(reporter) {
@@ -108,8 +109,8 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `Reporter` instance.
     #' @examples
-    #' report_card <- getFromNamespace("ReportCard", "teal.reporter")
-    #' card1 <- report_card$new()
+    #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
+    #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text", "header2")
@@ -117,20 +118,21 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )
     #'
-    #' reporter <- getFromNamespace("Reporter", "teal.reporter")
-    #' reporter$new()$append_cards(list(card1))
+    #' Reporter <- getFromNamespace("Reporter", "teal.reporter")
+    #' reporter <- Reporter$new()
+    #' reporter$append_cards(list(card1))
     #'
-    #' json_archiver <- getFromNamespace("JSONArchiver", "teal.reporter")
-    #' archiver <- json_archiver$new()
+    #' JSONArchiver <- getFromNamespace("JSONArchiver", "teal.reporter")
+    #' archiver <- JSONArchiver$new()
     #' archiver$write(reporter)
     #' archiver$get_output_dir()
     #'
     #' archiver$read()$get_cards()[[1]]$get_content()
-    #' reporter <- getFromNamespace("Reporter", "teal.reporter")
-    #' blocks <- reporter$new()
+    #' Reporter <- getFromNamespace("Reporter", "teal.reporter")
+    #' blocks <- Reporter$new()
     #' blocks <- blocks$from_reporter(archiver$read())$get_blocks()
-    #' renderer <- getFromNamespace("Renderer", "teal.reporter")
-    #' doc <- renderer$new()$render(blocks)
+    #' Renderer <- getFromNamespace("Renderer", "teal.reporter")
+    #' doc <- Renderer$new()$render(blocks)
     read = function(path = NULL) {
       checkmate::assert(
         checkmate::check_null(path),

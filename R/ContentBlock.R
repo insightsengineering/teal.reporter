@@ -9,8 +9,8 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `ContentBlock`
     #' @examples
-    #' content_block <- getFromNamespace("ContentBlock", "teal.reporter")
-    #' content_block$new()
+    #' ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
+    #' ContentBlock$new()
     #'
     initialize = function() {
       private$content <- character(0)
@@ -22,8 +22,8 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return invisibly self
     #' @examples
-    #' content_block <- getFromNamespace("ContentBlock", "teal.reporter")
-    #' block <- content_block$new()
+    #' ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
+    #' block <- ContentBlock$new()
     #' block$set_content("Base64 encoded picture")
     #'
     set_content = function(content) {
@@ -35,8 +35,8 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `character` content of this `ContentBlock`
     #' @examples
-    #' content_block <- getFromNamespace("ContentBlock", "teal.reporter")
-    #' block <- content_block$new()
+    #' ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
+    #' block <- ContentBlock$new()
     #' block$get_content()
     #'
     get_content = function() {

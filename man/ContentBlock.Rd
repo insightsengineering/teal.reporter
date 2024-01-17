@@ -14,16 +14,16 @@
 ## Method `ContentBlock$new`
 ## ------------------------------------------------
 
-content_block <- getFromNamespace("ContentBlock", "teal.reporter")
-content_block$new()
+ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
+ContentBlock$new()
 
 
 ## ------------------------------------------------
 ## Method `ContentBlock$set_content`
 ## ------------------------------------------------
 
-content_block <- getFromNamespace("ContentBlock", "teal.reporter")
-block <- content_block$new()
+ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
+block <- ContentBlock$new()
 block$set_content("Base64 encoded picture")
 
 
@@ -31,8 +31,8 @@ block$set_content("Base64 encoded picture")
 ## Method `ContentBlock$get_content`
 ## ------------------------------------------------
 
-content_block <- getFromNamespace("ContentBlock", "teal.reporter")
-block <- content_block$new()
+ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
+block <- ContentBlock$new()
 block$get_content()
 
 }
@@ -66,8 +66,8 @@ Returns a \code{ContentBlock} object with no content and the default style.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{content_block <- getFromNamespace("ContentBlock", "teal.reporter")
-content_block$new()
+\preformatted{ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
+ContentBlock$new()
 
 }
 \if{html}{\out{</div>}}
@@ -96,8 +96,8 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{content_block <- getFromNamespace("ContentBlock", "teal.reporter")
-block <- content_block$new()
+\preformatted{ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
+block <- ContentBlock$new()
 block$set_content("Base64 encoded picture")
 
 }
@@ -120,8 +120,8 @@ Returns the absolute path to content of this \code{ContentBlock}
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{content_block <- getFromNamespace("ContentBlock", "teal.reporter")
-block <- content_block$new()
+\preformatted{ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
+block <- ContentBlock$new()
 block$get_content()
 
 }

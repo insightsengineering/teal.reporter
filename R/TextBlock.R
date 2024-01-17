@@ -13,8 +13,8 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `TextBlock`
     #' @examples
-    #' text_block <- getFromNamespace("TextBlock", "teal.reporter")
-    #' block <- text_block$new()
+    #' TextBlock <- getFromNamespace("TextBlock", "teal.reporter")
+    #' block <- TextBlock$new()
     #'
     initialize = function(content = character(0), style = private$styles[1]) {
       super$set_content(content)
@@ -29,8 +29,8 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return invisibly self
     #' @examples
-    #' text_block <- getFromNamespace("TextBlock", "teal.reporter")
-    #' block <- text_block$new()
+    #' TextBlock <- getFromNamespace("TextBlock", "teal.reporter")
+    #' block <- TextBlock$new()
     #' block$set_style("header2")
     #'
     set_style = function(style) {
@@ -41,8 +41,8 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `character(1)` the style of this `TextBlock`
     #' @examples
-    #' text_block <- getFromNamespace("TextBlock", "teal.reporter")
-    #' block <- text_block$new()
+    #' TextBlock <- getFromNamespace("TextBlock", "teal.reporter")
+    #' block <- TextBlock$new()
     #' block$get_style()
     #'
     get_style = function() {
@@ -52,8 +52,8 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return a `character` array of styles
     #' @examples
-    #' text_block <- getFromNamespace("TextBlock", "teal.reporter")
-    #' block <- text_block$new()
+    #' TextBlock <- getFromNamespace("TextBlock", "teal.reporter")
+    #' block <- TextBlock$new()
     #' block$get_available_styles()
     #'
     get_available_styles = function() {
@@ -66,8 +66,8 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return invisibly self
     #' @examples
-    #' text_block <- getFromNamespace("TextBlock", "teal.reporter")
-    #' block <- text_block$new()
+    #' TextBlock <- getFromNamespace("TextBlock", "teal.reporter")
+    #' block <- TextBlock$new()
     #' block$from_list(list(text = "sth", style = "default"))
     #'
     from_list = function(x) {
@@ -81,8 +81,8 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `named list` with a text and style.
     #' @examples
-    #' text_block <- getFromNamespace("TextBlock", "teal.reporter")
-    #' block <- text_block$new()
+    #' TextBlock <- getFromNamespace("TextBlock", "teal.reporter")
+    #' block <- TextBlock$new()
     #' block$to_list()
     #'
     to_list = function() {

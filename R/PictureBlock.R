@@ -24,16 +24,16 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return invisibly self
     #' @examples
-    #' picture_block <- getFromNamespace("PictureBlock", "teal.reporter")
-    #' block <- picture_block$new()
+    #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+    #' block <- PictureBlock$new()
     #' block$set_content(ggplot2::ggplot(iris))
     #'
-    #' picture_block <- getFromNamespace("PictureBlock", "teal.reporter")
-    #' block <- picture_block$new()
+    #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+    #' block <- PictureBlock$new()
     #' block$set_content(lattice::bwplot(1))
     #'
-    #' picture_block <- getFromNamespace("PictureBlock", "teal.reporter")
-    #' block <- picture_block$new()
+    #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+    #' block <- PictureBlock$new()
     #' block$set_content(ggplot2::ggplotGrob(ggplot2::ggplot(iris)))
     set_content = function(content) {
       checkmate::assert_multi_class(content, private$supported_plots)
@@ -64,8 +64,8 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return invisibly self
     #' @examples
-    #' picture_block <- getFromNamespace("PictureBlock", "teal.reporter")
-    #' block <- picture_block$new()
+    #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+    #' block <- PictureBlock$new()
     #' block$set_title("Title")
     #'
     set_title = function(title) {
@@ -76,8 +76,8 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @description Returns the title of this `PictureBlock`
     #'
     #' @return the content of this `PictureBlock`
-    #' picture_block <- getFromNamespace("PictureBlock", "teal.reporter")
-    #' block <- picture_block$new()
+    #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+    #' block <- PictureBlock$new()
     #' block$get_title()
     #'
     get_title = function() {
@@ -89,8 +89,8 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `self`
     #' @examples
-    #' picture_block <- getFromNamespace("PictureBlock", "teal.reporter")
-    #' block <- picture_block$new()
+    #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+    #' block <- PictureBlock$new()
     #' block$set_dim(c(800, 600))
     #'
     set_dim = function(dim) {
@@ -102,8 +102,8 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `numeric` the array of 2 numeric values representing width and height in pixels.
     #' @examples
-    #' picture_block <- getFromNamespace("PictureBlock", "teal.reporter")
-    #' block <- picture_block$new()
+    #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+    #' block <- PictureBlock$new()
     #' block$get_dim()
     get_dim = function() {
       private$dim

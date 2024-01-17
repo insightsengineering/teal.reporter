@@ -9,8 +9,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `Renderer` object.
     #' @examples
-    #' renderer <- getFromNamespace("Renderer", "teal.reporter")
-    #' renderer$new()
+    #' Renderer <- getFromNamespace("Renderer", "teal.reporter")
+    #' Renderer$new()
     #'
     initialize = function() {
       tmp_dir <- tempdir()
@@ -33,8 +33,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `character` a `Rmd` text (`yaml` header + body), ready to be rendered.
     #' @examples
-    #' report_card <- getFromNamespace("ReportCard", "teal.reporter")
-    #' card1 <- report_card$new()
+    #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
+    #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text")
@@ -42,8 +42,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )
     #'
-    #' report_card <- getFromNamespace("ReportCard", "teal.reporter")
-    #' card2 <- report_card$new()
+    #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
+    #' card2 <- ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
     #' card2$append_text("A paragraph of default text", "header2")
@@ -53,8 +53,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' card2$append_table(iris)
     #' card2$append_rcode("2+2", echo = FALSE)
     #'
-    #' reporter <- getFromNamespace("Reporter", "teal.reporter")
-    #' reporter$new()$append_cards(list(card1, card2))
+    #' Reporter <- getFromNamespace("Reporter", "teal.reporter")
+    #' Reporter$new()$append_cards(list(card1, card2))
     #'
     #' yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
     #' yaml_l <- list(
@@ -66,8 +66,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' md_header <- getFromNamespace("md_header", "teal.reporter")
     #' yaml_header <- md_header(yaml::as.yaml(yaml_l))
-    #' renderer <- getFromNamespace("Renderer", "teal.reporter")
-    #' result_path <- renderer$new()$renderRmd(reporter$get_blocks(), yaml_header)
+    #' Renderer <- getFromNamespace("Renderer", "teal.reporter")
+    #' result_path <- Renderer$new()$renderRmd(Reporter$get_blocks(), yaml_header)
     #'
     renderRmd = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr")) {
       checkmate::assert_list(blocks, c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock"))
@@ -131,8 +131,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `character` path to the output
     #' @examples
-    #' report_card <- getFromNamespace("ReportCard", "teal.reporter")
-    #' card1 <- report_card$new()
+    #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
+    #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text")
@@ -140,8 +140,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )
     #'
-    #' report_card <- getFromNamespace("ReportCard", "teal.reporter")
-    #' card2 <- report_card$new()
+    #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
+    #' card2 <- ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
     #' card2$append_text("A paragraph of default text", "header2")
@@ -150,8 +150,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' card2$append_table(table_res2)
     #' card2$append_table(iris)
     #' card2$append_rcode("2+2", echo = FALSE)
-    #' reporter <- getFromNamespace("Reporter", "teal.reporter")$new()
-    #' reporter$append_cards(list(card1, card2))
+    #' Reporter <- getFromNamespace("Reporter", "teal.reporter")$new()
+    #' Reporter$append_cards(list(card1, card2))
     #'
     #' yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
     #' yaml_l <- list(
@@ -163,8 +163,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' md_header <- getFromNamespace("md_header", "teal.reporter")
     #' yaml_header <- md_header(yaml::as.yaml(yaml_l))
-    #' renderer <- getFromNamespace("Renderer", "teal.reporter")
-    #' result_path <- renderer$new()$render(reporter$get_blocks(), yaml_header)
+    #' Renderer <- getFromNamespace("Renderer", "teal.reporter")
+    #' result_path <- Renderer$new()$render(Reporter$get_blocks(), yaml_header)
     #'
     render = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
       args <- list(...)
@@ -184,8 +184,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `character` a `output_dir` field path.
     #' @examples
-    #' renderer <- getFromNamespace("Renderer", "teal.reporter")$new()
-    #' renderer$get_output_dir()
+    #' Renderer <- getFromNamespace("Renderer", "teal.reporter")$new()
+    #' Renderer$get_output_dir()
     #'
     get_output_dir = function() {
       private$output_dir

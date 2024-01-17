@@ -51,8 +51,8 @@ card <- ReportCard$new()$append_rcode("2+2", echo = FALSE)
 ## Method `ReportCard$append_content`
 ## ------------------------------------------------
 
-newpage_block <- getFromNamespace("NewpageBlock", "teal.reporter")
-card <- ReportCard$new()$append_content(newpage_block$new())
+NewpageBlock <- getFromNamespace("NewpageBlock", "teal.reporter")
+card <- ReportCard$new()$append_content(NewpageBlock$new())
 
 
 ## ------------------------------------------------
@@ -311,8 +311,8 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{newpage_block <- getFromNamespace("NewpageBlock", "teal.reporter")
-card <- ReportCard$new()$append_content(newpage_block$new())
+\preformatted{NewpageBlock <- getFromNamespace("NewpageBlock", "teal.reporter")
+card <- ReportCard$new()$append_content(NewpageBlock$new())
 
 }
 \if{html}{\out{</div>}}

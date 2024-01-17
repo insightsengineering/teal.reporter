@@ -77,8 +77,8 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param content (`ContentBlock`)
     #' @return invisibly self
     #' @examples
-    #' newpage_block <- getFromNamespace("NewpageBlock", "teal.reporter")
-    #' card <- ReportCard$new()$append_content(newpage_block$new())
+    #' NewpageBlock <- getFromNamespace("NewpageBlock", "teal.reporter")
+    #' card <- ReportCard$new()$append_content(NewpageBlock$new())
     #'
     append_content = function(content) {
       checkmate::assert_class(content, "ContentBlock")
