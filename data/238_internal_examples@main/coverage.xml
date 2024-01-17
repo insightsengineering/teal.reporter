@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.82574679943101" branch-rate="0" lines-covered="1161" lines-valid="1406" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-01-17 14:13:21.53524">
+<coverage line-rate="0.82574679943101" branch-rate="0" lines-covered="1161" lines-valid="1406" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-01-17 14:44:40.599034">
   <sources>
     <source>/__w/teal.reporter/teal.reporter/teal.reporter</source>
   </sources>
@@ -351,26 +351,26 @@
             <method name="read" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="22" hits="1" branch="false"/>
-                <line number="135" hits="7" branch="false"/>
-                <line number="136" hits="7" branch="false"/>
                 <line number="137" hits="7" branch="false"/>
                 <line number="138" hits="7" branch="false"/>
+                <line number="139" hits="7" branch="false"/>
                 <line number="140" hits="7" branch="false"/>
-                <line number="141" hits="3" branch="false"/>
-                <line number="142" hits="3" branch="false"/>
-                <line number="145" hits="7" branch="false"/>
-                <line number="146" hits="6" branch="false"/>
-                <line number="148" hits="1" branch="false"/>
-                <line number="149" hits="1" branch="false"/>
+                <line number="142" hits="7" branch="false"/>
+                <line number="143" hits="3" branch="false"/>
+                <line number="144" hits="3" branch="false"/>
+                <line number="147" hits="7" branch="false"/>
+                <line number="148" hits="6" branch="false"/>
+                <line number="150" hits="1" branch="false"/>
+                <line number="151" hits="1" branch="false"/>
               </lines>
             </method>
             <method name="write" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="26" hits="1" branch="false"/>
-                <line number="100" hits="1" branch="false"/>
                 <line number="101" hits="1" branch="false"/>
                 <line number="102" hits="1" branch="false"/>
                 <line number="103" hits="1" branch="false"/>
+                <line number="104" hits="1" branch="false"/>
               </lines>
             </method>
             <method name="finalize" signature="" line-rate="1" branch-rate="0" complexity="0">
@@ -398,21 +398,21 @@
             <line number="50" hits="10" branch="false"/>
             <line number="54" hits="10" branch="false"/>
             <line number="63" hits="9" branch="false"/>
-            <line number="100" hits="1" branch="false"/>
             <line number="101" hits="1" branch="false"/>
             <line number="102" hits="1" branch="false"/>
             <line number="103" hits="1" branch="false"/>
-            <line number="135" hits="7" branch="false"/>
-            <line number="136" hits="7" branch="false"/>
+            <line number="104" hits="1" branch="false"/>
             <line number="137" hits="7" branch="false"/>
             <line number="138" hits="7" branch="false"/>
+            <line number="139" hits="7" branch="false"/>
             <line number="140" hits="7" branch="false"/>
-            <line number="141" hits="3" branch="false"/>
-            <line number="142" hits="3" branch="false"/>
-            <line number="145" hits="7" branch="false"/>
-            <line number="146" hits="6" branch="false"/>
-            <line number="148" hits="1" branch="false"/>
-            <line number="149" hits="1" branch="false"/>
+            <line number="142" hits="7" branch="false"/>
+            <line number="143" hits="3" branch="false"/>
+            <line number="144" hits="3" branch="false"/>
+            <line number="147" hits="7" branch="false"/>
+            <line number="148" hits="6" branch="false"/>
+            <line number="150" hits="1" branch="false"/>
+            <line number="151" hits="1" branch="false"/>
           </lines>
         </class>
         <class name="ContentBlock.R" filename="R/ContentBlock.R" line-rate="0.888888888888889" branch-rate="0" complexity="0">
