@@ -14,14 +14,16 @@
 ## Method `RcodeBlock$new`
 ## ------------------------------------------------
 
-block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+rcode_block <- getFromNamespace("RcodeBlock", "teal.reporter")
+block <- rcode_block$new()
 
 
 ## ------------------------------------------------
 ## Method `RcodeBlock$set_params`
 ## ------------------------------------------------
 
-block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+rcode_block <- getFromNamespace("RcodeBlock", "teal.reporter")
+block <- rcode_block$new()
 block$set_params(list(echo = TRUE))
 
 
@@ -29,7 +31,8 @@ block$set_params(list(echo = TRUE))
 ## Method `RcodeBlock$get_params`
 ## ------------------------------------------------
 
-block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+rcode_block <- getFromNamespace("RcodeBlock", "teal.reporter")
+block <- rcode_block$new()
 block$get_params()
 
 
@@ -37,7 +40,8 @@ block$get_params()
 ## Method `RcodeBlock$get_available_params`
 ## ------------------------------------------------
 
-block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+rcode_block <- getFromNamespace("RcodeBlock", "teal.reporter")
+block <- rcode_block$new()
 block$get_available_params()
 
 
@@ -45,7 +49,8 @@ block$get_available_params()
 ## Method `RcodeBlock$from_list`
 ## ------------------------------------------------
 
-block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+rcode_block <- getFromNamespace("RcodeBlock", "teal.reporter")
+block <- rcode_block$new()
 block$from_list(list(text = "sth", params = list()))
 
 
@@ -53,7 +58,8 @@ block$from_list(list(text = "sth", params = list()))
 ## Method `RcodeBlock$to_list`
 ## ------------------------------------------------
 
-block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+rcode_block <- getFromNamespace("RcodeBlock", "teal.reporter")
+block <- rcode_block$new()
 block$to_list()
 
 }
@@ -108,7 +114,8 @@ Returns a \code{RcodeBlock} object with no content and no parameters.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+\preformatted{rcode_block <- getFromNamespace("RcodeBlock", "teal.reporter")
+block <- rcode_block$new()
 
 }
 \if{html}{\out{</div>}}
@@ -141,7 +148,8 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+\preformatted{rcode_block <- getFromNamespace("RcodeBlock", "teal.reporter")
+block <- rcode_block$new()
 block$set_params(list(echo = TRUE))
 
 }
@@ -164,7 +172,8 @@ Returns the parameters of this \code{RcodeBlock}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+\preformatted{rcode_block <- getFromNamespace("RcodeBlock", "teal.reporter")
+block <- rcode_block$new()
 block$get_params()
 
 }
@@ -187,7 +196,8 @@ a \code{character} array of parameters
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+\preformatted{rcode_block <- getFromNamespace("RcodeBlock", "teal.reporter")
+block <- rcode_block$new()
 block$get_available_params()
 
 }
@@ -218,7 +228,8 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+\preformatted{rcode_block <- getFromNamespace("RcodeBlock", "teal.reporter")
+block <- rcode_block$new()
 block$from_list(list(text = "sth", params = list()))
 
 }
@@ -241,7 +252,8 @@ Convert the \code{RcodeBlock} to a list.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+\preformatted{rcode_block <- getFromNamespace("RcodeBlock", "teal.reporter")
+block <- rcode_block$new()
 block$to_list()
 
 }

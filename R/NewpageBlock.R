@@ -10,7 +10,8 @@ NewpageBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `NewpageBlock`
     #' @examples
-    #' block <- getFromNamespace("NewpageBlock", "teal.reporter")$new()
+    #' newpage_block <- getFromNamespace("NewpageBlock", "teal.reporter")
+    #' block <- newpage_block$new()
     #'
     initialize = function() {
       super$set_content("\n\\newpage\n")

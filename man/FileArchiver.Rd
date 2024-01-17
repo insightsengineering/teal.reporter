@@ -14,14 +14,15 @@
 ## Method `FileArchiver$new`
 ## ------------------------------------------------
 
-archiver <- getFromNamespace("FileArchiver", "teal.reporter")$new()
+archiver <- getFromNamespace("FileArchiver", "teal.reporter")
+archiver$new()
 
 ## ------------------------------------------------
 ## Method `FileArchiver$get_output_dir`
 ## ------------------------------------------------
 
-archiver <- getFromNamespace("FileArchiver", "teal.reporter")$new()
-archiver$get_output_dir()
+archiver <- getFromNamespace("FileArchiver", "teal.reporter")
+archiver$new()$get_output_dir()
 }
 \keyword{internal}
 \section{Super class}{
@@ -58,7 +59,8 @@ a \code{FileArchiver} object
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{archiver <- getFromNamespace("FileArchiver", "teal.reporter")$new()
+\preformatted{archiver <- getFromNamespace("FileArchiver", "teal.reporter")
+archiver$new()
 }
 \if{html}{\out{</div>}}
 
@@ -89,8 +91,8 @@ get \code{output_dir} field
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{archiver <- getFromNamespace("FileArchiver", "teal.reporter")$new()
-archiver$get_output_dir()
+\preformatted{archiver <- getFromNamespace("FileArchiver", "teal.reporter")
+archiver$new()$get_output_dir()
 }
 \if{html}{\out{</div>}}
 

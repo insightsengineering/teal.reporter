@@ -20,6 +20,7 @@ yaml <- list(
   date = yaml_quoted("07/04/2019"),
   output = list(pdf_document = list(keep_tex = TRUE))
 )
-getFromNamespace("md_header", "teal.reporter")(yaml::as.yaml(yaml))
+md_header <- getFromNamespace("md_header", "teal.reporter")
+md_header(yaml::as.yaml(yaml))
 }
 \keyword{internal}

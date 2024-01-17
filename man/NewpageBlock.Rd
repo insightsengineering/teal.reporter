@@ -14,7 +14,8 @@
 ## Method `NewpageBlock$new`
 ## ------------------------------------------------
 
-block <- getFromNamespace("NewpageBlock", "teal.reporter")$new()
+newpage_block <- getFromNamespace("NewpageBlock", "teal.reporter")
+block <- newpage_block$new()
 
 }
 \keyword{internal}
@@ -56,7 +57,8 @@ Returns a \code{NewpageBlock} object with no content and the default style.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- getFromNamespace("NewpageBlock", "teal.reporter")$new()
+\preformatted{newpage_block <- getFromNamespace("NewpageBlock", "teal.reporter")
+block <- newpage_block$new()
 
 }
 \if{html}{\out{</div>}}

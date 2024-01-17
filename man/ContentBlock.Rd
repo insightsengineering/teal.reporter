@@ -14,14 +14,16 @@
 ## Method `ContentBlock$new`
 ## ------------------------------------------------
 
-block <- getFromNamespace("ContentBlock", "teal.reporter")$new()
+content_block <- getFromNamespace("ContentBlock", "teal.reporter")
+content_block$new()
 
 
 ## ------------------------------------------------
 ## Method `ContentBlock$set_content`
 ## ------------------------------------------------
 
-block <- getFromNamespace("ContentBlock", "teal.reporter")$new()
+content_block <- getFromNamespace("ContentBlock", "teal.reporter")
+block <- content_block$new()
 block$set_content("Base64 encoded picture")
 
 
@@ -29,7 +31,8 @@ block$set_content("Base64 encoded picture")
 ## Method `ContentBlock$get_content`
 ## ------------------------------------------------
 
-block <- getFromNamespace("ContentBlock", "teal.reporter")$new()
+content_block <- getFromNamespace("ContentBlock", "teal.reporter")
+block <- content_block$new()
 block$get_content()
 
 }
@@ -63,7 +66,8 @@ Returns a \code{ContentBlock} object with no content and the default style.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- getFromNamespace("ContentBlock", "teal.reporter")$new()
+\preformatted{content_block <- getFromNamespace("ContentBlock", "teal.reporter")
+content_block$new()
 
 }
 \if{html}{\out{</div>}}
@@ -92,7 +96,8 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- getFromNamespace("ContentBlock", "teal.reporter")$new()
+\preformatted{content_block <- getFromNamespace("ContentBlock", "teal.reporter")
+block <- content_block$new()
 block$set_content("Base64 encoded picture")
 
 }
@@ -115,7 +120,8 @@ Returns the absolute path to content of this \code{ContentBlock}
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- getFromNamespace("ContentBlock", "teal.reporter")$new()
+\preformatted{content_block <- getFromNamespace("ContentBlock", "teal.reporter")
+block <- content_block$new()
 block$get_content()
 
 }

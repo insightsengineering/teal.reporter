@@ -13,7 +13,8 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `RcodeBlock`
     #' @examples
-    #' block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+    #' rcode_block <- getFromNamespace("RcodeBlock", "teal.reporter")
+    #' block <- rcode_block$new()
     #'
     initialize = function(content = character(0), ...) {
       super$set_content(content)
@@ -28,7 +29,8 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return invisibly self
     #' @examples
-    #' block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+    #' rcode_block <- getFromNamespace("RcodeBlock", "teal.reporter")
+    #' block <- rcode_block$new()
     #' block$set_params(list(echo = TRUE))
     #'
     set_params = function(params) {
@@ -41,7 +43,8 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `character` the parameters of this `RcodeBlock`
     #' @examples
-    #' block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+    #' rcode_block <- getFromNamespace("RcodeBlock", "teal.reporter")
+    #' block <- rcode_block$new()
     #' block$get_params()
     #'
     get_params = function() {
@@ -51,7 +54,8 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return a `character` array of parameters
     #' @examples
-    #' block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+    #' rcode_block <- getFromNamespace("RcodeBlock", "teal.reporter")
+    #' block <- rcode_block$new()
     #' block$get_available_params()
     #'
     get_available_params = function() {
@@ -64,7 +68,8 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return invisibly self
     #' @examples
-    #' block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+    #' rcode_block <- getFromNamespace("RcodeBlock", "teal.reporter")
+    #' block <- rcode_block$new()
     #' block$from_list(list(text = "sth", params = list()))
     #'
     from_list = function(x) {
@@ -78,7 +83,8 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `named list` with a text and `params`.
     #' @examples
-    #' block <- getFromNamespace("RcodeBlock", "teal.reporter")$new()
+    #' rcode_block <- getFromNamespace("RcodeBlock", "teal.reporter")
+    #' block <- rcode_block$new()
     #' block$to_list()
     #'
     to_list = function() {

@@ -25,7 +25,8 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return invisibly self
     #' @examples
-    #' block <- getFromNamespace("TableBlock", "teal.reporter")$new()
+    #' table_block <- getFromNamespace("TableBlock", "teal.reporter")
+    #' block <- table_block$new()
     #' block$set_content(iris)
     #'
     set_content = function(content) {

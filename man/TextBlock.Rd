@@ -14,14 +14,16 @@
 ## Method `TextBlock$new`
 ## ------------------------------------------------
 
-block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+text_block <- getFromNamespace("TextBlock", "teal.reporter")
+block <- text_block$new()
 
 
 ## ------------------------------------------------
 ## Method `TextBlock$set_style`
 ## ------------------------------------------------
 
-block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+text_block <- getFromNamespace("TextBlock", "teal.reporter")
+block <- text_block$new()
 block$set_style("header2")
 
 
@@ -29,7 +31,8 @@ block$set_style("header2")
 ## Method `TextBlock$get_style`
 ## ------------------------------------------------
 
-block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+text_block <- getFromNamespace("TextBlock", "teal.reporter")
+block <- text_block$new()
 block$get_style()
 
 
@@ -37,7 +40,8 @@ block$get_style()
 ## Method `TextBlock$get_available_styles`
 ## ------------------------------------------------
 
-block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+text_block <- getFromNamespace("TextBlock", "teal.reporter")
+block <- text_block$new()
 block$get_available_styles()
 
 
@@ -45,7 +49,8 @@ block$get_available_styles()
 ## Method `TextBlock$from_list`
 ## ------------------------------------------------
 
-block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+text_block <- getFromNamespace("TextBlock", "teal.reporter")
+block <- text_block$new()
 block$from_list(list(text = "sth", style = "default"))
 
 
@@ -53,7 +58,8 @@ block$from_list(list(text = "sth", style = "default"))
 ## Method `TextBlock$to_list`
 ## ------------------------------------------------
 
-block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+text_block <- getFromNamespace("TextBlock", "teal.reporter")
+block <- text_block$new()
 block$to_list()
 
 }
@@ -108,7 +114,8 @@ Returns a \code{TextBlock} object with no content and the default style.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+\preformatted{text_block <- getFromNamespace("TextBlock", "teal.reporter")
+block <- text_block$new()
 
 }
 \if{html}{\out{</div>}}
@@ -141,7 +148,8 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+\preformatted{text_block <- getFromNamespace("TextBlock", "teal.reporter")
+block <- text_block$new()
 block$set_style("header2")
 
 }
@@ -164,7 +172,8 @@ Returns the style of this \code{TextBlock}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+\preformatted{text_block <- getFromNamespace("TextBlock", "teal.reporter")
+block <- text_block$new()
 block$get_style()
 
 }
@@ -187,7 +196,8 @@ a \code{character} array of styles
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+\preformatted{text_block <- getFromNamespace("TextBlock", "teal.reporter")
+block <- text_block$new()
 block$get_available_styles()
 
 }
@@ -218,7 +228,8 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+\preformatted{text_block <- getFromNamespace("TextBlock", "teal.reporter")
+block <- text_block$new()
 block$from_list(list(text = "sth", style = "default"))
 
 }
@@ -241,7 +252,8 @@ Convert the \code{TextBlock} to a list.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- getFromNamespace("TextBlock", "teal.reporter")$new()
+\preformatted{text_block <- getFromNamespace("TextBlock", "teal.reporter")
+block <- text_block$new()
 block$to_list()
 
 }

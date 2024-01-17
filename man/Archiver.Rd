@@ -14,7 +14,8 @@
 ## Method `Archiver$new`
 ## ------------------------------------------------
 
-archiver <- getFromNamespace("Archiver", "teal.reporter")$new()
+archiver <- getFromNamespace("Archiver", "teal.reporter")
+archiver$new()
 }
 \keyword{internal}
 \section{Methods}{
@@ -41,7 +42,8 @@ an \code{Archiver} object
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{archiver <- getFromNamespace("Archiver", "teal.reporter")$new()
+\preformatted{archiver <- getFromNamespace("Archiver", "teal.reporter")
+archiver$new()
 }
 \if{html}{\out{</div>}}
 

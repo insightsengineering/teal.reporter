@@ -14,7 +14,8 @@
 ## Method `FileBlock$from_list`
 ## ------------------------------------------------
 
-block <- getFromNamespace("FileBlock", "teal.reporter")$new()
+file_block <- getFromNamespace("FileBlock", "teal.reporter")
+block <- file_block$new()
 file_path <- tempfile(fileext = ".png")
 saveRDS(iris, file_path)
 block$from_list(list(basename = basename(file_path)), dirname(file_path))
@@ -24,7 +25,8 @@ block$from_list(list(basename = basename(file_path)), dirname(file_path))
 ## Method `FileBlock$to_list`
 ## ------------------------------------------------
 
-block <- getFromNamespace("FileBlock", "teal.reporter")$new()
+file_block <- getFromNamespace("FileBlock", "teal.reporter")
+block <- file_block$new()
 block$to_list(tempdir())
 
 }
@@ -88,7 +90,8 @@ invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- getFromNamespace("FileBlock", "teal.reporter")$new()
+\preformatted{file_block <- getFromNamespace("FileBlock", "teal.reporter")
+block <- file_block$new()
 file_path <- tempfile(fileext = ".png")
 saveRDS(iris, file_path)
 block$from_list(list(basename = basename(file_path)), dirname(file_path))
@@ -120,7 +123,8 @@ Convert the \code{FileBlock} to a list.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{block <- getFromNamespace("FileBlock", "teal.reporter")$new()
+\preformatted{file_block <- getFromNamespace("FileBlock", "teal.reporter")
+block <- file_block$new()
 block$to_list(tempdir())
 
 }
