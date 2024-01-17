@@ -7,8 +7,8 @@ Archiver <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return an `Archiver` object
     #' @examples
-    #' archiver <- getFromNamespace("Archiver", "teal.reporter")
-    #' archiver$new()
+    #' Archiver <- getFromNamespace("Archiver", "teal.reporter")
+    #' Archiver$new()
     initialize = function() {
       invisible(self)
     },
