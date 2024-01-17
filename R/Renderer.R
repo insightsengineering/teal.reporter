@@ -54,7 +54,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' card2$append_rcode("2+2", echo = FALSE)
     #'
     #' Reporter <- getFromNamespace("Reporter", "teal.reporter")
-    #' Reporter$new()$append_cards(list(card1, card2))
+    #' reporter <- Reporter$new()
+    #' reporter$append_cards(list(card1, card2))
     #'
     #' yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
     #' yaml_l <- list(
@@ -67,7 +68,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' md_header <- getFromNamespace("md_header", "teal.reporter")
     #' yaml_header <- md_header(yaml::as.yaml(yaml_l))
     #' Renderer <- getFromNamespace("Renderer", "teal.reporter")
-    #' result_path <- Renderer$new()$renderRmd(Reporter$get_blocks(), yaml_header)
+    #' result_path <- Renderer$new()$renderRmd(reporter$get_blocks(), yaml_header)
     #'
     renderRmd = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr")) {
       checkmate::assert_list(blocks, c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock"))
