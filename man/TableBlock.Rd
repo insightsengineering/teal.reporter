@@ -8,6 +8,17 @@
 
 \code{TableBlock}
 }
+\examples{
+
+## ------------------------------------------------
+## Method `TableBlock$set_content`
+## ------------------------------------------------
+
+TableBlock <- getFromNamespace("TableBlock", "teal.reporter")
+block <- TableBlock$new()
+block$set_content(iris)
+
+}
 \keyword{internal}
 \section{Super classes}{
 \code{\link[teal.reporter:ContentBlock]{teal.reporter::ContentBlock}} -> \code{\link[teal.reporter:FileBlock]{teal.reporter::FileBlock}} -> \code{TableBlock}
@@ -75,6 +86,17 @@ throws if argument is not a table-like object.
 \subsection{Returns}{
 invisibly self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{TableBlock <- getFromNamespace("TableBlock", "teal.reporter")
+block <- TableBlock$new()
+block$set_content(iris)
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TableBlock-clone"></a>}}
