@@ -8,6 +8,15 @@
 
 \code{Archiver}
 }
+\examples{
+
+## ------------------------------------------------
+## Method `Archiver$new`
+## ------------------------------------------------
+
+Archiver <- getFromNamespace("Archiver", "teal.reporter")
+Archiver$new()
+}
 \keyword{internal}
 \section{Methods}{
 \subsection{Public methods}{
@@ -31,6 +40,15 @@ Returns an \code{Archiver} object.
 \subsection{Returns}{
 an \code{Archiver} object
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{Archiver <- getFromNamespace("Archiver", "teal.reporter")
+Archiver$new()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Archiver-finalize"></a>}}

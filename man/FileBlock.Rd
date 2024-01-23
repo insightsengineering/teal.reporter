@@ -8,6 +8,28 @@
 
 \code{FileBlock}
 }
+\examples{
+
+## ------------------------------------------------
+## Method `FileBlock$from_list`
+## ------------------------------------------------
+
+FileBlock <- getFromNamespace("FileBlock", "teal.reporter")
+block <- FileBlock$new()
+file_path <- tempfile(fileext = ".png")
+saveRDS(iris, file_path)
+block$from_list(list(basename = basename(file_path)), dirname(file_path))
+
+
+## ------------------------------------------------
+## Method `FileBlock$to_list`
+## ------------------------------------------------
+
+FileBlock <- getFromNamespace("FileBlock", "teal.reporter")
+block <- FileBlock$new()
+block$to_list(tempdir())
+
+}
 \keyword{internal}
 \section{Super class}{
 \code{\link[teal.reporter:ContentBlock]{teal.reporter::ContentBlock}} -> \code{FileBlock}
@@ -66,6 +88,19 @@ The list should contain one named field, \code{"basename"}.
 \subsection{Returns}{
 invisibly self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{FileBlock <- getFromNamespace("FileBlock", "teal.reporter")
+block <- FileBlock$new()
+file_path <- tempfile(fileext = ".png")
+saveRDS(iris, file_path)
+block$from_list(list(basename = basename(file_path)), dirname(file_path))
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-FileBlock-to_list"></a>}}
@@ -86,6 +121,17 @@ Convert the \code{FileBlock} to a list.
 \subsection{Returns}{
 \verb{named list} with a \code{basename} of the file.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{FileBlock <- getFromNamespace("FileBlock", "teal.reporter")
+block <- FileBlock$new()
+block$to_list(tempdir())
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-FileBlock-clone"></a>}}

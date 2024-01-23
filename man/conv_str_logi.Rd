@@ -29,4 +29,15 @@ conv_str_logi(
 \description{
 convert a character of a \code{yaml} boolean to a logical value.
 }
+\examples{
+
+conv_str_logi <- getFromNamespace("conv_str_logi", "teal.reporter")
+conv_str_logi("TRUE")
+conv_str_logi("True")
+
+conv_str_logi("off")
+conv_str_logi("n")
+
+conv_str_logi("sth")
+}
 \keyword{internal}

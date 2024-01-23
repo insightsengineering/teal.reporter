@@ -8,6 +8,10 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @details Returns a `ContentBlock` object with no content and the default style.
     #'
     #' @return `ContentBlock`
+    #' @examples
+    #' ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
+    #' ContentBlock$new()
+    #'
     initialize = function() {
       private$content <- character(0)
       invisible(self)
@@ -17,6 +21,11 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @param content (`character(0)` or `character(1)`) a string literal or a file path assigned to this `ContentBlock`
     #'
     #' @return invisibly self
+    #' @examples
+    #' ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
+    #' block <- ContentBlock$new()
+    #' block$set_content("Base64 encoded picture")
+    #'
     set_content = function(content) {
       checkmate::assert_character(content, min.len = 0, max.len = 1)
       private$content <- content
@@ -25,6 +34,11 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @description Returns the absolute path to content of this `ContentBlock`
     #'
     #' @return `character` content of this `ContentBlock`
+    #' @examples
+    #' ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
+    #' block <- ContentBlock$new()
+    #' block$get_content()
+    #'
     get_content = function() {
       private$content
     },

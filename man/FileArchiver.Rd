@@ -8,6 +8,22 @@
 
 \code{RDSArchiver}
 }
+\examples{
+
+## ------------------------------------------------
+## Method `FileArchiver$new`
+## ------------------------------------------------
+
+FileArchiver <- getFromNamespace("FileArchiver", "teal.reporter")
+FileArchiver$new()
+
+## ------------------------------------------------
+## Method `FileArchiver$get_output_dir`
+## ------------------------------------------------
+
+FileArchiver <- getFromNamespace("FileArchiver", "teal.reporter")
+FileArchiver$new()$get_output_dir()
+}
 \keyword{internal}
 \section{Super class}{
 \code{\link[teal.reporter:Archiver]{teal.reporter::Archiver}} -> \code{FileArchiver}
@@ -41,6 +57,15 @@ Returns a \code{FileArchiver} object.
 \subsection{Returns}{
 a \code{FileArchiver} object
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{FileArchiver <- getFromNamespace("FileArchiver", "teal.reporter")
+FileArchiver$new()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-FileArchiver-finalize"></a>}}
@@ -64,6 +89,15 @@ get \code{output_dir} field
 \subsection{Returns}{
 \code{character} a \code{output_dir} field path.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{FileArchiver <- getFromNamespace("FileArchiver", "teal.reporter")
+FileArchiver$new()$get_output_dir()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-FileArchiver-clone"></a>}}

@@ -23,6 +23,18 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @param content (`ggplot`, `grob`, `trellis`) a picture in this `PictureBlock`
     #'
     #' @return invisibly self
+    #' @examples
+    #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+    #' block <- PictureBlock$new()
+    #' block$set_content(ggplot2::ggplot(iris))
+    #'
+    #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+    #' block <- PictureBlock$new()
+    #' block$set_content(lattice::bwplot(1))
+    #'
+    #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+    #' block <- PictureBlock$new()
+    #' block$set_content(ggplot2::ggplotGrob(ggplot2::ggplot(iris)))
     set_content = function(content) {
       checkmate::assert_multi_class(content, private$supported_plots)
       path <- tempfile(fileext = ".png")
@@ -51,6 +63,11 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @param title (`character(1)`) a string assigned to this `PictureBlock`
     #'
     #' @return invisibly self
+    #' @examples
+    #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+    #' block <- PictureBlock$new()
+    #' block$set_title("Title")
+    #'
     set_title = function(title) {
       checkmate::assert_string(title)
       private$title <- title
@@ -59,6 +76,10 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @description Returns the title of this `PictureBlock`
     #'
     #' @return the content of this `PictureBlock`
+    #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+    #' block <- PictureBlock$new()
+    #' block$get_title()
+    #'
     get_title = function() {
       private$title
     },
@@ -67,6 +88,11 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @param dim `numeric` figure dimensions (width and height) in pixels, length 2.
     #'
     #' @return `self`
+    #' @examples
+    #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+    #' block <- PictureBlock$new()
+    #' block$set_dim(c(800, 600))
+    #'
     set_dim = function(dim) {
       checkmate::assert_numeric(dim, len = 2)
       private$dim <- dim
@@ -75,6 +101,10 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @description Returns the dimensions of this `PictureBlock`
     #'
     #' @return `numeric` the array of 2 numeric values representing width and height in pixels.
+    #' @examples
+    #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+    #' block <- PictureBlock$new()
+    #' block$get_dim()
     get_dim = function() {
       private$dim
     }

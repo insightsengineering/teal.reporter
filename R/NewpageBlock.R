@@ -9,6 +9,10 @@ NewpageBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @details Returns a `NewpageBlock` object with no content and the default style.
     #'
     #' @return `NewpageBlock`
+    #' @examples
+    #' NewpageBlock <- getFromNamespace("NewpageBlock", "teal.reporter")
+    #' block <- NewpageBlock$new()
+    #'
     initialize = function() {
       super$set_content("\n\\newpage\n")
       invisible(self)
