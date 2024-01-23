@@ -36,7 +36,7 @@ Suggests:
     lattice (>= 0.18-4),
     png,
     rtables (>= 0.5.1),
-    testthat (>= 3.0.4),
+    testthat (>= 3.1.5),
     tinytex
 VignetteBuilder:
     knitr
