@@ -1,5 +1,5 @@
 testthat::test_that("TableBlock object can be created", {
-  testthat::expect_error(TableBlock$new(), regexp = NA)
+  testthat::expect_no_error(TableBlock$new())
 })
 
 testthat::test_that("new returns an object of type TableBlock", {
@@ -8,7 +8,7 @@ testthat::test_that("new returns an object of type TableBlock", {
 
 testthat::test_that("set_content accepts a table object", {
   block <- TableBlock$new()
-  testthat::expect_error(block$set_content(iris), regexp = NA)
+  testthat::expect_no_error(block$set_content(iris))
 })
 
 testthat::test_that("set_content asserts the argument is a plot", {
@@ -52,7 +52,7 @@ testthat::test_that("from_list after to_list to save and retrive", {
 
 testthat::test_that("set_content supports data.frame object", {
   block <- TableBlock$new()
-  testthat::expect_error(block$set_content(iris), NA)
+  testthat::expect_no_error(block$set_content(iris))
 })
 
 testthat::test_that("set_content supports rtables object", {
@@ -65,5 +65,5 @@ testthat::test_that("set_content supports rtables object", {
         "range" = diff(range(x))
       )
     })
-  testthat::expect_error(block$set_content(rtables::build_table(l, iris)), NA)
+  testthat::expect_no_error(block$set_content(rtables::build_table(l, iris)))
 })

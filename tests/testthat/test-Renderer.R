@@ -1,5 +1,5 @@
 testthat::test_that("Renderer object can be created", {
-  testthat::expect_error(Renderer$new(), regexp = NA)
+  testthat::expect_no_error(Renderer$new())
 })
 
 testthat::test_that("new returns an object of type Renderer", {

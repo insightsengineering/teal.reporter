@@ -1,5 +1,5 @@
 testthat::test_that("ReportCard object can be created", {
-  testthat::expect_error(ReportCard$new(), regexp = NA)
+  testthat::expect_no_error(ReportCard$new())
 })
 
 testthat::test_that("new returns an object of type ReportCard", {
@@ -7,7 +7,7 @@ testthat::test_that("new returns an object of type ReportCard", {
 })
 
 testthat::test_that("append_text accepts a character", {
-  testthat::expect_error(ReportCard$new()$append_text("test"), regexp = NA)
+  testthat::expect_no_error(ReportCard$new()$append_text("test"))
 })
 
 testthat::test_that("append_text returns self", {
@@ -16,9 +16,8 @@ testthat::test_that("append_text returns self", {
 })
 
 testthat::test_that("append_table accepts a data.frame", {
-  testthat::expect_error(
-    ReportCard$new()$append_table(iris),
-    regexp = NA
+  testthat::expect_no_error(
+    ReportCard$new()$append_table(iris)
   )
 })
 
@@ -33,31 +32,27 @@ testthat::test_that("append_plot returns self", {
 })
 
 testthat::test_that("append_plot accepts a ggplot", {
-  testthat::expect_error(
-    ReportCard$new()$append_plot(ggplot2::ggplot(iris)),
-    regexp = NA
+  testthat::expect_no_error(
+    ReportCard$new()$append_plot(ggplot2::ggplot(iris))
   )
 })
 
 testthat::test_that("append_plot accepts a ggplot with a dim", {
-  testthat::expect_error(
-    ReportCard$new()$append_plot(ggplot2::ggplot(iris), c(1000L, 100L)),
-    regexp = NA
+  testthat::expect_no_error(
+    ReportCard$new()$append_plot(ggplot2::ggplot(iris), c(1000L, 100L))
   )
 })
 
 testthat::test_that("append_rcode accepts a character", {
-  testthat::expect_error(
-    ReportCard$new()$append_rcode("x <- 2"),
-    regexp = NA
+  testthat::expect_no_error(
+    ReportCard$new()$append_rcode("x <- 2")
   )
 })
 
 
 testthat::test_that("append_rcode returns self", {
-  testthat::expect_error(
-    ReportCard$new()$append_rcode("x <- 2"),
-    regexp = NA
+  testthat::expect_no_error(
+    ReportCard$new()$append_rcode("x <- 2")
   )
 })
 
@@ -85,8 +80,8 @@ testthat::test_that("append_metadata returns an object of type ReportCard", {
 })
 
 testthat::test_that("append_metadata accepts a character key and a character or list value", {
-  testthat::expect_error(ReportCard$new()$append_metadata("key1", "value1"), regexp = NA)
-  testthat::expect_error(ReportCard$new()$append_metadata("key1", list("value1")), regexp = NA)
+  testthat::expect_no_error(ReportCard$new()$append_metadata("key1", "value1"))
+  testthat::expect_no_error(ReportCard$new()$append_metadata("key1", list("value1")))
 })
 
 testthat::test_that("append_metadata throws error if key is not character", {
