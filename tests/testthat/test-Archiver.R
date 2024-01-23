@@ -85,14 +85,14 @@ testthat::test_that("JSONArchiver write a reporter", {
 path_with_files <- archiver$get_output_dir()
 
 testthat::test_that("JSONArchiver write a reporter with a json file and static files", {
-  expect_true(dir.exists(archiver$get_output_dir()))
+  testthat::expect_true(dir.exists(archiver$get_output_dir()))
   files <- list.files(archiver$get_output_dir())
   testthat::expect_true(length(files) == 4)
   testthat::expect_true("Report.json" %in% files)
 })
 
 testthat::test_that("JSONArchiver read back the Reporter instance", {
-  expect_s3_class(archiver$read(), "Reporter")
+  testthat::expect_s3_class(archiver$read(), "Reporter")
   testthat::expect_length(archiver$read()$get_cards(), 2L)
   testthat::expect_length(archiver$read()$get_blocks(), 8L)
 })
@@ -109,7 +109,7 @@ testthat::test_that("JSONArchiver read back and all table/picture statics exists
 archiver2 <- JSONArchiver$new()
 testthat::test_that("JSONArchiver read back the Reporter instance, from a path", {
   reporter_temp <- archiver2$read(path_with_files)
-  expect_s3_class(reporter_temp, "Reporter")
+  testthat::expect_s3_class(reporter_temp, "Reporter")
   testthat::expect_length(reporter_temp$get_cards(), 2L)
   testthat::expect_length(reporter_temp$get_blocks(), 8L)
 })
