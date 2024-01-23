@@ -1,5 +1,5 @@
 testthat::test_that("TextBlock object can be created", {
-  testthat::expect_error(TextBlock$new(), regexp = NA)
+  testthat::expect_no_error(TextBlock$new())
 })
 
 testthat::test_that("new returns an object of type TextBlock", {
@@ -8,7 +8,7 @@ testthat::test_that("new returns an object of type TextBlock", {
 
 testthat::test_that("set_content accepts a string", {
   block <- TextBlock$new()
-  testthat::expect_error(block$set_content("test"), regexp = NA)
+  testthat::expect_no_error(block$set_content("test"))
 })
 
 testthat::test_that("set_content asserts the argument is a string", {
@@ -35,7 +35,7 @@ testthat::test_that("get_available_styles returns an array of character", {
 
 testthat::test_that("set_style accepts one of the styles returned by get_available_styles", {
   for (style in TextBlock$new()$get_available_styles()) {
-    testthat::expect_error(TextBlock$new()$set_style(!!style), regexp = NA)
+    testthat::expect_no_error(TextBlock$new()$set_style(!!style))
   }
 })
 

@@ -13,7 +13,7 @@ testthat::test_that("yaml_quoted does not modify the value of the object", {
 
 testthat::test_that("conv_str_logi - accept only a string", {
   testthat::expect_error(conv_str_logi(2))
-  testthat::expect_error(conv_str_logi("string"), NA)
+  testthat::expect_no_error(conv_str_logi("string"))
 })
 
 testthat::test_that("conv_str_logi - not influence the regular character", {
@@ -47,8 +47,8 @@ testthat::test_that("rmd_outputs - all returned out in the rmarkdown namespace",
 
 testthat::test_that("rmd_output_arguments - accepts only string from possible rmarkdown outputs", {
   testthat::expect_error(rmd_output_arguments("random_text"))
-  testthat::expect_error(rmd_output_arguments("pdf_document"), NA)
-  testthat::expect_error(rmd_output_arguments("pdf_document", TRUE), NA)
+  testthat::expect_no_error(rmd_output_arguments("pdf_document"))
+  testthat::expect_no_error(rmd_output_arguments("pdf_document", TRUE))
 })
 
 testthat::test_that("rmd_output_arguments - returned all pdf_document arguments", {
@@ -69,8 +69,8 @@ testthat::test_that("as_yaml_auto - accept a named list (optionally nested)", {
   testthat::expect_error(as_yaml_auto(list(1)))
   testthat::expect_error(as_yaml_auto("sth"))
 
-  testthat::expect_error(as_yaml_auto(list(author = "", output = list(pdf_document = list(toc = TRUE)))), NA)
-  testthat::expect_error(as_yaml_auto(list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE)), NA)
+  testthat::expect_no_error(as_yaml_auto(list(author = "", output = list(pdf_document = list(toc = TRUE)))))
+  testthat::expect_no_error(as_yaml_auto(list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE)))
 })
 
 testthat::test_that("as_yaml_auto - works the same as yaml::as.yaml for a nested list when as_header is FALSE", {

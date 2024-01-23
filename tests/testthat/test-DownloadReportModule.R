@@ -111,7 +111,7 @@ knitr_args <- list()
 temp_dir <- tempdir()
 
 testthat::test_that("report_render_and_compress - valid arguments", {
-  testthat::expect_error(report_render_and_compress(reporter, input, knitr_args, temp_dir), NA)
+  testthat::expect_no_error(report_render_and_compress(reporter, input, knitr_args, temp_dir))
 })
 
 testthat::test_that("report_render_and_compress - invalid arguments", {

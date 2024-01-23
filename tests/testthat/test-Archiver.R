@@ -20,7 +20,7 @@ reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 
 testthat::test_that("intialize Archiver", {
-  expect_error(Archiver$new(), NA)
+  testthat::expect_no_error(Archiver$new())
 })
 
 testthat::test_that("new returns an object of type Archiver", {
@@ -34,7 +34,7 @@ testthat::test_that("Archiver errors with the abstract methods", {
 })
 
 testthat::test_that("intialize FileArchiver", {
-  testthat::expect_error(FileArchiver$new(), NA)
+  testthat::expect_no_error(FileArchiver$new())
 })
 
 testthat::test_that("FileArchiver creates a temp directory when initialized", {
@@ -58,7 +58,7 @@ testthat::test_that("FileArchiver dectructor removes the temp dir", {
 })
 
 testthat::test_that("intialize JSONArchiver", {
-  testthat::expect_error(JSONArchiver$new(), NA)
+  testthat::expect_no_error(JSONArchiver$new())
 })
 
 testthat::test_that("JSONArchiver creates a temp directory when initialized", {
@@ -79,7 +79,7 @@ testthat::test_that("JSONArchiver dectructor removes the temp dir", {
 archiver <- JSONArchiver$new()
 
 testthat::test_that("JSONArchiver write a reporter", {
-  testthat::expect_error(archiver$write(reporter), NA)
+  testthat::expect_no_error(archiver$write(reporter))
 })
 
 path_with_files <- archiver$get_output_dir()

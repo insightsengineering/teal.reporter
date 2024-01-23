@@ -1,5 +1,5 @@
 testthat::test_that("ContentBlock object can be created", {
-  testthat::expect_error(ContentBlock$new(), regexp = NA)
+  testthat::expect_no_error(ContentBlock$new())
 })
 
 testthat::test_that("new returns an object of type ContentBlock", {
@@ -8,7 +8,7 @@ testthat::test_that("new returns an object of type ContentBlock", {
 
 testthat::test_that("set_content accepts a character object", {
   block <- ContentBlock$new()
-  testthat::expect_error(block$set_content("test"), regexp = NA)
+  testthat::expect_no_error(block$set_content("test"))
 })
 
 testthat::test_that("set_content asserts the argument is character", {

@@ -1,5 +1,5 @@
 testthat::test_that("Reporter object can be created", {
-  testthat::expect_error(Reporter$new(), regexp = NA)
+  testthat::expect_no_error(Reporter$new())
 })
 
 testthat::test_that("new returns an object of type Reporter", {
@@ -77,7 +77,7 @@ testthat::test_that("reactive_add_card", {
 
 testthat::test_that("append_metadata accept only named list", {
   reporter <- Reporter$new()
-  testthat::expect_error(reporter$append_metadata(list(sth = "sth")), NA)
+  testthat::expect_no_error(reporter$append_metadata(list(sth = "sth")))
   testthat::expect_error(reporter$append_metadata("sth"), "'list', not 'character'")
   testthat::expect_error(reporter$append_metadata(list("sth")), "Must have names")
 })
@@ -86,13 +86,13 @@ testthat::test_that("append_metadata accept only unique names which could not be
   reporter <- Reporter$new()
   testthat::expect_error(reporter$append_metadata(list(sth = "sth", sth = 2)), "but element 2 is duplicated")
   reporter <- Reporter$new()
-  testthat::expect_error(reporter$append_metadata(list(sth = "sth")), NA)
+  testthat::expect_no_error(reporter$append_metadata(list(sth = "sth")))
   testthat::expect_error(reporter$append_metadata(list(sth = "sth")), "failed: Must be TRUE")
 })
 
 testthat::test_that("get_metadata", {
   reporter <- Reporter$new()
-  testthat::expect_error(reporter$append_metadata(list(sth = "sth")), NA)
+  testthat::expect_no_error(reporter$append_metadata(list(sth = "sth")))
   testthat::expect_identical(reporter$get_metadata(), list(sth = "sth"))
 })
 
