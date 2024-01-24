@@ -6,7 +6,7 @@ testthat::test_that("new returns an object of type Reporter", {
   testthat::expect_true(inherits(Reporter$new(), "Reporter"))
 })
 
-card1 <- teal.reporter::ReportCard$new()
+card1 <- ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text", "header2")
@@ -15,14 +15,20 @@ card1$append_plot(
     ggplot2::geom_histogram()
 )
 
-card2 <- teal.reporter::ReportCard$new()
+card2 <- ReportCard$new()
 
 card2$append_text("Header 2 text", "header2")
 card2$append_text("A paragraph of default text", "header2")
 lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
 table_res2 <- rtables::build_table(lyt, airquality)
-card2$append_table(table_res2)
-card2$append_table(iris)
+# https://github.com/davidgohel/flextable/issues/600
+withr::with_options(
+  opts_partial_match_old,
+  {
+    card2$append_table(table_res2)
+    card2$append_table(iris)
+  }
+)
 
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
@@ -51,7 +57,7 @@ testthat::test_that("get_blocks and get_cards return empty list by default", {
 })
 
 testthat::test_that("The deep copy constructor copies the content files to new files", {
-  card <- teal.reporter::ReportCard$new()$append_plot(ggplot2::ggplot(iris))
+  card <- ReportCard$new()$append_plot(ggplot2::ggplot(iris))
   reporter <- Reporter$new()$append_cards(list(card))
   reporter_copy <- reporter$clone(deep = TRUE)
   original_content_file <- reporter$get_blocks()[[1]]$get_content()

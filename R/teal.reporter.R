@@ -3,10 +3,8 @@
 #' @description
 #' A collection of tools for creating, previewing and modifying reports from `shiny` modules.
 #'
-#' @docType package
 #' @keywords internal
-#' @name teal.reporter
-NULL
+"_PACKAGE"
 
 #' To avoid R CMD check warnings.
 #' @noRd

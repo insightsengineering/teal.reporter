@@ -10,7 +10,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return a `Reporter` object
     #' @examples
-    #' reporter <- teal.reporter::Reporter$new()
+    #' reporter <- Reporter$new()
     #'
     initialize = function() {
       private$cards <- list()
@@ -22,7 +22,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @param cards [`ReportCard`] or a list of such objects
     #' @return invisibly self
     #' @examples
-    #' card1 <- teal.reporter::ReportCard$new()
+    #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text", "header2")
@@ -30,7 +30,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )
     #'
-    #' card2 <- teal.reporter::ReportCard$new()
+    #' card2 <- ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
     #' card2$append_text("A paragraph of default text", "header2")
@@ -39,7 +39,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' card2$append_table(table_res2)
     #' card2$append_table(iris)
     #'
-    #' reporter <- teal.reporter::Reporter$new()
+    #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
     #'
     append_cards = function(cards) {
@@ -52,7 +52,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `list()` list of [`ReportCard`]
     #' @examples
-    #' card1 <- teal.reporter::ReportCard$new()
+    #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text", "header2")
@@ -60,7 +60,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )
     #'
-    #' card2 <- teal.reporter::ReportCard$new()
+    #' card2 <- ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
     #' card2$append_text("A paragraph of default text", "header2")
@@ -69,7 +69,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' card2$append_table(table_res2)
     #' card2$append_table(iris)
     #'
-    #' reporter <- teal.reporter::Reporter$new()
+    #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
     #' reporter$get_cards()
     get_cards = function() {
@@ -81,7 +81,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' Pass `NULL` to return content without any additional elements. Default: `NewpageBlock$new()`
     #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock` and `NewpageBlock`
     #' @examples
-    #' card1 <- teal.reporter::ReportCard$new()
+    #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text", "header2")
@@ -89,7 +89,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
     #' )
     #'
-    #' card2 <- teal.reporter::ReportCard$new()
+    #' card2 <- ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
     #' card2$append_text("A paragraph of default text", "header2")
@@ -98,7 +98,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' card2$append_table(table_res2)
     #' card2$append_table(iris)
     #'
-    #' reporter <- teal.reporter::Reporter$new()
+    #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
     #' reporter$get_blocks()
     #'

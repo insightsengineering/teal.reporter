@@ -37,20 +37,21 @@ Suggests:
     png,
     rtables (>= 0.5.1),
     testthat (>= 3.0.4),
-    tinytex
+    tinytex,
+    withr (>= 2.0.0)
 VignetteBuilder:
     knitr
 RdMacros:
     lifecycle
-Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate,
+Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate, davidgohel/flextable,
     rstudio/htmltools, yihui/knitr, r-lib/lifecycle, r-lib/R6,
     rstudio/rmarkdown, rstudio/shiny, dreamRs/shinyWidgets,
-    yaml=vubiostat/r-yaml, r-lib/zip, davidgohel/flextable, rstudio/DT,
+    yaml=vubiostat/r-yaml, r-lib/zip, rstudio/DT,
     yihui/formatR, tidyverse/ggplot2, deepayan/lattice, cran/png,
-    insightsengineering/rtables, r-lib/testthat, rstudio/tinytex
+    insightsengineering/rtables, r-lib/testthat, rstudio/tinytex, r-lib/withr
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.0

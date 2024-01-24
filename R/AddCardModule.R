@@ -58,7 +58,7 @@ add_card_button_ui <- function(id) {
 #' as the default value of the `card` argument in the `card_fun` function.
 #' See below:
 #' ```{r}
-#' CustomReportCard <- R6::R6Class( # nolint: object_name_linter.
+#' CustomReportCard <- R6::R6Class(
 #'   classname = "CustomReportCard",
 #'   inherit = teal.reporter::ReportCard
 #' )

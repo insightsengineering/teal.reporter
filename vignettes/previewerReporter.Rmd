@@ -76,7 +76,7 @@ server <- function(input, output, session) {
   output$encoding <- renderUI({
     tagList(
       ### REPORTER
-      teal.reporter::simple_reporter_ui("simple_reporter"),
+      simple_reporter_ui("simple_reporter"),
       ###
       if (input$tabs == "Plot") {
         sliderInput(
@@ -128,7 +128,7 @@ server <- function(input, output, session) {
   output$table3 <- DT::renderDataTable(table2())
 
   ### REPORTER
-  reporter <- teal.reporter::Reporter$new()
+  reporter <- Reporter$new()
   card_fun <- function(card = ReportCard$new(), comment) {
     if (input$tabs == "Plot") {
       card$set_name("Plot Module")
@@ -187,8 +187,8 @@ server <- function(input, output, session) {
     }
     card
   }
-  teal.reporter::simple_reporter_srv("simple_reporter", reporter = reporter, card_fun = card_fun)
-  teal.reporter::reporter_previewer_srv("prev", reporter)
+  simple_reporter_srv("simple_reporter", reporter = reporter, card_fun = card_fun)
+  reporter_previewer_srv("prev", reporter)
   ###
 }
 
