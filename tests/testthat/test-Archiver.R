@@ -15,7 +15,7 @@ lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "
 table_res2 <- rtables::build_table(lyt, airquality)
 # https://github.com/davidgohel/flextable/issues/600
 withr::with_options(
-    opts_partial_match_old,
+  opts_partial_match_old,
   {
     card2$append_table(table_res2)
     card2$append_table(iris)
