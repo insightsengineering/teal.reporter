@@ -111,7 +111,7 @@ knitr_args <- list()
 temp_dir <- tempdir()
 
 testthat::test_that("report_render_and_compress - valid arguments", {
-  testthat::expect_error(report_render_and_compress(reporter, input, knitr_args, temp_dir), NA)
+  testthat::expect_no_error(report_render_and_compress(reporter, input, knitr_args, temp_dir))
 })
 
 testthat::test_that("report_render_and_compress - invalid arguments", {
@@ -125,7 +125,7 @@ testthat::test_that("report_render_and_compress - render an html document", {
   temp_dir <- tempdir()
   knitr_args <- list()
   res_path <- report_render_and_compress(reporter, input, knitr_args, temp_dir)
-  expect_identical(res_path, temp_dir)
+  testthat::expect_identical(res_path, temp_dir)
   files <- list.files(temp_dir, recursive = TRUE)
   testthat::expect_true(any(grepl("[.]Rmd", files)))
   testthat::expect_true(any(grepl("[.]html", files)))

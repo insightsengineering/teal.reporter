@@ -1,5 +1,5 @@
 testthat::test_that("RcodeBlock object can be created", {
-  testthat::expect_error(RcodeBlock$new(), regexp = NA)
+  testthat::expect_no_error(RcodeBlock$new())
 })
 
 testthat::test_that("new returns an object of type RcodeBlock", {
@@ -8,7 +8,7 @@ testthat::test_that("new returns an object of type RcodeBlock", {
 
 testthat::test_that("set_content accepts a string", {
   block <- RcodeBlock$new()
-  testthat::expect_error(block$set_content("test"), regexp = NA)
+  testthat::expect_no_error(block$set_content("test"))
 })
 
 testthat::test_that("set_content asserts the argument is a string", {
@@ -37,7 +37,7 @@ testthat::test_that("set_params accepts one of the styles returned by get_availa
   for (param in RcodeBlock$new()$get_available_params()) {
     input <- list()
     input[[param]] <- NULL
-    testthat::expect_error(RcodeBlock$new()$set_params(input), regexp = NA)
+    testthat::expect_no_error(RcodeBlock$new()$set_params(input))
   }
 })
 

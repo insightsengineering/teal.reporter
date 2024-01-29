@@ -1,5 +1,5 @@
 testthat::test_that("FileBlock object can be created", {
-  testthat::expect_error(FileBlock$new(), regexp = NA)
+  testthat::expect_no_error(FileBlock$new())
 })
 
 testthat::test_that("new returns an object of type FileBlock", {

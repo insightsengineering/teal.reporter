@@ -1,5 +1,5 @@
 testthat::test_that("Reporter object can be created", {
-  testthat::expect_error(Reporter$new(), regexp = NA)
+  testthat::expect_no_error(Reporter$new())
 })
 
 testthat::test_that("new returns an object of type Reporter", {
@@ -34,11 +34,11 @@ reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 
 testthat::test_that("get_cards returns the same cards which was added to reporter", {
-  expect_identical(reporter$get_cards(), list(card1, card2))
+  testthat::expect_identical(reporter$get_cards(), list(card1, card2))
 })
 
 testthat::test_that("get_blocks returns the same blocks which was added to reporter, sep = NULL", {
-  expect_identical(reporter$get_blocks(sep = NULL), append(card1$get_content(), card2$get_content()))
+  testthat::expect_identical(reporter$get_blocks(sep = NULL), append(card1$get_content(), card2$get_content()))
 })
 
 reporter_blocks <- reporter$get_blocks()
@@ -46,14 +46,14 @@ reporter_blocks2 <- append(reporter_blocks[1:3], NewpageBlock$new())
 reporter_blocks2 <- append(reporter_blocks2, reporter_blocks[5:8])
 
 testthat::test_that("get_blocks by default adds NewpageBlock$new() between cards", {
-  expect_equal(reporter$get_blocks(), reporter_blocks2)
+  testthat::expect_equal(reporter$get_blocks(), reporter_blocks2)
 })
 
 reporter2 <- Reporter$new()
 
 testthat::test_that("get_blocks and get_cards return empty list by default", {
-  expect_identical(reporter2$get_blocks(), list())
-  expect_identical(reporter2$get_cards(), list())
+  testthat::expect_identical(reporter2$get_blocks(), list())
+  testthat::expect_identical(reporter2$get_cards(), list())
 })
 
 testthat::test_that("The deep copy constructor copies the content files to new files", {
@@ -83,7 +83,7 @@ testthat::test_that("reactive_add_card", {
 
 testthat::test_that("append_metadata accept only named list", {
   reporter <- Reporter$new()
-  testthat::expect_error(reporter$append_metadata(list(sth = "sth")), NA)
+  testthat::expect_no_error(reporter$append_metadata(list(sth = "sth")))
   testthat::expect_error(reporter$append_metadata("sth"), "'list', not 'character'")
   testthat::expect_error(reporter$append_metadata(list("sth")), "Must have names")
 })
@@ -92,18 +92,18 @@ testthat::test_that("append_metadata accept only unique names which could not be
   reporter <- Reporter$new()
   testthat::expect_error(reporter$append_metadata(list(sth = "sth", sth = 2)), "but element 2 is duplicated")
   reporter <- Reporter$new()
-  testthat::expect_error(reporter$append_metadata(list(sth = "sth")), NA)
+  testthat::expect_no_error(reporter$append_metadata(list(sth = "sth")))
   testthat::expect_error(reporter$append_metadata(list(sth = "sth")), "failed: Must be TRUE")
 })
 
 testthat::test_that("get_metadata", {
   reporter <- Reporter$new()
-  testthat::expect_error(reporter$append_metadata(list(sth = "sth")), NA)
+  testthat::expect_no_error(reporter$append_metadata(list(sth = "sth")))
   testthat::expect_identical(reporter$get_metadata(), list(sth = "sth"))
 })
 
 testthat::test_that("from_reporter returns identical/equal object from the same reporter", {
-  expect_identical(reporter, reporter$from_reporter(reporter))
+  testthat::expect_identical(reporter, reporter$from_reporter(reporter))
 })
 
 reporter1 <- Reporter$new()
@@ -111,23 +111,23 @@ reporter1$append_cards(list(card1, card2))
 reporter2 <- Reporter$new()
 
 testthat::test_that("from_reporter does not return identical/equal object form other reporter", {
-  expect_false(identical(reporter1, reporter2$from_reporter(reporter1)))
+  testthat::expect_false(identical(reporter1, reporter2$from_reporter(reporter1)))
 })
 
 testthat::test_that("from_reporter persists the cards structure", {
-  expect_identical(reporter1$get_cards(), reporter2$from_reporter(reporter1)$get_cards())
+  testthat::expect_identical(reporter1$get_cards(), reporter2$from_reporter(reporter1)$get_cards())
 })
 
 testthat::test_that("from_reporter persists the reactive_add_card count", {
-  expect_identical(
+  testthat::expect_identical(
     shiny::isolate(reporter1$get_reactive_add_card()),
     shiny::isolate(reporter2$from_reporter(reporter1)$get_reactive_add_card())
   )
 })
 
 testthat::test_that("to_jsondir require the existing directory path", {
-  expect_error(reporter1$to_list(), 'argument "output_dir" is missing, with no default')
-  expect_error(reporter1$to_list("/path/WRONG"), "Directory '/path/WRONG' does not exist.")
+  testthat::expect_error(reporter1$to_list(), 'argument "output_dir" is missing, with no default')
+  testthat::expect_error(reporter1$to_list("/path/WRONG"), "Directory '/path/WRONG' does not exist.")
 })
 
 temp_dir <- file.path(tempdir(), "test")
@@ -135,18 +135,18 @@ unlink(temp_dir, recursive = TRUE)
 dir.create(temp_dir)
 
 testthat::test_that("to_jsondir returns a list.", {
-  expect_equal(
+  testthat::expect_equal(
     list(version = "1", cards = list(), metadata = list()),
     Reporter$new()$to_list(temp_dir)
   )
 })
 
 testthat::test_that("to_jsondir and from_jsondir could be used to save and retrive a Reporter ", {
-  expect_identical(
+  testthat::expect_identical(
     length(reporter1$get_cards()),
     length(Reporter$new()$from_list(reporter1$to_list(temp_dir), temp_dir)$get_cards())
   )
-  expect_identical(
+  testthat::expect_identical(
     length(reporter1$get_blocks()),
     length(Reporter$new()$from_list(reporter1$to_list(temp_dir), temp_dir)$get_blocks())
   )
@@ -154,7 +154,7 @@ testthat::test_that("to_jsondir and from_jsondir could be used to save and retri
 
 
 testthat::test_that("from_reporter returns identical/equal object from the same reporter", {
-  expect_identical(reporter, reporter$from_reporter(reporter))
+  testthat::expect_identical(reporter, reporter$from_reporter(reporter))
 })
 
 reporter1 <- Reporter$new()
@@ -162,23 +162,23 @@ reporter1$append_cards(list(card1, card2))
 reporter2 <- Reporter$new()
 
 testthat::test_that("from_reporter does not return identical/equal object form other reporter", {
-  expect_false(identical(reporter1, reporter2$from_reporter(reporter1)))
+  testthat::expect_false(identical(reporter1, reporter2$from_reporter(reporter1)))
 })
 
 testthat::test_that("from_reporter persists the cards structure", {
-  expect_identical(reporter1$get_cards(), reporter2$from_reporter(reporter1)$get_cards())
+  testthat::expect_identical(reporter1$get_cards(), reporter2$from_reporter(reporter1)$get_cards())
 })
 
 testthat::test_that("from_reporter persists the reactive_add_card count", {
-  expect_identical(
+  testthat::expect_identical(
     shiny::isolate(reporter1$get_reactive_add_card()),
     shiny::isolate(reporter2$from_reporter(reporter1)$get_reactive_add_card())
   )
 })
 
 testthat::test_that("to_jsondir require the existing directory path", {
-  expect_error(reporter$to_jsondir(), 'argument "output_dir" is missing, with no default')
-  expect_error(reporter$to_jsondir("/path/WRONG"), "Directory '/path/WRONG' does not exist.")
+  testthat::expect_error(reporter$to_jsondir(), 'argument "output_dir" is missing, with no default')
+  testthat::expect_error(reporter$to_jsondir("/path/WRONG"), "Directory '/path/WRONG' does not exist.")
 })
 
 temp_dir <- file.path(tempdir(), "test")
@@ -186,16 +186,16 @@ unlink(temp_dir, recursive = TRUE)
 dir.create(temp_dir)
 
 testthat::test_that("to_jsondir returns the same dir it was provided to it", {
-  expect_identical(temp_dir, reporter$to_jsondir(temp_dir))
+  testthat::expect_identical(temp_dir, reporter$to_jsondir(temp_dir))
 })
 
 testthat::test_that("from_jsondir returns identical/equal object", {
   unlink(list.files(temp_dir), recursive = TRUE)
-  expect_identical(reporter, reporter$from_jsondir(temp_dir))
+  testthat::expect_identical(reporter, reporter$from_jsondir(temp_dir))
 })
 
 testthat::test_that("to_jsondir and from_jsondir could be used to save and retrive a Reporter", {
   reporter_arch <- reporter$from_jsondir(reporter$to_jsondir(temp_dir))
-  expect_identical(reporter$get_cards(), reporter_arch$get_cards())
-  expect_identical(reporter$get_metadata(), reporter_arch$get_metadata())
+  testthat::expect_identical(reporter$get_cards(), reporter_arch$get_cards())
+  testthat::expect_identical(reporter$get_metadata(), reporter_arch$get_metadata())
 })

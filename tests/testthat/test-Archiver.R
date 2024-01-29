@@ -26,7 +26,7 @@ reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 
 testthat::test_that("intialize Archiver", {
-  expect_error(Archiver$new(), NA)
+  testthat::expect_no_error(Archiver$new())
 })
 
 testthat::test_that("new returns an object of type Archiver", {
@@ -40,7 +40,7 @@ testthat::test_that("Archiver errors with the abstract methods", {
 })
 
 testthat::test_that("intialize FileArchiver", {
-  testthat::expect_error(FileArchiver$new(), NA)
+  testthat::expect_no_error(FileArchiver$new())
 })
 
 testthat::test_that("FileArchiver creates a temp directory when initialized", {
@@ -64,7 +64,7 @@ testthat::test_that("FileArchiver dectructor removes the temp dir", {
 })
 
 testthat::test_that("intialize JSONArchiver", {
-  testthat::expect_error(JSONArchiver$new(), NA)
+  testthat::expect_no_error(JSONArchiver$new())
 })
 
 testthat::test_that("JSONArchiver creates a temp directory when initialized", {
@@ -85,20 +85,20 @@ testthat::test_that("JSONArchiver dectructor removes the temp dir", {
 archiver <- JSONArchiver$new()
 
 testthat::test_that("JSONArchiver write a reporter", {
-  testthat::expect_error(archiver$write(reporter), NA)
+  testthat::expect_no_error(archiver$write(reporter))
 })
 
 path_with_files <- archiver$get_output_dir()
 
 testthat::test_that("JSONArchiver write a reporter with a json file and static files", {
-  expect_true(dir.exists(archiver$get_output_dir()))
+  testthat::expect_true(dir.exists(archiver$get_output_dir()))
   files <- list.files(archiver$get_output_dir())
   testthat::expect_true(length(files) == 4)
   testthat::expect_true("Report.json" %in% files)
 })
 
 testthat::test_that("JSONArchiver read back the Reporter instance", {
-  expect_s3_class(archiver$read(), "Reporter")
+  testthat::expect_s3_class(archiver$read(), "Reporter")
   testthat::expect_length(archiver$read()$get_cards(), 2L)
   testthat::expect_length(archiver$read()$get_blocks(), 8L)
 })
@@ -115,7 +115,7 @@ testthat::test_that("JSONArchiver read back and all table/picture statics exists
 archiver2 <- JSONArchiver$new()
 testthat::test_that("JSONArchiver read back the Reporter instance, from a path", {
   reporter_temp <- archiver2$read(path_with_files)
-  expect_s3_class(reporter_temp, "Reporter")
+  testthat::expect_s3_class(reporter_temp, "Reporter")
   testthat::expect_length(reporter_temp$get_cards(), 2L)
   testthat::expect_length(reporter_temp$get_blocks(), 8L)
 })

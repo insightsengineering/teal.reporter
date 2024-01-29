@@ -1,5 +1,5 @@
 testthat::test_that("TableBlock object can be created", {
-  testthat::expect_error(TableBlock$new(), regexp = NA)
+  testthat::expect_no_error(TableBlock$new())
 })
 
 testthat::test_that("new returns an object of type TableBlock", {
@@ -11,7 +11,7 @@ testthat::test_that("set_content accepts a table object", {
   # https://github.com/davidgohel/flextable/issues/600
   withr::with_options(
     opts_partial_match_old,
-    testthat::expect_error(block$set_content(iris), regexp = NA)
+    testthat::expect_no_error(block$set_content(iris))
   )
 })
 
@@ -75,7 +75,7 @@ testthat::test_that("set_content supports data.frame object", {
   # https://github.com/davidgohel/flextable/issues/600
   withr::with_options(
     opts_partial_match_old,
-    testthat::expect_error(block$set_content(iris), NA)
+    testthat::expect_no_error(block$set_content(iris))
   )
 })
 
@@ -92,6 +92,6 @@ testthat::test_that("set_content supports rtables object", {
   # https://github.com/davidgohel/flextable/issues/600
   withr::with_options(
     opts_partial_match_old,
-    testthat::expect_error(block$set_content(rtables::build_table(l, iris)), NA)
+    testthat::expect_no_error(block$set_content(rtables::build_table(l, iris)))
   )
 })
