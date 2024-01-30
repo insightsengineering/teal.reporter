@@ -16,6 +16,9 @@ repos:
         additional_dependencies:
           - bslib
           - checkmate
+          #- flextable
+          - davidgohel/flextable # Error: package 'flextable' is not available
+          - davidgohel/gdtools # for flextable
           - grid
           - htmltools
           - knitr
@@ -26,7 +29,6 @@ repos:
           - shinyWidgets
           - yaml
           - zip
-          - flextable
       - id: spell-check
         name: Check spelling with `spelling`
         exclude: >
