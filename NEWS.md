@@ -4,6 +4,7 @@
 
 * `add_card_button_srv` allows to specify `card_fun` with `label` parameter for card's title & content customization.
 * Supports automatic `Rcode` formatting using the suggested `formatR` package in reports.
+* Improve output on PDF file format.
 
 # teal.reporter 0.2.1
 
@@ -61,7 +62,7 @@
 * Improved the add reporter card button to be disabled when clicked.
 
 ### Bug fixes
-* Fixed how `trellis` plots are catched by the `set_content` method in the `PictureBlock`.
+* Fixed how `trellis` plots are caught by the `set_content` method in the `PictureBlock`.
 
 ### Miscellaneous
 * Added `to_list` and `from_list` methods to all content related classes.
