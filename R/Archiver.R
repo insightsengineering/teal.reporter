@@ -5,7 +5,7 @@ Archiver <- R6::R6Class( # nolint: object_name_linter.
   public = list(
     #' @description Returns an `Archiver` object.
     #'
-    #' @return an `Archiver` object
+    #' @return an `Archiver` object.
     #' @examples
     #' Archiver <- getFromNamespace("Archiver", "teal.reporter")
     #' Archiver$new()
@@ -38,7 +38,7 @@ FileArchiver <- R6::R6Class( # nolint: object_name_linter.
   public = list(
     #' @description Returns a `FileArchiver` object.
     #'
-    #' @return a `FileArchiver` object
+    #' @return a `FileArchiver` object.
     #' @examples
     #' FileArchiver <- getFromNamespace("FileArchiver", "teal.reporter")
     #' FileArchiver$new()
@@ -53,7 +53,7 @@ FileArchiver <- R6::R6Class( # nolint: object_name_linter.
     finalize = function() {
       unlink(private$output_dir, recursive = TRUE)
     },
-    #' @description get `output_dir` field
+    #' @description get `output_dir` field.
     #'
     #' @return `character` a `output_dir` field path.
     #' @examples
@@ -78,7 +78,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param reporter `Reporter` instance.
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
     #' card1 <- ReportCard$new()

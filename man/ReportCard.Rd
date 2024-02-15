@@ -5,8 +5,9 @@
 \title{\code{ReportCard}}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-R6 class that supports creating a report card containing text, plot, table and
-meta data blocks that can be appended and rendered to form a report output from a shiny app.
+
+\code{R6} class that supports creating a report card containing text, plot, table and
+meta data blocks that can be appended and rendered to form a report output from a \code{shiny} app.
 }
 \examples{
 
@@ -422,13 +423,13 @@ card$get_metadata()
 \if{html}{\out{<a id="method-ReportCard-get_name"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-get_name}{}}}
 \subsection{Method \code{get_name()}}{
-get the Card name
+get the card name.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_name()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-\code{character} a Card name
+\code{character} a card name.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

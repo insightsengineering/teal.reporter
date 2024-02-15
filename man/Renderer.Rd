@@ -244,7 +244,7 @@ result_path <- Renderer$new()$renderRmd(reporter$get_blocks(), yaml_header)
 \if{html}{\out{<a id="method-Renderer-render"></a>}}
 \if{latex}{\out{\hypertarget{method-Renderer-render}{}}}
 \subsection{Method \code{render()}}{
-Renders the content of this \code{Report} to the output file
+Renders the content of this \code{Report} to the output file.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Renderer$render(
   blocks,
@@ -328,7 +328,7 @@ result_path <- Renderer$new()$render(Reporter$get_blocks(), yaml_header)
 \if{html}{\out{<a id="method-Renderer-get_output_dir"></a>}}
 \if{latex}{\out{\hypertarget{method-Renderer-get_output_dir}{}}}
 \subsection{Method \code{get_output_dir()}}{
-get \code{output_dir} field
+get \code{output_dir} field.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Renderer$get_output_dir()}\if{html}{\out{</div>}}
 }

@@ -99,7 +99,7 @@ write a \code{Reporter} instance in to this \code{JSONArchiver} object.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

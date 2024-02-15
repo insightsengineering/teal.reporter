@@ -1,6 +1,6 @@
 #' @title `Reporter`
 #' @description `r lifecycle::badge("experimental")`
-#' R6 class that stores and manages report cards.
+#' `R6` class that stores and manages report cards.
 #' @export
 #'
 Reporter <- R6::R6Class( # nolint: object_name_linter.
@@ -123,7 +123,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$reactive_add_card(0)
       invisible(self)
     },
-    #' @description remove a specific Card in the Reporter
+    #' @description remove a specific card in the `Reporter`.
     #'
     #' @param ids `integer` the indexes of cards
     #' @return invisibly self
@@ -138,7 +138,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$reactive_add_card(length(private$cards))
       invisible(self)
     },
-    #' @description swap two cards in the Reporter
+    #' @description swap two cards in the `Reporter`.
     #'
     #' @param start `integer` the index of the first card
     #' @param end `integer` the index of the second card
@@ -159,9 +159,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$cards[[end]] <- start_val
       invisible(self)
     },
-    #' @description get a value for the reactive value for the add card
+    #' @description get a value for the reactive value for the add card.
     #'
-    #' @return `reactive_add_card` field value
+    #' @return `reactive_add_card` field value.
     #' @note The function has to be used in the shiny reactive context.
     #' @examples
     #' shiny::isolate(Reporter$new()$get_reactive_add_card())
@@ -192,7 +192,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$metadata <- append(private$metadata, meta)
       invisible(self)
     },
-    #' @description Create/Recreate a Reporter from another Reporter
+    #' @description Create/Recreate a Reporter from another `Reporter`.
     #' @param reporter `Reporter` instance.
     #' @return invisibly self
     #' @examples
@@ -205,7 +205,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       self$append_metadata(reporter$get_metadata())
       invisible(self)
     },
-    #' @description Convert a Reporter to a list and transfer files
+    #' @description Convert a Reporter to a list and transfer files.
     #' @param output_dir `character(1)` a path to the directory where files will be copied.
     #' @return `named list` `Reporter` representation
     #' @examples
@@ -226,7 +226,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
       rlist
     },
-    #' @description Create/Recreate a Reporter from a list and directory with files
+    #' @description Create/Recreate a Reporter from a list and directory with files.
     #' @param rlist `named list` `Reporter` representation.
     #' @param output_dir `character(1)` a path to the directory from which files will be copied.
     #' @return invisibly self
@@ -258,7 +258,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       self$append_metadata(rlist$metadata)
       invisible(self)
     },
-    #' @description Create/Recreate a Reporter to a directory with `JSON` file and static files
+    #' @description Create/Recreate a Reporter to a directory with `JSON` file and static files.
     #' @param output_dir `character(1)` a path to the directory where files will be copied, `JSON` and statics.
     #' @return invisibly self
     #' @examples
@@ -274,7 +274,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       )
       output_dir
     },
-    #' @description Create/Recreate a Reporter from a directory with `JSON` file and static files
+    #' @description Create/Recreate a Reporter from a directory with `JSON` file and static files.
     #' @param output_dir `character(1)` a path to the directory with files, `JSON` and statics.
     #' @return invisibly self
     #' @examples

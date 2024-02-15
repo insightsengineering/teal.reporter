@@ -110,7 +110,7 @@ block$set_content("Base64 encoded picture")
 \if{html}{\out{<a id="method-ContentBlock-get_content"></a>}}
 \if{latex}{\out{\hypertarget{method-ContentBlock-get_content}{}}}
 \subsection{Method \code{get_content()}}{
-Returns the absolute path to content of this \code{ContentBlock}
+Returns the absolute path to content of this \code{ContentBlock}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ContentBlock$get_content()}\if{html}{\out{</div>}}
 }

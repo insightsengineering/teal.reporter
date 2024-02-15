@@ -31,7 +31,7 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
       private$content <- content
       invisible(self)
     },
-    #' @description Returns the absolute path to content of this `ContentBlock`
+    #' @description Returns the absolute path to content of this `ContentBlock`.
     #'
     #' @return `character` content of this `ContentBlock`
     #' @examples

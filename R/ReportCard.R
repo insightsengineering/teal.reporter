@@ -1,7 +1,8 @@
 #' @title `ReportCard`
 #' @description `r lifecycle::badge("experimental")`
-#' R6 class that supports creating a report card containing text, plot, table and
-#' meta data blocks that can be appended and rendered to form a report output from a shiny app.
+#'
+#' `R6` class that supports creating a report card containing text, plot, table and
+#' meta data blocks that can be appended and rendered to form a report output from a `shiny` app.
 #' @export
 #'
 ReportCard <- R6::R6Class( # nolint: object_name_linter.
@@ -138,9 +139,9 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       private$metadata <- append(private$metadata, meta_list)
       invisible(self)
     },
-    #' @description get the Card name
+    #' @description get the card name.
     #'
-    #' @return `character` a Card name
+    #' @return `character` a card name.
     #' @examples
     #' ReportCard$new()$set_name("NAME")$get_name()
     get_name = function() {

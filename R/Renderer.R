@@ -121,7 +121,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       cat(rmd_text, file = input_path)
       input_path
     },
-    #' @description Renders the content of this `Report` to the output file
+    #' @description Renders the content of this `Report` to the output file.
     #'
     #' @param blocks `list` of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
     #' @param yaml_header `character` an `rmarkdown` `yaml` header.
@@ -181,7 +181,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       names(args) <- args_nams
       do.call(rmarkdown::render, args)
     },
-    #' @description get `output_dir` field
+    #' @description get `output_dir` field.
     #'
     #' @return `character` a `output_dir` field path.
     #' @examples

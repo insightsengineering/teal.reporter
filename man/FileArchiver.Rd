@@ -55,7 +55,7 @@ Returns a \code{FileArchiver} object.
 }
 
 \subsection{Returns}{
-a \code{FileArchiver} object
+a \code{FileArchiver} object.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -81,7 +81,7 @@ Finalizes a \code{FileArchiver} object.
 \if{html}{\out{<a id="method-FileArchiver-get_output_dir"></a>}}
 \if{latex}{\out{\hypertarget{method-FileArchiver-get_output_dir}{}}}
 \subsection{Method \code{get_output_dir()}}{
-get \code{output_dir} field
+get \code{output_dir} field.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{FileArchiver$get_output_dir()}\if{html}{\out{</div>}}
 }

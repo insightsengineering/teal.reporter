@@ -5,7 +5,7 @@
 \title{\code{Reporter}}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-R6 class that stores and manages report cards.
+\code{R6} class that stores and manages report cards.
 }
 \note{
 The function has to be used in the shiny reactive context.
@@ -360,7 +360,7 @@ invisibly self
 \if{html}{\out{<a id="method-Reporter-remove_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-remove_cards}{}}}
 \subsection{Method \code{remove_cards()}}{
-remove a specific Card in the Reporter
+remove a specific card in the \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$remove_cards(ids = NULL)}\if{html}{\out{</div>}}
 }
@@ -380,7 +380,7 @@ invisibly self
 \if{html}{\out{<a id="method-Reporter-swap_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-swap_cards}{}}}
 \subsection{Method \code{swap_cards()}}{
-swap two cards in the Reporter
+swap two cards in the \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$swap_cards(start, end)}\if{html}{\out{</div>}}
 }
@@ -402,13 +402,13 @@ invisibly self
 \if{html}{\out{<a id="method-Reporter-get_reactive_add_card"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_reactive_add_card}{}}}
 \subsection{Method \code{get_reactive_add_card()}}{
-get a value for the reactive value for the add card
+get a value for the reactive value for the add card.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$get_reactive_add_card()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-\code{reactive_add_card} field value
+\code{reactive_add_card} field value.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -476,7 +476,7 @@ reporter$get_metadata()
 \if{html}{\out{<a id="method-Reporter-from_reporter"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-from_reporter}{}}}
 \subsection{Method \code{from_reporter()}}{
-Create/Recreate a Reporter from another Reporter
+Create/Recreate a Reporter from another \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$from_reporter(reporter)}\if{html}{\out{</div>}}
 }
@@ -505,7 +505,7 @@ reporter$from_reporter(reporter)
 \if{html}{\out{<a id="method-Reporter-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-to_list}{}}}
 \subsection{Method \code{to_list()}}{
-Convert a Reporter to a list and transfer files
+Convert a Reporter to a list and transfer files.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$to_list(output_dir)}\if{html}{\out{</div>}}
 }
@@ -536,7 +536,7 @@ reporter$to_list(tmp_dir)
 \if{html}{\out{<a id="method-Reporter-from_list"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-from_list}{}}}
 \subsection{Method \code{from_list()}}{
-Create/Recreate a Reporter from a list and directory with files
+Create/Recreate a Reporter from a list and directory with files.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$from_list(rlist, output_dir)}\if{html}{\out{</div>}}
 }
@@ -570,7 +570,7 @@ reporter$from_list(reporter$to_list(tmp_dir), tmp_dir)
 \if{html}{\out{<a id="method-Reporter-to_jsondir"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-to_jsondir}{}}}
 \subsection{Method \code{to_jsondir()}}{
-Create/Recreate a Reporter to a directory with \code{JSON} file and static files
+Create/Recreate a Reporter to a directory with \code{JSON} file and static files.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$to_jsondir(output_dir)}\if{html}{\out{</div>}}
 }
@@ -601,7 +601,7 @@ reporter$to_jsondir(tmp_dir)
 \if{html}{\out{<a id="method-Reporter-from_jsondir"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-from_jsondir}{}}}
 \subsection{Method \code{from_jsondir()}}{
-Create/Recreate a Reporter from a directory with \code{JSON} file and static files
+Create/Recreate a Reporter from a directory with \code{JSON} file and static files.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$from_jsondir(output_dir)}\if{html}{\out{</div>}}
 }

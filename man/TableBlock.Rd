@@ -45,7 +45,7 @@ block$set_content(iris)
 \if{html}{\out{<a id="method-TableBlock-new"></a>}}
 \if{latex}{\out{\hypertarget{method-TableBlock-new}{}}}
 \subsection{Method \code{new()}}{
-Returns a new \code{TableBlock} object
+Returns a new \code{TableBlock} object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TableBlock$new(table)}\if{html}{\out{</div>}}
 }

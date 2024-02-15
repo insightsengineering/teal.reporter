@@ -4,7 +4,7 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "TableBlock",
   inherit = FileBlock,
   public = list(
-    #' @description Returns a new `TableBlock` object
+    #' @description Returns a new `TableBlock` object.
     #'
     #' @param table (`data.frame`, `rtables`, `TableTree`, `ElementaryTable`, `listing_df`) a table assigned to
     #'   this `TableBlock`

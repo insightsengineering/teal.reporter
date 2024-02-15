@@ -10,7 +10,7 @@ yaml_quoted(x)
 \item{x}{\code{character}}
 }
 \description{
-add quoted attribute for \code{yaml} package
+add quoted attribute for \code{yaml} package.
 }
 \examples{
 yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")

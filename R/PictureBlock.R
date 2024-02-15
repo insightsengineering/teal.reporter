@@ -73,7 +73,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
       private$title <- title
       invisible(self)
     },
-    #' @description Returns the title of this `PictureBlock`
+    #' @description Returns the title of this `PictureBlock`.
     #'
     #' @return the content of this `PictureBlock`
     #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
@@ -83,7 +83,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     get_title = function() {
       private$title
     },
-    #' @description Sets the dimensions of this `PictureBlock`
+    #' @description Sets the dimensions of this `PictureBlock`.
     #'
     #' @param dim `numeric` figure dimensions (width and height) in pixels, length 2.
     #'
@@ -98,7 +98,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
       private$dim <- dim
       invisible(self)
     },
-    #' @description Returns the dimensions of this `PictureBlock`
+    #' @description Returns the dimensions of this `PictureBlock`.
     #'
     #' @return `numeric` the array of 2 numeric values representing width and height in pixels.
     #' @examples

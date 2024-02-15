@@ -1,5 +1,5 @@
 #' @title quoted string for `yaml`
-#' @description add quoted attribute for `yaml` package
+#' @description add quoted attribute for `yaml` package.
 #' @param x `character`
 #' @keywords internal
 #' @examples
@@ -78,7 +78,7 @@ conv_str_logi <- function(input,
 #' @title Get document output types from the `rmarkdown` package
 #'
 #' @description `r lifecycle::badge("experimental")`
-#' get document output types from the `rmarkdown` package.
+#' Get document output types from the `rmarkdown` package.
 #' @return `character` vector.
 #' @export
 #' @examples
@@ -112,7 +112,7 @@ rmd_output_arguments <- function(output_name, default_values = FALSE) {
 
 #' @title Parse a Named List to the `Rmd` `yaml` Header
 #' @description `r lifecycle::badge("experimental")`
-#' parse a named list to the `Rmd` `yaml` header, so the developer gets automatically tabulated `Rmd` `yaml` header.
+#' Parse a named list to the `Rmd` `yaml` header, so the developer gets automatically tabulated `Rmd` `yaml` header.
 #' Only a non nested (flat) list will be processed,
 #' where as a nested list is directly processed with the [`yaml::as.yaml`] function.
 #' All `Rmd` `yaml` header fields from the vector are supported,

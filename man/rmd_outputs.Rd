@@ -11,7 +11,7 @@ rmd_outputs()
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-get document output types from the \code{rmarkdown} package.
+Get document output types from the \code{rmarkdown} package.
 }
 \examples{
 rmd_outputs()
