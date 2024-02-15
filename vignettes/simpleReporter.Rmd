@@ -14,14 +14,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-Simple Reporter is a shiny module for capturing app views during the session, and eventually downloading
-a report document. The Simple Reporter module consists of two separate modules one for each of the two buttons,
+Simple reporter is a `shiny` module for capturing app views during the session, and eventually downloading
+a report document. The Simple reporter module consists of two separate modules one for each of the two buttons,
 Add Card and Download Report buttons modules.
 
 The implementation should consist of 4 steps:
 
 1. Add modules user interface to the user interface of the app.
-2. Initialize Reporter instance.
+2. Initialize reporter instance.
 3. Create the Report Card function with two optional arguments: card and comment.
 This function must return a `ReportCard` object.
 The function should build the Card step by step and assuming it is empty at the beginning,
@@ -42,7 +42,7 @@ library(ggplot2)
 library(rtables)
 ```
 
-Simple Reporter shiny app with separate modules for each button:
+Simple reporter `shiny` app with separate modules for each button:
 
 ```{r}
 ui <- fluidPage(
@@ -53,13 +53,13 @@ ui <- fluidPage(
     ),
     mainPanel(
       ### REPORTER
-      shiny::tags$div(
-        teal.reporter::add_card_button_ui("addReportCard"),
-        teal.reporter::download_report_button_ui("downloadButton"),
-        teal.reporter::reset_report_button_ui("resetButton")
+      tags$div(
+        add_card_button_ui("addReportCard"),
+        download_report_button_ui("downloadButton"),
+        reset_report_button_ui("resetButton")
       ),
       ###
-      shiny::tags$br(),
+      tags$br(),
       tabsetPanel(
         id = "tabs",
         tabPanel("Plot", plotOutput("dist_plot")),
@@ -92,8 +92,8 @@ server <- function(input, output, session) {
   plot <- reactive({
     req(input$binwidth)
     x <- mtcars$mpg
-    ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg)) +
-      ggplot2::geom_histogram(binwidth = input$binwidth)
+    ggplot(data = mtcars, aes(x = mpg)) +
+      geom_histogram(binwidth = input$binwidth)
   })
 
   output$dist_plot <- renderPlot({
@@ -114,7 +114,7 @@ server <- function(input, output, session) {
   })
 
   ### REPORTER
-  reporter <- teal.reporter::Reporter$new()
+  reporter <- Reporter$new()
   card_fun <- function(card = ReportCard$new(), comment) {
     if (input$tabs == "Plot") {
       card$append_text("My plot", "header2")
@@ -130,16 +130,16 @@ server <- function(input, output, session) {
     card
   }
 
-  teal.reporter::add_card_button_srv("addReportCard", reporter = reporter, card_fun = card_fun)
-  teal.reporter::download_report_button_srv("downloadButton", reporter = reporter)
-  teal.reporter::reset_report_button_srv("resetButton", reporter)
+  add_card_button_srv("addReportCard", reporter = reporter, card_fun = card_fun)
+  download_report_button_srv("downloadButton", reporter = reporter)
+  reset_report_button_srv("resetButton", reporter)
   ###
 }
 
 if (interactive()) shinyApp(ui = ui, server = server)
 ```
 
-Simple Reporter shiny app with combined buttons modules:
+Simple reporter `shiny` app with combined buttons modules:
 
 ```{r}
 ui <- fluidPage(
@@ -150,7 +150,7 @@ ui <- fluidPage(
     ),
     mainPanel(
       ### REPORTER
-      teal.reporter::simple_reporter_ui("simpleReporter"),
+      simple_reporter_ui("simpleReporter"),
       ###
       tabsetPanel(
         id = "tabs",
@@ -184,8 +184,8 @@ server <- function(input, output, session) {
   plot <- reactive({
     req(input$binwidth)
     x <- mtcars$mpg
-    ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg)) +
-      ggplot2::geom_histogram(binwidth = input$binwidth)
+    ggplot(data = mtcars, aes(x = mpg)) +
+      geom_histogram(binwidth = input$binwidth)
   })
 
   output$dist_plot <- renderPlot({
@@ -206,7 +206,7 @@ server <- function(input, output, session) {
   })
 
   ### REPORTER
-  reporter <- teal.reporter::Reporter$new()
+  reporter <- Reporter$new()
   card_fun <- function(card = ReportCard$new(), comment) {
     if (input$tabs == "Plot") {
       card$append_text("My plot", "header2")
@@ -222,7 +222,7 @@ server <- function(input, output, session) {
     card
   }
 
-  teal.reporter::simple_reporter_srv("simpleReporter", reporter = reporter, card_fun = card_fun)
+  simple_reporter_srv("simpleReporter", reporter = reporter, card_fun = card_fun)
   ###
 }
 
