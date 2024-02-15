@@ -1,12 +1,25 @@
-#' Download Button Reporter User Interface
-#' @description
-#' `r lifecycle::badge("experimental")`
+#' Download button reporter module
 #'
-#' button for downloading the Report.
+#' @description `r lifecycle::badge("experimental")`
 #'
-#' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
+#' Provides UI and server functions for downloading reports in various formats.
+#'
+#' For more information, refer to the vignette: `vignette("simpleReporter", "teal.reporter")`.
+#'
+#' @details `r global_knitr_details()`
+#'
+#' @name download_report_button
+#'
 #' @param id `character(1)` this `shiny` module's id.
-#' @return `shiny::tagList`.
+#' @param reporter [`Reporter`] instance.
+#' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`)
+#'  for customizing the rendering process.
+#' @inheritParams reporter_download_inputs
+#'
+#' @return `shiny::moduleServer`.
+NULL
+
+#' @rdname download_report_button
 #' @export
 download_report_button_ui <- function(id) {
   ns <- shiny::NS(id)
@@ -29,18 +42,7 @@ download_report_button_ui <- function(id) {
 }
 
 #' Download Button Server
-#' @description `r lifecycle::badge("experimental")`
-#' server for downloading the Report.
-#'
-#' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character(1)` this `shiny` module's id.
-#' @param reporter [`Reporter`] instance.
-#' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`)
-#'  for customizing the rendering process.
-#' @inheritParams reporter_download_inputs
-#' @return `shiny::moduleServer`.
-#' @details `r global_knitr_details()`
-#'
+#' @rdname download_report_button
 #' @export
 download_report_button_srv <- function(id,
                                        reporter,
@@ -277,6 +279,7 @@ reporter_download_inputs <- function(rmd_yaml_args, rmd_output, showrcode, sessi
   )
 }
 
+#' @noRd
 #' @keywords internal
 any_rcode_block <- function(reporter) {
   any(
