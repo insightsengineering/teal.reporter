@@ -12,8 +12,9 @@
 #' - Use the `comment` parameter to add a comment to the card via `card$append_text()`- if `card_fun` does not
 #' have `comment` parameter, then `comment` from `Add Card UI` module will be added at the end of the content of the
 #' card.
-#' - The `label` parameter enables customization of the card's name and its content through `card$append_text()`- if `card_fun` does not have `label` parameter, then `card name`
-#' will be set to the name passed in `Add Card UI` module, but no text will be added to the content of the `card`.
+#' - The `label` parameter enables customization of the card's name and its content through `card$append_text()`-
+#' if `card_fun` does not have `label` parameter, then `card name` will be set to the name passed in
+#' `Add Card UI` module, but no text will be added to the content of the `card`.
 #'
 #' This module supports using a subclass of [`ReportCard`] for added flexibility.
 #' A subclass instance should be passed as the default value of

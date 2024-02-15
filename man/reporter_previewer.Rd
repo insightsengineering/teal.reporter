@@ -43,7 +43,8 @@ The default value for \code{"output"} has to be in the \code{rmd_output} argumen
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 Provides UI and server functions to preview and manage report cards.
-Module offers functionalities to visualize, manipulate, and interact with report cards that have been added to a report.
+Module offers functionalities to visualize, manipulate,
+and interact with report cards that have been added to a report.
 It includes a previewer interface to see the cards and options to modify the report before downloading.
 
 For more details see the vignette: \code{vignette("previewerReporter", "teal.reporter")}.

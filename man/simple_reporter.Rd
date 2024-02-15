@@ -46,8 +46,8 @@ The default value for \code{"output"} has to be in the \code{rmd_output} argumen
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 Module provides a compact UI and server functions for managing a report in \code{shiny} app.
-This module combines functionalities for \link[=add_card_button]{adding cards to a report}, \link[=download_report_button]{downloading the report},
-and \link[=reset_report_button]{resetting report content}.
+This module combines functionalities for \link[=add_card_button]{adding cards to a report},
+\link[=download_report_button]{downloading the report}, and \link[=reset_report_button]{resetting report content}.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }

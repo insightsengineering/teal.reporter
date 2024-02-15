@@ -37,8 +37,8 @@ so the developer gets automatically tabulated \code{Rmd} \code{yaml} header.
 \details{
 This function processes a non-nested (flat) named list and generates an \code{Rmd} YAML header.
 All \code{Rmd} \code{yaml} header fields from the vector are supported,
-\code{c("author", "date", "title", "subtitle", "abstract", "keywords", "subject", "description", "category", "lang")}. and handles \code{output} field types and
-arguments as defined in the \code{rmarkdown} package.
+\code{c("author", "date", "title", "subtitle", "abstract", "keywords", "subject", "description", "category", "lang")},
+And handles \code{output} field types and arguments as defined in the \code{rmarkdown} package.
 }
 \note{
 Only non-nested lists are automatically parsed.

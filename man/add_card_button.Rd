@@ -36,8 +36,9 @@ The \code{card_fun} function is designed to create a new \code{ReportCard} insta
 \item Use the \code{comment} parameter to add a comment to the card via \code{card$append_text()}- if \code{card_fun} does not
 have \code{comment} parameter, then \code{comment} from \verb{Add Card UI} module will be added at the end of the content of the
 card.
-\item The \code{label} parameter enables customization of the card's name and its content through \code{card$append_text()}- if \code{card_fun} does not have \code{label} parameter, then \verb{card name}
-will be set to the name passed in \verb{Add Card UI} module, but no text will be added to the content of the \code{card}.
+\item The \code{label} parameter enables customization of the card's name and its content through \code{card$append_text()}-
+if \code{card_fun} does not have \code{label} parameter, then \verb{card name} will be set to the name passed in
+\verb{Add Card UI} module, but no text will be added to the content of the \code{card}.
 }
 
 This module supports using a subclass of \code{\link{ReportCard}} for added flexibility.
