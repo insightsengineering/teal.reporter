@@ -204,6 +204,7 @@ reporter_previewer_srv <- function(id,
   )
 }
 
+#' @noRd
 #' @keywords internal
 block_to_html <- function(b) {
   b_content <- b$get_content()
@@ -232,6 +233,7 @@ block_to_html <- function(b) {
   }
 }
 
+#' @noRd
 #' @keywords internal
 add_previewer_css <- function() {
   shiny::tagList(
@@ -244,6 +246,7 @@ add_previewer_css <- function() {
   )
 }
 
+#' @noRd
 #' @keywords internal
 add_previewer_js <- function(ns) {
   shiny::singleton(
@@ -270,6 +273,7 @@ add_previewer_js <- function(ns) {
   )
 }
 
+#' @noRd
 #' @keywords internal
 nav_previewer_icon <- function(name, icon_name, idx, size = 1L) {
   checkmate::assert_string(name)
@@ -284,6 +288,7 @@ nav_previewer_icon <- function(name, icon_name, idx, size = 1L) {
   )
 }
 
+#' @noRd
 #' @keywords internal
 nav_previewer_icons <- function(idx, size = 1L) {
   shiny::tags$span(
@@ -294,6 +299,7 @@ nav_previewer_icons <- function(idx, size = 1L) {
   )
 }
 
+#' @noRd
 #' @keywords internal
 previewer_collapse_item <- function(idx, card_name, card_blocks) {
   shiny::tags$div(.renderHook = function(x) {

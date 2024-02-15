@@ -1,8 +1,11 @@
 #' @title `ReportCard`
+#' @docType class
+#'
 #' @description `r lifecycle::badge("experimental")`
 #'
 #' `R6` class that supports creating a report card containing text, plot, table and
 #' meta data blocks that can be appended and rendered to form a report output from a `shiny` app.
+#'
 #' @export
 #'
 ReportCard <- R6::R6Class( # nolint: object_name_linter.
