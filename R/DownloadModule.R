@@ -1,5 +1,7 @@
 #' Download Button Reporter User Interface
-#' @description `r lifecycle::badge("experimental")`
+#' @description
+#' `r lifecycle::badge("experimental")`
+#'
 #' button for downloading the Report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
@@ -163,8 +165,10 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
   checkmate::assert_list(input_list, names = "named")
   checkmate::assert_string(file)
 
-  if (identical("pdf_document", input_list$output) &&
-    inherits(try(system2("pdflatex", "--version", stdout = TRUE), silent = TRUE), "try-error")) {
+  if (
+    identical("pdf_document", input_list$output) &&
+      inherits(try(system2("pdflatex", "--version", stdout = TRUE), silent = TRUE), "try-error")
+  ) {
     shiny::showNotification(
       ui = "pdflatex is not available so the pdf_document could not be rendered. Please use other output type.",
       action = "Please contact app developer",
