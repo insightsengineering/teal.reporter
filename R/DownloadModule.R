@@ -41,7 +41,6 @@ download_report_button_ui <- function(id) {
   )
 }
 
-#' Download Button Server
 #' @rdname download_report_button
 #' @export
 download_report_button_srv <- function(id,
@@ -154,13 +153,17 @@ download_report_button_srv <- function(id,
 }
 
 #' Render the Report
-#' @description render the report and zip the created directory.
+#'
+#' Render the report and zip the created directory.
+#'
 #' @param reporter [`Reporter`] instance.
 #' @param input_list `list` like shiny input converted to a regular named list.
 #' @param global_knitr `list` a global `knitr` parameters, like echo.
 #' But if local parameter is set it will have priority.
 #' @param file `character` where to copy the returned directory.
+#'
 #' @return `file` argument, invisibly.
+#'
 #' @keywords internal
 report_render_and_compress <- function(reporter, input_list, global_knitr, file = tempdir()) {
   checkmate::assert_class(reporter, "Reporter")
@@ -242,6 +245,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
 }
 
 #' Get the custom list of User Interface inputs
+#'
 #' @param rmd_output `character` vector with `rmarkdown` output types,
 #' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
 #' If vector is named then those names will appear in the `UI`.
@@ -250,6 +254,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
 #' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)`.
 #' The `list` must include at least `"output"` field.
 #' The default value for `"output"` has to be in the `rmd_output` argument.
+#'
 #' @keywords internal
 reporter_download_inputs <- function(rmd_yaml_args, rmd_output, showrcode, session) {
   shiny::tagList(

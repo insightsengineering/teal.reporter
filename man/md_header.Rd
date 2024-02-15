@@ -2,7 +2,7 @@
 % Please edit documentation in R/yaml_utils.R
 \name{md_header}
 \alias{md_header}
-\title{wrap a \code{yaml} string to the \code{markdown} header}
+\title{Wrap a \code{yaml} string to the \code{markdown} header}
 \usage{
 md_header(x)
 }
@@ -10,7 +10,7 @@ md_header(x)
 \item{x}{\code{character} \code{yaml} formatted string.}
 }
 \description{
-wrap a \code{yaml} string to the \code{markdown} header.
+Wrap a \code{yaml} string to the \code{markdown} header
 }
 \examples{
 yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")

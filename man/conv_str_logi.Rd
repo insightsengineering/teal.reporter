@@ -27,7 +27,7 @@ conv_str_logi(
 \code{input} argument or the appropriate \code{logical} value.
 }
 \description{
-convert a character of a \code{yaml} boolean to a logical value.
+Convert a character of a \code{yaml} boolean to a logical value
 }
 \examples{
 

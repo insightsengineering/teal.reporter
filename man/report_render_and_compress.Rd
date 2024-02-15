@@ -25,6 +25,6 @@ But if local parameter is set it will have priority.}
 \code{file} argument, invisibly.
 }
 \description{
-render the report and zip the created directory.
+Render the report and zip the created directory.
 }
 \keyword{internal}

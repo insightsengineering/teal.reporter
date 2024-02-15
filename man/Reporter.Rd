@@ -478,7 +478,7 @@ reporter$get_metadata()
 \if{html}{\out{<a id="method-Reporter-from_reporter"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-from_reporter}{}}}
 \subsection{Method \code{from_reporter()}}{
-Create/Recreate a Reporter from another \code{Reporter}.
+Create/Recreate a \code{Reporter} from another \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$from_reporter(reporter)}\if{html}{\out{</div>}}
 }
@@ -507,7 +507,7 @@ reporter$from_reporter(reporter)
 \if{html}{\out{<a id="method-Reporter-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-to_list}{}}}
 \subsection{Method \code{to_list()}}{
-Convert a Reporter to a list and transfer files.
+Convert a \code{Reporter} to a list and transfer files.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$to_list(output_dir)}\if{html}{\out{</div>}}
 }
@@ -538,7 +538,7 @@ reporter$to_list(tmp_dir)
 \if{html}{\out{<a id="method-Reporter-from_list"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-from_list}{}}}
 \subsection{Method \code{from_list()}}{
-Create/Recreate a Reporter from a list and directory with files.
+Create/Recreate a \code{Reporter} from a list and directory with files.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$from_list(rlist, output_dir)}\if{html}{\out{</div>}}
 }
@@ -572,7 +572,7 @@ reporter$from_list(reporter$to_list(tmp_dir), tmp_dir)
 \if{html}{\out{<a id="method-Reporter-to_jsondir"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-to_jsondir}{}}}
 \subsection{Method \code{to_jsondir()}}{
-Create/Recreate a Reporter to a directory with \code{JSON} file and static files.
+Create/Recreate a \code{Reporter} to a directory with \code{JSON} file and static files.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$to_jsondir(output_dir)}\if{html}{\out{</div>}}
 }
@@ -603,7 +603,7 @@ reporter$to_jsondir(tmp_dir)
 \if{html}{\out{<a id="method-Reporter-from_jsondir"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-from_jsondir}{}}}
 \subsection{Method \code{from_jsondir()}}{
-Create/Recreate a Reporter from a directory with \code{JSON} file and static files.
+Create/Recreate a \code{Reporter} from a directory with \code{JSON} file and static files.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$from_jsondir(output_dir)}\if{html}{\out{</div>}}
 }

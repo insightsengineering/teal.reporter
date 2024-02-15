@@ -7,14 +7,14 @@
 panel_item(title, ..., collapsed = TRUE, input_id = NULL)
 }
 \arguments{
-\item{title}{(\code{character})\cr title of panel}
+\item{title}{(\code{character}) title of panel}
 
 \item{...}{content of panel}
 
-\item{collapsed}{(\code{logical}, optional)\cr
+\item{collapsed}{(\code{logical}, optional)
 whether to initially collapse panel}
 
-\item{input_id}{(\code{character}, optional)\cr
+\item{input_id}{(\code{character}, optional)
 name of the panel item element. If supplied, this will register a shiny input variable that
 indicates whether the panel item is open or collapsed and is accessed with \code{input$input_id}.}
 }

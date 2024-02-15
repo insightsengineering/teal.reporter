@@ -1,5 +1,7 @@
-#' @title quoted string for `yaml`
-#' @description add quoted attribute for `yaml` package.
+#' Quoted string for `yaml`
+#'
+#' Add quoted attribute for `yaml` package.
+#'
 #' @param x `character`
 #' @keywords internal
 #' @examples
@@ -16,8 +18,7 @@ yaml_quoted <- function(x) {
   x
 }
 
-#' @title wrap a `yaml` string to the `markdown` header
-#' @description wrap a `yaml` string to the `markdown` header.
+#' Wrap a `yaml` string to the `markdown` header
 #' @param x `character` `yaml` formatted string.
 #' @keywords internal
 #' @examples
@@ -34,8 +35,8 @@ md_header <- function(x) {
   paste0("---\n", x, "---\n")
 }
 
-#' @title Convert a character of a `yaml` boolean to a logical value
-#' @description convert a character of a `yaml` boolean to a logical value.
+#' Convert a character of a `yaml` boolean to a logical value
+#'
 #' @param input `character`
 #' @param name `charcter`
 #' @param pos_logi `character` vector of `yaml` values which should be treated as `TRUE`.
@@ -75,10 +76,12 @@ conv_str_logi <- function(input,
   }
 }
 
-#' @title Get document output types from the `rmarkdown` package
+#' Get document output types from the `rmarkdown` package
 #'
 #' @description `r lifecycle::badge("experimental")`
+#'
 #' Get document output types from the `rmarkdown` package.
+#'
 #' @return `character` vector.
 #' @export
 #' @examples
@@ -88,10 +91,12 @@ rmd_outputs <- function() {
   ls(rmarkdown_namespace)[grep("_document|_presentation", ls(rmarkdown_namespace))]
 }
 
-#' @title Get document output arguments from the `rmarkdown` package
+#' Get document output arguments from the `rmarkdown` package
 #'
 #' @description `r lifecycle::badge("experimental")`
-#' get document output arguments from the `rmarkdown` package
+#'
+#' Get document output arguments from the `rmarkdown` package.
+#'
 #' @param output_name `character` `rmarkdown` output name.
 #' @param default_values `logical` if to return a default values for each argument.
 #' @export
@@ -110,14 +115,22 @@ rmd_output_arguments <- function(output_name, default_values = FALSE) {
   }
 }
 
-#' @title Parse a Named List to the `Rmd` `yaml` Header
+#' Parse a named list to the `Rmd` `yaml` header
+#'
 #' @description `r lifecycle::badge("experimental")`
-#' Parse a named list to the `Rmd` `yaml` header, so the developer gets automatically tabulated `Rmd` `yaml` header.
-#' Only a non nested (flat) list will be processed,
-#' where as a nested list is directly processed with the [`yaml::as.yaml`] function.
+#'
+#' Function parse a named list to the `Rmd` `yaml` header,
+#'  so the developer gets automatically tabulated `Rmd` `yaml` header.
+#'
+#' @details
+#' This function processes a non-nested (flat) named list and generates an `Rmd` YAML header.
 #' All `Rmd` `yaml` header fields from the vector are supported,
-#' `c("author", "date", "title", "subtitle", "abstract", "keywords", "subject", "description", "category", "lang")`.
-#' Moreover all `output`field types in the `rmarkdown` package and their arguments are supported.
+#' `c("author", "date", "title", "subtitle", "abstract", "keywords", "subject", "description", "category", "lang")`. and handles `output` field types and
+#' arguments as defined in the `rmarkdown` package.
+#'
+#' @note Only non-nested lists are automatically parsed.
+#' Nested lists require direct processing with `yaml::as.yaml`.
+#'
 #' @param input_list `named list` non nested with slots names and their values compatible with `Rmd` `yaml` header.
 #' @param as_header `logical` optionally wrap with result with the internal `md_header()`, default `TRUE`.
 #' @param convert_logi `logical` convert a character values to logical,
@@ -251,10 +264,10 @@ as_yaml_auto <- function(input_list,
   structure(result, class = "rmd_yaml_header")
 }
 
-#' @title Print method for the `yaml_header` class
+#' Print method for the `yaml_header` class
 #'
-#' @description `r lifecycle::badge("experimental")`
-#' Print method for the `yaml_header` class.
+#' `r lifecycle::badge("experimental")`
+#'
 #' @param x `rmd_yaml_header` class object.
 #' @param ... optional text.
 #' @return `NULL`.
@@ -268,6 +281,8 @@ print.rmd_yaml_header <- function(x, ...) {
   cat(x, ...)
 }
 
+#' Parses `yaml` text
+#'
 #' Parses `yaml` text, extracting the specified field. Returns list names if it's a list;
 #' otherwise, the field itself.
 #'

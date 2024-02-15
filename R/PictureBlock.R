@@ -1,6 +1,6 @@
 #' @title `PictureBlock`
+#' @docType class
 #' @keywords internal
-#' @noRd
 PictureBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "PictureBlock",
   inherit = FileBlock,

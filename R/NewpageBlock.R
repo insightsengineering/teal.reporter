@@ -1,4 +1,5 @@
 #' @title `NewpageBlock`
+#' @docType class
 #' @keywords internal
 NewpageBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "NewpageBlock",

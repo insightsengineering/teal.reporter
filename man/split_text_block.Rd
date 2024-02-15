@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{split_text_block}
 \alias{split_text_block}
-\title{Split a text block into smaller blocks with a specified number of lines.}
+\title{Divide text block into smaller blocks}
 \usage{
 split_text_block(x, n)
 }
@@ -15,7 +15,7 @@ split_text_block(x, n)
 List of character strings with up to \code{n} lines in each element.
 }
 \description{
-Divide text block into smaller blocks.
+Split a text block into smaller blocks with a specified number of lines.
 }
 \details{
 A single character string containing a text block of multiple lines (separated by \verb{\\n})

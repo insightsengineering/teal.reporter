@@ -1,4 +1,5 @@
 #' @title `Archiver`
+#' @docType class
 #' @keywords internal
 Archiver <- R6::R6Class( # nolint: object_name_linter.
   classname = "Archiver",
@@ -31,6 +32,7 @@ Archiver <- R6::R6Class( # nolint: object_name_linter.
 )
 
 #' @title `RDSArchiver`
+#' @docType class
 #' @keywords internal
 FileArchiver <- R6::R6Class( # nolint: object_name_linter.
   classname = "FileArchiver",
@@ -69,6 +71,7 @@ FileArchiver <- R6::R6Class( # nolint: object_name_linter.
 )
 
 #' @title `JSONArchiver`
+#' @docType class
 #' @keywords internal
 JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
   classname = "JSONArchiver",

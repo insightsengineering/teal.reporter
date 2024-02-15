@@ -2,8 +2,7 @@
 % Please edit documentation in R/yaml_utils.R
 \name{get_yaml_field}
 \alias{get_yaml_field}
-\title{Parses \code{yaml} text, extracting the specified field. Returns list names if it's a list;
-otherwise, the field itself.}
+\title{Parses \code{yaml} text}
 \usage{
 get_yaml_field(yaml_text, field_name)
 }

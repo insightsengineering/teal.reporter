@@ -2,7 +2,7 @@
 % Please edit documentation in R/yaml_utils.R
 \name{yaml_quoted}
 \alias{yaml_quoted}
-\title{quoted string for \code{yaml}}
+\title{Quoted string for \code{yaml}}
 \usage{
 yaml_quoted(x)
 }
@@ -10,7 +10,7 @@ yaml_quoted(x)
 \item{x}{\code{character}}
 }
 \description{
-add quoted attribute for \code{yaml} package.
+Add quoted attribute for \code{yaml} package.
 }
 \examples{
 yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")

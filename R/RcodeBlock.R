@@ -1,4 +1,5 @@
 #' @title `RcodeBlock`
+#' @docType class
 #' @keywords internal
 RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "RcodeBlock",

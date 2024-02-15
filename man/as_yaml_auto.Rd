@@ -2,7 +2,7 @@
 % Please edit documentation in R/yaml_utils.R
 \name{as_yaml_auto}
 \alias{as_yaml_auto}
-\title{Parse a Named List to the \code{Rmd} \code{yaml} Header}
+\title{Parse a named list to the \code{Rmd} \code{yaml} header}
 \usage{
 as_yaml_auto(
   input_list,
@@ -30,12 +30,19 @@ result of \code{\link[yaml:as.yaml]{yaml::as.yaml}}, optionally wrapped with int
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-Parse a named list to the \code{Rmd} \code{yaml} header, so the developer gets automatically tabulated \code{Rmd} \code{yaml} header.
-Only a non nested (flat) list will be processed,
-where as a nested list is directly processed with the \code{\link[yaml:as.yaml]{yaml::as.yaml}} function.
+
+Function parse a named list to the \code{Rmd} \code{yaml} header,
+so the developer gets automatically tabulated \code{Rmd} \code{yaml} header.
+}
+\details{
+This function processes a non-nested (flat) named list and generates an \code{Rmd} YAML header.
 All \code{Rmd} \code{yaml} header fields from the vector are supported,
-\code{c("author", "date", "title", "subtitle", "abstract", "keywords", "subject", "description", "category", "lang")}.
-Moreover all \code{output}field types in the \code{rmarkdown} package and their arguments are supported.
+\code{c("author", "date", "title", "subtitle", "abstract", "keywords", "subject", "description", "category", "lang")}. and handles \code{output} field types and
+arguments as defined in the \code{rmarkdown} package.
+}
+\note{
+Only non-nested lists are automatically parsed.
+Nested lists require direct processing with \code{yaml::as.yaml}.
 }
 \examples{
 # nested so using yaml::as.yaml directly
