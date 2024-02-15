@@ -155,7 +155,7 @@ Returns a \code{ReportCard} object.
 }
 
 \subsection{Returns}{
-a \code{ReportCard} object
+A \code{ReportCard} object.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -184,7 +184,7 @@ Appends a table to this \code{ReportCard}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -215,7 +215,7 @@ Appends a plot to this \code{ReportCard}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -248,7 +248,7 @@ Appends a paragraph of text to this \code{ReportCard}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -279,7 +279,7 @@ Appends an \code{rmarkdown} R chunk to this \code{ReportCard}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -308,7 +308,7 @@ Appends a \code{ContentBlock} to this \code{ReportCard}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -356,7 +356,7 @@ Removes all objects added to this \code{ReportCard}.
 }
 
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 }
 \if{html}{\out{<hr>}}
@@ -402,7 +402,7 @@ Appends metadata to this \code{ReportCard}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -457,7 +457,7 @@ set the Card name
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -522,7 +522,7 @@ Create the \code{ReportCard} from a list.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

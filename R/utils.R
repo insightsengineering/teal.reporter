@@ -22,7 +22,7 @@ get_bs_version <- function() {
 #'  name of the panel item element. If supplied, this will register a shiny input variable that
 #'  indicates whether the panel item is open or collapsed and is accessed with `input$input_id`.
 #'
-#' @return (`shiny.tag`)
+#' @return `shiny.tag`.
 #'
 #' @keywords internal
 panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
@@ -116,7 +116,7 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
 #'
 #' @param content Supported formats: `data.frame`, `rtables`, `TableTree`, `ElementaryTable`, `listing_df`
 #'
-#' @return (`flextable`)
+#' @return `flextable`.
 #'
 #' @keywords internal
 to_flextable <- function(content) {

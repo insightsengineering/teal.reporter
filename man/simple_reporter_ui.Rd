@@ -10,7 +10,7 @@ simple_reporter_ui(id)
 \item{id}{\code{character(1)} this \code{shiny} module's id.}
 }
 \value{
-\code{shiny.tag}
+\code{shiny.tag}.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}

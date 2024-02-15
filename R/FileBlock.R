@@ -16,7 +16,7 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @param x `named list` with one field `"basename"`, a name of the file.
     #' @param output_dir `character` with a path to the directory where a file will be copied.
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' FileBlock <- getFromNamespace("FileBlock", "teal.reporter")
     #' block <- FileBlock$new()

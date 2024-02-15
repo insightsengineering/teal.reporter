@@ -53,7 +53,7 @@ Returns a \code{NewpageBlock} object with no content and the default style.
 }
 
 \subsection{Returns}{
-\code{NewpageBlock}
+\code{NewpageBlock}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

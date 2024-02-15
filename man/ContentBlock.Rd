@@ -62,7 +62,7 @@ Returns a \code{ContentBlock} object with no content and the default style.
 }
 
 \subsection{Returns}{
-\code{ContentBlock}
+\code{ContentBlock}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -92,7 +92,7 @@ Sets content of this \code{ContentBlock}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -116,7 +116,7 @@ Returns the absolute path to content of this \code{ContentBlock}.
 }
 
 \subsection{Returns}{
-\code{character} content of this \code{ContentBlock}
+\code{character} content of this \code{ContentBlock}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -148,7 +148,7 @@ Use the \code{get_available_styles} method to get all possible styles.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 }
 \if{html}{\out{<hr>}}

@@ -7,7 +7,7 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @details Returns a `ContentBlock` object with no content and the default style.
     #'
-    #' @return `ContentBlock`
+    #' @return `ContentBlock`.
     #' @examples
     #' ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
     #' ContentBlock$new()
@@ -20,7 +20,7 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param content (`character(0)` or `character(1)`) a string literal or a file path assigned to this `ContentBlock`
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
     #' block <- ContentBlock$new()
@@ -33,7 +33,7 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Returns the absolute path to content of this `ContentBlock`.
     #'
-    #' @return `character` content of this `ContentBlock`
+    #' @return `character` content of this `ContentBlock`.
     #' @examples
     #' ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
     #' block <- ContentBlock$new()
@@ -47,7 +47,7 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @param x `named list` with two fields `c("text", "style")`.
     #' Use the `get_available_styles` method to get all possible styles.
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     from_list = function(x) {
       invisible(self)
     },

@@ -194,7 +194,7 @@ Returns a \code{Reporter} object.
 }
 
 \subsection{Returns}{
-a \code{Reporter} object
+A \code{Reporter} object.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -223,7 +223,7 @@ Appends a table to this \code{Reporter}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -263,7 +263,7 @@ Returns cards of this \code{Reporter}.
 }
 
 \subsection{Returns}{
-\code{list()} list of \code{\link{ReportCard}}
+\code{list()} list of \code{\link{ReportCard}}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -311,7 +311,7 @@ Pass \code{NULL} to return content without any additional elements. Default: \co
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{list()} list of \code{TableBlock}, \code{TextBlock}, \code{PictureBlock} and \code{NewpageBlock}
+\code{list()} list of \code{TableBlock}, \code{TextBlock}, \code{PictureBlock} and \code{NewpageBlock}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -353,7 +353,7 @@ Additionally all metadata are removed.
 }
 
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 }
 \if{html}{\out{<hr>}}
@@ -373,7 +373,7 @@ remove a specific card in the \code{Reporter}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 }
 \if{html}{\out{<hr>}}
@@ -395,7 +395,7 @@ swap two cards in the \code{Reporter}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 }
 \if{html}{\out{<hr>}}
@@ -459,7 +459,7 @@ Appends metadata to this \code{Reporter}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -489,7 +489,7 @@ Create/Recreate a Reporter from another \code{Reporter}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -518,7 +518,7 @@ Convert a Reporter to a list and transfer files.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\verb{named list} \code{Reporter} representation
+\verb{named list} \code{Reporter} representation.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -551,7 +551,7 @@ Create/Recreate a Reporter from a list and directory with files.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -583,7 +583,7 @@ Create/Recreate a Reporter to a directory with \code{JSON} file and static files
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -614,7 +614,7 @@ Create/Recreate a Reporter from a directory with \code{JSON} file and static fil
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

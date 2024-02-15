@@ -6,7 +6,7 @@
 #' @param id `character(1)` this `shiny` module's id.
 #' @param label `character(1)` label before the icon.
 #' By default `NULL`.
-#' @return `shiny::tagList`
+#' @return `shiny::tagList`.
 #' @export
 reset_report_button_ui <- function(id, label = NULL) {
   checkmate::assert_string(label, null.ok = TRUE)
@@ -38,7 +38,7 @@ reset_report_button_ui <- function(id, label = NULL) {
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
 #' @param reporter [`Reporter`] instance.
-#' @return `shiny::moduleServer`
+#' @return `shiny::moduleServer`.
 #' @export
 reset_report_button_srv <- function(id, reporter) {
   checkmate::assert_class(reporter, "Reporter")

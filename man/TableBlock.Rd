@@ -59,7 +59,7 @@ this \code{TableBlock}}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-a \code{TableBlock} object
+A \code{TableBlock} object.
 }
 }
 \if{html}{\out{<hr>}}
@@ -84,7 +84,7 @@ throws if argument is not a table-like object.
 }
 
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

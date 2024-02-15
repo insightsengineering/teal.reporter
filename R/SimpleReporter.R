@@ -4,7 +4,7 @@
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
-#' @return `shiny.tag`
+#' @return `shiny.tag`.
 #' @export
 #'
 #' @examples
@@ -50,7 +50,7 @@ simple_reporter_ui <- function(id) {
 #' @inheritParams reporter_download_inputs
 #' @details `r global_knitr_details()`
 #'
-#' @return `shiny::moduleServer`
+#' @return `shiny::moduleServer`.
 #' @export
 simple_reporter_srv <- function(id,
                                 reporter,

@@ -279,7 +279,7 @@ use \code{getOption('teal.reporter.global_knitr')}. These defaults include:
 }
 
 \subsection{Returns}{
-\code{character} path to the output
+\code{character} path to the output.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

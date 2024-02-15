@@ -11,7 +11,7 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @param content (`character(1)` or `character(0)`) a string assigned to this `TextBlock`
     #' @param style (`character(1)`) one of: `"default"`, `"header2"`, `"header3"` `"verbatim"`
     #'
-    #' @return `TextBlock`
+    #' @return `TextBlock`.
     #' @examples
     #' TextBlock <- getFromNamespace("TextBlock", "teal.reporter")
     #' block <- TextBlock$new()
@@ -27,7 +27,7 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param style (`character(1)`) one of: `"default"`, `"header2"`, `"header3"` `"verbatim"`
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' TextBlock <- getFromNamespace("TextBlock", "teal.reporter")
     #' block <- TextBlock$new()
@@ -39,7 +39,7 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Returns the style of this `TextBlock`.
     #'
-    #' @return `character(1)` the style of this `TextBlock`
+    #' @return `character(1)` the style of this `TextBlock`.
     #' @examples
     #' TextBlock <- getFromNamespace("TextBlock", "teal.reporter")
     #' block <- TextBlock$new()
@@ -50,7 +50,7 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Returns an array of styles available to this `TextBlock`.
     #'
-    #' @return a `character` array of styles
+    #' @return A `character` array of styles.
     #' @examples
     #' TextBlock <- getFromNamespace("TextBlock", "teal.reporter")
     #' block <- TextBlock$new()
@@ -64,7 +64,7 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @param x `named list` with two fields `c("text", "style")`.
     #' Use the `get_available_styles` method to get all possible styles.
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' TextBlock <- getFromNamespace("TextBlock", "teal.reporter")
     #' block <- TextBlock$new()

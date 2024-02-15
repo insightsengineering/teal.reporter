@@ -6,7 +6,7 @@
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
-#' @return `shiny::tagList`
+#' @return `shiny::tagList`.
 #' @export
 download_report_button_ui <- function(id) {
   ns <- shiny::NS(id)
@@ -38,7 +38,7 @@ download_report_button_ui <- function(id) {
 #' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`)
 #'  for customizing the rendering process.
 #' @inheritParams reporter_download_inputs
-#' @return `shiny::moduleServer`
+#' @return `shiny::moduleServer`.
 #' @details `r global_knitr_details()`
 #'
 #' @export

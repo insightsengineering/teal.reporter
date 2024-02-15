@@ -12,7 +12,7 @@ to_flextable(content)
 \item{content}{Supported formats: \code{data.frame}, \code{rtables}, \code{TableTree}, \code{ElementaryTable}, \code{listing_df}}
 }
 \value{
-(\code{flextable})
+\code{flextable}.
 }
 \description{
 Convert content into a \code{flextable}, merge cells with \code{colspan} > 1

@@ -38,7 +38,7 @@ Returns an \code{Archiver} object.
 }
 
 \subsection{Returns}{
-an \code{Archiver} object.
+An \code{Archiver} object.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

@@ -10,7 +10,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
   public = list(
     #' @description Returns a `ReportCard` object.
     #'
-    #' @return a `ReportCard` object
+    #' @return A `ReportCard` object.
     #' @examples
     #' card <- ReportCard$new()
     #'
@@ -22,7 +22,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends a table to this `ReportCard`.
     #'
     #' @param table the appended table
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' card <- ReportCard$new()$append_table(iris)
     #'
@@ -34,7 +34,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param plot the appended plot
     #' @param dim `integer vector` width and height in pixels.
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' card <- ReportCard$new()$append_plot(
     #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
@@ -53,7 +53,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param text (`character(0)` or `character(1)`) the text
     #' @param style (`character(1)`) the style of the paragraph. One of: `default`, `header`, `verbatim`
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' card <- ReportCard$new()$append_text("A paragraph of default text")
     #'
@@ -65,7 +65,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param text (`character(0)` or `character(1)`) the text
     #' @param ... any `rmarkdown` R chunk parameter and its value.
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' card <- ReportCard$new()$append_rcode("2+2", echo = FALSE)
     #'
@@ -76,7 +76,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends a `ContentBlock` to this `ReportCard`.
     #'
     #' @param content (`ContentBlock`)
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' NewpageBlock <- getFromNamespace("NewpageBlock", "teal.reporter")
     #' card <- ReportCard$new()$append_content(NewpageBlock$new())
@@ -100,7 +100,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Removes all objects added to this `ReportCard`.
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #'
     reset = function() {
       private$content <- list()
@@ -122,7 +122,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param key (`character(1)`) name of meta data.
     #' @param value value of meta data.
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
     #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
@@ -150,7 +150,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description set the Card name
     #'
     #' @param name `character` a Card name
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' ReportCard$new()$set_name("NAME")$get_name()
     set_name = function(name) {
@@ -193,7 +193,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Create the `ReportCard` from a list.
     #' @param card `named list` a `ReportCard` representation.
     #' @param output_dir `character` with a path to the directory where a file will be copied.
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
     #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()

@@ -36,7 +36,7 @@ The \code{list} must include at least \code{"output"} field.
 The default value for \code{"output"} has to be in the \code{rmd_output} argument.}
 }
 \value{
-\code{shiny::moduleServer}
+\code{shiny::moduleServer}.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}

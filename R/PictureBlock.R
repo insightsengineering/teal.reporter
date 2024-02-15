@@ -9,7 +9,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param plot (`ggplot`, `grid`) a picture in this `PictureBlock`
     #'
-    #' @return a `PictureBlock` object
+    #' @return A `PictureBlock` object.
     initialize = function(plot) {
       if (!missing(plot)) {
         self$set_content(plot)
@@ -22,7 +22,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param content (`ggplot`, `grob`, `trellis`) a picture in this `PictureBlock`
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
     #' block <- PictureBlock$new()
@@ -62,7 +62,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param title (`character(1)`) a string assigned to this `PictureBlock`
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
     #' block <- PictureBlock$new()
@@ -75,7 +75,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Returns the title of this `PictureBlock`.
     #'
-    #' @return the content of this `PictureBlock`
+    #' @return The content of this `PictureBlock`.
     #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
     #' block <- PictureBlock$new()
     #' block$get_title()
@@ -87,7 +87,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param dim `numeric` figure dimensions (width and height) in pixels, length 2.
     #'
-    #' @return `self`
+    #' @return `self`, invisibly.
     #' @examples
     #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
     #' block <- PictureBlock$new()

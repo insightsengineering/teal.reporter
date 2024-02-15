@@ -9,7 +9,7 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @param table (`data.frame`, `rtables`, `TableTree`, `ElementaryTable`, `listing_df`) a table assigned to
     #'   this `TableBlock`
     #'
-    #' @return a `TableBlock` object
+    #' @return A `TableBlock` object.
     initialize = function(table) {
       if (!missing(table)) {
         self$set_content(table)
@@ -23,7 +23,7 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @param content (`data.frame`, `rtables`, `TableTree`, `ElementaryTable`, `listing_df`) a table assigned to
     #'   this `TableBlock`
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' TableBlock <- getFromNamespace("TableBlock", "teal.reporter")
     #' block <- TableBlock$new()

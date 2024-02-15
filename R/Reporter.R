@@ -8,7 +8,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
   public = list(
     #' @description Returns a `Reporter` object.
     #'
-    #' @return a `Reporter` object
+    #' @return A `Reporter` object.
     #' @examples
     #' reporter <- teal.reporter::Reporter$new()
     #'
@@ -20,7 +20,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends a table to this `Reporter`.
     #'
     #' @param cards [`ReportCard`] or a list of such objects
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' card1 <- teal.reporter::ReportCard$new()
     #'
@@ -50,7 +50,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Returns cards of this `Reporter`.
     #'
-    #' @return `list()` list of [`ReportCard`]
+    #' @return `list()` list of [`ReportCard`].
     #' @examples
     #' card1 <- teal.reporter::ReportCard$new()
     #'
@@ -79,7 +79,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param sep the element inserted between each content element in this `Reporter`.
     #' Pass `NULL` to return content without any additional elements. Default: `NewpageBlock$new()`
-    #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock` and `NewpageBlock`
+    #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock` and `NewpageBlock`.
     #' @examples
     #' card1 <- teal.reporter::ReportCard$new()
     #'
@@ -115,7 +115,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @description Removes all [`ReportCard`] objects added to this `Reporter`.
     #' Additionally all metadata are removed.
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #'
     reset = function() {
       private$cards <- list()
@@ -126,7 +126,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @description remove a specific card in the `Reporter`.
     #'
     #' @param ids `integer` the indexes of cards
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     remove_cards = function(ids = NULL) {
       checkmate::assert(
         checkmate::check_null(ids),
@@ -142,7 +142,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param start `integer` the index of the first card
     #' @param end `integer` the index of the second card
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     swap_cards = function(start, end) {
       checkmate::assert(
         checkmate::check_integer(start,
@@ -181,7 +181,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends metadata to this `Reporter`.
     #'
     #' @param meta (`list`) of metadata.
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
     #' reporter$get_metadata()
@@ -194,7 +194,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Create/Recreate a Reporter from another `Reporter`.
     #' @param reporter `Reporter` instance.
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' reporter <- Reporter$new()
     #' reporter$from_reporter(reporter)
@@ -207,7 +207,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Convert a Reporter to a list and transfer files.
     #' @param output_dir `character(1)` a path to the directory where files will be copied.
-    #' @return `named list` `Reporter` representation
+    #' @return `named list` `Reporter` representation.
     #' @examples
     #' reporter <- Reporter$new()
     #' tmp_dir <- file.path(tempdir(), "testdir")
@@ -229,7 +229,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @description Create/Recreate a Reporter from a list and directory with files.
     #' @param rlist `named list` `Reporter` representation.
     #' @param output_dir `character(1)` a path to the directory from which files will be copied.
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' reporter <- Reporter$new()
     #' tmp_dir <- file.path(tempdir(), "testdir")
@@ -260,7 +260,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Create/Recreate a Reporter to a directory with `JSON` file and static files.
     #' @param output_dir `character(1)` a path to the directory where files will be copied, `JSON` and statics.
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' reporter <- Reporter$new()
     #' tmp_dir <- file.path(tempdir(), "jsondir")
@@ -276,7 +276,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Create/Recreate a Reporter from a directory with `JSON` file and static files.
     #' @param output_dir `character(1)` a path to the directory with files, `JSON` and statics.
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' reporter <- Reporter$new()
     #' tmp_dir <- file.path(tempdir(), "jsondir")

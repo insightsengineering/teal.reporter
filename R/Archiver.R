@@ -5,7 +5,7 @@ Archiver <- R6::R6Class( # nolint: object_name_linter.
   public = list(
     #' @description Returns an `Archiver` object.
     #'
-    #' @return an `Archiver` object.
+    #' @return An `Archiver` object.
     #' @examples
     #' Archiver <- getFromNamespace("Archiver", "teal.reporter")
     #' Archiver$new()
@@ -38,7 +38,7 @@ FileArchiver <- R6::R6Class( # nolint: object_name_linter.
   public = list(
     #' @description Returns a `FileArchiver` object.
     #'
-    #' @return a `FileArchiver` object.
+    #' @return A `FileArchiver` object.
     #' @examples
     #' FileArchiver <- getFromNamespace("FileArchiver", "teal.reporter")
     #' FileArchiver$new()

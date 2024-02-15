@@ -12,7 +12,7 @@ reset_report_button_srv(id, reporter)
 \item{reporter}{\code{\link{Reporter}} instance.}
 }
 \value{
-\code{shiny::moduleServer}
+\code{shiny::moduleServer}.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}

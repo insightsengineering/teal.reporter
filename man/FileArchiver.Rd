@@ -55,7 +55,7 @@ Returns a \code{FileArchiver} object.
 }
 
 \subsection{Returns}{
-a \code{FileArchiver} object.
+A \code{FileArchiver} object.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

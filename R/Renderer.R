@@ -130,7 +130,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @param ... `rmarkdown::render` arguments, `input` and `output_dir` should not be updated.
     #' @details `r global_knitr_details()`
     #'
-    #' @return `character` path to the output
+    #' @return `character` path to the output.
     #' @examples
     #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
     #' card1 <- ReportCard$new()

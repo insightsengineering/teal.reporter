@@ -110,7 +110,7 @@ Returns a \code{RcodeBlock} object with no content and no parameters.
 }
 
 \subsection{Returns}{
-\code{RcodeBlock}
+\code{RcodeBlock}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -144,7 +144,7 @@ The parameters has bearing on the rendering of this block.
 }
 
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -168,7 +168,7 @@ Returns the parameters of this \code{RcodeBlock}.
 }
 
 \subsection{Returns}{
-\code{character} the parameters of this \code{RcodeBlock}
+\code{character} the parameters of this \code{RcodeBlock}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -192,7 +192,7 @@ Returns an array of parameters available to this \code{RcodeBlock}.
 }
 
 \subsection{Returns}{
-a \code{character} array of parameters
+A \code{character} array of parameters.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -224,7 +224,7 @@ Use the \code{get_available_params} method to get all possible parameters.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

@@ -13,7 +13,7 @@ get_yaml_field(yaml_text, field_name)
 \item{field_name}{The name of the field to extract.}
 }
 \value{
-if the field is a list, it returns the names of elements in the list; otherwise,
+If the field is a list, it returns the names of elements in the list; otherwise,
 it returns the extracted field.
 }
 \description{

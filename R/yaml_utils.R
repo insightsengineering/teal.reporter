@@ -257,7 +257,7 @@ as_yaml_auto <- function(input_list,
 #' Print method for the `yaml_header` class.
 #' @param x `rmd_yaml_header` class object.
 #' @param ... optional text.
-#' @return NULL
+#' @return `NULL`.
 #' @exportS3Method
 #' @examples
 #' input <- list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE)
@@ -274,7 +274,7 @@ print.rmd_yaml_header <- function(x, ...) {
 #' @param yaml_text A character vector containing the `yaml` text.
 #' @param field_name The name of the field to extract.
 #'
-#' @return if the field is a list, it returns the names of elements in the list; otherwise,
+#' @return If the field is a list, it returns the names of elements in the list; otherwise,
 #' it returns the extracted field.
 #'
 #' @keywords internal

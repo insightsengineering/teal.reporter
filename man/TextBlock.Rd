@@ -110,7 +110,7 @@ Returns a \code{TextBlock} object with no content and the default style.
 }
 
 \subsection{Returns}{
-\code{TextBlock}
+\code{TextBlock}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -144,7 +144,7 @@ The style has bearing on the rendering of this block.
 }
 
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -168,7 +168,7 @@ Returns the style of this \code{TextBlock}.
 }
 
 \subsection{Returns}{
-\code{character(1)} the style of this \code{TextBlock}
+\code{character(1)} the style of this \code{TextBlock}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -192,7 +192,7 @@ Returns an array of styles available to this \code{TextBlock}.
 }
 
 \subsection{Returns}{
-a \code{character} array of styles
+A \code{character} array of styles.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -224,7 +224,7 @@ Use the \code{get_available_styles} method to get all possible styles.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-invisibly self
+\code{self}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
