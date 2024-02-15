@@ -5,6 +5,7 @@
 #' @param x `character`
 #' @keywords internal
 #' @examples
+#' library(yaml)
 #' yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
 #' yaml <- list(
 #'   author = yaml_quoted("NEST"),
@@ -12,7 +13,7 @@
 #'   date = yaml_quoted("07/04/2019"),
 #'   output = list(pdf_document = list(keep_tex = TRUE))
 #' )
-#' yaml::as.yaml(yaml)
+#' as.yaml(yaml)
 yaml_quoted <- function(x) {
   attr(x, "quoted") <- TRUE
   x
@@ -22,6 +23,7 @@ yaml_quoted <- function(x) {
 #' @param x `character` `yaml` formatted string.
 #' @keywords internal
 #' @examples
+#' library(yaml)
 #' yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
 #' yaml <- list(
 #'   author = yaml_quoted("NEST"),
@@ -30,7 +32,7 @@ yaml_quoted <- function(x) {
 #'   output = list(pdf_document = list(keep_tex = TRUE))
 #' )
 #' md_header <- getFromNamespace("md_header", "teal.reporter")
-#' md_header(yaml::as.yaml(yaml))
+#' md_header(as.yaml(yaml))
 md_header <- function(x) {
   paste0("---\n", x, "---\n")
 }

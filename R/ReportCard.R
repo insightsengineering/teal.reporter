@@ -39,8 +39,9 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param dim `integer vector` width and height in pixels.
     #' @return `self`, invisibly.
     #' @examples
+    #' library(ggplot2)
     #' card <- ReportCard$new()$append_plot(
-    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
     #'
     append_plot = function(plot, dim = NULL) {
@@ -127,8 +128,9 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param value value of meta data.
     #' @return `self`, invisibly.
     #' @examples
+    #' library(ggplot2)
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
-    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )$append_text("Some text")$append_metadata(key = "lm",
     #'                   value = lm(Ozone ~ Solar.R, airquality))
     #' card$get_content()
@@ -165,8 +167,9 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param output_dir `character` with a path to the directory where files will be copied.
     #' @return `named list` a `ReportCard` representation.
     #' @examples
+    #' library(ggplot2)
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
-    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )$append_text("Some text")$append_metadata(key = "lm",
     #'                   value = lm(Ozone ~ Solar.R, airquality))
     #' card$get_content()
@@ -198,8 +201,9 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param output_dir `character` with a path to the directory where a file will be copied.
     #' @return `self`, invisibly.
     #' @examples
+    #' library(ggplot2)
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
-    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )$append_text("Some text")$append_metadata(key = "lm",
     #'                   value = lm(Ozone ~ Solar.R, airquality))
     #' card$get_content()

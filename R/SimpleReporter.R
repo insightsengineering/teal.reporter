@@ -22,9 +22,10 @@
 #' @return `shiny::moduleServer`.
 #'
 #' @examples
+#' library(shiny)
 #' if (interactive()) {
-#'   shiny::shinyApp(
-#'     ui = shiny::fluidPage(simple_reporter_ui("simple")),
+#'   shinyApp(
+#'     ui = fluidPage(simple_reporter_ui("simple")),
 #'     server = function(input, output, session) {
 #'       simple_reporter_srv("simple", Reporter$new(), function(card) card)
 #'     }

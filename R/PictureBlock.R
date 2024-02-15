@@ -24,17 +24,19 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `self`, invisibly.
     #' @examples
+    #' library(ggplot2)
+    #' library(lattice)
     #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
     #' block <- PictureBlock$new()
-    #' block$set_content(ggplot2::ggplot(iris))
+    #' block$set_content(ggplot(iris))
     #'
     #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
     #' block <- PictureBlock$new()
-    #' block$set_content(lattice::bwplot(1))
+    #' block$set_content(bwplot(1))
     #'
     #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
     #' block <- PictureBlock$new()
-    #' block$set_content(ggplot2::ggplotGrob(ggplot2::ggplot(iris)))
+    #' block$set_content(ggplotGrob(ggplot(iris)))
     set_content = function(content) {
       checkmate::assert_multi_class(content, private$supported_plots)
       path <- tempfile(fileext = ".png")

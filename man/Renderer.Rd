@@ -23,13 +23,16 @@ Renderer$new()
 ## Method `Renderer$renderRmd`
 ## ------------------------------------------------
 
+library(ggplot2)
+library(rtables)
+library(yaml)
 ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
 card1 <- ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text")
 card1$append_plot(
- ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+ ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )
 
 ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
@@ -37,8 +40,8 @@ card2 <- ReportCard$new()
 
 card2$append_text("Header 2 text", "header2")
 card2$append_text("A paragraph of default text", "header2")
-lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
-table_res2 <- rtables::build_table(lyt, airquality)
+lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
+table_res2 <- build_table(lyt, airquality)
 card2$append_table(table_res2)
 card2$append_table(iris)
 card2$append_rcode("2+2", echo = FALSE)
@@ -56,7 +59,7 @@ yaml_l <- list(
 )
 
 md_header <- getFromNamespace("md_header", "teal.reporter")
-yaml_header <- md_header(yaml::as.yaml(yaml_l))
+yaml_header <- md_header(as.yaml(yaml_l))
 Renderer <- getFromNamespace("Renderer", "teal.reporter")
 result_path <- Renderer$new()$renderRmd(reporter$get_blocks(), yaml_header)
 
@@ -65,13 +68,16 @@ result_path <- Renderer$new()$renderRmd(reporter$get_blocks(), yaml_header)
 ## Method `Renderer$render`
 ## ------------------------------------------------
 
+library(ggplot2)
+library(rtables)
+library(yaml)
 ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
 card1 <- ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text")
 card1$append_plot(
- ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+ ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )
 
 ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
@@ -79,8 +85,8 @@ card2 <- ReportCard$new()
 
 card2$append_text("Header 2 text", "header2")
 card2$append_text("A paragraph of default text", "header2")
-lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
-table_res2 <- rtables::build_table(lyt, airquality)
+lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
+table_res2 <- build_table(lyt, airquality)
 card2$append_table(table_res2)
 card2$append_table(iris)
 card2$append_rcode("2+2", echo = FALSE)
@@ -96,7 +102,7 @@ yaml_l <- list(
 )
 
 md_header <- getFromNamespace("md_header", "teal.reporter")
-yaml_header <- md_header(yaml::as.yaml(yaml_l))
+yaml_header <- md_header(as.yaml(yaml_l))
 Renderer <- getFromNamespace("Renderer", "teal.reporter")
 result_path <- Renderer$new()$render(Reporter$get_blocks(), yaml_header)
 
@@ -198,13 +204,16 @@ use \code{getOption('teal.reporter.global_knitr')}. These defaults include:
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
+\preformatted{library(ggplot2)
+library(rtables)
+library(yaml)
+ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
 card1 <- ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text")
 card1$append_plot(
- ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+ ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )
 
 ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
@@ -212,8 +221,8 @@ card2 <- ReportCard$new()
 
 card2$append_text("Header 2 text", "header2")
 card2$append_text("A paragraph of default text", "header2")
-lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
-table_res2 <- rtables::build_table(lyt, airquality)
+lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
+table_res2 <- build_table(lyt, airquality)
 card2$append_table(table_res2)
 card2$append_table(iris)
 card2$append_rcode("2+2", echo = FALSE)
@@ -231,7 +240,7 @@ yaml_l <- list(
 )
 
 md_header <- getFromNamespace("md_header", "teal.reporter")
-yaml_header <- md_header(yaml::as.yaml(yaml_l))
+yaml_header <- md_header(as.yaml(yaml_l))
 Renderer <- getFromNamespace("Renderer", "teal.reporter")
 result_path <- Renderer$new()$renderRmd(reporter$get_blocks(), yaml_header)
 
@@ -284,13 +293,16 @@ use \code{getOption('teal.reporter.global_knitr')}. These defaults include:
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
+\preformatted{library(ggplot2)
+library(rtables)
+library(yaml)
+ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
 card1 <- ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text")
 card1$append_plot(
- ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+ ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )
 
 ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
@@ -298,8 +310,8 @@ card2 <- ReportCard$new()
 
 card2$append_text("Header 2 text", "header2")
 card2$append_text("A paragraph of default text", "header2")
-lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
-table_res2 <- rtables::build_table(lyt, airquality)
+lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
+table_res2 <- build_table(lyt, airquality)
 card2$append_table(table_res2)
 card2$append_table(iris)
 card2$append_rcode("2+2", echo = FALSE)
@@ -315,7 +327,7 @@ yaml_l <- list(
 )
 
 md_header <- getFromNamespace("md_header", "teal.reporter")
-yaml_header <- md_header(yaml::as.yaml(yaml_l))
+yaml_header <- md_header(as.yaml(yaml_l))
 Renderer <- getFromNamespace("Renderer", "teal.reporter")
 result_path <- Renderer$new()$render(Reporter$get_blocks(), yaml_header)
 

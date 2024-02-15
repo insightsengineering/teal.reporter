@@ -30,8 +30,9 @@ card <- ReportCard$new()$append_table(iris)
 ## Method `ReportCard$append_plot`
 ## ------------------------------------------------
 
+library(ggplot2)
 card <- ReportCard$new()$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )
 
 
@@ -80,8 +81,9 @@ card$get_metadata()
 ## Method `ReportCard$append_metadata`
 ## ------------------------------------------------
 
+library(ggplot2)
 card <- ReportCard$new()$append_text("Some text")$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )$append_text("Some text")$append_metadata(key = "lm",
                   value = lm(Ozone ~ Solar.R, airquality))
 card$get_content()
@@ -104,8 +106,9 @@ ReportCard$new()$set_name("NAME")$get_name()
 ## Method `ReportCard$to_list`
 ## ------------------------------------------------
 
+library(ggplot2)
 card <- ReportCard$new()$append_text("Some text")$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )$append_text("Some text")$append_metadata(key = "lm",
                   value = lm(Ozone ~ Solar.R, airquality))
 card$get_content()
@@ -117,8 +120,9 @@ card$to_list(tempdir())
 ## Method `ReportCard$from_list`
 ## ------------------------------------------------
 
+library(ggplot2)
 card <- ReportCard$new()$append_text("Some text")$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )$append_text("Some text")$append_metadata(key = "lm",
                   value = lm(Ozone ~ Solar.R, airquality))
 card$get_content()
@@ -220,8 +224,9 @@ Appends a plot to this \code{ReportCard}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- ReportCard$new()$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+\preformatted{library(ggplot2)
+card <- ReportCard$new()$append_plot(
+  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )
 
 }
@@ -407,8 +412,9 @@ Appends metadata to this \code{ReportCard}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- ReportCard$new()$append_text("Some text")$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+\preformatted{library(ggplot2)
+card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )$append_text("Some text")$append_metadata(key = "lm",
                   value = lm(Ozone ~ Solar.R, airquality))
 card$get_content()
@@ -490,8 +496,9 @@ Convert the \code{ReportCard} to a list.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- ReportCard$new()$append_text("Some text")$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+\preformatted{library(ggplot2)
+card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )$append_text("Some text")$append_metadata(key = "lm",
                   value = lm(Ozone ~ Solar.R, airquality))
 card$get_content()
@@ -527,8 +534,9 @@ Create the \code{ReportCard} from a list.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- ReportCard$new()$append_text("Some text")$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+\preformatted{library(ggplot2)
+card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )$append_text("Some text")$append_metadata(key = "lm",
                   value = lm(Ozone ~ Solar.R, airquality))
 card$get_content()

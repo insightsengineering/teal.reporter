@@ -13,7 +13,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return A `Reporter` object.
     #' @examples
-    #' reporter <- teal.reporter::Reporter$new()
+    #' reporter <- Reporter$new()
     #'
     initialize = function() {
       private$cards <- list()
@@ -25,24 +25,26 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @param cards [`ReportCard`] or a list of such objects
     #' @return `self`, invisibly.
     #' @examples
-    #' card1 <- teal.reporter::ReportCard$new()
+    #' library(ggplot2)
+    #' library(rtables)
+    #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text", "header2")
     #' card1$append_plot(
-    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
     #'
-    #' card2 <- teal.reporter::ReportCard$new()
+    #' card2 <- ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
     #' card2$append_text("A paragraph of default text", "header2")
-    #' lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
-    #' table_res2 <- rtables::build_table(lyt, airquality)
+    #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
+    #' table_res2 <- build_table(lyt, airquality)
     #' card2$append_table(table_res2)
     #' card2$append_table(iris)
     #'
-    #' reporter <- teal.reporter::Reporter$new()
+    #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
     #'
     append_cards = function(cards) {
@@ -55,24 +57,26 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `list()` list of [`ReportCard`].
     #' @examples
-    #' card1 <- teal.reporter::ReportCard$new()
+    #' library(ggplot2)
+    #' library(rtables)
+    #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text", "header2")
     #' card1$append_plot(
-    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
     #'
-    #' card2 <- teal.reporter::ReportCard$new()
+    #' card2 <- ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
     #' card2$append_text("A paragraph of default text", "header2")
-    #' lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
-    #' table_res2 <- rtables::build_table(lyt, airquality)
+    #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
+    #' table_res2 <- build_table(lyt, airquality)
     #' card2$append_table(table_res2)
     #' card2$append_table(iris)
     #'
-    #' reporter <- teal.reporter::Reporter$new()
+    #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
     #' reporter$get_cards()
     get_cards = function() {
@@ -84,24 +88,26 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' Pass `NULL` to return content without any additional elements. Default: `NewpageBlock$new()`
     #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock` and `NewpageBlock`.
     #' @examples
-    #' card1 <- teal.reporter::ReportCard$new()
+    #' library(ggplot2)
+    #' library(rtables)
+    #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text", "header2")
     #' card1$append_plot(
-    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
     #'
-    #' card2 <- teal.reporter::ReportCard$new()
+    #' card2 <- ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
     #' card2$append_text("A paragraph of default text", "header2")
-    #' lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
-    #' table_res2 <- rtables::build_table(lyt, airquality)
+    #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
+    #' table_res2 <- build_table(lyt, airquality)
     #' card2$append_table(table_res2)
     #' card2$append_table(iris)
     #'
-    #' reporter <- teal.reporter::Reporter$new()
+    #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
     #' reporter$get_blocks()
     #'
@@ -167,7 +173,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @return `reactive_add_card` field value.
     #' @note The function has to be used in the shiny reactive context.
     #' @examples
-    #' shiny::isolate(Reporter$new()$get_reactive_add_card())
+    #' library(shiny)
+    #' isolate(Reporter$new()$get_reactive_add_card())
     get_reactive_add_card = function() {
       private$reactive_add_card()
     },

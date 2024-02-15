@@ -13,6 +13,7 @@ yaml_quoted(x)
 Add quoted attribute for \code{yaml} package.
 }
 \examples{
+library(yaml)
 yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
 yaml <- list(
   author = yaml_quoted("NEST"),
@@ -20,6 +21,6 @@ yaml <- list(
   date = yaml_quoted("07/04/2019"),
   output = list(pdf_document = list(keep_tex = TRUE))
 )
-yaml::as.yaml(yaml)
+as.yaml(yaml)
 }
 \keyword{internal}

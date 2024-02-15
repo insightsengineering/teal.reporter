@@ -83,13 +83,14 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `self`, invisibly.
     #' @examples
+    #' library(ggplot2)
     #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
     #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text", "header2")
     #' card1$append_plot(
-    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
     #'
     #' Reporter <- getFromNamespace("Reporter", "teal.reporter")
@@ -112,13 +113,14 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `Reporter` instance.
     #' @examples
+    #' library(ggplot2)
     #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
     #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text", "header2")
     #' card1$append_plot(
-    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
     #'
     #' Reporter <- getFromNamespace("Reporter", "teal.reporter")

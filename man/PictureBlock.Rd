@@ -15,17 +15,19 @@
 ## Method `PictureBlock$set_content`
 ## ------------------------------------------------
 
+library(ggplot2)
+library(lattice)
 PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
 block <- PictureBlock$new()
-block$set_content(ggplot2::ggplot(iris))
+block$set_content(ggplot(iris))
 
 PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
 block <- PictureBlock$new()
-block$set_content(lattice::bwplot(1))
+block$set_content(bwplot(1))
 
 PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
 block <- PictureBlock$new()
-block$set_content(ggplot2::ggplotGrob(ggplot2::ggplot(iris)))
+block$set_content(ggplotGrob(ggplot(iris)))
 
 ## ------------------------------------------------
 ## Method `PictureBlock$set_title`
@@ -124,17 +126,19 @@ throws if argument is not a \code{ggplot}, \code{grob} or \code{trellis} plot.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+\preformatted{library(ggplot2)
+library(lattice)
+PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
 block <- PictureBlock$new()
-block$set_content(ggplot2::ggplot(iris))
+block$set_content(ggplot(iris))
 
 PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
 block <- PictureBlock$new()
-block$set_content(lattice::bwplot(1))
+block$set_content(bwplot(1))
 
 PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
 block <- PictureBlock$new()
-block$set_content(ggplot2::ggplotGrob(ggplot2::ggplot(iris)))
+block$set_content(ggplotGrob(ggplot(iris)))
 }
 \if{html}{\out{</div>}}
 

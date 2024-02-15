@@ -15,13 +15,14 @@
 ## Method `JSONArchiver$write`
 ## ------------------------------------------------
 
+library(ggplot2)
 ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
 card1 <- ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text", "header2")
 card1$append_plot(
- ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+ ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )
 
 Reporter <- getFromNamespace("Reporter", "teal.reporter")
@@ -37,13 +38,14 @@ archiver$get_output_dir()
 ## Method `JSONArchiver$read`
 ## ------------------------------------------------
 
+library(ggplot2)
 ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
 card1 <- ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text", "header2")
 card1$append_plot(
- ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+ ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )
 
 Reporter <- getFromNamespace("Reporter", "teal.reporter")
@@ -104,13 +106,14 @@ write a \code{Reporter} instance in to this \code{JSONArchiver} object.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
+\preformatted{library(ggplot2)
+ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
 card1 <- ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text", "header2")
 card1$append_plot(
- ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+ ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )
 
 Reporter <- getFromNamespace("Reporter", "teal.reporter")
@@ -148,13 +151,14 @@ read a \code{Reporter} instance from a directory with \code{JSONArchiver}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
+\preformatted{library(ggplot2)
+ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
 card1 <- ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text", "header2")
 card1$append_plot(
- ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+ ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )
 
 Reporter <- getFromNamespace("Reporter", "teal.reporter")

@@ -13,6 +13,7 @@ md_header(x)
 Wrap a \code{yaml} string to the \code{markdown} header
 }
 \examples{
+library(yaml)
 yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
 yaml <- list(
   author = yaml_quoted("NEST"),
@@ -21,6 +22,6 @@ yaml <- list(
   output = list(pdf_document = list(keep_tex = TRUE))
 )
 md_header <- getFromNamespace("md_header", "teal.reporter")
-md_header(yaml::as.yaml(yaml))
+md_header(as.yaml(yaml))
 }
 \keyword{internal}
