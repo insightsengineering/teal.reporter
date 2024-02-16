@@ -2,7 +2,7 @@
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' Module provides a compact UI and server functions for managing a report in `shiny` app.
+#' Module provides compact UI and server functions for managing a report in a `shiny` app.
 #' This module combines functionalities for [adding cards to a report][add_card_button],
 #'  [downloading the report][download_report_button], and [resetting report content][reset_report_button].
 #'
