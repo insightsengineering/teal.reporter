@@ -24,7 +24,14 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param cards (`ReportCard`) or a list of such objects
     #' @return `self`, invisibly.
-    #' @examplesIf requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("rtables", quietly = TRUE)
+    #' @examplesIf requireNamespace("ggplot2") && requireNamespace("rtables")
+    #' ## ------------------------------------------------
+    #' ## Method `Reporter$append_cards`
+    #' ## ------------------------------------------------
+    #'
+    #' library(ggplot2)
+    #' library(rtables)
+    #'
     #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
@@ -44,7 +51,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
-    #'
     append_cards = function(cards) {
       checkmate::assert_list(cards, "ReportCard")
       private$cards <- append(private$cards, cards)
@@ -54,7 +60,14 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @description Returns cards of this `Reporter`.
     #'
     #' @return A (`list`) of [`ReportCard`] objects.
-    #' @examplesIf requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("rtables", quietly = TRUE)
+    #' @examplesIf requireNamespace("ggplot2") && requireNamespace("rtables")
+    #' ## ------------------------------------------------
+    #' ## Method `Reporter$get_cards`
+    #' ## ------------------------------------------------
+    #'
+    #' library(ggplot2)
+    #' library(rtables)
+    #'
     #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
@@ -83,7 +96,14 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @param sep the element inserted between each content element in this `Reporter`.
     #' Pass `NULL` to return content without any additional elements. Default: `NewpageBlock$new()`
     #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock` and `NewpageBlock`.
-    #' @examplesIf requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("rtables", quietly = TRUE)
+    #' @examplesIf requireNamespace("ggplot2") && requireNamespace("rtables")
+    #' ## ------------------------------------------------
+    #' ## Method `Reporter$get_blocks`
+    #' ## ------------------------------------------------
+    #'
+    #' library(ggplot2)
+    #' library(rtables)
+    #'
     #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
@@ -168,6 +188,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @note The function has to be used in the shiny reactive context.
     #' @examples
     #' library(shiny)
+    #'
     #' isolate(Reporter$new()$get_reactive_add_card())
     get_reactive_add_card = function() {
       private$reactive_add_card()

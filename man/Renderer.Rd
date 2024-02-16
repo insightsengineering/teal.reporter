@@ -10,8 +10,11 @@
 \code{Renderer}
 }
 \examples{
-\dontshow{if (requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("rtables", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("ggplot2") && requireNamespace("rtables")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(yaml)
+library(rtables)
+library(ggplot2)
+
 ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
 card1 <- ReportCard$new()
 
@@ -49,8 +52,10 @@ yaml_header <- md_header(as.yaml(yaml_l))
 Renderer <- getFromNamespace("Renderer", "teal.reporter")
 result_path <- Renderer$new()$renderRmd(reporter$get_blocks(), yaml_header)
 \dontshow{\}) # examplesIf}
-\dontshow{if (requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("rtables", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("ggplot2") && requireNamespace("rtables")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(yaml)
+library(ggplot2)
+
 ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
 card1 <- ReportCard$new()
 

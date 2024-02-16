@@ -10,7 +10,10 @@
 \code{PictureBlock}
 }
 \examples{
-\dontshow{if (requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("lattice", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("ggplot2") && requireNamespace("lattice")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(ggplot2)
+library(lattice)
+
 PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
 block <- PictureBlock$new()
 block$set_content(ggplot(iris))
@@ -31,6 +34,15 @@ block$set_content(ggplotGrob(ggplot(iris)))
 PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
 block <- PictureBlock$new()
 block$set_title("Title")
+
+
+## ------------------------------------------------
+## Method `PictureBlock$get_title`
+## ------------------------------------------------
+
+PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+block <- PictureBlock$new()
+block$get_title()
 
 
 ## ------------------------------------------------
@@ -166,10 +178,18 @@ Returns the title of this \code{PictureBlock}.
 
 \subsection{Returns}{
 The content of this \code{PictureBlock}.
-PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
 block <- PictureBlock$new()
 block$get_title()
+
 }
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PictureBlock-set_dim"></a>}}
