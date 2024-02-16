@@ -34,7 +34,7 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Returns the absolute path to content of this `ContentBlock`.
     #'
-    #' @return `character` content of this `ContentBlock`.
+    #' @return `character` string or file path assigned to this `ContentBlock`.
     #' @examples
     #' ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
     #' block <- ContentBlock$new()
