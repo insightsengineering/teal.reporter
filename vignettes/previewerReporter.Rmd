@@ -1,14 +1,14 @@
 ---
-title: "Reporter Previewer"
+title: "Report Previewer"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Reporter Previewer}
+  %\VignetteIndexEntry{Report Previewer}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-Reporter previewer is a `shiny` module to visualize and manipulate the already added report cards, and eventually downloading a report document.
-Reporter previewer is extended by the base modules introduced in the `simpleReporter` vignette.
+Report previewer is a `shiny` module to visualize and manipulate the already added report cards, and eventually downloading a report document.
+Report previewer is extended by the base modules introduced in the `simpleReporter` vignette.
 
 For clarity, in the app below the code added to introduce the reporter is wrapped in the `### REPORTER` code blocks.
 
