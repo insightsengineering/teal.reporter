@@ -19,7 +19,7 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Sets content of this `ContentBlock`.
     #'
-    #' @param content (`character(0)` or `character(1)`) a string literal or a file path assigned to this `ContentBlock`
+    #' @param content (`character(0)` or `character(1)`) string or file path assigned to this `ContentBlock`
     #'
     #' @return `self`, invisibly.
     #' @examples
