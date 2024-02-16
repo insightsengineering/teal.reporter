@@ -14,7 +14,14 @@ facilitating the creation, manipulation, and serialization of report-related dat
 The function has to be used in the shiny reactive context.
 }
 \examples{
-\dontshow{if (requireNamespace("ggplot2") && requireNamespace("rtables")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+
+## ------------------------------------------------
+## Method `Reporter$new`
+## ------------------------------------------------
+
+reporter <- Reporter$new()
+
+
 ## ------------------------------------------------
 ## Method `Reporter$append_cards`
 ## ------------------------------------------------
@@ -27,7 +34,7 @@ card1 <- ReportCard$new()
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text", "header2")
 card1$append_plot(
- ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
+ plot(1:10)
 )
 
 card2 <- ReportCard$new()
@@ -41,8 +48,7 @@ card2$append_table(iris)
 
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
-\dontshow{\}) # examplesIf}
-\dontshow{if (requireNamespace("ggplot2") && requireNamespace("rtables")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+
 ## ------------------------------------------------
 ## Method `Reporter$get_cards`
 ## ------------------------------------------------
@@ -70,8 +76,7 @@ card2$append_table(iris)
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 reporter$get_cards()
-\dontshow{\}) # examplesIf}
-\dontshow{if (requireNamespace("ggplot2") && requireNamespace("rtables")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+
 ## ------------------------------------------------
 ## Method `Reporter$get_blocks`
 ## ------------------------------------------------
@@ -99,13 +104,6 @@ card2$append_table(iris)
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 reporter$get_blocks()
-\dontshow{\}) # examplesIf}
-
-## ------------------------------------------------
-## Method `Reporter$new`
-## ------------------------------------------------
-
-reporter <- Reporter$new()
 
 
 ## ------------------------------------------------
@@ -240,6 +238,35 @@ Append one or more \code{ReportCard} objects to the \code{Reporter}.
 \subsection{Returns}{
 \code{self}, invisibly.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{library(ggplot2)
+library(rtables)
+
+card1 <- ReportCard$new()
+
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text", "header2")
+card1$append_plot(
+ plot(1:10)
+)
+
+card2 <- ReportCard$new()
+
+card2$append_text("Header 2 text", "header2")
+card2$append_text("A paragraph of default text", "header2")
+lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
+table_res2 <- build_table(lyt, airquality)
+card2$append_table(table_res2)
+card2$append_table(iris)
+
+reporter <- Reporter$new()
+reporter$append_cards(list(card1, card2))
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-get_cards"></a>}}
@@ -253,6 +280,36 @@ Retrieves all \code{ReportCard} objects contained in the \code{Reporter}.
 \subsection{Returns}{
 A (\code{list}) of \code{\link{ReportCard}} objects.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{library(ggplot2)
+library(rtables)
+
+card1 <- ReportCard$new()
+
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text", "header2")
+card1$append_plot(
+ ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
+)
+
+card2 <- ReportCard$new()
+
+card2$append_text("Header 2 text", "header2")
+card2$append_text("A paragraph of default text", "header2")
+lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
+table_res2 <- build_table(lyt, airquality)
+card2$append_table(table_res2)
+card2$append_table(iris)
+
+reporter <- Reporter$new()
+reporter$append_cards(list(card1, card2))
+reporter$get_cards()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-get_blocks"></a>}}
@@ -274,6 +331,37 @@ Default is a \code{NewpageBlock$new()}object.}
 \subsection{Returns}{
 \code{list()} list of \code{TableBlock}, \code{TextBlock}, \code{PictureBlock} and \code{NewpageBlock}.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{library(ggplot2)
+library(rtables)
+
+card1 <- ReportCard$new()
+
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text", "header2")
+card1$append_plot(
+ ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
+)
+
+card2 <- ReportCard$new()
+
+card2$append_text("Header 2 text", "header2")
+card2$append_text("A paragraph of default text", "header2")
+lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
+table_res2 <- build_table(lyt, airquality)
+card2$append_table(table_res2)
+card2$append_table(iris)
+
+reporter <- Reporter$new()
+reporter$append_cards(list(card1, card2))
+reporter$get_blocks()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-reset"></a>}}

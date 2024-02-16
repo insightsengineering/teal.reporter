@@ -25,11 +25,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param cards (`ReportCard`) or a list of such objects
     #' @return `self`, invisibly.
-    #' @examplesIf requireNamespace("ggplot2") && requireNamespace("rtables")
-    #' ## ------------------------------------------------
-    #' ## Method `Reporter$append_cards`
-    #' ## ------------------------------------------------
-    #'
+    #' @examples
     #' library(ggplot2)
     #' library(rtables)
     #'
@@ -38,7 +34,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text", "header2")
     #' card1$append_plot(
-    #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
+    #'  plot(1:10)
     #' )
     #'
     #' card2 <- ReportCard$new()
@@ -61,11 +57,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @description Retrieves all `ReportCard` objects contained in the `Reporter`.
     #'
     #' @return A (`list`) of [`ReportCard`] objects.
-    #' @examplesIf requireNamespace("ggplot2") && requireNamespace("rtables")
-    #' ## ------------------------------------------------
-    #' ## Method `Reporter$get_cards`
-    #' ## ------------------------------------------------
-    #'
+    #' @examples
     #' library(ggplot2)
     #' library(rtables)
     #'
@@ -97,11 +89,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @param sep An optional separator to insert between each content block.
     #' Default is a `NewpageBlock$new()`object.
     #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock` and `NewpageBlock`.
-    #' @examplesIf requireNamespace("ggplot2") && requireNamespace("rtables")
-    #' ## ------------------------------------------------
-    #' ## Method `Reporter$get_blocks`
-    #' ## ------------------------------------------------
-    #'
+    #' @examples
     #' library(ggplot2)
     #' library(rtables)
     #'

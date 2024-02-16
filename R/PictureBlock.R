@@ -23,11 +23,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @param content (`ggplot` or `grob` or `trellis`) a picture in this `PictureBlock`
     #'
     #' @return `self`, invisibly.
-    #' @examplesIf requireNamespace("ggplot2") && requireNamespace("lattice")
-    #' ## ------------------------------------------------
-    #' ## Method `PictureBlock$set_content`
-    #' ## ------------------------------------------------
-    #'
+    #' @examples
     #' library(ggplot2)
     #' library(lattice)
     #'
