@@ -34,7 +34,7 @@ card1 <- ReportCard$new()
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text", "header2")
 card1$append_plot(
- plot(1:10)
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
 )
 
 card2 <- ReportCard$new()
@@ -248,7 +248,7 @@ card1 <- ReportCard$new()
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text", "header2")
 card1$append_plot(
- plot(1:10)
+  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
 )
 
 card2 <- ReportCard$new()
