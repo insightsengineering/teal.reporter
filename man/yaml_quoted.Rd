@@ -2,7 +2,7 @@
 % Please edit documentation in R/yaml_utils.R
 \name{yaml_quoted}
 \alias{yaml_quoted}
-\title{Quoted string for \code{yaml}}
+\title{Mark strings for quotation in \code{yaml} serialization}
 \usage{
 yaml_quoted(x)
 }
@@ -10,7 +10,8 @@ yaml_quoted(x)
 \item{x}{(\code{character})}
 }
 \description{
-Add quoted attribute for \code{yaml} package.
+This function is designed for use with the \code{yaml} package to explicitly,
+It adds an attribute to character strings, indicating that they should be serialized with double quotes.
 }
 \examples{
 library(yaml)

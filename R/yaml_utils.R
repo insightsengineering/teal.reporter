@@ -1,6 +1,7 @@
-#' Quoted string for `yaml`
+#' Mark strings for quotation in `yaml` serialization
 #'
-#' Add quoted attribute for `yaml` package.
+#' This function is designed for use with the `yaml` package to explicitly,
+#' It adds an attribute to character strings, indicating that they should be serialized with double quotes.
 #'
 #' @param x (`character`)
 #' @keywords internal
@@ -19,7 +20,10 @@ yaml_quoted <- function(x) {
   x
 }
 
-#' Wrap a `yaml` string to the `markdown` header
+#' Create `markdown` header from `yaml` string
+#'
+#' This function wraps a `yaml`-formatted string in Markdown header delimiters.
+#'
 #' @param x (`character`) `yaml` formatted string.
 #' @keywords internal
 #' @examples
@@ -84,7 +88,8 @@ conv_str_logi <- function(input,
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' Get document output types from the `rmarkdown` package.
+#' Retrieves vector of available document output types from the `rmarkdown` package,
+#' such as `pdf_document`, `html_document`, etc.
 #'
 #' @return `character` vector.
 #' @export
@@ -99,7 +104,7 @@ rmd_outputs <- function() {
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' Get document output arguments from the `rmarkdown` package.
+#' Retrieves the arguments for a specified document output type from the `rmarkdown` package.
 #'
 #' @param output_name (`character`) `rmarkdown` output name.
 #' @param default_values (`logical(1)`) if to return a default values for each argument.
@@ -123,8 +128,8 @@ rmd_output_arguments <- function(output_name, default_values = FALSE) {
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' Function converts a named list into a `yaml` header for an `Rmd` file,
-#'  so the developer gets automatically tabulated `Rmd` `yaml` header.
+#' Converts a named list into a `yaml` header for `Rmd`, handling output types and arguments
+#' as defined in the `rmarkdown` package. This function simplifies the process of generating `yaml` headers.
 #'
 #' @details
 #' This function processes a non-nested (flat) named list and generates an `Rmd` YAML header.
@@ -285,7 +290,7 @@ print.rmd_yaml_header <- function(x, ...) {
   cat(x, ...)
 }
 
-#' Parses `yaml` text
+#' Extract field from `yaml` text
 #'
 #' Parses `yaml` text, extracting the specified field. Returns list names if it's a list;
 #' otherwise, the field itself.

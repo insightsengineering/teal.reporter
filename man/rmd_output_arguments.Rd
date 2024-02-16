@@ -14,7 +14,7 @@ rmd_output_arguments(output_name, default_values = FALSE)
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Get document output arguments from the \code{rmarkdown} package.
+Retrieves the arguments for a specified document output type from the \code{rmarkdown} package.
 }
 \examples{
 rmd_output_arguments("pdf_document")

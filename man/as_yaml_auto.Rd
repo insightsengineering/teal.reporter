@@ -31,8 +31,8 @@ result of \code{\link[yaml:as.yaml]{yaml::as.yaml}}, optionally wrapped with int
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Function converts a named list into a \code{yaml} header for an \code{Rmd} file,
-so the developer gets automatically tabulated \code{Rmd} \code{yaml} header.
+Converts a named list into a \code{yaml} header for \code{Rmd}, handling output types and arguments
+as defined in the \code{rmarkdown} package. This function simplifies the process of generating \code{yaml} headers.
 }
 \details{
 This function processes a non-nested (flat) named list and generates an \code{Rmd} YAML header.

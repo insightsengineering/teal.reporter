@@ -2,7 +2,7 @@
 % Please edit documentation in R/yaml_utils.R
 \name{md_header}
 \alias{md_header}
-\title{Wrap a \code{yaml} string to the \code{markdown} header}
+\title{Create \code{markdown} header from \code{yaml} string}
 \usage{
 md_header(x)
 }
@@ -10,7 +10,7 @@ md_header(x)
 \item{x}{(\code{character}) \code{yaml} formatted string.}
 }
 \description{
-Wrap a \code{yaml} string to the \code{markdown} header
+This function wraps a \code{yaml}-formatted string in Markdown header delimiters.
 }
 \examples{
 library(yaml)
