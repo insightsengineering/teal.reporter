@@ -53,7 +53,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Returns cards of this `Reporter`.
     #'
-    #' @return `list()` list of [`ReportCard`].
+    #' @return A (`list`) of [`ReportCard`] objects.
     #' @examplesIf requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("rtables", quietly = TRUE)
     #' card1 <- ReportCard$new()
     #'
