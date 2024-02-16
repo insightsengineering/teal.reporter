@@ -228,7 +228,7 @@ Returns cards of this \code{Reporter}.
 }
 
 \subsection{Returns}{
-\code{list()} list of \code{\link{ReportCard}}.
+A (\code{list}) of \code{\link{ReportCard}} objects.
 }
 }
 \if{html}{\out{<hr>}}
@@ -312,13 +312,13 @@ swap two cards in the \code{Reporter}.
 \if{html}{\out{<a id="method-Reporter-get_reactive_add_card"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_reactive_add_card}{}}}
 \subsection{Method \code{get_reactive_add_card()}}{
-get a value for the reactive value for the add card.
+Gets the current value of the reactive variable for adding cards.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$get_reactive_add_card()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-\code{reactive_add_card} field value.
+\code{reactive_add_card} current \code{numeric} value of the reactive variable.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -429,7 +429,8 @@ Convert a \code{Reporter} to a list and transfer files.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\verb{named list} \code{Reporter} representation.
+\verb{named list} representing the \code{Reporter} instance, including version information,
+metadata, and report cards.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

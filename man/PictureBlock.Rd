@@ -206,7 +206,7 @@ block$set_dim(c(800, 600))
 \if{html}{\out{<a id="method-PictureBlock-get_dim"></a>}}
 \if{latex}{\out{\hypertarget{method-PictureBlock-get_dim}{}}}
 \subsection{Method \code{get_dim()}}{
-Returns the dimensions of this \code{PictureBlock}.
+Get \code{PictureBlock} dimensions as a numeric vector.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{PictureBlock$get_dim()}\if{html}{\out{</div>}}
 }

@@ -162,9 +162,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$cards[[end]] <- start_val
       invisible(self)
     },
-    #' @description get a value for the reactive value for the add card.
+    #' @description Gets the current value of the reactive variable for adding cards.
     #'
-    #' @return `reactive_add_card` field value.
+    #' @return `reactive_add_card` current `numeric` value of the reactive variable.
     #' @note The function has to be used in the shiny reactive context.
     #' @examples
     #' library(shiny)
@@ -211,7 +211,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Convert a `Reporter` to a list and transfer files.
     #' @param output_dir (`character(1)`) a path to the directory where files will be copied.
-    #' @return `named list` `Reporter` representation.
+    #' @return `named list` representing the `Reporter` instance, including version information,
+    #'  metadata, and report cards.
+    #'
     #' @examples
     #' reporter <- Reporter$new()
     #' tmp_dir <- file.path(tempdir(), "testdir")

@@ -2,7 +2,7 @@
 % Please edit documentation in R/DownloadModule.R
 \name{report_render_and_compress}
 \alias{report_render_and_compress}
-\title{Render the Report}
+\title{Render the report}
 \usage{
 report_render_and_compress(
   reporter,

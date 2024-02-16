@@ -117,7 +117,7 @@ Returns the absolute path to content of this \code{ContentBlock}.
 }
 
 \subsection{Returns}{
-\code{character} content of this \code{ContentBlock}.
+\code{character} string or file path assigned to this \code{ContentBlock}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

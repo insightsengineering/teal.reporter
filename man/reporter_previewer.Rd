@@ -4,7 +4,7 @@
 \alias{reporter_previewer}
 \alias{reporter_previewer_ui}
 \alias{reporter_previewer_srv}
-\title{Reporter previewer module}
+\title{Report previewer module}
 \usage{
 reporter_previewer_ui(id)
 
@@ -31,7 +31,7 @@ by default all possible \code{c("pdf_document", "html_document", "powerpoint_pre
 If vector is named then those names will appear in the \code{UI}.}
 
 \item{rmd_yaml_args}{(\verb{named list}) with \code{Rmd} \code{yaml} header fields and their default values.
-This \code{list} will result in the custom subset of User Interface inputs for the download reporter functionality.
+This \code{list} will result in the custom subset of UI inputs for the download reporter functionality.
 Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)}.
 The \code{list} must include at least \code{"output"} field.
 The default value for \code{"output"} has to be in the \code{rmd_output} argument.}
@@ -42,7 +42,6 @@ The default value for \code{"output"} has to be in the \code{rmd_output} argumen
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Provides UI and server functions to preview and manage report cards.
 Module offers functionalities to visualize, manipulate,
 and interact with report cards that have been added to a report.
 It includes a previewer interface to see the cards and options to modify the report before downloading.

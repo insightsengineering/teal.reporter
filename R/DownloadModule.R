@@ -250,7 +250,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
 #' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
 #' If vector is named then those names will appear in the `UI`.
 #' @param rmd_yaml_args (`named list`) with `Rmd` `yaml` header fields and their default values.
-#' This `list` will result in the custom subset of User Interface inputs for the download reporter functionality.
+#' This `list` will result in the custom subset of UI inputs for the download reporter functionality.
 #' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)`.
 #' The `list` must include at least `"output"` field.
 #' The default value for `"output"` has to be in the `rmd_output` argument.
