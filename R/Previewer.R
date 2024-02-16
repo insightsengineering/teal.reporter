@@ -1,8 +1,7 @@
-#' Reporter previewer module
+#' Report previewer module
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' Provides UI and server functions to preview and manage report cards.
 #' Module offers functionalities to visualize, manipulate,
 #' and interact with report cards that have been added to a report.
 #' It includes a previewer interface to see the cards and options to modify the report before downloading.
