@@ -19,7 +19,7 @@
 #' @param global_knitr `list` a global `knitr` parameters for customizing the rendering process.
 #' @inheritParams reporter_download_inputs
 #'
-#' @return `shiny::moduleServer`.
+#' @return `NULL`.
 #'
 #' @examples
 #' library(shiny)

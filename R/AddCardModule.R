@@ -38,7 +38,7 @@
 #' It can have optional `card`, `comment` and
 #' `label` parameters.
 #'
-#' @return `shiny::moduleServer`.
+#' @return `NULL`.
 NULL
 
 #' @rdname add_card_button

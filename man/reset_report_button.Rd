@@ -19,7 +19,7 @@ By default \code{NULL}.}
 \item{reporter}{\code{\link{Reporter}} instance.}
 }
 \value{
-\code{shiny::moduleServer}.
+\code{NULL}.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}

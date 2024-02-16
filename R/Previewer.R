@@ -19,7 +19,7 @@
 #'  for customizing the rendering process.
 #' @inheritParams reporter_download_inputs
 #'
-#' @return `shiny::moduleServer`.
+#' @return `NULL`.
 NULL
 
 #' @rdname reporter_previewer

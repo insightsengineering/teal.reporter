@@ -20,7 +20,7 @@ It can have optional \code{card}, \code{comment} and
 \code{label} parameters.}
 }
 \value{
-\code{shiny::moduleServer}.
+\code{NULL}.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}

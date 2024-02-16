@@ -12,7 +12,7 @@
 #' @param label `character(1)` label before the icon.
 #' By default `NULL`.
 #' @param reporter [`Reporter`] instance.
-#' @return `shiny::moduleServer`.
+#' @return `NULL`.
 NULL
 
 #' @rdname reset_report_button
