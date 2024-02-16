@@ -4,7 +4,7 @@
 \alias{download_report_button}
 \alias{download_report_button_ui}
 \alias{download_report_button_srv}
-\title{Download button reporter module}
+\title{Download report button module}
 \usage{
 download_report_button_ui(id)
 
@@ -42,7 +42,7 @@ The default value for \code{"output"} has to be in the \code{rmd_output} argumen
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Provides UI and server functions for downloading reports in various formats.
+Provides a button that triggers downloading a report.
 
 For more information, refer to the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }

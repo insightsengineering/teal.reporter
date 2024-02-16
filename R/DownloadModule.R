@@ -1,8 +1,8 @@
-#' Download button reporter module
+#' Download report button module
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' Provides UI and server functions for downloading reports in various formats.
+#' Provides a button that triggers downloading a report.
 #'
 #' For more information, refer to the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #'

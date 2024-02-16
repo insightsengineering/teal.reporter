@@ -2,7 +2,7 @@
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' Provides UI and server functions to add views/cards to a report.
+#' Provides a button to add views/cards to a report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #'

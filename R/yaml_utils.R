@@ -37,7 +37,9 @@ md_header <- function(x) {
   paste0("---\n", x, "---\n")
 }
 
-#' Convert a character of a `yaml` boolean to a logical value
+#' Convert `yaml` representation of a boolean strings to logical Values
+#'
+#' Converts a single `character` string representing a `yaml` boolean value into a logical value in `R`.
 #'
 #' @param input (`character(1)`)
 #' @param name (`charcter(1)`)
@@ -117,11 +119,11 @@ rmd_output_arguments <- function(output_name, default_values = FALSE) {
   }
 }
 
-#' Parse a named list to the `Rmd` `yaml` header
+#' Parse a named list to `yaml` header for an `Rmd` file
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' Function parse a named list to the `Rmd` `yaml` header,
+#' Function converts a named list into a `yaml` header for an `Rmd` file,
 #'  so the developer gets automatically tabulated `Rmd` `yaml` header.
 #'
 #' @details

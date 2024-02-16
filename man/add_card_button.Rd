@@ -23,7 +23,7 @@ add_card_button_srv(id, reporter, card_fun)
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Provides UI and server functions to add views/cards to a report.
+Provides a button to add views/cards to a report.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }

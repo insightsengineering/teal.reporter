@@ -2,7 +2,7 @@
 % Please edit documentation in R/yaml_utils.R
 \name{as_yaml_auto}
 \alias{as_yaml_auto}
-\title{Parse a named list to the \code{Rmd} \code{yaml} header}
+\title{Parse a named list to \code{yaml} header for an \code{Rmd} file}
 \usage{
 as_yaml_auto(
   input_list,
@@ -31,7 +31,7 @@ result of \code{\link[yaml:as.yaml]{yaml::as.yaml}}, optionally wrapped with int
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Function parse a named list to the \code{Rmd} \code{yaml} header,
+Function converts a named list into a \code{yaml} header for an \code{Rmd} file,
 so the developer gets automatically tabulated \code{Rmd} \code{yaml} header.
 }
 \details{

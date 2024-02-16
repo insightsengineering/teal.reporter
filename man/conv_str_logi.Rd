@@ -2,7 +2,7 @@
 % Please edit documentation in R/yaml_utils.R
 \name{conv_str_logi}
 \alias{conv_str_logi}
-\title{Convert a character of a \code{yaml} boolean to a logical value}
+\title{Convert \code{yaml} representation of a boolean strings to logical Values}
 \usage{
 conv_str_logi(
   input,
@@ -27,7 +27,7 @@ conv_str_logi(
 \code{input} argument or the appropriate \code{logical} value.
 }
 \description{
-Convert a character of a \code{yaml} boolean to a logical value
+Converts a single \code{character} string representing a \code{yaml} boolean value into a logical value in \code{R}.
 }
 \examples{
 

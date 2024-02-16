@@ -4,7 +4,7 @@
 \alias{reset_report_button}
 \alias{reset_report_button_ui}
 \alias{reset_report_button_srv}
-\title{Reset button reporter module}
+\title{Reset report button module}
 \usage{
 reset_report_button_ui(id, label = NULL)
 
@@ -24,7 +24,7 @@ By default \code{NULL}.}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Provides UI and server functions for resetting the report content.
+Provides a button that triggers resetting the report content.
 
 For more information, refer to the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }

@@ -13,8 +13,11 @@ to_flextable(content)
 \code{flextable}.
 }
 \description{
-Function transform content into a \code{flextable}, merge cells with \code{colspan} > 1
-align columns to the center, and row names to the left
-indent the row names by 10 times indentation.
+Converts supported table formats into a \code{flextable} for enhanced formatting and presentation.
+}
+\details{
+Function merges cells with \code{colspan} > 1,
+aligns columns to the center and row names to the left,
+indents the row names by 10 times indentation.
 }
 \keyword{internal}

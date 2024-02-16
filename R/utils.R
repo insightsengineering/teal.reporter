@@ -112,9 +112,11 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
 
 #' Convert content into a `flextable`
 #'
-#' Function transform content into a `flextable`, merge cells with `colspan` > 1
-#' align columns to the center, and row names to the left
-#' indent the row names by 10 times indentation.
+#' Converts supported table formats into a `flextable` for enhanced formatting and presentation.
+#'
+#' Function merges cells with `colspan` > 1,
+#' aligns columns to the center and row names to the left,
+#' indents the row names by 10 times indentation.
 #'
 #' @param content Supported formats: `data.frame`, `rtables`, `TableTree`, `ElementaryTable`, `listing_df`
 #'

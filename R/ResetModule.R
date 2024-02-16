@@ -1,8 +1,8 @@
-#' Reset button reporter module
+#' Reset report button module
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' Provides UI and server functions for resetting the report content.
+#' Provides a button that triggers resetting the report content.
 #'
 #' For more information, refer to the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #'
