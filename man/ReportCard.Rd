@@ -3,11 +3,11 @@
 \docType{class}
 \name{ReportCard}
 \alias{ReportCard}
-\title{\code{ReportCard}}
+\title{\code{ReportCard}: An \code{R6} class for building report elements}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-\code{R6} class that supports creating a report card containing text, plot, table and
+This \code{R6} class that supports creating a report card containing text, plot, table and
 metadata blocks that can be appended and rendered to form a report output from a \code{shiny} app.
 }
 \examples{
@@ -188,7 +188,7 @@ Appends a table to this \code{ReportCard}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{table}}{the appended table}
+\item{\code{table}}{A (\code{data.frame} or object) that can be coerced into a table.}
 }
 \if{html}{\out{</div>}}
 }
@@ -217,7 +217,7 @@ Appends a plot to this \code{ReportCard}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{plot}}{the appended plot}
+\item{\code{plot}}{(\code{ggplot} or \code{grob} or \code{trellis}) plot object.}
 
 \item{\code{dim}}{(\code{integer(2)}) width and height in pixels.}
 }
@@ -231,7 +231,7 @@ Appends a plot to this \code{ReportCard}.
 \if{html}{\out{<a id="method-ReportCard-append_text"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-append_text}{}}}
 \subsection{Method \code{append_text()}}{
-Appends a paragraph of text to this \code{ReportCard}.
+Appends a text paragraph to this \code{ReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_text(text, style = TextBlock$new()$get_available_styles()[1])}\if{html}{\out{</div>}}
 }
@@ -239,7 +239,7 @@ Appends a paragraph of text to this \code{ReportCard}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{text}}{(\code{character})}
+\item{\code{text}}{(\code{character}) The text content to add.}
 
 \item{\code{style}}{(\code{character(1)}) the style of the paragraph. One of: \code{default}, \code{header}, \code{verbatim}}
 }
@@ -262,7 +262,7 @@ Appends a paragraph of text to this \code{ReportCard}.
 \if{html}{\out{<a id="method-ReportCard-append_rcode"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-append_rcode}{}}}
 \subsection{Method \code{append_rcode()}}{
-Appends an \code{rmarkdown} R chunk to this \code{ReportCard}.
+Appends an \code{R} code chunk to \code{ReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_rcode(text, ...)}\if{html}{\out{</div>}}
 }
@@ -270,9 +270,9 @@ Appends an \code{rmarkdown} R chunk to this \code{ReportCard}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{text}}{(\code{character})}
+\item{\code{text}}{(\code{character}) The \code{R} code to include.}
 
-\item{\code{...}}{any \code{rmarkdown} R chunk parameter and its value.}
+\item{\code{...}}{Additional  \code{rmarkdown} parameters for formatting the \code{R} code chunk.}
 }
 \if{html}{\out{</div>}}
 }
@@ -293,7 +293,7 @@ Appends an \code{rmarkdown} R chunk to this \code{ReportCard}.
 \if{html}{\out{<a id="method-ReportCard-append_content"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-append_content}{}}}
 \subsection{Method \code{append_content()}}{
-Appends a \code{ContentBlock} to this \code{ReportCard}.
+Appends a generic \code{ContentBlock} to this \code{ReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_content(content)}\if{html}{\out{</div>}}
 }
@@ -301,7 +301,7 @@ Appends a \code{ContentBlock} to this \code{ReportCard}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{content}}{(\code{ContentBlock})}
+\item{\code{content}}{(\code{ContentBlock}) object.}
 }
 \if{html}{\out{</div>}}
 }
@@ -323,7 +323,7 @@ card <- ReportCard$new()$append_content(NewpageBlock$new())
 \if{html}{\out{<a id="method-ReportCard-get_content"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-get_content}{}}}
 \subsection{Method \code{get_content()}}{
-Returns the content of this \code{ReportCard}.
+Get all content blocks from this \code{ReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_content()}\if{html}{\out{</div>}}
 }
@@ -348,7 +348,7 @@ card$get_content()
 \if{html}{\out{<a id="method-ReportCard-reset"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-reset}{}}}
 \subsection{Method \code{reset()}}{
-Removes all objects added to this \code{ReportCard}.
+Clears all content and metadata from \code{ReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$reset()}\if{html}{\out{</div>}}
 }
@@ -361,7 +361,7 @@ Removes all objects added to this \code{ReportCard}.
 \if{html}{\out{<a id="method-ReportCard-get_metadata"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-get_metadata}{}}}
 \subsection{Method \code{get_metadata()}}{
-Returns the metadata of this \code{ReportCard}.
+Get the metadata associated with \code{ReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_metadata()}\if{html}{\out{</div>}}
 }
@@ -393,9 +393,9 @@ Appends metadata to this \code{ReportCard}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{key}}{(\code{character(1)}) name of meta data.}
+\item{\code{key}}{(\code{character(1)}) string specifying the metadata key.}
 
-\item{\code{value}}{value of meta data.}
+\item{\code{value}}{value associated with the metadata key.}
 }
 \if{html}{\out{</div>}}
 }
@@ -407,7 +407,7 @@ Appends metadata to this \code{ReportCard}.
 \if{html}{\out{<a id="method-ReportCard-get_name"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-get_name}{}}}
 \subsection{Method \code{get_name()}}{
-get the card name.
+Get the name of the \code{ReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_name()}\if{html}{\out{</div>}}
 }
@@ -428,7 +428,7 @@ get the card name.
 \if{html}{\out{<a id="method-ReportCard-set_name"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-set_name}{}}}
 \subsection{Method \code{set_name()}}{
-set the card name.
+Set the name of the \code{ReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$set_name(name)}\if{html}{\out{</div>}}
 }
@@ -456,7 +456,7 @@ set the card name.
 \if{html}{\out{<a id="method-ReportCard-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-to_list}{}}}
 \subsection{Method \code{to_list()}}{
-Convert the \code{ReportCard} to a list.
+Convert the \code{ReportCard} to a list, including content and metadata.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$to_list(output_dir)}\if{html}{\out{</div>}}
 }
@@ -476,7 +476,7 @@ Convert the \code{ReportCard} to a list.
 \if{html}{\out{<a id="method-ReportCard-from_list"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-from_list}{}}}
 \subsection{Method \code{from_list()}}{
-Create the \code{ReportCard} from a list.
+Reconstructs the \code{ReportCard} from a list representation.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$from_list(card, output_dir)}\if{html}{\out{</div>}}
 }

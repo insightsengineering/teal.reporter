@@ -1,9 +1,9 @@
-#' @title `ReportCard`
+#' @title `ReportCard`: An `R6` class for building report elements
 #' @docType class
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' `R6` class that supports creating a report card containing text, plot, table and
+#' This `R6` class that supports creating a report card containing text, plot, table and
 #' metadata blocks that can be appended and rendered to form a report output from a `shiny` app.
 #'
 #' @export
@@ -24,7 +24,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Appends a table to this `ReportCard`.
     #'
-    #' @param table the appended table
+    #' @param table A (`data.frame` or object) that can be coerced into a table.
     #' @return `self`, invisibly.
     #' @examples
     #' card <- ReportCard$new()$append_table(iris)
@@ -35,7 +35,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Appends a plot to this `ReportCard`.
     #'
-    #' @param plot the appended plot
+    #' @param plot (`ggplot` or `grob` or `trellis`) plot object.
     #' @param dim (`integer(2)`) width and height in pixels.
     #' @return `self`, invisibly.
     #' @examplesIf requireNamespace("ggplot2")
@@ -58,9 +58,9 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       self$append_content(pb)
       invisible(self)
     },
-    #' @description Appends a paragraph of text to this `ReportCard`.
+    #' @description Appends a text paragraph to this `ReportCard`.
     #'
-    #' @param text (`character`)
+    #' @param text (`character`) The text content to add.
     #' @param style (`character(1)`) the style of the paragraph. One of: `default`, `header`, `verbatim`
     #' @return `self`, invisibly.
     #' @examples
@@ -70,10 +70,10 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       self$append_content(TextBlock$new(text, style))
       invisible(self)
     },
-    #' @description Appends an `rmarkdown` R chunk to this `ReportCard`.
+    #' @description Appends an `R` code chunk to `ReportCard`.
     #'
-    #' @param text (`character`)
-    #' @param ... any `rmarkdown` R chunk parameter and its value.
+    #' @param text (`character`) The `R` code to include.
+    #' @param ... Additional  `rmarkdown` parameters for formatting the `R` code chunk.
     #' @return `self`, invisibly.
     #' @examples
     #' card <- ReportCard$new()$append_rcode("2+2", echo = FALSE)
@@ -82,9 +82,9 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       self$append_content(RcodeBlock$new(text, ...))
       invisible(self)
     },
-    #' @description Appends a `ContentBlock` to this `ReportCard`.
+    #' @description Appends a generic `ContentBlock` to this `ReportCard`.
     #'
-    #' @param content (`ContentBlock`)
+    #' @param content (`ContentBlock`) object.
     #' @return `self`, invisibly.
     #' @examples
     #' NewpageBlock <- getFromNamespace("NewpageBlock", "teal.reporter")
@@ -95,7 +95,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       private$content <- append(private$content, content)
       invisible(self)
     },
-    #' @description Returns the content of this `ReportCard`.
+    #' @description Get all content blocks from this `ReportCard`.
     #'
     #' @return `list()` list of `TableBlock`, `TextBlock` and `PictureBlock`.
     #' @examples
@@ -107,7 +107,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     get_content = function() {
       private$content
     },
-    #' @description Removes all objects added to this `ReportCard`.
+    #' @description Clears all content and metadata from `ReportCard`.
     #'
     #' @return `self`, invisibly.
     #'
@@ -116,7 +116,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       private$metadata <- list()
       invisible(self)
     },
-    #' @description Returns the metadata of this `ReportCard`.
+    #' @description Get the metadata associated with `ReportCard`.
     #'
     #' @return `named list` list of elements.
     #' @examples
@@ -129,8 +129,8 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Appends metadata to this `ReportCard`.
     #'
-    #' @param key (`character(1)`) name of meta data.
-    #' @param value value of meta data.
+    #' @param key (`character(1)`) string specifying the metadata key.
+    #' @param value value associated with the metadata key.
     #' @return `self`, invisibly.
     #' @examplesIf requireNamespace("ggplot2")
     #' ## ------------------------------------------------
@@ -154,7 +154,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       private$metadata <- append(private$metadata, meta_list)
       invisible(self)
     },
-    #' @description get the card name.
+    #' @description Get the name of the `ReportCard`.
     #'
     #' @return `character` a card name.
     #' @examples
@@ -162,7 +162,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     get_name = function() {
       private$name
     },
-    #' @description set the card name.
+    #' @description Set the name of the `ReportCard`.
     #'
     #' @param name (`character`) a card name.
     #' @return `self`, invisibly.
@@ -173,7 +173,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       private$name <- name
       invisible(self)
     },
-    #' @description Convert the `ReportCard` to a list.
+    #' @description Convert the `ReportCard` to a list, including content and metadata.
     #' @param output_dir (`character`) with a path to the directory where files will be copied.
     #' @return (`named list`) a `ReportCard` representation.
     #' @examplesIf requireNamespace("ggplot2")
@@ -211,7 +211,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       new_card[["metadata"]] <- self$get_metadata()
       new_card
     },
-    #' @description Create the `ReportCard` from a list.
+    #' @description Reconstructs the `ReportCard` from a list representation.
     #' @param card (`named list`) a `ReportCard` representation.
     #' @param output_dir (`character`) with a path to the directory where a file will be copied.
     #' @return `self`, invisibly.
