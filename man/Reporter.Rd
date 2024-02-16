@@ -498,7 +498,8 @@ reporter$get_metadata()
 \if{html}{\out{<a id="method-Reporter-from_reporter"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-from_reporter}{}}}
 \subsection{Method \code{from_reporter()}}{
-Reinitializes a \code{Reporter} instance by copying the report cards and metadata from another \code{Reporter}.
+Reinitializes a \code{Reporter} instance by copying the report
+cards and metadata from another \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$from_reporter(reporter)}\if{html}{\out{</div>}}
 }

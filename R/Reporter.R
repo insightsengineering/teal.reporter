@@ -205,7 +205,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$metadata <- append(private$metadata, meta)
       invisible(self)
     },
-    #' @description Reinitializes a `Reporter` instance by copying the report cards and metadata from another `Reporter`.
+    #' @description Reinitializes a `Reporter` instance by copying the report
+    #' cards and metadata from another `Reporter`.
     #' @param reporter (`Reporter`) instance to copy from.
     #' @return `self`, invisibly.
     #' @examples
