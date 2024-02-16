@@ -34,9 +34,7 @@
 #'
 #' @param id `character(1)` this `shiny` module's id.
 #' @param reporter [`Reporter`] instance.
-#' @param card_fun `function` which returns a [`ReportCard`] instance.
-#' It can have optional `card`, `comment` and
-#' `label` parameters.
+#' @param card_fun `function` which returns a [`ReportCard`] instance. See `Details`.
 #'
 #' @return `NULL`.
 NULL
