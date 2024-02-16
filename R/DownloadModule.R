@@ -152,7 +152,7 @@ download_report_button_srv <- function(id,
   )
 }
 
-#' Render the Report
+#' Render the report
 #'
 #' Render the report and zip the created directory.
 #'
@@ -244,7 +244,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
   invisible(file)
 }
 
-#' Get the custom list of User Interface inputs
+#' Get the custom list of UI inputs
 #'
 #' @param rmd_output (`character`) vector with `rmarkdown` output types,
 #' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
