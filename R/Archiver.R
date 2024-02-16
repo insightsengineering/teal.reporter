@@ -83,6 +83,10 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `self`.
     #' @examplesIf requireNamespace("ggplot2")
+    #' ## ------------------------------------------------
+    #' ## Method `JSONArchiver$write`
+    #' ## ------------------------------------------------
+    #'
     #' library(ggplot2)
     #'
     #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
@@ -114,6 +118,10 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `Reporter` instance.
     #' @examplesIf requireNamespace("ggplot2")
+    #' ## ------------------------------------------------
+    #' ## Method `JSONArchiver$read`
+    #' ## ------------------------------------------------
+    #'
     #' library(ggplot2)
     #'
     #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")

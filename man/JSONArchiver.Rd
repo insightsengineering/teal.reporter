@@ -11,6 +11,10 @@
 }
 \examples{
 \dontshow{if (requireNamespace("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+## ------------------------------------------------
+## Method `JSONArchiver$write`
+## ------------------------------------------------
+
 library(ggplot2)
 
 ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
@@ -32,6 +36,10 @@ archiver$write(reporter)
 archiver$get_output_dir()
 \dontshow{\}) # examplesIf}
 \dontshow{if (requireNamespace("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+## ------------------------------------------------
+## Method `JSONArchiver$read`
+## ------------------------------------------------
+
 library(ggplot2)
 
 ReportCard <- getFromNamespace("ReportCard", "teal.reporter")

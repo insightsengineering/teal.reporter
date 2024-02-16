@@ -12,6 +12,10 @@ metadata blocks that can be appended and rendered to form a report output from a
 }
 \examples{
 \dontshow{if (requireNamespace("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+## ------------------------------------------------
+## Method `ReportCard$append_plot`
+## ------------------------------------------------
+
 library(ggplot2)
 
 card <- ReportCard$new()$append_plot(
@@ -19,6 +23,10 @@ card <- ReportCard$new()$append_plot(
 )
 \dontshow{\}) # examplesIf}
 \dontshow{if (requireNamespace("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+## ------------------------------------------------
+## Method `ReportCard$append_metadata`
+## ------------------------------------------------
+
 library(ggplot2)
 
 card <- ReportCard$new()$append_text("Some text")$append_plot(
@@ -29,6 +37,10 @@ card$get_content()
 card$get_metadata()
 \dontshow{\}) # examplesIf}
 \dontshow{if (requireNamespace("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+## ------------------------------------------------
+## Method `ReportCard$to_list`
+## ------------------------------------------------
+
 library(ggplot2)
 
 card <- ReportCard$new()$append_text("Some text")$append_plot(
@@ -40,6 +52,10 @@ card$get_content()
 card$to_list(tempdir())
 \dontshow{\}) # examplesIf}
 \dontshow{if (requireNamespace("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+## ------------------------------------------------
+## Method `ReportCard$from_list`
+## ------------------------------------------------
+
 library(ggplot2)
 
 card <- ReportCard$new()$append_text("Some text")$append_plot(

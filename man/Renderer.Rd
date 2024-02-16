@@ -11,6 +11,10 @@
 }
 \examples{
 \dontshow{if (requireNamespace("ggplot2") && requireNamespace("rtables")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+## ------------------------------------------------
+## Method `Renderer$renderRmd`
+## ------------------------------------------------
+
 library(yaml)
 library(rtables)
 library(ggplot2)
@@ -53,6 +57,10 @@ Renderer <- getFromNamespace("Renderer", "teal.reporter")
 result_path <- Renderer$new()$renderRmd(reporter$get_blocks(), yaml_header)
 \dontshow{\}) # examplesIf}
 \dontshow{if (requireNamespace("ggplot2") && requireNamespace("rtables")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+## ------------------------------------------------
+## Method `Renderer$render`
+## ------------------------------------------------
+
 library(yaml)
 library(ggplot2)
 

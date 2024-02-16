@@ -11,6 +11,10 @@
 }
 \examples{
 \dontshow{if (requireNamespace("ggplot2") && requireNamespace("lattice")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+## ------------------------------------------------
+## Method `PictureBlock$set_content`
+## ------------------------------------------------
+
 library(ggplot2)
 library(lattice)
 

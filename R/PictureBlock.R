@@ -24,6 +24,10 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `self`, invisibly.
     #' @examplesIf requireNamespace("ggplot2") && requireNamespace("lattice")
+    #' ## ------------------------------------------------
+    #' ## Method `PictureBlock$set_content`
+    #' ## ------------------------------------------------
+    #'
     #' library(ggplot2)
     #' library(lattice)
     #'

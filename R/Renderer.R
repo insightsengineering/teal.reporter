@@ -34,6 +34,10 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `character` a `Rmd` text (`yaml` header + body), ready to be rendered.
     #' @examplesIf requireNamespace("ggplot2") && requireNamespace("rtables")
+    #' ## ------------------------------------------------
+    #' ## Method `Renderer$renderRmd`
+    #' ## ------------------------------------------------
+    #'
     #' library(yaml)
     #' library(rtables)
     #' library(ggplot2)
@@ -137,6 +141,10 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `character` path to the output.
     #' @examplesIf requireNamespace("ggplot2") && requireNamespace("rtables")
+    #' ## ------------------------------------------------
+    #' ## Method `Renderer$render`
+    #' ## ------------------------------------------------
+    #'
     #' library(yaml)
     #' library(ggplot2)
     #'

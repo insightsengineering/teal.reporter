@@ -39,6 +39,10 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param dim (`integer(2)`) width and height in pixels.
     #' @return `self`, invisibly.
     #' @examplesIf requireNamespace("ggplot2")
+    #' ## ------------------------------------------------
+    #' ## Method `ReportCard$append_plot`
+    #' ## ------------------------------------------------
+    #'
     #' library(ggplot2)
     #'
     #' card <- ReportCard$new()$append_plot(
@@ -129,6 +133,10 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param value value of meta data.
     #' @return `self`, invisibly.
     #' @examplesIf requireNamespace("ggplot2")
+    #' ## ------------------------------------------------
+    #' ## Method `ReportCard$append_metadata`
+    #' ## ------------------------------------------------
+    #'
     #' library(ggplot2)
     #'
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
@@ -169,6 +177,10 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param output_dir (`character`) with a path to the directory where files will be copied.
     #' @return (`named list`) a `ReportCard` representation.
     #' @examplesIf requireNamespace("ggplot2")
+    #' ## ------------------------------------------------
+    #' ## Method `ReportCard$to_list`
+    #' ## ------------------------------------------------
+    #'
     #' library(ggplot2)
     #'
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
@@ -204,6 +216,10 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param output_dir (`character`) with a path to the directory where a file will be copied.
     #' @return `self`, invisibly.
     #' @examplesIf requireNamespace("ggplot2")
+    #' ## ------------------------------------------------
+    #' ## Method `ReportCard$from_list`
+    #' ## ------------------------------------------------
+    #'
     #' library(ggplot2)
     #'
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
