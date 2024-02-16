@@ -3,11 +3,12 @@
 \docType{class}
 \name{Reporter}
 \alias{Reporter}
-\title{\code{Reporter}}
+\title{\code{Reporter}: An \code{R6} class for managing report cards}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-\code{R6} class that stores and manages report cards.
+This \code{R6} class is designed to store and manage report cards,
+facilitating the creation, manipulation, and serialization of report-related data.
 }
 \note{
 The function has to be used in the shiny reactive context.
@@ -224,7 +225,7 @@ Object of class \code{Reporter}, invisibly.
 \if{html}{\out{<a id="method-Reporter-append_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-append_cards}{}}}
 \subsection{Method \code{append_cards()}}{
-Appends a table to this \code{Reporter}.
+Append one or more \code{ReportCard} objects to the \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$append_cards(cards)}\if{html}{\out{</div>}}
 }
@@ -244,7 +245,7 @@ Appends a table to this \code{Reporter}.
 \if{html}{\out{<a id="method-Reporter-get_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_cards}{}}}
 \subsection{Method \code{get_cards()}}{
-Returns cards of this \code{Reporter}.
+Retrieves all \code{ReportCard} objects contained in the \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$get_cards()}\if{html}{\out{</div>}}
 }
@@ -257,7 +258,7 @@ A (\code{list}) of \code{\link{ReportCard}} objects.
 \if{html}{\out{<a id="method-Reporter-get_blocks"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_blocks}{}}}
 \subsection{Method \code{get_blocks()}}{
-Returns blocks of all \code{\link{ReportCard}} of this \code{Reporter}.
+Compiles and returns all content blocks from the \code{\link{ReportCard}} in the \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$get_blocks(sep = NewpageBlock$new())}\if{html}{\out{</div>}}
 }
@@ -265,8 +266,8 @@ Returns blocks of all \code{\link{ReportCard}} of this \code{Reporter}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{sep}}{the element inserted between each content element in this \code{Reporter}.
-Pass \code{NULL} to return content without any additional elements. Default: \code{NewpageBlock$new()}}
+\item{\code{sep}}{An optional separator to insert between each content block.
+Default is a \code{NewpageBlock$new()}object.}
 }
 \if{html}{\out{</div>}}
 }
@@ -278,8 +279,7 @@ Pass \code{NULL} to return content without any additional elements. Default: \co
 \if{html}{\out{<a id="method-Reporter-reset"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-reset}{}}}
 \subsection{Method \code{reset()}}{
-Removes all \code{\link{ReportCard}} objects added to this \code{Reporter}.
-Additionally all metadata are removed.
+Resets the \code{Reporter}, removing all \code{\link{ReportCard}} objects and metadata.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$reset()}\if{html}{\out{</div>}}
 }
@@ -292,7 +292,7 @@ Additionally all metadata are removed.
 \if{html}{\out{<a id="method-Reporter-remove_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-remove_cards}{}}}
 \subsection{Method \code{remove_cards()}}{
-remove a specific card in the \code{Reporter}.
+Removes specific \code{ReportCard} objects from the \code{Reporter} by their indices.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$remove_cards(ids = NULL)}\if{html}{\out{</div>}}
 }
@@ -312,7 +312,7 @@ remove a specific card in the \code{Reporter}.
 \if{html}{\out{<a id="method-Reporter-swap_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-swap_cards}{}}}
 \subsection{Method \code{swap_cards()}}{
-swap two cards in the \code{Reporter}.
+Swaps the positions of two \code{ReportCard} objects within the \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$swap_cards(start, end)}\if{html}{\out{</div>}}
 }
@@ -357,13 +357,13 @@ isolate(Reporter$new()$get_reactive_add_card())
 \if{html}{\out{<a id="method-Reporter-get_metadata"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_metadata}{}}}
 \subsection{Method \code{get_metadata()}}{
-get metadata of this \code{Reporter}.
+Get the metadata associated with this \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$get_metadata()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-metadata
+\verb{named list} of metadata to be appended.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -388,7 +388,7 @@ Appends metadata to this \code{Reporter}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{meta}}{(\code{list}) of metadata.}
+\item{\code{meta}}{(\verb{named list}) of metadata to be appended.}
 }
 \if{html}{\out{</div>}}
 }
@@ -410,7 +410,7 @@ reporter$get_metadata()
 \if{html}{\out{<a id="method-Reporter-from_reporter"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-from_reporter}{}}}
 \subsection{Method \code{from_reporter()}}{
-Create/Recreate a \code{Reporter} from another \code{Reporter}.
+Reinitializes a \code{Reporter} instance by copying the report cards and metadata from another \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$from_reporter(reporter)}\if{html}{\out{</div>}}
 }
@@ -418,7 +418,7 @@ Create/Recreate a \code{Reporter} from another \code{Reporter}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{reporter}}{(\code{Reporter}) instance.}
+\item{\code{reporter}}{(\code{Reporter}) instance to copy from.}
 }
 \if{html}{\out{</div>}}
 }
@@ -439,7 +439,7 @@ reporter$from_reporter(reporter)
 \if{html}{\out{<a id="method-Reporter-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-to_list}{}}}
 \subsection{Method \code{to_list()}}{
-Convert a \code{Reporter} to a list and transfer files.
+Convert a \code{Reporter} to a list and transfer any associated files to specified directory.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$to_list(output_dir)}\if{html}{\out{</div>}}
 }
@@ -471,7 +471,7 @@ reporter$to_list(tmp_dir)
 \if{html}{\out{<a id="method-Reporter-from_list"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-from_list}{}}}
 \subsection{Method \code{from_list()}}{
-Create/Recreate a \code{Reporter} from a list and directory with files.
+Reinitializes a \code{Reporter} from a list representation and associated files in a specified directory.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$from_list(rlist, output_dir)}\if{html}{\out{</div>}}
 }
@@ -479,7 +479,7 @@ Create/Recreate a \code{Reporter} from a list and directory with files.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{rlist}}{(\verb{named list}) \code{Reporter} representation.}
+\item{\code{rlist}}{(\verb{named list}) representing a \code{Reporter} instance.}
 
 \item{\code{output_dir}}{(\code{character(1)}) a path to the directory from which files will be copied.}
 }
@@ -505,7 +505,7 @@ reporter$from_list(reporter$to_list(tmp_dir), tmp_dir)
 \if{html}{\out{<a id="method-Reporter-to_jsondir"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-to_jsondir}{}}}
 \subsection{Method \code{to_jsondir()}}{
-Create/Recreate a \code{Reporter} to a directory with \code{JSON} file and static files.
+Serializes the \code{Reporter} to a \code{JSON} file and copies any associated files to a specified directory.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$to_jsondir(output_dir)}\if{html}{\out{</div>}}
 }
@@ -536,7 +536,7 @@ reporter$to_jsondir(tmp_dir)
 \if{html}{\out{<a id="method-Reporter-from_jsondir"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-from_jsondir}{}}}
 \subsection{Method \code{from_jsondir()}}{
-Create/Recreate a \code{Reporter} from a directory with \code{JSON} file and static files.
+Reinitializes a \code{Reporter} from a \code{JSON } file and files in a specified directory.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$from_jsondir(output_dir)}\if{html}{\out{</div>}}
 }
