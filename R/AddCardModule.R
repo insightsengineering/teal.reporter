@@ -9,8 +9,8 @@
 #' @details
 #' The `card_fun` function is designed to create a new `ReportCard` instance and optionally customize it:
 #' - The `card` parameter allows for specifying a custom or default `ReportCard` instance.
-#' - Use the `comment` parameter to add a comment to the card via `card$append_text()`- if `card_fun` does not
-#' have `comment` parameter, then `comment` from `Add Card UI` module will be added at the end of the content of the
+#' - Use the `comment` parameter to add a comment to the card via `card$append_text()` - if `card_fun` does not
+#' have the `comment` parameter, then `comment` from `Add Card UI` module will be added at the end of the content of the
 #' card.
 #' - The `label` parameter enables customization of the card's name and its content through `card$append_text()`-
 #' if `card_fun` does not have the `label` parameter, then `card name` will be set to the name passed in
