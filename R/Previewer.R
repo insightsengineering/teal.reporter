@@ -13,9 +13,9 @@
 #'
 #' @name reporter_previewer
 #'
-#' @param id `character(1)` this `shiny` module's id.
-#' @param reporter `Reporter` instance
-#' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`)
+#' @param id (`character(1)`) `shiny` module instance id.
+#' @param reporter (`Reporter`) instance.
+#' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
 #'  for customizing the rendering process.
 #' @inheritParams reporter_download_inputs
 #'

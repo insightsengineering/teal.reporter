@@ -26,9 +26,9 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description getting the `Rmd` text which could be easily rendered later.
     #'
-    #' @param blocks `list` of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
-    #' @param yaml_header `character` an `rmarkdown` `yaml` header.
-    #' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`)
+    #' @param blocks (`list`) of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
+    #' @param yaml_header (`character`) an `rmarkdown` `yaml` header.
+    #' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
     #'  for customizing the rendering process.
     #' @details `r global_knitr_details()`
     #'
@@ -127,9 +127,9 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Renders the content of this `Report` to the output file.
     #'
-    #' @param blocks `list` of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
-    #' @param yaml_header `character` an `rmarkdown` `yaml` header.
-    #' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`)
+    #' @param blocks (`list`) of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
+    #' @param yaml_header (`character`) an `rmarkdown` `yaml` header.
+    #' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
     #'  for customizing the rendering process.
     #' @param ... `rmarkdown::render` arguments, `input` and `output_dir` should not be updated.
     #' @details `r global_knitr_details()`

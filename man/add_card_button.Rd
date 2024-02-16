@@ -11,13 +11,11 @@ add_card_button_ui(id)
 add_card_button_srv(id, reporter, card_fun)
 }
 \arguments{
-\item{id}{\code{character(1)} this \code{shiny} module's id.}
+\item{id}{(\code{character(1)}) this \code{shiny} module's id.}
 
-\item{reporter}{\code{\link{Reporter}} instance.}
+\item{reporter}{(\code{Reporter}) instance.}
 
-\item{card_fun}{\code{function} which returns a \code{\link{ReportCard}} instance.
-It can have optional \code{card}, \code{comment} and
-\code{label} parameters.}
+\item{card_fun}{(\code{function}) which returns a \code{\link{ReportCard}} instance. See \code{Details}.}
 }
 \value{
 \code{NULL}.
@@ -33,11 +31,11 @@ For more details see the vignette: \code{vignette("simpleReporter", "teal.report
 The \code{card_fun} function is designed to create a new \code{ReportCard} instance and optionally customize it:
 \itemize{
 \item The \code{card} parameter allows for specifying a custom or default \code{ReportCard} instance.
-\item Use the \code{comment} parameter to add a comment to the card via \code{card$append_text()}- if \code{card_fun} does not
-have \code{comment} parameter, then \code{comment} from \verb{Add Card UI} module will be added at the end of the content of the
+\item Use the \code{comment} parameter to add a comment to the card via \code{card$append_text()} - if \code{card_fun} does not
+have the \code{comment} parameter, then \code{comment} from \verb{Add Card UI} module will be added at the end of the content of the
 card.
 \item The \code{label} parameter enables customization of the card's name and its content through \code{card$append_text()}-
-if \code{card_fun} does not have \code{label} parameter, then \verb{card name} will be set to the name passed in
+if \code{card_fun} does not have the \code{label} parameter, then card name will be set to the name passed in
 \verb{Add Card UI} module, but no text will be added to the content of the \code{card}.
 }
 

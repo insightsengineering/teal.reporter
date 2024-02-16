@@ -7,7 +7,7 @@
 yaml_quoted(x)
 }
 \arguments{
-\item{x}{\code{character}}
+\item{x}{(\code{character})}
 }
 \description{
 Add quoted attribute for \code{yaml} package.

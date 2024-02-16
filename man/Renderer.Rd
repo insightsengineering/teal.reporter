@@ -180,11 +180,11 @@ getting the \code{Rmd} text which could be easily rendered later.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{blocks}}{\code{list} of \code{c("TextBlock", "PictureBlock", "NewpageBlock")} objects.}
+\item{\code{blocks}}{(\code{list}) of \code{c("TextBlock", "PictureBlock", "NewpageBlock")} objects.}
 
-\item{\code{yaml_header}}{\code{character} an \code{rmarkdown} \code{yaml} header.}
+\item{\code{yaml_header}}{(\code{character}) an \code{rmarkdown} \code{yaml} header.}
 
-\item{\code{global_knitr}}{\code{list} a of \code{knitr} parameters (passed to \code{knitr::opts_chunk$set})
+\item{\code{global_knitr}}{(\code{list}) of \code{knitr} parameters (passed to \code{knitr::opts_chunk$set})
 for customizing the rendering process.}
 }
 \if{html}{\out{</div>}}
@@ -267,11 +267,11 @@ Renders the content of this \code{Report} to the output file.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{blocks}}{\code{list} of \code{c("TextBlock", "PictureBlock", "NewpageBlock")} objects.}
+\item{\code{blocks}}{(\code{list}) of \code{c("TextBlock", "PictureBlock", "NewpageBlock")} objects.}
 
-\item{\code{yaml_header}}{\code{character} an \code{rmarkdown} \code{yaml} header.}
+\item{\code{yaml_header}}{(\code{character}) an \code{rmarkdown} \code{yaml} header.}
 
-\item{\code{global_knitr}}{\code{list} a of \code{knitr} parameters (passed to \code{knitr::opts_chunk$set})
+\item{\code{global_knitr}}{(\code{list}) of \code{knitr} parameters (passed to \code{knitr::opts_chunk$set})
 for customizing the rendering process.}
 
 \item{\code{...}}{\code{rmarkdown::render} arguments, \code{input} and \code{output_dir} should not be updated.}

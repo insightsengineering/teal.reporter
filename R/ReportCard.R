@@ -36,7 +36,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends a plot to this `ReportCard`.
     #'
     #' @param plot the appended plot
-    #' @param dim `integer vector` width and height in pixels.
+    #' @param dim (`integer(2)`) width and height in pixels.
     #' @return `self`, invisibly.
     #' @examples
     #' library(ggplot2)
@@ -55,7 +55,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Appends a paragraph of text to this `ReportCard`.
     #'
-    #' @param text (`character(0)` or `character(1)`) the text
+    #' @param text (`character`)
     #' @param style (`character(1)`) the style of the paragraph. One of: `default`, `header`, `verbatim`
     #' @return `self`, invisibly.
     #' @examples
@@ -67,7 +67,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Appends an `rmarkdown` R chunk to this `ReportCard`.
     #'
-    #' @param text (`character(0)` or `character(1)`) the text
+    #' @param text (`character`)
     #' @param ... any `rmarkdown` R chunk parameter and its value.
     #' @return `self`, invisibly.
     #' @examples
@@ -152,9 +152,9 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     get_name = function() {
       private$name
     },
-    #' @description set the Card name
+    #' @description set the card name.
     #'
-    #' @param name `character` a Card name
+    #' @param name (`character`) a card name.
     #' @return `self`, invisibly.
     #' @examples
     #' ReportCard$new()$set_name("NAME")$get_name()
@@ -164,8 +164,8 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
     #' @description Convert the `ReportCard` to a list.
-    #' @param output_dir `character` with a path to the directory where files will be copied.
-    #' @return `named list` a `ReportCard` representation.
+    #' @param output_dir (`character`) with a path to the directory where files will be copied.
+    #' @return (`named list`) a `ReportCard` representation.
     #' @examples
     #' library(ggplot2)
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
@@ -197,8 +197,8 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       new_card
     },
     #' @description Create the `ReportCard` from a list.
-    #' @param card `named list` a `ReportCard` representation.
-    #' @param output_dir `character` with a path to the directory where a file will be copied.
+    #' @param card (`named list`) a `ReportCard` representation.
+    #' @param output_dir (`character`) with a path to the directory where a file will be copied.
     #' @return `self`, invisibly.
     #' @examples
     #' library(ggplot2)

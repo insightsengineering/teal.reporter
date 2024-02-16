@@ -102,7 +102,7 @@ Returns a \code{RcodeBlock} object.
 \describe{
 \item{\code{content}}{(\code{character(1)} or \code{character(0)}) a string assigned to this \code{RcodeBlock}}
 
-\item{\code{...}}{any \code{rmarkdown} R chunk parameter and it value.}
+\item{\code{...}}{any \code{rmarkdown} \code{R} chunk parameter and it value.}
 }
 \if{html}{\out{</div>}}
 }
@@ -219,7 +219,7 @@ Create the \code{RcodeBlock} from a list.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{x}}{\verb{named list} with two fields \code{c("text", "params")}.
+\item{\code{x}}{(\verb{named list}) with two fields \code{c("text", "params")}.
 Use the \code{get_available_params} method to get all possible parameters.}
 }
 \if{html}{\out{</div>}}

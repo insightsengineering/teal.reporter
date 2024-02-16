@@ -10,7 +10,7 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @details Returns a `RcodeBlock` object with no content and no parameters.
     #'
     #' @param content (`character(1)` or `character(0)`) a string assigned to this `RcodeBlock`
-    #' @param ... any `rmarkdown` R chunk parameter and it value.
+    #' @param ... any `rmarkdown` `R` chunk parameter and it value.
     #'
     #' @return `RcodeBlock`.
     #' @examples
@@ -64,7 +64,7 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Create the `RcodeBlock` from a list.
     #'
-    #' @param x `named list` with two fields `c("text", "params")`.
+    #' @param x (`named list`) with two fields `c("text", "params")`.
     #' Use the `get_available_params` method to get all possible parameters.
     #'
     #' @return `self`, invisibly.

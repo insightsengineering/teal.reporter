@@ -10,9 +10,9 @@
 #'
 #' @name download_report_button
 #'
-#' @param id `character(1)` this `shiny` module's id.
-#' @param reporter [`Reporter`] instance.
-#' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`)
+#' @param id (`character(1)`) this `shiny` module's id.
+#' @param reporter (`Reporter`) instance.
+#' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
 #'  for customizing the rendering process.
 #' @inheritParams reporter_download_inputs
 #'
@@ -156,11 +156,11 @@ download_report_button_srv <- function(id,
 #'
 #' Render the report and zip the created directory.
 #'
-#' @param reporter [`Reporter`] instance.
-#' @param input_list `list` like shiny input converted to a regular named list.
-#' @param global_knitr `list` a global `knitr` parameters, like echo.
+#' @param reporter (`Reporter`) instance.
+#' @param input_list (`list`) like `shiny` input converted to a regular named list.
+#' @param global_knitr (`list`) a global `knitr` parameters, like echo.
 #' But if local parameter is set it will have priority.
-#' @param file `character` where to copy the returned directory.
+#' @param file (`character(1)`) where to copy the returned directory.
 #'
 #' @return `file` argument, invisibly.
 #'
@@ -246,10 +246,10 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
 
 #' Get the custom list of User Interface inputs
 #'
-#' @param rmd_output `character` vector with `rmarkdown` output types,
+#' @param rmd_output (`character`) vector with `rmarkdown` output types,
 #' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
 #' If vector is named then those names will appear in the `UI`.
-#' @param rmd_yaml_args `named list` with `Rmd` `yaml` header fields and their default values.
+#' @param rmd_yaml_args (`named list`) with `Rmd` `yaml` header fields and their default values.
 #' This `list` will result in the custom subset of User Interface inputs for the download reporter functionality.
 #' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)`.
 #' The `list` must include at least `"output"` field.

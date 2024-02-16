@@ -13,15 +13,15 @@ conv_str_logi(
 )
 }
 \arguments{
-\item{input}{\code{character}}
+\item{input}{(\code{character(1)})}
 
-\item{name}{\code{charcter}}
+\item{name}{(\code{charcter(1)})}
 
-\item{pos_logi}{\code{character} vector of \code{yaml} values which should be treated as \code{TRUE}.}
+\item{pos_logi}{(\code{character}) vector of \code{yaml} values which should be treated as \code{TRUE}.}
 
-\item{neg_logi}{\code{character} vector of \code{yaml} values which should be treated as \code{FALSE}.}
+\item{neg_logi}{(\code{character}) vector of \code{yaml} values which should be treated as \code{FALSE}.}
 
-\item{silent}{\code{logical} if to suppress the messages and warnings.}
+\item{silent}{(\code{logical(1)}) if to suppress the messages and warnings.}
 }
 \value{
 \code{input} argument or the appropriate \code{logical} value.

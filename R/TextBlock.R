@@ -9,7 +9,7 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @details Returns a `TextBlock` object with no content and the default style.
     #'
-    #' @param content (`character(1)` or `character(0)`) a string assigned to this `TextBlock`
+    #' @param content (`character`) a string assigned to this `TextBlock`
     #' @param style (`character(1)`) one of: `"default"`, `"header2"`, `"header3"` `"verbatim"`
     #'
     #' @return `TextBlock`.
@@ -62,7 +62,7 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Create the `TextBlock` from a list.
     #'
-    #' @param x `named list` with two fields `c("text", "style")`.
+    #' @param x (`named list`) with two fields `c("text", "style")`.
     #' Use the `get_available_styles` method to get all possible styles.
     #'
     #' @return `self`, invisibly.

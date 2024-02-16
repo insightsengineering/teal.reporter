@@ -8,7 +8,7 @@
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 \code{R6} class that supports creating a report card containing text, plot, table and
-meta data blocks that can be appended and rendered to form a report output from a \code{shiny} app.
+metadata blocks that can be appended and rendered to form a report output from a \code{shiny} app.
 }
 \examples{
 
@@ -215,7 +215,7 @@ Appends a plot to this \code{ReportCard}.
 \describe{
 \item{\code{plot}}{the appended plot}
 
-\item{\code{dim}}{\verb{integer vector} width and height in pixels.}
+\item{\code{dim}}{(\code{integer(2)}) width and height in pixels.}
 }
 \if{html}{\out{</div>}}
 }
@@ -247,7 +247,7 @@ Appends a paragraph of text to this \code{ReportCard}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{text}}{(\code{character(0)} or \code{character(1)}) the text}
+\item{\code{text}}{(\code{character})}
 
 \item{\code{style}}{(\code{character(1)}) the style of the paragraph. One of: \code{default}, \code{header}, \code{verbatim}}
 }
@@ -278,7 +278,7 @@ Appends an \code{rmarkdown} R chunk to this \code{ReportCard}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{text}}{(\code{character(0)} or \code{character(1)}) the text}
+\item{\code{text}}{(\code{character})}
 
 \item{\code{...}}{any \code{rmarkdown} R chunk parameter and its value.}
 }
@@ -451,7 +451,7 @@ get the card name.
 \if{html}{\out{<a id="method-ReportCard-set_name"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-set_name}{}}}
 \subsection{Method \code{set_name()}}{
-set the Card name
+set the card name.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$set_name(name)}\if{html}{\out{</div>}}
 }
@@ -459,7 +459,7 @@ set the Card name
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{name}}{\code{character} a Card name}
+\item{\code{name}}{(\code{character}) a card name.}
 }
 \if{html}{\out{</div>}}
 }
@@ -487,12 +487,12 @@ Convert the \code{ReportCard} to a list.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{output_dir}}{\code{character} with a path to the directory where files will be copied.}
+\item{\code{output_dir}}{(\code{character}) with a path to the directory where files will be copied.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\verb{named list} a \code{ReportCard} representation.
+(\verb{named list}) a \code{ReportCard} representation.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -523,9 +523,9 @@ Create the \code{ReportCard} from a list.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{card}}{\verb{named list} a \code{ReportCard} representation.}
+\item{\code{card}}{(\verb{named list}) a \code{ReportCard} representation.}
 
-\item{\code{output_dir}}{\code{character} with a path to the directory where a file will be copied.}
+\item{\code{output_dir}}{(\code{character}) with a path to the directory where a file will be copied.}
 }
 \if{html}{\out{</div>}}
 }

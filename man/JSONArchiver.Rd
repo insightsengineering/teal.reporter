@@ -97,7 +97,7 @@ write a \code{Reporter} instance in to this \code{JSONArchiver} object.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{reporter}}{\code{Reporter} instance.}
+\item{\code{reporter}}{(\code{Reporter}) instance.}
 }
 \if{html}{\out{</div>}}
 }
@@ -142,7 +142,7 @@ read a \code{Reporter} instance from a directory with \code{JSONArchiver}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{path}}{\code{character(1)} a path to the directory with all proper files.}
+\item{\code{path}}{(\code{character(1)}) a path to the directory with all proper files.}
 }
 \if{html}{\out{</div>}}
 }

@@ -13,7 +13,7 @@
 #' have the `comment` parameter, then `comment` from `Add Card UI` module will be added at the end of the content of the
 #' card.
 #' - The `label` parameter enables customization of the card's name and its content through `card$append_text()`-
-#' if `card_fun` does not have the `label` parameter, then `card name` will be set to the name passed in
+#' if `card_fun` does not have the `label` parameter, then card name will be set to the name passed in
 #' `Add Card UI` module, but no text will be added to the content of the `card`.
 #'
 #' This module supports using a subclass of [`ReportCard`] for added flexibility.
@@ -32,9 +32,9 @@
 #' ```
 #' @name add_card_button
 #'
-#' @param id `character(1)` this `shiny` module's id.
-#' @param reporter [`Reporter`] instance.
-#' @param card_fun `function` which returns a [`ReportCard`] instance. See `Details`.
+#' @param id (`character(1)`) this `shiny` module's id.
+#' @param reporter (`Reporter`) instance.
+#' @param card_fun (`function`) which returns a [`ReportCard`] instance. See `Details`.
 #'
 #' @return `NULL`.
 NULL

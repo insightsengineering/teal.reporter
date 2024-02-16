@@ -7,7 +7,7 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
   public = list(
     #' @description Returns a new `TableBlock` object.
     #'
-    #' @param table (`data.frame`, `rtables`, `TableTree`, `ElementaryTable`, `listing_df`) a table assigned to
+    #' @param table (`data.frame` or `rtables` or `TableTree` or `ElementaryTable` or `listing_df`) a table assigned to
     #'   this `TableBlock`
     #'
     #' @return A `TableBlock` object.
@@ -21,7 +21,7 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @details throws if argument is not a table-like object.
     #'
-    #' @param content (`data.frame`, `rtables`, `TableTree`, `ElementaryTable`, `listing_df`) a table assigned to
+    #' @param content (`data.frame` or `rtables` or `TableTree` or `ElementaryTable` or `listing_df`) a table assigned to
     #'   this `TableBlock`
     #'
     #' @return `self`, invisibly.

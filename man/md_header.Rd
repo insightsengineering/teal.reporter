@@ -7,7 +7,7 @@
 md_header(x)
 }
 \arguments{
-\item{x}{\code{character} \code{yaml} formatted string.}
+\item{x}{(\code{character}) \code{yaml} formatted string.}
 }
 \description{
 Wrap a \code{yaml} string to the \code{markdown} header

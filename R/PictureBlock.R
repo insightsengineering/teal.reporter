@@ -7,7 +7,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
   public = list(
     #' @description Returns a new `PictureBlock` object.
     #'
-    #' @param plot (`ggplot`, `grid`) a picture in this `PictureBlock`
+    #' @param plot (`ggplot` or `grid`) a picture in this `PictureBlock`
     #'
     #' @return A `PictureBlock` object.
     initialize = function(plot) {
@@ -20,7 +20,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @details throws if argument is not a `ggplot`, `grob` or `trellis` plot.
     #'
-    #' @param content (`ggplot`, `grob`, `trellis`) a picture in this `PictureBlock`
+    #' @param content (`ggplot` or `grob` or `trellis`) a picture in this `PictureBlock`
     #'
     #' @return `self`, invisibly.
     #' @examples
@@ -87,7 +87,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Sets the dimensions of this `PictureBlock`.
     #'
-    #' @param dim `numeric` figure dimensions (width and height) in pixels, length 2.
+    #' @param dim (`numeric(2)`) figure dimensions (width and height) in pixels, length 2.
     #'
     #' @return `self`, invisibly.
     #' @examples

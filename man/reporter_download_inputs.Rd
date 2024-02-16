@@ -7,13 +7,13 @@
 reporter_download_inputs(rmd_yaml_args, rmd_output, showrcode, session)
 }
 \arguments{
-\item{rmd_yaml_args}{\verb{named list} with \code{Rmd} \code{yaml} header fields and their default values.
+\item{rmd_yaml_args}{(\verb{named list}) with \code{Rmd} \code{yaml} header fields and their default values.
 This \code{list} will result in the custom subset of User Interface inputs for the download reporter functionality.
 Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)}.
 The \code{list} must include at least \code{"output"} field.
 The default value for \code{"output"} has to be in the \code{rmd_output} argument.}
 
-\item{rmd_output}{\code{character} vector with \code{rmarkdown} output types,
+\item{rmd_output}{(\code{character}) vector with \code{rmarkdown} output types,
 by default all possible \code{c("pdf_document", "html_document", "powerpoint_presentation", "word_document")}.
 If vector is named then those names will appear in the \code{UI}.}
 }

@@ -93,7 +93,7 @@ Returns a new \code{PictureBlock} object.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{plot}}{(\code{ggplot}, \code{grid}) a picture in this \code{PictureBlock}}
+\item{\code{plot}}{(\code{ggplot} or \code{grid}) a picture in this \code{PictureBlock}}
 }
 \if{html}{\out{</div>}}
 }
@@ -113,7 +113,7 @@ Sets the content of this \code{PictureBlock}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{content}}{(\code{ggplot}, \code{grob}, \code{trellis}) a picture in this \code{PictureBlock}}
+\item{\code{content}}{(\code{ggplot} or \code{grob} or \code{trellis}) a picture in this \code{PictureBlock}}
 }
 \if{html}{\out{</div>}}
 }
@@ -208,7 +208,7 @@ Sets the dimensions of this \code{PictureBlock}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{dim}}{\code{numeric} figure dimensions (width and height) in pixels, length 2.}
+\item{\code{dim}}{(\code{numeric(2)}) figure dimensions (width and height) in pixels, length 2.}
 }
 \if{html}{\out{</div>}}
 }

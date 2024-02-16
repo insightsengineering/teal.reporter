@@ -88,7 +88,7 @@ Sets content of this \code{ContentBlock}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{content}}{(\code{character(0)} or \code{character(1)}) a string literal or a file path assigned to this \code{ContentBlock}}
+\item{\code{content}}{(\code{character(0)} or \code{character(1)}) string or file path assigned to this \code{ContentBlock}}
 }
 \if{html}{\out{</div>}}
 }
@@ -143,7 +143,7 @@ Create the \code{ContentBlock} from a list.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{x}}{\verb{named list} with two fields \code{c("text", "style")}.
+\item{\code{x}}{(\verb{named list}) with two fields \code{c("text", "style")}.
 Use the \code{get_available_styles} method to get all possible styles.}
 }
 \if{html}{\out{</div>}}

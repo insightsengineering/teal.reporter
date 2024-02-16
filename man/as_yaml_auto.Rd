@@ -13,16 +13,16 @@ as_yaml_auto(
 )
 }
 \arguments{
-\item{input_list}{\verb{named list} non nested with slots names and their values compatible with \code{Rmd} \code{yaml} header.}
+\item{input_list}{(\verb{named list}) non nested with slots names and their values compatible with \code{Rmd} \code{yaml} header.}
 
-\item{as_header}{\code{logical} optionally wrap with result with the internal \code{md_header()}, default \code{TRUE}.}
+\item{as_header}{(\code{logical(1)}) optionally wrap with result with the internal \code{md_header()}, default \code{TRUE}.}
 
-\item{convert_logi}{\code{logical} convert a character values to logical,
+\item{convert_logi}{(\code{logical(1)}) convert a character values to logical,
 if they are recognized as quoted \code{yaml} logical values , default \code{TRUE}.}
 
-\item{multi_output}{\code{logical} multi \code{output} slots in the \code{input} argument, default \code{FALSE}.}
+\item{multi_output}{(\code{logical(1)}) multi \code{output} slots in the \code{input} argument, default \code{FALSE}.}
 
-\item{silent}{\code{logical} suppress messages and warnings, default \code{FALSE}.}
+\item{silent}{(\code{logical(1)}) suppress messages and warnings, default \code{FALSE}.}
 }
 \value{
 \code{character} with \code{rmd_yaml_header} class,

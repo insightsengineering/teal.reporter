@@ -7,9 +7,9 @@
 get_yaml_field(yaml_text, field_name)
 }
 \arguments{
-\item{yaml_text}{A character vector containing the \code{yaml} text.}
+\item{yaml_text}{(\code{rmd_yaml_header} or \code{character}) vector containing the \code{yaml} text.}
 
-\item{field_name}{The name of the field to extract.}
+\item{field_name}{(\code{character}) the name of the field to extract.}
 }
 \value{
 If the field is a list, it returns the names of elements in the list; otherwise,

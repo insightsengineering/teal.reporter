@@ -14,8 +14,8 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @description Create the `FileBlock` from a list.
     #' The list should contain one named field, `"basename"`.
     #'
-    #' @param x `named list` with one field `"basename"`, a name of the file.
-    #' @param output_dir `character` with a path to the directory where a file will be copied.
+    #' @param x (`named list`) with one field `"basename"`, a name of the file.
+    #' @param output_dir (`character`) with a path to the directory where a file will be copied.
     #'
     #' @return `self`, invisibly.
     #' @examples
@@ -38,7 +38,7 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Convert the `FileBlock` to a list.
     #'
-    #' @param output_dir `character` with a path to the directory where a file will be copied.
+    #' @param output_dir (`character`) with a path to the directory where a file will be copied.
     #'
     #' @return `named list` with a `basename` of the file.
     #' @examples

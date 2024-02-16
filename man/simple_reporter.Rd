@@ -20,20 +20,20 @@ simple_reporter_srv(
 )
 }
 \arguments{
-\item{id}{\code{character(1)} this \code{shiny} module's id.}
+\item{id}{(\code{character(1)}) \code{shiny} module instance id.}
 
-\item{reporter}{\code{\link{Reporter}} instance.}
+\item{reporter}{(\code{Reporter}) instance.}
 
-\item{card_fun}{\code{function} which returns a \code{\link{ReportCard}} instance,
+\item{card_fun}{(\code{function}) which returns a \code{\link{ReportCard}} instance,
 the function has a \code{card} argument and an optional \code{comment} argument.}
 
-\item{global_knitr}{\code{list} a global \code{knitr} parameters for customizing the rendering process.}
+\item{global_knitr}{(\code{list}) a global \code{knitr} parameters for customizing the rendering process.}
 
-\item{rmd_output}{\code{character} vector with \code{rmarkdown} output types,
+\item{rmd_output}{(\code{character}) vector with \code{rmarkdown} output types,
 by default all possible \code{c("pdf_document", "html_document", "powerpoint_presentation", "word_document")}.
 If vector is named then those names will appear in the \code{UI}.}
 
-\item{rmd_yaml_args}{\verb{named list} with \code{Rmd} \code{yaml} header fields and their default values.
+\item{rmd_yaml_args}{(\verb{named list}) with \code{Rmd} \code{yaml} header fields and their default values.
 This \code{list} will result in the custom subset of User Interface inputs for the download reporter functionality.
 Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)}.
 The \code{list} must include at least \code{"output"} field.
@@ -45,7 +45,7 @@ The default value for \code{"output"} has to be in the \code{rmd_output} argumen
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Module provides a compact UI and server functions for managing a report in \code{shiny} app.
+Module provides compact UI and server functions for managing a report in a \code{shiny} app.
 This module combines functionalities for \link[=add_card_button]{adding cards to a report},
 \link[=download_report_button]{downloading the report}, and \link[=reset_report_button]{resetting report content}.
 

@@ -100,7 +100,7 @@ Returns a \code{TextBlock} object.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{content}}{(\code{character(1)} or \code{character(0)}) a string assigned to this \code{TextBlock}}
+\item{\code{content}}{(\code{character}) a string assigned to this \code{TextBlock}}
 
 \item{\code{style}}{(\code{character(1)}) one of: \code{"default"}, \code{"header2"}, \code{"header3"} \code{"verbatim"}}
 }
@@ -219,7 +219,7 @@ Create the \code{TextBlock} from a list.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{x}}{\verb{named list} with two fields \code{c("text", "style")}.
+\item{\code{x}}{(\verb{named list}) with two fields \code{c("text", "style")}.
 Use the \code{get_available_styles} method to get all possible styles.}
 }
 \if{html}{\out{</div>}}

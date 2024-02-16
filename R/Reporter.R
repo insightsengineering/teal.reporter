@@ -22,7 +22,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Appends a table to this `Reporter`.
     #'
-    #' @param cards [`ReportCard`] or a list of such objects
+    #' @param cards (`ReportCard`) or a list of such objects
     #' @return `self`, invisibly.
     #' @examples
     #' library(ggplot2)
@@ -134,7 +134,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description remove a specific card in the `Reporter`.
     #'
-    #' @param ids `integer` the indexes of cards
+    #' @param ids (`integer(id)`) the indexes of cards
     #' @return `self`, invisibly.
     remove_cards = function(ids = NULL) {
       checkmate::assert(
@@ -149,8 +149,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description swap two cards in the `Reporter`.
     #'
-    #' @param start `integer` the index of the first card
-    #' @param end `integer` the index of the second card
+    #' @param start (`integer`) the index of the first card
+    #' @param end (`integer`) the index of the second card
     #' @return `self`, invisibly.
     swap_cards = function(start, end) {
       checkmate::assert(
@@ -203,7 +203,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
     #' @description Create/Recreate a `Reporter` from another `Reporter`.
-    #' @param reporter `Reporter` instance.
+    #' @param reporter (`Reporter`) instance.
     #' @return `self`, invisibly.
     #' @examples
     #' reporter <- Reporter$new()
@@ -216,7 +216,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
     #' @description Convert a `Reporter` to a list and transfer files.
-    #' @param output_dir `character(1)` a path to the directory where files will be copied.
+    #' @param output_dir (`character(1)`) a path to the directory where files will be copied.
     #' @return `named list` `Reporter` representation.
     #' @examples
     #' reporter <- Reporter$new()
@@ -237,8 +237,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       rlist
     },
     #' @description Create/Recreate a `Reporter` from a list and directory with files.
-    #' @param rlist `named list` `Reporter` representation.
-    #' @param output_dir `character(1)` a path to the directory from which files will be copied.
+    #' @param rlist (`named list`) `Reporter` representation.
+    #' @param output_dir (`character(1)`) a path to the directory from which files will be copied.
     #' @return `self`, invisibly.
     #' @examples
     #' reporter <- Reporter$new()
@@ -269,7 +269,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
     #' @description Create/Recreate a `Reporter` to a directory with `JSON` file and static files.
-    #' @param output_dir `character(1)` a path to the directory where files will be copied, `JSON` and statics.
+    #' @param output_dir (`character(1)`) a path to the directory where files will be copied, `JSON` and statics.
     #' @return `self`, invisibly.
     #' @examples
     #' reporter <- Reporter$new()
@@ -285,7 +285,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       output_dir
     },
     #' @description Create/Recreate a `Reporter` from a directory with `JSON` file and static files.
-    #' @param output_dir `character(1)` a path to the directory with files, `JSON` and statics.
+    #' @param output_dir (`character(1)`) a path to the directory with files, `JSON` and statics.
     #' @return `self`, invisibly.
     #' @examples
     #' reporter <- Reporter$new()

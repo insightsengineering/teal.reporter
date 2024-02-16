@@ -54,7 +54,7 @@ Returns a new \code{TableBlock} object.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{table}}{(\code{data.frame}, \code{rtables}, \code{TableTree}, \code{ElementaryTable}, \code{listing_df}) a table assigned to
+\item{\code{table}}{(\code{data.frame} or \code{rtables} or \code{TableTree} or \code{ElementaryTable} or \code{listing_df}) a table assigned to
 this \code{TableBlock}}
 }
 \if{html}{\out{</div>}}
@@ -75,7 +75,7 @@ Sets content of this \code{TableBlock}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{content}}{(\code{data.frame}, \code{rtables}, \code{TableTree}, \code{ElementaryTable}, \code{listing_df}) a table assigned to
+\item{\code{content}}{(\code{data.frame} or \code{rtables} or \code{TableTree} or \code{ElementaryTable} or \code{listing_df}) a table assigned to
 this \code{TableBlock}}
 }
 \if{html}{\out{</div>}}

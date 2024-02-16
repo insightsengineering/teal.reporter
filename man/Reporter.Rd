@@ -227,7 +227,7 @@ Appends a table to this \code{Reporter}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{cards}}{\code{\link{ReportCard}} or a list of such objects}
+\item{\code{cards}}{(\code{ReportCard}) or a list of such objects}
 }
 \if{html}{\out{</div>}}
 }
@@ -383,7 +383,7 @@ remove a specific card in the \code{Reporter}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{ids}}{\code{integer} the indexes of cards}
+\item{\code{ids}}{(\code{integer(id)}) the indexes of cards}
 }
 \if{html}{\out{</div>}}
 }
@@ -403,9 +403,9 @@ swap two cards in the \code{Reporter}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{start}}{\code{integer} the index of the first card}
+\item{\code{start}}{(\code{integer}) the index of the first card}
 
-\item{\code{end}}{\code{integer} the index of the second card}
+\item{\code{end}}{(\code{integer}) the index of the second card}
 }
 \if{html}{\out{</div>}}
 }
@@ -500,7 +500,7 @@ Create/Recreate a \code{Reporter} from another \code{Reporter}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{reporter}}{\code{Reporter} instance.}
+\item{\code{reporter}}{(\code{Reporter}) instance.}
 }
 \if{html}{\out{</div>}}
 }
@@ -529,7 +529,7 @@ Convert a \code{Reporter} to a list and transfer files.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{output_dir}}{\code{character(1)} a path to the directory where files will be copied.}
+\item{\code{output_dir}}{(\code{character(1)}) a path to the directory where files will be copied.}
 }
 \if{html}{\out{</div>}}
 }
@@ -560,9 +560,9 @@ Create/Recreate a \code{Reporter} from a list and directory with files.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{rlist}}{\verb{named list} \code{Reporter} representation.}
+\item{\code{rlist}}{(\verb{named list}) \code{Reporter} representation.}
 
-\item{\code{output_dir}}{\code{character(1)} a path to the directory from which files will be copied.}
+\item{\code{output_dir}}{(\code{character(1)}) a path to the directory from which files will be copied.}
 }
 \if{html}{\out{</div>}}
 }
@@ -594,7 +594,7 @@ Create/Recreate a \code{Reporter} to a directory with \code{JSON} file and stati
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{output_dir}}{\code{character(1)} a path to the directory where files will be copied, \code{JSON} and statics.}
+\item{\code{output_dir}}{(\code{character(1)}) a path to the directory where files will be copied, \code{JSON} and statics.}
 }
 \if{html}{\out{</div>}}
 }
@@ -625,7 +625,7 @@ Create/Recreate a \code{Reporter} from a directory with \code{JSON} file and sta
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{output_dir}}{\code{character(1)} a path to the directory with files, \code{JSON} and statics.}
+\item{\code{output_dir}}{(\code{character(1)}) a path to the directory with files, \code{JSON} and statics.}
 }
 \if{html}{\out{</div>}}
 }

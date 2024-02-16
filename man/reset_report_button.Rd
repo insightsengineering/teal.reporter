@@ -11,12 +11,12 @@ reset_report_button_ui(id, label = NULL)
 reset_report_button_srv(id, reporter)
 }
 \arguments{
-\item{id}{\code{character(1)} this \code{shiny} module's id.}
+\item{id}{(\code{character(1)}) \code{shiny} module instance id.}
 
-\item{label}{\code{character(1)} label before the icon.
+\item{label}{(\code{character(1)}) label before the icon.
 By default \code{NULL}.}
 
-\item{reporter}{\code{\link{Reporter}} instance.}
+\item{reporter}{(\code{Reporter}) instance.}
 }
 \value{
 \code{NULL}.

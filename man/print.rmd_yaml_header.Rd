@@ -7,7 +7,7 @@
 \method{print}{rmd_yaml_header}(x, ...)
 }
 \arguments{
-\item{x}{\code{rmd_yaml_header} class object.}
+\item{x}{(\code{rmd_yaml_header}) class object.}
 
 \item{...}{optional text.}
 }

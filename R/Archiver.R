@@ -79,7 +79,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
   public = list(
     #' @description write a `Reporter` instance in to this `JSONArchiver` object.
     #'
-    #' @param reporter `Reporter` instance.
+    #' @param reporter (`Reporter`) instance.
     #'
     #' @return `self`, invisibly.
     #' @examples
@@ -109,7 +109,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description read a `Reporter` instance from a directory with `JSONArchiver`.
     #'
-    #' @param path `character(1)` a path to the directory with all proper files.
+    #' @param path (`character(1)`) a path to the directory with all proper files.
     #'
     #' @return `Reporter` instance.
     #' @examples

@@ -253,8 +253,8 @@ padding_lst <- function(ft, indents) {
 #' A single character string containing a text block of multiple lines (separated by `\n`)
 #' is split into multiple strings with n or less lines each.
 #'
-#' @param block_text `character` string containing the input block of text
-#' @param n `integer` number of lines per block
+#' @param block_text (`character`) string containing the input block of text
+#' @param n (`integer`) number of lines per block
 #'
 #' @return
 #' List of character strings with up to `n` lines in each element.
