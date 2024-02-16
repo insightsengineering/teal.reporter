@@ -13,7 +13,14 @@
 The function has to be used in the shiny reactive context.
 }
 \examples{
-\dontshow{if (requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("rtables", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("ggplot2") && requireNamespace("rtables")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+## ------------------------------------------------
+## Method `Reporter$append_cards`
+## ------------------------------------------------
+
+library(ggplot2)
+library(rtables)
+
 card1 <- ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
@@ -34,7 +41,14 @@ card2$append_table(iris)
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 \dontshow{\}) # examplesIf}
-\dontshow{if (requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("rtables", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("ggplot2") && requireNamespace("rtables")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+## ------------------------------------------------
+## Method `Reporter$get_cards`
+## ------------------------------------------------
+
+library(ggplot2)
+library(rtables)
+
 card1 <- ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
@@ -56,7 +70,14 @@ reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 reporter$get_cards()
 \dontshow{\}) # examplesIf}
-\dontshow{if (requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("rtables", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("ggplot2") && requireNamespace("rtables")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+## ------------------------------------------------
+## Method `Reporter$get_blocks`
+## ------------------------------------------------
+
+library(ggplot2)
+library(rtables)
+
 card1 <- ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
@@ -91,6 +112,7 @@ reporter <- Reporter$new()
 ## ------------------------------------------------
 
 library(shiny)
+
 isolate(Reporter$new()$get_reactive_add_card())
 
 ## ------------------------------------------------
@@ -323,6 +345,7 @@ Gets the current value of the reactive variable for adding cards.
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{library(shiny)
+
 isolate(Reporter$new()$get_reactive_add_card())
 }
 \if{html}{\out{</div>}}

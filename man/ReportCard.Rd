@@ -11,12 +11,16 @@
 metadata blocks that can be appended and rendered to form a report output from a \code{shiny} app.
 }
 \examples{
-\dontshow{if (requireNamespace("ggplot2", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(ggplot2)
+
 card <- ReportCard$new()$append_plot(
   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )
 \dontshow{\}) # examplesIf}
-\dontshow{if (requireNamespace("ggplot2", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(ggplot2)
+
 card <- ReportCard$new()$append_text("Some text")$append_plot(
   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )$append_text("Some text")$append_metadata(key = "lm",
@@ -24,7 +28,9 @@ card <- ReportCard$new()$append_text("Some text")$append_plot(
 card$get_content()
 card$get_metadata()
 \dontshow{\}) # examplesIf}
-\dontshow{if (requireNamespace("ggplot2", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(ggplot2)
+
 card <- ReportCard$new()$append_text("Some text")$append_plot(
   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )$append_text("Some text")$append_metadata(key = "lm",
@@ -33,7 +39,9 @@ card$get_content()
 
 card$to_list(tempdir())
 \dontshow{\}) # examplesIf}
-\dontshow{if (requireNamespace("ggplot2", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(ggplot2)
+
 card <- ReportCard$new()$append_text("Some text")$append_plot(
   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )$append_text("Some text")$append_metadata(key = "lm",
