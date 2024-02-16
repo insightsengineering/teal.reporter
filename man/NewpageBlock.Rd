@@ -44,7 +44,7 @@ block <- NewpageBlock$new()
 \if{html}{\out{<a id="method-NewpageBlock-new"></a>}}
 \if{latex}{\out{\hypertarget{method-NewpageBlock-new}{}}}
 \subsection{Method \code{new()}}{
-Returns a \code{NewpageBlock} object.
+Initialize a \code{NewpageBlock} object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{NewpageBlock$new()}\if{html}{\out{</div>}}
 }
@@ -54,7 +54,7 @@ Returns a \code{NewpageBlock} object with no content and the default style.
 }
 
 \subsection{Returns}{
-\code{NewpageBlock}.
+Object of class \code{NewpageBlock}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

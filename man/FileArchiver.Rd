@@ -50,13 +50,13 @@ FileArchiver$new()$get_output_dir()
 \if{html}{\out{<a id="method-FileArchiver-new"></a>}}
 \if{latex}{\out{\hypertarget{method-FileArchiver-new}{}}}
 \subsection{Method \code{new()}}{
-Returns a \code{FileArchiver} object.
+Initialize a \code{FileArchiver} object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{FileArchiver$new()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-A \code{FileArchiver} object.
+Object of class \code{FileArchiver}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

@@ -92,7 +92,7 @@ block$to_list()
 \if{html}{\out{<a id="method-RcodeBlock-new"></a>}}
 \if{latex}{\out{\hypertarget{method-RcodeBlock-new}{}}}
 \subsection{Method \code{new()}}{
-Returns a \code{RcodeBlock} object.
+Initialize a \code{RcodeBlock} object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{RcodeBlock$new(content = character(0), ...)}\if{html}{\out{</div>}}
 }
@@ -111,7 +111,7 @@ Returns a \code{RcodeBlock} object with no content and no parameters.
 }
 
 \subsection{Returns}{
-\code{RcodeBlock}.
+Object of class \code{RcodeBlock}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

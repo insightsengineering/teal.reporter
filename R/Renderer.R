@@ -6,9 +6,9 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
   public = list(
     #' @description Returns a `Renderer` object.
     #'
-    #' @details Returns a `Renderer` object.
+    #' @details Initialize a `Renderer` object.
     #'
-    #' @return `Renderer` object.
+    #' @return Object of class `Renderer`, invisibly.
     #' @examples
     #' Renderer <- getFromNamespace("Renderer", "teal.reporter")
     #' Renderer$new()

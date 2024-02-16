@@ -11,9 +11,9 @@
 ReportCard <- R6::R6Class( # nolint: object_name_linter.
   classname = "ReportCard",
   public = list(
-    #' @description Returns a `ReportCard` object.
+    #' @description Initialize a `ReportCard` object.
     #'
-    #' @return A `ReportCard` object.
+    #' @return Object of class `ReportCard`, invisibly.
     #' @examples
     #' card <- ReportCard$new()
     #'

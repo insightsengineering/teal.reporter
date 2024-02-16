@@ -5,12 +5,12 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "TableBlock",
   inherit = FileBlock,
   public = list(
-    #' @description Returns a new `TableBlock` object.
+    #' @description Initialize a `TableBlock` object.
     #'
     #' @param table (`data.frame` or `rtables` or `TableTree` or `ElementaryTable` or `listing_df`) a table assigned to
     #'   this `TableBlock`
     #'
-    #' @return A `TableBlock` object.
+    #' @return Object of class `TableBlock`, invisibly.
     initialize = function(table) {
       if (!missing(table)) {
         self$set_content(table)

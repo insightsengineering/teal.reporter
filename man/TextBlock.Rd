@@ -92,7 +92,7 @@ block$to_list()
 \if{html}{\out{<a id="method-TextBlock-new"></a>}}
 \if{latex}{\out{\hypertarget{method-TextBlock-new}{}}}
 \subsection{Method \code{new()}}{
-Returns a \code{TextBlock} object.
+Initialize a \code{TextBlock} object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TextBlock$new(content = character(0), style = private$styles[1])}\if{html}{\out{</div>}}
 }
@@ -111,7 +111,7 @@ Returns a \code{TextBlock} object with no content and the default style.
 }
 
 \subsection{Returns}{
-\code{TextBlock}.
+Object of class \code{TextBlock}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

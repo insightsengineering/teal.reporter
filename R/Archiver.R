@@ -4,9 +4,9 @@
 Archiver <- R6::R6Class( # nolint: object_name_linter.
   classname = "Archiver",
   public = list(
-    #' @description Returns an `Archiver` object.
+    #' @description Initialize an `Archiver` object.
     #'
-    #' @return An `Archiver` object.
+    #' @return Object of class `Archiver`, invisibly.
     #' @examples
     #' Archiver <- getFromNamespace("Archiver", "teal.reporter")
     #' Archiver$new()
@@ -38,9 +38,9 @@ FileArchiver <- R6::R6Class( # nolint: object_name_linter.
   classname = "FileArchiver",
   inherit = Archiver,
   public = list(
-    #' @description Returns a `FileArchiver` object.
+    #' @description Initialize a `FileArchiver` object.
     #'
-    #' @return A `FileArchiver` object.
+    #' @return Object of class `FileArchiver`, invisibly.
     #' @examples
     #' FileArchiver <- getFromNamespace("FileArchiver", "teal.reporter")
     #' FileArchiver$new()
@@ -81,7 +81,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param reporter (`Reporter`) instance.
     #'
-    #' @return `self`, invisibly.
+    #' @return `self`.
     #' @examplesIf requireNamespace("ggplot2", quietly = TRUE)
     #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
     #' card1 <- ReportCard$new()

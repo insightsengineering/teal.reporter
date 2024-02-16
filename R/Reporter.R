@@ -9,9 +9,9 @@
 Reporter <- R6::R6Class( # nolint: object_name_linter.
   classname = "Reporter",
   public = list(
-    #' @description Returns a `Reporter` object.
+    #' @description Initialize a `Reporter` object.
     #'
-    #' @return A `Reporter` object.
+    #' @return Object of class `Reporter`, invisibly.
     #' @examples
     #' reporter <- Reporter$new()
     #'
@@ -264,7 +264,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Create/Recreate a `Reporter` to a directory with `JSON` file and static files.
     #' @param output_dir (`character(1)`) a path to the directory where files will be copied, `JSON` and statics.
-    #' @return `self`, invisibly.
+    #' @return `output_dir` argument.
     #' @examples
     #' reporter <- Reporter$new()
     #' tmp_dir <- file.path(tempdir(), "jsondir")

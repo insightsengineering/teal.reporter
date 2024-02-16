@@ -4,11 +4,11 @@
 ContentBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "ContentBlock",
   public = list(
-    #' @description Returns a `ContentBlock` object.
+    #' @description Initialize a `ContentBlock` object.
     #'
     #' @details Returns a `ContentBlock` object with no content and the default style.
     #'
-    #' @return `ContentBlock`.
+    #' @return Object of class `ContentBlock`, invisibly.
     #' @examples
     #' ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
     #' ContentBlock$new()

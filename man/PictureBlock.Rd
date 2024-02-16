@@ -80,7 +80,7 @@ block$get_dim()
 \if{html}{\out{<a id="method-PictureBlock-new"></a>}}
 \if{latex}{\out{\hypertarget{method-PictureBlock-new}{}}}
 \subsection{Method \code{new()}}{
-Returns a new \code{PictureBlock} object.
+Initialize a \code{PictureBlock} object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{PictureBlock$new(plot)}\if{html}{\out{</div>}}
 }
@@ -93,7 +93,7 @@ Returns a new \code{PictureBlock} object.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A \code{PictureBlock} object.
+Object of class \code{PictureBlock}, invisibly.
 }
 }
 \if{html}{\out{<hr>}}

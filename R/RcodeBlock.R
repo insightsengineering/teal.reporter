@@ -5,14 +5,14 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "RcodeBlock",
   inherit = ContentBlock,
   public = list(
-    #' @description Returns a `RcodeBlock` object.
+    #' @description Initialize a `RcodeBlock` object.
     #'
     #' @details Returns a `RcodeBlock` object with no content and no parameters.
     #'
     #' @param content (`character(1)` or `character(0)`) a string assigned to this `RcodeBlock`
     #' @param ... any `rmarkdown` `R` chunk parameter and it value.
     #'
-    #' @return `RcodeBlock`.
+    #' @return Object of class `RcodeBlock`, invisibly.
     #' @examples
     #' RcodeBlock <- getFromNamespace("RcodeBlock", "teal.reporter")
     #' block <- RcodeBlock$new()

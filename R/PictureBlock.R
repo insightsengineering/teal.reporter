@@ -5,11 +5,11 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "PictureBlock",
   inherit = FileBlock,
   public = list(
-    #' @description Returns a new `PictureBlock` object.
+    #' @description Initialize a `PictureBlock` object.
     #'
     #' @param plot (`ggplot` or `grid`) a picture in this `PictureBlock`
     #'
-    #' @return A `PictureBlock` object.
+    #' @return Object of class `PictureBlock`, invisibly.
     initialize = function(plot) {
       if (!missing(plot)) {
         self$set_content(plot)

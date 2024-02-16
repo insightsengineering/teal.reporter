@@ -33,13 +33,13 @@ Archiver$new()
 \if{html}{\out{<a id="method-Archiver-new"></a>}}
 \if{latex}{\out{\hypertarget{method-Archiver-new}{}}}
 \subsection{Method \code{new()}}{
-Returns an \code{Archiver} object.
+Initialize an \code{Archiver} object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Archiver$new()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-An \code{Archiver} object.
+Object of class \code{Archiver}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

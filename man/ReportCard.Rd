@@ -134,13 +134,13 @@ ReportCard$new()$set_name("NAME")$get_name()
 \if{html}{\out{<a id="method-ReportCard-new"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-new}{}}}
 \subsection{Method \code{new()}}{
-Returns a \code{ReportCard} object.
+Initialize a \code{ReportCard} object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$new()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-A \code{ReportCard} object.
+Object of class \code{ReportCard}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

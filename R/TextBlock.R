@@ -5,14 +5,14 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "TextBlock",
   inherit = ContentBlock,
   public = list(
-    #' @description Returns a `TextBlock` object.
+    #' @description Initialize a `TextBlock` object.
     #'
     #' @details Returns a `TextBlock` object with no content and the default style.
     #'
     #' @param content (`character`) a string assigned to this `TextBlock`
     #' @param style (`character(1)`) one of: `"default"`, `"header2"`, `"header3"` `"verbatim"`
     #'
-    #' @return `TextBlock`.
+    #' @return Object of class `TextBlock`, invisibly.
     #' @examples
     #' TextBlock <- getFromNamespace("TextBlock", "teal.reporter")
     #' block <- TextBlock$new()

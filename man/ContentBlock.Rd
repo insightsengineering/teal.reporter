@@ -53,7 +53,7 @@ block$get_content()
 \if{html}{\out{<a id="method-ContentBlock-new"></a>}}
 \if{latex}{\out{\hypertarget{method-ContentBlock-new}{}}}
 \subsection{Method \code{new()}}{
-Returns a \code{ContentBlock} object.
+Initialize a \code{ContentBlock} object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ContentBlock$new()}\if{html}{\out{</div>}}
 }
@@ -63,7 +63,7 @@ Returns a \code{ContentBlock} object with no content and the default style.
 }
 
 \subsection{Returns}{
-\code{ContentBlock}.
+Object of class \code{ContentBlock}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

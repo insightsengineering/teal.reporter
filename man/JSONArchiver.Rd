@@ -94,7 +94,7 @@ write a \code{Reporter} instance in to this \code{JSONArchiver} object.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{self}, invisibly.
+\code{self}.
 }
 }
 \if{html}{\out{<hr>}}

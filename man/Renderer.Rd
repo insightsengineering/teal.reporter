@@ -125,11 +125,11 @@ Returns a \code{Renderer} object.
 }
 
 \subsection{Details}{
-Returns a \code{Renderer} object.
+Initialize a \code{Renderer} object.
 }
 
 \subsection{Returns}{
-\code{Renderer} object.
+Object of class \code{Renderer}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

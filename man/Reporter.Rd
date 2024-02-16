@@ -180,13 +180,13 @@ reporter$from_jsondir(tmp_dir)
 \if{html}{\out{<a id="method-Reporter-new"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-new}{}}}
 \subsection{Method \code{new()}}{
-Returns a \code{Reporter} object.
+Initialize a \code{Reporter} object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$new()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-A \code{Reporter} object.
+Object of class \code{Reporter}, invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -494,7 +494,7 @@ Create/Recreate a \code{Reporter} to a directory with \code{JSON} file and stati
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{self}, invisibly.
+\code{output_dir} argument.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
