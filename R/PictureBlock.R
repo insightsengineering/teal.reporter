@@ -98,7 +98,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
       private$dim <- dim
       invisible(self)
     },
-    #' @description Returns the dimensions of this `PictureBlock`.
+    #' @description Get `PictureBlock` dimensions as a numeric vector.
     #'
     #' @return `numeric` the array of 2 numeric values representing width and height in pixels.
     #' @examples
