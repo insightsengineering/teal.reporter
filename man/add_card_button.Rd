@@ -44,7 +44,7 @@ A subclass instance should be passed as the default value of
 the \code{card} argument in the \code{card_fun} function.
 See below:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{CustomReportCard <- R6::R6Class( # nolint: object_name_linter.
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{CustomReportCard <- R6::R6Class(
   classname = "CustomReportCard",
   inherit = teal.reporter::ReportCard
 )

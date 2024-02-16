@@ -75,8 +75,8 @@ Sets content of this \code{TableBlock}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{content}}{(\code{data.frame} or \code{rtables} or \code{TableTree} or \code{ElementaryTable} or \code{listing_df}) a table assigned to
-this \code{TableBlock}}
+\item{\code{content}}{(\code{data.frame} or \code{rtables} or \code{TableTree} or \code{ElementaryTable} or \code{listing_df})
+a table assigned to this \code{TableBlock}}
 }
 \if{html}{\out{</div>}}
 }
