@@ -24,9 +24,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param cards (`ReportCard`) or a list of such objects
     #' @return `self`, invisibly.
-    #' @examples
-    #' library(ggplot2)
-    #' library(rtables)
+    #' @examplesIf requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("rtables", quietly = TRUE)
     #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
@@ -56,9 +54,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @description Returns cards of this `Reporter`.
     #'
     #' @return `list()` list of [`ReportCard`].
-    #' @examples
-    #' library(ggplot2)
-    #' library(rtables)
+    #' @examplesIf requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("rtables", quietly = TRUE)
     #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
@@ -87,9 +83,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @param sep the element inserted between each content element in this `Reporter`.
     #' Pass `NULL` to return content without any additional elements. Default: `NewpageBlock$new()`
     #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock` and `NewpageBlock`.
-    #' @examples
-    #' library(ggplot2)
-    #' library(rtables)
+    #' @examplesIf requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("rtables", quietly = TRUE)
     #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")

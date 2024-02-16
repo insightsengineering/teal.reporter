@@ -10,12 +10,7 @@
 \code{JSONArchiver}
 }
 \examples{
-
-## ------------------------------------------------
-## Method `JSONArchiver$write`
-## ------------------------------------------------
-
-library(ggplot2)
+\dontshow{if (requireNamespace("ggplot2", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
 card1 <- ReportCard$new()
 
@@ -33,12 +28,8 @@ JSONArchiver <- getFromNamespace("JSONArchiver", "teal.reporter")
 archiver <- JSONArchiver$new()
 archiver$write(reporter)
 archiver$get_output_dir()
-
-## ------------------------------------------------
-## Method `JSONArchiver$read`
-## ------------------------------------------------
-
-library(ggplot2)
+\dontshow{\}) # examplesIf}
+\dontshow{if (requireNamespace("ggplot2", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
 card1 <- ReportCard$new()
 
@@ -63,6 +54,7 @@ blocks <- Reporter$new()
 blocks <- blocks$from_reporter(archiver$read())$get_blocks()
 Renderer <- getFromNamespace("Renderer", "teal.reporter")
 doc <- Renderer$new()$render(blocks)
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}
 \section{Super classes}{
@@ -104,31 +96,6 @@ write a \code{Reporter} instance in to this \code{JSONArchiver} object.
 \subsection{Returns}{
 \code{self}, invisibly.
 }
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{library(ggplot2)
-ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
-card1 <- ReportCard$new()
-
-card1$append_text("Header 2 text", "header2")
-card1$append_text("A paragraph of default text", "header2")
-card1$append_plot(
- ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-)
-
-Reporter <- getFromNamespace("Reporter", "teal.reporter")
-reporter <- Reporter$new()
-reporter$append_cards(list(card1))
-
-JSONArchiver <- getFromNamespace("JSONArchiver", "teal.reporter")
-archiver <- JSONArchiver$new()
-archiver$write(reporter)
-archiver$get_output_dir()
-}
-\if{html}{\out{</div>}}
-
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-JSONArchiver-read"></a>}}
@@ -149,38 +116,6 @@ read a \code{Reporter} instance from a directory with \code{JSONArchiver}.
 \subsection{Returns}{
 \code{Reporter} instance.
 }
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{library(ggplot2)
-ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
-card1 <- ReportCard$new()
-
-card1$append_text("Header 2 text", "header2")
-card1$append_text("A paragraph of default text", "header2")
-card1$append_plot(
- ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-)
-
-Reporter <- getFromNamespace("Reporter", "teal.reporter")
-reporter <- Reporter$new()
-reporter$append_cards(list(card1))
-
-JSONArchiver <- getFromNamespace("JSONArchiver", "teal.reporter")
-archiver <- JSONArchiver$new()
-archiver$write(reporter)
-archiver$get_output_dir()
-
-archiver$read()$get_cards()[[1]]$get_content()
-Reporter <- getFromNamespace("Reporter", "teal.reporter")
-blocks <- Reporter$new()
-blocks <- blocks$from_reporter(archiver$read())$get_blocks()
-Renderer <- getFromNamespace("Renderer", "teal.reporter")
-doc <- Renderer$new()$render(blocks)
-}
-\if{html}{\out{</div>}}
-
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-JSONArchiver-clone"></a>}}

@@ -33,9 +33,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @details `r global_knitr_details()`
     #'
     #' @return `character` a `Rmd` text (`yaml` header + body), ready to be rendered.
-    #' @examples
-    #' library(ggplot2)
-    #' library(rtables)
+    #' @examplesIf requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("rtables", quietly = TRUE)
     #' library(yaml)
     #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
     #' card1 <- ReportCard$new()
@@ -135,9 +133,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @details `r global_knitr_details()`
     #'
     #' @return `character` path to the output.
-    #' @examples
-    #' library(ggplot2)
-    #' library(rtables)
+    #' @examplesIf requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("rtables", quietly = TRUE)
     #' library(yaml)
     #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
     #' card1 <- ReportCard$new()

@@ -82,8 +82,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' @param reporter (`Reporter`) instance.
     #'
     #' @return `self`, invisibly.
-    #' @examples
-    #' library(ggplot2)
+    #' @examplesIf requireNamespace("ggplot2", quietly = TRUE)
     #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
     #' card1 <- ReportCard$new()
     #'
@@ -112,8 +111,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
     #' @param path (`character(1)`) a path to the directory with all proper files.
     #'
     #' @return `Reporter` instance.
-    #' @examples
-    #' library(ggplot2)
+    #' @examplesIf requireNamespace("ggplot2", quietly = TRUE)
     #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
     #' card1 <- ReportCard$new()
     #'

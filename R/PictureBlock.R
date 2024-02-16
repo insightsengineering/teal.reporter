@@ -23,9 +23,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @param content (`ggplot` or `grob` or `trellis`) a picture in this `PictureBlock`
     #'
     #' @return `self`, invisibly.
-    #' @examples
-    #' library(ggplot2)
-    #' library(lattice)
+    #' @examplesIf requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("lattice", quietly = TRUE)
     #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
     #' block <- PictureBlock$new()
     #' block$set_content(ggplot(iris))
