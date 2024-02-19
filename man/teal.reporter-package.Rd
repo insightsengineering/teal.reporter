@@ -22,10 +22,7 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Aleksander Chlebowski \email{aleksander.chlebowski@contractors.roche.com} (\href{https://orcid.org/0000-0001-5018-6294}{ORCID})
-  \item Andre Verissimo \email{andre.verissimo@roche.com} (\href{https://orcid.org/0000-0002-2212-339X}{ORCID})
   \item Kartikeya Kirar \email{kartikeya.kirar@businesspartner.roche.com}
-  \item Vedha Viyash \email{vedha.viyash@roche.com}
   \item Marcin Kosinski \email{marcin.kosinski.mk1@roche.com}
   \item Maciej Nasinski
   \item Konrad Pagacz

@@ -7,9 +7,9 @@
 split_text_block(x, n)
 }
 \arguments{
-\item{n}{\code{integer} number of lines per block}
+\item{x}{\code{character} string containing the input block of text}
 
-\item{block_text}{\code{character} string containing the input block of text}
+\item{n}{\code{integer} number of lines per block}
 }
 \value{
 List of character strings with up to \code{n} lines in each element.
