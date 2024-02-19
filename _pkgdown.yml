@@ -31,7 +31,7 @@ reference:
       - reporter_previewer_ui
       - simple_reporter_srv
       - simple_reporter_ui
-  - title: "`yaml` and rmd utility functions"
+  - title: Supporting `shiny` modules
     contents:
       - download_report_button_srv
       - download_report_button_ui
