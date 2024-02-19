@@ -23,7 +23,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Sets the content of this `PictureBlock`.
     #'
-    #' @details Throws if argument is not a `ggplot`, `grob` or `trellis` plot.
+    #' @details Raises error if argument is not a `ggplot`, `grob` or `trellis` plot.
     #'
     #' @param content (`ggplot` or `grob` or `trellis`) a picture in this `PictureBlock`
     #'
@@ -66,7 +66,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Sets the title of this `PictureBlock`.
     #'
-    #' @details Throws if argument is not `character(1)`.
+    #' @details Raises error if argument is not `character(1)`.
     #'
     #' @param title (`character(1)`) a string assigned to this `PictureBlock`
     #'
@@ -94,7 +94,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Sets the dimensions of this `PictureBlock`.
     #'
-    #' @param dim (`numeric(2)`) figure dimensions (width and height) in pixels, length 2.
+    #' @param dim (`numeric(2)`) figure dimensions (width and height) in pixels.
     #'
     #' @return `self`, invisibly.
     #' @examples

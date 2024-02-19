@@ -81,7 +81,7 @@ a table assigned to this \code{TableBlock}}
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Throws if argument is not a table-like object.
+Raises error if argument is not a table-like object.
 }
 
 \subsection{Returns}{

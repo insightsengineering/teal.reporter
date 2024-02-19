@@ -218,7 +218,7 @@ Create the \code{RcodeBlock} from a list.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{x}}{(\verb{named list}) with two fields \code{c("text", "params")}.
+\item{\code{x}}{(\verb{named list}) with two fields \code{text} and \code{params}.
 Use the \code{get_available_params} method to get all possible parameters.}
 }
 \if{html}{\out{</div>}}

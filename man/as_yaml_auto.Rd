@@ -35,10 +35,10 @@ Converts a named list into a \code{yaml} header for \code{Rmd}, handling output 
 as defined in the \code{rmarkdown} package. This function simplifies the process of generating \code{yaml} headers.
 }
 \details{
-This function processes a non-nested (flat) named list and generates an \code{Rmd} \code{yaml} header.
-All \code{Rmd} \code{yaml} header fields from the vector are supported,
-\code{c("author", "date", "title", "subtitle", "abstract", "keywords", "subject", "description", "category", "lang")},
-And handles \code{output} field types and arguments as defined in the \code{rmarkdown} package.
+This function processes a non-nested (flat) named list into a \code{yaml} header for an \code{Rmd} document.
+It supports all standard \code{Rmd} \code{yaml} header fields, including \code{author}, \code{date}, \code{title}, \code{subtitle},
+\code{abstract}, \code{keywords}, \code{subject}, \code{description}, \code{category}, and \code{lang}.
+Additionally,  it handles \code{output} field types and arguments as defined in the \code{rmarkdown} package.
 }
 \note{
 Only non-nested lists are automatically parsed.

@@ -247,7 +247,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
 #' Get the custom list of UI inputs
 #'
 #' @param rmd_output (`character`) vector with `rmarkdown` output types,
-#' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
+#' by default all possible `pdf_document`, `html_document`, `powerpoint_presentation`, and `word_document`.
 #' If vector is named then those names will appear in the `UI`.
 #' @param rmd_yaml_args (`named list`) with `Rmd` `yaml` header fields and their default values.
 #' This `list` will result in the custom subset of UI inputs for the download reporter functionality.

@@ -49,7 +49,7 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Create the `ContentBlock` from a list.
     #'
-    #' @param x (`named list`) with two fields `c("text", "style")`.
+    #' @param x (`named list`) with two fields `text` and `style`.
     #' Use the `get_available_styles` method to get all possible styles.
     #'
     #' @return `self`, invisibly.

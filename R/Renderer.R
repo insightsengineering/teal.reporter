@@ -31,13 +31,13 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Getting the `Rmd` text which could be easily rendered later.
     #'
-    #' @param blocks (`list`) of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
+    #' @param blocks (`list`) of `TextBlock`, `PictureBlock` and `NewpageBlock` objects.
     #' @param yaml_header (`character`) an `rmarkdown` `yaml` header.
     #' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
     #'  for customizing the rendering process.
     #' @details `r global_knitr_details()`
     #'
-    #' @return `character` a `Rmd` text (`yaml` header + body), ready to be rendered.
+    #' @return Character vector constituting `rmarkdown` text (`yaml` header + body), ready to be rendered.
     #' @examples
     #' library(yaml)
     #' library(rtables)
@@ -133,7 +133,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Renders the `Report` to the desired output format by compiling the `rmarkdown` file.
     #'
-    #' @param blocks (`list`) of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
+    #' @param blocks (`list`) of `TextBlock`, `PictureBlock` or `NewpageBlock` objects.
     #' @param yaml_header (`character`) an `rmarkdown` `yaml` header.
     #' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
     #'  for customizing the rendering process.

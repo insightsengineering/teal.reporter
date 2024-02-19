@@ -24,7 +24,7 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Sets content of this `TableBlock`.
     #'
-    #' @details Throws if argument is not a table-like object.
+    #' @details Raises error if argument is not a table-like object.
     #'
     #' @param content (`data.frame` or `rtables` or `TableTree` or `ElementaryTable` or `listing_df`)
     #' a table assigned to this `TableBlock`

@@ -14,7 +14,7 @@ The \code{list} must include at least \code{"output"} field.
 The default value for \code{"output"} has to be in the \code{rmd_output} argument.}
 
 \item{rmd_output}{(\code{character}) vector with \code{rmarkdown} output types,
-by default all possible \code{c("pdf_document", "html_document", "powerpoint_presentation", "word_document")}.
+by default all possible \code{pdf_document}, \code{html_document}, \code{powerpoint_presentation}, and \code{word_document}.
 If vector is named then those names will appear in the \code{UI}.}
 }
 \description{

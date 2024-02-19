@@ -188,7 +188,8 @@ Appends a table to this \code{ReportCard}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{table}}{A (\code{data.frame} or object) that can be coerced into a table.}
+\item{\code{table}}{A (\code{data.frame} or \code{rtables} or \code{TableTree} or \code{ElementaryTable} or \code{listing_df})
+that can be coerced into a table.}
 }
 \if{html}{\out{</div>}}
 }
@@ -219,7 +220,7 @@ Appends a plot to this \code{ReportCard}.
 \describe{
 \item{\code{plot}}{(\code{ggplot} or \code{grob} or \code{trellis}) plot object.}
 
-\item{\code{dim}}{(\code{integer(2)}) width and height in pixels.}
+\item{\code{dim}}{(\code{numeric(2)}) width and height in pixels.}
 }
 \if{html}{\out{</div>}}
 }
@@ -465,7 +466,7 @@ Set the name of the \code{ReportCard}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{name}}{(\code{character}) a card name.}
+\item{\code{name}}{(\code{character(1)}) a card name.}
 }
 \if{html}{\out{</div>}}
 }

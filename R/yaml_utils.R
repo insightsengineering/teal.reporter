@@ -132,10 +132,10 @@ rmd_output_arguments <- function(output_name, default_values = FALSE) {
 #' as defined in the `rmarkdown` package. This function simplifies the process of generating `yaml` headers.
 #'
 #' @details
-#' This function processes a non-nested (flat) named list and generates an `Rmd` `yaml` header.
-#' All `Rmd` `yaml` header fields from the vector are supported,
-#' `c("author", "date", "title", "subtitle", "abstract", "keywords", "subject", "description", "category", "lang")`,
-#' And handles `output` field types and arguments as defined in the `rmarkdown` package.
+#' This function processes a non-nested (flat) named list into a `yaml` header for an `Rmd` document.
+#' It supports all standard `Rmd` `yaml` header fields, including `author`, `date`, `title`, `subtitle`,
+#'  `abstract`, `keywords`, `subject`, `description`, `category`, and `lang`.
+#' Additionally,  it handles `output` field types and arguments as defined in the `rmarkdown` package.
 #'
 #' @note Only non-nested lists are automatically parsed.
 #' Nested lists require direct processing with `yaml::as.yaml`.

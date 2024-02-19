@@ -181,7 +181,7 @@ Getting the \code{Rmd} text which could be easily rendered later.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{blocks}}{(\code{list}) of \code{c("TextBlock", "PictureBlock", "NewpageBlock")} objects.}
+\item{\code{blocks}}{(\code{list}) of \code{TextBlock}, \code{PictureBlock} and \code{NewpageBlock} objects.}
 
 \item{\code{yaml_header}}{(\code{character}) an \code{rmarkdown} \code{yaml} header.}
 
@@ -201,7 +201,7 @@ use \code{getOption('teal.reporter.global_knitr')}. These defaults include:
 }
 
 \subsection{Returns}{
-\code{character} a \code{Rmd} text (\code{yaml} header + body), ready to be rendered.
+Character vector constituting \code{rmarkdown} text (\code{yaml} header + body), ready to be rendered.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -269,7 +269,7 @@ Renders the \code{Report} to the desired output format by compiling the \code{rm
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{blocks}}{(\code{list}) of \code{c("TextBlock", "PictureBlock", "NewpageBlock")} objects.}
+\item{\code{blocks}}{(\code{list}) of \code{TextBlock}, \code{PictureBlock} or \code{NewpageBlock} objects.}
 
 \item{\code{yaml_header}}{(\code{character}) an \code{rmarkdown} \code{yaml} header.}
 

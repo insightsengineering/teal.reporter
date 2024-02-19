@@ -24,7 +24,8 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Appends a table to this `ReportCard`.
     #'
-    #' @param table A (`data.frame` or object) that can be coerced into a table.
+    #' @param table A (`data.frame` or `rtables` or `TableTree` or `ElementaryTable` or `listing_df`)
+    #' that can be coerced into a table.
     #' @return `self`, invisibly.
     #' @examples
     #' card <- ReportCard$new()$append_table(iris)
@@ -36,7 +37,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends a plot to this `ReportCard`.
     #'
     #' @param plot (`ggplot` or `grob` or `trellis`) plot object.
-    #' @param dim (`integer(2)`) width and height in pixels.
+    #' @param dim (`numeric(2)`) width and height in pixels.
     #' @return `self`, invisibly.
     #' @examples
     #' library(ggplot2)
@@ -156,7 +157,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Set the name of the `ReportCard`.
     #'
-    #' @param name (`character`) a card name.
+    #' @param name (`character(1)`) a card name.
     #' @return `self`, invisibly.
     #' @examples
     #' ReportCard$new()$set_name("NAME")$get_name()

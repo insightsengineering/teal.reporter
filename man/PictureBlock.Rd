@@ -128,7 +128,7 @@ Sets the content of this \code{PictureBlock}.
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Throws if argument is not a \code{ggplot}, \code{grob} or \code{trellis} plot.
+Raises error if argument is not a \code{ggplot}, \code{grob} or \code{trellis} plot.
 }
 
 \subsection{Returns}{
@@ -173,7 +173,7 @@ Sets the title of this \code{PictureBlock}.
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Throws if argument is not \code{character(1)}.
+Raises error if argument is not \code{character(1)}.
 }
 
 \subsection{Returns}{
@@ -227,7 +227,7 @@ Sets the dimensions of this \code{PictureBlock}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{dim}}{(\code{numeric(2)}) figure dimensions (width and height) in pixels, length 2.}
+\item{\code{dim}}{(\code{numeric(2)}) figure dimensions (width and height) in pixels.}
 }
 \if{html}{\out{</div>}}
 }

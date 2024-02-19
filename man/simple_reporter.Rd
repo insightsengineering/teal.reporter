@@ -30,7 +30,7 @@ the function has a \code{card} argument and an optional \code{comment} argument.
 \item{global_knitr}{(\code{list}) a global \code{knitr} parameters for customizing the rendering process.}
 
 \item{rmd_output}{(\code{character}) vector with \code{rmarkdown} output types,
-by default all possible \code{c("pdf_document", "html_document", "powerpoint_presentation", "word_document")}.
+by default all possible \code{pdf_document}, \code{html_document}, \code{powerpoint_presentation}, and \code{word_document}.
 If vector is named then those names will appear in the \code{UI}.}
 
 \item{rmd_yaml_args}{(\verb{named list}) with \code{Rmd} \code{yaml} header fields and their default values.

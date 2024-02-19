@@ -219,7 +219,7 @@ Create the \code{TextBlock} from a list.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{x}}{(\verb{named list}) with two fields \code{c("text", "style")}.
+\item{\code{x}}{(\verb{named list}) with two fields \code{text} and \code{style}.
 Use the \code{get_available_styles} method to get all possible styles.}
 }
 \if{html}{\out{</div>}}

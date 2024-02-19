@@ -68,7 +68,7 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Create the `RcodeBlock` from a list.
     #'
-    #' @param x (`named list`) with two fields `c("text", "params")`.
+    #' @param x (`named list`) with two fields `text` and `params`.
     #' Use the `get_available_params` method to get all possible parameters.
     #'
     #' @return `self`, invisibly.
