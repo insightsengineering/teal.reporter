@@ -21,12 +21,11 @@ navbar:
       href: https://github.com/insightsengineering/teal.reporter
 
 reference:
-  - title: >
-      `shiny` modules for adding content to reports
+  - title: "`shiny` modules for adding content to reports"
     contents:
       - add_card_button_srv
       - add_card_button_ui
-  - title: `shiny` modules for viewing and downloading reports
+  - title: "`shiny` modules for viewing and downloading reports"
     contents:
       - reporter_previewer_srv
       - reporter_previewer_ui
@@ -38,15 +37,13 @@ reference:
       - download_report_button_ui
       - reset_report_button_srv
       - reset_report_button_ui
-  - title: >
-      `yaml` and rmd utility functions
+  - title: "`yaml` and rmd utility functions"
     contents:
       - as_yaml_auto
       - print.rmd_yaml_header
       - rmd_output_arguments
       - rmd_outputs
-  - title: >
-      `R6` classes used inside package
+  - title: "`R6` classes used inside package"
     contents:
       - ReportCard
       - Reporter
