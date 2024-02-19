@@ -113,52 +113,17 @@ reporter_previewer_srv <- function(id,
                 ),
                 class = if (nr_cards) "" else "disabled"
               ),
-              teal.reporter::reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
-            )
-          ),
-          shiny::tags$div(
-            id = "previewer_archiver_encoding",
-            class = "previewer_well_internal",
-            shiny::tags$h3("Archiver"),
-            shiny::tags$hr(),
-            shiny::tags$p("Format: JSON", title = "zip file with JSON and static files"),
-            shiny::tags$div(
-              id = "previewer_archiver_encoding_save",
-              class = "mb-4",
-              shiny::tags$div(
-                id = "previewer_archiver_encoding_save_button",
-                class = "previewer_buttons_line",
-                shiny::tags$a(
-                  id = ns("save_archiver_previewer"),
-                  class = paste("btn btn-primary shiny-download-link", if (nr_cards) NULL else "disabled"),
-                  style = if (nr_cards) NULL else "pointer-events: none;",
-                  href = "",
-                  target = "_blank",
-                  download = NA,
-                  shiny::icon("download"),
-                  "Save"
+              shiny::tags$button(
+                id = ns("load_archiver_previewer"),
+                type = "button",
+                class = "btn btn-primary action-button",
+                `data-val` = shiny::restoreInput(id = ns("load_archiver_previewer"), default = NULL),
+                NULL,
+                shiny::tags$span(
+                  "Load Report", shiny::icon("upload")
                 )
-              )
-            ),
-            shiny::tags$div(
-              id = "previewer_archiver_encoding_load",
-              class = "mb-4",
-              shiny::fileInput(ns("archiver_zip"), "Choose Archiver File to Load (a zip file)",
-                multiple = FALSE,
-                accept = c(".zip")
               ),
-              shiny::tags$div(
-                id = "previewer_archiver_encoding_load_button",
-                class = "previewer_buttons_line",
-                shiny::tags$button(
-                  id = ns("load_archiver_previewer"),
-                  type = "button",
-                  class = "btn btn-primary action-button",
-                  `data-val` = shiny::restoreInput(id = ns("load_archiver"), default = NULL),
-                  NULL,
-                  "Load"
-                )
-              )
+              teal.reporter::reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
             )
           )
         )
@@ -191,18 +156,40 @@ reporter_previewer_srv <- function(id,
         }
       })
 
-      output$save_archiver_previewer <- shiny::downloadHandler(
-        filename = function() {
-          paste("archiver_", format(Sys.time(), "%y%m%d%H%M%S"), ".zip", sep = "")
-        },
-        content = function(file) {
-          shiny::showNotification("Compressing and Downloading the Archive.")
-          archiver_download_handler_engine(reporter, type = "JSON", file)
-        },
-        contentType = "application/zip"
-      )
-
       shiny::observeEvent(input$load_archiver_previewer, {
+        nr_cards <- length(reporter$get_cards())
+        shiny::showModal(
+          shiny::modalDialog(
+            easyClose = TRUE,
+            shiny::tags$h3("Load the Reporter"),
+            shiny::tags$hr(),
+            shiny::fileInput(ns("archiver_zip"), "Choose Archiver File to Load (a zip file)",
+                             multiple = FALSE,
+                             accept = c(".zip")
+            ),
+            footer = shiny::div(
+              shiny::tags$button(
+                type = "button",
+                class = "btn btn-danger",
+                `data-dismiss` = "modal",
+                `data-bs-dismiss` = "modal",
+                NULL,
+                "Cancel"
+              ),
+              shiny::tags$button(
+                id = ns("load_archiver"),
+                type = "button",
+                class = "btn btn-primary action-button",
+                `data-val` = shiny::restoreInput(id = ns("load_archiver"), default = NULL),
+                NULL,
+                "Load"
+              )
+            )
+          )
+        )
+      })
+
+      shiny::observeEvent(input$load_archiver, {
         switch("JSON",
           JSON = load_json_archiver(reporter, input$archiver_zip[["datapath"]], input$archiver_zip[["name"]]),
           stop("The provided archiver format is not supported")

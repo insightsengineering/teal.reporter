@@ -203,9 +203,29 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
     }
   )
 
+  output_dir <- renderer$get_output_dir()
+
+  tryCatch(
+    archiver_dir <- reporter$to_jsondir(output_dir),
+    warning = function(cond) {
+      shiny::showNotification(
+        ui = "Archive document warning!",
+        action = "Please contact app developer",
+        type = "warning"
+      )
+    },
+    error = function(cond) {
+      shiny::showNotification(
+        ui = "Archive document error!",
+        action = "Please contact app developer",
+        type = "error"
+      )
+    }
+  )
+
   temp_zip_file <- tempfile(fileext = ".zip")
   tryCatch(
-    expr = zip::zipr(temp_zip_file, renderer$get_output_dir()),
+    expr = zip::zipr(temp_zip_file, output_dir),
     warning = function(cond) {
       shiny::showNotification(
         ui = "Zipping folder warning!",

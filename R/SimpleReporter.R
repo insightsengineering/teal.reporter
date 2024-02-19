@@ -48,6 +48,7 @@ simple_reporter_ui <- function(id) {
         class = "simple_reporter_container",
         add_card_button_ui(ns("add_report_card_simple")),
         download_report_button_ui(ns("download_button_simple")),
+        archiver_load_ui(ns("archive_load_simple")),
         reset_report_button_ui(ns("reset_button_simple"))
       )
     )
@@ -80,6 +81,7 @@ simple_reporter_srv <- function(id,
         rmd_output = rmd_output,
         rmd_yaml_args = rmd_yaml_args
       )
+      archiver_load_srv("archive_load_simple", reporter = reporter)
       reset_report_button_srv("reset_button_simple", reporter = reporter)
     }
   )
