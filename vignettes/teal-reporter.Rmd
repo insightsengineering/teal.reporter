@@ -8,18 +8,21 @@ vignette: >
 ---
 
 ## Introduction
-There are times when you explore data in your `shiny` module, spot an interesting finding and capture it, be it in
-your slides presentation, a `markdown` article or another medium. `teal.reporter` helps you enhance a `shiny` module
-so its users do not have to copy-paste and save every finding or write their own `markdown` to show it.
+While engaging with data analysis within a `shiny` app, 
+users often encounter insights that they wish to capture and share, be it through presentations, `markdown` articles, or other formats.
+The `teal.reporter` package simplifies the process for both developers and end-users of `shiny` applications.
+It allows for easy generation and dissemination of findings.
+This eliminates the need for manual copy-pasting or writing in markdown.
 
-`teal.reporter` gives you ready to use `shiny` modules and objects that work together to prepare reports from
-your module with minimal input from users of the `shiny` modules and from you as its developer.
+`teal.reporter` provides a suite of modules and objects that integrate seamlessly to create reports directly from `shiny` apps with minimal effort for users and developers.
 
 And it can be done as easy as adding one of the reporting tools to your module:
 
 ```{r}
 library(teal.reporter)
-ui <- shiny::fluidPage(simple_reporter_ui("simple"))
+library(shiny)
+
+ui <- fluidPage(simple_reporter_ui("simple"))
 server <- function(input, output, session) {
   # The bulk of your module logic here
 
@@ -29,23 +32,20 @@ server <- function(input, output, session) {
   simple_reporter_srv("simple", Reporter$new(), create_module_card)
 }
 
-if (interactive()) shiny::shinyApp(ui, server)
+if (interactive()) shinyApp(ui, server)
 ```
 
 ## Where to next
 ### Basic usage
-For the basic usage of `teal.reporter` and the quickest way to enhance your modules with reporting, head to
-[the vignette about the simple reporting setup](./simpleReporter.html).
+For the basic usage of `teal.reporter` and the quickest way to enhance your modules with reporting, explore
+[the simple reporting setup vignette](./simpleReporter.html).
 
 ### Previewing a report
-If you want to let the users of your application preview a report and reorganize it, look into
-[the vignette on a "report previewer" module](./previewerReporter.html).
+To enable application users to preview, customize, and reorder reports prior to finalization, delve into 
+[the report previewer vignette](./previewerReporter.html).
 
 ### Integration with `teal`
-If you are interested in how `teal.reporter` fits into [`teal`](https://insightsengineering.github.io/teal/), look for
-[a vignette about it in `teal`](https://insightsengineering.github.io/teal/latest-tag/articles/adding-support-for-reporting.html).
+Discover how teal.reporter complements the [`teal`](https://insightsengineering.github.io/teal/) framework by visiting the dedicated [on integrating reporting in `teal`.](https://insightsengineering.github.io/teal/latest-tag/articles/adding-support-for-reporting.html).
 
 ### More control
-If you would like more control over the layout of a simple reporting tool, we recommend reading through the documentation
-of the smallest building blocks `teal.reporter` offers, such as `add_card_button_srv()`, `download_report_button_srv()`
-and `reset_report_button_srv()`.
+Developers who want more control over the reporting process and customization of the layout can benefit from learning about  topics such as `add_card_button`,`download_report_button` and `reset_report_button` offered by `teal.reporter`.

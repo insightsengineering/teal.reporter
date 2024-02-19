@@ -1,7 +1,27 @@
-#' Reporter Previewer User Interface
+#' Report previewer module
+#'
 #' @description `r lifecycle::badge("experimental")`
-#' reporter previewer user interface to visualize and manipulate the already added report Cards
-#' @param id `character(1)` this `shiny` module's id.
+#'
+#' Module offers functionalities to visualize, manipulate,
+#' and interact with report cards that have been added to a report.
+#' It includes a previewer interface to see the cards and options to modify the report before downloading.
+#'
+#' For more details see the vignette: `vignette("previewerReporter", "teal.reporter")`.
+#'
+#' @details `r global_knitr_details()`
+#'
+#' @name reporter_previewer
+#'
+#' @param id (`character(1)`) `shiny` module instance id.
+#' @param reporter (`Reporter`) instance.
+#' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
+#'  for customizing the rendering process.
+#' @inheritParams reporter_download_inputs
+#'
+#' @return `NULL`.
+NULL
+
+#' @rdname reporter_previewer
 #' @export
 reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
@@ -25,17 +45,7 @@ reporter_previewer_ui <- function(id) {
   )
 }
 
-#' Reporter Previewer Server
-#' @description `r lifecycle::badge("experimental")`
-#' server supporting the functionalities of the reporter previewer
-#' For more details see the vignette: `vignette("previewerReporter", "teal.reporter")`.
-#' @param id `character(1)` this `shiny` module's id.
-#' @param reporter `Reporter` instance
-#' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`)
-#'  for customizing the rendering process.
-#' @inheritParams reporter_download_inputs
-#' @details `r global_knitr_details()`
-#'
+#' @rdname reporter_previewer
 #' @export
 reporter_previewer_srv <- function(id,
                                    reporter,
@@ -194,6 +204,7 @@ reporter_previewer_srv <- function(id,
   )
 }
 
+#' @noRd
 #' @keywords internal
 block_to_html <- function(b) {
   b_content <- b$get_content()
@@ -222,6 +233,7 @@ block_to_html <- function(b) {
   }
 }
 
+#' @noRd
 #' @keywords internal
 add_previewer_css <- function() {
   shiny::tagList(
@@ -234,6 +246,7 @@ add_previewer_css <- function() {
   )
 }
 
+#' @noRd
 #' @keywords internal
 add_previewer_js <- function(ns) {
   shiny::singleton(
@@ -260,6 +273,7 @@ add_previewer_js <- function(ns) {
   )
 }
 
+#' @noRd
 #' @keywords internal
 nav_previewer_icon <- function(name, icon_name, idx, size = 1L) {
   checkmate::assert_string(name)
@@ -274,6 +288,7 @@ nav_previewer_icon <- function(name, icon_name, idx, size = 1L) {
   )
 }
 
+#' @noRd
 #' @keywords internal
 nav_previewer_icons <- function(idx, size = 1L) {
   shiny::tags$span(
@@ -284,6 +299,7 @@ nav_previewer_icons <- function(idx, size = 1L) {
   )
 }
 
+#' @noRd
 #' @keywords internal
 previewer_collapse_item <- function(idx, card_name, card_blocks) {
   shiny::tags$div(.renderHook = function(x) {

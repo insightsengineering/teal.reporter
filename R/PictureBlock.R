@@ -1,15 +1,20 @@
 #' @title `PictureBlock`
+#' @docType class
+#' @description
+#' Specialized `FileBlock` for managing picture content in reports.
+#' It's designed to handle plots from packages such as `ggplot2`, `grid`, or `lattice`.
+#' It can save plots to files, set titles and specify dimensions.
+#'
 #' @keywords internal
-#' @noRd
 PictureBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "PictureBlock",
   inherit = FileBlock,
   public = list(
-    #' @description Returns a new `PictureBlock` object.
+    #' @description Initialize a `PictureBlock` object.
     #'
-    #' @param plot (`ggplot`, `grid`) a picture in this `PictureBlock`
+    #' @param plot (`ggplot` or `grid`) a picture in this `PictureBlock`
     #'
-    #' @return a `PictureBlock` object
+    #' @return Object of class `PictureBlock`, invisibly.
     initialize = function(plot) {
       if (!missing(plot)) {
         self$set_content(plot)
@@ -18,23 +23,26 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Sets the content of this `PictureBlock`.
     #'
-    #' @details throws if argument is not a `ggplot`, `grob` or `trellis` plot.
+    #' @details Raises error if argument is not a `ggplot`, `grob` or `trellis` plot.
     #'
-    #' @param content (`ggplot`, `grob`, `trellis`) a picture in this `PictureBlock`
+    #' @param content (`ggplot` or `grob` or `trellis`) a picture in this `PictureBlock`
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
-    #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
-    #' block <- PictureBlock$new()
-    #' block$set_content(ggplot2::ggplot(iris))
+    #' library(ggplot2)
+    #' library(lattice)
     #'
     #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
     #' block <- PictureBlock$new()
-    #' block$set_content(lattice::bwplot(1))
+    #' block$set_content(ggplot(iris))
     #'
     #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
     #' block <- PictureBlock$new()
-    #' block$set_content(ggplot2::ggplotGrob(ggplot2::ggplot(iris)))
+    #' block$set_content(bwplot(1))
+    #'
+    #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+    #' block <- PictureBlock$new()
+    #' block$set_content(ggplotGrob(ggplot(iris)))
     set_content = function(content) {
       checkmate::assert_multi_class(content, private$supported_plots)
       path <- tempfile(fileext = ".png")
@@ -58,11 +66,11 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Sets the title of this `PictureBlock`.
     #'
-    #' @details throws if argument is not `character(1)`.
+    #' @details Raises error if argument is not `character(1)`.
     #'
     #' @param title (`character(1)`) a string assigned to this `PictureBlock`
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
     #' block <- PictureBlock$new()
@@ -73,9 +81,10 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
       private$title <- title
       invisible(self)
     },
-    #' @description Returns the title of this `PictureBlock`
+    #' @description Get the title of this `PictureBlock`.
     #'
-    #' @return the content of this `PictureBlock`
+    #' @return The content of this `PictureBlock`.
+    #' @examples
     #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
     #' block <- PictureBlock$new()
     #' block$get_title()
@@ -83,11 +92,11 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     get_title = function() {
       private$title
     },
-    #' @description Sets the dimensions of this `PictureBlock`
+    #' @description Sets the dimensions of this `PictureBlock`.
     #'
-    #' @param dim `numeric` figure dimensions (width and height) in pixels, length 2.
+    #' @param dim (`numeric(2)`) figure dimensions (width and height) in pixels.
     #'
-    #' @return `self`
+    #' @return `self`, invisibly.
     #' @examples
     #' PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
     #' block <- PictureBlock$new()
@@ -98,7 +107,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
       private$dim <- dim
       invisible(self)
     },
-    #' @description Returns the dimensions of this `PictureBlock`
+    #' @description Get `PictureBlock` dimensions as a numeric vector.
     #'
     #' @return `numeric` the array of 2 numeric values representing width and height in pixels.
     #' @examples

@@ -1,17 +1,23 @@
 #' @title `TextBlock`
+#' @docType class
+#' @description
+#' Specialized `ContentBlock` for embedding styled text within reports.
+#' It supports multiple styling options to accommodate various text roles,
+#' such as headers or verbatim text, in the report content.
+#'
 #' @keywords internal
 TextBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "TextBlock",
   inherit = ContentBlock,
   public = list(
-    #' @description Returns a `TextBlock` object.
+    #' @description Initialize a `TextBlock` object.
     #'
-    #' @details Returns a `TextBlock` object with no content and the default style.
+    #' @details Constructs a `TextBlock` object with no content and the default style.
     #'
-    #' @param content (`character(1)` or `character(0)`) a string assigned to this `TextBlock`
+    #' @param content (`character`) a string assigned to this `TextBlock`
     #' @param style (`character(1)`) one of: `"default"`, `"header2"`, `"header3"` `"verbatim"`
     #'
-    #' @return `TextBlock`
+    #' @return Object of class `TextBlock`, invisibly.
     #' @examples
     #' TextBlock <- getFromNamespace("TextBlock", "teal.reporter")
     #' block <- TextBlock$new()
@@ -27,7 +33,7 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param style (`character(1)`) one of: `"default"`, `"header2"`, `"header3"` `"verbatim"`
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' TextBlock <- getFromNamespace("TextBlock", "teal.reporter")
     #' block <- TextBlock$new()
@@ -37,9 +43,9 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
       private$style <- match.arg(style, private$styles)
       invisible(self)
     },
-    #' @description Returns the style of this `TextBlock`.
+    #' @description Get the style of this `TextBlock`.
     #'
-    #' @return `character(1)` the style of this `TextBlock`
+    #' @return `character(1)` the style of this `TextBlock`.
     #' @examples
     #' TextBlock <- getFromNamespace("TextBlock", "teal.reporter")
     #' block <- TextBlock$new()
@@ -48,9 +54,9 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     get_style = function() {
       private$style
     },
-    #' @description Returns an array of styles available to this `TextBlock`.
+    #' @description Get available an array of styles available to this `TextBlock`.
     #'
-    #' @return a `character` array of styles
+    #' @return A `character` array of styles.
     #' @examples
     #' TextBlock <- getFromNamespace("TextBlock", "teal.reporter")
     #' block <- TextBlock$new()
@@ -61,10 +67,10 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Create the `TextBlock` from a list.
     #'
-    #' @param x `named list` with two fields `c("text", "style")`.
+    #' @param x (`named list`) with two fields `text` and `style`.
     #' Use the `get_available_styles` method to get all possible styles.
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' TextBlock <- getFromNamespace("TextBlock", "teal.reporter")
     #' block <- TextBlock$new()

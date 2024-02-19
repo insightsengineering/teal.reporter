@@ -11,18 +11,18 @@ get_bs_version <- function() {
 }
 
 #' Panel group widget
-#' @md
 #'
-#' @description `r lifecycle::badge("experimental")`
-#' @param title (`character`)\cr title of panel
+#' `r lifecycle::badge("experimental")`
+#'
+#' @param title (`character`) title of panel
 #' @param ... content of panel
-#' @param collapsed (`logical`, optional)\cr
+#' @param collapsed (`logical`, optional)
 #'  whether to initially collapse panel
-#' @param input_id (`character`, optional)\cr
+#' @param input_id (`character`, optional)
 #'  name of the panel item element. If supplied, this will register a shiny input variable that
 #'  indicates whether the panel item is open or collapsed and is accessed with `input$input_id`.
 #'
-#' @return (`shiny.tag`)
+#' @return `shiny.tag`.
 #'
 #' @keywords internal
 panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
@@ -110,13 +110,17 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
   })
 }
 
-#' Convert content into a `flextable`, merge cells with `colspan` > 1
-#' align columns to the center, and row names to the left
-#' Indent the row names by 10 times indentation
+#' Convert content into a `flextable`
+#'
+#' Converts supported table formats into a `flextable` for enhanced formatting and presentation.
+#'
+#' Function merges cells with `colspan` > 1,
+#' aligns columns to the center and row names to the left,
+#' indents the row names by 10 times indentation.
 #'
 #' @param content Supported formats: `data.frame`, `rtables`, `TableTree`, `ElementaryTable`, `listing_df`
 #'
-#' @return (`flextable`)
+#' @return `flextable`.
 #'
 #' @keywords internal
 to_flextable <- function(content) {
@@ -182,7 +186,6 @@ to_flextable <- function(content) {
 
 #' Apply a custom theme to a `flextable`
 #' @noRd
-#'
 #' @keywords internal
 custom_theme <- function(ft) {
   checkmate::assert_class(ft, "flextable")
@@ -198,7 +201,6 @@ custom_theme <- function(ft) {
 #' This function retrieves the merge index for a single span,
 #' which is used in merging cells.
 #' @noRd
-#'
 #' @keywords internal
 get_merge_index_single <- function(span) {
   ret <- list()
@@ -215,7 +217,6 @@ get_merge_index_single <- function(span) {
 #' Get the merge index for multiple spans.
 #' This function merges cells in a `flextable` at specified row and column indices.
 #' @noRd
-#'
 #' @keywords internal
 get_merge_index <- function(spans) {
   ret <- lapply(seq_len(nrow(spans)), function(i) {
@@ -230,7 +231,6 @@ get_merge_index <- function(spans) {
 
 #' Merge cells in a `flextable` at specified indices
 #' @noRd
-#'
 #' @keywords internal
 merge_at_indice <- function(ft, lst, part) {
   Reduce(function(ft, ij) {
@@ -241,7 +241,6 @@ merge_at_indice <- function(ft, lst, part) {
 #' Apply padding to a `flextable` based on indentation levels.
 #' This function applies padding to a `flextable` based on indentation levels provided as a vector.
 #' @noRd
-#'
 #' @keywords internal
 padding_lst <- function(ft, indents) {
   Reduce(function(ft, s) {
@@ -249,15 +248,15 @@ padding_lst <- function(ft, indents) {
   }, seq_len(length(indents)), ft)
 }
 
-#' Split a text block into smaller blocks with a specified number of lines.
+#' Divide text block into smaller blocks
 #'
-#' Divide text block into smaller blocks.
+#' Split a text block into smaller blocks with a specified number of lines.
 #'
 #' A single character string containing a text block of multiple lines (separated by `\n`)
 #' is split into multiple strings with n or less lines each.
 #'
-#' @param x `character` string containing the input block of text
-#' @param n `integer` number of lines per block
+#' @param block_text (`character`) string containing the input block of text
+#' @param n (`integer`) number of lines per block
 #'
 #' @return
 #' List of character strings with up to `n` lines in each element.
@@ -281,7 +280,6 @@ split_text_block <- function(x, n) {
 #' Retrieve text details for global_knitr options
 #' This function returns a character string describing the default settings for the global_knitr options.
 #' @noRd
-#'
 #' @keywords internal
 global_knitr_details <- function() {
   paste0(

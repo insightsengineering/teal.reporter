@@ -1,10 +1,25 @@
-#' Download Button Reporter User Interface
-#' @description `r lifecycle::badge("experimental")`
-#' button for downloading the Report.
+#' Download report button module
 #'
-#' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character(1)` this `shiny` module's id.
-#' @return `shiny::tagList`
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' Provides a button that triggers downloading a report.
+#'
+#' For more information, refer to the vignette: `vignette("simpleReporter", "teal.reporter")`.
+#'
+#' @details `r global_knitr_details()`
+#'
+#' @name download_report_button
+#'
+#' @param id (`character(1)`) this `shiny` module's id.
+#' @param reporter (`Reporter`) instance.
+#' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
+#'  for customizing the rendering process.
+#' @inheritParams reporter_download_inputs
+#'
+#' @return `NULL`.
+NULL
+
+#' @rdname download_report_button
 #' @export
 download_report_button_ui <- function(id) {
   ns <- shiny::NS(id)
@@ -26,19 +41,7 @@ download_report_button_ui <- function(id) {
   )
 }
 
-#' Download Button Server
-#' @description `r lifecycle::badge("experimental")`
-#' server for downloading the Report.
-#'
-#' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character(1)` this `shiny` module's id.
-#' @param reporter [`Reporter`] instance.
-#' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`)
-#'  for customizing the rendering process.
-#' @inheritParams reporter_download_inputs
-#' @return `shiny::moduleServer`
-#' @details `r global_knitr_details()`
-#'
+#' @rdname download_report_button
 #' @export
 download_report_button_srv <- function(id,
                                        reporter,
@@ -149,22 +152,28 @@ download_report_button_srv <- function(id,
   )
 }
 
-#' Render the Report
-#' @description render the report and zip the created directory.
-#' @param reporter [`Reporter`] instance.
-#' @param input_list `list` like shiny input converted to a regular named list.
-#' @param global_knitr `list` a global `knitr` parameters, like echo.
+#' Render the report
+#'
+#' Render the report and zip the created directory.
+#'
+#' @param reporter (`Reporter`) instance.
+#' @param input_list (`list`) like `shiny` input converted to a regular named list.
+#' @param global_knitr (`list`) a global `knitr` parameters, like echo.
 #' But if local parameter is set it will have priority.
-#' @param file `character` where to copy the returned directory.
+#' @param file (`character(1)`) where to copy the returned directory.
+#'
 #' @return `file` argument, invisibly.
+#'
 #' @keywords internal
 report_render_and_compress <- function(reporter, input_list, global_knitr, file = tempdir()) {
   checkmate::assert_class(reporter, "Reporter")
   checkmate::assert_list(input_list, names = "named")
   checkmate::assert_string(file)
 
-  if (identical("pdf_document", input_list$output) &&
-    inherits(try(system2("pdflatex", "--version", stdout = TRUE), silent = TRUE), "try-error")) {
+  if (
+    identical("pdf_document", input_list$output) &&
+      inherits(try(system2("pdflatex", "--version", stdout = TRUE), silent = TRUE), "try-error")
+  ) {
     shiny::showNotification(
       ui = "pdflatex is not available so the pdf_document could not be rendered. Please use other output type.",
       action = "Please contact app developer",
@@ -235,15 +244,17 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
   invisible(file)
 }
 
-#' Get the custom list of User Interface inputs
-#' @param rmd_output `character` vector with `rmarkdown` output types,
-#' by default all possible `c("pdf_document", "html_document", "powerpoint_presentation", "word_document")`.
+#' Get the custom list of UI inputs
+#'
+#' @param rmd_output (`character`) vector with `rmarkdown` output types,
+#' by default all possible `pdf_document`, `html_document`, `powerpoint_presentation`, and `word_document`.
 #' If vector is named then those names will appear in the `UI`.
-#' @param rmd_yaml_args `named list` with `Rmd` `yaml` header fields and their default values.
-#' This `list` will result in the custom subset of User Interface inputs for the download reporter functionality.
+#' @param rmd_yaml_args (`named list`) with `Rmd` `yaml` header fields and their default values.
+#' This `list` will result in the custom subset of UI inputs for the download reporter functionality.
 #' Default `list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)`.
 #' The `list` must include at least `"output"` field.
 #' The default value for `"output"` has to be in the `rmd_output` argument.
+#'
 #' @keywords internal
 reporter_download_inputs <- function(rmd_yaml_args, rmd_output, showrcode, session) {
   shiny::tagList(
@@ -273,6 +284,7 @@ reporter_download_inputs <- function(rmd_yaml_args, rmd_output, showrcode, sessi
   )
 }
 
+#' @noRd
 #' @keywords internal
 any_rcode_block <- function(reporter) {
   any(

@@ -1,15 +1,21 @@
 #' @title `TableBlock`
+#' @docType class
+#' @description
+#' Specialized `FileBlock` for managing table content in reports.
+#' It's designed to handle various table formats, converting them into a consistent,
+#' document-ready format (e.g., `flextable`) for inclusion in reports.
+#'
 #' @keywords internal
 TableBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "TableBlock",
   inherit = FileBlock,
   public = list(
-    #' @description Returns a new `TableBlock` object
+    #' @description Initialize a `TableBlock` object.
     #'
-    #' @param table (`data.frame`, `rtables`, `TableTree`, `ElementaryTable`, `listing_df`) a table assigned to
+    #' @param table (`data.frame` or `rtables` or `TableTree` or `ElementaryTable` or `listing_df`) a table assigned to
     #'   this `TableBlock`
     #'
-    #' @return a `TableBlock` object
+    #' @return Object of class `TableBlock`, invisibly.
     initialize = function(table) {
       if (!missing(table)) {
         self$set_content(table)
@@ -18,12 +24,12 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Sets content of this `TableBlock`.
     #'
-    #' @details throws if argument is not a table-like object.
+    #' @details Raises error if argument is not a table-like object.
     #'
-    #' @param content (`data.frame`, `rtables`, `TableTree`, `ElementaryTable`, `listing_df`) a table assigned to
-    #'   this `TableBlock`
+    #' @param content (`data.frame` or `rtables` or `TableTree` or `ElementaryTable` or `listing_df`)
+    #' a table assigned to this `TableBlock`
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' TableBlock <- getFromNamespace("TableBlock", "teal.reporter")
     #' block <- TableBlock$new()
