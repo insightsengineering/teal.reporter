@@ -1,5 +1,10 @@
 #' @title `PictureBlock`
 #' @docType class
+#' @description
+#' Specialized `FileBlock` for managing picture content in reports.
+#' It's designed to handle plots from packages such as `ggplot2`, `grid`, or `lattice`.
+#' It can save plots to files, set titles and specify dimensions.
+#'
 #' @keywords internal
 PictureBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "PictureBlock",
@@ -18,16 +23,12 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Sets the content of this `PictureBlock`.
     #'
-    #' @details throws if argument is not a `ggplot`, `grob` or `trellis` plot.
+    #' @details Throws if argument is not a `ggplot`, `grob` or `trellis` plot.
     #'
     #' @param content (`ggplot` or `grob` or `trellis`) a picture in this `PictureBlock`
     #'
     #' @return `self`, invisibly.
-    #' @examplesIf requireNamespace("ggplot2") && requireNamespace("lattice")
-    #' ## ------------------------------------------------
-    #' ## Method `PictureBlock$set_content`
-    #' ## ------------------------------------------------
-    #'
+    #' @examples
     #' library(ggplot2)
     #' library(lattice)
     #'
@@ -65,7 +66,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Sets the title of this `PictureBlock`.
     #'
-    #' @details throws if argument is not `character(1)`.
+    #' @details Throws if argument is not `character(1)`.
     #'
     #' @param title (`character(1)`) a string assigned to this `PictureBlock`
     #'
@@ -80,7 +81,7 @@ PictureBlock <- R6::R6Class( # nolint: object_name_linter.
       private$title <- title
       invisible(self)
     },
-    #' @description Returns the title of this `PictureBlock`.
+    #' @description Get the title of this `PictureBlock`.
     #'
     #' @return The content of this `PictureBlock`.
     #' @examples

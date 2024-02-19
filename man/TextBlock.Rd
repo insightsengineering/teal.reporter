@@ -5,9 +5,9 @@
 \alias{TextBlock}
 \title{\code{TextBlock}}
 \description{
-\code{TextBlock}
-
-\code{TextBlock}
+Specialized \code{ContentBlock} for embedding styled text within reports.
+It supports multiple styling options to accommodate various text roles,
+such as headers or verbatim text, in the report content.
 }
 \examples{
 
@@ -107,7 +107,7 @@ Initialize a \code{TextBlock} object.
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Returns a \code{TextBlock} object with no content and the default style.
+Constructs a \code{TextBlock} object with no content and the default style.
 }
 
 \subsection{Returns}{
@@ -163,7 +163,7 @@ block$set_style("header2")
 \if{html}{\out{<a id="method-TextBlock-get_style"></a>}}
 \if{latex}{\out{\hypertarget{method-TextBlock-get_style}{}}}
 \subsection{Method \code{get_style()}}{
-Returns the style of this \code{TextBlock}.
+Get the style of this \code{TextBlock}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TextBlock$get_style()}\if{html}{\out{</div>}}
 }
@@ -187,7 +187,7 @@ block$get_style()
 \if{html}{\out{<a id="method-TextBlock-get_available_styles"></a>}}
 \if{latex}{\out{\hypertarget{method-TextBlock-get_available_styles}{}}}
 \subsection{Method \code{get_available_styles()}}{
-Returns an array of styles available to this \code{TextBlock}.
+Get available an array of styles available to this \code{TextBlock}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TextBlock$get_available_styles()}\if{html}{\out{</div>}}
 }

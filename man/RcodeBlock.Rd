@@ -5,9 +5,7 @@
 \alias{RcodeBlock}
 \title{\code{RcodeBlock}}
 \description{
-\code{RcodeBlock}
-
-\code{RcodeBlock}
+Specialized \code{ContentBlock} designed to embed \code{R} code in reports.
 }
 \examples{
 
@@ -141,7 +139,8 @@ Sets the parameters of this \code{RcodeBlock}.
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-The parameters has bearing on the rendering of this block.
+Configures \code{rmarkdown} chunk parameters for the \code{R} code block,
+influencing its rendering and execution behavior.
 }
 
 \subsection{Returns}{
@@ -163,7 +162,7 @@ block$set_params(list(echo = TRUE))
 \if{html}{\out{<a id="method-RcodeBlock-get_params"></a>}}
 \if{latex}{\out{\hypertarget{method-RcodeBlock-get_params}{}}}
 \subsection{Method \code{get_params()}}{
-Returns the parameters of this \code{RcodeBlock}.
+Get the parameters of this \code{RcodeBlock}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{RcodeBlock$get_params()}\if{html}{\out{</div>}}
 }
@@ -187,7 +186,7 @@ block$get_params()
 \if{html}{\out{<a id="method-RcodeBlock-get_available_params"></a>}}
 \if{latex}{\out{\hypertarget{method-RcodeBlock-get_available_params}{}}}
 \subsection{Method \code{get_available_params()}}{
-Returns an array of parameters available to this \code{RcodeBlock}.
+Get available array of parameters available to this \code{RcodeBlock}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{RcodeBlock$get_available_params()}\if{html}{\out{</div>}}
 }

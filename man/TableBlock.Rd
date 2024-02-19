@@ -5,9 +5,9 @@
 \alias{TableBlock}
 \title{\code{TableBlock}}
 \description{
-\code{TableBlock}
-
-\code{TableBlock}
+Specialized \code{FileBlock} for managing table content in reports.
+It's designed to handl various table formats, converting them into a consistent,
+document-ready format (e.g., FlexTable) for inclusion in reports.
 }
 \examples{
 
@@ -81,7 +81,7 @@ a table assigned to this \code{TableBlock}}
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-throws if argument is not a table-like object.
+Throws if argument is not a table-like object.
 }
 
 \subsection{Returns}{

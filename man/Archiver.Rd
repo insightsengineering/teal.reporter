@@ -3,11 +3,10 @@
 \docType{class}
 \name{Archiver}
 \alias{Archiver}
-\title{\code{Archiver}}
+\title{\code{Archiver}: Base class for data archiving}
 \description{
-\code{Archiver}
-
-\code{Archiver}
+A base \code{R6} class for implementing data archiving functionality.
+It serves as a template for creating specialized archivers, such as file-based or JSON-based archivers.
 }
 \examples{
 
@@ -65,7 +64,8 @@ Finalizes an \code{Archiver} object.
 \if{html}{\out{<a id="method-Archiver-read"></a>}}
 \if{latex}{\out{\hypertarget{method-Archiver-read}{}}}
 \subsection{Method \code{read()}}{
-Pure virtual method for reading an \code{Archiver}.
+Reads data from the \code{Archiver}.
+Pure virtual method that should be implemented by subclasses.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Archiver$read()}\if{html}{\out{</div>}}
 }
@@ -75,7 +75,8 @@ Pure virtual method for reading an \code{Archiver}.
 \if{html}{\out{<a id="method-Archiver-write"></a>}}
 \if{latex}{\out{\hypertarget{method-Archiver-write}{}}}
 \subsection{Method \code{write()}}{
-Pure virtual method for writing an \code{Archiver}.
+Writes data to the \code{Archiver}.
+Pure virtual method that should be implemented by subclasses.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Archiver$write()}\if{html}{\out{</div>}}
 }

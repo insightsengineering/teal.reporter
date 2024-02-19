@@ -1,5 +1,8 @@
-#' @title `ContentBlock`
+#' @title `ContentBlock`: A building block for report content
 #' @docType class
+#' @description This class represents a basic content unit in a report, such as text, images, or other multimedia elements.
+#' It serves as a foundation for constructing complex report structures.
+#'
 #' @keywords internal
 ContentBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "ContentBlock",
@@ -32,7 +35,7 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
       private$content <- content
       invisible(self)
     },
-    #' @description Returns the absolute path to content of this `ContentBlock`.
+    #' @description Retrieves the content assigned to this block.
     #'
     #' @return `character` string or file path assigned to this `ContentBlock`.
     #' @examples

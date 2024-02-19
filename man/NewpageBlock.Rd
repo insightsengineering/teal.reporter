@@ -5,9 +5,7 @@
 \alias{NewpageBlock}
 \title{\code{NewpageBlock}}
 \description{
-\code{NewpageBlock}
-
-\code{NewpageBlock}
+A \code{ContentBlock} subclass that represents a page break in a report output.
 }
 \examples{
 

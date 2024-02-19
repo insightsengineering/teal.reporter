@@ -3,11 +3,10 @@
 \docType{class}
 \name{FileArchiver}
 \alias{FileArchiver}
-\title{\code{RDSArchiver}}
+\title{\code{FileArchiver}: A File-based archiver}
 \description{
-\code{RDSArchiver}
-
-\code{RDSArchiver}
+Inherits from \code{Archiver} to provide file-based archiving functionality.
+Manages an output directory for storing archived data.
 }
 \examples{
 
@@ -50,7 +49,7 @@ FileArchiver$new()$get_output_dir()
 \if{html}{\out{<a id="method-FileArchiver-new"></a>}}
 \if{latex}{\out{\hypertarget{method-FileArchiver-new}{}}}
 \subsection{Method \code{new()}}{
-Initialize a \code{FileArchiver} object.
+Initialize a \code{FileArchiver} object with a unique output directory.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{FileArchiver$new()}\if{html}{\out{</div>}}
 }
@@ -73,6 +72,7 @@ FileArchiver$new()
 \if{latex}{\out{\hypertarget{method-FileArchiver-finalize}{}}}
 \subsection{Method \code{finalize()}}{
 Finalizes a \code{FileArchiver} object.
+Cleans up by removing the output directory and its contents.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{FileArchiver$finalize()}\if{html}{\out{</div>}}
 }
@@ -82,7 +82,7 @@ Finalizes a \code{FileArchiver} object.
 \if{html}{\out{<a id="method-FileArchiver-get_output_dir"></a>}}
 \if{latex}{\out{\hypertarget{method-FileArchiver-get_output_dir}{}}}
 \subsection{Method \code{get_output_dir()}}{
-get \code{output_dir} field.
+Get \code{output_dir} field.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{FileArchiver$get_output_dir()}\if{html}{\out{</div>}}
 }

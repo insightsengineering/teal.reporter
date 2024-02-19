@@ -1,11 +1,15 @@
 #' @title `FileBlock`
 #' @docType class
+#' @description
+#' `FileBlock` manages file-based content in a report,
+#'  ensuring appropriate handling of content files.
+#'
 #' @keywords internal
 FileBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "FileBlock",
   inherit = ContentBlock,
   public = list(
-    #' @description finalize of this `FileBlock`.
+    #' @description Finalize the `FileBlock`.
     #'
     #' @details Removes the temporary file created in the constructor.
     finalize = function() {

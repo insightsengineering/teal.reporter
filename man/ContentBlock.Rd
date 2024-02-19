@@ -3,11 +3,10 @@
 \docType{class}
 \name{ContentBlock}
 \alias{ContentBlock}
-\title{\code{ContentBlock}}
+\title{\code{ContentBlock}: A building block for report content}
 \description{
-\code{ContentBlock}
-
-\code{ContentBlock}
+This class represents a basic content unit in a report, such as text, images, or other multimedia elements.
+It serves as a foundation for constructing complex report structures.
 }
 \examples{
 
@@ -111,7 +110,7 @@ block$set_content("Base64 encoded picture")
 \if{html}{\out{<a id="method-ContentBlock-get_content"></a>}}
 \if{latex}{\out{\hypertarget{method-ContentBlock-get_content}{}}}
 \subsection{Method \code{get_content()}}{
-Returns the absolute path to content of this \code{ContentBlock}.
+Retrieves the content assigned to this block.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ContentBlock$get_content()}\if{html}{\out{</div>}}
 }

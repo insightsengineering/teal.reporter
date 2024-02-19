@@ -5,12 +5,12 @@
 \alias{PictureBlock}
 \title{\code{PictureBlock}}
 \description{
-\code{PictureBlock}
-
-\code{PictureBlock}
+Specialized \code{FileBlock} for managing picture content in reports.
+It's designed to handle plots from packages such as \code{ggplot2}, \code{grid}, or \code{lattice}.
+It can save plots to files, set titles and specify dimensions.
 }
 \examples{
-\dontshow{if (requireNamespace("ggplot2") && requireNamespace("lattice")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+
 ## ------------------------------------------------
 ## Method `PictureBlock$set_content`
 ## ------------------------------------------------
@@ -29,7 +29,6 @@ block$set_content(bwplot(1))
 PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
 block <- PictureBlock$new()
 block$set_content(ggplotGrob(ggplot(iris)))
-\dontshow{\}) # examplesIf}
 
 ## ------------------------------------------------
 ## Method `PictureBlock$set_title`
@@ -129,12 +128,33 @@ Sets the content of this \code{PictureBlock}.
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-throws if argument is not a \code{ggplot}, \code{grob} or \code{trellis} plot.
+Throws if argument is not a \code{ggplot}, \code{grob} or \code{trellis} plot.
 }
 
 \subsection{Returns}{
 \code{self}, invisibly.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{library(ggplot2)
+library(lattice)
+
+PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+block <- PictureBlock$new()
+block$set_content(ggplot(iris))
+
+PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+block <- PictureBlock$new()
+block$set_content(bwplot(1))
+
+PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
+block <- PictureBlock$new()
+block$set_content(ggplotGrob(ggplot(iris)))
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PictureBlock-set_title"></a>}}
@@ -153,7 +173,7 @@ Sets the title of this \code{PictureBlock}.
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-throws if argument is not \code{character(1)}.
+Throws if argument is not \code{character(1)}.
 }
 
 \subsection{Returns}{
@@ -175,7 +195,7 @@ block$set_title("Title")
 \if{html}{\out{<a id="method-PictureBlock-get_title"></a>}}
 \if{latex}{\out{\hypertarget{method-PictureBlock-get_title}{}}}
 \subsection{Method \code{get_title()}}{
-Returns the title of this \code{PictureBlock}.
+Get the title of this \code{PictureBlock}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{PictureBlock$get_title()}\if{html}{\out{</div>}}
 }

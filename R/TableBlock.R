@@ -1,5 +1,10 @@
 #' @title `TableBlock`
 #' @docType class
+#' @description
+#' Specialized `FileBlock` for managing table content in reports.
+#' It's designed to handl various table formats, converting them into a consistent,
+#' document-ready format (e.g., FlexTable) for inclusion in reports.
+#'
 #' @keywords internal
 TableBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "TableBlock",
@@ -19,7 +24,7 @@ TableBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Sets content of this `TableBlock`.
     #'
-    #' @details throws if argument is not a table-like object.
+    #' @details Throws if argument is not a table-like object.
     #'
     #' @param content (`data.frame` or `rtables` or `TableTree` or `ElementaryTable` or `listing_df`)
     #' a table assigned to this `TableBlock`

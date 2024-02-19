@@ -1,5 +1,8 @@
 #' @title `NewpageBlock`
 #' @docType class
+#' @description
+#' A `ContentBlock` subclass that represents a page break in a report output.
+#'
 #' @keywords internal
 NewpageBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "NewpageBlock",

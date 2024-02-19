@@ -1,12 +1,17 @@
 #' @title `Renderer`
 #' @docType class
+#' @description
+#' A class for rendering reports from `ContentBlock` into various formats using `rmarkdown`.
+#' It supports `TextBlock`, `PictureBlock`, `RcodeBlock`, `NewpageBlock`, and `TableBlock`.
+#'
 #' @keywords internal
 Renderer <- R6::R6Class( # nolint: object_name_linter.
   classname = "Renderer",
   public = list(
-    #' @description Returns a `Renderer` object.
+    #' @description Initialize a `Renderer` object.
     #'
-    #' @details Initialize a `Renderer` object.
+    #' @details Creates a new instance of `Renderer`
+    #' with a temporary directory for storing report files.
     #'
     #' @return Object of class `Renderer`, invisibly.
     #' @examples
@@ -24,7 +29,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     finalize = function() {
       unlink(private$output_dir, recursive = TRUE)
     },
-    #' @description getting the `Rmd` text which could be easily rendered later.
+    #' @description Getting the `Rmd` text which could be easily rendered later.
     #'
     #' @param blocks (`list`) of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
     #' @param yaml_header (`character`) an `rmarkdown` `yaml` header.
@@ -33,11 +38,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @details `r global_knitr_details()`
     #'
     #' @return `character` a `Rmd` text (`yaml` header + body), ready to be rendered.
-    #' @examplesIf requireNamespace("ggplot2") && requireNamespace("rtables")
-    #' ## ------------------------------------------------
-    #' ## Method `Renderer$renderRmd`
-    #' ## ------------------------------------------------
-    #'
+    #' @examples
     #' library(yaml)
     #' library(rtables)
     #' library(ggplot2)
@@ -130,7 +131,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       cat(rmd_text, file = input_path)
       input_path
     },
-    #' @description Renders the content of this `Report` to the output file.
+    #' @description Renders the `Report` to the desired output format by compiling the `rmarkdown` file.
     #'
     #' @param blocks (`list`) of `c("TextBlock", "PictureBlock", "NewpageBlock")` objects.
     #' @param yaml_header (`character`) an `rmarkdown` `yaml` header.
@@ -140,11 +141,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @details `r global_knitr_details()`
     #'
     #' @return `character` path to the output.
-    #' @examplesIf requireNamespace("ggplot2") && requireNamespace("rtables")
-    #' ## ------------------------------------------------
-    #' ## Method `Renderer$render`
-    #' ## ------------------------------------------------
-    #'
+    #' @examples
     #' library(yaml)
     #' library(ggplot2)
     #'
@@ -197,7 +194,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       names(args) <- args_nams
       do.call(rmarkdown::render, args)
     },
-    #' @description get `output_dir` field.
+    #' @description Get `output_dir` field.
     #'
     #' @return `character` a `output_dir` field path.
     #' @examples

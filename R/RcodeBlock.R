@@ -1,5 +1,8 @@
 #' @title `RcodeBlock`
 #' @docType class
+#' @description
+#' Specialized `ContentBlock` designed to embed `R` code in reports.
+#'
 #' @keywords internal
 RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "RcodeBlock",
@@ -24,7 +27,8 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Sets the parameters of this `RcodeBlock`.
     #'
-    #' @details The parameters has bearing on the rendering of this block.
+    #' @details Configures `rmarkdown` chunk parameters for the `R` code block,
+    #' influencing its rendering and execution behavior.
     #'
     #' @param params (`list`) any `rmarkdown` R chunk parameter and its value.
     #'
@@ -40,7 +44,7 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
       private$params <- params
       invisible(self)
     },
-    #' @description Returns the parameters of this `RcodeBlock`.
+    #' @description Get the parameters of this `RcodeBlock`.
     #'
     #' @return `character` the parameters of this `RcodeBlock`.
     #' @examples
@@ -51,7 +55,7 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
     get_params = function() {
       private$params
     },
-    #' @description Returns an array of parameters available to this `RcodeBlock`.
+    #' @description Get available array of parameters available to this `RcodeBlock`.
     #'
     #' @return A `character` array of parameters.
     #' @examples

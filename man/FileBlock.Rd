@@ -5,9 +5,8 @@
 \alias{FileBlock}
 \title{\code{FileBlock}}
 \description{
-\code{FileBlock}
-
-\code{FileBlock}
+\code{FileBlock} manages file-based content in a report,
+ensuring appropriate handling of content files.
 }
 \examples{
 
@@ -57,7 +56,7 @@ block$to_list(tempdir())
 \if{html}{\out{<a id="method-FileBlock-finalize"></a>}}
 \if{latex}{\out{\hypertarget{method-FileBlock-finalize}{}}}
 \subsection{Method \code{finalize()}}{
-finalize of this \code{FileBlock}.
+Finalize the \code{FileBlock}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{FileBlock$finalize()}\if{html}{\out{</div>}}
 }

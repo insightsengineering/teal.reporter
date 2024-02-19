@@ -3,14 +3,13 @@
 \docType{class}
 \name{JSONArchiver}
 \alias{JSONArchiver}
-\title{\code{JSONArchiver}}
+\title{\code{JSONArchiver}: A \code{JSON}-based archiver}
 \description{
-\code{JSONArchiver}
-
-\code{JSONArchiver}
+Inherits from \code{FileArchiver} to implement \code{JSON}-based archiving functionality.
+Serializes and deserializes \code{Reporter} instances to and from \code{JSON} format.
 }
 \examples{
-\dontshow{if (requireNamespace("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+
 ## ------------------------------------------------
 ## Method `JSONArchiver$write`
 ## ------------------------------------------------
@@ -34,8 +33,7 @@ JSONArchiver <- getFromNamespace("JSONArchiver", "teal.reporter")
 archiver <- JSONArchiver$new()
 archiver$write(reporter)
 archiver$get_output_dir()
-\dontshow{\}) # examplesIf}
-\dontshow{if (requireNamespace("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+
 ## ------------------------------------------------
 ## Method `JSONArchiver$read`
 ## ------------------------------------------------
@@ -66,7 +64,6 @@ blocks <- Reporter$new()
 blocks <- blocks$from_reporter(archiver$read())$get_blocks()
 Renderer <- getFromNamespace("Renderer", "teal.reporter")
 doc <- Renderer$new()$render(blocks)
-\dontshow{\}) # examplesIf}
 }
 \keyword{internal}
 \section{Super classes}{
@@ -93,7 +90,9 @@ doc <- Renderer$new()$render(blocks)
 \if{html}{\out{<a id="method-JSONArchiver-write"></a>}}
 \if{latex}{\out{\hypertarget{method-JSONArchiver-write}{}}}
 \subsection{Method \code{write()}}{
-write a \code{Reporter} instance in to this \code{JSONArchiver} object.
+Write a \code{Reporter} instance in \code{JSON} file.
+Serializes a given \code{Reporter} instance and saves it in the \code{Archiver}'s output directory,
+to this \code{JSONArchiver} object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{JSONArchiver$write(reporter)}\if{html}{\out{</div>}}
 }
@@ -108,12 +107,39 @@ write a \code{Reporter} instance in to this \code{JSONArchiver} object.
 \subsection{Returns}{
 \code{self}.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{library(ggplot2)
+
+ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
+card1 <- ReportCard$new()
+
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text", "header2")
+card1$append_plot(
+ ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
+)
+
+Reporter <- getFromNamespace("Reporter", "teal.reporter")
+reporter <- Reporter$new()
+reporter$append_cards(list(card1))
+
+JSONArchiver <- getFromNamespace("JSONArchiver", "teal.reporter")
+archiver <- JSONArchiver$new()
+archiver$write(reporter)
+archiver$get_output_dir()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-JSONArchiver-read"></a>}}
 \if{latex}{\out{\hypertarget{method-JSONArchiver-read}{}}}
 \subsection{Method \code{read()}}{
-read a \code{Reporter} instance from a directory with \code{JSONArchiver}.
+Read a \code{Reporter} instance from a \code{JSON} file.
+Deserializes a \code{Reporter} instance from the \code{JSON} file in the \code{JSONArchiver}'s output directory.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{JSONArchiver$read(path = NULL)}\if{html}{\out{</div>}}
 }
@@ -128,6 +154,39 @@ read a \code{Reporter} instance from a directory with \code{JSONArchiver}.
 \subsection{Returns}{
 \code{Reporter} instance.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{library(ggplot2)
+
+ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
+card1 <- ReportCard$new()
+
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text", "header2")
+card1$append_plot(
+ ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
+)
+
+Reporter <- getFromNamespace("Reporter", "teal.reporter")
+reporter <- Reporter$new()
+reporter$append_cards(list(card1))
+
+JSONArchiver <- getFromNamespace("JSONArchiver", "teal.reporter")
+archiver <- JSONArchiver$new()
+archiver$write(reporter)
+archiver$get_output_dir()
+
+archiver$read()$get_cards()[[1]]$get_content()
+Reporter <- getFromNamespace("Reporter", "teal.reporter")
+blocks <- Reporter$new()
+blocks <- blocks$from_reporter(archiver$read())$get_blocks()
+Renderer <- getFromNamespace("Renderer", "teal.reporter")
+doc <- Renderer$new()$render(blocks)
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-JSONArchiver-clone"></a>}}
