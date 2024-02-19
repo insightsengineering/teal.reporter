@@ -498,7 +498,7 @@ reporter$get_metadata()
 \if{html}{\out{<a id="method-Reporter-from_reporter"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-from_reporter}{}}}
 \subsection{Method \code{from_reporter()}}{
-Reinitializes a \code{Reporter} instance by copying the report cards and metadata from another \code{Reporter}.
+Create/Recreate a Reporter from another Reporter
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$from_reporter(reporter)}\if{html}{\out{</div>}}
 }
@@ -506,12 +506,12 @@ Reinitializes a \code{Reporter} instance by copying the report cards and metadat
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{reporter}}{(\code{Reporter}) instance to copy from.}
+\item{\code{reporter}}{\code{Reporter} instance.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{self}, invisibly.
+invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -527,7 +527,7 @@ reporter$from_reporter(reporter)
 \if{html}{\out{<a id="method-Reporter-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-to_list}{}}}
 \subsection{Method \code{to_list()}}{
-Convert a \code{Reporter} to a list and transfer any associated files to specified directory.
+Convert a Reporter to a list and transfer files
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$to_list(output_dir)}\if{html}{\out{</div>}}
 }
@@ -535,13 +535,12 @@ Convert a \code{Reporter} to a list and transfer any associated files to specifi
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{output_dir}}{(\code{character(1)}) a path to the directory where files will be copied.}
+\item{\code{output_dir}}{\code{character(1)} a path to the directory where files will be copied.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\verb{named list} representing the \code{Reporter} instance, including version information,
-metadata, and report cards.
+\verb{named list} \code{Reporter} representation
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
