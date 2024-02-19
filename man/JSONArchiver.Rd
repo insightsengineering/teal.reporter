@@ -3,10 +3,10 @@
 \docType{class}
 \name{JSONArchiver}
 \alias{JSONArchiver}
-\title{\code{JSONArchiver}: A \code{JSON}-based archiver}
+\title{\code{JSONArchiver}: A \code{JSON}-based \code{Archiver}}
 \description{
 Inherits from \code{FileArchiver} to implement \code{JSON}-based archiving functionality.
-Serializes and deserializes \code{Reporter} instances to and from \code{JSON} format.
+Convert \code{Reporter} instances to and from \code{JSON} format.
 }
 \examples{
 
@@ -139,7 +139,7 @@ archiver$get_output_dir()
 \if{latex}{\out{\hypertarget{method-JSONArchiver-read}{}}}
 \subsection{Method \code{read()}}{
 Read a \code{Reporter} instance from a \code{JSON} file.
-Deserializes a \code{Reporter} instance from the \code{JSON} file in the \code{JSONArchiver}'s output directory.
+Converts a \code{Reporter} instance from the \code{JSON} file in the \code{JSONArchiver}'s output directory.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{JSONArchiver$read(path = NULL)}\if{html}{\out{</div>}}
 }

@@ -1,6 +1,7 @@
 #' @title `ContentBlock`: A building block for report content
 #' @docType class
-#' @description This class represents a basic content unit in a report, such as text, images, or other multimedia elements.
+#' @description This class represents a basic content unit in a report,
+#' such as text, images, or other multimedia elements.
 #' It serves as a foundation for constructing complex report structures.
 #'
 #' @keywords internal

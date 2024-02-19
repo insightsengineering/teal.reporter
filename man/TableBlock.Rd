@@ -6,8 +6,8 @@
 \title{\code{TableBlock}}
 \description{
 Specialized \code{FileBlock} for managing table content in reports.
-It's designed to handl various table formats, converting them into a consistent,
-document-ready format (e.g., FlexTable) for inclusion in reports.
+It's designed to handle various table formats, converting them into a consistent,
+document-ready format (e.g., \code{flextable}) for inclusion in reports.
 }
 \examples{
 

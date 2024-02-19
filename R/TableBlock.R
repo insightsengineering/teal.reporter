@@ -2,8 +2,8 @@
 #' @docType class
 #' @description
 #' Specialized `FileBlock` for managing table content in reports.
-#' It's designed to handl various table formats, converting them into a consistent,
-#' document-ready format (e.g., FlexTable) for inclusion in reports.
+#' It's designed to handle various table formats, converting them into a consistent,
+#' document-ready format (e.g., `flextable`) for inclusion in reports.
 #'
 #' @keywords internal
 TableBlock <- R6::R6Class( # nolint: object_name_linter.

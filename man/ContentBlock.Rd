@@ -5,7 +5,8 @@
 \alias{ContentBlock}
 \title{\code{ContentBlock}: A building block for report content}
 \description{
-This class represents a basic content unit in a report, such as text, images, or other multimedia elements.
+This class represents a basic content unit in a report,
+such as text, images, or other multimedia elements.
 It serves as a foundation for constructing complex report structures.
 }
 \examples{

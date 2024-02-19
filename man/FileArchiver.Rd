@@ -3,7 +3,7 @@
 \docType{class}
 \name{FileArchiver}
 \alias{FileArchiver}
-\title{\code{FileArchiver}: A File-based archiver}
+\title{\code{FileArchiver}: A File-based \code{Archiver}}
 \description{
 Inherits from \code{Archiver} to provide file-based archiving functionality.
 Manages an output directory for storing archived data.

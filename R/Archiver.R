@@ -2,7 +2,6 @@
 #' @docType class
 #' @description
 #' A base `R6` class for implementing data archiving functionality.
-#' It serves as a template for creating specialized archivers, such as file-based or JSON-based archivers.
 #'
 #' @keywords internal
 Archiver <- R6::R6Class( # nolint: object_name_linter.
@@ -22,13 +21,13 @@ Archiver <- R6::R6Class( # nolint: object_name_linter.
       # destructor
     },
     #' @description Reads data from the `Archiver`.
-    #' Pure virtual method that should be implemented by subclasses.
+    #' Pure virtual method that should be implemented by inherited classes.
     read = function() {
       # returns Reporter instance
       stop("Pure virtual method.")
     },
     #' @description Writes data to the `Archiver`.
-    #' Pure virtual method that should be implemented by subclasses.
+    #' Pure virtual method that should be implemented by inherited classes.
     write = function() {
       stop("Pure virtual method.")
     }
@@ -37,7 +36,7 @@ Archiver <- R6::R6Class( # nolint: object_name_linter.
   lock_class = TRUE
 )
 
-#' @title `FileArchiver`: A File-based archiver
+#' @title `FileArchiver`: A File-based `Archiver`
 #' @docType class
 #' @description
 #' Inherits from `Archiver` to provide file-based archiving functionality.
@@ -81,11 +80,11 @@ FileArchiver <- R6::R6Class( # nolint: object_name_linter.
   )
 )
 
-#' @title `JSONArchiver`: A `JSON`-based archiver
+#' @title `JSONArchiver`: A `JSON`-based `Archiver`
 #' @docType class
 #' @description
 #' Inherits from `FileArchiver` to implement `JSON`-based archiving functionality.
-#' Serializes and deserializes `Reporter` instances to and from `JSON` format.
+#' Convert `Reporter` instances to and from `JSON` format.
 #'
 #' @keywords internal
 JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
@@ -126,7 +125,7 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
       self
     },
     #' @description Read a `Reporter` instance from a `JSON` file.
-    #' Deserializes a `Reporter` instance from the `JSON` file in the `JSONArchiver`'s output directory.
+    #' Converts a `Reporter` instance from the `JSON` file in the `JSONArchiver`'s output directory.
     #'
     #' @param path (`character(1)`) a path to the directory with all proper files.
     #'
