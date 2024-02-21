@@ -101,7 +101,7 @@ reporter_previewer_srv <- function(id,
             ),
             shiny::tags$div(
               id = "previewer_reporter_buttons",
-              class = "previewer_buttons_line",
+              class = "previewer_buttons_line btn-group",
               htmltools::tagAppendAttributes(
                 shiny::tags$a(
                   id = ns("download_data_prev"),

@@ -50,9 +50,8 @@ archiver_load_srv <- function(id, reporter) {
         nr_cards <- length(reporter$get_cards())
         shiny::modalDialog(
           easyClose = TRUE,
-          shiny::tags$h3("Load the Archiver"),
+          shiny::tags$h3("Load the Report"),
           shiny::tags$hr(),
-          shiny::tags$p("Format: JSON", title = "zip file with JSON and static files"),
           shiny::fileInput(ns("archiver_zip"), "Choose Archiver File to Load (a zip file)",
             multiple = FALSE,
             accept = c(".zip")
