@@ -156,6 +156,7 @@ reporter_previewer_srv <- function(id,
                   class = "btn btn-primary action-button",
                   `data-val` = shiny::restoreInput(id = ns("load_archiver"), default = NULL),
                   NULL,
+                  shiny::icon("upload"),
                   "Load"
                 )
               )
