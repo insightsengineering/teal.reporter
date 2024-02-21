@@ -1,10 +1,45 @@
-#' Add Card Button User Interface
+#' Add card button module
+#'
 #' @description `r lifecycle::badge("experimental")`
-#' button for adding views/cards to the Report.
+#'
+#' Provides a button to add views/cards to a report.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character(1)` this `shiny` module's id.
-#' @return `shiny::tagList`
+#'
+#' @details
+#' The `card_fun` function is designed to create a new `ReportCard` instance and optionally customize it:
+#' - The `card` parameter allows for specifying a custom or default `ReportCard` instance.
+#' - Use the `comment` parameter to add a comment to the card via `card$append_text()` - if `card_fun` does not
+#' have the `comment` parameter, then `comment` from `Add Card UI` module will be added at the end of the content of the
+#' card.
+#' - The `label` parameter enables customization of the card's name and its content through `card$append_text()`-
+#' if `card_fun` does not have the `label` parameter, then card name will be set to the name passed in
+#' `Add Card UI` module, but no text will be added to the content of the `card`.
+#'
+#' This module supports using a subclass of [`ReportCard`] for added flexibility.
+#' A subclass instance should be passed as the default value of
+#' the `card` argument in the `card_fun` function.
+#' See below:
+#' ```{r}
+#' CustomReportCard <- R6::R6Class(
+#'   classname = "CustomReportCard",
+#'   inherit = teal.reporter::ReportCard
+#' )
+#'
+#' custom_function <- function(card = CustomReportCard$new()) {
+#'   card
+#' }
+#' ```
+#' @name add_card_button
+#'
+#' @param id (`character(1)`) this `shiny` module's id.
+#' @param reporter (`Reporter`) instance.
+#' @param card_fun (`function`) which returns a [`ReportCard`] instance. See `Details`.
+#'
+#' @return `NULL`.
+NULL
+
+#' @rdname add_card_button
 #' @export
 add_card_button_ui <- function(id) {
   ns <- shiny::NS(id)
@@ -46,39 +81,7 @@ add_card_button_ui <- function(id) {
   )
 }
 
-#' Add Card Button Server
-#' @description `r lifecycle::badge("experimental")`
-#' server for adding views/cards to the Report.
-#'
-#' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#'
-#' @details
-#' This module allows using a child of [`ReportCard`] instead of [`ReportCard`].
-#' To properly support this, an instance of the child class must be passed
-#' as the default value of the `card` argument in the `card_fun` function.
-#' See below:
-#' ```{r}
-#' CustomReportCard <- R6::R6Class(
-#'   classname = "CustomReportCard",
-#'   inherit = teal.reporter::ReportCard
-#' )
-#'
-#' custom_function <- function(card = CustomReportCard$new()) {
-#'   card
-#' }
-#' ```
-#'
-#' @param id `character(1)` this `shiny` module's id.
-#' @param reporter [`Reporter`] instance.
-#' @param card_fun `function` which returns a [`ReportCard`] instance. It can have optional `card`, `comment` and
-#' `label` parameters. If `card` parameter is added, then the `ReportCard` instance is created for the user.
-#' Use `comment` parameter to pass it's value whenever you prefer with `card$append_text()` - if `card_fun` does not
-#' have `comment` parameter, then `comment` from `Add Card UI` module will be added at the end of the content of the
-#' card. If `label` parameter is provided, you can use it to customize appearance of the `card name` and use if to
-#' specify `card` content with `card$append_text()` - if `card_fun` does not have `label` parameter, then `card name`
-#' will be set to the name passed in `Add Card UI` module, but no text will be added to the content of the `card`.
-#'
-#' @return `shiny::moduleServer`
+#' @rdname add_card_button
 #' @export
 add_card_button_srv <- function(id, reporter, card_fun) {
   checkmate::assert_function(card_fun)

@@ -1,8 +1,12 @@
-#' @title quoted string for `yaml`
-#' @description add quoted attribute for `yaml` package
-#' @param x `character`
+#' Mark strings for quotation in `yaml` serialization
+#'
+#' This function is designed for use with the `yaml` package to explicitly,
+#' It adds an attribute to character strings, indicating that they should be serialized with double quotes.
+#'
+#' @param x (`character`)
 #' @keywords internal
 #' @examples
+#' library(yaml)
 #' yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
 #' yaml <- list(
 #'   author = yaml_quoted("NEST"),
@@ -10,17 +14,20 @@
 #'   date = yaml_quoted("07/04/2019"),
 #'   output = list(pdf_document = list(keep_tex = TRUE))
 #' )
-#' yaml::as.yaml(yaml)
+#' as.yaml(yaml)
 yaml_quoted <- function(x) {
   attr(x, "quoted") <- TRUE
   x
 }
 
-#' @title wrap a `yaml` string to the `markdown` header
-#' @description wrap a `yaml` string to the `markdown` header.
-#' @param x `character` `yaml` formatted string.
+#' Create `markdown` header from `yaml` string
+#'
+#' This function wraps a `yaml`-formatted string in Markdown header delimiters.
+#'
+#' @param x (`character`) `yaml` formatted string.
 #' @keywords internal
 #' @examples
+#' library(yaml)
 #' yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
 #' yaml <- list(
 #'   author = yaml_quoted("NEST"),
@@ -29,18 +36,20 @@ yaml_quoted <- function(x) {
 #'   output = list(pdf_document = list(keep_tex = TRUE))
 #' )
 #' md_header <- getFromNamespace("md_header", "teal.reporter")
-#' md_header(yaml::as.yaml(yaml))
+#' md_header(as.yaml(yaml))
 md_header <- function(x) {
   paste0("---\n", x, "---\n")
 }
 
-#' @title Convert a character of a `yaml` boolean to a logical value
-#' @description convert a character of a `yaml` boolean to a logical value.
-#' @param input `character`
-#' @param name `charcter`
-#' @param pos_logi `character` vector of `yaml` values which should be treated as `TRUE`.
-#' @param neg_logi `character` vector of `yaml` values which should be treated as `FALSE`.
-#' @param silent `logical` if to suppress the messages and warnings.
+#' Convert `yaml` representation of a boolean strings to logical Values
+#'
+#' Converts a single `character` string representing a `yaml` boolean value into a logical value in `R`.
+#'
+#' @param input (`character(1)`)
+#' @param name (`charcter(1)`)
+#' @param pos_logi (`character`) vector of `yaml` values which should be treated as `TRUE`.
+#' @param neg_logi (`character`) vector of `yaml` values which should be treated as `FALSE`.
+#' @param silent (`logical(1)`) if to suppress the messages and warnings.
 #' @return `input` argument or the appropriate `logical` value.
 #' @keywords internal
 #' @examples
@@ -74,10 +83,13 @@ conv_str_logi <- function(input,
   }
 }
 
-#' @title Get document output types from the `rmarkdown` package
+#' Get document output types from the `rmarkdown` package
 #'
 #' @description `r lifecycle::badge("experimental")`
-#' get document output types from the `rmarkdown` package.
+#'
+#' Retrieves vector of available document output types from the `rmarkdown` package,
+#' such as `pdf_document`, `html_document`, etc.
+#'
 #' @return `character` vector.
 #' @export
 #' @examples
@@ -87,12 +99,14 @@ rmd_outputs <- function() {
   ls(rmarkdown_namespace)[grep("_document|_presentation", ls(rmarkdown_namespace))]
 }
 
-#' @title Get document output arguments from the `rmarkdown` package
+#' Get document output arguments from the `rmarkdown` package
 #'
 #' @description `r lifecycle::badge("experimental")`
-#' get document output arguments from the `rmarkdown` package
-#' @param output_name `character` `rmarkdown` output name.
-#' @param default_values `logical` if to return a default values for each argument.
+#'
+#' Retrieves the arguments for a specified document output type from the `rmarkdown` package.
+#'
+#' @param output_name (`character`) `rmarkdown` output name.
+#' @param default_values (`logical(1)`) if to return a default values for each argument.
 #' @export
 #' @examples
 #' rmd_output_arguments("pdf_document")
@@ -109,20 +123,28 @@ rmd_output_arguments <- function(output_name, default_values = FALSE) {
   }
 }
 
-#' @title Parse a Named List to the `Rmd` `yaml` Header
+#' Parse a named list to `yaml` header for an `Rmd` file
+#'
 #' @description `r lifecycle::badge("experimental")`
-#' parse a named list to the `Rmd` `yaml` header, so the developer gets automatically tabulated `Rmd` `yaml` header.
-#' Only a non nested (flat) list will be processed,
-#' where as a nested list is directly processed with the [`yaml::as.yaml`] function.
-#' All `Rmd` `yaml` header fields from the vector are supported,
-#' `c("author", "date", "title", "subtitle", "abstract", "keywords", "subject", "description", "category", "lang")`.
-#' Moreover all `output`field types in the `rmarkdown` package and their arguments are supported.
-#' @param input_list `named list` non nested with slots names and their values compatible with `Rmd` `yaml` header.
-#' @param as_header `logical` optionally wrap with result with the internal `md_header()`, default `TRUE`.
-#' @param convert_logi `logical` convert a character values to logical,
+#'
+#' Converts a named list into a `yaml` header for `Rmd`, handling output types and arguments
+#' as defined in the `rmarkdown` package. This function simplifies the process of generating `yaml` headers.
+#'
+#' @details
+#' This function processes a non-nested (flat) named list into a `yaml` header for an `Rmd` document.
+#' It supports all standard `Rmd` `yaml` header fields, including `author`, `date`, `title`, `subtitle`,
+#'  `abstract`, `keywords`, `subject`, `description`, `category`, and `lang`.
+#' Additionally,  it handles `output` field types and arguments as defined in the `rmarkdown` package.
+#'
+#' @note Only non-nested lists are automatically parsed.
+#' Nested lists require direct processing with `yaml::as.yaml`.
+#'
+#' @param input_list (`named list`) non nested with slots names and their values compatible with `Rmd` `yaml` header.
+#' @param as_header (`logical(1)`) optionally wrap with result with the internal `md_header()`, default `TRUE`.
+#' @param convert_logi (`logical(1)`) convert a character values to logical,
 #'  if they are recognized as quoted `yaml` logical values , default `TRUE`.
-#' @param multi_output `logical` multi `output` slots in the `input` argument, default `FALSE`.
-#' @param silent `logical` suppress messages and warnings, default `FALSE`.
+#' @param multi_output (`logical(1)`) multi `output` slots in the `input` argument, default `FALSE`.
+#' @param silent (`logical(1)`) suppress messages and warnings, default `FALSE`.
 #' @return `character` with `rmd_yaml_header` class,
 #' result of [`yaml::as.yaml`], optionally wrapped with internal `md_header()`.
 #' @export
@@ -250,13 +272,13 @@ as_yaml_auto <- function(input_list,
   structure(result, class = "rmd_yaml_header")
 }
 
-#' @title Print method for the `yaml_header` class
+#' Print method for the `yaml_header` class
 #'
-#' @description `r lifecycle::badge("experimental")`
-#' Print method for the `yaml_header` class.
-#' @param x `rmd_yaml_header` class object.
+#' `r lifecycle::badge("experimental")`
+#'
+#' @param x (`rmd_yaml_header`) class object.
 #' @param ... optional text.
-#' @return NULL
+#' @return `NULL`.
 #' @exportS3Method
 #' @examples
 #' input <- list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE)
@@ -267,13 +289,15 @@ print.rmd_yaml_header <- function(x, ...) {
   cat(x, ...)
 }
 
+#' Extract field from `yaml` text
+#'
 #' Parses `yaml` text, extracting the specified field. Returns list names if it's a list;
 #' otherwise, the field itself.
 #'
-#' @param yaml_text A character vector containing the `yaml` text.
-#' @param field_name The name of the field to extract.
+#' @param yaml_text (`rmd_yaml_header` or `character`) vector containing the `yaml` text.
+#' @param field_name (`character`) the name of the field to extract.
 #'
-#' @return if the field is a list, it returns the names of elements in the list; otherwise,
+#' @return If the field is a list, it returns the names of elements in the list; otherwise,
 #' it returns the extracted field.
 #'
 #' @keywords internal

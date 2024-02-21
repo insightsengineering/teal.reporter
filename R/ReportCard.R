@@ -1,15 +1,19 @@
-#' @title `ReportCard`
+#' @title `ReportCard`: An `R6` class for building report elements
+#' @docType class
+#'
 #' @description `r lifecycle::badge("experimental")`
-#' R6 class that supports creating a report card containing text, plot, table and
-#' meta data blocks that can be appended and rendered to form a report output from a shiny app.
+#'
+#' This `R6` class that supports creating a report card containing text, plot, table and
+#' metadata blocks that can be appended and rendered to form a report output from a `shiny` app.
+#'
 #' @export
 #'
 ReportCard <- R6::R6Class( # nolint: object_name_linter.
   classname = "ReportCard",
   public = list(
-    #' @description Returns a `ReportCard` object.
+    #' @description Initialize a `ReportCard` object.
     #'
-    #' @return a `ReportCard` object
+    #' @return Object of class `ReportCard`, invisibly.
     #' @examples
     #' card <- ReportCard$new()
     #'
@@ -20,8 +24,9 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Appends a table to this `ReportCard`.
     #'
-    #' @param table the appended table
-    #' @return invisibly self
+    #' @param table A (`data.frame` or `rtables` or `TableTree` or `ElementaryTable` or `listing_df`)
+    #' that can be coerced into a table.
+    #' @return `self`, invisibly.
     #' @examples
     #' card <- ReportCard$new()$append_table(iris)
     #'
@@ -31,12 +36,14 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Appends a plot to this `ReportCard`.
     #'
-    #' @param plot the appended plot
-    #' @param dim `integer vector` width and height in pixels.
-    #' @return invisibly self
+    #' @param plot (`ggplot` or `grob` or `trellis`) plot object.
+    #' @param dim (`numeric(2)`) width and height in pixels.
+    #' @return `self`, invisibly.
     #' @examples
+    #' library(ggplot2)
+    #'
     #' card <- ReportCard$new()$append_plot(
-    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
     #'
     append_plot = function(plot, dim = NULL) {
@@ -48,11 +55,11 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       self$append_content(pb)
       invisible(self)
     },
-    #' @description Appends a paragraph of text to this `ReportCard`.
+    #' @description Appends a text paragraph to this `ReportCard`.
     #'
-    #' @param text (`character(0)` or `character(1)`) the text
+    #' @param text (`character`) The text content to add.
     #' @param style (`character(1)`) the style of the paragraph. One of: `default`, `header`, `verbatim`
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' card <- ReportCard$new()$append_text("A paragraph of default text")
     #'
@@ -60,11 +67,11 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       self$append_content(TextBlock$new(text, style))
       invisible(self)
     },
-    #' @description Appends an `rmarkdown` R chunk to this `ReportCard`.
+    #' @description Appends an `R` code chunk to `ReportCard`.
     #'
-    #' @param text (`character(0)` or `character(1)`) the text
-    #' @param ... any `rmarkdown` R chunk parameter and its value.
-    #' @return invisibly self
+    #' @param text (`character`) The `R` code to include.
+    #' @param ... Additional  `rmarkdown` parameters for formatting the `R` code chunk.
+    #' @return `self`, invisibly.
     #' @examples
     #' card <- ReportCard$new()$append_rcode("2+2", echo = FALSE)
     #'
@@ -72,10 +79,10 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       self$append_content(RcodeBlock$new(text, ...))
       invisible(self)
     },
-    #' @description Appends a `ContentBlock` to this `ReportCard`.
+    #' @description Appends a generic `ContentBlock` to this `ReportCard`.
     #'
-    #' @param content (`ContentBlock`)
-    #' @return invisibly self
+    #' @param content (`ContentBlock`) object.
+    #' @return `self`, invisibly.
     #' @examples
     #' NewpageBlock <- getFromNamespace("NewpageBlock", "teal.reporter")
     #' card <- ReportCard$new()$append_content(NewpageBlock$new())
@@ -85,7 +92,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       private$content <- append(private$content, content)
       invisible(self)
     },
-    #' @description Returns the content of this `ReportCard`.
+    #' @description Get all content blocks from this `ReportCard`.
     #'
     #' @return `list()` list of `TableBlock`, `TextBlock` and `PictureBlock`.
     #' @examples
@@ -97,16 +104,16 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     get_content = function() {
       private$content
     },
-    #' @description Removes all objects added to this `ReportCard`.
+    #' @description Clears all content and metadata from `ReportCard`.
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #'
     reset = function() {
       private$content <- list()
       private$metadata <- list()
       invisible(self)
     },
-    #' @description Returns the metadata of this `ReportCard`.
+    #' @description Get the metadata associated with `ReportCard`.
     #'
     #' @return `named list` list of elements.
     #' @examples
@@ -119,12 +126,14 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Appends metadata to this `ReportCard`.
     #'
-    #' @param key (`character(1)`) name of meta data.
-    #' @param value value of meta data.
-    #' @return invisibly self
+    #' @param key (`character(1)`) string specifying the metadata key.
+    #' @param value value associated with the metadata key.
+    #' @return `self`, invisibly.
     #' @examples
+    #' library(ggplot2)
+    #'
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
-    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )$append_text("Some text")$append_metadata(key = "lm",
     #'                   value = lm(Ozone ~ Solar.R, airquality))
     #' card$get_content()
@@ -138,18 +147,18 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       private$metadata <- append(private$metadata, meta_list)
       invisible(self)
     },
-    #' @description get the Card name
+    #' @description Get the name of the `ReportCard`.
     #'
-    #' @return `character` a Card name
+    #' @return `character` a card name.
     #' @examples
     #' ReportCard$new()$set_name("NAME")$get_name()
     get_name = function() {
       private$name
     },
-    #' @description set the Card name
+    #' @description Set the name of the `ReportCard`.
     #'
-    #' @param name `character` a Card name
-    #' @return invisibly self
+    #' @param name (`character(1)`) a card name.
+    #' @return `self`, invisibly.
     #' @examples
     #' ReportCard$new()$set_name("NAME")$get_name()
     set_name = function(name) {
@@ -157,12 +166,14 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       private$name <- name
       invisible(self)
     },
-    #' @description Convert the `ReportCard` to a list.
-    #' @param output_dir `character` with a path to the directory where files will be copied.
-    #' @return `named list` a `ReportCard` representation.
+    #' @description Convert the `ReportCard` to a list, including content and metadata.
+    #' @param output_dir (`character`) with a path to the directory where files will be copied.
+    #' @return (`named list`) a `ReportCard` representation.
     #' @examples
+    #' library(ggplot2)
+    #'
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
-    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )$append_text("Some text")$append_metadata(key = "lm",
     #'                   value = lm(Ozone ~ Solar.R, airquality))
     #' card$get_content()
@@ -189,13 +200,15 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       new_card[["metadata"]] <- self$get_metadata()
       new_card
     },
-    #' @description Create the `ReportCard` from a list.
-    #' @param card `named list` a `ReportCard` representation.
-    #' @param output_dir `character` with a path to the directory where a file will be copied.
-    #' @return invisibly self
+    #' @description Reconstructs the `ReportCard` from a list representation.
+    #' @param card (`named list`) a `ReportCard` representation.
+    #' @param output_dir (`character`) with a path to the directory where a file will be copied.
+    #' @return `self`, invisibly.
     #' @examples
+    #' library(ggplot2)
+    #'
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
-    #'   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )$append_text("Some text")$append_metadata(key = "lm",
     #'                   value = lm(Ozone ~ Solar.R, airquality))
     #' card$get_content()

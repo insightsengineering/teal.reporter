@@ -120,7 +120,7 @@ testthat::test_that("set_dim returns self", {
 })
 
 # set_content
-testthat::test_that("set_content throws if the content is not of the supported type", {
+testthat::test_that("set_content raises error if the content is not of the supported type", {
   testthat::expect_error(
     PictureBlock$new()$set_content("unsupported content"),
     regexp = "Must inherit from class 'ggplot'/'grob'/'trellis'"

@@ -1,13 +1,10 @@
 #' Reporting tools for `shiny` modules.
 #'
-#' @description
 #' A collection of tools for creating, previewing and modifying reports from `shiny` modules.
 #'
 #' @keywords internal
 "_PACKAGE"
 
-#' To avoid R CMD check warnings.
-#' @noRd
 #' @importFrom checkmate assert_string
 #' @importFrom grid grid.newpage
 #' @importFrom lifecycle badge

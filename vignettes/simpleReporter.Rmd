@@ -14,24 +14,30 @@ knitr::opts_chunk$set(
 )
 ```
 
-Simple Reporter is a shiny module for capturing app views during the session, and eventually downloading
-a report document. The Simple Reporter module consists of two separate modules one for each of the two buttons,
+Simple reporter is a `shiny` module for capturing app views during the session, and eventually downloading
+a report document. The Simple reporter module consists of two separate modules one for each of the two buttons,
 Add Card and Download Report buttons modules.
+
+module designed to capture and visualize application views throughout a session, facilitating the generation and download of a comprehensive report document. This module consists of two separate modules one for each of the two buttons.
+
+- Add card button.
+- Download report button.
 
 The implementation should consist of 4 steps:
 
-1. Add modules user interface to the user interface of the app.
-2. Initialize Reporter instance.
-3. Create the Report Card function with two optional arguments: card and comment.
+1. Add modules UI component to the app's UI.
+2. Initialize `Reporter` instance.
+4. Create the report card function with two optional arguments: `card` and `comment`.
 This function must return a `ReportCard` object.
-The function should build the Card step by step and assuming it is empty at the beginning,
-the optional comment argument is a string provided by the user when the card is added.
-If the comment argument is not specified then it is added automatically at the end of the Card.
-If the card argument is added then the `ReportCard` instance is automatically created for the user otherwise the function should create the card itself.
-This part requires the developer to use their imagination as to what the document page should look like.
-4. Invoke the servers with the reporter instance and the function to create the report card instance.
+The `ReportCard` object should be built step by step, assuming that it is empty at the beginning.
+   - If the `comment` argument is provided, it should be added to the card. 
+   If not, it should be added automatically at the end of the card. 
+   - If the `card` argument is provided, the `ReportCard` instance should be automatically created for the user. 
+   If not, the function should create the card itself. 
+*Please note that the document page's design is up to the developer's imagination.*
+4. Invoke the servers with the `Reporter` instance and the function to create the `ReportCard` instance.
 
-For clarity, in the app below the code added to introduce the reporter is wrapped in the `### REPORTER` code blocks.
+The code added to introduce the reporter is wrapped in the `### REPORTER` code blocks.
 
 First, load the required packages:
 
@@ -42,7 +48,7 @@ library(ggplot2)
 library(rtables)
 ```
 
-Simple Reporter shiny app with separate modules for each button:
+Simple reporter `shiny` app with separate modules for each button:
 
 ```{r}
 ui <- fluidPage(
@@ -139,7 +145,7 @@ server <- function(input, output, session) {
 if (interactive()) shinyApp(ui = ui, server = server)
 ```
 
-Simple Reporter shiny app with combined buttons modules:
+Simple reporter `shiny` app with combined buttons modules:
 
 ```{r}
 ui <- fluidPage(

@@ -18,17 +18,21 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Dawid Kaledkowski \email{dawid.kaledkowski@roche.com}
+\strong{Maintainer}: Dawid Kaledkowski \email{dawid.kaledkowski@roche.com} (\href{https://orcid.org/0000-0001-9533-457X}{ORCID})
 
 Authors:
 \itemize{
+  \item Kartikeya Kirar \email{kartikeya.kirar@businesspartner.roche.com} (\href{https://orcid.org/0009-0005-1258-4757}{ORCID})
+  \item Marcin Kosinski \email{marcin.kosinski.mk1@roche.com}
   \item Maciej Nasinski
   \item Konrad Pagacz
-  \item Mahmoud mahmoud.hallal@roche.com Hallal
+  \item Mahmoud Hallal \email{mahmoud.hallal@roche.com}
 }
 
 Other contributors:
 \itemize{
+  \item Chendi Liao \email{chendi.liao@roche.com} [reviewer]
+  \item Dony Unardi \email{unardid@gene.com} [reviewer]
   \item F. Hoffmann-La Roche AG [copyright holder, funder]
 }
 

@@ -1,30 +1,30 @@
 ---
-title: "Reporter Previewer"
+title: "Report Previewer"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Reporter Previewer}
+  %\VignetteIndexEntry{Report Previewer}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-Reporter Previewer is a shiny module to visualize and manipulate the already added report Cards, and eventually downloading a report document.
-Reporter Previewer is extended by the base modules introduced in the `simpleReporter` vignette.
+The Report previewer is an advanced shiny module designed for visualization, editing, and downloading of report cards. 
+It extended the base modules introduced in the `simpleReporter` vignette, enhancing interactivity and user engagement with report content.
 
-For clarity, in the app below the code added to introduce the reporter is wrapped in the `### REPORTER` code blocks.
 
-The implementation should consist of 5 steps:
+The five essential steps for implementing the report previewer include integrating it within a shiny application. Key code segments are highlighted in `### REPORTER` code blocks.
 
-1. Create a `tabsetPanel` with the main app and the Previewer.
-2. Add modules user interface to the user interface of the app.
-3. Initialize Reporter instance.
-4. Create the Report Card function with two optional arguments: card and comment.
+1. Create a `tabsetPanel` within main app with the previewer.
+2. Integrate the UI components of the modules into the app's UI.
+3. Initialize reporter instance.
+4. Create the report card function with two optional arguments: `card` and `comment`.
 This function must return a `ReportCard` object.
-The function should build the Card step by step and assuming it is empty at the beginning,
-the optional comment argument is a string provided by the user when the card is added.
-If the comment argument is not specified then it is added automatically at the end of the Card.
-If the card argument is added then the `ReportCard` instance is automatically created for the user, otherwise the function should create the card itself.
-This part requires the developer to use their imagination as to what the document page should look like.
-5. Invoke the servers with the reporter instance and the function to create the report card instance.
+The `ReportCard` object should be built step by step, assuming that it is empty at the beginning.
+   - If the `comment` argument is provided, it should be added to the card. 
+   If not, it should be added automatically at the end of the card. 
+   - If the `card` argument is provided, the `ReportCard` instance should be automatically created for the user. 
+   If not, the function should create the card itself. 
+*Please note that the document page's design is up to the developer's imagination.*
+5. Invoke the servers with the `Reporter` instance and the function to create the `ReportCard` instance.
 
 The code added to introduce the reporter is wrapped in the `### REPORTER` code blocks.
 
@@ -36,14 +36,15 @@ library(teal.reporter)
 library(ggplot2)
 library(rtables)
 library(DT)
+library(bslib)
 ```
 
-A basic shiny app with the previewer module:
+A basic `shiny` app with the previewer module:
 
 ```{r}
 ui <- fluidPage(
   # please, specify specific bootstrap version and theme
-  theme = bslib::bs_theme(version = "4"),
+  theme = bs_theme(version = "4"),
   titlePanel(""),
   tabsetPanel(
     tabPanel(
@@ -59,7 +60,7 @@ ui <- fluidPage(
             tabPanel("Plot", plotOutput("dist_plot")),
             tabPanel("Table", verbatimTextOutput("table")),
             tabPanel("Table DataFrame", verbatimTextOutput("table2")),
-            tabPanel("Table DataTable", DT::dataTableOutput("table3"))
+            tabPanel("Table DataTable", dataTableOutput("table3"))
           )
         )
       )
@@ -101,8 +102,8 @@ server <- function(input, output, session) {
   plot <- reactive({
     req(input$binwidth)
     x <- mtcars$mpg
-    ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg)) +
-      ggplot2::geom_histogram(binwidth = input$binwidth)
+    ggplot(data = mtcars, aes(x = mpg)) +
+      geom_histogram(binwidth = input$binwidth)
   })
   output$dist_plot <- renderPlot(plot())
 
@@ -125,7 +126,7 @@ server <- function(input, output, session) {
     data
   })
   output$table2 <- renderPrint(print.data.frame(table2()))
-  output$table3 <- DT::renderDataTable(table2())
+  output$table3 <- renderDataTable(table2())
 
   ### REPORTER
   reporter <- Reporter$new()
