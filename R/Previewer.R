@@ -101,11 +101,11 @@ reporter_previewer_srv <- function(id,
             ),
             shiny::tags$div(
               id = "previewer_reporter_buttons",
-              class = "previewer_buttons_line btn-group",
+              class = "previewer_buttons_line",
               htmltools::tagAppendAttributes(
                 shiny::tags$a(
                   id = ns("download_data_prev"),
-                  class = "btn btn-primary shiny-download-link",
+                  class = "btn btn-primary shiny-download-link simple_report_button",
                   href = "",
                   target = "_blank",
                   download = NA,
@@ -116,14 +116,14 @@ reporter_previewer_srv <- function(id,
               shiny::tags$button(
                 id = ns("load_archiver_previewer"),
                 type = "button",
-                class = "btn btn-primary action-button",
+                class = "btn btn-primary action-button simple_report_button",
                 `data-val` = shiny::restoreInput(id = ns("load_archiver_previewer"), default = NULL),
                 NULL,
                 shiny::tags$span(
                   "Load Report", shiny::icon("upload")
                 )
               ),
-              teal.reporter::reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
+              reset_report_button_ui(ns("resetButtonPreviewer"))
             )
           )
         )
