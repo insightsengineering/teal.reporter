@@ -87,44 +87,41 @@ reporter_previewer_srv <- function(id,
       output$encoding <- shiny::renderUI({
         reporter$get_reactive_add_card()
         nr_cards <- length(reporter$get_cards())
-        shiny::tagList(
+        shiny::tags$div(
+          id = "previewer_reporter_encoding",
+          shiny::tags$h3("Download the Report"),
+          shiny::tags$hr(),
+          reporter_download_inputs(
+            rmd_yaml_args = rmd_yaml_args,
+            rmd_output = rmd_output,
+            showrcode = any_rcode_block(reporter),
+            session = session
+          ),
           shiny::tags$div(
-            id = "previewer_reporter_encoding",
-            class = "previewer_well_internal",
-            shiny::tags$h3("Download the Report"),
-            shiny::tags$hr(),
-            reporter_download_inputs(
-              rmd_yaml_args = rmd_yaml_args,
-              rmd_output = rmd_output,
-              showrcode = any_rcode_block(reporter),
-              session = session
+            id = "previewer_reporter_buttons",
+            class = "previewer_buttons_line",
+            htmltools::tagAppendAttributes(
+              shiny::tags$a(
+                id = ns("download_data_prev"),
+                class = "btn btn-primary shiny-download-link simple_report_button",
+                href = "",
+                target = "_blank",
+                download = NA,
+                shiny::tags$span("Download Report", shiny::icon("download"))
+              ),
+              class = if (nr_cards) "" else "disabled"
             ),
-            shiny::tags$div(
-              id = "previewer_reporter_buttons",
-              class = "previewer_buttons_line",
-              htmltools::tagAppendAttributes(
-                shiny::tags$a(
-                  id = ns("download_data_prev"),
-                  class = "btn btn-primary shiny-download-link simple_report_button",
-                  href = "",
-                  target = "_blank",
-                  download = NA,
-                  shiny::tags$span("Download Report", shiny::icon("download"))
-                ),
-                class = if (nr_cards) "" else "disabled"
-              ),
-              shiny::tags$button(
-                id = ns("load_archiver_previewer"),
-                type = "button",
-                class = "btn btn-primary action-button simple_report_button",
-                `data-val` = shiny::restoreInput(id = ns("load_archiver_previewer"), default = NULL),
-                NULL,
-                shiny::tags$span(
-                  "Load Report", shiny::icon("upload")
-                )
-              ),
-              reset_report_button_ui(ns("resetButtonPreviewer"))
-            )
+            shiny::tags$button(
+              id = ns("load_archiver_previewer"),
+              type = "button",
+              class = "btn btn-primary action-button simple_report_button",
+              `data-val` = shiny::restoreInput(id = ns("load_archiver_previewer"), default = NULL),
+              NULL,
+              shiny::tags$span(
+                "Load Report", shiny::icon("upload")
+              )
+            ),
+            teal.reporter::reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
           )
         )
       })

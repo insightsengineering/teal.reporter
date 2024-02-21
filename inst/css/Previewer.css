@@ -5,13 +5,6 @@ span.preview_card_control  i:hover {
   color: blue;
 }
 
-.previewer_well_internal {
-  background-color: #a9a9a94d;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-}
-
 .previewer_buttons_line {
   display: flex;
   justify-content: end;
