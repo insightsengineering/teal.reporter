@@ -116,7 +116,16 @@ load_json_archiver <- function(reporter, zip_path, filename) {
         )
       }
     )
-    reporter$from_jsondir(output_dir)
+    if (isFALSE("Report.json" %in% basename(list.files(output_dir)))) {
+      # We should check more like version
+      shiny::showNotification(
+        ui = "Your report zip file does not support loading - possibly was genrated in the past",
+        action = "Please contact app developer",
+        type = "error"
+      )
+    } else {
+      reporter$from_jsondir(output_dir)
+    }
   } else {
     shiny::showNotification("Failed to load the archiver file.", type = "error")
   }
