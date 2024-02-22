@@ -2,9 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{to_flextable}
 \alias{to_flextable}
-\title{Convert content into a \code{flextable}, merge cells with \code{colspan} > 1
-align columns to the center, and row names to the left
-Indent the row names by 10 times indentation}
+\title{Convert content into a \code{flextable}}
 \usage{
 to_flextable(content)
 }
@@ -12,11 +10,14 @@ to_flextable(content)
 \item{content}{Supported formats: \code{data.frame}, \code{rtables}, \code{TableTree}, \code{ElementaryTable}, \code{listing_df}}
 }
 \value{
-(\code{flextable})
+\code{flextable}.
 }
 \description{
-Convert content into a \code{flextable}, merge cells with \code{colspan} > 1
-align columns to the center, and row names to the left
-Indent the row names by 10 times indentation
+Converts supported table formats into a \code{flextable} for enhanced formatting and presentation.
+}
+\details{
+Function merges cells with \code{colspan} > 1,
+aligns columns to the center and row names to the left,
+indents the row names by 10 times indentation.
 }
 \keyword{internal}

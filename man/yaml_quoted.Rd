@@ -2,17 +2,19 @@
 % Please edit documentation in R/yaml_utils.R
 \name{yaml_quoted}
 \alias{yaml_quoted}
-\title{quoted string for \code{yaml}}
+\title{Mark strings for quotation in \code{yaml} serialization}
 \usage{
 yaml_quoted(x)
 }
 \arguments{
-\item{x}{\code{character}}
+\item{x}{(\code{character})}
 }
 \description{
-add quoted attribute for \code{yaml} package
+This function is designed for use with the \code{yaml} package to explicitly,
+It adds an attribute to character strings, indicating that they should be serialized with double quotes.
 }
 \examples{
+library(yaml)
 yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
 yaml <- list(
   author = yaml_quoted("NEST"),
@@ -20,6 +22,6 @@ yaml <- list(
   date = yaml_quoted("07/04/2019"),
   output = list(pdf_document = list(keep_tex = TRUE))
 )
-yaml::as.yaml(yaml)
+as.yaml(yaml)
 }
 \keyword{internal}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/DownloadModule.R
 \name{report_render_and_compress}
 \alias{report_render_and_compress}
-\title{Render the Report}
+\title{Render the report}
 \usage{
 report_render_and_compress(
   reporter,
@@ -12,19 +12,19 @@ report_render_and_compress(
 )
 }
 \arguments{
-\item{reporter}{\code{\link{Reporter}} instance.}
+\item{reporter}{(\code{Reporter}) instance.}
 
-\item{input_list}{\code{list} like shiny input converted to a regular named list.}
+\item{input_list}{(\code{list}) like \code{shiny} input converted to a regular named list.}
 
-\item{global_knitr}{\code{list} a global \code{knitr} parameters, like echo.
+\item{global_knitr}{(\code{list}) a global \code{knitr} parameters, like echo.
 But if local parameter is set it will have priority.}
 
-\item{file}{\code{character} where to copy the returned directory.}
+\item{file}{(\code{character(1)}) where to copy the returned directory.}
 }
 \value{
 \code{file} argument, invisibly.
 }
 \description{
-render the report and zip the created directory.
+Render the report and zip the created directory.
 }
 \keyword{internal}

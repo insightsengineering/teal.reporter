@@ -14,7 +14,7 @@ testthat::test_that("to_flextable: supported class", {
 
 testthat::test_that("to_flextable: unsupported class", {
   unsupported_data <- list(a = 1, b = 2)
-  expect_error(to_flextable(unsupported_data), "Unsupported class")
+  testthat::expect_error(to_flextable(unsupported_data), "Unsupported class")
 })
 
 testthat::test_that("custom_theme to flextable", {

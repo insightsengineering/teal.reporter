@@ -2,7 +2,7 @@
 % Please edit documentation in R/yaml_utils.R
 \name{as_yaml_auto}
 \alias{as_yaml_auto}
-\title{Parse a Named List to the \code{Rmd} \code{yaml} Header}
+\title{Parse a named list to \code{yaml} header for an \code{Rmd} file}
 \usage{
 as_yaml_auto(
   input_list,
@@ -13,16 +13,16 @@ as_yaml_auto(
 )
 }
 \arguments{
-\item{input_list}{\verb{named list} non nested with slots names and their values compatible with \code{Rmd} \code{yaml} header.}
+\item{input_list}{(\verb{named list}) non nested with slots names and their values compatible with \code{Rmd} \code{yaml} header.}
 
-\item{as_header}{\code{logical} optionally wrap with result with the internal \code{md_header()}, default \code{TRUE}.}
+\item{as_header}{(\code{logical(1)}) optionally wrap with result with the internal \code{md_header()}, default \code{TRUE}.}
 
-\item{convert_logi}{\code{logical} convert a character values to logical,
+\item{convert_logi}{(\code{logical(1)}) convert a character values to logical,
 if they are recognized as quoted \code{yaml} logical values , default \code{TRUE}.}
 
-\item{multi_output}{\code{logical} multi \code{output} slots in the \code{input} argument, default \code{FALSE}.}
+\item{multi_output}{(\code{logical(1)}) multi \code{output} slots in the \code{input} argument, default \code{FALSE}.}
 
-\item{silent}{\code{logical} suppress messages and warnings, default \code{FALSE}.}
+\item{silent}{(\code{logical(1)}) suppress messages and warnings, default \code{FALSE}.}
 }
 \value{
 \code{character} with \code{rmd_yaml_header} class,
@@ -30,12 +30,19 @@ result of \code{\link[yaml:as.yaml]{yaml::as.yaml}}, optionally wrapped with int
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-parse a named list to the \code{Rmd} \code{yaml} header, so the developer gets automatically tabulated \code{Rmd} \code{yaml} header.
-Only a non nested (flat) list will be processed,
-where as a nested list is directly processed with the \code{\link[yaml:as.yaml]{yaml::as.yaml}} function.
-All \code{Rmd} \code{yaml} header fields from the vector are supported,
-\code{c("author", "date", "title", "subtitle", "abstract", "keywords", "subject", "description", "category", "lang")}.
-Moreover all \code{output}field types in the \code{rmarkdown} package and their arguments are supported.
+
+Converts a named list into a \code{yaml} header for \code{Rmd}, handling output types and arguments
+as defined in the \code{rmarkdown} package. This function simplifies the process of generating \code{yaml} headers.
+}
+\details{
+This function processes a non-nested (flat) named list into a \code{yaml} header for an \code{Rmd} document.
+It supports all standard \code{Rmd} \code{yaml} header fields, including \code{author}, \code{date}, \code{title}, \code{subtitle},
+\code{abstract}, \code{keywords}, \code{subject}, \code{description}, \code{category}, and \code{lang}.
+Additionally,  it handles \code{output} field types and arguments as defined in the \code{rmarkdown} package.
+}
+\note{
+Only non-nested lists are automatically parsed.
+Nested lists require direct processing with \code{yaml::as.yaml}.
 }
 \examples{
 # nested so using yaml::as.yaml directly

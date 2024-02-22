@@ -7,13 +7,15 @@
 \method{print}{rmd_yaml_header}(x, ...)
 }
 \arguments{
-\item{x}{\code{rmd_yaml_header} class object.}
+\item{x}{(\code{rmd_yaml_header}) class object.}
 
 \item{...}{optional text.}
 }
+\value{
+\code{NULL}.
+}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-Print method for the \code{yaml_header} class.
 }
 \examples{
 input <- list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE)

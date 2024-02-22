@@ -1,8 +1,7 @@
 # Constructor
 testthat::test_that("PictureBlock object can be created", {
-  testthat::expect_error(
-    PictureBlock$new(),
-    regexp = NA
+  testthat::expect_no_error(
+    PictureBlock$new()
   )
 })
 
@@ -13,9 +12,8 @@ testthat::test_that("new returns an object of type PictureBlock", {
 # set_content
 testthat::test_that("set_content accepts a plot object", {
   block <- PictureBlock$new()
-  testthat::expect_error(
-    block$set_content(ggplot2::ggplot(iris)),
-    regexp = NA
+  testthat::expect_no_error(
+    block$set_content(ggplot2::ggplot(iris))
   )
 })
 
@@ -61,9 +59,8 @@ testthat::test_that("get_content returns character(0) on a newly initialized Pic
 
 # set_title
 testthat::test_that("set_title accepts a string", {
-  testthat::expect_error(
-    PictureBlock$new()$set_title("Test"),
-    NA
+  testthat::expect_no_error(
+    PictureBlock$new()$set_title("Test")
   )
 })
 
@@ -101,9 +98,8 @@ testthat::test_that("get_title returns the set title", {
 
 # set_dim
 testthat::test_that("set_dim accepts an array of two numeric values", {
-  testthat::expect_error(
-    PictureBlock$new()$set_dim(c(0, 0)),
-    regexp = NA
+  testthat::expect_no_error(
+    PictureBlock$new()$set_dim(c(0, 0))
   )
 })
 
@@ -124,7 +120,7 @@ testthat::test_that("set_dim returns self", {
 })
 
 # set_content
-testthat::test_that("set_content throws if the content is not of the supported type", {
+testthat::test_that("set_content raises error if the content is not of the supported type", {
   testthat::expect_error(
     PictureBlock$new()$set_content("unsupported content"),
     regexp = "Must inherit from class 'ggplot'/'grob'/'trellis'"
@@ -132,23 +128,20 @@ testthat::test_that("set_content throws if the content is not of the supported t
 })
 
 testthat::test_that("set_content accepts a `ggplot` object", {
-  testthat::expect_error(
-    PictureBlock$new()$set_content(ggplot2::ggplot(iris)),
-    regexp = NA
+  testthat::expect_no_error(
+    PictureBlock$new()$set_content(ggplot2::ggplot(iris))
   )
 })
 
 testthat::test_that("set_content accepts a `grob` object", {
-  testthat::expect_error(
-    PictureBlock$new()$set_content(ggplot2::ggplotGrob(ggplot2::ggplot(iris))),
-    regexp = NA
+  testthat::expect_no_error(
+    PictureBlock$new()$set_content(ggplot2::ggplotGrob(ggplot2::ggplot(iris)))
   )
 })
 
 testthat::test_that("set_content accepts a `trellis` object", {
-  testthat::expect_error(
-    PictureBlock$new()$set_content(lattice::bwplot(1)),
-    regexp = NA
+  testthat::expect_no_error(
+    PictureBlock$new()$set_content(lattice::bwplot(1))
   )
 })
 

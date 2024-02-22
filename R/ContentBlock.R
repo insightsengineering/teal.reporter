@@ -1,13 +1,18 @@
-#' @title `ContentBlock`
+#' @title `ContentBlock`: A building block for report content
+#' @docType class
+#' @description This class represents a basic content unit in a report,
+#' such as text, images, or other multimedia elements.
+#' It serves as a foundation for constructing complex report structures.
+#'
 #' @keywords internal
 ContentBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "ContentBlock",
   public = list(
-    #' @description Returns a `ContentBlock` object.
+    #' @description Initialize a `ContentBlock` object.
     #'
     #' @details Returns a `ContentBlock` object with no content and the default style.
     #'
-    #' @return `ContentBlock`
+    #' @return Object of class `ContentBlock`, invisibly.
     #' @examples
     #' ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
     #' ContentBlock$new()
@@ -18,9 +23,9 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Sets content of this `ContentBlock`.
     #'
-    #' @param content (`character(0)` or `character(1)`) a string literal or a file path assigned to this `ContentBlock`
+    #' @param content (`character(0)` or `character(1)`) string or file path assigned to this `ContentBlock`
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
     #' block <- ContentBlock$new()
@@ -31,9 +36,9 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
       private$content <- content
       invisible(self)
     },
-    #' @description Returns the absolute path to content of this `ContentBlock`
+    #' @description Retrieves the content assigned to this block.
     #'
-    #' @return `character` content of this `ContentBlock`
+    #' @return `character` string or file path assigned to this `ContentBlock`.
     #' @examples
     #' ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
     #' block <- ContentBlock$new()
@@ -44,10 +49,10 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Create the `ContentBlock` from a list.
     #'
-    #' @param x `named list` with two fields `c("text", "style")`.
+    #' @param x (`named list`) with two fields `text` and `style`.
     #' Use the `get_available_styles` method to get all possible styles.
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     from_list = function(x) {
       invisible(self)
     },
@@ -62,7 +67,7 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     content = character(0),
     # @description The copy constructor.
     #
-    # @param name `character(1)` the name of the field
+    # @param name (`character(1)`) the name of the field
     # @param value the value assigned to the field
     #
     # @return the value of the copied field

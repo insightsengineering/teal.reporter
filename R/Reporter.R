@@ -1,104 +1,116 @@
-#' @title `Reporter`
+#' @title `Reporter`: An `R6` class for managing report cards
+#' @docType class
 #' @description `r lifecycle::badge("experimental")`
-#' R6 class that stores and manages report cards.
+#'
+#' This `R6` class is designed to store and manage report cards,
+#' facilitating the creation, manipulation, and serialization of report-related data.
+#'
 #' @export
 #'
 Reporter <- R6::R6Class( # nolint: object_name_linter.
   classname = "Reporter",
   public = list(
-    #' @description Returns a `Reporter` object.
+    #' @description Initialize a `Reporter` object.
     #'
-    #' @return a `Reporter` object
+    #' @return Object of class `Reporter`, invisibly.
     #' @examples
-    #' reporter <- teal.reporter::Reporter$new()
+    #' reporter <- Reporter$new()
     #'
     initialize = function() {
       private$cards <- list()
       private$reactive_add_card <- shiny::reactiveVal(0)
       invisible(self)
     },
-    #' @description Appends a table to this `Reporter`.
+    #' @description Append one or more `ReportCard` objects to the `Reporter`.
     #'
-    #' @param cards [`ReportCard`] or a list of such objects
-    #' @return invisibly self
+    #' @param cards (`ReportCard`) or a list of such objects
+    #' @return `self`, invisibly.
     #' @examples
-    #' card1 <- teal.reporter::ReportCard$new()
+    #' library(ggplot2)
+    #' library(rtables)
+    #'
+    #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text", "header2")
     #' card1$append_plot(
-    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
     #'
-    #' card2 <- teal.reporter::ReportCard$new()
+    #' card2 <- ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
     #' card2$append_text("A paragraph of default text", "header2")
-    #' lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
-    #' table_res2 <- rtables::build_table(lyt, airquality)
+    #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
+    #' table_res2 <- build_table(lyt, airquality)
     #' card2$append_table(table_res2)
     #' card2$append_table(iris)
     #'
-    #' reporter <- teal.reporter::Reporter$new()
+    #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
-    #'
     append_cards = function(cards) {
       checkmate::assert_list(cards, "ReportCard")
       private$cards <- append(private$cards, cards)
       private$reactive_add_card(length(private$cards))
       invisible(self)
     },
-    #' @description Returns cards of this `Reporter`.
+    #' @description Retrieves all `ReportCard` objects contained in the `Reporter`.
     #'
-    #' @return `list()` list of [`ReportCard`]
+    #' @return A (`list`) of [`ReportCard`] objects.
     #' @examples
-    #' card1 <- teal.reporter::ReportCard$new()
+    #' library(ggplot2)
+    #' library(rtables)
+    #'
+    #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text", "header2")
     #' card1$append_plot(
-    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
     #'
-    #' card2 <- teal.reporter::ReportCard$new()
+    #' card2 <- ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
     #' card2$append_text("A paragraph of default text", "header2")
-    #' lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
-    #' table_res2 <- rtables::build_table(lyt, airquality)
+    #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
+    #' table_res2 <- build_table(lyt, airquality)
     #' card2$append_table(table_res2)
     #' card2$append_table(iris)
     #'
-    #' reporter <- teal.reporter::Reporter$new()
+    #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
     #' reporter$get_cards()
     get_cards = function() {
       private$cards
     },
-    #' @description Returns blocks of all [`ReportCard`] of this `Reporter`.
+    #' @description Compiles and returns all content blocks from the [`ReportCard`] in the `Reporter`.
     #'
-    #' @param sep the element inserted between each content element in this `Reporter`.
-    #' Pass `NULL` to return content without any additional elements. Default: `NewpageBlock$new()`
-    #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock` and `NewpageBlock`
+    #' @param sep An optional separator to insert between each content block.
+    #' Default is a `NewpageBlock$new()`object.
+    #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock` and `NewpageBlock`.
     #' @examples
-    #' card1 <- teal.reporter::ReportCard$new()
+    #' library(ggplot2)
+    #' library(rtables)
+    #'
+    #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text", "header2")
     #' card1$append_plot(
-    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
     #'
-    #' card2 <- teal.reporter::ReportCard$new()
+    #' card2 <- ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
     #' card2$append_text("A paragraph of default text", "header2")
-    #' lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
-    #' table_res2 <- rtables::build_table(lyt, airquality)
+    #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
+    #' table_res2 <- build_table(lyt, airquality)
     #' card2$append_table(table_res2)
     #' card2$append_table(iris)
     #'
-    #' reporter <- teal.reporter::Reporter$new()
+    #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
     #' reporter$get_blocks()
     #'
@@ -112,10 +124,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
       blocks
     },
-    #' @description Removes all [`ReportCard`] objects added to this `Reporter`.
-    #' Additionally all metadata are removed.
+    #' @description Resets the `Reporter`, removing all [`ReportCard`] objects and metadata.
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #'
     reset = function() {
       private$cards <- list()
@@ -123,10 +134,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$reactive_add_card(0)
       invisible(self)
     },
-    #' @description remove a specific Card in the Reporter
+    #' @description Removes specific `ReportCard` objects from the `Reporter` by their indices.
     #'
-    #' @param ids `integer` the indexes of cards
-    #' @return invisibly self
+    #' @param ids (`integer(id)`) the indexes of cards
+    #' @return `self`, invisibly.
     remove_cards = function(ids = NULL) {
       checkmate::assert(
         checkmate::check_null(ids),
@@ -138,11 +149,11 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$reactive_add_card(length(private$cards))
       invisible(self)
     },
-    #' @description swap two cards in the Reporter
+    #' @description Swaps the positions of two `ReportCard` objects within the `Reporter`.
     #'
-    #' @param start `integer` the index of the first card
-    #' @param end `integer` the index of the second card
-    #' @return invisibly self
+    #' @param start (`integer`) the index of the first card
+    #' @param end (`integer`) the index of the second card
+    #' @return `self`, invisibly.
     swap_cards = function(start, end) {
       checkmate::assert(
         checkmate::check_integer(start,
@@ -159,18 +170,20 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$cards[[end]] <- start_val
       invisible(self)
     },
-    #' @description get a value for the reactive value for the add card
+    #' @description Gets the current value of the reactive variable for adding cards.
     #'
-    #' @return `reactive_add_card` field value
+    #' @return `reactive_add_card` current `numeric` value of the reactive variable.
     #' @note The function has to be used in the shiny reactive context.
     #' @examples
-    #' shiny::isolate(Reporter$new()$get_reactive_add_card())
+    #' library(shiny)
+    #'
+    #' isolate(Reporter$new()$get_reactive_add_card())
     get_reactive_add_card = function() {
       private$reactive_add_card()
     },
-    #' @description get metadata of this `Reporter`.
+    #' @description Get the metadata associated with this `Reporter`.
     #'
-    #' @return metadata
+    #' @return `named list` of metadata to be appended.
     #' @examples
     #' reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
     #' reporter$get_metadata()
@@ -180,8 +193,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Appends metadata to this `Reporter`.
     #'
-    #' @param meta (`list`) of metadata.
-    #' @return invisibly self
+    #' @param meta (`named list`) of metadata to be appended.
+    #' @return `self`, invisibly.
     #' @examples
     #' reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
     #' reporter$get_metadata()
@@ -192,9 +205,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$metadata <- append(private$metadata, meta)
       invisible(self)
     },
-    #' @description Create/Recreate a Reporter from another Reporter
-    #' @param reporter `Reporter` instance.
-    #' @return invisibly self
+    #' @description
+    #' Reinitializes a `Reporter` instance by copying the report cards and metadata from another `Reporter`.
+    #' @param reporter (`Reporter`) instance to copy from.
+    #' @return `self`, invisibly.
     #' @examples
     #' reporter <- Reporter$new()
     #' reporter$from_reporter(reporter)
@@ -205,9 +219,11 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       self$append_metadata(reporter$get_metadata())
       invisible(self)
     },
-    #' @description Convert a Reporter to a list and transfer files
-    #' @param output_dir `character(1)` a path to the directory where files will be copied.
-    #' @return `named list` `Reporter` representation
+    #' @description Convert a `Reporter` to a list and transfer any associated files to specified directory.
+    #' @param output_dir (`character(1)`) a path to the directory where files will be copied.
+    #' @return `named list` representing the `Reporter` instance, including version information,
+    #'  metadata, and report cards.
+    #'
     #' @examples
     #' reporter <- Reporter$new()
     #' tmp_dir <- file.path(tempdir(), "testdir")
@@ -226,10 +242,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
       rlist
     },
-    #' @description Create/Recreate a Reporter from a list and directory with files
-    #' @param rlist `named list` `Reporter` representation.
-    #' @param output_dir `character(1)` a path to the directory from which files will be copied.
-    #' @return invisibly self
+    #' @description Reinitializes a `Reporter` from a list representation and associated files in a specified directory.
+    #' @param rlist (`named list`) representing a `Reporter` instance.
+    #' @param output_dir (`character(1)`) a path to the directory from which files will be copied.
+    #' @return `self`, invisibly.
     #' @examples
     #' reporter <- Reporter$new()
     #' tmp_dir <- file.path(tempdir(), "testdir")
@@ -258,9 +274,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       self$append_metadata(rlist$metadata)
       invisible(self)
     },
-    #' @description Create/Recreate a Reporter to a directory with `JSON` file and static files
-    #' @param output_dir `character(1)` a path to the directory where files will be copied, `JSON` and statics.
-    #' @return invisibly self
+    #' @description Serializes the `Reporter` to a `JSON` file and copies any associated files to a specified directory.
+    #' @param output_dir (`character(1)`) a path to the directory where files will be copied, `JSON` and statics.
+    #' @return `output_dir` argument.
     #' @examples
     #' reporter <- Reporter$new()
     #' tmp_dir <- file.path(tempdir(), "jsondir")
@@ -274,9 +290,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       )
       output_dir
     },
-    #' @description Create/Recreate a Reporter from a directory with `JSON` file and static files
-    #' @param output_dir `character(1)` a path to the directory with files, `JSON` and statics.
-    #' @return invisibly self
+    #' @description Reinitializes a `Reporter` from a `JSON ` file and files in a specified directory.
+    #' @param output_dir (`character(1)`) a path to the directory with files, `JSON` and statics.
+    #' @return `self`, invisibly.
     #' @examples
     #' reporter <- Reporter$new()
     #' tmp_dir <- file.path(tempdir(), "jsondir")

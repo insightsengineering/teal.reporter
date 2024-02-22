@@ -1,11 +1,15 @@
-#' @title `Archiver`
+#' @title `Archiver`: Base class for data archiving
+#' @docType class
+#' @description
+#' A base `R6` class for implementing data archiving functionality.
+#'
 #' @keywords internal
 Archiver <- R6::R6Class( # nolint: object_name_linter.
   classname = "Archiver",
   public = list(
-    #' @description Returns an `Archiver` object.
+    #' @description Initialize an `Archiver` object.
     #'
-    #' @return an `Archiver` object
+    #' @return Object of class `Archiver`, invisibly.
     #' @examples
     #' Archiver <- getFromNamespace("Archiver", "teal.reporter")
     #' Archiver$new()
@@ -16,12 +20,14 @@ Archiver <- R6::R6Class( # nolint: object_name_linter.
     finalize = function() {
       # destructor
     },
-    #' @description Pure virtual method for reading an `Archiver`.
+    #' @description Reads data from the `Archiver`.
+    #' Pure virtual method that should be implemented by inherited classes.
     read = function() {
       # returns Reporter instance
       stop("Pure virtual method.")
     },
-    #' @description Pure virtual method for writing an `Archiver`.
+    #' @description Writes data to the `Archiver`.
+    #' Pure virtual method that should be implemented by inherited classes.
     write = function() {
       stop("Pure virtual method.")
     }
@@ -30,15 +36,20 @@ Archiver <- R6::R6Class( # nolint: object_name_linter.
   lock_class = TRUE
 )
 
-#' @title `RDSArchiver`
+#' @title `FileArchiver`: A File-based `Archiver`
+#' @docType class
+#' @description
+#' Inherits from `Archiver` to provide file-based archiving functionality.
+#' Manages an output directory for storing archived data.
+#'
 #' @keywords internal
 FileArchiver <- R6::R6Class( # nolint: object_name_linter.
   classname = "FileArchiver",
   inherit = Archiver,
   public = list(
-    #' @description Returns a `FileArchiver` object.
+    #' @description Initialize a `FileArchiver` object with a unique output directory.
     #'
-    #' @return a `FileArchiver` object
+    #' @return Object of class `FileArchiver`, invisibly.
     #' @examples
     #' FileArchiver <- getFromNamespace("FileArchiver", "teal.reporter")
     #' FileArchiver$new()
@@ -50,10 +61,11 @@ FileArchiver <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
     #' @description Finalizes a `FileArchiver` object.
+    #' Cleans up by removing the output directory and its contents.
     finalize = function() {
       unlink(private$output_dir, recursive = TRUE)
     },
-    #' @description get `output_dir` field
+    #' @description Get `output_dir` field.
     #'
     #' @return `character` a `output_dir` field path.
     #' @examples
@@ -68,25 +80,34 @@ FileArchiver <- R6::R6Class( # nolint: object_name_linter.
   )
 )
 
-#' @title `JSONArchiver`
+#' @title `JSONArchiver`: A `JSON`-based `Archiver`
+#' @docType class
+#' @description
+#' Inherits from `FileArchiver` to implement `JSON`-based archiving functionality.
+#' Convert `Reporter` instances to and from `JSON` format.
+#'
 #' @keywords internal
 JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
   classname = "JSONArchiver",
   inherit = FileArchiver,
   public = list(
-    #' @description write a `Reporter` instance in to this `JSONArchiver` object.
+    #' @description Write a `Reporter` instance in `JSON` file.
+    #' Serializes a given `Reporter` instance and saves it in the `Archiver`'s output directory,
+    #' to this `JSONArchiver` object.
     #'
-    #' @param reporter `Reporter` instance.
+    #' @param reporter (`Reporter`) instance.
     #'
-    #' @return invisibly self
+    #' @return `self`.
     #' @examples
+    #' library(ggplot2)
+    #'
     #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
     #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text", "header2")
     #' card1$append_plot(
-    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
     #'
     #' Reporter <- getFromNamespace("Reporter", "teal.reporter")
@@ -103,19 +124,22 @@ JSONArchiver <- R6::R6Class( # nolint: object_name_linter.
       reporter$to_jsondir(private$output_dir)
       self
     },
-    #' @description read a `Reporter` instance from a directory with `JSONArchiver`.
+    #' @description Read a `Reporter` instance from a `JSON` file.
+    #' Converts a `Reporter` instance from the `JSON` file in the `JSONArchiver`'s output directory.
     #'
-    #' @param path `character(1)` a path to the directory with all proper files.
+    #' @param path (`character(1)`) a path to the directory with all proper files.
     #'
     #' @return `Reporter` instance.
     #' @examples
+    #' library(ggplot2)
+    #'
     #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
     #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text", "header2")
     #' card1$append_plot(
-    #'  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()
+    #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
     #'
     #' Reporter <- getFromNamespace("Reporter", "teal.reporter")

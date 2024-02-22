@@ -1,17 +1,21 @@
 #' @title `RcodeBlock`
+#' @docType class
+#' @description
+#' Specialized `ContentBlock` designed to embed `R` code in reports.
+#'
 #' @keywords internal
 RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "RcodeBlock",
   inherit = ContentBlock,
   public = list(
-    #' @description Returns a `RcodeBlock` object.
+    #' @description Initialize a `RcodeBlock` object.
     #'
     #' @details Returns a `RcodeBlock` object with no content and no parameters.
     #'
     #' @param content (`character(1)` or `character(0)`) a string assigned to this `RcodeBlock`
-    #' @param ... any `rmarkdown` R chunk parameter and it value.
+    #' @param ... any `rmarkdown` `R` chunk parameter and it value.
     #'
-    #' @return `RcodeBlock`
+    #' @return Object of class `RcodeBlock`, invisibly.
     #' @examples
     #' RcodeBlock <- getFromNamespace("RcodeBlock", "teal.reporter")
     #' block <- RcodeBlock$new()
@@ -23,11 +27,12 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Sets the parameters of this `RcodeBlock`.
     #'
-    #' @details The parameters has bearing on the rendering of this block.
+    #' @details Configures `rmarkdown` chunk parameters for the `R` code block,
+    #' influencing its rendering and execution behavior.
     #'
     #' @param params (`list`) any `rmarkdown` R chunk parameter and its value.
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' RcodeBlock <- getFromNamespace("RcodeBlock", "teal.reporter")
     #' block <- RcodeBlock$new()
@@ -39,9 +44,9 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
       private$params <- params
       invisible(self)
     },
-    #' @description Returns the parameters of this `RcodeBlock`.
+    #' @description Get the parameters of this `RcodeBlock`.
     #'
-    #' @return `character` the parameters of this `RcodeBlock`
+    #' @return `character` the parameters of this `RcodeBlock`.
     #' @examples
     #' RcodeBlock <- getFromNamespace("RcodeBlock", "teal.reporter")
     #' block <- RcodeBlock$new()
@@ -50,9 +55,9 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
     get_params = function() {
       private$params
     },
-    #' @description Returns an array of parameters available to this `RcodeBlock`.
+    #' @description Get available array of parameters available to this `RcodeBlock`.
     #'
-    #' @return a `character` array of parameters
+    #' @return A `character` array of parameters.
     #' @examples
     #' RcodeBlock <- getFromNamespace("RcodeBlock", "teal.reporter")
     #' block <- RcodeBlock$new()
@@ -63,10 +68,10 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Create the `RcodeBlock` from a list.
     #'
-    #' @param x `named list` with two fields `c("text", "params")`.
+    #' @param x (`named list`) with two fields `text` and `params`.
     #' Use the `get_available_params` method to get all possible parameters.
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' RcodeBlock <- getFromNamespace("RcodeBlock", "teal.reporter")
     #' block <- RcodeBlock$new()

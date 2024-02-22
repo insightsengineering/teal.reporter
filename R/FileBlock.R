@@ -1,10 +1,15 @@
 #' @title `FileBlock`
+#' @docType class
+#' @description
+#' `FileBlock` manages file-based content in a report,
+#'  ensuring appropriate handling of content files.
+#'
 #' @keywords internal
 FileBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "FileBlock",
   inherit = ContentBlock,
   public = list(
-    #' @description finalize of this `FileBlock`.
+    #' @description Finalize the `FileBlock`.
     #'
     #' @details Removes the temporary file created in the constructor.
     finalize = function() {
@@ -13,10 +18,10 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @description Create the `FileBlock` from a list.
     #' The list should contain one named field, `"basename"`.
     #'
-    #' @param x `named list` with one field `"basename"`, a name of the file.
-    #' @param output_dir `character` with a path to the directory where a file will be copied.
+    #' @param x (`named list`) with one field `"basename"`, a name of the file.
+    #' @param output_dir (`character`) with a path to the directory where a file will be copied.
     #'
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' FileBlock <- getFromNamespace("FileBlock", "teal.reporter")
     #' block <- FileBlock$new()
@@ -37,7 +42,7 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Convert the `FileBlock` to a list.
     #'
-    #' @param output_dir `character` with a path to the directory where a file will be copied.
+    #' @param output_dir (`character`) with a path to the directory where a file will be copied.
     #'
     #' @return `named list` with a `basename` of the file.
     #' @examples

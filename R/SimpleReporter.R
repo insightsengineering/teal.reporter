@@ -1,21 +1,40 @@
-#' Simple Reporter User Interface
+#' Simple reporter module
+#'
 #' @description `r lifecycle::badge("experimental")`
-#' three buttons for adding cards, downloading and resetting the Report.
+#'
+#' Module provides compact UI and server functions for managing a report in a `shiny` app.
+#' This module combines functionalities for [adding cards to a report][add_card_button],
+#'  [downloading the report][download_report_button], and [resetting report content][reset_report_button].
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character(1)` this `shiny` module's id.
-#' @return `shiny.tag`
-#' @export
+#'
+#' @details `r global_knitr_details()`
+#'
+#' @name simple_reporter
+#'
+#' @param id (`character(1)`) `shiny` module instance id.
+#' @param reporter (`Reporter`) instance.
+#' @param card_fun (`function`) which returns a [`ReportCard`] instance,
+#' the function has a `card` argument and an optional `comment` argument.
+#' @param global_knitr (`list`) a global `knitr` parameters for customizing the rendering process.
+#' @inheritParams reporter_download_inputs
+#'
+#' @return `NULL`.
 #'
 #' @examples
+#' library(shiny)
 #' if (interactive()) {
-#'   shiny::shinyApp(
-#'     ui = shiny::fluidPage(simple_reporter_ui("simple")),
+#'   shinyApp(
+#'     ui = fluidPage(simple_reporter_ui("simple")),
 #'     server = function(input, output, session) {
 #'       simple_reporter_srv("simple", Reporter$new(), function(card) card)
 #'     }
 #'   )
 #' }
+NULL
+
+#' @rdname simple_reporter
+#' @export
 simple_reporter_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
@@ -35,22 +54,7 @@ simple_reporter_ui <- function(id) {
   )
 }
 
-#' Simple Reporter Server
-#' @description `r lifecycle::badge("experimental")`
-#' three buttons for adding cards, downloading and resetting the Report.
-#' The add module has `add_report_card_simple` id, the download module the `download_button_simple` id
-#' and the reset module the `reset_button_simple` id.
-#'
-#' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character(1)` this `shiny` module's id.
-#' @param reporter [`Reporter`] instance.
-#' @param card_fun `function` which returns a [`ReportCard`] instance,
-#' the function has a `card` argument and an optional `comment` argument.
-#' @param global_knitr `list` a global `knitr` parameters for customizing the rendering process.
-#' @inheritParams reporter_download_inputs
-#' @details `r global_knitr_details()`
-#'
-#' @return `shiny::moduleServer`
+#' @rdname simple_reporter
 #' @export
 simple_reporter_srv <- function(id,
                                 reporter,

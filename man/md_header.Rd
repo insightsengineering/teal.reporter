@@ -2,17 +2,18 @@
 % Please edit documentation in R/yaml_utils.R
 \name{md_header}
 \alias{md_header}
-\title{wrap a \code{yaml} string to the \code{markdown} header}
+\title{Create \code{markdown} header from \code{yaml} string}
 \usage{
 md_header(x)
 }
 \arguments{
-\item{x}{\code{character} \code{yaml} formatted string.}
+\item{x}{(\code{character}) \code{yaml} formatted string.}
 }
 \description{
-wrap a \code{yaml} string to the \code{markdown} header.
+This function wraps a \code{yaml}-formatted string in Markdown header delimiters.
 }
 \examples{
+library(yaml)
 yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
 yaml <- list(
   author = yaml_quoted("NEST"),
@@ -21,6 +22,6 @@ yaml <- list(
   output = list(pdf_document = list(keep_tex = TRUE))
 )
 md_header <- getFromNamespace("md_header", "teal.reporter")
-md_header(yaml::as.yaml(yaml))
+md_header(as.yaml(yaml))
 }
 \keyword{internal}

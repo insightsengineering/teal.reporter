@@ -1,12 +1,21 @@
-#' Reset Button Reporter User Interface
-#' @description `r lifecycle::badge("experimental")`
-#' button for resetting the report content.
+#' Reset report button module
 #'
-#' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character(1)` this `shiny` module's id.
-#' @param label `character(1)` label before the icon.
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' Provides a button that triggers resetting the report content.
+#'
+#' For more information, refer to the vignette: `vignette("simpleReporter", "teal.reporter")`.
+#'
+#' @name reset_report_button
+#'
+#' @param id (`character(1)`) `shiny` module instance id.
+#' @param label (`character(1)`) label before the icon.
 #' By default `NULL`.
-#' @return `shiny::tagList`
+#' @param reporter (`Reporter`) instance.
+#' @return `NULL`.
+NULL
+
+#' @rdname reset_report_button
 #' @export
 reset_report_button_ui <- function(id, label = NULL) {
   checkmate::assert_string(label, null.ok = TRUE)
@@ -31,14 +40,7 @@ reset_report_button_ui <- function(id, label = NULL) {
   )
 }
 
-#' Reset Button Server
-#' @description `r lifecycle::badge("experimental")`
-#' server for resetting the Report content.
-#'
-#' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#' @param id `character(1)` this `shiny` module's id.
-#' @param reporter [`Reporter`] instance.
-#' @return `shiny::moduleServer`
+#' @rdname reset_report_button
 #' @export
 reset_report_button_srv <- function(id, reporter) {
   checkmate::assert_class(reporter, "Reporter")
