@@ -1,27 +1,7 @@
-#' Report previewer module
-#'
+#' Reporter Previewer User Interface
 #' @description `r lifecycle::badge("experimental")`
-#'
-#' Module offers functionalities to visualize, manipulate,
-#' and interact with report cards that have been added to a report.
-#' It includes a previewer interface to see the cards and options to modify the report before downloading.
-#'
-#' For more details see the vignette: `vignette("previewerReporter", "teal.reporter")`.
-#'
-#' @details `r global_knitr_details()`
-#'
-#' @name reporter_previewer
-#'
-#' @param id (`character(1)`) `shiny` module instance id.
-#' @param reporter (`Reporter`) instance.
-#' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
-#'  for customizing the rendering process.
-#' @inheritParams reporter_download_inputs
-#'
-#' @return `NULL`.
-NULL
-
-#' @rdname reporter_previewer
+#' reporter previewer user interface to visualize and manipulate the already added report Cards
+#' @param id `character(1)` this `shiny` module's id.
 #' @export
 reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
@@ -45,7 +25,17 @@ reporter_previewer_ui <- function(id) {
   )
 }
 
-#' @rdname reporter_previewer
+#' Reporter Previewer Server
+#' @description `r lifecycle::badge("experimental")`
+#' server supporting the functionalities of the reporter previewer
+#' For more details see the vignette: `vignette("previewerReporter", "teal.reporter")`.
+#' @param id `character(1)` this `shiny` module's id.
+#' @param reporter `Reporter` instance
+#' @param global_knitr `list` a of `knitr` parameters (passed to `knitr::opts_chunk$set`)
+#'  for customizing the rendering process.
+#' @inheritParams reporter_download_inputs
+#' @details `r global_knitr_details()`
+#'
 #' @export
 reporter_previewer_srv <- function(id,
                                    reporter,
