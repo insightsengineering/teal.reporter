@@ -252,7 +252,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     from_list = function(rlist, output_dir) {
       checkmate::assert_list(rlist)
       checkmate::assert_directory_exists(output_dir)
-      if (rlist$version == "1") {
+      if (rlist$version %in% c("1")) {
         new_cards <- list()
         cards_names <- names(rlist$cards)
         cards_names <- gsub("[.][0-9]*$", "", cards_names)
@@ -299,10 +299,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter$from_jsondir(tmp_dir)
     from_jsondir = function(output_dir) {
       checkmate::assert_directory_exists(output_dir)
-      checkmate::assert_true(length(list.files(output_dir)) > 0)
       dir_files <- list.files(output_dir)
-      which_json <- grep("json$", dir_files)
-      json <- jsonlite::read_json(file.path(output_dir, dir_files[which_json]))
+      checkmate::assert_true(length(dir_files) > 0)
+      checkmate::assert_true("Report.json" %in% basename(dir_files))
+      json <- jsonlite::read_json(file.path(output_dir, "Report.json"))
       self$reset()
       self$from_list(json, output_dir)
       invisible(self)
