@@ -14,10 +14,10 @@ a.disabled {
   text-decoration: none;
 }
 
-[id$=download_data_prev].disabled {
-  background-color: darkgrey;
-}
-[id$=download_data].disabled {
+a[id$=download_data].disabled,
+a[id$=download_data_prev].disabled {
+  border: 0;
+  color: white;
   background-color: darkgrey;
 }
 
