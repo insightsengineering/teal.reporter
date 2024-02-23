@@ -1,5 +1,9 @@
 # teal.reporter 0.3.0.9003
 
+### Enhancements
+
+* Added blocking of "Download" buttons while report is rendering, using the `shinybusy` package.
+
 # teal.reporter 0.3.0
 
 ### Enhancements
