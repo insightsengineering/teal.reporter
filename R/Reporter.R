@@ -264,7 +264,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
           new_cards <- c(new_cards, new_card)
         }
       } else {
-        stop("The provided version is not supported")
+        stop(sprintf("The provided %s reporter version is not supported.", rlist$version))
       }
       self$reset()
       self$append_cards(new_cards)
@@ -282,7 +282,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     to_jsondir = function(output_dir) {
       checkmate::assert_directory_exists(output_dir)
       json <- self$to_list(output_dir)
-      cat(jsonlite::toJSON(json, auto_unbox = TRUE, force = TRUE),
+      cat(
+        jsonlite::toJSON(json, auto_unbox = TRUE, force = TRUE),
         file = file.path(output_dir, "Report.json")
       )
       output_dir

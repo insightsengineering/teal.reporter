@@ -189,6 +189,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
           RcodeBlock = block$to_list(),
           PictureBlock = block$to_list(output_dir),
           TableBlock = block$to_list(output_dir),
+          TealSlicesBlock = list(text = block$get_content(), style = block$get_style()),
           NewpageBlock = list(),
           NULL
         )
@@ -233,6 +234,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
           TextBlock = TextBlock$new()$from_list(block),
           PictureBlock = PictureBlock$new()$from_list(block, output_dir),
           TableBlock = TableBlock$new()$from_list(block, output_dir),
+          TealSlicesBlock = TextBlock$new()$from_list(block),
           NewpageBlock = NewpageBlock$new(),
           NULL
         )
