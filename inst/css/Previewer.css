@@ -22,3 +22,8 @@ a.disabled {
   margin-top:10px;
   color:#337ab7;
 }
+
+/* prevents oversizing elements covered by shinybusy::block */
+.nx-block-temporary-position {
+  min-height: 0 !important;
+}
