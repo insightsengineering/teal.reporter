@@ -14,6 +14,13 @@ a.disabled {
   text-decoration: none;
 }
 
+a[id$=download_data].disabled,
+a[id$=download_data_prev].disabled {
+  border: 0;
+  color: white;
+  background-color: darkgrey;
+}
+
 /* icons in the previewer */
 .icon_previewer {
   float:right;
