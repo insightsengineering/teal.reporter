@@ -17,6 +17,8 @@
 #' @param card_fun (`function`) which returns a [`ReportCard`] instance,
 #' the function has a `card` argument and an optional `comment` argument.
 #' @param global_knitr (`list`) a global `knitr` parameters for customizing the rendering process.
+#' @param modules (`character`) set of modules to include with `c("add", "download", "load", "reset")` possible values.
+#' Can be set by `teal.reporter.simple_reporter_modules` R option.
 #' @inheritParams reporter_download_inputs
 #'
 #' @return `NULL`.
