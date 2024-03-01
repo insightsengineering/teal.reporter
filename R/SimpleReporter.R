@@ -39,8 +39,7 @@ simple_reporter_ui <- function(
     id,
     modules = getOption("teal.reporter.simple_reporter_modules", c("add", "download", "load", "reset"))
 ) {
-  checkmate::assert_vector(modules, min.len = 1)
-  checkmate::assert_subset(modules, c("add", "download", "load", "reset"))
+  checkmate::assert_subset(modules, c("add", "download", "load", "reset"), empty.ok = FALSE)
   ns <- shiny::NS(id)
   mods <- list(
     add = add_card_button_ui(ns("add_report_card_simple")),
@@ -81,8 +80,7 @@ simple_reporter_srv <- function(
     ),
     modules = getOption("teal.reporter.simple_reporter_modules", c("add", "download", "load", "reset"))
 ) {
-  checkmate::assert_vector(modules, min.len = 1)
-  checkmate::assert_subset(modules, c("add", "download", "load", "reset"))
+  checkmate::assert_subset(modules, c("add", "download", "load", "reset"), empty.ok = FALSE)
   mods <- list(
     add = function() add_card_button_srv("add_report_card_simple", reporter = reporter, card_fun = card_fun),
     download = function() download_report_button_srv(
