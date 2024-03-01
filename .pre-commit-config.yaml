@@ -26,6 +26,7 @@ repos:
           - R6
           - rmarkdown
           - shiny
+          - shinybusy
           - shinyWidgets
           - yaml
           - zip

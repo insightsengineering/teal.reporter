@@ -251,10 +251,12 @@ reporter_previewer_srv <- function(id,
         },
         content = function(file) {
           shiny::showNotification("Rendering and Downloading the document.")
+          shinybusy::block(id = ns("download_data_prev"), text = "", type = "dots")
           input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
           names(input_list) <- names(rmd_yaml_args)
           if (is.logical(input$showrcode)) global_knitr[["echo"]] <- input$showrcode
           report_render_and_compress(reporter, input_list, global_knitr, file)
+          shinybusy::unblock(id = ns("download_data_prev"))
         },
         contentType = "application/zip"
       )
