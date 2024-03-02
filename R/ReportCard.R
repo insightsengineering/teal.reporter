@@ -184,15 +184,12 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       new_blocks <- list()
       for (block in self$get_content()) {
         block_class <- class(block)[1]
-        cblock <- switch(block_class,
-          TextBlock = block$to_list(),
-          RcodeBlock = block$to_list(),
-          PictureBlock = block$to_list(output_dir),
-          TableBlock = block$to_list(output_dir),
-          TealSlicesBlock = list(text = block$get_content(), style = block$get_style()),
-          NewpageBlock = list(),
-          NULL
-        )
+        formal_args <- formalArgs(block$to_list)
+        cblock <- if ("output_dir" %in% formal_args) {
+          block$to_list(output_dir)
+        } else {
+          block$to_list()
+        }
         new_block <- list()
         new_block[[block_class]] <- cblock
         new_blocks <- c(new_blocks, new_block)
@@ -229,15 +226,15 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       for (iter_b in seq_along(blocks)) {
         block_class <- blocks_names[iter_b]
         block <- blocks[[iter_b]]
-        cblock <- switch(block_class,
-          RcodeBlock = RcodeBlock$new()$from_list(block),
-          TextBlock = TextBlock$new()$from_list(block),
-          PictureBlock = PictureBlock$new()$from_list(block, output_dir),
-          TableBlock = TableBlock$new()$from_list(block, output_dir),
-          TealSlicesBlock = TextBlock$new()$from_list(block),
-          NewpageBlock = NewpageBlock$new(),
-          NULL
-        )
+        instance <- eval(str2lang(block_class))
+        formal_args <- formalArgs(instance$new()$from_list)
+        cblock <- if (all(c("x", "output_dir") %in% formal_args)) {
+          instance$new()$from_list(block, output_dir)
+        } else if ("x" %in% formal_args) {
+          instance$new()$from_list(block)
+        } else {
+          instance$new()$from_list()
+        }
         self$append_content(cblock)
       }
       for (meta in names(metadata)) {
@@ -251,6 +248,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     content = list(),
     metadata = list(),
     name = character(0),
+    possible_blocks = c("RcodeBlock", "TextBlock", "PictureBlock", "TableBlock", "NewpageBlock"),
     # @description The copy constructor.
     #
     # @param name the name of the field
