@@ -248,7 +248,6 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     content = list(),
     metadata = list(),
     name = character(0),
-    possible_blocks = c("RcodeBlock", "TextBlock", "PictureBlock", "TableBlock", "NewpageBlock"),
     # @description The copy constructor.
     #
     # @param name the name of the field
