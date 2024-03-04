@@ -77,7 +77,8 @@ server <- function(input, output, session) {
   output$encoding <- renderUI({
     tagList(
       ### REPORTER
-      simple_reporter_ui("simple_reporter"),
+      teal.reporter::simple_reporter_ui("simple_reporter"),
+      teal.reporter::simple_archiver_ui("simple_achiver"),
       ###
       if (input$tabs == "Plot") {
         sliderInput(
@@ -188,8 +189,9 @@ server <- function(input, output, session) {
     }
     card
   }
-  simple_reporter_srv("simple_reporter", reporter = reporter, card_fun = card_fun)
-  reporter_previewer_srv("prev", reporter)
+  teal.reporter::simple_reporter_srv("simple_reporter", reporter = reporter, card_fun = card_fun)
+  teal.reporter::reporter_previewer_srv("prev", reporter)
+  teal.reporter::simple_archiver_srv("simple_achiver", reporter)
   ###
 }
 

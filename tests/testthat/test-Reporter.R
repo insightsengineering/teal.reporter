@@ -102,7 +102,6 @@ testthat::test_that("from_reporter returns identical/equal object from the same 
 
 reporter1 <- Reporter$new()
 reporter1$append_cards(list(card1, card2))
-reporter2 <- Reporter$new()
 
 testthat::test_that("from_reporter does not return identical/equal object form other reporter", {
   testthat::expect_false(identical(reporter1, reporter2$from_reporter(reporter1)))

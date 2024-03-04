@@ -205,10 +205,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$metadata <- append(private$metadata, meta)
       invisible(self)
     },
-    #' @description
-    #' Reinitializes a `Reporter` instance by copying the report cards and metadata from another `Reporter`.
-    #' @param reporter (`Reporter`) instance to copy from.
-    #' @return `self`, invisibly.
+    #' @description Create/Recreate a Reporter from another Reporter
+    #' @param reporter `Reporter` instance.
+    #' @return invisibly self
     #' @examples
     #' reporter <- Reporter$new()
     #' reporter$from_reporter(reporter)
@@ -219,11 +218,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       self$append_metadata(reporter$get_metadata())
       invisible(self)
     },
-    #' @description Convert a `Reporter` to a list and transfer any associated files to specified directory.
-    #' @param output_dir (`character(1)`) a path to the directory where files will be copied.
-    #' @return `named list` representing the `Reporter` instance, including version information,
-    #'  metadata, and report cards.
-    #'
+    #' @description Convert a Reporter to a list and transfer files
+    #' @param output_dir `character(1)` a path to the directory where files will be copied.
+    #' @return `named list` `Reporter` representation
     #' @examples
     #' reporter <- Reporter$new()
     #' tmp_dir <- file.path(tempdir(), "testdir")
