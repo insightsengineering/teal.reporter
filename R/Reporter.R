@@ -255,7 +255,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       checkmate::assert_list(rlist)
       checkmate::assert_directory_exists(output_dir)
       checkmate::assert_true(rlist$name == "teal Reporter")
-      checkmate::assert_true(id == "" || rlist$id == id)
+      checkmate::assert_true(rlist$id == id)
       if (rlist$version %in% c("1")) {
         new_cards <- list()
         cards_names <- names(rlist$cards)
