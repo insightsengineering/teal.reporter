@@ -82,11 +82,7 @@ report_load_srv <- function(id, reporter) {
       })
 
       shiny::observeEvent(input$reporter_load_main, {
-        switch("JSON",
-          JSON = load_json_report(reporter, input$archiver_zip[["datapath"]], input$archiver_zip[["name"]]),
-          stop("The provided archiver format is not supported")
-        )
-
+        load_json_report(reporter, input$archiver_zip[["datapath"]], input$archiver_zip[["name"]])
         shiny::removeModal()
       })
     }

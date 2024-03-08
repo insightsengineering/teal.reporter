@@ -17,23 +17,23 @@ testthat::test_that("report_load_ui - load a reporter", {
 
   reporter_path <- reporter$to_jsondir(temp_dir)
 
-  temp_zip_file <- tempfile(pattern = "reporter_", fileext = ".zip")
+  temp_zip_file <- tempfile(pattern = "report_", fileext = ".zip")
   zip::zipr(temp_zip_file, reporter_path)
 
   shiny::testServer(
     report_load_srv,
     args = list(reporter = reporter),
     expr = {
-      reporter$append_cards(list(card))
-      session$setInputs(reporter_load = 0)
+      reporter$reset()
+      session$setInputs(`reporter_load` = 0)
       session$setInputs(
-        `archiver_zip` = list(
+        archiver_zip = list(
           datapath = temp_zip_file,
           name = basename(temp_zip_file)
         )
       )
-      session$setInputs(reporter_load_main= 0)
-      testthat::expect_true(length(reporter$get_cards()) > 1)
+      session$setInputs(`reporter_load_main` = 0)
+      testthat::expect_true(length(reporter$get_cards()) == 1)
     }
   )
 })
