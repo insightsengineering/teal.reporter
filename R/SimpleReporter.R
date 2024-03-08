@@ -18,7 +18,7 @@
 #' the function has a `card` argument and an optional `comment` argument.
 #' @param global_knitr (`list`) a global `knitr` parameters for customizing the rendering process.
 #' @param modules (`character`) set of modules to include with `c("add", "download", "load", "reset")` possible values.
-#' Can be set by `teal.reporter.simple_reporter_modules` R option.
+#' Can be set by `teal.reporter.simple_reporter_modules` R option. Default `c("add", "download", "load", "reset")`
 #' @inheritParams reporter_download_inputs
 #'
 #' @return `NULL`.
@@ -46,7 +46,7 @@ simple_reporter_ui <- function(
   mods <- list(
     add = add_card_button_ui(ns("add_report_card_simple")),
     download = download_report_button_ui(ns("download_button_simple")),
-    load = archiver_load_ui(ns("archive_load_simple")),
+    load = report_load_ui(ns("archive_load_simple")),
     reset = reset_report_button_ui(ns("reset_button_simple"))
   )
   shiny::tagList(
@@ -92,7 +92,7 @@ simple_reporter_srv <- function(
       rmd_output = rmd_output,
       rmd_yaml_args = rmd_yaml_args
     ),
-    load = function() archiver_load_srv("archive_load_simple", reporter = reporter),
+    load = function() report_load_srv("archive_load_simple", reporter = reporter),
     reset = function() reset_report_button_srv("reset_button_simple", reporter = reporter)
   )
   shiny::moduleServer(

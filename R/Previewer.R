@@ -112,10 +112,10 @@ reporter_previewer_srv <- function(id,
               class = if (nr_cards) "" else "disabled"
             ),
             shiny::tags$button(
-              id = ns("load_archiver_previewer"),
+              id = ns("load_reporter_previewer"),
               type = "button",
               class = "btn btn-primary action-button simple_report_button",
-              `data-val` = shiny::restoreInput(id = ns("load_archiver_previewer"), default = NULL),
+              `data-val` = shiny::restoreInput(id = ns("load_reporter_previewer"), default = NULL),
               NULL,
               shiny::tags$span(
                 "Load Report", shiny::icon("upload")
@@ -153,14 +153,14 @@ reporter_previewer_srv <- function(id,
         }
       })
 
-      shiny::observeEvent(input$load_archiver_previewer, {
+      shiny::observeEvent(input$load_reporter_previewer, {
         nr_cards <- length(reporter$get_cards())
         shiny::showModal(
           shiny::modalDialog(
             easyClose = TRUE,
             shiny::tags$h3("Load the Reporter"),
             shiny::tags$hr(),
-            shiny::fileInput(ns("archiver_zip"), "Choose Archiver File to Load (a zip file)",
+            shiny::fileInput(ns("archiver_zip"), "Choose Reporter File to Load (a zip file)",
                              multiple = FALSE,
                              accept = c(".zip")
             ),
@@ -174,10 +174,10 @@ reporter_previewer_srv <- function(id,
                 "Cancel"
               ),
               shiny::tags$button(
-                id = ns("load_archiver"),
+                id = ns("load_reporter"),
                 type = "button",
                 class = "btn btn-primary action-button",
-                `data-val` = shiny::restoreInput(id = ns("load_archiver"), default = NULL),
+                `data-val` = shiny::restoreInput(id = ns("load_reporter"), default = NULL),
                 NULL,
                 "Load"
               )
@@ -186,9 +186,9 @@ reporter_previewer_srv <- function(id,
         )
       })
 
-      shiny::observeEvent(input$load_archiver, {
+      shiny::observeEvent(input$load_reporter, {
         switch("JSON",
-          JSON = load_json_archiver(reporter, input$archiver_zip[["datapath"]], input$archiver_zip[["name"]]),
+          JSON = load_json_report(reporter, input$archiver_zip[["datapath"]], input$archiver_zip[["name"]]),
           stop("The provided archiver format is not supported")
         )
 

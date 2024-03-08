@@ -27,6 +27,15 @@ card2$append_table(iris)
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 
+testthat::test_that("default reporter id", {
+  testthat::expect_identical(reporter$get_id(), "")
+})
+
+testthat::test_that("set_id sets the reporter id and returns reporter", {
+  testthat::expect_true(inherits(reporter$set_id("xyz"), "Reporter"))
+  testthat::expect_identical(reporter$set_id("xyz")$get_id(), "xyz")
+})
+
 testthat::test_that("get_cards returns the same cards which was added to reporter", {
   testthat::expect_identical(reporter$get_cards(), list(card1, card2))
 })
@@ -118,7 +127,7 @@ testthat::test_that("from_reporter persists the reactive_add_card count", {
   )
 })
 
-testthat::test_that("to_jsondir require the existing directory path", {
+testthat::test_that("to_list require the existing directory path", {
   testthat::expect_error(reporter1$to_list(), 'argument "output_dir" is missing, with no default')
   testthat::expect_error(reporter1$to_list("/path/WRONG"), "Directory '/path/WRONG' does not exist.")
 })
@@ -127,14 +136,14 @@ temp_dir <- file.path(tempdir(), "test")
 unlink(temp_dir, recursive = TRUE)
 dir.create(temp_dir)
 
-testthat::test_that("to_jsondir returns a list.", {
+testthat::test_that("to_list returns a list.", {
   testthat::expect_equal(
-    list(version = "1", cards = list(), metadata = list()),
+    list(name = "teal Reporter", version = "1", id = "", cards = list(), metadata = list()),
     Reporter$new()$to_list(temp_dir)
   )
 })
 
-testthat::test_that("to_jsondir and from_jsondir could be used to save and retrive a Reporter ", {
+testthat::test_that("to_list and from_list could be used to save and retrive a Reporter ", {
   testthat::expect_identical(
     length(reporter1$get_cards()),
     length(Reporter$new()$from_list(reporter1$to_list(temp_dir), temp_dir)$get_cards())

@@ -190,6 +190,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
   tryCatch(
     renderer$render(reporter$get_blocks(), yaml_header, global_knitr),
     warning = function(cond) {
+      print(cond)
       shiny::showNotification(
         ui = "Render document warning!",
         action = "Please contact app developer",
@@ -197,6 +198,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
       )
     },
     error = function(cond) {
+      print(cond)
       shiny::showNotification(
         ui = "Render document error!",
         action = "Please contact app developer",
@@ -210,6 +212,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
   tryCatch(
     archiver_dir <- reporter$to_jsondir(output_dir),
     warning = function(cond) {
+      print(cond)
       shiny::showNotification(
         ui = "Archive document warning!",
         action = "Please contact app developer",
@@ -217,6 +220,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
       )
     },
     error = function(cond) {
+      print(cond)
       shiny::showNotification(
         ui = "Archive document error!",
         action = "Please contact app developer",
@@ -229,6 +233,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
   tryCatch(
     expr = zip::zipr(temp_zip_file, output_dir),
     warning = function(cond) {
+      print(cond)
       shiny::showNotification(
         ui = "Zipping folder warning!",
         action = "Please contact app developer",
@@ -236,6 +241,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
       )
     },
     error = function(cond) {
+      print(cond)
       shiny::showNotification(
         ui = "Zipping folder error!",
         action = "Please contact app developer",
@@ -247,6 +253,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
   tryCatch(
     expr = file.copy(temp_zip_file, file),
     warning = function(cond) {
+      print(cond)
       shiny::showNotification(
         ui = "Copying file warning!",
         action = "Please contact app developer",
@@ -254,6 +261,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
       )
     },
     error = function(cond) {
+      print(cond)
       shiny::showNotification(
         ui = "Copying file error!",
         action = "Please contact app developer",

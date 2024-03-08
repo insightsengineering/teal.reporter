@@ -29,7 +29,7 @@ simple_reporter_srv(
 \item{id}{(\code{character(1)}) \code{shiny} module instance id.}
 
 \item{modules}{(\code{character}) set of modules to include with \code{c("add", "download", "load", "reset")} possible values.
-Can be set by \code{teal.reporter.simple_reporter_modules} R option.}
+Can be set by \code{teal.reporter.simple_reporter_modules} R option. Default \code{c("add", "download", "load", "reset")}}
 
 \item{reporter}{(\code{Reporter}) instance.}
 

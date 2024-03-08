@@ -1,4 +1,4 @@
-#' Archiver User Interface
+#' Load Report User Interface
 #' @description `r lifecycle::badge("experimental")`
 #' button for adding views/cards to the Report.
 #'
@@ -6,7 +6,7 @@
 #' @param id `character(1)` this `shiny` module's id.
 #' @return `shiny::tagList`
 #' @export
-archiver_load_ui <- function(id) {
+report_load_ui <- function(id) {
   ns <- shiny::NS(id)
 
   shiny::tagList(
@@ -14,11 +14,11 @@ archiver_load_ui <- function(id) {
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
     shiny::tags$button(
-      id = ns("archiver_reporter_load"),
+      id = ns("reporter_load"),
       type = "button",
       class = "simple_report_button btn btn-primary action-button",
       title = "Load",
-      `data-val` = shiny::restoreInput(id = ns("archiver_reporter_load"), default = NULL),
+      `data-val` = shiny::restoreInput(id = ns("reporter_load"), default = NULL),
       NULL,
       shiny::tags$span(
         shiny::icon("upload")
@@ -27,7 +27,7 @@ archiver_load_ui <- function(id) {
   )
 }
 
-#' Archiver Server
+#' Load Report Server
 #' @description `r lifecycle::badge("experimental")`
 #' server for saving and loading to the Report.
 #'
@@ -38,7 +38,7 @@ archiver_load_ui <- function(id) {
 #'
 #' @return `shiny::moduleServer`
 #' @export
-archiver_load_srv <- function(id, reporter) {
+report_load_srv <- function(id, reporter) {
   checkmate::assert_class(reporter, "Reporter")
 
   shiny::moduleServer(
@@ -66,10 +66,10 @@ archiver_load_srv <- function(id, reporter) {
               "Cancel"
             ),
             shiny::tags$button(
-              id = ns("load_archiver"),
+              id = ns("reporter_load_main"),
               type = "button",
               class = "btn btn-primary action-button",
-              `data-val` = shiny::restoreInput(id = ns("load_archiver"), default = NULL),
+              `data-val` = shiny::restoreInput(id = ns("reporter_load_main"), default = NULL),
               NULL,
               "Load"
             )
@@ -77,13 +77,13 @@ archiver_load_srv <- function(id, reporter) {
         )
       }
 
-      shiny::observeEvent(input$archiver_reporter_load, {
+      shiny::observeEvent(input$reporter_load, {
         shiny::showModal(archiver_modal())
       })
 
-      shiny::observeEvent(input$load_archiver, {
+      shiny::observeEvent(input$reporter_load_main, {
         switch("JSON",
-          JSON = load_json_archiver(reporter, input$archiver_zip[["datapath"]], input$archiver_zip[["name"]]),
+          JSON = load_json_report(reporter, input$archiver_zip[["datapath"]], input$archiver_zip[["name"]]),
           stop("The provided archiver format is not supported")
         )
 
@@ -94,14 +94,15 @@ archiver_load_srv <- function(id, reporter) {
 }
 
 #' @keywords internal
-load_json_archiver <- function(reporter, zip_path, filename) {
+load_json_report <- function(reporter, zip_path, filename) {
   tmp_dir <- tempdir()
-  output_dir <- file.path(tmp_dir, sprintf("archiver_load_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
+  output_dir <- file.path(tmp_dir, sprintf("reporter_load_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
   dir.create(path = output_dir)
   if (!is.null(zip_path) && grepl("report_", filename)) {
     tryCatch(
       expr = zip::unzip(zip_path, exdir = output_dir, junkpaths = TRUE),
       warning = function(cond) {
+        print(cond)
         shiny::showNotification(
           ui = "Unzipping folder warning!",
           action = "Please contact app developer",
@@ -109,6 +110,7 @@ load_json_archiver <- function(reporter, zip_path, filename) {
         )
       },
       error = function(cond) {
+        print(cond)
         shiny::showNotification(
           ui = "Unzipping folder error!",
           action = "Please contact app developer",
