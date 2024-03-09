@@ -663,6 +663,8 @@ reporter$from_jsondir(tmp_dir)
 \if{latex}{\out{\hypertarget{method-Reporter-set_id}{}}}
 \subsection{Method \code{set_id()}}{
 Set the \code{Reporter} id
+Optionally add id to a \code{Reporter} which will be compared when it is rebuilt from a list.
+The id is added to the downloaded file name.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$set_id(id)}\if{html}{\out{</div>}}
 }
