@@ -137,7 +137,12 @@ download_report_button_srv <- function(id,
 
       output$download_data <- shiny::downloadHandler(
         filename = function() {
-          paste("report_", format(Sys.time(), "%y%m%d%H%M%S"), ".zip", sep = "")
+          paste0(
+            "report_",
+            if (reporter$get_id() == "") NULL else paste0(reporter$get_id(), "_"),
+            format(Sys.time(), "%y%m%d%H%M%S"),
+            ".zip"
+          )
         },
         content = function(file) {
           shiny::showNotification("Rendering and Downloading the document.")

@@ -213,6 +213,11 @@ server <- function(input, output, session) {
 
   ### REPORTER
   reporter <- Reporter$new()
+  
+  # Optionally set reporter id to e.g. secure report reload only for the same app
+  # The id is added to the downloaded file name.
+  reporter$set_id("my_app_id")
+  
   card_fun <- function(card = ReportCard$new(), comment) {
     if (input$tabs == "Plot") {
       card$append_text("My plot", "header2")

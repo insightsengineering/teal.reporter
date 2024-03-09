@@ -320,6 +320,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
     #' @description Set the `Reporter` id
+    #' Optionally add id to a `Reporter` which will be compared when it is rebuilt from a list.
+    #' The id is added to the downloaded file name.
     #' @param id (`character(1)`) a Report id.
     #' @return `self`, invisibly.
     set_id = function(id) {
