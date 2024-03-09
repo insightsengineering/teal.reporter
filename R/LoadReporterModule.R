@@ -92,7 +92,7 @@ report_load_srv <- function(id, reporter) {
 #' @keywords internal
 load_json_report <- function(reporter, zip_path, filename) {
   tmp_dir <- tempdir()
-  output_dir <- file.path(tmp_dir, sprintf("reporter_load_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
+  output_dir <- file.path(tmp_dir, sprintf("report_load_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
   dir.create(path = output_dir)
   if (!is.null(zip_path) && grepl("report_", filename)) {
     tryCatch(
