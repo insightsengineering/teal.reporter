@@ -10,7 +10,11 @@ text_block1 <- TextBlock$new()$set_content("text")$set_style("header2")
 text_block2 <- TextBlock$new()$set_content("text")
 png_path <- system.file("img", "Rlogo.png", package = "png")
 picture_block <- PictureBlock$new()$set_content(ggplot2::ggplot(iris))
-table_block <- TableBlock$new()$set_content(iris)
+# https://github.com/davidgohel/flextable/issues/600
+withr::with_options(
+  opts_partial_match_old,
+  table_block <- TableBlock$new()$set_content(iris)
+)
 newpage_block <- NewpageBlock$new()
 blocks <- list(text_block1, text_block2, picture_block, table_block, newpage_block)
 

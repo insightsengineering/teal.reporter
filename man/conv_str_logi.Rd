@@ -30,7 +30,6 @@ conv_str_logi(
 Converts a single \code{character} string representing a \code{yaml} boolean value into a logical value in \code{R}.
 }
 \examples{
-
 conv_str_logi <- getFromNamespace("conv_str_logi", "teal.reporter")
 conv_str_logi("TRUE")
 conv_str_logi("True")

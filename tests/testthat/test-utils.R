@@ -8,7 +8,11 @@ testthat::test_that("panel_item", {
 
 testthat::test_that("to_flextable: supported class", {
   data_frame <- data.frame(A = 1:3, B = 4:6)
-  flextable_output <- to_flextable(data_frame)
+  # https://github.com/davidgohel/flextable/issues/600
+  withr::with_options(
+    opts_partial_match_old,
+    flextable_output <- to_flextable(data_frame)
+  )
   testthat::expect_s3_class(flextable_output, "flextable")
 })
 
