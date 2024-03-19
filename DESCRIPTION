@@ -31,6 +31,7 @@ Imports:
     lifecycle (>= 0.2.0),
     R6,
     rmarkdown (>= 2.19),
+    rtables (>= 0.5.1),
     shiny (>= 1.6.0),
     shinybusy,
     shinyWidgets (>= 0.5.1),
@@ -42,7 +43,6 @@ Suggests:
     ggplot2 (>= 3.4.0),
     lattice (>= 0.18-4),
     png,
-    rtables (>= 0.5.1),
     testthat (>= 3.1.5),
     tinytex,
     withr (>= 2.0.0)
