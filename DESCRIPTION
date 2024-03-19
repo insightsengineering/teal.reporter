@@ -1,7 +1,7 @@
 Package: teal.reporter
 Title: Reporting Tools for 'shiny' Modules
-Version: 0.3.0.9006
-Date: 2024-03-18
+Version: 0.3.0.9005
+Date: 2024-02-28
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-9533-457X")),
@@ -50,13 +50,13 @@ VignetteBuilder:
     knitr
 RdMacros:
     lifecycle
-Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate,
-    davidgohel/flextable, rstudio/htmltools, yihui/knitr, r-lib/lifecycle,
-    r-lib/R6, rstudio/rmarkdown, rstudio/shiny, dreamRs/shinybusy,
-    dreamRs/shinyWidgets, yaml=vubiostat/r-yaml, r-lib/zip, rstudio/DT,
-    yihui/formatR, tidyverse/ggplot2, deepayan/lattice, cran/png,
-    insightsengineering/rtables, r-lib/testthat, rstudio/tinytex,
-    r-lib/withr
+Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate, davidgohel/flextable,
+    rstudio/htmltools, yihui/knitr, r-lib/lifecycle, r-lib/R6,
+    rstudio/rmarkdown, rstudio/shiny, dreamRs/shinybusy,
+    dreamRs/shinyWidgets, yaml=vubiostat/r-yaml, r-lib/zip,
+    rstudio/DT, yihui/formatR, tidyverse/ggplot2,
+    deepayan/lattice, cran/png, insightsengineering/rtables,
+    r-lib/testthat, rstudio/tinytex, r-lib/withr
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US
