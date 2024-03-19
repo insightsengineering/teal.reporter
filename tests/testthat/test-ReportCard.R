@@ -16,14 +16,22 @@ testthat::test_that("append_text returns self", {
 })
 
 testthat::test_that("append_table accepts a data.frame", {
-  testthat::expect_no_error(
-    ReportCard$new()$append_table(iris)
+  # https://github.com/davidgohel/flextable/issues/600
+  withr::with_options(
+    opts_partial_match_old,
+    testthat::expect_no_error(
+      ReportCard$new()$append_table(iris)
+    )
   )
 })
 
 testthat::test_that("append_table returns self", {
   card <- ReportCard$new()
-  testthat::expect_identical(card$append_table(iris), card)
+  # https://github.com/davidgohel/flextable/issues/600
+  withr::with_options(
+    opts_partial_match_old,
+    testthat::expect_identical(card$append_table(iris), card)
+  )
 })
 
 testthat::test_that("append_plot returns self", {

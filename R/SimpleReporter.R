@@ -22,8 +22,9 @@
 #' @return `NULL`.
 #'
 #' @examples
-#' library(shiny)
 #' if (interactive()) {
+#'   library(shiny)
+#'
 #'   shinyApp(
 #'     ui = fluidPage(simple_reporter_ui("simple")),
 #'     server = function(input, output, session) {
