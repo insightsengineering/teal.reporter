@@ -27,7 +27,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,7 +45,7 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/previewerReporter.html">Reporter Previewer</a>
+    <a class="dropdown-item" href="../articles/previewerReporter.html">Report Previewer</a>
     <a class="dropdown-item" href="../articles/simpleReporter.html">Simple Reporter</a>
   </div>
 </li>
@@ -62,6 +62,7 @@
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.3.0-rc1">v0.3.0-rc1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1-rc2">v0.2.1-rc2</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1-rc1">v0.2.1-rc1</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.3.1">v0.3.1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.3.0">v0.3.0</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1">v0.2.1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.0">v0.2.0</a>
@@ -110,33 +111,36 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>There are times when you explore data in your <code>shiny</code>
-module, spot an interesting finding and capture it, be it in your slides
-presentation, a <code>markdown</code> article or another medium.
-<code>teal.reporter</code> helps you enhance a <code>shiny</code> module
-so its users do not have to copy-paste and save every finding or write
-their own <code>markdown</code> to show it.</p>
-<p><code>teal.reporter</code> gives you ready to use <code>shiny</code>
-modules and objects that work together to prepare reports from your
-module with minimal input from users of the <code>shiny</code> modules
-and from you as its developer.</p>
+<p>While engaging with data analysis within a <code>shiny</code> app,
+users often encounter insights that they wish to capture and share, be
+it through presentations, <code>markdown</code> articles, or other
+formats. The <code>teal.reporter</code> package simplifies the process
+for both developers and end-users of <code>shiny</code> applications. It
+allows for easy generation and dissemination of findings. This
+eliminates the need for manual copy-pasting or writing in markdown.</p>
+<p><code>teal.reporter</code> provides a suite of modules and objects
+that integrate seamlessly to create reports directly from
+<code>shiny</code> apps with minimal effort for users and
+developers.</p>
 <p>And it can be done as easy as adding one of the reporting tools to
 your module:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/insightsengineering/teal.reporter" class="external-link">teal.reporter</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span><span class="fu"><a href="../reference/simple_reporter_ui.html">simple_reporter_ui</a></span><span class="op">(</span><span class="st">"simple"</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span><span class="fu"><a href="../reference/simple_reporter.html">simple_reporter_ui</a></span><span class="op">(</span><span class="st">"simple"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># The bulk of your module logic here</span></span>
 <span></span>
 <span>  <span class="va">create_module_card</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">card</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">card</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"This is the content of the report from the `simple` module"</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
-<span>  <span class="fu"><a href="../reference/simple_reporter_srv.html">simple_reporter_srv</a></span><span class="op">(</span><span class="st">"simple"</span>, <span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>, <span class="va">create_module_card</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/simple_reporter.html">simple_reporter_srv</a></span><span class="op">(</span><span class="st">"simple"</span>, <span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>, <span class="va">create_module_card</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="where-to-next">Where to next<a class="anchor" aria-label="anchor" href="#where-to-next"></a>
@@ -145,32 +149,30 @@ your module:</p>
 <h3 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
 </h3>
 <p>For the basic usage of <code>teal.reporter</code> and the quickest
-way to enhance your modules with reporting, head to <a href="./simpleReporter.html">the vignette about the simple reporting
-setup</a>.</p>
+way to enhance your modules with reporting, explore <a href="./simpleReporter.html">the simple reporting setup
+vignette</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="previewing-a-report">Previewing a report<a class="anchor" aria-label="anchor" href="#previewing-a-report"></a>
 </h3>
-<p>If you want to let the users of your application preview a report and
-reorganize it, look into <a href="./previewerReporter.html">the vignette
-on a “report previewer” module</a>.</p>
+<p>To enable application users to preview, customize, and reorder
+reports prior to finalization, delve into <a href="./previewerReporter.html">the report previewer vignette</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="integration-with-teal">Integration with <code>teal</code><a class="anchor" aria-label="anchor" href="#integration-with-teal"></a>
 </h3>
-<p>If you are interested in how <code>teal.reporter</code> fits into <a href="https://insightsengineering.github.io/teal/" class="external-link"><code>teal</code></a>,
-look for <a href="https://insightsengineering.github.io/teal/latest-tag/articles/adding-support-for-reporting.html" class="external-link">a
-vignette about it in <code>teal</code></a>.</p>
+<p>Discover how teal.reporter complements the <a href="https://insightsengineering.github.io/teal/" class="external-link"><code>teal</code></a>
+framework by visiting the dedicated <a href="https://insightsengineering.github.io/teal/latest-tag/articles/adding-support-for-reporting.html" class="external-link">on
+integrating reporting in <code>teal</code>.</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="more-control">More control<a class="anchor" aria-label="anchor" href="#more-control"></a>
 </h3>
-<p>If you would like more control over the layout of a simple reporting
-tool, we recommend reading through the documentation of the smallest
-building blocks <code>teal.reporter</code> offers, such as
-<code><a href="../reference/add_card_button_srv.html">add_card_button_srv()</a></code>,
-<code><a href="../reference/download_report_button_srv.html">download_report_button_srv()</a></code> and
-<code><a href="../reference/reset_report_button_srv.html">reset_report_button_srv()</a></code>.</p>
+<p>Developers who want more control over the reporting process and
+customization of the layout can benefit from learning about topics such
+as <code>add_card_button</code>,<code>download_report_button</code> and
+<code>reset_report_button</code> offered by
+<code>teal.reporter</code>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

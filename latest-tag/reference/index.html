@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +27,7 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/previewerReporter.html">Reporter Previewer</a>
+    <a class="dropdown-item" href="../articles/previewerReporter.html">Report Previewer</a>
     <a class="dropdown-item" href="../articles/simpleReporter.html">Simple Reporter</a>
   </div>
 </li>
@@ -44,6 +44,7 @@
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.3.0-rc1">v0.3.0-rc1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1-rc2">v0.2.1-rc2</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1-rc1">v0.2.1-rc1</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.3.1">v0.3.1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.3.0">v0.3.0</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1">v0.2.1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.0">v0.2.0</a>
@@ -76,7 +77,7 @@
     </div>
 
     <div class="section level2">
-      <h2 id="shiny-modules-for-adding-content-to-reports">Shiny modules for adding content to reports<a class="anchor" aria-label="anchor" href="#shiny-modules-for-adding-content-to-reports"></a></h2>
+      <h2 id="-shiny-modules-for-adding-content-to-reports"><code>shiny</code> modules for adding content to reports<a class="anchor" aria-label="anchor" href="#-shiny-modules-for-adding-content-to-reports"></a></h2>
       
       
 
@@ -88,16 +89,11 @@
 
       <dl><dt>
           
-          <code><a href="add_card_button_srv.html">add_card_button_srv()</a></code> 
+          <code><a href="add_card_button.html">add_card_button_ui()</a></code> <code><a href="add_card_button.html">add_card_button_srv()</a></code> 
         </dt>
-        <dd>Add Card Button Server</dd>
-      </dl><dl><dt>
-          
-          <code><a href="add_card_button_ui.html">add_card_button_ui()</a></code> 
-        </dt>
-        <dd>Add Card Button User Interface</dd>
+        <dd>Add card button module</dd>
       </dl></div><div class="section level2">
-      <h2 id="shiny-modules-for-viewing-and-downloading-reports">Shiny modules for viewing and downloading reports<a class="anchor" aria-label="anchor" href="#shiny-modules-for-viewing-and-downloading-reports"></a></h2>
+      <h2 id="-shiny-modules-for-viewing-and-downloading-reports"><code>shiny</code> modules for viewing and downloading reports<a class="anchor" aria-label="anchor" href="#-shiny-modules-for-viewing-and-downloading-reports"></a></h2>
       
       
 
@@ -109,26 +105,16 @@
 
       <dl><dt>
           
-          <code><a href="reporter_previewer_srv.html">reporter_previewer_srv()</a></code> 
+          <code><a href="reporter_previewer.html">reporter_previewer_ui()</a></code> <code><a href="reporter_previewer.html">reporter_previewer_srv()</a></code> 
         </dt>
-        <dd>Reporter Previewer Server</dd>
+        <dd>Report previewer module</dd>
       </dl><dl><dt>
           
-          <code><a href="reporter_previewer_ui.html">reporter_previewer_ui()</a></code> 
+          <code><a href="simple_reporter.html">simple_reporter_ui()</a></code> <code><a href="simple_reporter.html">simple_reporter_srv()</a></code> 
         </dt>
-        <dd>Reporter Previewer User Interface</dd>
-      </dl><dl><dt>
-          
-          <code><a href="simple_reporter_srv.html">simple_reporter_srv()</a></code> 
-        </dt>
-        <dd>Simple Reporter Server</dd>
-      </dl><dl><dt>
-          
-          <code><a href="simple_reporter_ui.html">simple_reporter_ui()</a></code> 
-        </dt>
-        <dd>Simple Reporter User Interface</dd>
+        <dd>Simple reporter module</dd>
       </dl></div><div class="section level2">
-      <h2 id="supporting-shiny-modules">Supporting shiny modules<a class="anchor" aria-label="anchor" href="#supporting-shiny-modules"></a></h2>
+      <h2 id="supporting-shiny-modules">Supporting <code>shiny</code> modules<a class="anchor" aria-label="anchor" href="#supporting-shiny-modules"></a></h2>
       
       
 
@@ -140,26 +126,16 @@
 
       <dl><dt>
           
-          <code><a href="download_report_button_srv.html">download_report_button_srv()</a></code> 
+          <code><a href="download_report_button.html">download_report_button_ui()</a></code> <code><a href="download_report_button.html">download_report_button_srv()</a></code> 
         </dt>
-        <dd>Download Button Server</dd>
+        <dd>Download report button module</dd>
       </dl><dl><dt>
           
-          <code><a href="download_report_button_ui.html">download_report_button_ui()</a></code> 
+          <code><a href="reset_report_button.html">reset_report_button_ui()</a></code> <code><a href="reset_report_button.html">reset_report_button_srv()</a></code> 
         </dt>
-        <dd>Download Button Reporter User Interface</dd>
-      </dl><dl><dt>
-          
-          <code><a href="reset_report_button_srv.html">reset_report_button_srv()</a></code> 
-        </dt>
-        <dd>Reset Button Server</dd>
-      </dl><dl><dt>
-          
-          <code><a href="reset_report_button_ui.html">reset_report_button_ui()</a></code> 
-        </dt>
-        <dd>Reset Button Reporter User Interface</dd>
+        <dd>Reset report button module</dd>
       </dl></div><div class="section level2">
-      <h2 id="yaml-and-rmd-utility-functions">yaml and rmd utility functions<a class="anchor" aria-label="anchor" href="#yaml-and-rmd-utility-functions"></a></h2>
+      <h2 id="-yaml-and-rmd-utility-functions"><code>yaml</code> and rmd utility functions<a class="anchor" aria-label="anchor" href="#-yaml-and-rmd-utility-functions"></a></h2>
       
       
 
@@ -173,7 +149,7 @@
           
           <code><a href="as_yaml_auto.html">as_yaml_auto()</a></code> 
         </dt>
-        <dd>Parse a Named List to the <code>Rmd</code> <code>yaml</code> Header</dd>
+        <dd>Parse a named list to <code>yaml</code> header for an <code>Rmd</code> file</dd>
       </dl><dl><dt>
           
           <code><a href="print.rmd_yaml_header.html">print(<i>&lt;rmd_yaml_header&gt;</i>)</a></code> 
@@ -190,7 +166,7 @@
         </dt>
         <dd>Get document output types from the <code>rmarkdown</code> package</dd>
       </dl></div><div class="section level2">
-      <h2 id="r-classes-used-inside-package">R6 classes used inside package<a class="anchor" aria-label="anchor" href="#r-classes-used-inside-package"></a></h2>
+      <h2 id="-r-classes-used-inside-package"><code>R6</code> classes used inside package<a class="anchor" aria-label="anchor" href="#-r-classes-used-inside-package"></a></h2>
       
       
 
@@ -204,12 +180,12 @@
           
           <code><a href="ReportCard.html">ReportCard</a></code> 
         </dt>
-        <dd><code>ReportCard</code></dd>
+        <dd><code>ReportCard</code>: An <code>R6</code> class for building report elements</dd>
       </dl><dl><dt>
           
           <code><a href="Reporter.html">Reporter</a></code> 
         </dt>
-        <dd><code>Reporter</code></dd>
+        <dd><code>Reporter</code>: An <code>R6</code> class for managing report cards</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
