@@ -205,10 +205,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$metadata <- append(private$metadata, meta)
       invisible(self)
     },
-    #' @description
-    #' Reinitializes a `Reporter` instance by copying the report cards and metadata from another `Reporter`.
-    #' @param reporter (`Reporter`) instance to copy from.
-    #' @return `self`, invisibly.
+    #' @description Create/Recreate a Reporter from another Reporter
+    #' @param reporter `Reporter` instance.
+    #' @return invisibly self
     #' @examples
     #' reporter <- Reporter$new()
     #' reporter$from_reporter(reporter)
@@ -219,11 +218,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       self$append_metadata(reporter$get_metadata())
       invisible(self)
     },
-    #' @description Convert a `Reporter` to a list and transfer any associated files to specified directory.
-    #' @param output_dir (`character(1)`) a path to the directory where files will be copied.
-    #' @return `named list` representing the `Reporter` instance, including version information,
-    #'  metadata, and report cards.
-    #'
+    #' @description Convert a Reporter to a list and transfer files
+    #' @param output_dir `character(1)` a path to the directory where files will be copied.
+    #' @return `named list` `Reporter` representation
     #' @examples
     #' reporter <- Reporter$new()
     #' tmp_dir <- file.path(tempdir(), "testdir")
@@ -231,7 +228,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter$to_list(tmp_dir)
     to_list = function(output_dir) {
       checkmate::assert_directory_exists(output_dir)
-      rlist <- list(version = "1", cards = list())
+      rlist <- list(name = "teal Reporter", version = "1", id = self$get_id(), cards = list())
       rlist[["metadata"]] <- self$get_metadata()
       for (card in self$get_cards()) {
         # we want to have list names being a class names to indicate the class for $from_list
@@ -246,6 +243,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @param rlist (`named list`) representing a `Reporter` instance.
     #' @param output_dir (`character(1)`) a path to the directory from which files will be copied.
     #' @return `self`, invisibly.
+    #' @note if Report has an id when converting to JSON then It will be compared to the currently available one.
     #' @examples
     #' reporter <- Reporter$new()
     #' tmp_dir <- file.path(tempdir(), "testdir")
@@ -253,23 +251,32 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' dir.create(tmp_dir)
     #' reporter$from_list(reporter$to_list(tmp_dir), tmp_dir)
     from_list = function(rlist, output_dir) {
+      id <- self$get_id()
       checkmate::assert_list(rlist)
       checkmate::assert_directory_exists(output_dir)
-      if (rlist$version == "1") {
+      checkmate::assert_true(rlist$name == "teal Reporter")
+      checkmate::assert_true(rlist$id == id)
+      if (rlist$version %in% c("1")) {
         new_cards <- list()
         cards_names <- names(rlist$cards)
         cards_names <- gsub("[.][0-9]*$", "", cards_names)
         for (iter_c in seq_along(rlist$cards)) {
           card_class <- cards_names[iter_c]
           card <- rlist$cards[[iter_c]]
-          new_card <- eval(str2lang(sprintf("%s$new()", card_class)))
+          new_card <- eval(str2lang(card_class))$new()
           new_card$from_list(card, output_dir)
           new_cards <- c(new_cards, new_card)
         }
       } else {
-        stop("The provided version is not supported")
+        stop(
+          sprintf(
+            "The provided %s reporter version is not supported.",
+            rlist$version
+          )
+        )
       }
       self$reset()
+      self$set_id(rlist$id)
       self$append_cards(new_cards)
       self$append_metadata(rlist$metadata)
       invisible(self)
@@ -285,7 +292,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     to_jsondir = function(output_dir) {
       checkmate::assert_directory_exists(output_dir)
       json <- self$to_list(output_dir)
-      cat(jsonlite::toJSON(json, auto_unbox = TRUE, force = TRUE),
+      cat(
+        jsonlite::toJSON(json, auto_unbox = TRUE, force = TRUE),
         file = file.path(output_dir, "Report.json")
       )
       output_dir
@@ -293,6 +301,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @description Reinitializes a `Reporter` from a `JSON ` file and files in a specified directory.
     #' @param output_dir (`character(1)`) a path to the directory with files, `JSON` and statics.
     #' @return `self`, invisibly.
+    #' @note if Report has an id when converting to JSON then It will be compared to the currently available one.
     #' @examples
     #' reporter <- Reporter$new()
     #' tmp_dir <- file.path(tempdir(), "jsondir")
@@ -302,16 +311,31 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter$from_jsondir(tmp_dir)
     from_jsondir = function(output_dir) {
       checkmate::assert_directory_exists(output_dir)
-      checkmate::assert_true(length(list.files(output_dir)) > 0)
       dir_files <- list.files(output_dir)
-      which_json <- grep("json$", dir_files)
-      json <- jsonlite::read_json(file.path(output_dir, dir_files[which_json]))
+      checkmate::assert_true(length(dir_files) > 0)
+      checkmate::assert_true("Report.json" %in% basename(dir_files))
+      json <- jsonlite::read_json(file.path(output_dir, "Report.json"))
       self$reset()
       self$from_list(json, output_dir)
       invisible(self)
+    },
+    #' @description Set the `Reporter` id
+    #' Optionally add id to a `Reporter` which will be compared when it is rebuilt from a list.
+    #' The id is added to the downloaded file name.
+    #' @param id (`character(1)`) a Report id.
+    #' @return `self`, invisibly.
+    set_id = function(id) {
+      private$id <- id
+      invisible(self)
+    },
+    #' @description Get the `Reporter` id
+    #' @return `character(1)` the `Reporter` id.
+    get_id = function() {
+      private$id
     }
   ),
   private = list(
+    id = "",
     cards = list(),
     metadata = list(),
     reactive_add_card = NULL,

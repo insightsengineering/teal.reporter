@@ -12,6 +12,10 @@ facilitating the creation, manipulation, and serialization of report-related dat
 }
 \note{
 The function has to be used in the shiny reactive context.
+
+if Report has an id when converting to JSON then It will be compared to the currently available one.
+
+if Report has an id when converting to JSON then It will be compared to the currently available one.
 }
 \examples{
 
@@ -194,6 +198,8 @@ reporter$from_jsondir(tmp_dir)
 \item \href{#method-Reporter-from_list}{\code{Reporter$from_list()}}
 \item \href{#method-Reporter-to_jsondir}{\code{Reporter$to_jsondir()}}
 \item \href{#method-Reporter-from_jsondir}{\code{Reporter$from_jsondir()}}
+\item \href{#method-Reporter-set_id}{\code{Reporter$set_id()}}
+\item \href{#method-Reporter-get_id}{\code{Reporter$get_id()}}
 \item \href{#method-Reporter-clone}{\code{Reporter$clone()}}
 }
 }
@@ -498,7 +504,7 @@ reporter$get_metadata()
 \if{html}{\out{<a id="method-Reporter-from_reporter"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-from_reporter}{}}}
 \subsection{Method \code{from_reporter()}}{
-Reinitializes a \code{Reporter} instance by copying the report cards and metadata from another \code{Reporter}.
+Create/Recreate a Reporter from another Reporter
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$from_reporter(reporter)}\if{html}{\out{</div>}}
 }
@@ -506,12 +512,12 @@ Reinitializes a \code{Reporter} instance by copying the report cards and metadat
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{reporter}}{(\code{Reporter}) instance to copy from.}
+\item{\code{reporter}}{\code{Reporter} instance.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{self}, invisibly.
+invisibly self
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -527,7 +533,7 @@ reporter$from_reporter(reporter)
 \if{html}{\out{<a id="method-Reporter-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-to_list}{}}}
 \subsection{Method \code{to_list()}}{
-Convert a \code{Reporter} to a list and transfer any associated files to specified directory.
+Convert a Reporter to a list and transfer files
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$to_list(output_dir)}\if{html}{\out{</div>}}
 }
@@ -535,13 +541,12 @@ Convert a \code{Reporter} to a list and transfer any associated files to specifi
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{output_dir}}{(\code{character(1)}) a path to the directory where files will be copied.}
+\item{\code{output_dir}}{\code{character(1)} a path to the directory where files will be copied.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\verb{named list} representing the \code{Reporter} instance, including version information,
-metadata, and report cards.
+\verb{named list} \code{Reporter} representation
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -652,6 +657,41 @@ reporter$from_jsondir(tmp_dir)
 
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-set_id"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-set_id}{}}}
+\subsection{Method \code{set_id()}}{
+Set the \code{Reporter} id
+Optionally add id to a \code{Reporter} which will be compared when it is rebuilt from a list.
+The id is added to the downloaded file name.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$set_id(id)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{(\code{character(1)}) a Report id.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{self}, invisibly.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-get_id"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-get_id}{}}}
+\subsection{Method \code{get_id()}}{
+Get the \code{Reporter} id
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_id()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\code{character(1)} the \code{Reporter} id.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-clone"></a>}}
