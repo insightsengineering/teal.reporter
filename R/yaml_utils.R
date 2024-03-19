@@ -53,6 +53,7 @@ md_header <- function(x) {
 #' @return `input` argument or the appropriate `logical` value.
 #' @keywords internal
 #' @examples
+#'
 #' conv_str_logi <- getFromNamespace("conv_str_logi", "teal.reporter")
 #' conv_str_logi("TRUE")
 #' conv_str_logi("True")
