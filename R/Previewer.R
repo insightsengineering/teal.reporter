@@ -82,7 +82,7 @@ reporter_previewer_srv <- function(id,
     function(input, output, session) {
       ns <- session$ns
 
-      teal.reporter::reset_report_button_srv("resetButtonPreviewer", reporter)
+      reset_report_button_srv("resetButtonPreviewer", reporter)
 
       output$encoding <- shiny::renderUI({
         reporter$get_reactive_add_card()
@@ -121,7 +121,7 @@ reporter_previewer_srv <- function(id,
                 "Load Report", shiny::icon("upload")
               )
             ),
-            teal.reporter::reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
+            reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
           )
         )
       })
