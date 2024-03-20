@@ -77,10 +77,15 @@ reporter_previewer_srv <- function(id,
   )
   checkmate::assert_true(rmd_yaml_args[["output"]] %in% rmd_output)
 
-  shiny::moduleServer(
-    id,
-    function(input, output, session) {
+  shiny::moduleServer(id, function(input, output, session) {
       ns <- session$ns
+
+      session$onBookmark(function(state) {
+        state$values$report_cards <- reporter$get_cards()
+      })
+      session$onRestored(function(state) {
+        reporter$append_cards(state$values$report_cards)
+      })
 
       reset_report_button_srv("resetButtonPreviewer", reporter)
 
