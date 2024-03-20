@@ -217,8 +217,7 @@ reporter_previewer_srv <- function(id,
 block_to_html <- function(b) {
   b_content <- b$get_content()
   if (inherits(b, "TextBlock")) {
-    switch(
-      b$get_style(),
+    switch(b$get_style(),
       header1 = shiny::tags$h1(b_content),
       header2 = shiny::tags$h2(b_content),
       header3 = shiny::tags$h3(b_content),
