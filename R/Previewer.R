@@ -6,6 +6,8 @@
 #' and interact with report cards that have been added to a report.
 #' It includes a previewer interface to see the cards and options to modify the report before downloading.
 #'
+#' Cards are saved by the `shiny` bookmarking mechanism.
+#'
 #' For more details see the vignette: `vignette("previewerReporter", "teal.reporter")`.
 #'
 #' @details `r global_knitr_details()`
