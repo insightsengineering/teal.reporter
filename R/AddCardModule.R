@@ -89,7 +89,6 @@ add_card_button_srv <- function(id, reporter, card_fun) {
   checkmate::assert_subset(names(formals(card_fun)), c("card", "comment", "label"), empty.ok = TRUE)
 
   shiny::moduleServer(id, function(input, output, session) {
-
     shiny::setBookmarkExclude(c(
       "add_report_card_button", "download_button", "reset_reporter",
       "add_card_ok", "download_data", "reset_reporter_ok",
@@ -213,6 +212,5 @@ add_card_button_srv <- function(id, reporter, card_fun) {
         shiny::removeModal()
       }
     })
-  }
-  )
+  })
 }

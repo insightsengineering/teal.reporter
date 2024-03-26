@@ -46,7 +46,6 @@ reset_report_button_srv <- function(id, reporter) {
   checkmate::assert_class(reporter, "Reporter")
 
   shiny::moduleServer(id, function(input, output, session) {
-
     shiny::setBookmarkExclude(c("reset_reporter"))
 
     ns <- session$ns
@@ -82,6 +81,5 @@ reset_report_button_srv <- function(id, reporter) {
       reporter$reset()
       shiny::removeModal()
     })
-  }
-  )
+  })
 }

@@ -74,7 +74,6 @@ download_report_button_srv <- function(id,
   checkmate::assert_true(rmd_yaml_args[["output"]] %in% rmd_output)
 
   shiny::moduleServer(id, function(input, output, session) {
-
     shiny::setBookmarkExclude(c("download_button"))
 
     ns <- session$ns
@@ -151,8 +150,7 @@ download_report_button_srv <- function(id,
       },
       contentType = "application/zip"
     )
-  }
-  )
+  })
 }
 
 #' Render the report
@@ -175,7 +173,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
 
   if (
     identical("pdf_document", input_list$output) &&
-    inherits(try(system2("pdflatex", "--version", stdout = TRUE), silent = TRUE), "try-error")
+      inherits(try(system2("pdflatex", "--version", stdout = TRUE), silent = TRUE), "try-error")
   ) {
     shiny::showNotification(
       ui = "pdflatex is not available so the pdf_document could not be rendered. Please use other output type.",
@@ -263,18 +261,18 @@ reporter_download_inputs <- function(rmd_yaml_args, rmd_output, showrcode, sessi
   shiny::tagList(
     lapply(names(rmd_yaml_args), function(e) {
       switch(e,
-             author = shiny::textInput(session$ns("author"), label = "Author:", value = rmd_yaml_args$author),
-             title = shiny::textInput(session$ns("title"), label = "Title:", value = rmd_yaml_args$title),
-             date = shiny::dateInput(session$ns("date"), "Date:", value = rmd_yaml_args$date),
-             output = shiny::tags$div(
-               shinyWidgets::pickerInput(
-                 inputId = session$ns("output"),
-                 label = "Choose a document type: ",
-                 choices = rmd_output,
-                 selected = rmd_yaml_args$output
-               )
-             ),
-             toc = shiny::checkboxInput(session$ns("toc"), label = "Include Table of Contents", value = rmd_yaml_args$toc)
+        author = shiny::textInput(session$ns("author"), label = "Author:", value = rmd_yaml_args$author),
+        title = shiny::textInput(session$ns("title"), label = "Title:", value = rmd_yaml_args$title),
+        date = shiny::dateInput(session$ns("date"), "Date:", value = rmd_yaml_args$date),
+        output = shiny::tags$div(
+          shinyWidgets::pickerInput(
+            inputId = session$ns("output"),
+            label = "Choose a document type: ",
+            choices = rmd_output,
+            selected = rmd_yaml_args$output
+          )
+        ),
+        toc = shiny::checkboxInput(session$ns("toc"), label = "Include Table of Contents", value = rmd_yaml_args$toc)
       )
     }),
     if (showrcode) {
