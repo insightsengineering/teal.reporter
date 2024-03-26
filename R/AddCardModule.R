@@ -91,6 +91,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
+      setBookmarkExclude(c("add_report_card_button", "add_card_ok"))
       ns <- session$ns
       add_modal <- function() {
         shiny::modalDialog(

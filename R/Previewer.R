@@ -81,6 +81,7 @@ reporter_previewer_srv <- function(id,
 
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns
+    shiny::setBookmarkExclude(c("resetButtonPreviewer", "download_data_prev"))
 
     session$onBookmark(function(state) {
       state$values$report_cards <- reporter$get_cards()
