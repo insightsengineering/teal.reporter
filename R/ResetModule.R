@@ -45,42 +45,43 @@ reset_report_button_ui <- function(id, label = NULL) {
 reset_report_button_srv <- function(id, reporter) {
   checkmate::assert_class(reporter, "Reporter")
 
-  shiny::moduleServer(
-    id,
-    function(input, output, session) {
-      ns <- session$ns
-      nr_cards <- length(reporter$get_cards())
+  shiny::moduleServer(id, function(input, output, session) {
+
+    shiny::setBookmarkExclude(c("reset_reporter"))
+
+    ns <- session$ns
+    nr_cards <- length(reporter$get_cards())
 
 
-      shiny::observeEvent(input$reset_reporter, {
-        shiny::showModal(
-          shiny::modalDialog(
-            shiny::tags$h3("Reset the Report"),
-            shiny::tags$hr(),
-            shiny::tags$strong(
-              shiny::tags$p(
-                "Are you sure you want to reset the report? (This will remove ALL previously added cards)."
-              )
-            ),
-            footer = shiny::tagList(
-              shiny::tags$button(
-                type = "button",
-                class = "btn btn-secondary",
-                `data-dismiss` = "modal",
-                `data-bs-dismiss` = "modal",
-                NULL,
-                "Cancel"
-              ),
-              shiny::actionButton(ns("reset_reporter_ok"), "Reset", class = "btn-danger")
+    shiny::observeEvent(input$reset_reporter, {
+      shiny::showModal(
+        shiny::modalDialog(
+          shiny::tags$h3("Reset the Report"),
+          shiny::tags$hr(),
+          shiny::tags$strong(
+            shiny::tags$p(
+              "Are you sure you want to reset the report? (This will remove ALL previously added cards)."
             )
+          ),
+          footer = shiny::tagList(
+            shiny::tags$button(
+              type = "button",
+              class = "btn btn-secondary",
+              `data-dismiss` = "modal",
+              `data-bs-dismiss` = "modal",
+              NULL,
+              "Cancel"
+            ),
+            shiny::actionButton(ns("reset_reporter_ok"), "Reset", class = "btn-danger")
           )
         )
-      })
+      )
+    })
 
-      shiny::observeEvent(input$reset_reporter_ok, {
-        reporter$reset()
-        shiny::removeModal()
-      })
-    }
+    shiny::observeEvent(input$reset_reporter_ok, {
+      reporter$reset()
+      shiny::removeModal()
+    })
+  }
   )
 }

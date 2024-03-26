@@ -80,15 +80,18 @@ reporter_previewer_srv <- function(id,
   checkmate::assert_true(rmd_yaml_args[["output"]] %in% rmd_output)
 
   shiny::moduleServer(id, function(input, output, session) {
-    ns <- session$ns
-    shiny::setBookmarkExclude(c("resetButtonPreviewer", "download_data_prev"))
 
+    shiny::setBookmarkExclude(c(
+      "card_remove_id", "card_down_id", "card_up_id", "remove_card_ok", "showrcode", "download_data_prev")
+    )
     session$onBookmark(function(state) {
       state$values$report_cards <- reporter$get_cards()
     })
     session$onRestored(function(state) {
       reporter$append_cards(state$values$report_cards)
     })
+
+    ns <- session$ns
 
     reset_report_button_srv("resetButtonPreviewer", reporter)
 
@@ -219,12 +222,12 @@ block_to_html <- function(b) {
   b_content <- b$get_content()
   if (inherits(b, "TextBlock")) {
     switch(b$get_style(),
-      header1 = shiny::tags$h1(b_content),
-      header2 = shiny::tags$h2(b_content),
-      header3 = shiny::tags$h3(b_content),
-      header4 = shiny::tags$h4(b_content),
-      verbatim = shiny::tags$pre(b_content),
-      shiny::tags$pre(b_content)
+           header1 = shiny::tags$h1(b_content),
+           header2 = shiny::tags$h2(b_content),
+           header3 = shiny::tags$h3(b_content),
+           header4 = shiny::tags$h4(b_content),
+           verbatim = shiny::tags$pre(b_content),
+           shiny::tags$pre(b_content)
     )
   } else if (inherits(b, "RcodeBlock")) {
     panel_item("R Code", shiny::tags$pre(b_content))
