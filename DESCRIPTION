@@ -1,7 +1,7 @@
 Package: teal.reporter
 Title: Reporting Tools for 'shiny' Modules
-Version: 0.3.0.9001
-Date: 2024-02-19
+Version: 0.3.1.9003
+Date: 2024-04-08
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-9533-457X")),
@@ -32,6 +32,7 @@ Imports:
     R6,
     rmarkdown (>= 2.19),
     shiny (>= 1.6.0),
+    shinybusy (>= 0.3.2),
     shinyWidgets (>= 0.5.1),
     yaml (>= 1.1.0),
     zip (>= 1.1.0)
@@ -43,17 +44,19 @@ Suggests:
     png,
     rtables (>= 0.5.1),
     testthat (>= 3.1.5),
-    tinytex
+    tinytex,
+    withr (>= 2.0.0)
 VignetteBuilder:
     knitr
 RdMacros:
     lifecycle
 Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate,
-    rstudio/htmltools, yihui/knitr, r-lib/lifecycle, r-lib/R6,
-    rstudio/rmarkdown, rstudio/shiny, dreamRs/shinyWidgets,
-    yaml=vubiostat/r-yaml, r-lib/zip, davidgohel/flextable, rstudio/DT,
+    davidgohel/flextable, rstudio/htmltools, yihui/knitr, r-lib/lifecycle,
+    r-lib/R6, rstudio/rmarkdown, rstudio/shiny, dreamRs/shinybusy,
+    dreamRs/shinyWidgets, yaml=vubiostat/r-yaml, r-lib/zip, rstudio/DT,
     yihui/formatR, tidyverse/ggplot2, deepayan/lattice, cran/png,
-    insightsengineering/rtables, r-lib/testthat, rstudio/tinytex
+    insightsengineering/rtables, r-lib/testthat, rstudio/tinytex,
+    r-lib/withr
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US
