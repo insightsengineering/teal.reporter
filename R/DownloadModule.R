@@ -131,30 +131,30 @@ download_report_button_srv <- function(id,
       )
     }
 
-      shiny::observeEvent(input$download_button, {
-        shiny::showModal(download_modal())
-      })
+    shiny::observeEvent(input$download_button, {
+      shiny::showModal(download_modal())
+    })
 
-      output$download_data <- shiny::downloadHandler(
-        filename = function() {
-          paste0(
-            "report_",
-            if (reporter$get_id() == "") NULL else paste0(reporter$get_id(), "_"),
-            format(Sys.time(), "%y%m%d%H%M%S"),
-            ".zip"
-          )
-        },
-        content = function(file) {
-          shiny::showNotification("Rendering and Downloading the document.")
-          shinybusy::block(id = ns("download_data"), text = "", type = "dots")
-          input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
-          names(input_list) <- names(rmd_yaml_args)
-          if (is.logical(input$showrcode)) global_knitr[["echo"]] <- input$showrcode
-          report_render_and_compress(reporter, input_list, global_knitr, file)
-          shinybusy::unblock(id = ns("download_data"))
-        },
-        contentType = "application/zip"
-      )
+    output$download_data <- shiny::downloadHandler(
+      filename = function() {
+        paste0(
+          "report_",
+          if (reporter$get_id() == "") NULL else paste0(reporter$get_id(), "_"),
+          format(Sys.time(), "%y%m%d%H%M%S"),
+          ".zip"
+        )
+      },
+      content = function(file) {
+        shiny::showNotification("Rendering and Downloading the document.")
+        shinybusy::block(id = ns("download_data"), text = "", type = "dots")
+        input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
+        names(input_list) <- names(rmd_yaml_args)
+        if (is.logical(input$showrcode)) global_knitr[["echo"]] <- input$showrcode
+        report_render_and_compress(reporter, input_list, global_knitr, file)
+        shinybusy::unblock(id = ns("download_data"))
+      },
+      contentType = "application/zip"
+    )
   })
 }
 
