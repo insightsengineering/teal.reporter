@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf8'?>
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<svg:polygon points="25,10 75,10 100,50 75,90 25,90 0,50" fill="#377EB8" />
+<svg:polygon points="40,20 60,20 80,40 60,60 40,60 20,40" fill="#377EB8" opacity="0.5" />
+</svg>

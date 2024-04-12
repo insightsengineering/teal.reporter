@@ -6,6 +6,8 @@
 #' and interact with report cards that have been added to a report.
 #' It includes a previewer interface to see the cards and options to modify the report before downloading.
 #'
+#' Cards are saved by the `shiny` bookmarking mechanism.
+#'
 #' For more details see the vignette: `vignette("previewerReporter", "teal.reporter")`.
 #'
 #' @details `r global_knitr_details()`
@@ -77,12 +79,20 @@ reporter_previewer_srv <- function(id,
   )
   checkmate::assert_true(rmd_yaml_args[["output"]] %in% rmd_output)
 
-  shiny::moduleServer(
-    id,
-    function(input, output, session) {
-      ns <- session$ns
+  shiny::moduleServer(id, function(input, output, session) {
+    shiny::setBookmarkExclude(c(
+      "card_remove_id", "card_down_id", "card_up_id", "remove_card_ok", "showrcode", "download_data_prev"
+    ))
+    session$onBookmark(function(state) {
+      state$values$report_cards <- reporter$get_cards()
+    })
+    session$onRestored(function(state) {
+      reporter$append_cards(state$values$report_cards)
+    })
 
-      reset_report_button_srv("resetButtonPreviewer", reporter)
+    ns <- session$ns
+
+    reset_report_button_srv("resetButtonPreviewer", reporter)
 
       output$encoding <- shiny::renderUI({
         reporter$get_reactive_add_card()
@@ -265,8 +275,7 @@ reporter_previewer_srv <- function(id,
         },
         contentType = "application/zip"
       )
-    }
-  )
+    })
 }
 
 #' @noRd

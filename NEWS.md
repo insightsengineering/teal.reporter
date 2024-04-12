@@ -1,4 +1,8 @@
-# teal.reporter 0.3.1.9001
+# teal.reporter 0.3.1.9003
+
+### Enhancements
+
+* Report cards are now included in bookmarks. When using the `shiny` bookmarking mechanism, present report cards will be available in the restored application.
 
 # teal.reporter 0.3.1
 

@@ -73,63 +73,63 @@ download_report_button_srv <- function(id,
   )
   checkmate::assert_true(rmd_yaml_args[["output"]] %in% rmd_output)
 
-  shiny::moduleServer(
-    id,
-    function(input, output, session) {
-      ns <- session$ns
+  shiny::moduleServer(id, function(input, output, session) {
+    shiny::setBookmarkExclude(c("download_button"))
 
-      download_modal <- function() {
-        nr_cards <- length(reporter$get_cards())
-        downb <- shiny::tags$a(
-          id = ns("download_data"),
-          class = paste("btn btn-primary shiny-download-link", if (nr_cards) NULL else "disabled"),
-          style = if (nr_cards) NULL else "pointer-events: none;",
-          href = "",
-          target = "_blank",
-          download = NA,
-          shiny::icon("download"),
-          "Download"
-        )
-        shiny::modalDialog(
-          easyClose = TRUE,
-          shiny::tags$h3("Download the Report"),
-          shiny::tags$hr(),
-          if (length(reporter$get_cards()) == 0) {
-            shiny::tags$div(
-              class = "mb-4",
-              shiny::tags$p(
-                class = "text-danger",
-                shiny::tags$strong("No Cards Added")
-              )
+    ns <- session$ns
+
+    download_modal <- function() {
+      nr_cards <- length(reporter$get_cards())
+      downb <- shiny::tags$a(
+        id = ns("download_data"),
+        class = paste("btn btn-primary shiny-download-link", if (nr_cards) NULL else "disabled"),
+        style = if (nr_cards) NULL else "pointer-events: none;",
+        href = "",
+        target = "_blank",
+        download = NA,
+        shiny::icon("download"),
+        "Download"
+      )
+      shiny::modalDialog(
+        easyClose = TRUE,
+        shiny::tags$h3("Download the Report"),
+        shiny::tags$hr(),
+        if (length(reporter$get_cards()) == 0) {
+          shiny::tags$div(
+            class = "mb-4",
+            shiny::tags$p(
+              class = "text-danger",
+              shiny::tags$strong("No Cards Added")
             )
-          } else {
-            shiny::tags$div(
-              class = "mb-4",
-              shiny::tags$p(
-                class = "text-success",
-                shiny::tags$strong(paste("Number of cards: ", nr_cards))
-              ),
-            )
-          },
-          reporter_download_inputs(
-            rmd_yaml_args = rmd_yaml_args,
-            rmd_output = rmd_output,
-            showrcode = any_rcode_block(reporter),
-            session = session
-          ),
-          footer = shiny::tagList(
-            shiny::tags$button(
-              type = "button",
-              class = "btn btn-secondary",
-              `data-dismiss` = "modal",
-              `data-bs-dismiss` = "modal",
-              NULL,
-              "Cancel"
-            ),
-            downb
           )
+        } else {
+          shiny::tags$div(
+            class = "mb-4",
+            shiny::tags$p(
+              class = "text-success",
+              shiny::tags$strong(paste("Number of cards: ", nr_cards))
+            ),
+          )
+        },
+        reporter_download_inputs(
+          rmd_yaml_args = rmd_yaml_args,
+          rmd_output = rmd_output,
+          showrcode = any_rcode_block(reporter),
+          session = session
+        ),
+        footer = shiny::tagList(
+          shiny::tags$button(
+            type = "button",
+            class = "btn btn-secondary",
+            `data-dismiss` = "modal",
+            `data-bs-dismiss` = "modal",
+            NULL,
+            "Cancel"
+          ),
+          downb
         )
-      }
+      )
+    }
 
       shiny::observeEvent(input$download_button, {
         shiny::showModal(download_modal())
@@ -155,8 +155,7 @@ download_report_button_srv <- function(id,
         },
         contentType = "application/zip"
       )
-    }
-  )
+  })
 }
 
 #' Render the report
