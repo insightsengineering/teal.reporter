@@ -205,8 +205,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$metadata <- append(private$metadata, meta)
       invisible(self)
     },
-    #' @description Create/Recreate a Reporter from another Reporter
-    #' @param reporter `Reporter` instance.
+    #' @description
+    #' Reinitializes a `Reporter` instance by copying the report cards and metadata from another `Reporter`.
+    #' @param reporter (`Reporter`) instance to copy from.
     #' @return invisibly self
     #' @examples
     #' reporter <- Reporter$new()
@@ -218,9 +219,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       self$append_metadata(reporter$get_metadata())
       invisible(self)
     },
-    #' @description Convert a Reporter to a list and transfer files
-    #' @param output_dir `character(1)` a path to the directory where files will be copied.
-    #' @return `named list` `Reporter` representation
+    #' @description Convert a `Reporter` to a list and transfer any associated files to specified directory.
+    #' @param output_dir (`character(1)`) a path to the directory where files will be copied.
+    #' @return `named list` representing the `Reporter` instance, including version information,
+    #'  metadata, and report cards.
     #' @examples
     #' reporter <- Reporter$new()
     #' tmp_dir <- file.path(tempdir(), "testdir")
@@ -254,8 +256,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       id <- self$get_id()
       checkmate::assert_list(rlist)
       checkmate::assert_directory_exists(output_dir)
-      checkmate::assert_true(rlist$name == "teal Reporter")
-      checkmate::assert_true(rlist$id == id)
+      stopifnot("Report JSON has to have name slot equal to teal Reporter" = rlist$name == "teal Reporter")
+      stopifnot("Loaded Report id has to match the current instance one" = rlist$id == id)
       if (rlist$version %in% c("1")) {
         new_cards <- list()
         cards_names <- names(rlist$cards)
@@ -312,8 +314,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     from_jsondir = function(output_dir) {
       checkmate::assert_directory_exists(output_dir)
       dir_files <- list.files(output_dir)
-      checkmate::assert_true(length(dir_files) > 0)
-      checkmate::assert_true("Report.json" %in% basename(dir_files))
+      stopifnot("There has to be at least one file in the loaded directory" = length(dir_files) > 0)
+      stopifnot("Report.json file has to be in the loaded directory" = "Report.json" %in% basename(dir_files))
       json <- jsonlite::read_json(file.path(output_dir, "Report.json"))
       self$reset()
       self$from_list(json, output_dir)

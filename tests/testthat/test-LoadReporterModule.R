@@ -1,4 +1,4 @@
-testthat::test_that("report_load_srv - load a reporter", {
+testthat::test_that("report_load_srv - loading reporter restores saved content", {
   reporter <- Reporter$new()
   reporter$set_id("xyz")
   card <- teal.reporter::ReportCard$new()
@@ -33,7 +33,13 @@ testthat::test_that("report_load_srv - load a reporter", {
         )
       )
       session$setInputs(`reporter_load_main` = 0)
-      testthat::expect_true(length(reporter$get_cards()) == 1)
+      testthat::expect_length(reporter$get_cards(), 1)
+      testthat::expect_length(reporter$get_blocks(), 3)
+      testthat::expect_s3_class(reporter$get_blocks()[[1]], "TextBlock")
+      testthat::expect_identical(reporter$get_blocks()[[1]]$get_content(), "Header 2 text")
+      testthat::expect_s3_class(reporter$get_blocks()[[2]], "TextBlock")
+      testthat::expect_identical(reporter$get_blocks()[[2]]$get_content(), "A paragraph of default text")
+      testthat::expect_s3_class(reporter$get_blocks()[[3]], "PictureBlock")
     }
   )
 })
@@ -69,11 +75,9 @@ testthat::test_that("report_load_srv - fail to load a reporter because of differ
       session$setInputs(`reporter_load_main` = 0)
     }
   ))
-  testthat::expect_true(grepl("id == id", oo))
+  testthat::expect_true(grepl("Loaded Report id has to match the current instance one", oo))
 })
 
 testthat::test_that("report_load_ui - returns a tagList", {
-  testthat::expect_true(
-    inherits(report_load_ui("sth"), c("shiny.tag.list", "list"))
-  )
+  testthat::expect_s3_class(report_load_ui("sth"), c("shiny.tag.list", "list"))
 })

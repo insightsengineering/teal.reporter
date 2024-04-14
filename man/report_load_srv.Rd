@@ -2,7 +2,7 @@
 % Please edit documentation in R/LoadReporterModule.R
 \name{report_load_srv}
 \alias{report_load_srv}
-\title{Load Report Server}
+\title{Server to Load \code{Reporter}}
 \usage{
 report_load_srv(id, reporter)
 }
@@ -16,7 +16,7 @@ report_load_srv(id, reporter)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-server for saving and loading to the Report.
+Server to load \code{ReporterCard}(s) to the \code{Reporter}
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/LoadReporterModule.R
 \name{report_load_ui}
 \alias{report_load_ui}
-\title{Load Report User Interface}
+\title{User Interface to Load \code{Reporter}}
 \usage{
 report_load_ui(id)
 }
@@ -14,7 +14,7 @@ report_load_ui(id)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-button for adding views/cards to the Report.
+Button to upload \code{ReporterCard}(s) to the \code{Reporter}.
 
 For more details see the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
 }

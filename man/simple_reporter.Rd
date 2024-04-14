@@ -6,11 +6,7 @@
 \alias{simple_reporter_srv}
 \title{Simple reporter module}
 \usage{
-simple_reporter_ui(
-  id,
-  modules = getOption("teal.reporter.simple_reporter_modules", c("add", "download",
-    "load", "reset"))
-)
+simple_reporter_ui(id)
 
 simple_reporter_srv(
   id,
@@ -20,16 +16,11 @@ simple_reporter_srv(
   rmd_output = c(html = "html_document", pdf = "pdf_document", powerpoint =
     "powerpoint_presentation", word = "word_document"),
   rmd_yaml_args = list(author = "NEST", title = "Report", date =
-    as.character(Sys.Date()), output = "html_document", toc = FALSE),
-  modules = getOption("teal.reporter.simple_reporter_modules", c("add", "download",
-    "load", "reset"))
+    as.character(Sys.Date()), output = "html_document", toc = FALSE)
 )
 }
 \arguments{
 \item{id}{(\code{character(1)}) \code{shiny} module instance id.}
-
-\item{modules}{(\code{character}) set of modules to include with \code{c("add", "download", "load", "reset")} possible values.
-Can be set by \code{teal.reporter.simple_reporter_modules} R option. Default \code{c("add", "download", "load", "reset")}}
 
 \item{reporter}{(\code{Reporter}) instance.}
 

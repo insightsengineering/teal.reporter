@@ -1,6 +1,6 @@
-#' Load Report User Interface
+#' User Interface to Load `Reporter`
 #' @description `r lifecycle::badge("experimental")`
-#' button for adding views/cards to the Report.
+#' Button to upload `ReporterCard`(s) to the `Reporter`.
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
@@ -27,9 +27,9 @@ report_load_ui <- function(id) {
   )
 }
 
-#' Load Report Server
+#' Server to Load `Reporter`
 #' @description `r lifecycle::badge("experimental")`
-#' server for saving and loading to the Report.
+#' Server to load `ReporterCard`(s) to the `Reporter`
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #'

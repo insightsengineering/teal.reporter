@@ -504,7 +504,7 @@ reporter$get_metadata()
 \if{html}{\out{<a id="method-Reporter-from_reporter"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-from_reporter}{}}}
 \subsection{Method \code{from_reporter()}}{
-Create/Recreate a Reporter from another Reporter
+Reinitializes a \code{Reporter} instance by copying the report cards and metadata from another \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$from_reporter(reporter)}\if{html}{\out{</div>}}
 }
@@ -512,7 +512,7 @@ Create/Recreate a Reporter from another Reporter
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{reporter}}{\code{Reporter} instance.}
+\item{\code{reporter}}{(\code{Reporter}) instance to copy from.}
 }
 \if{html}{\out{</div>}}
 }
@@ -533,7 +533,7 @@ reporter$from_reporter(reporter)
 \if{html}{\out{<a id="method-Reporter-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-to_list}{}}}
 \subsection{Method \code{to_list()}}{
-Convert a Reporter to a list and transfer files
+Convert a \code{Reporter} to a list and transfer any associated files to specified directory.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$to_list(output_dir)}\if{html}{\out{</div>}}
 }
@@ -541,12 +541,13 @@ Convert a Reporter to a list and transfer files
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{output_dir}}{\code{character(1)} a path to the directory where files will be copied.}
+\item{\code{output_dir}}{(\code{character(1)}) a path to the directory where files will be copied.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\verb{named list} \code{Reporter} representation
+\verb{named list} representing the \code{Reporter} instance, including version information,
+metadata, and report cards.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
