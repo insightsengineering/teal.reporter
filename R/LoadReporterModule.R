@@ -43,7 +43,7 @@ report_load_srv <- function(id, reporter) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
-      setBookmarkExclude(c("reporter_load_main", "reporter_load"))
+      shiny::setBookmarkExclude(c("reporter_load_main", "reporter_load"))
       ns <- session$ns
 
       archiver_modal <- function() {
