@@ -18,7 +18,6 @@ report_load_ui <- function(id) {
       type = "button",
       class = "simple_report_button btn btn-primary action-button",
       title = "Load",
-      `data-val` = shiny::restoreInput(id = ns("reporter_load"), default = NULL),
       NULL,
       shiny::tags$span(
         shiny::icon("upload")
@@ -44,6 +43,7 @@ report_load_srv <- function(id, reporter) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
+      setBookmarkExclude(c("reporter_load_main", "reporter_load"))
       ns <- session$ns
 
       archiver_modal <- function() {
@@ -69,7 +69,6 @@ report_load_srv <- function(id, reporter) {
               id = ns("reporter_load_main"),
               type = "button",
               class = "btn btn-primary action-button",
-              `data-val` = shiny::restoreInput(id = ns("reporter_load_main"), default = NULL),
               NULL,
               "Load"
             )

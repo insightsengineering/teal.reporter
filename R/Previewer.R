@@ -81,7 +81,8 @@ reporter_previewer_srv <- function(id,
 
   shiny::moduleServer(id, function(input, output, session) {
     shiny::setBookmarkExclude(c(
-      "card_remove_id", "card_down_id", "card_up_id", "remove_card_ok", "showrcode", "download_data_prev"
+      "card_remove_id", "card_down_id", "card_up_id", "remove_card_ok", "showrcode", "download_data_prev",
+      "load_reporter_previewer", "load_reporter"
     ))
     session$onBookmark(function(state) {
       state$values$report_cards <- reporter$get_cards()
