@@ -91,11 +91,15 @@ reporter_previewer_srv <- function(id,
       "card_remove_id", "card_down_id", "card_up_id", "remove_card_ok", "showrcode", "download_data_prev",
       "load_reporter_previewer", "load_reporter"
     ))
+
     session$onBookmark(function(state) {
-      state$values$report_cards <- reporter$get_cards()
+      reporterdir <- file.path(state$dir, "reporter")
+      dir.create(reporterdir)
+      reporter$to_jsondir(reporterdir)
     })
     session$onRestored(function(state) {
-      reporter$append_cards(state$values$report_cards)
+      reporterdir <- file.path(state$dir, "reporter")
+      reporter$from_jsondir(reporterdir)
     })
 
     ns <- session$ns
