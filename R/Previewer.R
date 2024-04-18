@@ -18,6 +18,9 @@
 #' @param reporter (`Reporter`) instance.
 #' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
 #'  for customizing the rendering process.
+#' @param previewer_buttons (`character`) set of modules to include with `c("download", "load", "reset")` possible
+#' values and `"download"` is required.
+#' Default `c("download", "load", "reset")`
 #' @inheritParams reporter_download_inputs
 #'
 #' @return `NULL`.
@@ -56,11 +59,15 @@ reporter_previewer_srv <- function(id,
                                      "html" = "html_document", "pdf" = "pdf_document",
                                      "powerpoint" = "powerpoint_presentation",
                                      "word" = "word_document"
-                                   ), rmd_yaml_args = list(
+                                   ),
+                                   rmd_yaml_args = list(
                                      author = "NEST", title = "Report",
                                      date = as.character(Sys.Date()), output = "html_document",
                                      toc = FALSE
-                                   )) {
+                                   ),
+                                   previewer_buttons = c("download", "load", "reset")) {
+  checkmate::assert_subset(previewer_buttons, c("download", "load", "reset"), empty.ok = FALSE)
+  checkmate::assert_true("download" %in% previewer_buttons)
   checkmate::assert_class(reporter, "Reporter")
   checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
   checkmate::assert_subset(
@@ -98,6 +105,32 @@ reporter_previewer_srv <- function(id,
     output$encoding <- shiny::renderUI({
       reporter$get_reactive_add_card()
       nr_cards <- length(reporter$get_cards())
+
+      previewer_buttons_list <- list(
+        download = htmltools::tagAppendAttributes(
+          shiny::tags$a(
+            id = ns("download_data_prev"),
+            class = "btn btn-primary shiny-download-link simple_report_button",
+            href = "",
+            target = "_blank",
+            download = NA,
+            shiny::tags$span("Download Report", shiny::icon("download"))
+          ),
+          class = if (nr_cards) "" else "disabled"
+        ),
+        load = shiny::tags$button(
+          id = ns("load_reporter_previewer"),
+          type = "button",
+          class = "btn btn-primary action-button simple_report_button",
+          `data-val` = shiny::restoreInput(id = ns("load_reporter_previewer"), default = NULL),
+          NULL,
+          shiny::tags$span(
+            "Load Report", shiny::icon("upload")
+          )
+        ),
+        reset = reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
+      )
+
       shiny::tags$div(
         id = "previewer_reporter_encoding",
         shiny::tags$h3("Download the Report"),
@@ -111,28 +144,7 @@ reporter_previewer_srv <- function(id,
         shiny::tags$div(
           id = "previewer_reporter_buttons",
           class = "previewer_buttons_line",
-          htmltools::tagAppendAttributes(
-            shiny::tags$a(
-              id = ns("download_data_prev"),
-              class = "btn btn-primary shiny-download-link simple_report_button",
-              href = "",
-              target = "_blank",
-              download = NA,
-              shiny::tags$span("Download Report", shiny::icon("download"))
-            ),
-            class = if (nr_cards) "" else "disabled"
-          ),
-          shiny::tags$button(
-            id = ns("load_reporter_previewer"),
-            type = "button",
-            class = "btn btn-primary action-button simple_report_button",
-            `data-val` = shiny::restoreInput(id = ns("load_reporter_previewer"), default = NULL),
-            NULL,
-            shiny::tags$span(
-              "Load Report", shiny::icon("upload")
-            )
-          ),
-          reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
+          previewer_buttons_list[previewer_buttons]
         )
       )
     })

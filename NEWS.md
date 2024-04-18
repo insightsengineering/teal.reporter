@@ -3,6 +3,7 @@
 ### Enhancements
 
 * Report cards are now included in bookmarks. When using the `shiny` bookmarking mechanism, present report cards will be available in the restored application.
+* Report can be loaded back now. The zip file with the report can be loaded back which will restore Previewer state.
 
 # teal.reporter 0.3.1
 

@@ -47,7 +47,6 @@ testthat::test_that("report_load_srv - loading reporter restores saved content",
 testthat::test_that("report_load_srv - fail to load a reporter because of different id", {
   reporter <- Reporter$new()
   reporter$set_id("xyz")
-  card <- teal.reporter::ReportCard$new()
 
   temp_dir <- file.path(tempdir(), "tempdir")
   suppressWarnings(dir.create(temp_dir))
@@ -77,6 +76,7 @@ testthat::test_that("report_load_srv - fail to load a reporter because of differ
   ))
   testthat::expect_true(grepl("Loaded Report id has to match the current instance one", oo))
 })
+
 
 testthat::test_that("report_load_ui - returns a tagList", {
   testthat::expect_s3_class(report_load_ui("sth"), c("shiny.tag.list", "list"))
