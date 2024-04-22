@@ -134,6 +134,6 @@ load_json_report <- function(reporter, zip_path, filename) {
     )
 
   } else {
-    shiny::showNotification("Failed to load the archiver file.", type = "error")
+    shiny::showNotification("Failed to load the Reporter file.", type = "error")
   }
 }
