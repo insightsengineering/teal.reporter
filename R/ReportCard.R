@@ -249,7 +249,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     metadata = list(),
     name = character(0),
     dispatch_block = function(block_class) {
-      instance <- eval(str2lang(block_class))
+      eval(str2lang(block_class))
     },
     # @description The copy constructor.
     #
