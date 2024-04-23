@@ -226,7 +226,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       for (iter_b in seq_along(blocks)) {
         block_class <- blocks_names[iter_b]
         block <- blocks[[iter_b]]
-        instance <- eval(str2lang(block_class))
+        instance <- private$dispatch_block(block_class)
         formal_args <- formalArgs(instance$new()$from_list)
         cblock <- if (all(c("x", "output_dir") %in% formal_args)) {
           instance$new()$from_list(block, output_dir)
@@ -248,6 +248,9 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     content = list(),
     metadata = list(),
     name = character(0),
+    dispatch_block = function(block_class) {
+      instance <- eval(str2lang(block_class))
+    },
     # @description The copy constructor.
     #
     # @param name the name of the field
