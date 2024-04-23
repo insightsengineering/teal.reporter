@@ -69,11 +69,12 @@ simple_reporter_srv <- function(id,
                                   author = "NEST", title = "Report",
                                   date = as.character(Sys.Date()), output = "html_document",
                                   toc = FALSE
-                                )) {
+                                ),
+                                env) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
-      add_card_button_srv("add_report_card_simple", reporter = reporter, card_fun = card_fun)
+      add_card_button_srv("add_report_card_simple", reporter = reporter, card_fun = card_fun, env = env)
       download_report_button_srv(
         "download_button_simple",
         reporter = reporter,
