@@ -37,6 +37,8 @@ reference:
       - download_report_button_ui
       - reset_report_button_srv
       - reset_report_button_ui
+      - report_load_srv
+      - report_load_ui
   - title: "`yaml` and rmd utility functions"
     contents:
       - as_yaml_auto
