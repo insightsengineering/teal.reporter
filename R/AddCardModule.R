@@ -86,7 +86,7 @@ add_card_button_ui <- function(id) {
 add_card_button_srv <- function(id, reporter, card_fun, env) {
   checkmate::assert_function(card_fun)
   checkmate::assert_class(reporter, "Reporter")
-  checkmate::assert_subset(names(formals(card_fun)), c("card", "comment", "label", "env", "..."), empty.ok = TRUE)
+  checkmate::assert_subset(names(formals(card_fun)), c("card", "comment", "label", "env"), empty.ok = TRUE)
   checkmate::assert_environment(env, null.ok = TRUE)
 
   shiny::moduleServer(id, function(input, output, session) {
