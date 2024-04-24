@@ -16,6 +16,10 @@
   display: flex;
 }
 
+.float-right {
+  float: right;
+}
+
 .justify-start {
   justify-content: flex-start;
 }
