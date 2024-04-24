@@ -66,15 +66,15 @@ simple_reporter_srv <- function(
     card_fun,
     global_knitr = getOption("teal.reporter.global_knitr"),
     rmd_output = c(
-      "html" = "html_document", 
+      "html" = "html_document",
       "pdf" = "pdf_document",
-      "powerpoint" = "powerpoint_presentation", 
+      "powerpoint" = "powerpoint_presentation",
       "word" = "word_document"
     ),
     rmd_yaml_args = list(
-      author = "NEST", 
+      author = "NEST",
       title = "Report",
-      date = as.character(Sys.Date()), 
+      date = as.character(Sys.Date()),
       output = "html_document",
       toc = FALSE
     ),
