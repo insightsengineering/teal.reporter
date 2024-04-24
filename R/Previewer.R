@@ -18,6 +18,9 @@
 #' @param reporter (`Reporter`) instance.
 #' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
 #'  for customizing the rendering process.
+#' @param previewer_buttons (`character`) set of modules to include with `c("download", "load", "reset")` possible
+#' values and `"download"` is required.
+#' Default `c("download", "load", "reset")`
 #' @inheritParams reporter_download_inputs
 #'
 #' @return `NULL`.
@@ -56,11 +59,15 @@ reporter_previewer_srv <- function(id,
                                      "html" = "html_document", "pdf" = "pdf_document",
                                      "powerpoint" = "powerpoint_presentation",
                                      "word" = "word_document"
-                                   ), rmd_yaml_args = list(
+                                   ),
+                                   rmd_yaml_args = list(
                                      author = "NEST", title = "Report",
                                      date = as.character(Sys.Date()), output = "html_document",
                                      toc = FALSE
-                                   )) {
+                                   ),
+                                   previewer_buttons = c("download", "load", "reset")) {
+  checkmate::assert_subset(previewer_buttons, c("download", "load", "reset"), empty.ok = FALSE)
+  checkmate::assert_true("download" %in% previewer_buttons)
   checkmate::assert_class(reporter, "Reporter")
   checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
   checkmate::assert_subset(
@@ -81,13 +88,18 @@ reporter_previewer_srv <- function(id,
 
   shiny::moduleServer(id, function(input, output, session) {
     shiny::setBookmarkExclude(c(
-      "card_remove_id", "card_down_id", "card_up_id", "remove_card_ok", "showrcode", "download_data_prev"
+      "card_remove_id", "card_down_id", "card_up_id", "remove_card_ok", "showrcode", "download_data_prev",
+      "load_reporter_previewer", "load_reporter"
     ))
+
     session$onBookmark(function(state) {
-      state$values$report_cards <- reporter$get_cards()
+      reporterdir <- file.path(state$dir, "reporter")
+      dir.create(reporterdir)
+      reporter$to_jsondir(reporterdir)
     })
     session$onRestored(function(state) {
-      reporter$append_cards(state$values$report_cards)
+      reporterdir <- file.path(state$dir, "reporter")
+      reporter$from_jsondir(reporterdir)
     })
 
     ns <- session$ns
@@ -96,7 +108,35 @@ reporter_previewer_srv <- function(id,
 
     output$encoding <- shiny::renderUI({
       reporter$get_reactive_add_card()
-      shiny::tagList(
+      nr_cards <- length(reporter$get_cards())
+
+      previewer_buttons_list <- list(
+        download = htmltools::tagAppendAttributes(
+          shiny::tags$a(
+            id = ns("download_data_prev"),
+            class = "btn btn-primary shiny-download-link simple_report_button",
+            href = "",
+            target = "_blank",
+            download = NA,
+            shiny::tags$span("Download Report", shiny::icon("download"))
+          ),
+          class = if (nr_cards) "" else "disabled"
+        ),
+        load = shiny::tags$button(
+          id = ns("load_reporter_previewer"),
+          type = "button",
+          class = "btn btn-primary action-button simple_report_button",
+          `data-val` = shiny::restoreInput(id = ns("load_reporter_previewer"), default = NULL),
+          NULL,
+          shiny::tags$span(
+            "Load Report", shiny::icon("upload")
+          )
+        ),
+        reset = reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
+      )
+
+      shiny::tags$div(
+        id = "previewer_reporter_encoding",
         shiny::tags$h3("Download the Report"),
         shiny::tags$hr(),
         reporter_download_inputs(
@@ -105,18 +145,11 @@ reporter_previewer_srv <- function(id,
           showrcode = any_rcode_block(reporter),
           session = session
         ),
-        htmltools::tagAppendAttributes(
-          shiny::tags$a(
-            id = ns("download_data_prev"),
-            class = "btn btn-primary shiny-download-link",
-            href = "",
-            target = "_blank",
-            download = NA,
-            shiny::tags$span("Download Report", shiny::icon("download"))
-          ),
-          class = if (length(reporter$get_cards())) "" else "disabled"
-        ),
-        reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
+        shiny::tags$div(
+          id = "previewer_reporter_buttons",
+          class = "previewer_buttons_line",
+          previewer_buttons_list[previewer_buttons]
+        )
       )
     })
 
@@ -145,6 +178,48 @@ reporter_previewer_srv <- function(id,
           )
         )
       }
+    })
+
+    shiny::observeEvent(input$load_reporter_previewer, {
+      nr_cards <- length(reporter$get_cards())
+      shiny::showModal(
+        shiny::modalDialog(
+          easyClose = TRUE,
+          shiny::tags$h3("Load the Reporter"),
+          shiny::tags$hr(),
+          shiny::fileInput(ns("archiver_zip"), "Choose Reporter File to Load (a zip file)",
+            multiple = FALSE,
+            accept = c(".zip")
+          ),
+          footer = shiny::div(
+            shiny::tags$button(
+              type = "button",
+              class = "btn btn-danger",
+              `data-dismiss` = "modal",
+              `data-bs-dismiss` = "modal",
+              NULL,
+              "Cancel"
+            ),
+            shiny::tags$button(
+              id = ns("load_reporter"),
+              type = "button",
+              class = "btn btn-primary action-button",
+              `data-val` = shiny::restoreInput(id = ns("load_reporter"), default = NULL),
+              NULL,
+              "Load"
+            )
+          )
+        )
+      )
+    })
+
+    shiny::observeEvent(input$load_reporter, {
+      switch("JSON",
+        JSON = load_json_report(reporter, input$archiver_zip[["datapath"]], input$archiver_zip[["name"]]),
+        stop("The provided Reporter file format is not supported")
+      )
+
+      shiny::removeModal()
     })
 
     shiny::observeEvent(input$card_remove_id, {
@@ -199,7 +274,12 @@ reporter_previewer_srv <- function(id,
 
     output$download_data_prev <- shiny::downloadHandler(
       filename = function() {
-        paste("report_", format(Sys.time(), "%y%m%d%H%M%S"), ".zip", sep = "")
+        paste0(
+          "report_",
+          if (reporter$get_id() == "") NULL else paste0(reporter$get_id(), "_"),
+          format(Sys.time(), "%y%m%d%H%M%S"),
+          ".zip"
+        )
       },
       content = function(file) {
         shiny::showNotification("Rendering and Downloading the document.")
