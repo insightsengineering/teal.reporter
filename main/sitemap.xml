@@ -37,22 +37,10 @@
     <loc>https://insightsengineering.github.io/teal.reporter/news/index.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.reporter/pull_request_template.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.reporter/reference/Archiver.html</loc>
-  </url>
-  <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/ContentBlock.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.reporter/reference/FileArchiver.html</loc>
-  </url>
-  <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/FileBlock.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.reporter/reference/JSONArchiver.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/NewpageBlock.html</loc>
@@ -107,6 +95,12 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/print.rmd_yaml_header.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/report_load_srv.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.reporter/reference/report_load_ui.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.reporter/reference/report_render_and_compress.html</loc>
