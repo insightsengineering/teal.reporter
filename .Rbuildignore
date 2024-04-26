@@ -44,3 +44,5 @@ coverage.*
 ^renv\.lock$
 SECURITY.md
 ^pkgdown$
+^revdeprefs\.yaml$
+^revdep$
