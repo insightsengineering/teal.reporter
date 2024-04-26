@@ -172,7 +172,7 @@ testthat::test_that("to_list internally triggers to_list on each Block", {
       TextBlock = list(text = "A paragraph of default text", style = "header2"),
       RcodeBlock = list(text = rcode, params = list()),
       PictureBlock = list(basename = picture_filename)
-    ), metadata = list())
+    ), metadata = list(), name = character(0))
   )
   testthat::expect_true(picture_filename %in% list.files(temp_dir))
 })

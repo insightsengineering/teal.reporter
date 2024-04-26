@@ -36,7 +36,9 @@ NULL
 
 #' @rdname simple_reporter
 #' @export
-simple_reporter_ui <- function(id) {
+simple_reporter_ui <- function(
+    id
+) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::singleton(
@@ -49,6 +51,7 @@ simple_reporter_ui <- function(id) {
         class = "simple_reporter_container",
         add_card_button_ui(ns("add_report_card_simple")),
         download_report_button_ui(ns("download_button_simple")),
+        report_load_ui(ns("archive_load_simple")),
         reset_report_button_ui(ns("reset_button_simple"))
       )
     )
@@ -57,19 +60,21 @@ simple_reporter_ui <- function(id) {
 
 #' @rdname simple_reporter
 #' @export
-simple_reporter_srv <- function(id,
-                                reporter,
-                                card_fun,
-                                global_knitr = getOption("teal.reporter.global_knitr"),
-                                rmd_output = c(
-                                  "html" = "html_document", "pdf" = "pdf_document",
-                                  "powerpoint" = "powerpoint_presentation", "word" = "word_document"
-                                ),
-                                rmd_yaml_args = list(
-                                  author = "NEST", title = "Report",
-                                  date = as.character(Sys.Date()), output = "html_document",
-                                  toc = FALSE
-                                )) {
+simple_reporter_srv <- function(
+    id,
+    reporter,
+    card_fun,
+    global_knitr = getOption("teal.reporter.global_knitr"),
+    rmd_output = c(
+      "html" = "html_document", "pdf" = "pdf_document",
+      "powerpoint" = "powerpoint_presentation", "word" = "word_document"
+    ),
+    rmd_yaml_args = list(
+      author = "NEST", title = "Report",
+      date = as.character(Sys.Date()), output = "html_document",
+      toc = FALSE
+    )
+) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
@@ -81,6 +86,7 @@ simple_reporter_srv <- function(id,
         rmd_output = rmd_output,
         rmd_yaml_args = rmd_yaml_args
       )
+      report_load_srv("archive_load_simple", reporter = reporter)
       reset_report_button_srv("reset_button_simple", reporter = reporter)
     }
   )
