@@ -44,7 +44,6 @@ report_card$append_rcode("plot(mtcars$mpg, mtcars$hp)", echo = TRUE)
 Here's a full example of a report combining all these content blocks:
 
 ```{r}
-
 # Set global echo option
 options(teal.reporter.echo = TRUE)
 
@@ -54,17 +53,17 @@ options(teal.reporter.echo = TRUE)
 # rcode_block <- teal.reporter:::RcodeBlock$new(r_code = "plot(mtcars$mpg, mtcars$hp, main = 'MPG vs HP')")
 # new_page <- teal.reporter:::NewpageBlock$new()
 # table_block <- teal.reporter:::TableBlock$new(data = head(mtcars))
-# 
+#
 # # Create a report card and add blocks
 # report_card <- ReportCard$new()
 # report_card$append_blocks(list(text_block, picture_block, rcode_block, new_page, table_block))
-# 
+#
 # # Append specific R code with local echo setting
 # report_card$append_rcode(title = "Summary of MPG", r_code = "summary(mtcars$mpg)", echo = TRUE)
-# 
+#
 # # Preview the report card
 # report_card$preview()
-# 
+#
 # # Add the report card to a report and preview
 # report <- Reporter$new()
 # report$add_card(report_card)
