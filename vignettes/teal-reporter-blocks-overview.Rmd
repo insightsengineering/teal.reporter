@@ -1,0 +1,72 @@
+---
+title: "Comprehensive Overview of Content Blocks in `teal.reporter`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Comprehensive Overview of Content Blocks in teal.reporter}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Overview of Content Blocks
+This document provides a comprehensive overview of all content blocks available in the teal.reporter package.
+
+## Table: Content Blocks in `teal.reporter`
+
+| **Block Type** | **Description** | **Usage Example** |
+  |----------------|----------------|-------------------|
+  | **`TextBlock`** | Adds text-based content to the report. | ```r\ntext_block <- TextBlock$new(title = "Introduction", content = "This is the introduction to our report.")\n``` |
+  | **`PictureBlock`** | Contains graphical content like plots or diagrams. | ```r\npicture_block <- PictureBlock$new(title = "Histogram", file_path = "path/to/histogram.png")\n``` |
+  | **`RcodeBlock`** | Embeds R code directly into the report. | ```r\nrcode_block <- RcodeBlock$new(title = "MPG vs HP Plot", r_code = "plot(mtcars$mpg, mtcars$hp, main = 'MPG vs HP')")\n``` |
+  | **`NewpageBlock`** | Marks a new page in the report for organization purposes. | ```r\nnew_page <- NewpageBlock$new()\n``` |
+  | **`TableBlock`** | Holds and displays tabular data. | ```r\ntable_block <- TableBlock$new(title = "MTCars Data", data = head(mtcars))\n``` |
+  | **`ReportCard`** | Combines various content blocks into a single card. | ```r\nreport_card <- ReportCard$new()\nreport_card$append_blocks(list(text_block, picture_block, rcode_block, table_block))\n``` |
+
+
+## Interaction of Global and Local Echo Options
+###Global echo Option
+-- Controls whether R code is included globally in the report.
+-- Set using options():
+
+```{r}
+options(teal.reporter.echo = TRUE)
+```
+Default: FALSE
+###Local echo Option in append_rcode and append_src
+-- Controls inclusion of R code at a local level.
+append_rcode
+```{r}
+library(teal.reporter)
+report_card <- ReportCard$new()
+report_card$append_rcode("plot(mtcars$mpg, mtcars$hp)", echo = TRUE)
+```
+
+## Full Example Report
+Here's a full example of a report combining all these content blocks:
+
+```{r}
+
+# Set global echo option
+options(teal.reporter.echo = TRUE)
+
+# Create individual content blocks
+# text_block <- teal.reporter:::TextBlock$new()
+# picture_block <- teal.reporter:::PictureBlock$new()
+# rcode_block <- teal.reporter:::RcodeBlock$new(r_code = "plot(mtcars$mpg, mtcars$hp, main = 'MPG vs HP')")
+# new_page <- teal.reporter:::NewpageBlock$new()
+# table_block <- teal.reporter:::TableBlock$new(data = head(mtcars))
+# 
+# # Create a report card and add blocks
+# report_card <- ReportCard$new()
+# report_card$append_blocks(list(text_block, picture_block, rcode_block, new_page, table_block))
+# 
+# # Append specific R code with local echo setting
+# report_card$append_rcode(title = "Summary of MPG", r_code = "summary(mtcars$mpg)", echo = TRUE)
+# 
+# # Preview the report card
+# report_card$preview()
+# 
+# # Add the report card to a report and preview
+# report <- Reporter$new()
+# report$add_card(report_card)
+# report$preview()
+```
