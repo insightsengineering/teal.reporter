@@ -8,65 +8,60 @@ vignette: >
 ---
 
 ## Overview of Content Blocks
-This document provides a comprehensive overview of all content blocks available in the teal.reporter package.
+This document serves as a comprehensive guide to the various types of content blocks available in the `teal.reporter`. 
+These blocks allow users to structure and customize reports.
 
 ## Table: Content Blocks in `teal.reporter`
+The following table outlines the different blocks that can be included in a `ReportCard`, 
+along with descriptions and usage examples:
 
 | **Block Type** | **Description** | **Usage Example** |
   |----------------|----------------|-------------------|
-  | **`TextBlock`** | Adds text-based content to the report. | ```r\ntext_block <- TextBlock$new(title = "Introduction", content = "This is the introduction to our report.")\n``` |
-  | **`PictureBlock`** | Contains graphical content like plots or diagrams. | ```r\npicture_block <- PictureBlock$new(title = "Histogram", file_path = "path/to/histogram.png")\n``` |
-  | **`RcodeBlock`** | Embeds R code directly into the report. | ```r\nrcode_block <- RcodeBlock$new(title = "MPG vs HP Plot", r_code = "plot(mtcars$mpg, mtcars$hp, main = 'MPG vs HP')")\n``` |
-  | **`NewpageBlock`** | Marks a new page in the report for organization purposes. | ```r\nnew_page <- NewpageBlock$new()\n``` |
-  | **`TableBlock`** | Holds and displays tabular data. | ```r\ntable_block <- TableBlock$new(title = "MTCars Data", data = head(mtcars))\n``` |
-  | **`ReportCard`** | Combines various content blocks into a single card. | ```r\nreport_card <- ReportCard$new()\nreport_card$append_blocks(list(text_block, picture_block, rcode_block, table_block))\n``` |
+  | **`ReportCard`** | Combines various content blocks into a single card. | `report_card <- ReportCard$new()` |
+  | **`TextBlock`** | Adds text-based content to the report. | `report_card$append_text(<text>)` |
+  | **`PictureBlock`** | Contains graphical content like plots or diagrams. | `report_card$append_plot(<plot>)` |
+  | **`RcodeBlock`** | Embeds R code directly into the report. | `report_card$append_rcode(<code text>, echo = FALSE)` |
+  | **`NewpageBlock`** | Marks a new page in the report for organization purposes. | `report_card$append_content(<ContentBlock e.g NewpageBlock$new()>)` |
+  | **`TableBlock`** | Holds and displays tabular data. | `report_card$append_table(<table>)` |
+  
+ These blocks form the building blocks of a `ReportCard`, each serving a specific function that contributes to the overall layout and content of the report. The `ReportCard` object utilizes `append_*` methods to integrate various blocks such as `TextBlock`, `PictureBlock`, `RcodeBlock`, and `TableBlock`.
 
-
-## Interaction of Global and Local Echo Options
-###Global echo Option
--- Controls whether R code is included globally in the report.
--- Set using options():
-
-```{r}
-options(teal.reporter.echo = TRUE)
+The following diagram illustrates the inheritance relationship between the different blocks:
+```{r echo=FALSE, out.width='60%'}
+knitr::include_graphics("./images/blocks.png")
 ```
-Default: FALSE
-###Local echo Option in append_rcode and append_src
--- Controls inclusion of R code at a local level.
-append_rcode
+
+## Global `knitr` Options
+To ensure consistency and control over the rendering of markdown elements within reports, teal.reporter adheres to the following default global knitr options:
+
+To access the default values for the `global_knitr` defaults include:
+* echo: displays the code along with its output (`echo = TRUE`).
+* tidy: formats the `R` code for readability using the `formatR` package if installed (`tidy = TRUE`), otherwise set to `FALSE`.
+* width cutoff: sets the maximum number of characters per line in the code output (`tidy.opts = list(width.cutoff = 60)`).
+
+You can access and modify these settings as follows:
 ```{r}
 library(teal.reporter)
-report_card <- ReportCard$new()
-report_card$append_rcode("plot(mtcars$mpg, mtcars$hp)", echo = TRUE)
+getOption('teal.reporter.global_knitr')
 ```
 
-## Full Example Report
-Here's a full example of a report combining all these content blocks:
+## Example Report Using Multiple Content Blocks
+Below is a complete example demonstrating how to create a report combining various content blocks:
 
 ```{r}
 
-# Set global echo option
-options(teal.reporter.echo = TRUE)
+library(ggplot2)
 
-# Create individual content blocks
-# text_block <- teal.reporter:::TextBlock$new()
-# picture_block <- teal.reporter:::PictureBlock$new()
-# rcode_block <- teal.reporter:::RcodeBlock$new(r_code = "plot(mtcars$mpg, mtcars$hp, main = 'MPG vs HP')")
-# new_page <- teal.reporter:::NewpageBlock$new()
-# table_block <- teal.reporter:::TableBlock$new(data = head(mtcars))
-# 
-# # Create a report card and add blocks
-# report_card <- ReportCard$new()
-# report_card$append_blocks(list(text_block, picture_block, rcode_block, new_page, table_block))
-# 
-# # Append specific R code with local echo setting
-# report_card$append_rcode(title = "Summary of MPG", r_code = "summary(mtcars$mpg)", echo = TRUE)
-# 
-# # Preview the report card
-# report_card$preview()
-# 
-# # Add the report card to a report and preview
-# report <- Reporter$new()
-# report$add_card(report_card)
-# report$preview()
+report_card <- ReportCard$new()
+
+report_card$append_text("Header 2 text", "header2")
+report_card$append_text("A paragraph of default text")
+report_card$append_plot(
+ ggplot(airquality, aes(x = Ozone, y = Solar.R)) + geom_line(na.rm = T)
+)
+report_card$append_table(airquality)
+report_card$append_rcode("airquality_new <- airquality", echo = FALSE)
+report_card$append_metadata(key = "lm", value = lm(Ozone ~ Solar.R, airquality))
+report_card$get_content()
+
 ```
