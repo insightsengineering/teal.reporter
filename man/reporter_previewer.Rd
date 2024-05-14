@@ -15,7 +15,8 @@ reporter_previewer_srv(
   rmd_output = c(html = "html_document", pdf = "pdf_document", powerpoint =
     "powerpoint_presentation", word = "word_document"),
   rmd_yaml_args = list(author = "NEST", title = "Report", date =
-    as.character(Sys.Date()), output = "html_document", toc = FALSE)
+    as.character(Sys.Date()), output = "html_document", toc = FALSE),
+  previewer_buttons = c("download", "load", "reset")
 )
 }
 \arguments{
@@ -35,6 +36,10 @@ This \code{list} will result in the custom subset of UI inputs for the download 
 Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)}.
 The \code{list} must include at least \code{"output"} field.
 The default value for \code{"output"} has to be in the \code{rmd_output} argument.}
+
+\item{previewer_buttons}{(\code{character}) set of modules to include with \code{c("download", "load", "reset")} possible
+values and \code{"download"} is required.
+Default \code{c("download", "load", "reset")}}
 }
 \value{
 \code{NULL}.
@@ -45,6 +50,8 @@ The default value for \code{"output"} has to be in the \code{rmd_output} argumen
 Module offers functionalities to visualize, manipulate,
 and interact with report cards that have been added to a report.
 It includes a previewer interface to see the cards and options to modify the report before downloading.
+
+Cards are saved by the \code{shiny} bookmarking mechanism.
 
 For more details see the vignette: \code{vignette("previewerReporter", "teal.reporter")}.
 }
