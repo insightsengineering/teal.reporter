@@ -32,7 +32,7 @@ knitr::include_graphics("./images/blocks.png")
 ```
 
 ## Global `knitr` Options
-To ensure consistency and control over the rendering of markdown elements within reports, teal.reporter adheres to the following default global knitr options:
+To ensure consistency and control over the rendering of markdown elements within reports, teal.reporter adheres to the following default global `knitr` options:
 
 To access the default values for the `global_knitr` defaults include:
 * echo: displays the code along with its output (`echo = TRUE`).
