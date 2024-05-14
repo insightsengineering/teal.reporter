@@ -57,7 +57,7 @@ report_card$append_text("Header 2 text", "header2")
 report_card$append_text("A paragraph of default text")
 report_card$append_plot(
   ggplot(airquality, aes(x = Ozone, y = Solar.R)) +
-    geom_line(na.rm = T)
+    geom_line(na.rm = TRUE)
 )
 report_card$append_table(airquality)
 report_card$append_rcode("airquality_new <- airquality", echo = FALSE)

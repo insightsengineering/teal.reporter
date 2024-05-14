@@ -9,7 +9,7 @@ vignette: >
 
 ## Introduction
 While engaging with data analysis within a `shiny` app, 
-users often encounter insights that they wish to capture and share, be it through presentations, `markdown` articles, or other formats.
+users often encounter insights that they wish to capture and share, be it through's presentations, `markdown` articles, or other formats.
 The `teal.reporter` package simplifies the process for both developers and end-users of `shiny` applications.
 It allows for easy generation and dissemination of findings.
 This eliminates the need for manual copy-pasting or writing in markdown.
