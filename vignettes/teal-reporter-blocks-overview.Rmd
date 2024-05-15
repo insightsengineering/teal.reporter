@@ -45,7 +45,7 @@ classDiagram
       +append_rcode()
       +append_metadata()
     }
-    
+
     ReportCard <.. FileBlock: utilizes
     ReportCard <.. ContentBlock: utilizes
     ReportCard <.. TextBlock: utilizes
@@ -53,15 +53,15 @@ classDiagram
     ReportCard <.. RcodeBlock: utilizes
     ReportCard <.. PictureBlock: utilizes
     ReportCard <.. TableBlock: utilizes
-    
+
     ContentBlock <|-- TextBlock
     ContentBlock <|-- NewpageBlock
     ContentBlock <|-- RcodeBlock
     ContentBlock <|-- FileBlock
     FileBlock <|-- PictureBlock
     FileBlock <|-- TableBlock
-    
-    
+
+
     namespace Blocks {
       class ContentBlock
       class FileBlock
@@ -71,7 +71,7 @@ classDiagram
       class PictureBlock
       class TableBlock
     }
-    
+
 style ContentBlock fill:lightpurple
 style FileBlock fill: lightgreen
 style TextBlock fill: pink
