@@ -29,9 +29,61 @@ along with descriptions and usage examples:
  These blocks form the building blocks of a `ReportCard`, each serving a specific function that contributes to the overall layout and content of the report. The `ReportCard` object utilizes `append_*` methods to integrate various blocks such as `TextBlock`, `PictureBlock`, `RcodeBlock`, and `TableBlock`.
 
 The following diagram illustrates the inheritance relationship between the different blocks:
-```{r echo=FALSE, out.width='60%'}
-knitr::include_graphics("./images/blocks.png")
+```{r, child="_setup.Rmd"}
 ```
+```{r actors_mermaid2, echo=FALSE}
+shiny::pre(
+  class = "mermaid",
+  "
+%% This is a mermaid diagram, if you see this the plot failed to render. Sorry.
+classDiagram
+    class ReportCard{
+      +append_content()
+      +append_text()
+      +append_table()
+      +append_plot()
+      +append_rcode()
+      +append_metadata()
+    }
+    
+    ReportCard <.. FileBlock: utilizes
+    ReportCard <.. ContentBlock: utilizes
+    ReportCard <.. TextBlock: utilizes
+    ReportCard <.. NewpageBlock: utilizes
+    ReportCard <.. RcodeBlock: utilizes
+    ReportCard <.. PictureBlock: utilizes
+    ReportCard <.. TableBlock: utilizes
+    
+    ContentBlock <|-- TextBlock
+    ContentBlock <|-- NewpageBlock
+    ContentBlock <|-- RcodeBlock
+    ContentBlock <|-- FileBlock
+    FileBlock <|-- PictureBlock
+    FileBlock <|-- TableBlock
+    
+    
+    namespace Blocks {
+      class ContentBlock
+      class FileBlock
+      class TextBlock
+      class NewpageBlock
+      class RcodeBlock
+      class PictureBlock
+      class TableBlock
+    }
+    
+style ContentBlock fill:lightpurple
+style FileBlock fill: lightgreen
+style TextBlock fill: pink
+style NewpageBlock fill: pink
+style RcodeBlock fill: pink
+style PictureBlock fill: gold
+style TableBlock fill:gold
+style ReportCard fill:lightblue
+"
+)
+```
+
 
 ## Global `knitr` Options
 To ensure consistency and control over the rendering of markdown elements within reports, teal.reporter adheres to the following default global `knitr` options:
