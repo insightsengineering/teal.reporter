@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.782525510204082" branch-rate="0" lines-covered="1227" lines-valid="1568" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-05-15 16:18:44.772316">
+<coverage line-rate="0.782525510204082" branch-rate="0" lines-covered="1227" lines-valid="1568" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-05-15 16:32:24.516521">
   <sources>
     <source>/__w/teal.reporter/teal.reporter/teal.reporter</source>
   </sources>
@@ -1293,7 +1293,7 @@
                 <line number="132" hits="1" branch="false"/>
                 <line number="133" hits="2" branch="false"/>
                 <line number="134" hits="2" branch="false"/>
-                <line number="137" hits="0" branch="false"/>
+                <line number="136" hits="0" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -1400,7 +1400,7 @@
             <line number="132" hits="1" branch="false"/>
             <line number="133" hits="2" branch="false"/>
             <line number="134" hits="2" branch="false"/>
-            <line number="137" hits="0" branch="false"/>
+            <line number="136" hits="0" branch="false"/>
           </lines>
         </class>
         <class name="NewpageBlock.R" filename="R/NewpageBlock.R" line-rate="1" branch-rate="0" complexity="0">
@@ -3704,6 +3704,8 @@
           <methods>
             <method name="simple_reporter_ui" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
+                <line number="40" hits="1" branch="false"/>
+                <line number="41" hits="1" branch="false"/>
                 <line number="42" hits="1" branch="false"/>
                 <line number="43" hits="1" branch="false"/>
                 <line number="44" hits="1" branch="false"/>
@@ -3719,12 +3721,13 @@
                 <line number="54" hits="1" branch="false"/>
                 <line number="55" hits="1" branch="false"/>
                 <line number="56" hits="1" branch="false"/>
-                <line number="57" hits="1" branch="false"/>
-                <line number="58" hits="1" branch="false"/>
               </lines>
             </method>
             <method name="simple_reporter_srv" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
+                <line number="75" hits="3" branch="false"/>
+                <line number="76" hits="3" branch="false"/>
+                <line number="77" hits="3" branch="false"/>
                 <line number="78" hits="3" branch="false"/>
                 <line number="79" hits="3" branch="false"/>
                 <line number="80" hits="3" branch="false"/>
@@ -3737,13 +3740,12 @@
                 <line number="87" hits="3" branch="false"/>
                 <line number="88" hits="3" branch="false"/>
                 <line number="89" hits="3" branch="false"/>
-                <line number="90" hits="3" branch="false"/>
-                <line number="91" hits="3" branch="false"/>
-                <line number="92" hits="3" branch="false"/>
               </lines>
             </method>
           </methods>
           <lines>
+            <line number="40" hits="1" branch="false"/>
+            <line number="41" hits="1" branch="false"/>
             <line number="42" hits="1" branch="false"/>
             <line number="43" hits="1" branch="false"/>
             <line number="44" hits="1" branch="false"/>
@@ -3759,8 +3761,9 @@
             <line number="54" hits="1" branch="false"/>
             <line number="55" hits="1" branch="false"/>
             <line number="56" hits="1" branch="false"/>
-            <line number="57" hits="1" branch="false"/>
-            <line number="58" hits="1" branch="false"/>
+            <line number="75" hits="3" branch="false"/>
+            <line number="76" hits="3" branch="false"/>
+            <line number="77" hits="3" branch="false"/>
             <line number="78" hits="3" branch="false"/>
             <line number="79" hits="3" branch="false"/>
             <line number="80" hits="3" branch="false"/>
@@ -3773,9 +3776,6 @@
             <line number="87" hits="3" branch="false"/>
             <line number="88" hits="3" branch="false"/>
             <line number="89" hits="3" branch="false"/>
-            <line number="90" hits="3" branch="false"/>
-            <line number="91" hits="3" branch="false"/>
-            <line number="92" hits="3" branch="false"/>
           </lines>
         </class>
         <class name="TableBlock.R" filename="R/TableBlock.R" line-rate="1" branch-rate="0" complexity="0">
