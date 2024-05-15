@@ -29,6 +29,7 @@ Imports:
     htmltools (>= 0.5.4),
     knitr (>= 1.34),
     lifecycle (>= 0.2.0),
+    png,
     R6,
     rlistings (>= 0.2.8),
     rmarkdown (>= 2.19),
@@ -43,7 +44,6 @@ Suggests:
     formatR (>= 1.5),
     ggplot2 (>= 3.4.0),
     lattice (>= 0.18-4),
-    png,
     testthat (>= 3.1.5),
     tinytex,
     withr (>= 2.0.0)
@@ -51,13 +51,13 @@ VignetteBuilder:
     knitr
 RdMacros:
     lifecycle
-Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate,
-    davidgohel/flextable, rstudio/htmltools, yihui/knitr, r-lib/lifecycle,
-    r-lib/R6, insightsengineering/rlistings, rstudio/rmarkdown, rstudio/shiny, 
-    dreamRs/shinybusy, dreamRs/shinyWidgets, yaml=vubiostat/r-yaml, r-lib/zip, 
-    rstudio/DT, yihui/formatR, tidyverse/ggplot2, deepayan/lattice, cran/png,
-    insightsengineering/rtables, r-lib/testthat, rstudio/tinytex,
-    r-lib/withr
+Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate, 
+    davidgohel/flextable, cran/grid, rstudio/htmltools, yihui/knitr, 
+    r-lib/lifecycle, cran/png, r-lib/R6, insightsengineering/rlistings,
+    rstudio/rmarkdown, insightsengineering/rtables, rstudio/shiny, 
+    dreamRs/shinybusy, dreamRs/shinyWidgets, vubiostat/r-yaml, r-lib/zip,
+    rstudio/DT, yihui/formatR, tidyverse/ggplot2, deepayan/lattice, 
+    r-lib/testthat, rstudio/tinytex, r-lib/withr
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US
