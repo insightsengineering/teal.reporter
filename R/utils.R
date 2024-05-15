@@ -138,17 +138,14 @@ to_flextable <- function(content) {
     rtables::main_footer(ft) <- mf$main_footer
     rtables::prov_footer(ft) <- mf$prov_footer
     rtables::header_section_div(ft) <- mf$header_section_div
-    content <- ft
     ft <- rtables::tt_to_flextable(ft, total_width = c(grDevices::pdf.options()$width - 1))
   } else if (inherits(content, "data.frame")) {
-    ft <- rtables::df_to_tt(content)
-    content <- ft
-    ft <- rtables::tt_to_flextable(ft)
+    ft <- rtables::tt_to_flextable(
+      rtables::df_to_tt(content)
+    )
   } else {
     stop(paste0("Unsupported class `(", format(class(content)), ")` when exporting table"))
   }
-
-  ft <- rtables::theme_docx_default(tt = content)(ft)
 
   ft
 }
