@@ -18,11 +18,13 @@ along with descriptions and usage examples:
 | **Block Type** | **Description** | **Usage Example** |
   |----------------|----------------|-------------------|
   | **`ReportCard`** | Combines various content blocks into a single card. | `report_card <- ReportCard$new()` |
+  | **`ContentBlock`** | Base class for content blocks, can include any type of content. | `report_card$append_content(<ContentBlock>)` |
   | **`TextBlock`** | Adds text-based content to the report. | `report_card$append_text(<text>)` |
-  | **`PictureBlock`** | Contains graphical content like plots or diagrams. | `report_card$append_plot(<plot>)` |
   | **`RcodeBlock`** | Embeds R code directly into the report. | `report_card$append_rcode(<code text>, echo = FALSE)` |
-  | **`NewpageBlock`** | Marks a new page in the report for organization purposes. | `report_card$append_content(<ContentBlock e.g NewpageBlock$new()>)` |
+  | **`NewpageBlock`** | Marks a new page in the report for organization purposes. | `report_card$append_content(<NewpageBlock>)` |
+  | **`FileBlock`** | Manages file-based content, ensuring proper file handling. | `report_card$append_content(<FileBlock>)` |
   | **`TableBlock`** | Holds and displays tabular data. | `report_card$append_table(<table>)` |
+  | **`PictureBlock`** | Contains graphical content from classes like `ggplot`, `grob`, `trellis`, and `Heatmap`. | `report_card$append_plot(<plot>)` |
   
  These blocks form the building blocks of a `ReportCard`, each serving a specific function that contributes to the overall layout and content of the report. The `ReportCard` object utilizes `append_*` methods to integrate various blocks such as `TextBlock`, `PictureBlock`, `RcodeBlock`, and `TableBlock`.
 
