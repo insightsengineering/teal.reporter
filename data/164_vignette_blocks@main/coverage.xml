@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.798636926889715" branch-rate="0" lines-covered="1289" lines-valid="1614" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-05-14 10:34:29.303907">
+<coverage line-rate="0.798636926889715" branch-rate="0" lines-covered="1289" lines-valid="1614" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-05-15 09:28:00.297106">
   <sources>
     <source>/__w/teal.reporter/teal.reporter/teal.reporter</source>
   </sources>
@@ -3704,6 +3704,7 @@
           <methods>
             <method name="simple_reporter_ui" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
+                <line number="40" hits="1" branch="false"/>
                 <line number="41" hits="1" branch="false"/>
                 <line number="42" hits="1" branch="false"/>
                 <line number="43" hits="1" branch="false"/>
@@ -3720,11 +3721,11 @@
                 <line number="54" hits="1" branch="false"/>
                 <line number="55" hits="1" branch="false"/>
                 <line number="56" hits="1" branch="false"/>
-                <line number="57" hits="1" branch="false"/>
               </lines>
             </method>
             <method name="simple_reporter_srv" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
+                <line number="75" hits="3" branch="false"/>
                 <line number="76" hits="3" branch="false"/>
                 <line number="77" hits="3" branch="false"/>
                 <line number="78" hits="3" branch="false"/>
@@ -3739,11 +3740,11 @@
                 <line number="87" hits="3" branch="false"/>
                 <line number="88" hits="3" branch="false"/>
                 <line number="89" hits="3" branch="false"/>
-                <line number="90" hits="3" branch="false"/>
               </lines>
             </method>
           </methods>
           <lines>
+            <line number="40" hits="1" branch="false"/>
             <line number="41" hits="1" branch="false"/>
             <line number="42" hits="1" branch="false"/>
             <line number="43" hits="1" branch="false"/>
@@ -3760,7 +3761,7 @@
             <line number="54" hits="1" branch="false"/>
             <line number="55" hits="1" branch="false"/>
             <line number="56" hits="1" branch="false"/>
-            <line number="57" hits="1" branch="false"/>
+            <line number="75" hits="3" branch="false"/>
             <line number="76" hits="3" branch="false"/>
             <line number="77" hits="3" branch="false"/>
             <line number="78" hits="3" branch="false"/>
@@ -3775,7 +3776,6 @@
             <line number="87" hits="3" branch="false"/>
             <line number="88" hits="3" branch="false"/>
             <line number="89" hits="3" branch="false"/>
-            <line number="90" hits="3" branch="false"/>
           </lines>
         </class>
         <class name="TableBlock.R" filename="R/TableBlock.R" line-rate="1" branch-rate="0" complexity="0">
