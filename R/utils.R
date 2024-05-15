@@ -127,7 +127,7 @@ to_flextable <- function(content) {
   if (inherits(content, c("rtables", "TableTree", "ElementaryTable"))) {
     ft <- rtables::tt_to_flextable(content)
   } else if (inherits(content, "listing_df")) {
-    mf <- rtables::matrix_form(content)
+    mf <- rlistings::matrix_form(content)
     nr_header <- attr(mf, "nrow_header")
     df <- as.data.frame(mf$strings[seq(nr_header + 1, nrow(mf$strings)), , drop = FALSE])
     header_df <- as.data.frame(mf$strings[seq_len(nr_header), , drop = FALSE])
