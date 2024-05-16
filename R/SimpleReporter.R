@@ -36,9 +36,7 @@ NULL
 
 #' @rdname simple_reporter
 #' @export
-simple_reporter_ui <- function(
-    id
-) {
+simple_reporter_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::singleton(
@@ -73,8 +71,7 @@ simple_reporter_srv <- function(
       author = "NEST", title = "Report",
       date = as.character(Sys.Date()), output = "html_document",
       toc = FALSE
-    )
-) {
+    )) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
