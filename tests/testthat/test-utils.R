@@ -21,7 +21,7 @@ testthat::test_that("to_flextable: supported class `rtables`", {
 })
 
 testthat::test_that("to_flextable: supported class `listing_df`", {
-  lsting <- rlistings::as_listing(formatters::ex_adae[1:50,])
+  lsting <- rlistings::as_listing(formatters::ex_adae[1:50, ])
   flextable_output <- to_flextable(lsting)
   testthat::expect_s3_class(flextable_output, "flextable")
 })
