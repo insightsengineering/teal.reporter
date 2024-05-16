@@ -6,13 +6,23 @@ testthat::test_that("panel_item", {
   testthat::expect_s3_class(panel_item("LABEL", shiny::tags$div()), "shiny.tag")
 })
 
-testthat::test_that("to_flextable: supported class", {
+testthat::test_that("to_flextable: supported class `data.frame`", {
   data_frame <- data.frame(A = 1:3, B = 4:6)
-  # https://github.com/davidgohel/flextable/issues/600
-  withr::with_options(
-    opts_partial_match_old,
-    flextable_output <- to_flextable(data_frame)
-  )
+  flextable_output <- to_flextable(data_frame)
+  testthat::expect_s3_class(flextable_output, "flextable")
+})
+
+testthat::test_that("to_flextable: supported class `rtables`", {
+  tbl <- basic_table() %>%
+    analyze("AGE", afun = mean) %>%
+    build_table( DM)
+  flextable_output <- to_flextable(tbl)
+  testthat::expect_s3_class(flextable_output, "flextable")
+})
+
+testthat::test_that("to_flextable: supported class `listing_df`", {
+  lsting <- rlistings::as_listing(formatters::ex_adae[1:25,], main_title = "lsting")
+  flextable_output <- to_flextable(lsting)
   testthat::expect_s3_class(flextable_output, "flextable")
 })
 
