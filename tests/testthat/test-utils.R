@@ -15,7 +15,7 @@ testthat::test_that("to_flextable: supported class `data.frame`", {
 testthat::test_that("to_flextable: supported class `rtables`", {
   tbl <- rtables::basic_table() %>%
     rtables::analyze("AGE", afun = mean) %>%
-    rtables::build_table( DM)
+    rtables::build_table(DM)
   flextable_output <- to_flextable(tbl)
   testthat::expect_s3_class(flextable_output, "flextable")
 })
