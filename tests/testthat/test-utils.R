@@ -15,13 +15,13 @@ testthat::test_that("to_flextable: supported class `data.frame`", {
 testthat::test_that("to_flextable: supported class `rtables`", {
   tbl <- basic_table() %>%
     analyze("AGE", afun = mean) %>%
-    build_table( DM)
+    build_table(DM)
   flextable_output <- to_flextable(tbl)
   testthat::expect_s3_class(flextable_output, "flextable")
 })
 
 testthat::test_that("to_flextable: supported class `listing_df`", {
-  lsting <- rlistings::as_listing(formatters::ex_adae[1:25,])
+  lsting <- rlistings::as_listing(formatters::ex_adae[1:25, ])
   flextable_output <- to_flextable(lsting)
   testthat::expect_s3_class(flextable_output, "flextable")
 })
