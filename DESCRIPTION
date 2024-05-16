@@ -41,6 +41,7 @@ Imports:
 Suggests:
     DT (>= 0.13),
     formatR (>= 1.5),
+    formatters,
     ggplot2 (>= 3.4.0),
     png,
     lattice (>= 0.18-4),
