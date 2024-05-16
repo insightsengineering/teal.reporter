@@ -133,7 +133,9 @@ to_flextable <- function(content) {
     header_df <- as.data.frame(mf$strings[seq_len(nr_header), , drop = FALSE])
 
     ft <- rtables::df_to_tt(df)
-    rtables::main_title(ft) <- mf$main_title
+    if (length(mf$main_title) != 0) {
+      rtables::main_title(ft) <- mf$main_title
+    }
     rtables::subtitles(ft) <- mf$subtitles
     rtables::main_footer(ft) <- mf$main_footer
     rtables::prov_footer(ft) <- mf$prov_footer
