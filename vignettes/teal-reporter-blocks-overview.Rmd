@@ -1,8 +1,8 @@
 ---
-title: "Comprehensive Overview of Content Blocks in `teal.reporter`"
+title: "teal.reporter blocks overview"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Comprehensive Overview of Content Blocks in teal.reporter}
+  %\VignetteIndexEntry{teal.reporter blocks overview}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
