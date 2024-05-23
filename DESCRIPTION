@@ -42,7 +42,7 @@ Suggests:
     DT (>= 0.13),
     formatR (>= 1.5),
     formatters,
-    ggplot2 (>= 3.4.0),
+    ggplot2 (>= 3.4.3),
     lattice (>= 0.18-4),
     png,
     testthat (>= 3.1.5),
