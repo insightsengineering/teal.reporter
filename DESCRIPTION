@@ -53,7 +53,7 @@ VignetteBuilder:
 RdMacros:
     lifecycle
 Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate,
-    davidgohel/flextable, cran/grid, rstudio/htmltools, yihui/knitr,
+    davidgohel/flextable, rstudio/htmltools, yihui/knitr,
     r-lib/lifecycle, cran/png, r-lib/R6, insightsengineering/rlistings,
     rstudio/rmarkdown, insightsengineering/rtables, rstudio/shiny,
     dreamRs/shinybusy, dreamRs/shinyWidgets, vubiostat/r-yaml, r-lib/zip,
