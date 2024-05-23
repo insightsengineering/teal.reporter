@@ -32,7 +32,7 @@ Imports:
     R6,
     rlistings (>= 0.2.8),
     rmarkdown (>= 2.23),
-    rtables (>= 0.5.1),
+    rtables (>= 0.6.6),
     shiny (>= 1.6.0),
     shinybusy (>= 0.3.2),
     shinyWidgets (>= 0.5.1),
