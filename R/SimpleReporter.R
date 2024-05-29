@@ -36,9 +36,7 @@ NULL
 
 #' @rdname simple_reporter
 #' @export
-simple_reporter_ui <- function(
-    id
-) {
+simple_reporter_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::singleton(
