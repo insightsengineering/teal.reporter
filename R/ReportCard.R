@@ -6,6 +6,9 @@
 #' This `R6` class that supports creating a report card containing text, plot, table and
 #' metadata blocks that can be appended and rendered to form a report output from a `shiny` app.
 #'
+#' For more information about the various blocks, refer to the vignette:
+#' `vignette("teal-reporter-blocks-overview", "teal.reporter")`.
+#'
 #' @export
 #'
 ReportCard <- R6::R6Class( # nolint: object_name_linter.
