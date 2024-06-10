@@ -1,140 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="ContentBlock" timestamp="2024-06-10T11:01:49Z" hostname="b3a83b209d73" tests="11" skipped="0" failures="0" errors="0" time="0.149">
+  <testsuite name="ContentBlock" timestamp="2024-06-10T11:53:07Z" hostname="074d775733bc" tests="11" skipped="0" failures="0" errors="0" time="0.152">
     <testcase time="0.00900000000000001" classname="ContentBlock" name="ContentBlock_object_can_be_created"/>
-    <testcase time="0.075" classname="ContentBlock" name="new_returns_an_object_of_type_ContentBlock"/>
+    <testcase time="0.077" classname="ContentBlock" name="new_returns_an_object_of_type_ContentBlock"/>
     <testcase time="0.012" classname="ContentBlock" name="set_content_accepts_a_character_object"/>
-    <testcase time="0.013" classname="ContentBlock" name="set_content_asserts_the_argument_is_character"/>
+    <testcase time="0.014" classname="ContentBlock" name="set_content_asserts_the_argument_is_character"/>
     <testcase time="0.003" classname="ContentBlock" name="set_content_returns_the_ContentBlock_object"/>
     <testcase time="0.003" classname="ContentBlock" name="get_content_returns_character_0_on_a_newly_initialized_ContentBlock"/>
-    <testcase time="0.017" classname="ContentBlock" name="The_deep_copy_constructor_copies_the_content_file_to_a_new_file"/>
+    <testcase time="0.0169999999999999" classname="ContentBlock" name="The_deep_copy_constructor_copies_the_content_file_to_a_new_file"/>
     <testcase time="0.004" classname="ContentBlock" name="The_deep_copy_constructor_preserves_the_file_extension_of_the_copied_file"/>
-    <testcase time="0.004" classname="ContentBlock" name="The_deep_copy_constructor_does_not_find_an_extension_of_a_file_name_like_.gitignore"/>
-    <testcase time="0.004" classname="ContentBlock" name="The_deep_copy_constructor_finds_an_extension_of_a_file_name_like_.gitignore.txt"/>
+    <testcase time="0.005" classname="ContentBlock" name="The_deep_copy_constructor_does_not_find_an_extension_of_a_file_name_like_.gitignore"/>
+    <testcase time="0.003" classname="ContentBlock" name="The_deep_copy_constructor_finds_an_extension_of_a_file_name_like_.gitignore.txt"/>
     <testcase time="0.005" classname="ContentBlock" name="The_shallow_copy_constructor_does_not_copy_the_content_file_to_a_new_file"/>
   </testsuite>
-  <testsuite name="DownloadReportModule" timestamp="2024-06-10T11:01:49Z" hostname="b3a83b209d73" tests="21" skipped="0" failures="0" errors="0" time="1.716">
-    <testcase time="0.963" classname="DownloadReportModule" name="download_report_button_srv_render_and_downlaod_a_document"/>
-    <testcase time="0.0069999999999999" classname="DownloadReportModule" name="download_report_button_srv_render_and_downlaod_a_document"/>
-    <testcase time="0.00299999999999989" classname="DownloadReportModule" name="download_report_button_srv_render_and_downlaod_a_document"/>
+  <testsuite name="DownloadReportModule" timestamp="2024-06-10T11:53:08Z" hostname="074d775733bc" tests="21" skipped="0" failures="0" errors="0" time="1.741">
+    <testcase time="0.986" classname="DownloadReportModule" name="download_report_button_srv_render_and_downlaod_a_document"/>
+    <testcase time="0.00800000000000001" classname="DownloadReportModule" name="download_report_button_srv_render_and_downlaod_a_document"/>
     <testcase time="0.002" classname="DownloadReportModule" name="download_report_button_srv_render_and_downlaod_a_document"/>
-    <testcase time="0.0130000000000001" classname="DownloadReportModule" name="download_report_button_srv_subset_of_rmd_yaml_args"/>
-    <testcase time="0.0069999999999999" classname="DownloadReportModule" name="download_report_button_srv_subset_of_rmd_yaml_args"/>
+    <testcase time="0.00300000000000011" classname="DownloadReportModule" name="download_report_button_srv_render_and_downlaod_a_document"/>
+    <testcase time="0.012" classname="DownloadReportModule" name="download_report_button_srv_subset_of_rmd_yaml_args"/>
     <testcase time="0.00800000000000001" classname="DownloadReportModule" name="download_report_button_srv_subset_of_rmd_yaml_args"/>
-    <testcase time="0.0130000000000001" classname="DownloadReportModule" name="download_report_button_srv_subset_of_rmd_yaml_args"/>
+    <testcase time="0.00800000000000001" classname="DownloadReportModule" name="download_report_button_srv_subset_of_rmd_yaml_args"/>
+    <testcase time="0.014" classname="DownloadReportModule" name="download_report_button_srv_subset_of_rmd_yaml_args"/>
     <testcase time="0.012" classname="DownloadReportModule" name="download_report_button_srv_subset_of_rmd_yaml_args"/>
-    <testcase time="0.012" classname="DownloadReportModule" name="download_report_button_srv_subset_of_rmd_yaml_args"/>
-    <testcase time="0.144" classname="DownloadReportModule" name="download_report_button_ui_returns_a_tagList"/>
-    <testcase time="0.284" classname="DownloadReportModule" name="report_render_and_compress_valid_arguments"/>
+    <testcase time="0.0119999999999998" classname="DownloadReportModule" name="download_report_button_srv_subset_of_rmd_yaml_args"/>
+    <testcase time="0.145" classname="DownloadReportModule" name="download_report_button_ui_returns_a_tagList"/>
+    <testcase time="0.286" classname="DownloadReportModule" name="report_render_and_compress_valid_arguments"/>
     <testcase time="0.00700000000000012" classname="DownloadReportModule" name="report_render_and_compress_invalid_arguments"/>
     <testcase time="0.004" classname="DownloadReportModule" name="report_render_and_compress_invalid_arguments"/>
-    <testcase time="0.00499999999999989" classname="DownloadReportModule" name="report_render_and_compress_invalid_arguments"/>
+    <testcase time="0.004" classname="DownloadReportModule" name="report_render_and_compress_invalid_arguments"/>
     <testcase time="0.208" classname="DownloadReportModule" name="report_render_and_compress_render_an_html_document"/>
-    <testcase time="0.004" classname="DownloadReportModule" name="report_render_and_compress_render_an_html_document"/>
-    <testcase time="0.00199999999999978" classname="DownloadReportModule" name="report_render_and_compress_render_an_html_document"/>
     <testcase time="0.00300000000000011" classname="DownloadReportModule" name="report_render_and_compress_render_an_html_document"/>
+    <testcase time="0.00200000000000022" classname="DownloadReportModule" name="report_render_and_compress_render_an_html_document"/>
+    <testcase time="0.00199999999999978" classname="DownloadReportModule" name="report_render_and_compress_render_an_html_document"/>
     <testcase time="0.004" classname="DownloadReportModule" name="any_rcode_block"/>
     <testcase time="0.0110000000000001" classname="DownloadReportModule" name="any_rcode_block"/>
   </testsuite>
-  <testsuite name="FileBlock" timestamp="2024-06-10T11:01:50Z" hostname="b3a83b209d73" tests="8" skipped="0" failures="0" errors="0" time="0.154">
-    <testcase time="0.0139999999999998" classname="FileBlock" name="FileBlock_object_can_be_created"/>
-    <testcase time="0.00499999999999989" classname="FileBlock" name="new_returns_an_object_of_type_FileBlock"/>
+  <testsuite name="FileBlock" timestamp="2024-06-10T11:53:09Z" hostname="074d775733bc" tests="8" skipped="0" failures="0" errors="0" time="0.153">
+    <testcase time="0.0150000000000001" classname="FileBlock" name="FileBlock_object_can_be_created"/>
+    <testcase time="0.004" classname="FileBlock" name="new_returns_an_object_of_type_FileBlock"/>
     <testcase time="0.004" classname="FileBlock" name="destructor_removes_the_file"/>
     <testcase time="0.112" classname="FileBlock" name="destructor_removes_the_file"/>
     <testcase time="0.004" classname="FileBlock" name="to_list_returns_a_named_list_with_a_one_field"/>
-    <testcase time="0.00499999999999989" classname="FileBlock" name="to_list_with_base_path_arg"/>
-    <testcase time="0.004" classname="FileBlock" name="to_list_copies_a_file_to_a_target_directory"/>
-    <testcase time="0.00600000000000023" classname="FileBlock" name="from_list_copies_a_file_from_a_target_directory"/>
+    <testcase time="0.004" classname="FileBlock" name="to_list_with_base_path_arg"/>
+    <testcase time="0.00499999999999989" classname="FileBlock" name="to_list_copies_a_file_to_a_target_directory"/>
+    <testcase time="0.00499999999999989" classname="FileBlock" name="from_list_copies_a_file_from_a_target_directory"/>
   </testsuite>
-  <testsuite name="LoadReporterModule" timestamp="2024-06-10T11:01:51Z" hostname="b3a83b209d73" tests="9" skipped="0" failures="0" errors="0" time="0.154">
+  <testsuite name="LoadReporterModule" timestamp="2024-06-10T11:53:09Z" hostname="074d775733bc" tests="9" skipped="0" failures="0" errors="0" time="0.154">
     <testcase time="0.116" classname="LoadReporterModule" name="report_load_srv_loading_reporter_restores_saved_content"/>
     <testcase time="0.00099999999999989" classname="LoadReporterModule" name="report_load_srv_loading_reporter_restores_saved_content"/>
     <testcase time="0.00099999999999989" classname="LoadReporterModule" name="report_load_srv_loading_reporter_restores_saved_content"/>
-    <testcase time="0.00200000000000022" classname="LoadReporterModule" name="report_load_srv_loading_reporter_restores_saved_content"/>
+    <testcase time="0.00100000000000033" classname="LoadReporterModule" name="report_load_srv_loading_reporter_restores_saved_content"/>
+    <testcase time="0.00199999999999978" classname="LoadReporterModule" name="report_load_srv_loading_reporter_restores_saved_content"/>
     <testcase time="0.00099999999999989" classname="LoadReporterModule" name="report_load_srv_loading_reporter_restores_saved_content"/>
-    <testcase time="0.00099999999999989" classname="LoadReporterModule" name="report_load_srv_loading_reporter_restores_saved_content"/>
-    <testcase time="0.00099999999999989" classname="LoadReporterModule" name="report_load_srv_loading_reporter_restores_saved_content"/>
-    <testcase time="0.0260000000000002" classname="LoadReporterModule" name="report_load_srv_fail_to_load_a_reporter_because_of_different_id"/>
-    <testcase time="0.00499999999999989" classname="LoadReporterModule" name="report_load_ui_returns_a_tagList"/>
+    <testcase time="0.00100000000000033" classname="LoadReporterModule" name="report_load_srv_loading_reporter_restores_saved_content"/>
+    <testcase time="0.0269999999999997" classname="LoadReporterModule" name="report_load_srv_fail_to_load_a_reporter_because_of_different_id"/>
+    <testcase time="0.004" classname="LoadReporterModule" name="report_load_ui_returns_a_tagList"/>
   </testsuite>
-  <testsuite name="NewpageBlock" timestamp="2024-06-10T11:01:51Z" hostname="b3a83b209d73" tests="3" skipped="0" failures="0" errors="0" time="0.013">
-    <testcase time="0.00499999999999989" classname="NewpageBlock" name="NewpageBlock_object_can_be_created"/>
+  <testsuite name="NewpageBlock" timestamp="2024-06-10T11:53:09Z" hostname="074d775733bc" tests="3" skipped="0" failures="0" errors="0" time="0.013">
+    <testcase time="0.00500000000000034" classname="NewpageBlock" name="NewpageBlock_object_can_be_created"/>
     <testcase time="0.004" classname="NewpageBlock" name="new_returns_an_object_of_type_NewpageBlock"/>
     <testcase time="0.004" classname="NewpageBlock" name="set_content_accepts_a_string"/>
   </testsuite>
-  <testsuite name="PictureBlock" timestamp="2024-06-10T11:01:51Z" hostname="b3a83b209d73" tests="23" skipped="0" failures="0" errors="0" time="0.493">
+  <testsuite name="PictureBlock" timestamp="2024-06-10T11:53:09Z" hostname="074d775733bc" tests="23" skipped="0" failures="0" errors="0" time="0.499">
     <testcase time="0.00499999999999989" classname="PictureBlock" name="PictureBlock_object_can_be_created"/>
-    <testcase time="0.004" classname="PictureBlock" name="new_returns_an_object_of_type_PictureBlock"/>
-    <testcase time="0.0430000000000001" classname="PictureBlock" name="set_content_accepts_a_plot_object"/>
-    <testcase time="0.00600000000000023" classname="PictureBlock" name="set_content_asserts_the_argument_is_a_plot"/>
-    <testcase time="0.0379999999999998" classname="PictureBlock" name="set_content_returns_the_PictureBlock_object"/>
+    <testcase time="0.00499999999999989" classname="PictureBlock" name="new_returns_an_object_of_type_PictureBlock"/>
+    <testcase time="0.0419999999999998" classname="PictureBlock" name="set_content_accepts_a_plot_object"/>
+    <testcase time="0.00700000000000012" classname="PictureBlock" name="set_content_asserts_the_argument_is_a_plot"/>
+    <testcase time="0.0390000000000001" classname="PictureBlock" name="set_content_returns_the_PictureBlock_object"/>
     <testcase time="0.0539999999999998" classname="PictureBlock" name="set_content_catches_a_file_with_the_600x800_size"/>
-    <testcase time="0.0340000000000003" classname="PictureBlock" name="set_content_catches_a_file_with_a_custom_size"/>
-    <testcase time="0.004" classname="PictureBlock" name="get_content_returns_character_0_on_a_newly_initialized_PictureBlock"/>
-    <testcase time="0.00300000000000011" classname="PictureBlock" name="set_title_accepts_a_string"/>
-    <testcase time="0.00699999999999967" classname="PictureBlock" name="set_title_asserts_the_argument_is_string"/>
-    <testcase time="0.00300000000000011" classname="PictureBlock" name="set_title_returns_self"/>
-    <testcase time="0.004" classname="PictureBlock" name="get_title_returns_the_set_title"/>
+    <testcase time="0.036" classname="PictureBlock" name="set_content_catches_a_file_with_a_custom_size"/>
+    <testcase time="0.00300000000000011" classname="PictureBlock" name="get_content_returns_character_0_on_a_newly_initialized_PictureBlock"/>
+    <testcase time="0.004" classname="PictureBlock" name="set_title_accepts_a_string"/>
+    <testcase time="0.00599999999999978" classname="PictureBlock" name="set_title_asserts_the_argument_is_string"/>
+    <testcase time="0.004" classname="PictureBlock" name="set_title_returns_self"/>
+    <testcase time="0.00300000000000011" classname="PictureBlock" name="get_title_returns_the_set_title"/>
     <testcase time="0.00099999999999989" classname="PictureBlock" name="get_title_returns_the_set_title"/>
     <testcase time="0.00300000000000011" classname="PictureBlock" name="set_dim_accepts_an_array_of_two_numeric_values"/>
-    <testcase time="0.00700000000000012" classname="PictureBlock" name="set_dim_asserts_the_argument_is_an_array_of_two_numeric_values"/>
+    <testcase time="0.00600000000000023" classname="PictureBlock" name="set_dim_asserts_the_argument_is_an_array_of_two_numeric_values"/>
     <testcase time="0.00499999999999989" classname="PictureBlock" name="set_dim_asserts_the_argument_is_an_array_of_two_numeric_values"/>
-    <testcase time="0.00800000000000001" classname="PictureBlock" name="set_dim_returns_self"/>
-    <testcase time="0.00599999999999978" classname="PictureBlock" name="set_content_raises_error_if_the_content_is_not_of_the_supported_type"/>
-    <testcase time="0.0380000000000003" classname="PictureBlock" name="set_content_accepts_a_ggplot_object"/>
-    <testcase time="0.0379999999999998" classname="PictureBlock" name="set_content_accepts_a_grob_object"/>
-    <testcase time="0.0980000000000003" classname="PictureBlock" name="set_content_accepts_a_trellis_object"/>
+    <testcase time="0.00700000000000012" classname="PictureBlock" name="set_dim_returns_self"/>
+    <testcase time="0.00700000000000012" classname="PictureBlock" name="set_content_raises_error_if_the_content_is_not_of_the_supported_type"/>
+    <testcase time="0.0379999999999998" classname="PictureBlock" name="set_content_accepts_a_ggplot_object"/>
+    <testcase time="0.0390000000000001" classname="PictureBlock" name="set_content_accepts_a_grob_object"/>
+    <testcase time="0.0989999999999998" classname="PictureBlock" name="set_content_accepts_a_trellis_object"/>
     <testcase time="0.04" classname="PictureBlock" name="to_list_returns_a_named_list_with_a_one_field_a_proper_path"/>
-    <testcase time="0.0439999999999996" classname="PictureBlock" name="from_list_after_to_list_to_save_and_retrive"/>
+    <testcase time="0.0460000000000003" classname="PictureBlock" name="from_list_after_to_list_to_save_and_retrive"/>
   </testsuite>
-  <testsuite name="PreviewerReportModule" timestamp="2024-06-10T11:01:51Z" hostname="b3a83b209d73" tests="16" skipped="0" failures="0" errors="0" time="1.051">
-    <testcase time="0.365" classname="PreviewerReportModule" name="reporter_previewer_srv_render_and_downlaod_a_document"/>
-    <testcase time="0.00700000000000012" classname="PreviewerReportModule" name="reporter_previewer_srv_render_and_downlaod_a_document"/>
+  <testsuite name="PreviewerReportModule" timestamp="2024-06-10T11:53:10Z" hostname="074d775733bc" tests="16" skipped="0" failures="0" errors="0" time="1.133">
+    <testcase time="0.383" classname="PreviewerReportModule" name="reporter_previewer_srv_render_and_downlaod_a_document"/>
+    <testcase time="0.00800000000000001" classname="PreviewerReportModule" name="reporter_previewer_srv_render_and_downlaod_a_document"/>
     <testcase time="0.00299999999999967" classname="PreviewerReportModule" name="reporter_previewer_srv_render_and_downlaod_a_document"/>
-    <testcase time="0.0210000000000004" classname="PreviewerReportModule" name="reporter_previewer_srv_subset_of_rmd_yaml_args"/>
+    <testcase time="0.0220000000000002" classname="PreviewerReportModule" name="reporter_previewer_srv_subset_of_rmd_yaml_args"/>
     <testcase time="0.016" classname="PreviewerReportModule" name="reporter_previewer_srv_subset_of_rmd_yaml_args"/>
-    <testcase time="0.02" classname="PreviewerReportModule" name="reporter_previewer_srv_subset_of_rmd_yaml_args"/>
+    <testcase time="0.0209999999999999" classname="PreviewerReportModule" name="reporter_previewer_srv_subset_of_rmd_yaml_args"/>
+    <testcase time="0.0139999999999998" classname="PreviewerReportModule" name="reporter_previewer_srv_subset_of_rmd_yaml_args"/>
     <testcase time="0.012" classname="PreviewerReportModule" name="reporter_previewer_srv_subset_of_rmd_yaml_args"/>
-    <testcase time="0.012" classname="PreviewerReportModule" name="reporter_previewer_srv_subset_of_rmd_yaml_args"/>
-    <testcase time="0.012" classname="PreviewerReportModule" name="reporter_previewer_srv_subset_of_rmd_yaml_args"/>
-    <testcase time="0.0989999999999998" classname="PreviewerReportModule" name="reporter_previewer_srv_remove_a_card"/>
-    <testcase time="0.151" classname="PreviewerReportModule" name="reporter_previewer_srv_up_with_first_card_and_down_with_last_card_does_not_induce_change"/>
-    <testcase time="0.0189999999999997" classname="PreviewerReportModule" name="reporter_previewer_srv_up_with_first_card_and_down_with_last_card_does_not_induce_change"/>
-    <testcase time="0.168" classname="PreviewerReportModule" name="reporter_previewer_srv_card_up_and_down_compensate"/>
-    <testcase time="0.069" classname="PreviewerReportModule" name="reporter_previewer_srv_card_down"/>
-    <testcase time="0.0670000000000002" classname="PreviewerReportModule" name="reporter_previewer_srv_card_up"/>
+    <testcase time="0.0140000000000002" classname="PreviewerReportModule" name="reporter_previewer_srv_subset_of_rmd_yaml_args"/>
+    <testcase time="0.118" classname="PreviewerReportModule" name="reporter_previewer_srv_remove_a_card"/>
+    <testcase time="0.161" classname="PreviewerReportModule" name="reporter_previewer_srv_up_with_first_card_and_down_with_last_card_does_not_induce_change"/>
+    <testcase time="0.0260000000000002" classname="PreviewerReportModule" name="reporter_previewer_srv_up_with_first_card_and_down_with_last_card_does_not_induce_change"/>
+    <testcase time="0.177" classname="PreviewerReportModule" name="reporter_previewer_srv_card_up_and_down_compensate"/>
+    <testcase time="0.0739999999999998" classname="PreviewerReportModule" name="reporter_previewer_srv_card_down"/>
+    <testcase time="0.0739999999999998" classname="PreviewerReportModule" name="reporter_previewer_srv_card_up"/>
     <testcase time="0.00999999999999979" classname="PreviewerReportModule" name="reporter_previewer_ui_returns_a_tagList"/>
   </testsuite>
-  <testsuite name="RcodeBlock" timestamp="2024-06-10T11:01:52Z" hostname="b3a83b209d73" tests="65" skipped="0" failures="0" errors="0" time="0.145">
+  <testsuite name="RcodeBlock" timestamp="2024-06-10T11:53:11Z" hostname="074d775733bc" tests="65" skipped="0" failures="0" errors="0" time="0.156">
     <testcase time="0.00600000000000023" classname="RcodeBlock" name="RcodeBlock_object_can_be_created"/>
     <testcase time="0.00399999999999956" classname="RcodeBlock" name="new_returns_an_object_of_type_RcodeBlock"/>
     <testcase time="0.00300000000000011" classname="RcodeBlock" name="set_content_accepts_a_string"/>
-    <testcase time="0.00700000000000056" classname="RcodeBlock" name="set_content_asserts_the_argument_is_a_string"/>
-    <testcase time="0.00299999999999923" classname="RcodeBlock" name="set_content_returns_the_RcodeBlock_object"/>
+    <testcase time="0.00699999999999967" classname="RcodeBlock" name="set_content_asserts_the_argument_is_a_string"/>
+    <testcase time="0.00400000000000045" classname="RcodeBlock" name="set_content_returns_the_RcodeBlock_object"/>
     <testcase time="0.00300000000000011" classname="RcodeBlock" name="get_content_returns_character_0_on_a_newly_initialized_RcodeBlock"/>
-    <testcase time="0.00300000000000011" classname="RcodeBlock" name="get_content_returns_previously_set_string"/>
+    <testcase time="0.00399999999999956" classname="RcodeBlock" name="get_content_returns_previously_set_string"/>
     <testcase time="0.00499999999999989" classname="RcodeBlock" name="get_available_params_returns_an_array_of_character"/>
-    <testcase time="0.00400000000000045" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
-    <testcase time="0.000999999999999446" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
-    <testcase time="0.00100000000000033" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
+    <testcase time="0.00300000000000011" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
+    <testcase time="0.00200000000000067" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.00199999999999978" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
-    <testcase time="0.00100000000000033" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
+    <testcase time="0.00699999999999967" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.00199999999999978" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.00100000000000033" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.00199999999999978" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.00100000000000033" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.000999999999999446" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.00200000000000067" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
-    <testcase time="0.000999999999999446" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
-    <testcase time="0.00499999999999989" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
-    <testcase time="0.00200000000000067" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
-    <testcase time="0.000999999999999446" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
-    <testcase time="0.00199999999999978" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
-    <testcase time="0.00100000000000033" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
-    <testcase time="0.00199999999999978" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
-    <testcase time="0.00100000000000033" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
-    <testcase time="0.00100000000000033" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
-    <testcase time="0.00199999999999978" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.000999999999999446" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.00200000000000067" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.000999999999999446" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
@@ -150,6 +139,11 @@
     <testcase time="0.00100000000000033" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.000999999999999446" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.00199999999999978" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
+    <testcase time="0.00200000000000067" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
+    <testcase time="0.000999999999999446" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
+    <testcase time="0.00200000000000067" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
+    <testcase time="0.000999999999999446" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
+    <testcase time="0.00199999999999978" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.00100000000000033" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.00199999999999978" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.00200000000000067" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
@@ -162,163 +156,169 @@
     <testcase time="0.00199999999999978" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.00100000000000033" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.00199999999999978" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
+    <testcase time="0.00200000000000067" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
+    <testcase time="0.00699999999999967" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
+    <testcase time="0.00100000000000033" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
+    <testcase time="0.00199999999999978" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
+    <testcase time="0.00199999999999978" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.00100000000000033" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.00199999999999978" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.00100000000000033" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
-    <testcase time="0.00499999999999989" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
     <testcase time="0.00199999999999978" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
-    <testcase time="0.00300000000000011" classname="RcodeBlock" name="set_params_returns_the_RcodeBlock_object"/>
+    <testcase time="0.00199999999999978" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
+    <testcase time="0.00100000000000033" classname="RcodeBlock" name="set_params_accepts_one_of_the_styles_returned_by_get_available_params"/>
+    <testcase time="0.00399999999999956" classname="RcodeBlock" name="set_params_returns_the_RcodeBlock_object"/>
     <testcase time="0.00400000000000045" classname="RcodeBlock" name="to_list_returns_a_two_field_named_list"/>
     <testcase time="0.00800000000000001" classname="RcodeBlock" name="from_list_returns_a_similar_output_to_set_content"/>
-    <testcase time="0.00800000000000001" classname="RcodeBlock" name="from_list_after_to_list_to_save_and_retrive"/>
+    <testcase time="0.00899999999999945" classname="RcodeBlock" name="from_list_after_to_list_to_save_and_retrive"/>
   </testsuite>
-  <testsuite name="Renderer" timestamp="2024-06-10T11:01:52Z" hostname="b3a83b209d73" tests="5" skipped="0" failures="0" errors="0" time="3.085">
-    <testcase time="0.00599999999999934" classname="Renderer" name="Renderer_object_can_be_created"/>
-    <testcase time="0.00400000000000045" classname="Renderer" name="new_returns_an_object_of_type_Renderer"/>
-    <testcase time="2.625" classname="Renderer" name="renderRmd_asserts_the_argument_is_a_list_of_TextBlocks_PictureBlock_NewpageBlock_TableBlock"/>
-    <testcase time="0.444" classname="Renderer" name="render_returns_the_same_path_as_get_last_output_file"/>
+  <testsuite name="Renderer" timestamp="2024-06-10T11:53:11Z" hostname="074d775733bc" tests="5" skipped="0" failures="0" errors="0" time="3.261">
+    <testcase time="0.00600000000000023" classname="Renderer" name="Renderer_object_can_be_created"/>
+    <testcase time="0.00499999999999989" classname="Renderer" name="new_returns_an_object_of_type_Renderer"/>
+    <testcase time="2.802" classname="Renderer" name="renderRmd_asserts_the_argument_is_a_list_of_TextBlocks_PictureBlock_NewpageBlock_TableBlock"/>
+    <testcase time="0.441999999999999" classname="Renderer" name="render_returns_the_same_path_as_get_last_output_file"/>
     <testcase time="0.00600000000000023" classname="Renderer" name="render_returns_the_same_path_as_get_last_output_file"/>
   </testsuite>
-  <testsuite name="ReportCard" timestamp="2024-06-10T11:01:55Z" hostname="b3a83b209d73" tests="31" skipped="0" failures="0" errors="0" time="4.494">
-    <testcase time="0.00599999999999934" classname="ReportCard" name="ReportCard_object_can_be_created"/>
-    <testcase time="0.00400000000000045" classname="ReportCard" name="new_returns_an_object_of_type_ReportCard"/>
-    <testcase time="0.00399999999999956" classname="ReportCard" name="append_text_accepts_a_character"/>
+  <testsuite name="ReportCard" timestamp="2024-06-10T11:53:14Z" hostname="074d775733bc" tests="31" skipped="0" failures="0" errors="0" time="4.469">
+    <testcase time="0.00600000000000023" classname="ReportCard" name="ReportCard_object_can_be_created"/>
+    <testcase time="0.00399999999999956" classname="ReportCard" name="new_returns_an_object_of_type_ReportCard"/>
+    <testcase time="0.00400000000000045" classname="ReportCard" name="append_text_accepts_a_character"/>
     <testcase time="0.00300000000000011" classname="ReportCard" name="append_text_returns_self"/>
-    <testcase time="2.115" classname="ReportCard" name="append_table_accepts_a_data.frame"/>
-    <testcase time="1.922" classname="ReportCard" name="append_table_returns_self"/>
-    <testcase time="0.0419999999999998" classname="ReportCard" name="append_plot_returns_self"/>
-    <testcase time="0.048" classname="ReportCard" name="append_plot_accepts_a_ggplot"/>
-    <testcase time="0.0340000000000007" classname="ReportCard" name="append_plot_accepts_a_ggplot_with_a_dim"/>
-    <testcase time="0.00399999999999956" classname="ReportCard" name="append_rcode_accepts_a_character"/>
-    <testcase time="0.00300000000000011" classname="ReportCard" name="append_rcode_returns_self"/>
-    <testcase time="0.0400000000000009" classname="ReportCard" name="get_content_returns_a_list_of_ContentBlock_objects"/>
-    <testcase time="0.00599999999999845" classname="ReportCard" name="get_metadata_returns_a_list_of_mixed_objects"/>
+    <testcase time="1.989" classname="ReportCard" name="append_table_accepts_a_data.frame"/>
+    <testcase time="2.013" classname="ReportCard" name="append_table_returns_self"/>
+    <testcase time="0.0429999999999993" classname="ReportCard" name="append_plot_returns_self"/>
+    <testcase time="0.0410000000000004" classname="ReportCard" name="append_plot_accepts_a_ggplot"/>
+    <testcase time="0.0419999999999998" classname="ReportCard" name="append_plot_accepts_a_ggplot_with_a_dim"/>
+    <testcase time="0.00400000000000134" classname="ReportCard" name="append_rcode_accepts_a_character"/>
+    <testcase time="0.00399999999999956" classname="ReportCard" name="append_rcode_returns_self"/>
+    <testcase time="0.0419999999999998" classname="ReportCard" name="get_content_returns_a_list_of_ContentBlock_objects"/>
+    <testcase time="0.00600000000000023" classname="ReportCard" name="get_metadata_returns_a_list_of_mixed_objects"/>
     <testcase time="0.00300000000000011" classname="ReportCard" name="get_metadata_returns_a_named_list"/>
-    <testcase time="0.00400000000000134" classname="ReportCard" name="append_metadata_returns_an_object_of_type_ReportCard"/>
-    <testcase time="0.00300000000000011" classname="ReportCard" name="append_metadata_accepts_a_character_key_and_a_character_or_list_value"/>
+    <testcase time="0.00300000000000011" classname="ReportCard" name="append_metadata_returns_an_object_of_type_ReportCard"/>
+    <testcase time="0.00399999999999956" classname="ReportCard" name="append_metadata_accepts_a_character_key_and_a_character_or_list_value"/>
     <testcase time="0.000999999999999446" classname="ReportCard" name="append_metadata_accepts_a_character_key_and_a_character_or_list_value"/>
     <testcase time="0.00699999999999967" classname="ReportCard" name="append_metadata_throws_error_if_key_is_not_character"/>
-    <testcase time="0.00399999999999956" classname="ReportCard" name="append_metadata_throws_error_if_key_is_not_character"/>
-    <testcase time="0.00700000000000145" classname="ReportCard" name="append_metadata_throws_error_if_value_if_missing"/>
-    <testcase time="0.00599999999999845" classname="ReportCard" name="append_metadata_throws_error_if_key_is_missing"/>
-    <testcase time="0.00600000000000023" classname="ReportCard" name="append_metadata_throws_error_if_keys_are_duplicated"/>
-    <testcase time="0.0709999999999997" classname="ReportCard" name="The_deep_copy_constructor_copies_the_file_in_the_content_blocks"/>
-    <testcase time="0.0449999999999999" classname="ReportCard" name="The_deep_copy_constructor_copies_the_non_ContentBlock_objects"/>
-    <testcase time="0.00100000000000122" classname="ReportCard" name="The_deep_copy_constructor_copies_the_non_ContentBlock_objects"/>
-    <testcase time="0.00399999999999956" classname="ReportCard" name="setting_and_getting_a_name_to_the_ReportCard"/>
+    <testcase time="0.00400000000000134" classname="ReportCard" name="append_metadata_throws_error_if_key_is_not_character"/>
+    <testcase time="0.00699999999999967" classname="ReportCard" name="append_metadata_throws_error_if_value_if_missing"/>
+    <testcase time="0.00600000000000023" classname="ReportCard" name="append_metadata_throws_error_if_key_is_missing"/>
+    <testcase time="0.00699999999999967" classname="ReportCard" name="append_metadata_throws_error_if_keys_are_duplicated"/>
+    <testcase time="0.0640000000000001" classname="ReportCard" name="The_deep_copy_constructor_copies_the_file_in_the_content_blocks"/>
+    <testcase time="0.0470000000000006" classname="ReportCard" name="The_deep_copy_constructor_copies_the_non_ContentBlock_objects"/>
+    <testcase time="0.000999999999999446" classname="ReportCard" name="The_deep_copy_constructor_copies_the_non_ContentBlock_objects"/>
+    <testcase time="0.00999999999999979" classname="ReportCard" name="setting_and_getting_a_name_to_the_ReportCard"/>
     <testcase time="0.000999999999999446" classname="ReportCard" name="setting_and_getting_a_name_to_the_ReportCard"/>
-    <testcase time="0.0890000000000004" classname="ReportCard" name="to_list_internally_triggers_to_list_on_each_Block"/>
+    <testcase time="0.0910000000000011" classname="ReportCard" name="to_list_internally_triggers_to_list_on_each_Block"/>
     <testcase time="0.00300000000000011" classname="ReportCard" name="to_list_internally_triggers_to_list_on_each_Block"/>
-    <testcase time="0.00600000000000023" classname="ReportCard" name="from_list"/>
-    <testcase time="0.00200000000000067" classname="ReportCard" name="from_list"/>
+    <testcase time="0.00699999999999967" classname="ReportCard" name="from_list"/>
+    <testcase time="0.00199999999999889" classname="ReportCard" name="from_list"/>
   </testsuite>
-  <testsuite name="Reporter" timestamp="2024-06-10T11:02:00Z" hostname="b3a83b209d73" tests="42" skipped="0" failures="0" errors="0" time="3.299">
-    <testcase time="0.00599999999999845" classname="Reporter" name="Reporter_object_can_be_created"/>
+  <testsuite name="Reporter" timestamp="2024-06-10T11:53:19Z" hostname="074d775733bc" tests="42" skipped="0" failures="0" errors="0" time="3.376">
+    <testcase time="0.00600000000000023" classname="Reporter" name="Reporter_object_can_be_created"/>
     <testcase time="0.00500000000000078" classname="Reporter" name="new_returns_an_object_of_type_Reporter"/>
-    <testcase time="3.05" classname="Reporter" name="default_reporter_id"/>
+    <testcase time="3.131" classname="Reporter" name="default_reporter_id"/>
     <testcase time="0.00399999999999956" classname="Reporter" name="set_id_sets_the_reporter_id_and_returns_reporter"/>
     <testcase time="0.000999999999999446" classname="Reporter" name="set_id_sets_the_reporter_id_and_returns_reporter"/>
     <testcase time="0.00300000000000011" classname="Reporter" name="get_cards_returns_the_same_cards_which_was_added_to_reporter"/>
     <testcase time="0.00300000000000011" classname="Reporter" name="get_blocks_returns_the_same_blocks_which_was_added_to_reporter_sep_NULL"/>
-    <testcase time="0.0129999999999999" classname="Reporter" name="get_blocks_by_default_adds_NewpageBlock_new_between_cards"/>
-    <testcase time="0.00399999999999956" classname="Reporter" name="get_blocks_and_get_cards_return_empty_list_by_default"/>
-    <testcase time="0.00200000000000067" classname="Reporter" name="get_blocks_and_get_cards_return_empty_list_by_default"/>
+    <testcase time="0.00699999999999967" classname="Reporter" name="get_blocks_by_default_adds_NewpageBlock_new_between_cards"/>
+    <testcase time="0.00400000000000134" classname="Reporter" name="get_blocks_and_get_cards_return_empty_list_by_default"/>
+    <testcase time="0.000999999999999446" classname="Reporter" name="get_blocks_and_get_cards_return_empty_list_by_default"/>
     <testcase time="0.0449999999999999" classname="Reporter" name="The_deep_copy_constructor_copies_the_content_files_to_new_files"/>
-    <testcase time="0.0139999999999993" classname="Reporter" name="swap_cards"/>
-    <testcase time="0.00900000000000034" classname="Reporter" name="reactive_add_card"/>
-    <testcase time="0.00200000000000067" classname="Reporter" name="reactive_add_card"/>
+    <testcase time="0.0150000000000006" classname="Reporter" name="swap_cards"/>
+    <testcase time="0.00999999999999979" classname="Reporter" name="reactive_add_card"/>
     <testcase time="0.00199999999999889" classname="Reporter" name="reactive_add_card"/>
+    <testcase time="0.00200000000000067" classname="Reporter" name="reactive_add_card"/>
     <testcase time="0.00300000000000011" classname="Reporter" name="append_metadata_accept_only_named_list"/>
     <testcase time="0.00500000000000078" classname="Reporter" name="append_metadata_accept_only_named_list"/>
     <testcase time="0.00399999999999956" classname="Reporter" name="append_metadata_accept_only_named_list"/>
     <testcase time="0.00699999999999967" classname="Reporter" name="append_metadata_accept_only_unique_names_which_could_not_be_repeated"/>
-    <testcase time="0.00100000000000122" classname="Reporter" name="append_metadata_accept_only_unique_names_which_could_not_be_repeated"/>
-    <testcase time="0.00499999999999901" classname="Reporter" name="append_metadata_accept_only_unique_names_which_could_not_be_repeated"/>
-    <testcase time="0.00300000000000011" classname="Reporter" name="get_metadata"/>
-    <testcase time="0.00200000000000067" classname="Reporter" name="get_metadata"/>
-    <testcase time="0.00300000000000011" classname="Reporter" name="from_reporter_returns_identical_equal_object_from_the_same_reporter"/>
-    <testcase time="0.00499999999999901" classname="Reporter" name="from_reporter_does_not_return_identical_equal_object_form_other_reporter"/>
-    <testcase time="0.00400000000000134" classname="Reporter" name="from_reporter_persists_the_cards_structure"/>
-    <testcase time="0.00499999999999901" classname="Reporter" name="from_reporter_persists_the_reactive_add_card_count"/>
-    <testcase time="0.00600000000000023" classname="Reporter" name="to_list_require_the_existing_directory_path"/>
-    <testcase time="0.00399999999999956" classname="Reporter" name="to_list_require_the_existing_directory_path"/>
-    <testcase time="0.00399999999999956" classname="Reporter" name="to_list_returns_a_list."/>
-    <testcase time="0.00900000000000034" classname="Reporter" name="to_list_and_from_list_could_be_used_to_save_and_retrive_a_Reporter_"/>
-    <testcase time="0.00699999999999967" classname="Reporter" name="to_list_and_from_list_could_be_used_to_save_and_retrive_a_Reporter_"/>
+    <testcase time="0.00200000000000067" classname="Reporter" name="append_metadata_accept_only_unique_names_which_could_not_be_repeated"/>
+    <testcase time="0.00399999999999956" classname="Reporter" name="append_metadata_accept_only_unique_names_which_could_not_be_repeated"/>
+    <testcase time="0.00399999999999956" classname="Reporter" name="get_metadata"/>
+    <testcase time="0.000999999999999446" classname="Reporter" name="get_metadata"/>
     <testcase time="0.00400000000000134" classname="Reporter" name="from_reporter_returns_identical_equal_object_from_the_same_reporter"/>
     <testcase time="0.00499999999999901" classname="Reporter" name="from_reporter_does_not_return_identical_equal_object_form_other_reporter"/>
+    <testcase time="0.00400000000000134" classname="Reporter" name="from_reporter_persists_the_cards_structure"/>
+    <testcase time="0.00399999999999956" classname="Reporter" name="from_reporter_persists_the_reactive_add_card_count"/>
+    <testcase time="0.00699999999999967" classname="Reporter" name="to_list_require_the_existing_directory_path"/>
+    <testcase time="0.00900000000000034" classname="Reporter" name="to_list_require_the_existing_directory_path"/>
+    <testcase time="0.00600000000000023" classname="Reporter" name="to_list_returns_a_list."/>
+    <testcase time="0.00899999999999856" classname="Reporter" name="to_list_and_from_list_could_be_used_to_save_and_retrive_a_Reporter_"/>
+    <testcase time="0.00700000000000145" classname="Reporter" name="to_list_and_from_list_could_be_used_to_save_and_retrive_a_Reporter_"/>
+    <testcase time="0.00399999999999956" classname="Reporter" name="from_reporter_returns_identical_equal_object_from_the_same_reporter"/>
+    <testcase time="0.00600000000000023" classname="Reporter" name="from_reporter_does_not_return_identical_equal_object_form_other_reporter"/>
     <testcase time="0.00399999999999956" classname="Reporter" name="from_reporter_persists_the_cards_structure"/>
-    <testcase time="0.00400000000000134" classname="Reporter" name="from_reporter_persists_the_reactive_add_card_count"/>
-    <testcase time="0.00600000000000023" classname="Reporter" name="to_jsondir_require_the_existing_directory_path"/>
-    <testcase time="0.00499999999999901" classname="Reporter" name="to_jsondir_require_the_existing_directory_path"/>
+    <testcase time="0.00399999999999956" classname="Reporter" name="from_reporter_persists_the_reactive_add_card_count"/>
+    <testcase time="0.00699999999999967" classname="Reporter" name="to_jsondir_require_the_existing_directory_path"/>
+    <testcase time="0.00400000000000134" classname="Reporter" name="to_jsondir_require_the_existing_directory_path"/>
     <testcase time="0.00399999999999956" classname="Reporter" name="to_jsondir_returns_the_same_dir_it_was_provided_to_it"/>
-    <testcase time="0.00300000000000011" classname="Reporter" name="from_jsondir_returns_identical_equal_object"/>
-    <testcase time="0.0220000000000002" classname="Reporter" name="to_jsondir_and_from_jsondir_could_be_used_to_save_and_retrive_a_Reporter"/>
-    <testcase time="0.00200000000000067" classname="Reporter" name="to_jsondir_and_from_jsondir_could_be_used_to_save_and_retrive_a_Reporter"/>
+    <testcase time="0.00399999999999956" classname="Reporter" name="from_jsondir_returns_identical_equal_object"/>
+    <testcase time="0.0140000000000011" classname="Reporter" name="to_jsondir_and_from_jsondir_could_be_used_to_save_and_retrive_a_Reporter"/>
+    <testcase time="0.000999999999999446" classname="Reporter" name="to_jsondir_and_from_jsondir_could_be_used_to_save_and_retrive_a_Reporter"/>
   </testsuite>
-  <testsuite name="ResetModule" timestamp="2024-06-10T11:02:03Z" hostname="b3a83b209d73" tests="2" skipped="0" failures="0" errors="0" time="0.122">
+  <testsuite name="ResetModule" timestamp="2024-06-10T11:53:22Z" hostname="074d775733bc" tests="2" skipped="0" failures="0" errors="0" time="0.122">
     <testcase time="0.103999999999999" classname="ResetModule" name="simple_reporter_srv_reset_a_reporter"/>
     <testcase time="0.0180000000000007" classname="ResetModule" name="simple_reporter_srv_reset_a_reporter"/>
   </testsuite>
-  <testsuite name="SimpleReporter" timestamp="2024-06-10T11:02:03Z" hostname="b3a83b209d73" tests="5" skipped="0" failures="0" errors="0" time="0.59">
-    <testcase time="0.343999999999999" classname="SimpleReporter" name="simple_reporter_srv_render_and_downlaod_a_document"/>
-    <testcase time="0.0080000000000009" classname="SimpleReporter" name="simple_reporter_srv_render_and_downlaod_a_document"/>
-    <testcase time="0.00199999999999889" classname="SimpleReporter" name="simple_reporter_srv_render_and_downlaod_a_document"/>
-    <testcase time="0.224" classname="SimpleReporter" name="simple_reporter_srv_add_a_Card_to_Reporter"/>
+  <testsuite name="SimpleReporter" timestamp="2024-06-10T11:53:22Z" hostname="074d775733bc" tests="5" skipped="0" failures="0" errors="0" time="0.573">
+    <testcase time="0.328999999999999" classname="SimpleReporter" name="simple_reporter_srv_render_and_downlaod_a_document"/>
+    <testcase time="0.00700000000000145" classname="SimpleReporter" name="simple_reporter_srv_render_and_downlaod_a_document"/>
+    <testcase time="0.00300000000000011" classname="SimpleReporter" name="simple_reporter_srv_render_and_downlaod_a_document"/>
+    <testcase time="0.221999999999998" classname="SimpleReporter" name="simple_reporter_srv_add_a_Card_to_Reporter"/>
     <testcase time="0.0120000000000005" classname="SimpleReporter" name="simple_reporter_ui_returns_a_shiny.tag"/>
   </testsuite>
-  <testsuite name="TableBlock" timestamp="2024-06-10T11:02:04Z" hostname="b3a83b209d73" tests="11" skipped="0" failures="0" errors="0" time="12.902">
+  <testsuite name="TableBlock" timestamp="2024-06-10T11:53:23Z" hostname="074d775733bc" tests="11" skipped="0" failures="0" errors="0" time="13.294">
     <testcase time="0.00600000000000023" classname="TableBlock" name="TableBlock_object_can_be_created"/>
-    <testcase time="0.00499999999999901" classname="TableBlock" name="new_returns_an_object_of_type_TableBlock"/>
-    <testcase time="2.012" classname="TableBlock" name="set_content_accepts_a_table_object"/>
+    <testcase time="0.00500000000000256" classname="TableBlock" name="new_returns_an_object_of_type_TableBlock"/>
+    <testcase time="2.118" classname="TableBlock" name="set_content_accepts_a_table_object"/>
     <testcase time="0.00700000000000145" classname="TableBlock" name="set_content_asserts_the_argument_is_a_plot"/>
-    <testcase time="2.072" classname="TableBlock" name="set_content_returns_the_TableBlock_object"/>
-    <testcase time="0.00499999999999901" classname="TableBlock" name="get_content_returns_character_0_on_a_newly_initialized_TableBlock"/>
-    <testcase time="2.103" classname="TableBlock" name="to_list_returns_a_named_list_with_a_one_field_a_proper_file_name"/>
-    <testcase time="2.095" classname="TableBlock" name="to_list_returns_a_named_list_with_a_one_field_a_proper_path"/>
-    <testcase time="2.134" classname="TableBlock" name="from_list_after_to_list_to_save_and_retrive"/>
-    <testcase time="2.287" classname="TableBlock" name="set_content_supports_data.frame_object"/>
-    <testcase time="0.176000000000002" classname="TableBlock" name="set_content_supports_rtables_object"/>
+    <testcase time="2.141" classname="TableBlock" name="set_content_returns_the_TableBlock_object"/>
+    <testcase time="0.00400000000000134" classname="TableBlock" name="get_content_returns_character_0_on_a_newly_initialized_TableBlock"/>
+    <testcase time="2.177" classname="TableBlock" name="to_list_returns_a_named_list_with_a_one_field_a_proper_file_name"/>
+    <testcase time="2.276" classname="TableBlock" name="to_list_returns_a_named_list_with_a_one_field_a_proper_path"/>
+    <testcase time="2.445" classname="TableBlock" name="from_list_after_to_list_to_save_and_retrive"/>
+    <testcase time="1.937" classname="TableBlock" name="set_content_supports_data.frame_object"/>
+    <testcase time="0.177999999999997" classname="TableBlock" name="set_content_supports_rtables_object"/>
   </testsuite>
-  <testsuite name="TextBlock" timestamp="2024-06-10T11:02:17Z" hostname="b3a83b209d73" tests="18" skipped="0" failures="0" errors="0" time="0.076">
+  <testsuite name="TextBlock" timestamp="2024-06-10T11:53:36Z" hostname="074d775733bc" tests="18" skipped="0" failures="0" errors="0" time="0.077">
     <testcase time="0.00600000000000023" classname="TextBlock" name="TextBlock_object_can_be_created"/>
-    <testcase time="0.00499999999999901" classname="TextBlock" name="new_returns_an_object_of_type_TextBlock"/>
-    <testcase time="0.00300000000000011" classname="TextBlock" name="set_content_accepts_a_string"/>
+    <testcase time="0.00500000000000256" classname="TextBlock" name="new_returns_an_object_of_type_TextBlock"/>
+    <testcase time="0.00299999999999656" classname="TextBlock" name="set_content_accepts_a_string"/>
     <testcase time="0.00700000000000145" classname="TextBlock" name="set_content_asserts_the_argument_is_a_string"/>
-    <testcase time="0.00300000000000011" classname="TextBlock" name="set_content_returns_the_TextBlock_object"/>
-    <testcase time="0.00299999999999656" classname="TextBlock" name="get_content_returns_character_0_on_a_newly_initialized_TextBlock"/>
-    <testcase time="0.00400000000000134" classname="TextBlock" name="get_content_returns_previously_set_string"/>
-    <testcase time="0.00400000000000134" classname="TextBlock" name="get_available_styles_returns_an_array_of_character"/>
-    <testcase time="0.00399999999999778" classname="TextBlock" name="set_style_accepts_one_of_the_styles_returned_by_get_available_styles"/>
-    <testcase time="0.00100000000000122" classname="TextBlock" name="set_style_accepts_one_of_the_styles_returned_by_get_available_styles"/>
+    <testcase time="0.00400000000000134" classname="TextBlock" name="set_content_returns_the_TextBlock_object"/>
+    <testcase time="0.00300000000000011" classname="TextBlock" name="get_content_returns_character_0_on_a_newly_initialized_TextBlock"/>
+    <testcase time="0.00399999999999778" classname="TextBlock" name="get_content_returns_previously_set_string"/>
+    <testcase time="0.00500000000000256" classname="TextBlock" name="get_available_styles_returns_an_array_of_character"/>
+    <testcase time="0.00300000000000011" classname="TextBlock" name="set_style_accepts_one_of_the_styles_returned_by_get_available_styles"/>
     <testcase time="0.00199999999999889" classname="TextBlock" name="set_style_accepts_one_of_the_styles_returned_by_get_available_styles"/>
-    <testcase time="0.00100000000000122" classname="TextBlock" name="set_style_accepts_one_of_the_styles_returned_by_get_available_styles"/>
-    <testcase time="0.00600000000000023" classname="TextBlock" name="set_style_asserts_the_argument_is_one_of_styles_in_get_available_styles"/>
-    <testcase time="0.00400000000000134" classname="TextBlock" name="set_style_returns_the_TextBlock_object"/>
+    <testcase time="0.000999999999997669" classname="TextBlock" name="set_style_accepts_one_of_the_styles_returned_by_get_available_styles"/>
+    <testcase time="0.00200000000000244" classname="TextBlock" name="set_style_accepts_one_of_the_styles_returned_by_get_available_styles"/>
+    <testcase time="0.0069999999999979" classname="TextBlock" name="set_style_asserts_the_argument_is_one_of_styles_in_get_available_styles"/>
+    <testcase time="0.00300000000000011" classname="TextBlock" name="set_style_returns_the_TextBlock_object"/>
     <testcase time="0.00300000000000011" classname="TextBlock" name="get_style_returns_the_set_style"/>
-    <testcase time="0.00399999999999778" classname="TextBlock" name="to_list_returns_a_two_field_named_list"/>
-    <testcase time="0.00799999999999912" classname="TextBlock" name="from_list_returns_a_similar_output_to_set_content"/>
-    <testcase time="0.00800000000000267" classname="TextBlock" name="from_list_after_to_list_to_save_and_retrive"/>
+    <testcase time="0.00400000000000134" classname="TextBlock" name="to_list_returns_a_two_field_named_list"/>
+    <testcase time="0.0069999999999979" classname="TextBlock" name="from_list_returns_a_similar_output_to_set_content"/>
+    <testcase time="0.00799999999999912" classname="TextBlock" name="from_list_after_to_list_to_save_and_retrive"/>
   </testsuite>
-  <testsuite name="addCardModule" timestamp="2024-06-10T11:02:17Z" hostname="b3a83b209d73" tests="11" skipped="0" failures="0" errors="0" time="0.272">
-    <testcase time="0.0259999999999998" classname="addCardModule" name="add_card_button_srv_add_a_Card_to_the_Reporter"/>
-    <testcase time="0.00600000000000023" classname="addCardModule" name="add_card_button_ui_returns_a_tagList"/>
-    <testcase time="0.0719999999999992" classname="addCardModule" name="add_card_button_srv_supports_custom_ReportCard_classes"/>
-    <testcase time="0.0279999999999987" classname="addCardModule" name="add_card_button_srv_supports_passing_no_default_object_to_the_card"/>
-    <testcase time="0.0210000000000008" classname="addCardModule" name="add_card_button_srv_try_the_card_fun"/>
-    <testcase time="0.0180000000000007" classname="addCardModule" name="add_card_button_srv_try_the_card_fun"/>
-    <testcase time="0.0189999999999984" classname="addCardModule" name="add_card_button_srv_try_the_card_fun"/>
+  <testsuite name="addCardModule" timestamp="2024-06-10T11:53:36Z" hostname="074d775733bc" tests="11" skipped="0" failures="0" errors="0" time="0.289">
+    <testcase time="0.027000000000001" classname="addCardModule" name="add_card_button_srv_add_a_Card_to_the_Reporter"/>
+    <testcase time="0.00700000000000145" classname="addCardModule" name="add_card_button_ui_returns_a_tagList"/>
+    <testcase time="0.0749999999999993" classname="addCardModule" name="add_card_button_srv_supports_custom_ReportCard_classes"/>
+    <testcase time="0.0229999999999997" classname="addCardModule" name="add_card_button_srv_supports_passing_no_default_object_to_the_card"/>
+    <testcase time="0.0279999999999987" classname="addCardModule" name="add_card_button_srv_try_the_card_fun"/>
+    <testcase time="0.0200000000000031" classname="addCardModule" name="add_card_button_srv_try_the_card_fun"/>
+    <testcase time="0.0199999999999996" classname="addCardModule" name="add_card_button_srv_try_the_card_fun"/>
+    <testcase time="0.0239999999999974" classname="addCardModule" name="add_card_button_srv_supports_passing_card_fun_with_any_of_the_2_available_arguments"/>
+    <testcase time="0.0210000000000008" classname="addCardModule" name="add_card_button_srv_supports_passing_card_fun_with_any_of_the_2_available_arguments"/>
     <testcase time="0.022000000000002" classname="addCardModule" name="add_card_button_srv_supports_passing_card_fun_with_any_of_the_2_available_arguments"/>
-    <testcase time="0.0199999999999996" classname="addCardModule" name="add_card_button_srv_supports_passing_card_fun_with_any_of_the_2_available_arguments"/>
-    <testcase time="0.0199999999999996" classname="addCardModule" name="add_card_button_srv_supports_passing_card_fun_with_any_of_the_2_available_arguments"/>
-    <testcase time="0.0199999999999996" classname="addCardModule" name="add_card_button_srv_supports_passing_card_fun_with_any_of_the_2_available_arguments"/>
+    <testcase time="0.0219999999999985" classname="addCardModule" name="add_card_button_srv_supports_passing_card_fun_with_any_of_the_2_available_arguments"/>
   </testsuite>
-  <testsuite name="utils" timestamp="2024-06-10T11:02:17Z" hostname="b3a83b209d73" tests="10" skipped="0" failures="0" errors="1" time="0.424">
-    <testcase time="0.00600000000000023" classname="utils" name="get_bs_version"/>
-    <testcase time="0.00400000000000134" classname="utils" name="panel_item"/>
-    <testcase time="0.135999999999999" classname="utils" name="to_flextable_supported_class_data.frame_"/>
-    <testcase time="0.111000000000001" classname="utils" name="to_flextable_supported_class_rtables_"/>
-    <testcase time="0.134999999999998" classname="utils" name="to_flextable_supported_class_listing_df_">
+  <testsuite name="utils" timestamp="2024-06-10T11:53:36Z" hostname="074d775733bc" tests="10" skipped="0" failures="0" errors="1" time="0.432">
+    <testcase time="0.00700000000000145" classname="utils" name="get_bs_version"/>
+    <testcase time="0.00300000000000011" classname="utils" name="panel_item"/>
+    <testcase time="0.138999999999999" classname="utils" name="to_flextable_supported_class_data.frame_"/>
+    <testcase time="0.116" classname="utils" name="to_flextable_supported_class_rtables_"/>
+    <testcase time="0.134" classname="utils" name="to_flextable_supported_class_listing_df_">
       <error type="error" message="Error in `FUN(X[[i]], ...)`: argument &quot;fontspec&quot; is missing, with no default ('test-utils.R:25:3')">Error in `FUN(X[[i]], ...)`: argument "fontspec" is missing, with no default
 Backtrace:
      ▆
@@ -342,50 +342,50 @@ Backtrace:
  18.                     └─formatters::wrap_txt(xi, max_width, fontspec = fontspec)
  19.                       └─formatters::open_font_dev(fontspec)</error>
     </testcase>
-    <testcase time="0.0250000000000021" classname="utils" name="to_flextable_unsupported_class"/>
+    <testcase time="0.0259999999999998" classname="utils" name="to_flextable_unsupported_class"/>
     <testcase time="0.00399999999999778" classname="utils" name="split_text_block_splits_text_block_into_blocks_no_longer_than_n_lines"/>
     <testcase time="0.00100000000000122" classname="utils" name="split_text_block_splits_text_block_into_blocks_no_longer_than_n_lines"/>
     <testcase time="0.00100000000000122" classname="utils" name="split_text_block_splits_text_block_into_blocks_no_longer_than_n_lines"/>
     <testcase time="0.000999999999997669" classname="utils" name="split_text_block_splits_text_block_into_blocks_no_longer_than_n_lines"/>
   </testsuite>
-  <testsuite name="yaml_utils" timestamp="2024-06-10T11:02:18Z" hostname="b3a83b209d73" tests="38" skipped="0" failures="0" errors="0" time="0.127">
+  <testsuite name="yaml_utils" timestamp="2024-06-10T11:53:37Z" hostname="074d775733bc" tests="38" skipped="0" failures="0" errors="0" time="0.138">
     <testcase time="0.00600000000000023" classname="yaml_utils" name="yaml_quoted_adds_the_quoted_attribute_equal_to_TRUE_"/>
-    <testcase time="0.00300000000000011" classname="yaml_utils" name="yaml_quoted_does_not_modify_the_value_of_the_object"/>
-    <testcase time="0.00600000000000023" classname="yaml_utils" name="conv_str_logi_accept_only_a_string"/>
-    <testcase time="0.00100000000000122" classname="yaml_utils" name="conv_str_logi_accept_only_a_string"/>
+    <testcase time="0.0100000000000016" classname="yaml_utils" name="yaml_quoted_does_not_modify_the_value_of_the_object"/>
+    <testcase time="0.00700000000000145" classname="yaml_utils" name="conv_str_logi_accept_only_a_string"/>
+    <testcase time="0.000999999999997669" classname="yaml_utils" name="conv_str_logi_accept_only_a_string"/>
     <testcase time="0.00300000000000011" classname="yaml_utils" name="conv_str_logi_not_influence_the_regular_character"/>
-    <testcase time="0.00499999999999901" classname="yaml_utils" name="conv_str_logi_character_TRUE_to_logical"/>
+    <testcase time="0.00400000000000134" classname="yaml_utils" name="conv_str_logi_character_TRUE_to_logical"/>
+    <testcase time="0.00300000000000011" classname="yaml_utils" name="conv_str_logi_character_TRUE_to_logical"/>
+    <testcase time="0.00199999999999889" classname="yaml_utils" name="conv_str_logi_character_TRUE_to_logical"/>
+    <testcase time="0.00300000000000011" classname="yaml_utils" name="conv_str_logi_character_TRUE_to_logical"/>
     <testcase time="0.00199999999999889" classname="yaml_utils" name="conv_str_logi_character_TRUE_to_logical"/>
     <testcase time="0.00300000000000011" classname="yaml_utils" name="conv_str_logi_character_TRUE_to_logical"/>
     <testcase time="0.00200000000000244" classname="yaml_utils" name="conv_str_logi_character_TRUE_to_logical"/>
-    <testcase time="0.00199999999999889" classname="yaml_utils" name="conv_str_logi_character_TRUE_to_logical"/>
-    <testcase time="0.00300000000000011" classname="yaml_utils" name="conv_str_logi_character_TRUE_to_logical"/>
-    <testcase time="0.00199999999999889" classname="yaml_utils" name="conv_str_logi_character_TRUE_to_logical"/>
     <testcase time="0.00499999999999901" classname="yaml_utils" name="conv_str_logi_character_FALSE_to_logical"/>
+    <testcase time="0.00199999999999889" classname="yaml_utils" name="conv_str_logi_character_FALSE_to_logical"/>
+    <testcase time="0.00300000000000011" classname="yaml_utils" name="conv_str_logi_character_FALSE_to_logical"/>
+    <testcase time="0.00199999999999889" classname="yaml_utils" name="conv_str_logi_character_FALSE_to_logical"/>
+    <testcase time="0.00300000000000011" classname="yaml_utils" name="conv_str_logi_character_FALSE_to_logical"/>
     <testcase time="0.00200000000000244" classname="yaml_utils" name="conv_str_logi_character_FALSE_to_logical"/>
     <testcase time="0.00300000000000011" classname="yaml_utils" name="conv_str_logi_character_FALSE_to_logical"/>
-    <testcase time="0.00199999999999889" classname="yaml_utils" name="conv_str_logi_character_FALSE_to_logical"/>
-    <testcase time="0.00300000000000011" classname="yaml_utils" name="conv_str_logi_character_FALSE_to_logical"/>
-    <testcase time="0.00199999999999889" classname="yaml_utils" name="conv_str_logi_character_FALSE_to_logical"/>
-    <testcase time="0.00300000000000011" classname="yaml_utils" name="conv_str_logi_character_FALSE_to_logical"/>
-    <testcase time="0.00500000000000256" classname="yaml_utils" name="rmd_outputs_all_returned_out_in_the_rmarkdown_namespace"/>
-    <testcase time="0.0069999999999979" classname="yaml_utils" name="rmd_output_arguments_accepts_only_string_from_possible_rmarkdown_outputs"/>
-    <testcase time="0.00100000000000122" classname="yaml_utils" name="rmd_output_arguments_accepts_only_string_from_possible_rmarkdown_outputs"/>
+    <testcase time="0.00499999999999901" classname="yaml_utils" name="rmd_outputs_all_returned_out_in_the_rmarkdown_namespace"/>
+    <testcase time="0.00700000000000145" classname="yaml_utils" name="rmd_output_arguments_accepts_only_string_from_possible_rmarkdown_outputs"/>
     <testcase time="0.00199999999999889" classname="yaml_utils" name="rmd_output_arguments_accepts_only_string_from_possible_rmarkdown_outputs"/>
-    <testcase time="0.00400000000000134" classname="yaml_utils" name="rmd_output_arguments_returned_all_pdf_document_arguments"/>
-    <testcase time="0.00300000000000011" classname="yaml_utils" name="rmd_output_arguments_returned_all_pdf_document_arguments_and_their_defaults"/>
-    <testcase time="0.0069999999999979" classname="yaml_utils" name="as_yaml_auto_accept_a_named_list_optionally_nested_"/>
-    <testcase time="0.00400000000000134" classname="yaml_utils" name="as_yaml_auto_accept_a_named_list_optionally_nested_"/>
-    <testcase time="0.00100000000000122" classname="yaml_utils" name="as_yaml_auto_accept_a_named_list_optionally_nested_"/>
+    <testcase time="0.00100000000000122" classname="yaml_utils" name="rmd_output_arguments_accepts_only_string_from_possible_rmarkdown_outputs"/>
+    <testcase time="0.00399999999999778" classname="yaml_utils" name="rmd_output_arguments_returned_all_pdf_document_arguments"/>
+    <testcase time="0.00400000000000134" classname="yaml_utils" name="rmd_output_arguments_returned_all_pdf_document_arguments_and_their_defaults"/>
+    <testcase time="0.00600000000000023" classname="yaml_utils" name="as_yaml_auto_accept_a_named_list_optionally_nested_"/>
+    <testcase time="0.00399999999999778" classname="yaml_utils" name="as_yaml_auto_accept_a_named_list_optionally_nested_"/>
+    <testcase time="0.00200000000000244" classname="yaml_utils" name="as_yaml_auto_accept_a_named_list_optionally_nested_"/>
     <testcase time="0.00199999999999889" classname="yaml_utils" name="as_yaml_auto_accept_a_named_list_optionally_nested_"/>
-    <testcase time="0.00400000000000134" classname="yaml_utils" name="as_yaml_auto_works_the_same_as_yaml_as.yaml_for_a_nested_list_when_as_header_is_FALSE"/>
-    <testcase time="0.00299999999999656" classname="yaml_utils" name="as_yaml_auto_parse"/>
-    <testcase time="0.00500000000000256" classname="yaml_utils" name="as_yaml_auto_warning_for_not_accepted_argument_and_skip_it"/>
-    <testcase time="0.000999999999997669" classname="yaml_utils" name="as_yaml_auto_warning_for_not_accepted_argument_and_skip_it"/>
-    <testcase time="0.00300000000000011" classname="yaml_utils" name="as_yaml_auto_silent_the_warning_for_not_accepted_argument_and_skip_it"/>
+    <testcase time="0.00300000000000011" classname="yaml_utils" name="as_yaml_auto_works_the_same_as_yaml_as.yaml_for_a_nested_list_when_as_header_is_FALSE"/>
+    <testcase time="0.00400000000000134" classname="yaml_utils" name="as_yaml_auto_parse"/>
+    <testcase time="0.00399999999999778" classname="yaml_utils" name="as_yaml_auto_warning_for_not_accepted_argument_and_skip_it"/>
+    <testcase time="0.00200000000000244" classname="yaml_utils" name="as_yaml_auto_warning_for_not_accepted_argument_and_skip_it"/>
+    <testcase time="0.00299999999999656" classname="yaml_utils" name="as_yaml_auto_silent_the_warning_for_not_accepted_argument_and_skip_it"/>
     <testcase time="0.00400000000000134" classname="yaml_utils" name="as_yaml_auto_convert_character_logical_to_logical"/>
-    <testcase time="0.00600000000000023" classname="yaml_utils" name="as_yaml_auto_do_not_accept_multi_outputs_without_the_multi_output_argument"/>
+    <testcase time="0.00700000000000145" classname="yaml_utils" name="as_yaml_auto_do_not_accept_multi_outputs_without_the_multi_output_argument"/>
     <testcase time="0.00399999999999778" classname="yaml_utils" name="as_yaml_auto_accept_multi_outputs_with_the_multi_output_argument"/>
-    <testcase time="0.00300000000000011" classname="yaml_utils" name="get_yaml_field_returns_the_correct_result"/>
+    <testcase time="0.00400000000000134" classname="yaml_utils" name="get_yaml_field_returns_the_correct_result"/>
   </testsuite>
 </testsuites>
