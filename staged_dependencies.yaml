@@ -25,3 +25,6 @@ upstream_repos:
   insightsengineering/rtables:
     repo: insightsengineering/rtables
     host: https://github.com
+  insightsengineering/rlistings:
+    repo: insightsengineering/rlistings
+    host: https://github.com
