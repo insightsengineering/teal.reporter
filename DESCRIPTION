@@ -31,8 +31,8 @@ Imports:
     lifecycle (>= 0.2.0),
     R6,
     rlistings (>= 0.2.8),
-    rmarkdown (>= 2.19),
-    rtables (>= 0.5.1),
+    rmarkdown (>= 2.23),
+    rtables (>= 0.6.6),
     shiny (>= 1.6.0),
     shinybusy (>= 0.3.2),
     shinyWidgets (>= 0.5.1),
@@ -42,7 +42,7 @@ Suggests:
     DT (>= 0.13),
     formatR (>= 1.5),
     formatters,
-    ggplot2 (>= 3.4.0),
+    ggplot2 (>= 3.4.3),
     lattice (>= 0.18-4),
     png,
     testthat (>= 3.1.5),
@@ -53,7 +53,7 @@ VignetteBuilder:
 RdMacros:
     lifecycle
 Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate,
-    davidgohel/flextable, cran/grid, rstudio/htmltools, yihui/knitr,
+    davidgohel/flextable, rstudio/htmltools, yihui/knitr,
     r-lib/lifecycle, cran/png, r-lib/R6, insightsengineering/rlistings,
     rstudio/rmarkdown, insightsengineering/rtables, rstudio/shiny,
     dreamRs/shinybusy, dreamRs/shinyWidgets, vubiostat/r-yaml, r-lib/zip,
