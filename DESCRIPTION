@@ -30,7 +30,7 @@ Imports:
     knitr (>= 1.34),
     lifecycle (>= 0.2.0),
     R6,
-    rlistings (>= 0.2.8.9002),
+    rlistings (>= 0.2.8),
     rmarkdown (>= 2.23),
     rtables (>= 0.6.6),
     shiny (>= 1.6.0),
