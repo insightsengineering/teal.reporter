@@ -28,3 +28,6 @@ upstream_repos:
   insightsengineering/rlistings:
     repo: insightsengineering/rlistings
     host: https://github.com
+  insightsengineering/formatters:
+    repo: insightsengineering/formatters
+    host: https://github.com
