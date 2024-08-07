@@ -7,8 +7,8 @@ span.preview_card_control  i:hover {
 
 .previewer_buttons_line {
   display: flex;
-  justify-content: end;
-  margin-right: 10px;
+  flex-wrap: wrap;
+  margin-right: 10px;  
 }
 
 /* Disable any anchor with disabled class */
