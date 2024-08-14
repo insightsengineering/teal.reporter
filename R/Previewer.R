@@ -148,7 +148,7 @@ reporter_previewer_srv <- function(id,
         shiny::tags$div(
           id = "previewer_reporter_buttons",
           class = "previewer_buttons_line",
-          previewer_buttons_list[previewer_buttons]
+          lapply(previewer_buttons_list[previewer_buttons], shiny::tags$div)
         )
       )
     })
