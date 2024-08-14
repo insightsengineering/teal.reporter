@@ -1,13 +1,13 @@
 /* teal.reporter Previewer css */
 
 /* highlight the icon when hover */
-span.preview_card_control  i:hover {
+span.preview_card_control i:hover {
   color: blue;
 }
 
 .previewer_buttons_line {
   display: flex;
-  justify-content: end;
+  flex-wrap: wrap;
   margin-right: 10px;
 }
 
@@ -19,8 +19,8 @@ a.disabled {
   text-decoration: none;
 }
 
-a[id$=download_data].disabled,
-a[id$=download_data_prev].disabled {
+a[id$="download_data"].disabled,
+a[id$="download_data_prev"].disabled {
   border: 0;
   color: white;
   background-color: darkgrey;
@@ -28,11 +28,11 @@ a[id$=download_data_prev].disabled {
 
 /* icons in the previewer */
 .icon_previewer {
-  float:right;
-  margin-left:10px;
-  margin-right:10px;
-  margin-top:10px;
-  color:#337ab7;
+  float: right;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  color: #337ab7;
 }
 
 /* prevents oversizing elements covered by shinybusy::block */
