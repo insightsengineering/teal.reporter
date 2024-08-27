@@ -152,6 +152,8 @@ testthat::test_that("set_content accepts a `grob` object", {
 })
 
 testthat::test_that("set_content accepts a `trellis` object", {
+  testthat::skip_if_not_installed("lattice")
+
   testthat::expect_no_error(
     PictureBlock$new()$set_content(lattice::bwplot(1))
   )
