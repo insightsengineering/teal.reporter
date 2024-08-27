@@ -30,10 +30,10 @@ The implementation should consist of 4 steps:
 4. Create the report card function with two optional arguments: `card` and `comment`.
 This function must return a `ReportCard` object.
 The `ReportCard` object should be built step by step, assuming that it is empty at the beginning.
-   - If the `comment` argument is provided, it should be added to the card. 
-   If not, it should be added automatically at the end of the card. 
-   - If the `card` argument is provided, the `ReportCard` instance should be automatically created for the user. 
-   If not, the function should create the card itself. 
+   - If the `comment` argument is provided, it should be added to the card.
+   If not, it should be added automatically at the end of the card.
+   - If the `card` argument is provided, the `ReportCard` instance should be automatically created for the user.
+   If not, the function should create the card itself.
 *Please note that the document page's design is up to the developer's imagination.*
 4. Invoke the servers with the `Reporter` instance and the function to create the `ReportCard` instance.
 
@@ -41,7 +41,7 @@ The code added to introduce the reporter is wrapped in the `### REPORTER` code b
 
 First, load the required packages:
 
-```{r message = FALSE}
+```{r message = FALSE, eval=requireNamespace("ggplot2")}
 library(shiny)
 library(teal.reporter)
 library(ggplot2)
@@ -50,7 +50,7 @@ library(rtables)
 
 Simple reporter `shiny` app with separate modules for each button:
 
-```{r}
+```{r, eval=requireNamespace("ggplot2")}
 ui <- fluidPage(
   titlePanel(""),
   sidebarLayout(
@@ -147,7 +147,7 @@ if (interactive()) shinyApp(ui = ui, server = server)
 
 Simple reporter `shiny` app with combined buttons modules:
 
-```{r}
+```{r, eval=requireNamespace("ggplot2")}
 ui <- fluidPage(
   titlePanel(""),
   sidebarLayout(

@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-The Report previewer is an advanced shiny module designed for visualization, editing, and downloading of report cards. 
+The Report previewer is an advanced shiny module designed for visualization, editing, and downloading of report cards.
 It extended the base modules introduced in the `simpleReporter` vignette, enhancing interactivity and user engagement with report content.
 
 
@@ -19,10 +19,10 @@ The five essential steps for implementing the report previewer include integrati
 4. Create the report card function with two optional arguments: `card` and `comment`.
 This function must return a `ReportCard` object.
 The `ReportCard` object should be built step by step, assuming that it is empty at the beginning.
-   - If the `comment` argument is provided, it should be added to the card. 
-   If not, it should be added automatically at the end of the card. 
-   - If the `card` argument is provided, the `ReportCard` instance should be automatically created for the user. 
-   If not, the function should create the card itself. 
+   - If the `comment` argument is provided, it should be added to the card.
+   If not, it should be added automatically at the end of the card.
+   - If the `card` argument is provided, the `ReportCard` instance should be automatically created for the user.
+   If not, the function should create the card itself.
 *Please note that the document page's design is up to the developer's imagination.*
 5. Invoke the servers with the `Reporter` instance and the function to create the `ReportCard` instance.
 
@@ -30,7 +30,7 @@ The code added to introduce the reporter is wrapped in the `### REPORTER` code b
 
 First, load the required packages:
 
-```{r message = FALSE}
+```{r, message = FALSE, eval=requireNamespace("ggplot2") && requireNamespace("DT")}
 library(shiny)
 library(teal.reporter)
 library(ggplot2)
@@ -41,7 +41,7 @@ library(bslib)
 
 A basic `shiny` app with the previewer module:
 
-```{r}
+```{r, eval=requireNamespace("ggplot2")}
 ui <- fluidPage(
   # please, specify specific bootstrap version and theme
   theme = bs_theme(version = "4"),

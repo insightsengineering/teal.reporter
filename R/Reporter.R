@@ -25,7 +25,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @param cards (`ReportCard`) or a list of such objects
     #' @return `self`, invisibly.
-    #' @examples
+    #' @examplesIf require("ggplot2")
     #' library(ggplot2)
     #' library(rtables)
     #'
@@ -57,7 +57,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @description Retrieves all `ReportCard` objects contained in the `Reporter`.
     #'
     #' @return A (`list`) of [`ReportCard`] objects.
-    #' @examples
+    #' @examplesIf require("ggplot2")
     #' library(ggplot2)
     #' library(rtables)
     #'
@@ -89,7 +89,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @param sep An optional separator to insert between each content block.
     #' Default is a `NewpageBlock$new()`object.
     #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock` and `NewpageBlock`.
-    #' @examples
+    #' @examplesIf require("ggplot2")
     #' library(ggplot2)
     #' library(rtables)
     #'

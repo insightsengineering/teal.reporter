@@ -30,6 +30,8 @@ repos:
           - shinyWidgets
           - yaml
           - zip
+          - rlistings
+          - rtables
       - id: spell-check
         name: Check spelling with `spelling`
         exclude: >
