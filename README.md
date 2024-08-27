@@ -43,7 +43,7 @@ install.packages('teal.reporter')
 pak::pak("insightsengineering/teal.reporter@*release")
 ```
 
-Alternatively, you might want to use the development version available on [r-universe](https://r-universe.dev/).
+Alternatively, you might want to use the development version available on [r-universe](https://r-universe.dev/search).
 
 ```r
 # beta versions
