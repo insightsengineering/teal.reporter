@@ -9,7 +9,7 @@ It supports TextBlock, PictureBlock, RcodeBlock, NewpageBlock, and TableBlock.">
 
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.9013</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.9014</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,22 +27,6 @@ It supports TextBlock, PictureBlock, RcodeBlock, NewpageBlock, and TableBlock.">
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
 <li class="nav-item dropdown">
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/release-candidate">release-candidate</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.3.0-rc1">v0.3.0-rc1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1-rc2">v0.2.1-rc2</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1-rc1">v0.2.1-rc1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.3.1">v0.3.1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.3.0">v0.3.0</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1">v0.2.1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.0">v0.2.0</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.1.1">v0.1.1</a> </div></li>
-<!-- end dropdown for versions -->
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-reports" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Reports</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-reports"><li><a class="dropdown-item" href="../coverage-report/">Coverage report</a></li>
     <li><a class="dropdown-item" href="../unit-test-report/">Unit test report</a></li>
@@ -155,51 +139,6 @@ use <code>getOption('teal.reporter.global_knitr')</code>. These defaults include
 <h4 id="returns-1">Returns<a class="anchor" aria-label="anchor" href="#returns-1"></a></h4>
 <p>Character vector constituting <code>rmarkdown</code> text (<code>yaml</code> header + body), ready to be rendered.</p>
 </div>
-<div class="section">
-<h4 id="examples-1">Examples<a class="anchor" aria-label="anchor" href="#examples-1"></a></h4>
-<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vubiostat/r-yaml/" class="external-link">yaml</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/insightsengineering/rtables" class="external-link">rtables</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">ReportCard</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"ReportCard"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span></span>
-<span><span class="va">card1</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
-<span><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span><span class="op">)</span></span>
-<span><span class="va">card1</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span>
-<span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">ReportCard</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"ReportCard"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span></span>
-<span><span class="va">card2</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
-<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
-<span><span class="va">lyt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://insightsengineering.github.io/rtables/latest-tag/reference/analyze.html" class="external-link">analyze</a></span><span class="op">(</span><span class="fu"><a href="https://insightsengineering.github.io/rtables/latest-tag/reference/split_rows_by.html" class="external-link">split_rows_by</a></span><span class="op">(</span><span class="fu"><a href="https://insightsengineering.github.io/rtables/latest-tag/reference/basic_table.html" class="external-link">basic_table</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"Day"</span><span class="op">)</span>, <span class="st">"Ozone"</span>, afun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
-<span><span class="va">table_res2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://insightsengineering.github.io/rtables/latest-tag/reference/build_table.html" class="external-link">build_table</a></span><span class="op">(</span><span class="va">lyt</span>, <span class="va">airquality</span><span class="op">)</span></span>
-<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">table_res2</span><span class="op">)</span></span>
-<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
-<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_rcode</span><span class="op">(</span><span class="st">"2+2"</span>, echo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">Reporter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"Reporter"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span></span>
-<span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Reporter.html">Reporter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">card1</span>, <span class="va">card2</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">yaml_quoted</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"yaml_quoted"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span></span>
-<span><span class="va">yaml_l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  author <span class="op">=</span> <span class="fu"><a href="../reference/yaml_quoted.html">yaml_quoted</a></span><span class="op">(</span><span class="st">"NEST"</span><span class="op">)</span>,</span>
-<span>  title <span class="op">=</span> <span class="fu"><a href="../reference/yaml_quoted.html">yaml_quoted</a></span><span class="op">(</span><span class="st">"Report"</span><span class="op">)</span>,</span>
-<span>  date <span class="op">=</span> <span class="fu"><a href="../reference/yaml_quoted.html">yaml_quoted</a></span><span class="op">(</span><span class="st">"07/04/2019"</span><span class="op">)</span>,</span>
-<span>  output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>html_document <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>toc <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">md_header</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"md_header"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span></span>
-<span><span class="va">yaml_header</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/md_header.html">md_header</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/as.yaml.html" class="external-link">as.yaml</a></span><span class="op">(</span><span class="va">yaml_l</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">Renderer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"Renderer"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span></span>
-<span><span class="va">result_path</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Renderer.html">Renderer</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">renderRmd</span><span class="op">(</span><span class="va">reporter</span><span class="op">$</span><span class="fu">get_blocks</span><span class="op">(</span><span class="op">)</span>, <span class="va">yaml_header</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
-</div>
-
 
 </div><p></p><hr><a id="method-Renderer-render"></a><div class="section">
 <h3 id="method-render-">Method <code>render()</code><a class="anchor" aria-label="anchor" href="#method-render-"></a></h3>
@@ -246,48 +185,6 @@ use <code>getOption('teal.reporter.global_knitr')</code>. These defaults include
 <h4 id="returns-2">Returns<a class="anchor" aria-label="anchor" href="#returns-2"></a></h4>
 <p><code>character</code> path to the output.</p>
 </div>
-<div class="section">
-<h4 id="examples-2">Examples<a class="anchor" aria-label="anchor" href="#examples-2"></a></h4>
-<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vubiostat/r-yaml/" class="external-link">yaml</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">ReportCard</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"ReportCard"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span></span>
-<span><span class="va">card1</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
-<span><span class="va">card1</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span><span class="op">)</span></span>
-<span><span class="va">card1</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span>
-<span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">ReportCard</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"ReportCard"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span></span>
-<span><span class="va">card2</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Header 2 text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
-<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span>, <span class="st">"header2"</span><span class="op">)</span></span>
-<span><span class="va">lyt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://insightsengineering.github.io/rtables/latest-tag/reference/analyze.html" class="external-link">analyze</a></span><span class="op">(</span><span class="fu"><a href="https://insightsengineering.github.io/rtables/latest-tag/reference/split_rows_by.html" class="external-link">split_rows_by</a></span><span class="op">(</span><span class="fu"><a href="https://insightsengineering.github.io/rtables/latest-tag/reference/basic_table.html" class="external-link">basic_table</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"Day"</span><span class="op">)</span>, <span class="st">"Ozone"</span>, afun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
-<span><span class="va">table_res2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://insightsengineering.github.io/rtables/latest-tag/reference/build_table.html" class="external-link">build_table</a></span><span class="op">(</span><span class="va">lyt</span>, <span class="va">airquality</span><span class="op">)</span></span>
-<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">table_res2</span><span class="op">)</span></span>
-<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
-<span><span class="va">card2</span><span class="op">$</span><span class="fu">append_rcode</span><span class="op">(</span><span class="st">"2+2"</span>, echo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">Reporter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"Reporter"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">Reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">card1</span>, <span class="va">card2</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">yaml_quoted</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"yaml_quoted"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span></span>
-<span><span class="va">yaml_l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  author <span class="op">=</span> <span class="fu"><a href="../reference/yaml_quoted.html">yaml_quoted</a></span><span class="op">(</span><span class="st">"NEST"</span><span class="op">)</span>,</span>
-<span>  title <span class="op">=</span> <span class="fu"><a href="../reference/yaml_quoted.html">yaml_quoted</a></span><span class="op">(</span><span class="st">"Report"</span><span class="op">)</span>,</span>
-<span>  date <span class="op">=</span> <span class="fu"><a href="../reference/yaml_quoted.html">yaml_quoted</a></span><span class="op">(</span><span class="st">"07/04/2019"</span><span class="op">)</span>,</span>
-<span>  output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>html_document <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>toc <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">md_header</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"md_header"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span></span>
-<span><span class="va">yaml_header</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/md_header.html">md_header</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/as.yaml.html" class="external-link">as.yaml</a></span><span class="op">(</span><span class="va">yaml_l</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">Renderer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"Renderer"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span></span>
-<span><span class="va">result_path</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Renderer.html">Renderer</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">render</span><span class="op">(</span><span class="va">Reporter</span><span class="op">$</span><span class="fu">get_blocks</span><span class="op">(</span><span class="op">)</span>, <span class="va">yaml_header</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
-</div>
-
 
 </div><p></p><hr><a id="method-Renderer-get_output_dir"></a><div class="section">
 <h3 id="method-get-output-dir-">Method <code>get_output_dir()</code><a class="anchor" aria-label="anchor" href="#method-get-output-dir-"></a></h3>
@@ -301,7 +198,7 @@ use <code>getOption('teal.reporter.global_knitr')</code>. These defaults include
 <p><code>character</code> a <code>output_dir</code> field path.</p>
 </div>
 <div class="section">
-<h4 id="examples-3">Examples<a class="anchor" aria-label="anchor" href="#examples-3"></a></h4>
+<h4 id="examples-1">Examples<a class="anchor" aria-label="anchor" href="#examples-1"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">Renderer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"Renderer"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">Renderer</span><span class="op">$</span><span class="fu">get_output_dir</span><span class="op">(</span><span class="op">)</span></span>
 <span></span></code></pre></div><p></p></div>
@@ -330,36 +227,7 @@ use <code>getOption('teal.reporter.global_knitr')</code>. These defaults include
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `Renderer$new`</span></span></span>
-<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">Renderer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"Renderer"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">Renderer</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;Renderer&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     finalize: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_output_dir: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     render: function (blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     renderRmd: function (blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr")) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     block2md: function (block) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     output_dir: /tmp/RtmpyRmLoc/report_202408282000182048</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     pictureBlock2md: function (block) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     rcodeBlock2md: function (block) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     report_type: NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     tableBlock2md: function (block) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     textBlock2md: function (block) </span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `Renderer$renderRmd`</span></span></span>
-<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vubiostat/r-yaml/" class="external-link">yaml</a></span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vubiostat/r-yaml/" class="external-link">yaml</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/insightsengineering/rtables" class="external-link">rtables</a></span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: formatters</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
@@ -418,12 +286,6 @@ use <code>getOption('teal.reporter.global_knitr')</code>. These defaults include
 <span class="r-in"><span><span class="va">yaml_header</span> <span class="op">&lt;-</span> <span class="fu"><a href="md_header.html">md_header</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/as.yaml.html" class="external-link">as.yaml</a></span><span class="op">(</span><span class="va">yaml_l</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">Renderer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"Renderer"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">result_path</span> <span class="op">&lt;-</span> <span class="va">Renderer</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">renderRmd</span><span class="op">(</span><span class="va">reporter</span><span class="op">$</span><span class="fu">get_blocks</span><span class="op">(</span><span class="op">)</span>, <span class="va">yaml_header</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `Renderer$render`</span></span></span>
-<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vubiostat/r-yaml/" class="external-link">yaml</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -464,6 +326,29 @@ use <code>getOption('teal.reporter.global_knitr')</code>. These defaults include
 <span class="r-in"><span><span class="va">Renderer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"Renderer"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">result_path</span> <span class="op">&lt;-</span> <span class="va">Renderer</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">render</span><span class="op">(</span><span class="va">Reporter</span><span class="op">$</span><span class="fu">get_blocks</span><span class="op">(</span><span class="op">)</span>, <span class="va">yaml_header</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Renderer$new`</span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">Renderer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"Renderer"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Renderer</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;Renderer&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     finalize: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_output_dir: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     render: function (blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     renderRmd: function (blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr")) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     block2md: function (block) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     output_dir: /tmp/RtmppCsPxt/report_202408291443465879</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     pictureBlock2md: function (block) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     rcodeBlock2md: function (block) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     report_type: NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     tableBlock2md: function (block) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     textBlock2md: function (block) </span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co">## Method `Renderer$get_output_dir`</span></span></span>
@@ -471,7 +356,7 @@ use <code>getOption('teal.reporter.global_knitr')</code>. These defaults include
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">Renderer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"Renderer"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">Renderer</span><span class="op">$</span><span class="fu">get_output_dir</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpyRmLoc/report_202408282000253377"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmppCsPxt/report_202408291443465896"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

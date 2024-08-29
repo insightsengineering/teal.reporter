@@ -15,7 +15,7 @@ vignette("teal-reporter-blocks-overview", "teal.reporter").'><link rel="styleshe
 
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.9013</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.9014</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,22 +33,6 @@ vignette("teal-reporter-blocks-overview", "teal.reporter").'><link rel="styleshe
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
 <li class="nav-item dropdown">
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/release-candidate">release-candidate</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.3.0-rc1">v0.3.0-rc1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1-rc2">v0.2.1-rc2</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1-rc1">v0.2.1-rc1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.3.1">v0.3.1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.3.0">v0.3.0</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.1">v0.2.1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.2.0">v0.2.0</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.1.1">v0.1.1</a> </div></li>
-<!-- end dropdown for versions -->
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-reports" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Reports</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-reports"><li><a class="dropdown-item" href="../coverage-report/">Coverage report</a></li>
     <li><a class="dropdown-item" href="../unit-test-report/">Unit test report</a></li>
@@ -168,16 +152,6 @@ that can be coerced into a table.</p></dd>
 <h4 id="returns-2">Returns<a class="anchor" aria-label="anchor" href="#returns-2"></a></h4>
 <p><code>self</code>, invisibly.</p>
 </div>
-<div class="section">
-<h4 id="examples-2">Examples<a class="anchor" aria-label="anchor" href="#examples-2"></a></h4>
-<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
-</div>
-
 
 </div><p></p><hr><a id="method-ReportCard-append_text"></a><div class="section">
 <h3 id="method-append-text-">Method <code>append_text()</code><a class="anchor" aria-label="anchor" href="#method-append-text-"></a></h3>
@@ -203,7 +177,7 @@ that can be coerced into a table.</p></dd>
 <p><code>self</code>, invisibly.</p>
 </div>
 <div class="section">
-<h4 id="examples-3">Examples<a class="anchor" aria-label="anchor" href="#examples-3"></a></h4>
+<h4 id="examples-2">Examples<a class="anchor" aria-label="anchor" href="#examples-2"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"A paragraph of default text"</span><span class="op">)</span></span>
 <span></span></code></pre></div><p></p></div>
 </div>
@@ -233,7 +207,7 @@ that can be coerced into a table.</p></dd>
 <p><code>self</code>, invisibly.</p>
 </div>
 <div class="section">
-<h4 id="examples-4">Examples<a class="anchor" aria-label="anchor" href="#examples-4"></a></h4>
+<h4 id="examples-3">Examples<a class="anchor" aria-label="anchor" href="#examples-3"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_rcode</span><span class="op">(</span><span class="st">"2+2"</span>, echo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span></code></pre></div><p></p></div>
 </div>
@@ -259,7 +233,7 @@ that can be coerced into a table.</p></dd>
 <p><code>self</code>, invisibly.</p>
 </div>
 <div class="section">
-<h4 id="examples-5">Examples<a class="anchor" aria-label="anchor" href="#examples-5"></a></h4>
+<h4 id="examples-4">Examples<a class="anchor" aria-label="anchor" href="#examples-4"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">NewpageBlock</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"NewpageBlock"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span></span>
 <span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_content</span><span class="op">(</span><span class="va"><a href="../reference/NewpageBlock.html">NewpageBlock</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span></code></pre></div><p></p></div>
@@ -278,7 +252,7 @@ that can be coerced into a table.</p></dd>
 <p><code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> list of <code>TableBlock</code>, <code>TextBlock</code> and <code>PictureBlock</code>.</p>
 </div>
 <div class="section">
-<h4 id="examples-6">Examples<a class="anchor" aria-label="anchor" href="#examples-6"></a></h4>
+<h4 id="examples-5">Examples<a class="anchor" aria-label="anchor" href="#examples-5"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span><span class="st">"rc"</span>, <span class="st">"a &lt;- 2 + 2"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">card</span><span class="op">$</span><span class="fu">get_content</span><span class="op">(</span><span class="op">)</span></span>
@@ -311,7 +285,7 @@ that can be coerced into a table.</p></dd>
 <p><code>named list</code> list of elements.</p>
 </div>
 <div class="section">
-<h4 id="examples-7">Examples<a class="anchor" aria-label="anchor" href="#examples-7"></a></h4>
+<h4 id="examples-6">Examples<a class="anchor" aria-label="anchor" href="#examples-6"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span><span class="st">"rc"</span>, <span class="st">"a &lt;- 2 + 2"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">card</span><span class="op">$</span><span class="fu">get_metadata</span><span class="op">(</span><span class="op">)</span></span>
@@ -342,19 +316,6 @@ that can be coerced into a table.</p></dd>
 <h4 id="returns-9">Returns<a class="anchor" aria-label="anchor" href="#returns-9"></a></h4>
 <p><code>self</code>, invisibly.</p>
 </div>
-<div class="section">
-<h4 id="examples-8">Examples<a class="anchor" aria-label="anchor" href="#examples-8"></a></h4>
-<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span>key <span class="op">=</span> <span class="st">"lm"</span>,</span>
-<span>                  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Ozone</span> <span class="op">~</span> <span class="va">Solar.R</span>, <span class="va">airquality</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">card</span><span class="op">$</span><span class="fu">get_content</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">card</span><span class="op">$</span><span class="fu">get_metadata</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
-</div>
-
 
 </div><p></p><hr><a id="method-ReportCard-get_name"></a><div class="section">
 <h3 id="method-get-name-">Method <code>get_name()</code><a class="anchor" aria-label="anchor" href="#method-get-name-"></a></h3>
@@ -368,7 +329,7 @@ that can be coerced into a table.</p></dd>
 <p><code>character</code> a card name.</p>
 </div>
 <div class="section">
-<h4 id="examples-9">Examples<a class="anchor" aria-label="anchor" href="#examples-9"></a></h4>
+<h4 id="examples-7">Examples<a class="anchor" aria-label="anchor" href="#examples-7"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">set_name</span><span class="op">(</span><span class="st">"NAME"</span><span class="op">)</span><span class="op">$</span><span class="fu">get_name</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -393,7 +354,7 @@ that can be coerced into a table.</p></dd>
 <p><code>self</code>, invisibly.</p>
 </div>
 <div class="section">
-<h4 id="examples-10">Examples<a class="anchor" aria-label="anchor" href="#examples-10"></a></h4>
+<h4 id="examples-8">Examples<a class="anchor" aria-label="anchor" href="#examples-8"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">set_name</span><span class="op">(</span><span class="st">"NAME"</span><span class="op">)</span><span class="op">$</span><span class="fu">get_name</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -417,20 +378,6 @@ that can be coerced into a table.</p></dd>
 <h4 id="returns-12">Returns<a class="anchor" aria-label="anchor" href="#returns-12"></a></h4>
 <p>(<code>named list</code>) a <code>ReportCard</code> representation.</p>
 </div>
-<div class="section">
-<h4 id="examples-11">Examples<a class="anchor" aria-label="anchor" href="#examples-11"></a></h4>
-<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span>key <span class="op">=</span> <span class="st">"lm"</span>,</span>
-<span>                  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Ozone</span> <span class="op">~</span> <span class="va">Solar.R</span>, <span class="va">airquality</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">card</span><span class="op">$</span><span class="fu">get_content</span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">card</span><span class="op">$</span><span class="fu">to_list</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
-</div>
-
 
 </div><p></p><hr><a id="method-ReportCard-from_list"></a><div class="section">
 <h3 id="method-from-list-">Method <code>from_list()</code><a class="anchor" aria-label="anchor" href="#method-from-list-"></a></h3>
@@ -455,20 +402,6 @@ that can be coerced into a table.</p></dd>
 <h4 id="returns-13">Returns<a class="anchor" aria-label="anchor" href="#returns-13"></a></h4>
 <p><code>self</code>, invisibly.</p>
 </div>
-<div class="section">
-<h4 id="examples-12">Examples<a class="anchor" aria-label="anchor" href="#examples-12"></a></h4>
-<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span>key <span class="op">=</span> <span class="st">"lm"</span>,</span>
-<span>                  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Ozone</span> <span class="op">~</span> <span class="va">Solar.R</span>, <span class="va">airquality</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">card</span><span class="op">$</span><span class="fu">get_content</span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va"><a href="../reference/ReportCard.html">ReportCard</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">from_list</span><span class="op">(</span><span class="va">card</span><span class="op">$</span><span class="fu">to_list</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
-</div>
-
 
 </div><p></p><hr><a id="method-ReportCard-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
@@ -492,7 +425,273 @@ that can be coerced into a table.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va">ReportCard</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va">ReportCard</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span>key <span class="op">=</span> <span class="st">"lm"</span>,</span></span>
+<span class="r-in"><span>                  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Ozone</span> <span class="op">~</span> <span class="va">Solar.R</span>, <span class="va">airquality</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
+<span class="r-in"><span><span class="va">card</span><span class="op">$</span><span class="fu">get_content</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;TextBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_available_styles: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_style: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (content = character(0), style = private$styles[1]) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_style: function (style) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: Some text</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     style: default</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     styles: default header2 header3 verbatim</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;PictureBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;FileBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     finalize: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x, output_dir) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_dim: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_title: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (plot) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_dim: function (dim) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function (output_dir) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmppCsPxt/fileca5b7586c.png</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis Heatmap</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     title: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     type: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;TextBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_available_styles: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_style: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (content = character(0), style = private$styles[1]) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_style: function (style) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: Some text</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     style: default</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     styles: default header2 header3 verbatim</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="va">card</span><span class="op">$</span><span class="fu">get_metadata</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $lm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lm(formula = Ozone ~ Solar.R, data = airquality)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)      Solar.R  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     18.5987       0.1272  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va">ReportCard</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span>key <span class="op">=</span> <span class="st">"lm"</span>,</span></span>
+<span class="r-in"><span>                  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Ozone</span> <span class="op">~</span> <span class="va">Solar.R</span>, <span class="va">airquality</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
+<span class="r-in"><span><span class="va">card</span><span class="op">$</span><span class="fu">get_content</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;TextBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_available_styles: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_style: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (content = character(0), style = private$styles[1]) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_style: function (style) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: Some text</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     style: default</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     styles: default header2 header3 verbatim</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;PictureBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;FileBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     finalize: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x, output_dir) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_dim: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_title: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (plot) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_dim: function (dim) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function (output_dir) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmppCsPxt/fileca569fd1663.png</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis Heatmap</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     title: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     type: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;TextBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_available_styles: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_style: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (content = character(0), style = private$styles[1]) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_style: function (style) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: Some text</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     style: default</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     styles: default header2 header3 verbatim</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">card</span><span class="op">$</span><span class="fu">to_list</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $blocks</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$TextBlock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$TextBlock$text</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Some text"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$TextBlock$style</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "default"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$PictureBlock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$PictureBlock$basename</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "fileca569fd1663.png"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$TextBlock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$TextBlock$text</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Some text"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$TextBlock$style</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "default"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $metadata</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $metadata$lm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lm(formula = Ozone ~ Solar.R, data = airquality)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)      Solar.R  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     18.5987       0.1272  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va">ReportCard</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span>key <span class="op">=</span> <span class="st">"lm"</span>,</span></span>
+<span class="r-in"><span>                  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Ozone</span> <span class="op">~</span> <span class="va">Solar.R</span>, <span class="va">airquality</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
+<span class="r-in"><span><span class="va">card</span><span class="op">$</span><span class="fu">get_content</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;TextBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_available_styles: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_style: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (content = character(0), style = private$styles[1]) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_style: function (style) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: Some text</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     style: default</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     styles: default header2 header3 verbatim</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;PictureBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;FileBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     finalize: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x, output_dir) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_dim: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_title: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (plot) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_dim: function (dim) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function (output_dir) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmppCsPxt/fileca54b4985d.png</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis Heatmap</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     title: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     type: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;TextBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_available_styles: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     get_style: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (content = character(0), style = private$styles[1]) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_style: function (style) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     content: Some text</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     style: default</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     styles: default header2 header3 verbatim</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ReportCard</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">from_list</span><span class="op">(</span><span class="va">card</span><span class="op">$</span><span class="fu">to_list</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co">## Method `ReportCard$new`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
@@ -505,18 +704,6 @@ that can be coerced into a table.</p></dd>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va">ReportCard</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_table</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `ReportCard$append_plot`</span></span></span>
-<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va">ReportCard</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
@@ -583,92 +770,6 @@ that can be coerced into a table.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `ReportCard$append_metadata`</span></span></span>
-<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va">ReportCard</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span>key <span class="op">=</span> <span class="st">"lm"</span>,</span></span>
-<span class="r-in"><span>                  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Ozone</span> <span class="op">~</span> <span class="va">Solar.R</span>, <span class="va">airquality</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
-<span class="r-in"><span><span class="va">card</span><span class="op">$</span><span class="fu">get_content</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;TextBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_available_styles: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_style: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (content = character(0), style = private$styles[1]) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_style: function (style) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: Some text</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     style: default</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     styles: default header2 header3 verbatim</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;PictureBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;FileBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     finalize: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x, output_dir) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_dim: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_title: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (plot) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_dim: function (dim) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function (output_dir) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpyRmLoc/fileca247838598.png</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis Heatmap</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     title: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     type: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;TextBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_available_styles: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_style: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (content = character(0), style = private$styles[1]) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_style: function (style) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: Some text</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     style: default</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     styles: default header2 header3 verbatim</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="va">card</span><span class="op">$</span><span class="fu">get_metadata</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $lm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lm(formula = Ozone ~ Solar.R, data = airquality)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)      Solar.R  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     18.5987       0.1272  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co">## Method `ReportCard$get_name`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
@@ -681,198 +782,6 @@ that can be coerced into a table.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">ReportCard</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">set_name</span><span class="op">(</span><span class="st">"NAME"</span><span class="op">)</span><span class="op">$</span><span class="fu">get_name</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "NAME"</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `ReportCard$to_list`</span></span></span>
-<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va">ReportCard</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span>key <span class="op">=</span> <span class="st">"lm"</span>,</span></span>
-<span class="r-in"><span>                  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Ozone</span> <span class="op">~</span> <span class="va">Solar.R</span>, <span class="va">airquality</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
-<span class="r-in"><span><span class="va">card</span><span class="op">$</span><span class="fu">get_content</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;TextBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_available_styles: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_style: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (content = character(0), style = private$styles[1]) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_style: function (style) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: Some text</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     style: default</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     styles: default header2 header3 verbatim</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;PictureBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;FileBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     finalize: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x, output_dir) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_dim: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_title: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (plot) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_dim: function (dim) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function (output_dir) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpyRmLoc/fileca250631d66.png</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis Heatmap</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     title: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     type: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;TextBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_available_styles: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_style: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (content = character(0), style = private$styles[1]) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_style: function (style) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: Some text</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     style: default</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     styles: default header2 header3 verbatim</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">card</span><span class="op">$</span><span class="fu">to_list</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $blocks</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$TextBlock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$TextBlock$text</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Some text"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$TextBlock$style</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "default"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$PictureBlock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$PictureBlock$basename</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "fileca250631d66.png"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$TextBlock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$TextBlock$text</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Some text"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $blocks$TextBlock$style</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "default"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $metadata</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $metadata$lm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lm(formula = Ozone ~ Solar.R, data = airquality)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)      Solar.R  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     18.5987       0.1272  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `ReportCard$from_list`</span></span></span>
-<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">card</span> <span class="op">&lt;-</span> <span class="va">ReportCard</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_plot</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span><span class="op">$</span><span class="fu">append_text</span><span class="op">(</span><span class="st">"Some text"</span><span class="op">)</span><span class="op">$</span><span class="fu">append_metadata</span><span class="op">(</span>key <span class="op">=</span> <span class="st">"lm"</span>,</span></span>
-<span class="r-in"><span>                  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Ozone</span> <span class="op">~</span> <span class="va">Solar.R</span>, <span class="va">airquality</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
-<span class="r-in"><span><span class="va">card</span><span class="op">$</span><span class="fu">get_content</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;TextBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_available_styles: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_style: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (content = character(0), style = private$styles[1]) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_style: function (style) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: Some text</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     style: default</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     styles: default header2 header3 verbatim</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;PictureBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;FileBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     finalize: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x, output_dir) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_dim: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_title: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (plot) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_dim: function (dim) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_title: function (title) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function (output_dir) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: /tmp/RtmpyRmLoc/fileca246b3fe0a.png</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dim: 800 600</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     supported_plots: ggplot grob trellis Heatmap</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     title: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     type: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;TextBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;ContentBlock&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     from_list: function (x) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_available_styles: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_content: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_style: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (content = character(0), style = private$styles[1]) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_content: function (content) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_style: function (style) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     to_list: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     content: Some text</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     deep_clone: function (name, value) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     style: default</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     styles: default header2 header3 verbatim</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">ReportCard</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">from_list</span><span class="op">(</span><span class="va">card</span><span class="op">$</span><span class="fu">to_list</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
