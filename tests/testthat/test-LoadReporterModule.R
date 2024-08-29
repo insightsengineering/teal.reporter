@@ -1,4 +1,6 @@
 testthat::test_that("report_load_srv - loading reporter restores saved content", {
+  testthat::skip_if_not_installed("ggplot2")
+
   reporter <- Reporter$new()
   reporter$set_id("xyz")
   card <- teal.reporter::ReportCard$new()

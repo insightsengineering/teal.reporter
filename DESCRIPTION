@@ -49,7 +49,8 @@ Suggests:
     tinytex,
     withr (>= 2.0.0)
 VignetteBuilder:
-    knitr
+    knitr,
+    rmarkdown
 RdMacros:
     lifecycle
 Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate,

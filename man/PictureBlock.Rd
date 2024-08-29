@@ -10,11 +10,7 @@ It's designed to handle plots from packages such as \code{ggplot2}, \code{grid},
 It can save plots to files, set titles and specify dimensions.
 }
 \examples{
-
-## ------------------------------------------------
-## Method `PictureBlock$set_content`
-## ------------------------------------------------
-
+\dontshow{if (require("ggplot2") && require("lattice")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(ggplot2)
 library(lattice)
 
@@ -29,6 +25,7 @@ block$set_content(bwplot(1))
 PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
 block <- PictureBlock$new()
 block$set_content(ggplotGrob(ggplot(iris)))
+\dontshow{\}) # examplesIf}
 
 ## ------------------------------------------------
 ## Method `PictureBlock$set_title`
@@ -134,27 +131,6 @@ Raises error if argument is not a \code{ggplot}, \code{grob} or \code{trellis} p
 \subsection{Returns}{
 \code{self}, invisibly.
 }
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{library(ggplot2)
-library(lattice)
-
-PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
-block <- PictureBlock$new()
-block$set_content(ggplot(iris))
-
-PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
-block <- PictureBlock$new()
-block$set_content(bwplot(1))
-
-PictureBlock <- getFromNamespace("PictureBlock", "teal.reporter")
-block <- PictureBlock$new()
-block$set_content(ggplotGrob(ggplot(iris)))
-}
-\if{html}{\out{</div>}}
-
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PictureBlock-set_title"></a>}}

@@ -38,7 +38,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @details `r global_knitr_details()`
     #'
     #' @return Character vector constituting `rmarkdown` text (`yaml` header + body), ready to be rendered.
-    #' @examples
+    #' @examplesIf require("ggplot2")
     #' library(yaml)
     #' library(rtables)
     #' library(ggplot2)
@@ -141,7 +141,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' @details `r global_knitr_details()`
     #'
     #' @return `character` path to the output.
-    #' @examples
+    #' @examplesIf require("ggplot2")
     #' library(yaml)
     #' library(ggplot2)
     #'

@@ -42,7 +42,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param plot (`ggplot` or `grob` or `trellis`) plot object.
     #' @param dim (`numeric(2)`) width and height in pixels.
     #' @return `self`, invisibly.
-    #' @examples
+    #' @examplesIf require("ggplot2")
     #' library(ggplot2)
     #'
     #' card <- ReportCard$new()$append_plot(
@@ -132,7 +132,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param key (`character(1)`) string specifying the metadata key.
     #' @param value value associated with the metadata key.
     #' @return `self`, invisibly.
-    #' @examples
+    #' @examplesIf require("ggplot2")
     #' library(ggplot2)
     #'
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
@@ -172,7 +172,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Convert the `ReportCard` to a list, including content and metadata.
     #' @param output_dir (`character`) with a path to the directory where files will be copied.
     #' @return (`named list`) a `ReportCard` representation.
-    #' @examples
+    #' @examplesIf require("ggplot2")
     #' library(ggplot2)
     #'
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(
@@ -207,7 +207,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param card (`named list`) a `ReportCard` representation.
     #' @param output_dir (`character`) with a path to the directory where a file will be copied.
     #' @return `self`, invisibly.
-    #' @examples
+    #' @examplesIf require("ggplot2")
     #' library(ggplot2)
     #'
     #' card <- ReportCard$new()$append_text("Some text")$append_plot(

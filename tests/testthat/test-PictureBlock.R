@@ -11,6 +11,8 @@ testthat::test_that("new returns an object of type PictureBlock", {
 
 # set_content
 testthat::test_that("set_content accepts a plot object", {
+  testthat::skip_if_not_installed("ggplot2")
+
   block <- PictureBlock$new()
   testthat::expect_no_error(
     block$set_content(ggplot2::ggplot(iris))
@@ -26,6 +28,8 @@ testthat::test_that("set_content asserts the argument is a plot", {
 })
 
 testthat::test_that("set_content returns the PictureBlock object", {
+  testthat::skip_if_not_installed("ggplot2")
+
   block <- PictureBlock$new()
   testthat::expect_identical(
     block$set_content(ggplot2::ggplot(iris)),
@@ -34,6 +38,8 @@ testthat::test_that("set_content returns the PictureBlock object", {
 })
 
 testthat::test_that("set_content catches a file with the 600x800 size", {
+  testthat::skip_if_not_installed("ggplot2")
+
   block <- PictureBlock$new()
   testthat::expect_equal(
     dim(png::readPNG(block$set_content(ggplot2::ggplot(iris))$get_content()))[c(1, 2)],
@@ -42,6 +48,8 @@ testthat::test_that("set_content catches a file with the 600x800 size", {
 })
 
 testthat::test_that("set_content catches a file with a custom size", {
+  testthat::skip_if_not_installed("ggplot2")
+
   block <- PictureBlock$new()
   testthat::expect_equal(
     dim(png::readPNG(block$set_dim(c(1000L, 100L))$set_content(ggplot2::ggplot(iris))$get_content()))[c(1, 2)],
@@ -128,18 +136,24 @@ testthat::test_that("set_content raises error if the content is not of the suppo
 })
 
 testthat::test_that("set_content accepts a `ggplot` object", {
+  testthat::skip_if_not_installed("ggplot2")
+
   testthat::expect_no_error(
     PictureBlock$new()$set_content(ggplot2::ggplot(iris))
   )
 })
 
 testthat::test_that("set_content accepts a `grob` object", {
+  testthat::skip_if_not_installed("ggplot2")
+
   testthat::expect_no_error(
     PictureBlock$new()$set_content(ggplot2::ggplotGrob(ggplot2::ggplot(iris)))
   )
 })
 
 testthat::test_that("set_content accepts a `trellis` object", {
+  testthat::skip_if_not_installed("lattice")
+
   testthat::expect_no_error(
     PictureBlock$new()$set_content(lattice::bwplot(1))
   )
@@ -147,6 +161,8 @@ testthat::test_that("set_content accepts a `trellis` object", {
 
 # to_list
 testthat::test_that("to_list returns a named list with a one field, a proper path", {
+  testthat::skip_if_not_installed("ggplot2")
+
   pblock <- PictureBlock$new()$set_content(ggplot2::ggplot(iris))
   temp_dir <- tempdir()
   testthat::expect_identical(
@@ -157,6 +173,8 @@ testthat::test_that("to_list returns a named list with a one field, a proper pat
 
 # from_list
 testthat::test_that("from_list after to_list to save and retrive", {
+  testthat::skip_if_not_installed("ggplot2")
+
   pblock <- PictureBlock$new()$set_content(ggplot2::ggplot(iris))
   temp_dir <- tempdir()
   testthat::expect_identical(

@@ -6,6 +6,8 @@ testthat::test_that("new returns an object of type Reporter", {
   testthat::expect_true(inherits(Reporter$new(), "Reporter"))
 })
 
+testthat::skip_if_not_installed("ggplot2")
+
 card1 <- ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")

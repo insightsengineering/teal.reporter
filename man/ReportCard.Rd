@@ -14,6 +14,45 @@ For more information about the various blocks, refer to the vignette:
 \code{vignette("teal-reporter-blocks-overview", "teal.reporter")}.
 }
 \examples{
+\dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(ggplot2)
+
+card <- ReportCard$new()$append_plot(
+  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
+)
+\dontshow{\}) # examplesIf}
+\dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(ggplot2)
+
+card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
+)$append_text("Some text")$append_metadata(key = "lm",
+                  value = lm(Ozone ~ Solar.R, airquality))
+card$get_content()
+card$get_metadata()
+\dontshow{\}) # examplesIf}
+\dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(ggplot2)
+
+card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
+)$append_text("Some text")$append_metadata(key = "lm",
+                  value = lm(Ozone ~ Solar.R, airquality))
+card$get_content()
+
+card$to_list(tempdir())
+\dontshow{\}) # examplesIf}
+\dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(ggplot2)
+
+card <- ReportCard$new()$append_text("Some text")$append_plot(
+  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
+)$append_text("Some text")$append_metadata(key = "lm",
+                  value = lm(Ozone ~ Solar.R, airquality))
+card$get_content()
+
+ReportCard$new()$from_list(card$to_list(tempdir()), tempdir())
+\dontshow{\}) # examplesIf}
 
 ## ------------------------------------------------
 ## Method `ReportCard$new`
@@ -27,17 +66,6 @@ card <- ReportCard$new()
 ## ------------------------------------------------
 
 card <- ReportCard$new()$append_table(iris)
-
-
-## ------------------------------------------------
-## Method `ReportCard$append_plot`
-## ------------------------------------------------
-
-library(ggplot2)
-
-card <- ReportCard$new()$append_plot(
-  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-)
 
 
 ## ------------------------------------------------
@@ -82,20 +110,6 @@ card$get_metadata()
 
 
 ## ------------------------------------------------
-## Method `ReportCard$append_metadata`
-## ------------------------------------------------
-
-library(ggplot2)
-
-card <- ReportCard$new()$append_text("Some text")$append_plot(
-  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-)$append_text("Some text")$append_metadata(key = "lm",
-                  value = lm(Ozone ~ Solar.R, airquality))
-card$get_content()
-card$get_metadata()
-
-
-## ------------------------------------------------
 ## Method `ReportCard$get_name`
 ## ------------------------------------------------
 
@@ -106,36 +120,6 @@ ReportCard$new()$set_name("NAME")$get_name()
 ## ------------------------------------------------
 
 ReportCard$new()$set_name("NAME")$get_name()
-
-## ------------------------------------------------
-## Method `ReportCard$to_list`
-## ------------------------------------------------
-
-library(ggplot2)
-
-card <- ReportCard$new()$append_text("Some text")$append_plot(
-  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-)$append_text("Some text")$append_metadata(key = "lm",
-                  value = lm(Ozone ~ Solar.R, airquality))
-card$get_content()
-
-card$to_list(tempdir())
-
-
-## ------------------------------------------------
-## Method `ReportCard$from_list`
-## ------------------------------------------------
-
-library(ggplot2)
-
-card <- ReportCard$new()$append_text("Some text")$append_plot(
-  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-)$append_text("Some text")$append_metadata(key = "lm",
-                  value = lm(Ozone ~ Solar.R, airquality))
-card$get_content()
-
-ReportCard$new()$from_list(card$to_list(tempdir()), tempdir())
-
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -230,19 +214,6 @@ Appends a plot to this \code{ReportCard}.
 \subsection{Returns}{
 \code{self}, invisibly.
 }
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{library(ggplot2)
-
-card <- ReportCard$new()$append_plot(
-  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-)
-
-}
-\if{html}{\out{</div>}}
-
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-append_text"></a>}}
@@ -419,22 +390,6 @@ Appends metadata to this \code{ReportCard}.
 \subsection{Returns}{
 \code{self}, invisibly.
 }
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{library(ggplot2)
-
-card <- ReportCard$new()$append_text("Some text")$append_plot(
-  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-)$append_text("Some text")$append_metadata(key = "lm",
-                  value = lm(Ozone ~ Solar.R, airquality))
-card$get_content()
-card$get_metadata()
-
-}
-\if{html}{\out{</div>}}
-
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-get_name"></a>}}
@@ -504,23 +459,6 @@ Convert the \code{ReportCard} to a list, including content and metadata.
 \subsection{Returns}{
 (\verb{named list}) a \code{ReportCard} representation.
 }
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{library(ggplot2)
-
-card <- ReportCard$new()$append_text("Some text")$append_plot(
-  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-)$append_text("Some text")$append_metadata(key = "lm",
-                  value = lm(Ozone ~ Solar.R, airquality))
-card$get_content()
-
-card$to_list(tempdir())
-
-}
-\if{html}{\out{</div>}}
-
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-from_list"></a>}}
@@ -543,23 +481,6 @@ Reconstructs the \code{ReportCard} from a list representation.
 \subsection{Returns}{
 \code{self}, invisibly.
 }
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{library(ggplot2)
-
-card <- ReportCard$new()$append_text("Some text")$append_plot(
-  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-)$append_text("Some text")$append_metadata(key = "lm",
-                  value = lm(Ozone ~ Solar.R, airquality))
-card$get_content()
-
-ReportCard$new()$from_list(card$to_list(tempdir()), tempdir())
-
-}
-\if{html}{\out{</div>}}
-
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-clone"></a>}}
