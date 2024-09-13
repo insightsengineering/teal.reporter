@@ -1,3 +1,5 @@
+testthat::skip_if_not_installed("ggplot2")
+
 card_fun0 <- function(card = ReportCard$new()) {
   card$append_text("Header 2 text", "header2")
   card$append_text("A paragraph of default text", "header2")

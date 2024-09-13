@@ -8,11 +8,11 @@ vignette: >
 ---
 
 ## Overview of Content Blocks
-This document serves as a comprehensive guide to the various types of content blocks available in the `teal.reporter`. 
+This document serves as a comprehensive guide to the various types of content blocks available in the `teal.reporter`.
 These blocks allow users to structure and customize reports.
 
 ## Table: Content Blocks in `teal.reporter`
-The following table outlines the different blocks that can be included in a `ReportCard`, 
+The following table outlines the different blocks that can be included in a `ReportCard`,
 along with descriptions and usage examples:
 
 | **Block Type** | **Description** | **Usage Example** |
@@ -25,7 +25,7 @@ along with descriptions and usage examples:
   | **`FileBlock`** | Manages file-based content, ensuring proper file handling. | `report_card$append_content(<FileBlock>)` |
   | **`TableBlock`** | Holds and displays tabular data. | `report_card$append_table(<table>)` |
   | **`PictureBlock`** | Contains graphical content from classes like `ggplot`, `grob`, `trellis`, and `Heatmap`. | `report_card$append_plot(<plot>)` |
-  
+
  These blocks form the building blocks of a `ReportCard`, each serving a specific function that contributes to the overall layout and content of the report. The `ReportCard` object utilizes `append_*` methods to integrate various blocks such as `TextBlock`, `PictureBlock`, `RcodeBlock`, and `TableBlock`.
 
 The following diagram illustrates the inheritance relationship between the different blocks:
@@ -102,7 +102,7 @@ getOption("teal.reporter.global_knitr")
 ## Example Report Using Multiple Content Blocks
 Below is a complete example demonstrating how to create a report combining various content blocks:
 
-```{r}
+```{r, eval=requireNamespace("ggplot2")}
 library(ggplot2)
 
 report_card <- ReportCard$new()
