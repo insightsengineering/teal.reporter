@@ -83,10 +83,11 @@ add_card_button_ui <- function(id) {
 
 #' @rdname add_card_button
 #' @export
-add_card_button_srv <- function(id, reporter, card_fun) {
+add_card_button_srv <- function(id, reporter, card_fun, env) {
   checkmate::assert_function(card_fun)
   checkmate::assert_class(reporter, "Reporter")
-  checkmate::assert_subset(names(formals(card_fun)), c("card", "comment", "label"), empty.ok = TRUE)
+  checkmate::assert_subset(names(formals(card_fun)), c("card", "comment", "label", "env"), empty.ok = TRUE)
+  checkmate::assert_environment(env, null.ok = TRUE)
 
   shiny::moduleServer(id, function(input, output, session) {
     shiny::setBookmarkExclude(c(
@@ -160,6 +161,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
       has_card_arg <- "card" %in% card_fun_args_nams
       has_comment_arg <- "comment" %in% card_fun_args_nams
       has_label_arg <- "label" %in% card_fun_args_nams
+      has_env_arg <- "label" %in% card_fun_args_nams
 
       arg_list <- list()
 
@@ -168,6 +170,9 @@ add_card_button_srv <- function(id, reporter, card_fun) {
       }
       if (has_label_arg) {
         arg_list <- c(arg_list, list(label = input$label))
+      }
+      if (has_env_arg && !is.null(env)) {
+        arg_list <- c(arg_list, env = env)
       }
 
       if (has_card_arg) {
