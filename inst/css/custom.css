@@ -103,6 +103,10 @@
   --bs-btn-disabled-border-color: var(--bs-primary);
 }
 
+.teal-reporter.simple_report_button.disabled {
+  cursor: not-allowed;
+}
+
 .teal-widgets.reporter-modal .modal-body, .modal-footer {
   padding: 1rem;
 }
