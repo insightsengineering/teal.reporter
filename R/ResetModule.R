@@ -27,7 +27,7 @@ reset_report_button_ui <- function(id, label = NULL) {
     ),
     actionButton(
       ns("reset_reporter"),
-      class = "teal-reporter simple_report_button clear-report",
+      class = "teal-reporter simple_report_button clear-report btn-warning",
       title = "Reset",
       `data-val` = shiny::restoreInput(id = ns("reset_reporter"), default = NULL),
       shiny::tags$span(

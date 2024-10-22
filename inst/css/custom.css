@@ -81,33 +81,12 @@
   margin: 1px 1px;
 }
 
-.teal-reporter.simple_report_button.clear-report {
-  --bs-btn-color: var(--bs-warning);
-  --bs-btn-border-color: var(--bs-warning);
-  --bs-btn-hover-bg: var(--bs-warning);
-  --bs-btn-hover-border-color: var(--bs-warning);
-  --bs-btn-active-bg: var(--bs-warning);
-  --bs-btn-active-border-color: var(--bs-warning);
-  --bs-btn-disabled-color: var(--bs-warning);
-  --bs-btn-disabled-border-color: var(--bs-warning);
-}
-
-.teal-reporter.simple_report_button {
-  --bs-btn-color: var(--bs-primary);
-  --bs-btn-border-color: var(--bs-primary);
-  --bs-btn-hover-bg: var(--bs-primary);
-  --bs-btn-hover-border-color: var(--bs-primary);
-  --bs-btn-active-bg: var(--bs-primary);
-  --bs-btn-active-border-color: var(--bs-primary);
-  --bs-btn-disabled-color: var(--bs-primary);
-  --bs-btn-disabled-border-color: var(--bs-primary);
-}
-
 .teal-reporter.simple_report_button.disabled {
   cursor: not-allowed;
 }
 
-.teal-widgets.reporter-modal .modal-body, .modal-footer {
+.teal-widgets.reporter-modal .modal-body,
+.modal-footer {
   padding: 1rem;
 }
 

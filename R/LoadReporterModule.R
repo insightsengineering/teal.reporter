@@ -15,7 +15,7 @@ report_load_ui <- function(id) {
     ),
     actionButton(
       ns("reporter_load"),
-      class = "teal-reporter simple_report_button",
+      class = "teal-reporter simple_report_button btn-primary",
       title = "Load",
       shiny::tags$span(
         shiny::icon("upload")

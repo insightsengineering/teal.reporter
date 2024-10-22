@@ -29,7 +29,7 @@ download_report_button_ui <- function(id) {
     ),
     actionButton(
       ns("download_button"),
-      class = "teal-reporter simple_report_button",
+      class = "teal-reporter simple_report_button btn-primary",
       title = "Download",
       `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
       shiny::tags$span(
