@@ -32,6 +32,7 @@ repos:
           - zip
           - rlistings
           - rtables
+          - rtables.officer
       - id: spell-check
         name: Check spelling with `spelling`
         exclude: >

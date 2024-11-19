@@ -125,7 +125,7 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
 #' @keywords internal
 to_flextable <- function(content) {
   if (inherits(content, c("rtables", "TableTree", "ElementaryTable"))) {
-    ft <- rtables::tt_to_flextable(content)
+    ft <- rtables.officer::tt_to_flextable(content)
   } else if (inherits(content, "listing_df")) {
     mf <- rlistings::matrix_form(content)
     nr_header <- attr(mf, "nrow_header")
@@ -140,9 +140,9 @@ to_flextable <- function(content) {
     rtables::main_footer(ft) <- mf$main_footer
     rtables::prov_footer(ft) <- mf$prov_footer
     rtables::header_section_div(ft) <- mf$header_section_div
-    ft <- rtables::tt_to_flextable(ft, total_width = c(grDevices::pdf.options()$width - 1))
+    ft <- rtables.officer::tt_to_flextable(ft, total_width = c(grDevices::pdf.options()$width - 1))
   } else if (inherits(content, "data.frame")) {
-    ft <- rtables::tt_to_flextable(
+    ft <- rtables.officer::tt_to_flextable(
       rtables::df_to_tt(content)
     )
   } else {
