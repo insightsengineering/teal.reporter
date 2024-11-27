@@ -6,6 +6,8 @@ testthat::test_that("new returns an object of type Renderer", {
   testthat::expect_true(inherits(Renderer$new(), "Renderer"))
 })
 
+testthat::skip_if_not_installed("ggplot2")
+
 text_block1 <- TextBlock$new()$set_content("text")$set_style("header2")
 text_block2 <- TextBlock$new()$set_content("text")
 png_path <- system.file("img", "Rlogo.png", package = "png")

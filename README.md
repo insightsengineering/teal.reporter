@@ -36,19 +36,12 @@ This package provides:
 ## Installation
 
 ```r
-# stable versions
 install.packages('teal.reporter')
-
-# install.packages("pak")
-pak::pak("insightsengineering/teal.reporter@*release")
 ```
 
-Alternatively, you might want to use the development version available on [r-universe](https://r-universe.dev/).
+Alternatively, you might want to use the development version.
 
 ```r
-# beta versions
-install.packages('teal.reporter', repos = c('https://pharmaverse.r-universe.dev', getOption('repos')))
-
 # install.packages("pak")
 pak::pak("insightsengineering/teal.reporter")
 ```
