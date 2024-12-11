@@ -63,6 +63,7 @@ Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate,
     insightsengineering/formatters, tidyverse/ggplot2, deepayan/lattice,
     cran/png, r-lib/testthat, rstudio/tinytex, r-lib/withr
 Config/Needs/website: insightsengineering/nesttemplate
+Remotes: insightsengineering/rtables.officer
 Encoding: UTF-8
 Language: en-US
 LazyData: true
