@@ -3,7 +3,7 @@ name: Scheduled 🕰️
 
 on:
   schedule:
-    - cron: '45 3 * * 0'
+    - cron: "45 3 * * 0"
   workflow_dispatch:
     inputs:
       chosen-workflow:
@@ -56,6 +56,12 @@ jobs:
       )
     name: revdepcheck ↩️
     uses: insightsengineering/r.pkg.template/.github/workflows/revdepcheck.yaml@main
+    with:
+      lookup-refs: |
+        insightsengineering/rlistings
+        insightsengineering/rtables
+        insightsengineering/rtables.officer
+        insightsengineering/formatters
   rhub:
     if: >
       github.event_name == 'schedule' || (
@@ -64,3 +70,9 @@ jobs:
       )
     name: R-hub 🌐
     uses: insightsengineering/r.pkg.template/.github/workflows/rhub.yaml@main
+    with:
+      lookup-refs: |
+        insightsengineering/rlistings
+        insightsengineering/rtables
+        insightsengineering/rtables.officer
+        insightsengineering/formatters
