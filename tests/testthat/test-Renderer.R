@@ -24,7 +24,7 @@ testthat::test_that("renderRmd asserts the argument is a list of TextBlocks/Pict
   renderer <- Renderer$new()
   testthat::expect_error(
     renderer$renderRmd(append(blocks, "STH")),
-    regexp = "May only contain the following types: \\{TextBlock,PictureBlock,NewpageBlock,TableBlock,RcodeBlock\\}"
+    regexp = "May only contain the following types: \\{TextBlock,PictureBlock,NewpageBlock,TableBlock,RcodeBlock,HTMLBlock\\}" # nolint line_length
   )
 })
 

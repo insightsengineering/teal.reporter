@@ -1,3 +1,11 @@
+#' @title `HTMLBlock`
+#' @docType class
+#' @description
+#' Specialized `FileBlock` for managing HTML content in reports.
+#' It's designed to handle various HTML content, and render the report as HTML,
+#' however htmlwidget objects can also be rendered to static document-ready format.
+#'
+#' @keywords internal
 HTMLBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "HTMLBlock",
   inherit = FileBlock,
