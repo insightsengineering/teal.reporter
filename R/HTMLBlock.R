@@ -18,6 +18,7 @@ HTMLBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @return Object of class `HTMLBlock`, invisibly.
     initialize = function(content) {
       if (!missing(content)) {
+        checkmate::assert_multi_class(content, c("shiny.tag", "shiny.tag.list", "htmlwidget"))
         self$set_content(content)
       }
       invisible(self)
