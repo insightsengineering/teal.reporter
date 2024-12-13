@@ -7,7 +7,7 @@
 \description{
 Specialized \code{FileBlock} for managing HTML content in reports.
 It's designed to handle various HTML content, and render the report as HTML,
-however htmlwidget objects can also be rendered to static document-ready format.
+however \code{htmlwidgets} objects can also be rendered to static document-ready format.
 }
 \examples{
 
