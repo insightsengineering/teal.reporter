@@ -72,7 +72,7 @@ card <- ReportCard$new()$append_table(iris)
 ## Method `ReportCard$append_html`
 ## ------------------------------------------------
 
-card <- ReportCard$new()$append_html(div("HTML Content"))
+card <- ReportCard$new()$append_html(shiny::div("HTML Content"))
 
 
 ## ------------------------------------------------
@@ -222,7 +222,7 @@ Appends a html content to this \code{ReportCard}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- ReportCard$new()$append_html(div("HTML Content"))
+\preformatted{card <- ReportCard$new()$append_html(shiny::div("HTML Content"))
 
 }
 \if{html}{\out{</div>}}

@@ -31,7 +31,7 @@ HTMLBlock <- R6::R6Class( # nolint: object_name_linter.
     #' @examples
     #' HTMLBlock <- getFromNamespace("HTMLBlock", "teal.reporter")
     #' block <- HTMLBlock$new()
-    #' block$set_content(div("HTML Content"))
+    #' block$set_content(shiny::div("HTML Content"))
     #'
     set_content = function(content) {
       path <- tempfile(fileext = ".rds")

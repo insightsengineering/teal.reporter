@@ -42,7 +42,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @param content An object that can be rendered as a HTML content.
     #' @return `self`, invisibly.
     #' @examples
-    #' card <- ReportCard$new()$append_html(div("HTML Content"))
+    #' card <- ReportCard$new()$append_html(shiny::div("HTML Content"))
     #'
     append_html = function(content) {
       self$append_content(HTMLBlock$new(content))

@@ -17,7 +17,7 @@ however htmlwidget objects can also be rendered to static document-ready format.
 
 HTMLBlock <- getFromNamespace("HTMLBlock", "teal.reporter")
 block <- HTMLBlock$new()
-block$set_content(div("HTML Content"))
+block$set_content(shiny::div("HTML Content"))
 
 }
 \keyword{internal}
@@ -87,7 +87,7 @@ assigned to this \code{HTMLBlock}}
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{HTMLBlock <- getFromNamespace("HTMLBlock", "teal.reporter")
 block <- HTMLBlock$new()
-block$set_content(div("HTML Content"))
+block$set_content(shiny::div("HTML Content"))
 
 }
 \if{html}{\out{</div>}}
