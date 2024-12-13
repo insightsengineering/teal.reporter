@@ -81,7 +81,10 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' result_path <- Renderer$new()$renderRmd(reporter$get_blocks(), yaml_header)
     #'
     renderRmd = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr")) {
-      checkmate::assert_list(blocks, c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock"))
+      checkmate::assert_list(
+        blocks,
+        c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock", "HTMLBlock")
+      )
       checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
 
       if (missing(yaml_header)) {
@@ -220,6 +223,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         private$tableBlock2md(block)
       } else if (inherits(block, "NewpageBlock")) {
         block$get_content()
+      } else if (inherits(block, "HTMLBlock")) {
+        private$htmlBlock2md(block)
       } else {
         stop("Unknown block class")
       }
@@ -275,6 +280,11 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       basename_table <- basename(block$get_content())
       file.copy(block$get_content(), file.path(private$output_dir, basename_table))
       sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename_table)
+    },
+    htmlBlock2md = function(block) {
+      basename_content <- basename(block$get_content())
+      file.copy(block$get_content(), file.path(private$output_dir, basename_content))
+      sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename_content)
     }
   ),
   lock_objects = TRUE,
