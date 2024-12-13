@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.781486146095718" branch-rate="0" lines-covered="1241" lines-valid="1588" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-12-13 08:50:38.240462">
+<coverage line-rate="0.780994336060415" branch-rate="0" lines-covered="1241" lines-valid="1589" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-12-13 09:48:17.084347">
   <sources>
     <source>/__w/teal.reporter/teal.reporter/teal.reporter</source>
   </sources>
   <packages>
-    <package name="teal.reporter" line-rate="0.781486146095718" branch-rate="0" complexity="0">
+    <package name="teal.reporter" line-rate="0.780994336060415" branch-rate="0" complexity="0">
       <classes>
         <class name="AddCardModule.R" filename="R/AddCardModule.R" line-rate="0.986301369863014" branch-rate="0" complexity="0">
           <methods>
@@ -315,13 +315,14 @@
         </class>
         <class name="ContentBlock.R" filename="R/ContentBlock.R" line-rate="0.888888888888889" branch-rate="0" complexity="0">
           <methods>
-            <method name="initialize" signature="" line-rate="0.866666666666667" branch-rate="0" complexity="0">
+            <method name="initialize" signature="" line-rate="0.838709677419355" branch-rate="0" complexity="0">
               <lines>
                 <line number="21" hits="17" branch="false"/>
                 <line number="22" hits="17" branch="false"/>
                 <line number="20" hits="0" branch="false"/>
                 <line number="21" hits="0" branch="false"/>
-                <line number="23" hits="0" branch="false"/>
+                <line number="22" hits="0" branch="false"/>
+                <line number="24" hits="0" branch="false"/>
                 <line number="21" hits="14" branch="false"/>
                 <line number="22" hits="14" branch="false"/>
                 <line number="19" hits="51" branch="false"/>
@@ -354,10 +355,10 @@
                 <line number="35" hits="305" branch="false"/>
                 <line number="36" hits="302" branch="false"/>
                 <line number="37" hits="302" branch="false"/>
-                <line number="37" hits="0" branch="false"/>
                 <line number="38" hits="0" branch="false"/>
                 <line number="39" hits="0" branch="false"/>
                 <line number="40" hits="0" branch="false"/>
+                <line number="41" hits="0" branch="false"/>
                 <line number="47" hits="31" branch="false"/>
                 <line number="48" hits="29" branch="false"/>
                 <line number="49" hits="29" branch="false"/>
@@ -1188,13 +1189,14 @@
         </class>
         <class name="HTMLBlock.R" filename="R/HTMLBlock.R" line-rate="0" branch-rate="0" complexity="0">
           <methods>
-            <method name="initialize" signature="" line-rate="0.866666666666667" branch-rate="0" complexity="0">
+            <method name="initialize" signature="" line-rate="0.838709677419355" branch-rate="0" complexity="0">
               <lines>
                 <line number="21" hits="17" branch="false"/>
                 <line number="22" hits="17" branch="false"/>
                 <line number="20" hits="0" branch="false"/>
                 <line number="21" hits="0" branch="false"/>
-                <line number="23" hits="0" branch="false"/>
+                <line number="22" hits="0" branch="false"/>
+                <line number="24" hits="0" branch="false"/>
                 <line number="21" hits="14" branch="false"/>
                 <line number="22" hits="14" branch="false"/>
                 <line number="19" hits="51" branch="false"/>
@@ -1227,10 +1229,10 @@
                 <line number="35" hits="305" branch="false"/>
                 <line number="36" hits="302" branch="false"/>
                 <line number="37" hits="302" branch="false"/>
-                <line number="37" hits="0" branch="false"/>
                 <line number="38" hits="0" branch="false"/>
                 <line number="39" hits="0" branch="false"/>
                 <line number="40" hits="0" branch="false"/>
+                <line number="41" hits="0" branch="false"/>
                 <line number="47" hits="31" branch="false"/>
                 <line number="48" hits="29" branch="false"/>
                 <line number="49" hits="29" branch="false"/>
@@ -1262,11 +1264,12 @@
           <lines>
             <line number="20" hits="0" branch="false"/>
             <line number="21" hits="0" branch="false"/>
-            <line number="23" hits="0" branch="false"/>
-            <line number="37" hits="0" branch="false"/>
+            <line number="22" hits="0" branch="false"/>
+            <line number="24" hits="0" branch="false"/>
             <line number="38" hits="0" branch="false"/>
             <line number="39" hits="0" branch="false"/>
             <line number="40" hits="0" branch="false"/>
+            <line number="41" hits="0" branch="false"/>
           </lines>
         </class>
         <class name="LoadReporterModule.R" filename="R/LoadReporterModule.R" line-rate="0.815533980582524" branch-rate="0" complexity="0">
@@ -1495,13 +1498,14 @@
         </class>
         <class name="NewpageBlock.R" filename="R/NewpageBlock.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="initialize" signature="" line-rate="0.866666666666667" branch-rate="0" complexity="0">
+            <method name="initialize" signature="" line-rate="0.838709677419355" branch-rate="0" complexity="0">
               <lines>
                 <line number="21" hits="17" branch="false"/>
                 <line number="22" hits="17" branch="false"/>
                 <line number="20" hits="0" branch="false"/>
                 <line number="21" hits="0" branch="false"/>
-                <line number="23" hits="0" branch="false"/>
+                <line number="22" hits="0" branch="false"/>
+                <line number="24" hits="0" branch="false"/>
                 <line number="21" hits="14" branch="false"/>
                 <line number="22" hits="14" branch="false"/>
                 <line number="19" hits="51" branch="false"/>
@@ -1537,13 +1541,14 @@
         </class>
         <class name="PictureBlock.R" filename="R/PictureBlock.R" line-rate="0.933333333333333" branch-rate="0" complexity="0">
           <methods>
-            <method name="initialize" signature="" line-rate="0.866666666666667" branch-rate="0" complexity="0">
+            <method name="initialize" signature="" line-rate="0.838709677419355" branch-rate="0" complexity="0">
               <lines>
                 <line number="21" hits="17" branch="false"/>
                 <line number="22" hits="17" branch="false"/>
                 <line number="20" hits="0" branch="false"/>
                 <line number="21" hits="0" branch="false"/>
-                <line number="23" hits="0" branch="false"/>
+                <line number="22" hits="0" branch="false"/>
+                <line number="24" hits="0" branch="false"/>
                 <line number="21" hits="14" branch="false"/>
                 <line number="22" hits="14" branch="false"/>
                 <line number="19" hits="51" branch="false"/>
@@ -1576,10 +1581,10 @@
                 <line number="35" hits="305" branch="false"/>
                 <line number="36" hits="302" branch="false"/>
                 <line number="37" hits="302" branch="false"/>
-                <line number="37" hits="0" branch="false"/>
                 <line number="38" hits="0" branch="false"/>
                 <line number="39" hits="0" branch="false"/>
                 <line number="40" hits="0" branch="false"/>
+                <line number="41" hits="0" branch="false"/>
                 <line number="47" hits="31" branch="false"/>
                 <line number="48" hits="29" branch="false"/>
                 <line number="49" hits="29" branch="false"/>
@@ -2453,13 +2458,14 @@
         </class>
         <class name="RcodeBlock.R" filename="R/RcodeBlock.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="initialize" signature="" line-rate="0.866666666666667" branch-rate="0" complexity="0">
+            <method name="initialize" signature="" line-rate="0.838709677419355" branch-rate="0" complexity="0">
               <lines>
                 <line number="21" hits="17" branch="false"/>
                 <line number="22" hits="17" branch="false"/>
                 <line number="20" hits="0" branch="false"/>
                 <line number="21" hits="0" branch="false"/>
-                <line number="23" hits="0" branch="false"/>
+                <line number="22" hits="0" branch="false"/>
+                <line number="24" hits="0" branch="false"/>
                 <line number="21" hits="14" branch="false"/>
                 <line number="22" hits="14" branch="false"/>
                 <line number="19" hits="51" branch="false"/>
@@ -2636,13 +2642,14 @@
         </class>
         <class name="Renderer.R" filename="R/Renderer.R" line-rate="0.652892561983471" branch-rate="0" complexity="0">
           <methods>
-            <method name="initialize" signature="" line-rate="0.866666666666667" branch-rate="0" complexity="0">
+            <method name="initialize" signature="" line-rate="0.838709677419355" branch-rate="0" complexity="0">
               <lines>
                 <line number="21" hits="17" branch="false"/>
                 <line number="22" hits="17" branch="false"/>
                 <line number="20" hits="0" branch="false"/>
                 <line number="21" hits="0" branch="false"/>
-                <line number="23" hits="0" branch="false"/>
+                <line number="22" hits="0" branch="false"/>
+                <line number="24" hits="0" branch="false"/>
                 <line number="21" hits="14" branch="false"/>
                 <line number="22" hits="14" branch="false"/>
                 <line number="19" hits="51" branch="false"/>
@@ -2954,13 +2961,14 @@
         </class>
         <class name="ReportCard.R" filename="R/ReportCard.R" line-rate="0.941860465116279" branch-rate="0" complexity="0">
           <methods>
-            <method name="initialize" signature="" line-rate="0.866666666666667" branch-rate="0" complexity="0">
+            <method name="initialize" signature="" line-rate="0.838709677419355" branch-rate="0" complexity="0">
               <lines>
                 <line number="21" hits="17" branch="false"/>
                 <line number="22" hits="17" branch="false"/>
                 <line number="20" hits="0" branch="false"/>
                 <line number="21" hits="0" branch="false"/>
-                <line number="23" hits="0" branch="false"/>
+                <line number="22" hits="0" branch="false"/>
+                <line number="24" hits="0" branch="false"/>
                 <line number="21" hits="14" branch="false"/>
                 <line number="22" hits="14" branch="false"/>
                 <line number="19" hits="51" branch="false"/>
@@ -3311,13 +3319,14 @@
         </class>
         <class name="Reporter.R" filename="R/Reporter.R" line-rate="0.94392523364486" branch-rate="0" complexity="0">
           <methods>
-            <method name="initialize" signature="" line-rate="0.866666666666667" branch-rate="0" complexity="0">
+            <method name="initialize" signature="" line-rate="0.838709677419355" branch-rate="0" complexity="0">
               <lines>
                 <line number="21" hits="17" branch="false"/>
                 <line number="22" hits="17" branch="false"/>
                 <line number="20" hits="0" branch="false"/>
                 <line number="21" hits="0" branch="false"/>
-                <line number="23" hits="0" branch="false"/>
+                <line number="22" hits="0" branch="false"/>
+                <line number="24" hits="0" branch="false"/>
                 <line number="21" hits="14" branch="false"/>
                 <line number="22" hits="14" branch="false"/>
                 <line number="19" hits="51" branch="false"/>
@@ -3924,13 +3933,14 @@
         </class>
         <class name="TableBlock.R" filename="R/TableBlock.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="initialize" signature="" line-rate="0.866666666666667" branch-rate="0" complexity="0">
+            <method name="initialize" signature="" line-rate="0.838709677419355" branch-rate="0" complexity="0">
               <lines>
                 <line number="21" hits="17" branch="false"/>
                 <line number="22" hits="17" branch="false"/>
                 <line number="20" hits="0" branch="false"/>
                 <line number="21" hits="0" branch="false"/>
-                <line number="23" hits="0" branch="false"/>
+                <line number="22" hits="0" branch="false"/>
+                <line number="24" hits="0" branch="false"/>
                 <line number="21" hits="14" branch="false"/>
                 <line number="22" hits="14" branch="false"/>
                 <line number="19" hits="51" branch="false"/>
@@ -3963,10 +3973,10 @@
                 <line number="35" hits="305" branch="false"/>
                 <line number="36" hits="302" branch="false"/>
                 <line number="37" hits="302" branch="false"/>
-                <line number="37" hits="0" branch="false"/>
                 <line number="38" hits="0" branch="false"/>
                 <line number="39" hits="0" branch="false"/>
                 <line number="40" hits="0" branch="false"/>
+                <line number="41" hits="0" branch="false"/>
                 <line number="47" hits="31" branch="false"/>
                 <line number="48" hits="29" branch="false"/>
                 <line number="49" hits="29" branch="false"/>
@@ -4009,13 +4019,14 @@
         </class>
         <class name="TextBlock.R" filename="R/TextBlock.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="initialize" signature="" line-rate="0.866666666666667" branch-rate="0" complexity="0">
+            <method name="initialize" signature="" line-rate="0.838709677419355" branch-rate="0" complexity="0">
               <lines>
                 <line number="21" hits="17" branch="false"/>
                 <line number="22" hits="17" branch="false"/>
                 <line number="20" hits="0" branch="false"/>
                 <line number="21" hits="0" branch="false"/>
-                <line number="23" hits="0" branch="false"/>
+                <line number="22" hits="0" branch="false"/>
+                <line number="24" hits="0" branch="false"/>
                 <line number="21" hits="14" branch="false"/>
                 <line number="22" hits="14" branch="false"/>
                 <line number="19" hits="51" branch="false"/>
