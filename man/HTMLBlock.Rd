@@ -12,23 +12,33 @@ however \code{htmlwidgets} objects can also be rendered to static document-ready
 \examples{
 
 ## ------------------------------------------------
-## Method `HTMLBlock$set_content`
+## Method `HTMLBlock$from_list`
 ## ------------------------------------------------
 
 HTMLBlock <- getFromNamespace("HTMLBlock", "teal.reporter")
 block <- HTMLBlock$new()
-block$set_content(shiny::div("HTML Content"))
+block$from_list(list(content = shiny::tags$div("test")))
+
+
+## ------------------------------------------------
+## Method `HTMLBlock$to_list`
+## ------------------------------------------------
+
+HTMLBlock <- getFromNamespace("HTMLBlock", "teal.reporter")
+block <- HTMLBlock$new(shiny::tags$div("test"))
+block$to_list()
 
 }
 \keyword{internal}
-\section{Super classes}{
-\code{\link[teal.reporter:ContentBlock]{teal.reporter::ContentBlock}} -> \code{\link[teal.reporter:FileBlock]{teal.reporter::FileBlock}} -> \code{HTMLBlock}
+\section{Super class}{
+\code{\link[teal.reporter:ContentBlock]{teal.reporter::ContentBlock}} -> \code{HTMLBlock}
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-HTMLBlock-new}{\code{HTMLBlock$new()}}
-\item \href{#method-HTMLBlock-set_content}{\code{HTMLBlock$set_content()}}
+\item \href{#method-HTMLBlock-from_list}{\code{HTMLBlock$from_list()}}
+\item \href{#method-HTMLBlock-to_list}{\code{HTMLBlock$to_list()}}
 \item \href{#method-HTMLBlock-clone}{\code{HTMLBlock$clone()}}
 }
 }
@@ -36,9 +46,7 @@ block$set_content(shiny::div("HTML Content"))
 <details open><summary>Inherited methods</summary>
 <ul>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-get_content'><code>teal.reporter::ContentBlock$get_content()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileBlock" data-id="finalize"><a href='../../teal.reporter/html/FileBlock.html#method-FileBlock-finalize'><code>teal.reporter::FileBlock$finalize()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileBlock" data-id="from_list"><a href='../../teal.reporter/html/FileBlock.html#method-FileBlock-from_list'><code>teal.reporter::FileBlock$from_list()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileBlock" data-id="to_list"><a href='../../teal.reporter/html/FileBlock.html#method-FileBlock-to_list'><code>teal.reporter::FileBlock$to_list()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="set_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-set_content'><code>teal.reporter::ContentBlock$set_content()</code></a></span></li>
 </ul>
 </details>
 }}
@@ -64,19 +72,19 @@ Object of class \code{HTMLBlock}, invisibly.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-HTMLBlock-set_content"></a>}}
-\if{latex}{\out{\hypertarget{method-HTMLBlock-set_content}{}}}
-\subsection{Method \code{set_content()}}{
-Sets content of this \code{HTMLBlock}.
+\if{html}{\out{<a id="method-HTMLBlock-from_list"></a>}}
+\if{latex}{\out{\hypertarget{method-HTMLBlock-from_list}{}}}
+\subsection{Method \code{from_list()}}{
+Create the \code{HTMLBlock} from a list.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{HTMLBlock$set_content(content)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{HTMLBlock$from_list(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{content}}{An object that can be rendered as a HTML content
-assigned to this \code{HTMLBlock}}
+\item{\code{x}}{(\verb{named list}) with a single field \code{content} containing \code{shiny.tag},
+\code{shiny.tag.list} or \code{htmlwidget}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -87,7 +95,31 @@ assigned to this \code{HTMLBlock}}
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{HTMLBlock <- getFromNamespace("HTMLBlock", "teal.reporter")
 block <- HTMLBlock$new()
-block$set_content(shiny::div("HTML Content"))
+block$from_list(list(content = shiny::tags$div("test")))
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-HTMLBlock-to_list"></a>}}
+\if{latex}{\out{\hypertarget{method-HTMLBlock-to_list}{}}}
+\subsection{Method \code{to_list()}}{
+Convert the \code{HTMLBlock} to a list.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{HTMLBlock$to_list()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\verb{named list} with a text and style.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{HTMLBlock <- getFromNamespace("HTMLBlock", "teal.reporter")
+block <- HTMLBlock$new(shiny::tags$div("test"))
+block$to_list()
 
 }
 \if{html}{\out{</div>}}

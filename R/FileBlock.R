@@ -56,6 +56,9 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
       list(basename = base_name)
     }
   ),
+  private = list(
+    content = character(0)
+  ),
   lock_objects = TRUE,
   lock_class = TRUE
 )

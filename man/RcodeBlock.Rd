@@ -18,6 +18,15 @@ block <- RcodeBlock$new()
 
 
 ## ------------------------------------------------
+## Method `RcodeBlock$set_content`
+## ------------------------------------------------
+
+RcodeBlock <- getFromNamespace("RcodeBlock", "teal.reporter")
+block <- RcodeBlock$new()
+block$set_content("a <- 1")
+
+
+## ------------------------------------------------
 ## Method `RcodeBlock$set_params`
 ## ------------------------------------------------
 
@@ -70,6 +79,7 @@ block$to_list()
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-RcodeBlock-new}{\code{RcodeBlock$new()}}
+\item \href{#method-RcodeBlock-set_content}{\code{RcodeBlock$set_content()}}
 \item \href{#method-RcodeBlock-set_params}{\code{RcodeBlock$set_params()}}
 \item \href{#method-RcodeBlock-get_params}{\code{RcodeBlock$get_params()}}
 \item \href{#method-RcodeBlock-get_available_params}{\code{RcodeBlock$get_available_params()}}
@@ -82,7 +92,6 @@ block$to_list()
 <details open><summary>Inherited methods</summary>
 <ul>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-get_content'><code>teal.reporter::ContentBlock$get_content()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="set_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-set_content'><code>teal.reporter::ContentBlock$set_content()</code></a></span></li>
 </ul>
 </details>
 }}
@@ -115,6 +124,37 @@ Object of class \code{RcodeBlock}, invisibly.
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{RcodeBlock <- getFromNamespace("RcodeBlock", "teal.reporter")
 block <- RcodeBlock$new()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-RcodeBlock-set_content"></a>}}
+\if{latex}{\out{\hypertarget{method-RcodeBlock-set_content}{}}}
+\subsection{Method \code{set_content()}}{
+Sets content of this \code{RcodeBlock}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{RcodeBlock$set_content(content)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{content}}{(\code{any}) R object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{self}, invisibly.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{RcodeBlock <- getFromNamespace("RcodeBlock", "teal.reporter")
+block <- RcodeBlock$new()
+block$set_content("a <- 1")
 
 }
 \if{html}{\out{</div>}}
