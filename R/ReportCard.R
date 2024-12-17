@@ -37,6 +37,17 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       self$append_content(TableBlock$new(table))
       invisible(self)
     },
+    #' @description Appends a html content to this `ReportCard`.
+    #'
+    #' @param content An object that can be rendered as a HTML content.
+    #' @return `self`, invisibly.
+    #' @examples
+    #' card <- ReportCard$new()$append_html(shiny::div("HTML Content"))
+    #'
+    append_html = function(content) {
+      self$append_content(HTMLBlock$new(content))
+      invisible(self)
+    },
     #' @description Appends a plot to this `ReportCard`.
     #'
     #' @param plot (`ggplot` or `grob` or `trellis`) plot object.

@@ -11,9 +11,9 @@ testthat::test_that("set_content accepts a character object", {
   testthat::expect_no_error(block$set_content("test"))
 })
 
-testthat::test_that("set_content asserts the argument is character", {
+testthat::test_that("set_content accepts a list object", {
   block <- ContentBlock$new()
-  testthat::expect_error(block$set_content(7), regexp = "Must be of type 'character'")
+  testthat::expect_no_error(block$set_content(list("a")))
 })
 
 testthat::test_that("set_content returns the ContentBlock object", {
@@ -21,8 +21,8 @@ testthat::test_that("set_content returns the ContentBlock object", {
   testthat::expect_identical(block$set_content("test"), block)
 })
 
-testthat::test_that("get_content returns character(0) on a newly initialized ContentBlock", {
-  testthat::expect_equal(ContentBlock$new()$get_content(), character(0))
+testthat::test_that("get_content returns NULL on a newly initialized ContentBlock", {
+  testthat::expect_equal(ContentBlock$new()$get_content(), NULL)
 })
 
 testthat::test_that("The deep copy constructor copies the content file to a new file", {

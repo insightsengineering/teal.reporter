@@ -27,6 +27,20 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
       self$set_style(style)
       invisible(self)
     },
+    #' @description Sets content of this `TextBlock`.
+    #'
+    #' @param content (`any`) R object
+    #'
+    #' @return `self`, invisibly.
+    #' @examples
+    #' ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
+    #' block <- ContentBlock$new()
+    #' block$set_content("Base64 encoded picture")
+    #'
+    set_content = function(content) {
+      checkmate::assert_string(content)
+      super$set_content(content)
+    },
     #' @description Sets the style of this `TextBlock`.
     #'
     #' @details The style has bearing on the rendering of this block.
@@ -96,6 +110,7 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
     }
   ),
   private = list(
+    content = character(0),
     style = character(0),
     styles = c("default", "header2", "header3", "verbatim")
   ),
