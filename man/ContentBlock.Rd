@@ -12,14 +12,6 @@ It serves as a foundation for constructing complex report structures.
 \examples{
 
 ## ------------------------------------------------
-## Method `ContentBlock$new`
-## ------------------------------------------------
-
-ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
-ContentBlock$new()
-
-
-## ------------------------------------------------
 ## Method `ContentBlock$set_content`
 ## ------------------------------------------------
 
@@ -41,40 +33,12 @@ block$get_content()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-ContentBlock-new}{\code{ContentBlock$new()}}
 \item \href{#method-ContentBlock-set_content}{\code{ContentBlock$set_content()}}
 \item \href{#method-ContentBlock-get_content}{\code{ContentBlock$get_content()}}
 \item \href{#method-ContentBlock-from_list}{\code{ContentBlock$from_list()}}
 \item \href{#method-ContentBlock-to_list}{\code{ContentBlock$to_list()}}
 \item \href{#method-ContentBlock-clone}{\code{ContentBlock$clone()}}
 }
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ContentBlock-new"></a>}}
-\if{latex}{\out{\hypertarget{method-ContentBlock-new}{}}}
-\subsection{Method \code{new()}}{
-Initialize a \code{ContentBlock} object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ContentBlock$new()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Returns a \code{ContentBlock} object with no content and the default style.
-}
-
-\subsection{Returns}{
-Object of class \code{ContentBlock}, invisibly.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
-ContentBlock$new()
-
-}
-\if{html}{\out{</div>}}
-
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ContentBlock-set_content"></a>}}
@@ -88,7 +52,7 @@ Sets content of this \code{ContentBlock}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{content}}{(\code{character(0)} or \code{character(1)}) string or file path assigned to this \code{ContentBlock}}
+\item{\code{content}}{(\code{any}) R object}
 }
 \if{html}{\out{</div>}}
 }
@@ -117,7 +81,7 @@ Retrieves the content assigned to this block.
 }
 
 \subsection{Returns}{
-\code{character} string or file path assigned to this \code{ContentBlock}.
+object stored in a \code{private$content} field
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

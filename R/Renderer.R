@@ -86,7 +86,6 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock", "HTMLBlock")
       )
       checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
-
       if (missing(yaml_header)) {
         yaml_header <- md_header(yaml::as.yaml(list(title = "Report")))
       }
@@ -282,9 +281,9 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename_table)
     },
     htmlBlock2md = function(block) {
-      basename_content <- basename(block$get_content())
-      file.copy(block$get_content(), file.path(private$output_dir, basename_content))
-      sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename_content)
+      basename <- basename(tempfile(fileext = ".rds"))
+      suppressWarnings(saveRDS(block$get_content(), file = file.path(private$output_dir, basename)))
+      sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename)
     }
   ),
   lock_objects = TRUE,
