@@ -42,7 +42,7 @@ Imports:
 Suggests:
     DT (>= 0.13),
     formatR (>= 1.5),
-    formatters,
+    formatters (>= 0.5.10),
     ggplot2 (>= 3.4.3),
     lattice (>= 0.18-4),
     png,
