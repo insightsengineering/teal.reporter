@@ -46,7 +46,7 @@ Suggests:
     ggplot2 (>= 3.4.3),
     lattice (>= 0.18-4),
     png,
-    testthat (>= 3.1.5),
+    testthat (>= 3.2.2),
     tinytex,
     withr (>= 2.0.0)
 VignetteBuilder:
