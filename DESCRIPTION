@@ -30,7 +30,7 @@ Imports:
     knitr (>= 1.42),
     lifecycle (>= 0.2.0),
     R6,
-    rlistings (>= 0.2.8),
+    rlistings (>= 0.2.10),
     rmarkdown (>= 2.23),
     rtables (>= 0.6.10.9004),
     rtables.officer (>= 0.0.1.9005),
