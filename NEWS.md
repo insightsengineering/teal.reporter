@@ -1,4 +1,4 @@
-# teal.reporter 0.3.1.9020
+# teal.reporter 0.3.1.9023
 
 ### Enhancements
 

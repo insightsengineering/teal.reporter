@@ -21,9 +21,24 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
     #' block <- RcodeBlock$new()
     #'
     initialize = function(content = character(0), ...) {
+      checkmate::assert_class(content, "character")
       super$set_content(content)
       self$set_params(list(...))
       invisible(self)
+    },
+    #' @description Sets content of this `RcodeBlock`.
+    #'
+    #' @param content (`any`) R object
+    #'
+    #' @return `self`, invisibly.
+    #' @examples
+    #' RcodeBlock <- getFromNamespace("RcodeBlock", "teal.reporter")
+    #' block <- RcodeBlock$new()
+    #' block$set_content("a <- 1")
+    #'
+    set_content = function(content) {
+      checkmate::assert_string(content)
+      super$set_content(content)
     },
     #' @description Sets the parameters of this `RcodeBlock`.
     #'
@@ -97,6 +112,7 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
     }
   ),
   private = list(
+    content = character(0),
     params = list()
   ),
   lock_objects = TRUE,

@@ -20,6 +20,15 @@ block <- TextBlock$new()
 
 
 ## ------------------------------------------------
+## Method `TextBlock$set_content`
+## ------------------------------------------------
+
+ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
+block <- ContentBlock$new()
+block$set_content("Base64 encoded picture")
+
+
+## ------------------------------------------------
 ## Method `TextBlock$set_style`
 ## ------------------------------------------------
 
@@ -72,6 +81,7 @@ block$to_list()
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-TextBlock-new}{\code{TextBlock$new()}}
+\item \href{#method-TextBlock-set_content}{\code{TextBlock$set_content()}}
 \item \href{#method-TextBlock-set_style}{\code{TextBlock$set_style()}}
 \item \href{#method-TextBlock-get_style}{\code{TextBlock$get_style()}}
 \item \href{#method-TextBlock-get_available_styles}{\code{TextBlock$get_available_styles()}}
@@ -84,7 +94,6 @@ block$to_list()
 <details open><summary>Inherited methods</summary>
 <ul>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-get_content'><code>teal.reporter::ContentBlock$get_content()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="set_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-set_content'><code>teal.reporter::ContentBlock$set_content()</code></a></span></li>
 </ul>
 </details>
 }}
@@ -117,6 +126,37 @@ Object of class \code{TextBlock}, invisibly.
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{TextBlock <- getFromNamespace("TextBlock", "teal.reporter")
 block <- TextBlock$new()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TextBlock-set_content"></a>}}
+\if{latex}{\out{\hypertarget{method-TextBlock-set_content}{}}}
+\subsection{Method \code{set_content()}}{
+Sets content of this \code{TextBlock}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TextBlock$set_content(content)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{content}}{(\code{any}) R object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{self}, invisibly.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
+block <- ContentBlock$new()
+block$set_content("Base64 encoded picture")
 
 }
 \if{html}{\out{</div>}}
