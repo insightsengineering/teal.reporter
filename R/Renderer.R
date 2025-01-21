@@ -56,7 +56,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' card2 <- ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
-    #' card2$append_text("A paragraph of default text", "header2")
+    #' card2$append_text("A paragraph of default text")
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
     #' card2$append_table(table_res2)
@@ -160,7 +160,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' card2 <- ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
-    #' card2$append_text("A paragraph of default text", "header2")
+    #' card2$append_text("A paragraph of default text")
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
     #' card2$append_table(table_res2)
