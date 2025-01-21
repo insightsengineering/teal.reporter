@@ -72,7 +72,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends a text paragraph to this `ReportCard`.
     #'
     #' @param text (`character`) The text content to add.
-    #' @param style (`character(1)`) the style of the paragraph. One of: `default`, `header`, `verbatim`
+    #' @param style (`character(1)`) the style of the paragraph. One of: `r TextBlock$new()$get_available_styles()`.
     #' @return `self`, invisibly.
     #' @examples
     #' card <- ReportCard$new()$append_text("A paragraph of default text")
