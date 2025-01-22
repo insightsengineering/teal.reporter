@@ -32,7 +32,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text", "header2")
+    #' card1$append_text("A paragraph of default text")
     #' card1$append_plot(
     #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
@@ -40,7 +40,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' card2 <- ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
-    #' card2$append_text("A paragraph of default text", "header2")
+    #' card2$append_text("A paragraph of default text")
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
     #' card2$append_table(table_res2)
@@ -64,7 +64,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text", "header2")
+    #' card1$append_text("A paragraph of default text")
     #' card1$append_plot(
     #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
@@ -72,7 +72,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' card2 <- ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
-    #' card2$append_text("A paragraph of default text", "header2")
+    #' card2$append_text("A paragraph of default text")
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
     #' card2$append_table(table_res2)
@@ -96,7 +96,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text", "header2")
+    #' card1$append_text("A paragraph of default text")
     #' card1$append_plot(
     #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
@@ -104,7 +104,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' card2 <- ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
-    #' card2$append_text("A paragraph of default text", "header2")
+    #' card2$append_text("A paragraph of default text")
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
     #' card2$append_table(table_res2)
