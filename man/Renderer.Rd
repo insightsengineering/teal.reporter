@@ -14,7 +14,6 @@ library(yaml)
 library(rtables)
 library(ggplot2)
 
-ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
 card1 <- ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
@@ -23,7 +22,6 @@ card1$append_plot(
  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )
 
-ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
 card2 <- ReportCard$new()
 
 card2$append_text("Header 2 text", "header2")
@@ -34,7 +32,6 @@ card2$append_table(table_res2)
 card2$append_table(iris)
 card2$append_rcode("2+2", echo = FALSE)
 
-Reporter <- getFromNamespace("Reporter", "teal.reporter")
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 
@@ -55,7 +52,6 @@ result_path <- Renderer$new()$renderRmd(reporter$get_blocks(), yaml_header)
 library(yaml)
 library(ggplot2)
 
-ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
 card1 <- ReportCard$new()
 
 card1$append_text("Header 2 text", "header2")
@@ -64,7 +60,6 @@ card1$append_plot(
  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )
 
-ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
 card2 <- ReportCard$new()
 
 card2$append_text("Header 2 text", "header2")
@@ -74,8 +69,8 @@ table_res2 <- build_table(lyt, airquality)
 card2$append_table(table_res2)
 card2$append_table(iris)
 card2$append_rcode("2+2", echo = FALSE)
-Reporter <- getFromNamespace("Reporter", "teal.reporter")$new()
-Reporter$append_cards(list(card1, card2))
+reporter <- Reporter$new()
+reporter$append_cards(list(card1, card2))
 
 yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
 yaml_l <- list(
@@ -88,7 +83,7 @@ yaml_l <- list(
 md_header <- getFromNamespace("md_header", "teal.reporter")
 yaml_header <- md_header(as.yaml(yaml_l))
 Renderer <- getFromNamespace("Renderer", "teal.reporter")
-result_path <- Renderer$new()$render(Reporter$get_blocks(), yaml_header)
+result_path <- Renderer$new()$render(reporter$get_blocks(), yaml_header)
 \dontshow{\}) # examplesIf}
 
 ## ------------------------------------------------
