@@ -44,7 +44,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
     #' card2$append_table(table_res2)
-    #' card2$append_table(iris)
     #'
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
@@ -76,7 +75,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
     #' card2$append_table(table_res2)
-    #' card2$append_table(iris)
     #'
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
@@ -108,7 +106,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
     #' card2$append_table(table_res2)
-    #' card2$append_table(iris)
     #'
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
