@@ -9,7 +9,7 @@ A class for rendering reports from \code{ContentBlock} into various formats usin
 It supports \code{TextBlock}, \code{PictureBlock}, \code{RcodeBlock}, \code{NewpageBlock}, and \code{TableBlock}.
 }
 \examples{
-\dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(yaml)
 library(rtables)
 library(ggplot2)
@@ -29,7 +29,6 @@ card2$append_text("A paragraph of default text")
 lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
 table_res2 <- build_table(lyt, airquality)
 card2$append_table(table_res2)
-card2$append_table(iris)
 card2$append_rcode("2+2", echo = FALSE)
 
 reporter <- Reporter$new()
@@ -48,7 +47,7 @@ yaml_header <- md_header(as.yaml(yaml_l))
 Renderer <- getFromNamespace("Renderer", "teal.reporter")
 result_path <- Renderer$new()$renderRmd(reporter$get_blocks(), yaml_header)
 \dontshow{\}) # examplesIf}
-\dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(yaml)
 library(ggplot2)
 
@@ -67,7 +66,6 @@ card2$append_text("A paragraph of default text")
 lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
 table_res2 <- build_table(lyt, airquality)
 card2$append_table(table_res2)
-card2$append_table(iris)
 card2$append_rcode("2+2", echo = FALSE)
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
