@@ -39,6 +39,7 @@ jobs:
         checking Rd .usage sections .* NOTE
         checking for unstated dependencies in vignettes .* NOTE
         checking top-level files .* NOTE
+        Files named as vignettes but with no recognized vignette engine.* NOTE
       unit-test-report-brand: >-
         https://raw.githubusercontent.com/insightsengineering/hex-stickers/main/thumbs/teal.png
       deps-installation-method: setup-r-dependencies
@@ -68,6 +69,7 @@ jobs:
         checking Rd .usage sections .* NOTE
         checking for unstated dependencies in vignettes .* NOTE
         checking top-level files .* NOTE
+        Files named as vignettes but with no recognized vignette engine.* NOTE
       deps-installation-method: setup-r-dependencies
       lookup-refs: |
         insightsengineering/rlistings
