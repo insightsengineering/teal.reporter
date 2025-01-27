@@ -1,7 +1,7 @@
 Package: teal.reporter
 Title: Reporting Tools for 'shiny' Modules
-Version: 0.3.1.9023
-Date: 2025-01-14
+Version: 0.4.0.9000
+Date: 2025-01-24
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-9533-457X")),
@@ -32,8 +32,8 @@ Imports:
     R6,
     rlistings (>= 0.2.10),
     rmarkdown (>= 2.23),
-    rtables (>= 0.6.10.9004),
-    rtables.officer (>= 0.0.1.9005),
+    rtables (>= 0.6.11),
+    rtables.officer (>= 0.0.2),
     shiny (>= 1.6.0),
     shinybusy (>= 0.3.2),
     shinyWidgets (>= 0.5.1),
@@ -54,8 +54,6 @@ VignetteBuilder:
     rmarkdown
 RdMacros:
     lifecycle
-Remotes: 
-    insightsengineering/rtables.officer
 Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate,
     davidgohel/flextable, rstudio/htmltools, yihui/knitr, r-lib/lifecycle,
     r-lib/R6, insightsengineering/rlistings, rstudio/rmarkdown,
