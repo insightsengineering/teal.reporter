@@ -44,30 +44,29 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' library(ggplot2)
     #'
     #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
-    #' card1 <- ReportCard$new()
+    #' Reporter <- getFromNamespace("Reporter", "teal.reporter")
+    #' yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
+    #' md_header <- getFromNamespace("md_header", "teal.reporter")
+    #' Renderer <- getFromNamespace("Renderer", "teal.reporter")
     #'
+    #' card1 <- ReportCard$new()
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text")
     #' card1$append_plot(
     #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
     #'
-    #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
     #' card2 <- ReportCard$new()
-    #'
     #' card2$append_text("Header 2 text", "header2")
-    #' card2$append_text("A paragraph of default text", "header2")
+    #' card2$append_text("A paragraph of default text")
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
     #' card2$append_table(table_res2)
-    #' card2$append_table(iris)
     #' card2$append_rcode("2+2", echo = FALSE)
     #'
-    #' Reporter <- getFromNamespace("Reporter", "teal.reporter")
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
     #'
-    #' yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
     #' yaml_l <- list(
     #'   author = yaml_quoted("NEST"),
     #'   title = yaml_quoted("Report"),
@@ -75,9 +74,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'   output = list(html_document = list(toc = FALSE))
     #' )
     #'
-    #' md_header <- getFromNamespace("md_header", "teal.reporter")
     #' yaml_header <- md_header(as.yaml(yaml_l))
-    #' Renderer <- getFromNamespace("Renderer", "teal.reporter")
+    #'
     #' result_path <- Renderer$new()$renderRmd(reporter$get_blocks(), yaml_header)
     #'
     renderRmd = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr")) {
@@ -148,28 +146,29 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' library(ggplot2)
     #'
     #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
-    #' card1 <- ReportCard$new()
+    #' Reporter <- getFromNamespace("Reporter", "teal.reporter")
+    #' yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
+    #' md_header <- getFromNamespace("md_header", "teal.reporter")
+    #' Renderer <- getFromNamespace("Renderer", "teal.reporter")
     #'
+    #' card1 <- ReportCard$new()
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text")
     #' card1$append_plot(
     #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
     #'
-    #' ReportCard <- getFromNamespace("ReportCard", "teal.reporter")
     #' card2 <- ReportCard$new()
-    #'
     #' card2$append_text("Header 2 text", "header2")
-    #' card2$append_text("A paragraph of default text", "header2")
+    #' card2$append_text("A paragraph of default text")
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
     #' card2$append_table(table_res2)
-    #' card2$append_table(iris)
     #' card2$append_rcode("2+2", echo = FALSE)
-    #' Reporter <- getFromNamespace("Reporter", "teal.reporter")$new()
-    #' Reporter$append_cards(list(card1, card2))
     #'
-    #' yaml_quoted <- getFromNamespace("yaml_quoted", "teal.reporter")
+    #' reporter <- Reporter$new()
+    #' reporter$append_cards(list(card1, card2))
+    #'
     #' yaml_l <- list(
     #'   author = yaml_quoted("NEST"),
     #'   title = yaml_quoted("Report"),
@@ -177,10 +176,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'   output = list(html_document = list(toc = FALSE))
     #' )
     #'
-    #' md_header <- getFromNamespace("md_header", "teal.reporter")
     #' yaml_header <- md_header(as.yaml(yaml_l))
-    #' Renderer <- getFromNamespace("Renderer", "teal.reporter")
-    #' result_path <- Renderer$new()$render(Reporter$get_blocks(), yaml_header)
+    #' result_path <- Renderer$new()$render(reporter$get_blocks(), yaml_header)
     #'
     render = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
       args <- list(...)

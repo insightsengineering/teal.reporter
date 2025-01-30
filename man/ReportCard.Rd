@@ -266,7 +266,7 @@ Appends a text paragraph to this \code{ReportCard}.
 \describe{
 \item{\code{text}}{(\code{character}) The text content to add.}
 
-\item{\code{style}}{(\code{character(1)}) the style of the paragraph. One of: \code{default}, \code{header}, \code{verbatim}}
+\item{\code{style}}{(\code{character(1)}) the style of the paragraph. One of: default, header2, header3, verbatim.}
 }
 \if{html}{\out{</div>}}
 }
