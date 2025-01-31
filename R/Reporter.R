@@ -18,21 +18,25 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     initialize = function() {
       private$cards <- list()
-      private$reactive_add_card <- shiny::reactiveVal(0)
+      private$reactive_add_card <- shiny::reactiveVal(Sys.time())
       invisible(self)
+    },
+    #' @description Trigger reactive card update, needed for additional appended user-text to update UI
+    trigger_reactive_add_card = function() {
+      private$reactive_add_card(Sys.time()) # sys.time chosen to update UI
     },
     #' @description Append one or more `ReportCard` objects to the `Reporter`.
     #'
     #' @param cards (`ReportCard`) or a list of such objects
     #' @return `self`, invisibly.
-    #' @examplesIf require("ggplot2")
+    #' @examples
     #' library(ggplot2)
     #' library(rtables)
     #'
     #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text")
+    #' card1$append_text("A paragraph of default text", "header2")
     #' card1$append_plot(
     #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
@@ -40,10 +44,11 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' card2 <- ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
-    #' card2$append_text("A paragraph of default text")
+    #' card2$append_text("A paragraph of default text", "header2")
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
     #' card2$append_table(table_res2)
+    #' card2$append_table(iris)
     #'
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
@@ -56,14 +61,14 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @description Retrieves all `ReportCard` objects contained in the `Reporter`.
     #'
     #' @return A (`list`) of [`ReportCard`] objects.
-    #' @examplesIf require("ggplot2")
+    #' @examples
     #' library(ggplot2)
     #' library(rtables)
     #'
     #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text")
+    #' card1$append_text("A paragraph of default text", "header2")
     #' card1$append_plot(
     #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
@@ -71,10 +76,11 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' card2 <- ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
-    #' card2$append_text("A paragraph of default text")
+    #' card2$append_text("A paragraph of default text", "header2")
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
     #' card2$append_table(table_res2)
+    #' card2$append_table(iris)
     #'
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
@@ -82,19 +88,20 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     get_cards = function() {
       private$cards
     },
+
     #' @description Compiles and returns all content blocks from the [`ReportCard`] in the `Reporter`.
     #'
     #' @param sep An optional separator to insert between each content block.
     #' Default is a `NewpageBlock$new()`object.
     #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock` and `NewpageBlock`.
-    #' @examplesIf require("ggplot2")
+    #' @examples
     #' library(ggplot2)
     #' library(rtables)
     #'
     #' card1 <- ReportCard$new()
     #'
     #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text")
+    #' card1$append_text("A paragraph of default text", "header2")
     #' card1$append_plot(
     #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
@@ -102,10 +109,11 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' card2 <- ReportCard$new()
     #'
     #' card2$append_text("Header 2 text", "header2")
-    #' card2$append_text("A paragraph of default text")
+    #' card2$append_text("A paragraph of default text", "header2")
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
     #' card2$append_table(table_res2)
+    #' card2$append_table(iris)
     #'
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
@@ -205,7 +213,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @description
     #' Reinitializes a `Reporter` instance by copying the report cards and metadata from another `Reporter`.
     #' @param reporter (`Reporter`) instance to copy from.
-    #' @return invisibly self
+    #' @return `self`, invisibly.
     #' @examples
     #' reporter <- Reporter$new()
     #' reporter$from_reporter(reporter)
@@ -220,6 +228,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @param output_dir (`character(1)`) a path to the directory where files will be copied.
     #' @return `named list` representing the `Reporter` instance, including version information,
     #'  metadata, and report cards.
+    #'
     #' @examples
     #' reporter <- Reporter$new()
     #' tmp_dir <- file.path(tempdir(), "testdir")
@@ -227,7 +236,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter$to_list(tmp_dir)
     to_list = function(output_dir) {
       checkmate::assert_directory_exists(output_dir)
-      rlist <- list(name = "teal Reporter", version = "1", id = self$get_id(), cards = list())
+      rlist <- list(version = "1", cards = list())
       rlist[["metadata"]] <- self$get_metadata()
       for (card in self$get_cards()) {
         # we want to have list names being a class names to indicate the class for $from_list
@@ -242,7 +251,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @param rlist (`named list`) representing a `Reporter` instance.
     #' @param output_dir (`character(1)`) a path to the directory from which files will be copied.
     #' @return `self`, invisibly.
-    #' @note if Report has an id when converting to JSON then It will be compared to the currently available one.
     #' @examples
     #' reporter <- Reporter$new()
     #' tmp_dir <- file.path(tempdir(), "testdir")
@@ -250,32 +258,23 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' dir.create(tmp_dir)
     #' reporter$from_list(reporter$to_list(tmp_dir), tmp_dir)
     from_list = function(rlist, output_dir) {
-      id <- self$get_id()
       checkmate::assert_list(rlist)
       checkmate::assert_directory_exists(output_dir)
-      stopifnot("Report JSON has to have name slot equal to teal Reporter" = rlist$name == "teal Reporter")
-      stopifnot("Loaded Report id has to match the current instance one" = rlist$id == id)
-      if (rlist$version %in% c("1")) {
+      if (rlist$version == "1") {
         new_cards <- list()
         cards_names <- names(rlist$cards)
         cards_names <- gsub("[.][0-9]*$", "", cards_names)
         for (iter_c in seq_along(rlist$cards)) {
           card_class <- cards_names[iter_c]
           card <- rlist$cards[[iter_c]]
-          new_card <- eval(str2lang(card_class))$new()
+          new_card <- eval(str2lang(sprintf("%s$new()", card_class)))
           new_card$from_list(card, output_dir)
           new_cards <- c(new_cards, new_card)
         }
       } else {
-        stop(
-          sprintf(
-            "The provided %s reporter version is not supported.",
-            rlist$version
-          )
-        )
+        stop("The provided version is not supported")
       }
       self$reset()
-      self$set_id(rlist$id)
       self$append_cards(new_cards)
       self$append_metadata(rlist$metadata)
       invisible(self)
@@ -291,8 +290,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     to_jsondir = function(output_dir) {
       checkmate::assert_directory_exists(output_dir)
       json <- self$to_list(output_dir)
-      cat(
-        jsonlite::toJSON(json, auto_unbox = TRUE, force = TRUE),
+      cat(jsonlite::toJSON(json, auto_unbox = TRUE, force = TRUE),
         file = file.path(output_dir, "Report.json")
       )
       output_dir
@@ -300,7 +298,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @description Reinitializes a `Reporter` from a `JSON ` file and files in a specified directory.
     #' @param output_dir (`character(1)`) a path to the directory with files, `JSON` and statics.
     #' @return `self`, invisibly.
-    #' @note if Report has an id when converting to JSON then It will be compared to the currently available one.
     #' @examples
     #' reporter <- Reporter$new()
     #' tmp_dir <- file.path(tempdir(), "jsondir")
@@ -310,31 +307,74 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter$from_jsondir(tmp_dir)
     from_jsondir = function(output_dir) {
       checkmate::assert_directory_exists(output_dir)
+      checkmate::assert_true(length(list.files(output_dir)) > 0)
       dir_files <- list.files(output_dir)
-      stopifnot("There has to be at least one file in the loaded directory" = length(dir_files) > 0)
-      stopifnot("Report.json file has to be in the loaded directory" = "Report.json" %in% basename(dir_files))
-      json <- jsonlite::read_json(file.path(output_dir, "Report.json"))
+      which_json <- grep("json$", dir_files)
+      json <- jsonlite::read_json(file.path(output_dir, dir_files[which_json]))
       self$reset()
       self$from_list(json, output_dir)
       invisible(self)
     },
-    #' @description Set the `Reporter` id
-    #' Optionally add id to a `Reporter` which will be compared when it is rebuilt from a list.
-    #' The id is added to the downloaded file name.
-    #' @param id (`character(1)`) a Report id.
-    #' @return `self`, invisibly.
-    set_id = function(id) {
-      private$id <- id
+    #' @description Removes a block from a given `ReportCard`
+    #'
+    #' @param card_id (`numeric`) The id of the `ReportCard`.
+    #' @param block_id (`numeric`) The id of the removed block in the `ReportCard`.
+    #' @return self invisibly.
+    #' @examples
+    #' card1 <- ReportCard$new()
+    #'
+    #' card1$append_text("Header 2 text", "header2")
+    #' card1$append_text("A paragraph of default text", "header2")
+    #'
+    #' card2 <- ReportCard$new()
+    #'
+    #' card2$append_text("Header 2 text", "header2")
+    #' card2$append_text("A paragraph of default text", "header2")
+    #'
+    #' reporter <- Reporter$new()
+    #' reporter$append_cards(list(card1, card2))
+    #' reporter$remove_block_from_card(2, 1)
+    #' reporter$get_blocks()
+    #'
+    remove_block_from_card = function(card_id, block_id) {
+      checkmate::assert_number(card_id, lower = 1, upper = length(private$cards))
+      private$cards[[card_id]]$remove_block(block_id)
       invisible(self)
     },
-    #' @description Get the `Reporter` id
-    #' @return `character(1)` the `Reporter` id.
-    get_id = function() {
-      private$id
+    #' @description Appends additional user-entered text to a block in the `ReportCard`
+    #'
+    #' @param card_id (`numeric`) The id of the `ReportCard`.
+    #' @param text (`character`) Text to be added to block of the `ReportCard`.
+    #' @param block_id (`numeric`) The id of the block.
+    #' @return self invisibly.
+    add_text = function(card_id, text) {
+      checkmate::assert_number(card_id, lower = 1, upper = length(private$cards))
+      private$cards[[card_id]]$append_text(as.character(text), "verbatim")
+      invisible(self)
+    },
+    #' @description Modify user-entered text to a block in the `ReportCard`
+    #'
+    #' @param card_id (`numeric`) The id of the `ReportCard`.
+    #' @param text (`character`) Text to be modified in block of the `ReportCard`.
+    #' @param block_id (`numeric`) The id of the block.
+    #' @return self invisibly.
+    modify_text = function(card_id, block_id, text) {
+      checkmate::assert_number(card_id, lower = 1, upper = length(private$cards))
+      as.list(private$cards[[as.numeric(card_id)]]$get_content()[[as.numeric(block_id)]])$set_content(as.character(text))
+      invisible(self)
+    },
+    #' @description Retrieve user entered text of a block in the `ReportCard`
+    #'
+    #' @param card_id (`numeric`) The id of the `ReportCard`.
+    #' @param block_id (`numeric`) The id of the block.
+    #' @return user-entered block text.
+    get_text = function(card_id, block_id) {
+      checkmate::assert_number(card_id, lower = 1, upper = length(private$cards))
+      private$cards[[as.numeric(card_id)]]$get_content()[[as.numeric(block_id)]]$get_content()
     }
+    
   ),
   private = list(
-    id = "",
     cards = list(),
     metadata = list(),
     reactive_add_card = NULL,
