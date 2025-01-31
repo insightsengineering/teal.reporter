@@ -14,9 +14,9 @@
 }
 
 .onAttach <- function(libname, pkgname) {
-  packageStartupMessage(
-    if (!requireNamespace("formatR", quietly = TRUE)) {
+  if (!requireNamespace("formatR", quietly = TRUE)) {
+    packageStartupMessage(
       "For better code formatting, consider installing the formatR package."
-    }
-  )
+    )
+  }
 }
