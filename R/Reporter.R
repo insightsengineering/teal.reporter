@@ -18,8 +18,12 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     initialize = function() {
       private$cards <- list()
-      private$reactive_add_card <- shiny::reactiveVal(0)
+      private$reactive_add_card <- shiny::reactiveVal(Sys.time())
       invisible(self)
+    },
+    #' @description Trigger reactive card update, needed for additional appended user-text to update UI
+    trigger_reactive_add_card = function() {
+      private$reactive_add_card(Sys.time()) # sys.time chosen to update UI
     },
     #' @description Append one or more `ReportCard` objects to the `Reporter`.
     #'
@@ -331,6 +335,63 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @return `character(1)` the `Reporter` id.
     get_id = function() {
       private$id
+    },
+    #' @description Removes a block from a given `ReportCard`
+    #'
+    #' @param card_id (`numeric`) The id of the `ReportCard`.
+    #' @param block_id (`numeric`) The id of the removed block in the `ReportCard`.
+    #' @return self invisibly.
+    #' @examples
+    #' card1 <- ReportCard$new()
+    #'
+    #' card1$append_text("Header 2 text", "header2")
+    #' card1$append_text("A paragraph of default text", "header2")
+    #'
+    #' card2 <- ReportCard$new()
+    #'
+    #' card2$append_text("Header 2 text", "header2")
+    #' card2$append_text("A paragraph of default text", "header2")
+    #'
+    #' reporter <- Reporter$new()
+    #' reporter$append_cards(list(card1, card2))
+    #' reporter$remove_block_from_card(2, 1)
+    #' reporter$get_blocks()
+    #'
+    remove_block_from_card = function(card_id, block_id) {
+      checkmate::assert_number(card_id, lower = 1, upper = length(private$cards))
+      private$cards[[card_id]]$remove_block(block_id)
+      invisible(self)
+    },
+    #' @description Appends additional user-entered text to a block in the `ReportCard`
+    #'
+    #' @param card_id (`numeric`) The id of the `ReportCard`.
+    #' @param text (`character`) Text to be added to block of the `ReportCard`.
+    #' @param block_id (`numeric`) The id of the block.
+    #' @return self invisibly.
+    add_text = function(card_id, text) {
+      checkmate::assert_number(card_id, lower = 1, upper = length(private$cards))
+      private$cards[[card_id]]$append_text(as.character(text), "verbatim")
+      invisible(self)
+    },
+    #' @description Modify user-entered text to a block in the `ReportCard`
+    #'
+    #' @param card_id (`numeric`) The id of the `ReportCard`.
+    #' @param text (`character`) Text to be modified in block of the `ReportCard`.
+    #' @param block_id (`numeric`) The id of the block.
+    #' @return self invisibly.
+    modify_text = function(card_id, block_id, text) {
+      checkmate::assert_number(card_id, lower = 1, upper = length(private$cards))
+      as.list(private$cards[[as.numeric(card_id)]]$get_content()[[as.numeric(block_id)]])$set_content(as.character(text))
+      invisible(self)
+    },
+    #' @description Retrieve user entered text of a block in the `ReportCard`
+    #'
+    #' @param card_id (`numeric`) The id of the `ReportCard`.
+    #' @param block_id (`numeric`) The id of the block.
+    #' @return user-entered block text.
+    get_text = function(card_id, block_id) {
+      checkmate::assert_number(card_id, lower = 1, upper = length(private$cards))
+      private$cards[[as.numeric(card_id)]]$get_content()[[as.numeric(block_id)]]$get_content()
     }
   ),
   private = list(
