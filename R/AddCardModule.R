@@ -183,7 +183,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
         arg_list <- c(arg_list, list(card = card))
       }
 
-      card <- try(do.call(card_fun, arg_list))
+      card <- try(do.call(card_fun(), arg_list))
 
       if (inherits(card, "try-error")) {
         msg <- paste0(
@@ -197,14 +197,26 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           type = "error"
         )
       } else {
-        checkmate::assert_class(card, "ReportCard")
+        checkmate::assert(
+          checkmate::check_class(card, "ReportCard"),
+          checkmate::check_class(card, "ReportDocument"),
+          combine = "or"
+        )
         if (!has_comment_arg && length(input$comment) > 0 && input$comment != "") {
-          card$append_text("Comment", "header3")
-          card$append_text(input$comment)
+          if (inherits(card, "ReportCard")) {
+            card$append_text("Comment", "header3")
+            card$append_text(input$comment)
+          } else if (inherits(card, "ReportDocument")) {
+            card <- c(card, list("### Comment"), list(input$comment))
+          }
         }
 
         if (!has_label_arg && length(input$label) == 1 && input$label != "") {
-          card$set_name(input$label)
+          if (inherits(card, "ReportCard")) {
+            card$set_name(input$label)
+          } else if (inherits(card, "ReportDocument")) {
+            card <- c(card, list(paste0("# ", input$label)))
+          }
         }
 
         reporter$append_cards(list(card))
