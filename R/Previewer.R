@@ -171,7 +171,7 @@ reporter_previewer_srv <- function(id,
               class = "panel-group accordion",
               id = "reporter_previewer_panel",
               lapply(seq_along(cards), function(ic) {
-                previewer_collapse_item(ic, attr(cards[[ic]], "name"), NULL) # TODO, substitute NULL with report content
+                previewer_collapse_item(ic, attr(cards[[ic]], "name"), cards[[ic]])
               })
             )
         }
@@ -304,7 +304,7 @@ reporter_previewer_srv <- function(id,
 #' @noRd
 #' @keywords internal
 block_to_html <- function(b) {
-  if (inherits(b, 'ReportDocument')) {
+  if (!inherits(b, 'ContentBlock')) {
     # This function knows how to reshape blocks into html, based on the block class.
     # ReportDocument is just an S3 list of R objects (mostly character(), ggplot, table)
     # We can decide how to handle conversion of each element into HTML, based on:
@@ -316,7 +316,12 @@ block_to_html <- function(b) {
     # 2) ggplot
     # 3) data.frame
     # for now.
-
+    switch(class(b),
+      character = shiny::tags$pre(b),
+      ggplot = shiny::tags$img(src = knitr::image_uri(b)),
+      data.frame = shiny::tags$pre(knitr::kable(b)),
+      stop("Unknown ReportDocument object element. Currently allowing only: character, ggplot, data.frame.")
+    )
   } else {
 
   b_content <- b$get_content()
