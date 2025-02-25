@@ -171,7 +171,7 @@ reporter_previewer_srv <- function(id,
               class = "panel-group accordion",
               id = "reporter_previewer_panel",
               lapply(seq_along(cards), function(ic) {
-                previewer_collapse_item(ic, attr(cards[[ic]], "name"), NULL)
+                previewer_collapse_item(ic, attr(cards[[ic]], "name"), NULL) # TODO, substitute NULL with report content
               })
             )
         }
