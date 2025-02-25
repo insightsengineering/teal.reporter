@@ -29,8 +29,17 @@ along with descriptions and usage examples:
  These blocks form the building blocks of a `ReportCard`, each serving a specific function that contributes to the overall layout and content of the report. The `ReportCard` object utilizes `append_*` methods to integrate various blocks such as `TextBlock`, `PictureBlock`, `RcodeBlock`, and `TableBlock`.
 
 The following diagram illustrates the inheritance relationship between the different blocks:
-```{r, child="_setup.Rmd"}
+
+```{css mermaid, echo=FALSE}
+pre.mermaid {
+  background: transparent;
+}
 ```
+
+```{r load_mermaid, echo=FALSE}
+shiny::tags$script(type = "module", "import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/+esm'")
+```
+
 ```{r actors_mermaid2, echo=FALSE}
 shiny::pre(
   class = "mermaid",

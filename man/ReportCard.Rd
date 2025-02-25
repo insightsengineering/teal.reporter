@@ -69,6 +69,13 @@ card <- ReportCard$new()$append_table(iris)
 
 
 ## ------------------------------------------------
+## Method `ReportCard$append_html`
+## ------------------------------------------------
+
+card <- ReportCard$new()$append_html(shiny::div("HTML Content"))
+
+
+## ------------------------------------------------
 ## Method `ReportCard$append_text`
 ## ------------------------------------------------
 
@@ -126,6 +133,7 @@ ReportCard$new()$set_name("NAME")$get_name()
 \itemize{
 \item \href{#method-ReportCard-new}{\code{ReportCard$new()}}
 \item \href{#method-ReportCard-append_table}{\code{ReportCard$append_table()}}
+\item \href{#method-ReportCard-append_html}{\code{ReportCard$append_html()}}
 \item \href{#method-ReportCard-append_plot}{\code{ReportCard$append_plot()}}
 \item \href{#method-ReportCard-append_text}{\code{ReportCard$append_text()}}
 \item \href{#method-ReportCard-append_rcode}{\code{ReportCard$append_rcode()}}
@@ -194,6 +202,35 @@ that can be coerced into a table.}
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ReportCard-append_html"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-append_html}{}}}
+\subsection{Method \code{append_html()}}{
+Appends a html content to this \code{ReportCard}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_html(content)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{content}}{An object that can be rendered as a HTML content.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{self}, invisibly.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{card <- ReportCard$new()$append_html(shiny::div("HTML Content"))
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-append_plot"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-append_plot}{}}}
 \subsection{Method \code{append_plot()}}{
@@ -229,7 +266,7 @@ Appends a text paragraph to this \code{ReportCard}.
 \describe{
 \item{\code{text}}{(\code{character}) The text content to add.}
 
-\item{\code{style}}{(\code{character(1)}) the style of the paragraph. One of: \code{default}, \code{header}, \code{verbatim}}
+\item{\code{style}}{(\code{character(1)}) the style of the paragraph. One of: default, header2, header3, verbatim.}
 }
 \if{html}{\out{</div>}}
 }

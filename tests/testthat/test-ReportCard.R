@@ -175,6 +175,7 @@ card$append_text("Header 2 text", "header2")
 card$append_text("A paragraph of default text", "header2")
 card$append_rcode(rcode)
 card$append_plot(eval(str2lang(rcode)))
+card$append_html(shiny::tags$div("test"))
 
 picture_filename <- basename(card$get_content()[[4]]$get_content())
 temp_dir <- file.path(tempdir(), "test")
@@ -187,7 +188,8 @@ testthat::test_that("to_list internally triggers to_list on each Block", {
       TextBlock = list(text = "Header 2 text", style = "header2"),
       TextBlock = list(text = "A paragraph of default text", style = "header2"),
       RcodeBlock = list(text = rcode, params = list()),
-      PictureBlock = list(basename = picture_filename)
+      PictureBlock = list(basename = picture_filename),
+      HTMLBlock = list(content = shiny::tags$div("test"))
     ), metadata = list(), name = character(0))
   )
   testthat::expect_true(picture_filename %in% list.files(temp_dir))
@@ -199,12 +201,13 @@ testthat::test_that("from_list", {
       TextBlock = list(text = "Header 2 text", style = "header2"),
       TextBlock = list(text = "A paragraph of default text", style = "header2"),
       RcodeBlock = list(text = rcode, params = list()),
-      PictureBlock = list(basename = picture_filename)
+      PictureBlock = list(basename = picture_filename),
+      HTMLBlock = list(content = shiny::tags$div("test"))
     ), metadata = list()),
     temp_dir
   )
   testthat::expect_true(inherits(cardf, "ReportCard"))
-  testthat::expect_length(cardf$get_content(), 4L)
+  testthat::expect_length(cardf$get_content(), 5L)
 })
 
 unlink(temp_dir, recursive = TRUE)

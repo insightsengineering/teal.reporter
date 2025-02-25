@@ -1,7 +1,7 @@
 Package: teal.reporter
 Title: Reporting Tools for 'shiny' Modules
-Version: 0.3.1.9016
-Date: 2024-09-16
+Version: 0.4.0.9003
+Date: 2025-01-31
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-9533-457X")),
@@ -31,9 +31,10 @@ Imports:
     knitr (>= 1.42),
     lifecycle (>= 0.2.0),
     R6,
-    rlistings (>= 0.2.8),
+    rlistings (>= 0.2.10),
     rmarkdown (>= 2.23),
-    rtables (>= 0.6.6),
+    rtables (>= 0.6.11),
+    rtables.officer (>= 0.0.2),
     shiny (>= 1.6.0),
     shinybusy (>= 0.3.2),
     shinyWidgets (>= 0.5.1),
@@ -42,11 +43,11 @@ Imports:
 Suggests:
     DT (>= 0.13),
     formatR (>= 1.5),
-    formatters,
+    formatters (>= 0.5.10),
     ggplot2 (>= 3.4.3),
     lattice (>= 0.18-4),
     png,
-    testthat (>= 3.1.5),
+    testthat (>= 3.2.2),
     tinytex,
     withr (>= 2.0.0)
 VignetteBuilder:
@@ -57,11 +58,11 @@ RdMacros:
 Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate,
     davidgohel/flextable, rstudio/htmltools, yihui/knitr, r-lib/lifecycle,
     r-lib/R6, insightsengineering/rlistings, rstudio/rmarkdown,
-    insightsengineering/rtables, rstudio/shiny, dreamRs/shinybusy,
-    dreamRs/shinyWidgets, yaml=vubiostat/r-yaml, r-lib/zip, rstudio/DT,
-    yihui/formatR, insightsengineering/formatters, tidyverse/ggplot2,
-    deepayan/lattice, cran/png, r-lib/testthat, rstudio/tinytex,
-    r-lib/withr
+    insightsengineering/rtables, insightsengineering/rtables.officer,
+    rstudio/shiny, dreamRs/shinybusy, dreamRs/shinyWidgets,
+    yaml=vubiostat/r-yaml, r-lib/zip, rstudio/DT, yihui/formatR,
+    insightsengineering/formatters, tidyverse/ggplot2, deepayan/lattice,
+    cran/png, r-lib/testthat, rstudio/tinytex, r-lib/withr
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US

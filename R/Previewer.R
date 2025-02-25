@@ -314,6 +314,8 @@ block_to_html <- function(b) {
     )
   } else if (inherits(b, "NewpageBlock")) {
     shiny::tags$br()
+  } else if (inherits(b, "HTMLBlock")) {
+    b_content
   } else {
     stop("Unknown block class")
   }

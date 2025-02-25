@@ -8,22 +8,9 @@
 ContentBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "ContentBlock",
   public = list(
-    #' @description Initialize a `ContentBlock` object.
-    #'
-    #' @details Returns a `ContentBlock` object with no content and the default style.
-    #'
-    #' @return Object of class `ContentBlock`, invisibly.
-    #' @examples
-    #' ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
-    #' ContentBlock$new()
-    #'
-    initialize = function() {
-      private$content <- character(0)
-      invisible(self)
-    },
     #' @description Sets content of this `ContentBlock`.
     #'
-    #' @param content (`character(0)` or `character(1)`) string or file path assigned to this `ContentBlock`
+    #' @param content (`any`) R object
     #'
     #' @return `self`, invisibly.
     #' @examples
@@ -32,13 +19,12 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     #' block$set_content("Base64 encoded picture")
     #'
     set_content = function(content) {
-      checkmate::assert_character(content, min.len = 0, max.len = 1)
       private$content <- content
       invisible(self)
     },
     #' @description Retrieves the content assigned to this block.
     #'
-    #' @return `character` string or file path assigned to this `ContentBlock`.
+    #' @return object stored in a `private$content` field
     #' @examples
     #' ContentBlock <- getFromNamespace("ContentBlock", "teal.reporter")
     #' block <- ContentBlock$new()
@@ -64,7 +50,7 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     }
   ),
   private = list(
-    content = character(0),
+    content = NULL, # this can be any R object
     # @description The copy constructor.
     #
     # @param name (`character(1)`) the name of the field
