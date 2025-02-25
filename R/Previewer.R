@@ -157,13 +157,24 @@ reporter_previewer_srv <- function(id,
       cards <- reporter$get_cards()
 
       if (length(cards)) {
-        shiny::tags$div(
-          class = "panel-group accordion",
-          id = "reporter_previewer_panel",
-          lapply(seq_along(cards), function(ic) {
-            previewer_collapse_item(ic, cards[[ic]]$get_name(), cards[[ic]]$get_content())
-          })
-        )
+
+        if (all(vapply(cards, inherits, logical(1), "ReportCard"))) {
+          shiny::tags$div(
+            class = "panel-group accordion",
+            id = "reporter_previewer_panel",
+            lapply(seq_along(cards), function(ic) {
+              previewer_collapse_item(ic, cards[[ic]]$get_name(), cards[[ic]]$get_content())
+            })
+          )
+          } else if (all(vapply(cards, inherits, logical(1), "ReportDocument"))) {
+            shiny::tags$div(
+              class = "panel-group accordion",
+              id = "reporter_previewer_panel",
+              lapply(seq_along(cards), function(ic) {
+                previewer_collapse_item(ic, attr(cards[[ic]], "name"), NULL)
+              })
+            )
+        }
       } else {
         shiny::tags$div(
           id = "reporter_previewer_panel_no_cards",

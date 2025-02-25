@@ -14,6 +14,7 @@
 #' @examples
 #' report <- report_document()
 #' class(report)
+#' attr(report, "name") <- "Report Name"
 #' report <- c(report, list("## Headline"), list("## Table"), list(summary(iris)))
 #' report <- report[1:2]
 #' report <- append(report, c(list("## Table 2"), list(summary(mtcars))), after = 1)
@@ -30,10 +31,21 @@ report_document <- function(){
 #' @rdname report_document
 #' @export
 c.ReportDocument <- function(...){
-  # Regular c() drops classes, so we either overwrite the method
+  # Regular c() drops classes and attributes, so we either overwrite the method
   # or we do not use ReportDocument class, but list class.
-  objects <- do.call(c, lapply(list(...), unclass))
-  structure(objects, class = 'ReportDocument')
+
+  # Does not work, if ReportDocument is the second element, and not the first.
+  # teal.reporter::report_document() -> x
+  # class(c(list(), x)) # list
+  # class(c(x, list())) # ReportDocument
+  # append(x, list(), after = 1) # ReportDocument
+  # append(x, list(), after = 0) # list()
+
+  input_objects <- list(...)
+  attrs <- attributes(input_objects[[1]])
+  objects <- do.call(c, lapply(input_objects, unclass))
+  attributes(objects) <- attrs
+  objects
 }
 
 #' @rdname report_document
@@ -41,5 +53,8 @@ c.ReportDocument <- function(...){
 `[.ReportDocument` <- function(x, i) {
   # Regular [] drops classes, so we either overwrite the method
   # or we do not use ReportDocument class, but list class.
-  structure(unclass(x)[i], class = 'ReportDocument')
+  attrs <- attributes(x)
+  xi <- unclass(x)[i]
+  attributes(xi) <- attrs
+  xi
 }

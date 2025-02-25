@@ -208,7 +208,8 @@ add_card_button_srv <- function(id, reporter, card_fun) {
             card$append_text("Comment", "header3")
             card$append_text(input$comment)
           } else if (inherits(card, "ReportDocument")) {
-            card <- c(card, list("### Comment"), list(input$comment))
+            #card <- c(card, list("### Comment"), list(input$comment))
+            attr(card, "comment") <- input$comment
           }
         }
 
@@ -216,7 +217,8 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           if (inherits(card, "ReportCard")) {
             card$set_name(input$label)
           } else if (inherits(card, "ReportDocument")) {
-            card <- c(card, list(paste0("# ", input$label)))
+            #card <- c(card, list(name = paste0("# ", input$label)))
+            attr(card, "name") <- input$label
           }
         }
 

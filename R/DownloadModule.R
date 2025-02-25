@@ -322,11 +322,16 @@ reporter_download_inputs <- function(rmd_yaml_args, rmd_output, showrcode, sessi
 #' @noRd
 #' @keywords internal
 any_rcode_block <- function(reporter) {
-  any(
-    vapply(
-      reporter$get_blocks(),
-      function(e) inherits(e, "RcodeBlock"),
-      logical(1)
+  cards <- reporter$get_cards()
+  if (all(vapply(cards, inherits, logical(1), "ReportCard"))) {
+    any(
+      vapply(
+        reporter$get_blocks(),
+        function(e) inherits(e, "RcodeBlock"),
+        logical(1)
+      )
     )
-  )
+  } else {
+    FALSE
+  }
 }

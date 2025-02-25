@@ -49,8 +49,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter$append_cards(list(card1, card2))
     append_cards = function(cards) {
       checkmate::assert(
-        all(isTRUE(unlist(lapply(cards, checkmate::check_class, "ReportCard")))),
-        all(isTRUE(unlist(lapply(cards, checkmate::check_class, "ReportDocument")))),
+        all(vapply(cards, inherits, logical(1), "ReportCard")),
+        all(vapply(cards, inherits, logical(1), "ReportDocument")),
         combine = "or"
       )
       private$cards <- append(private$cards, cards)
