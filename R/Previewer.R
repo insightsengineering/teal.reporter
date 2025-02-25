@@ -304,6 +304,21 @@ reporter_previewer_srv <- function(id,
 #' @noRd
 #' @keywords internal
 block_to_html <- function(b) {
+  if (inherits(b, 'ReportDocument')) {
+    # This function knows how to reshape blocks into html, based on the block class.
+    # ReportDocument is just an S3 list of R objects (mostly character(), ggplot, table)
+    # We can decide how to handle conversion of each element into HTML, based on:
+    # a) object name - then we can have custom configuration file that can be extended by user
+    # b) object class - but how we distinguish code stored as character and text stored as character.
+
+    # Below is the WIP-implementation based on object classes, where I only support:
+    # 1) character(),
+    # 2) ggplot
+    # 3) data.frame
+    # for now.
+
+  } else {
+
   b_content <- b$get_content()
   if (inherits(b, "TextBlock")) {
     switch(b$get_style(),
@@ -329,6 +344,7 @@ block_to_html <- function(b) {
     b_content
   } else {
     stop("Unknown block class")
+  }
   }
 }
 
