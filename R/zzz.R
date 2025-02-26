@@ -10,6 +10,12 @@
     options(default_global_knitr)
   }
 
+  options(teal.reporter.objects = list(
+    character = function(b) shiny::tags$pre(b),
+    ggplot = function(b) shiny::tags$img(src = knitr::image_uri(b)),
+    data.frame = function(b) shiny::tags$pre(knitr::kable(b))
+  ))
+
   invisible()
 }
 

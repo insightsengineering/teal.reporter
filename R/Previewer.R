@@ -157,24 +157,17 @@ reporter_previewer_srv <- function(id,
       cards <- reporter$get_cards()
 
       if (length(cards)) {
-
-        if (all(vapply(cards, inherits, logical(1), "ReportCard"))) {
-          shiny::tags$div(
-            class = "panel-group accordion",
-            id = "reporter_previewer_panel",
-            lapply(seq_along(cards), function(ic) {
+        shiny::tags$div(
+          class = "panel-group accordion",
+          id = "reporter_previewer_panel",
+          lapply(seq_along(cards), function(ic) {
+            if (inherits(cards[[ic]], "ReportCard")) {
               previewer_collapse_item(ic, cards[[ic]]$get_name(), cards[[ic]]$get_content())
-            })
-          )
-          } else if (all(vapply(cards, inherits, logical(1), "ReportDocument"))) {
-            shiny::tags$div(
-              class = "panel-group accordion",
-              id = "reporter_previewer_panel",
-              lapply(seq_along(cards), function(ic) {
-                previewer_collapse_item(ic, attr(cards[[ic]], "name"), cards[[ic]])
-              })
-            )
-        }
+            } else if (inherits(cards[[ic]], "ReportDocument")) {
+              previewer_collapse_item(ic, attr(cards[[ic]], "name"), cards[[ic]])
+            }
+          })
+        )
       } else {
         shiny::tags$div(
           id = "reporter_previewer_panel_no_cards",
@@ -316,12 +309,13 @@ block_to_html <- function(b) {
     # 2) ggplot
     # 3) data.frame
     # for now.
-    switch(class(b),
-      character = shiny::tags$pre(b),
-      ggplot = shiny::tags$img(src = knitr::image_uri(b)),
-      data.frame = shiny::tags$pre(knitr::kable(b)),
+
+    supported_objects <- getOption('teal.reporter.objects')
+    if (class(b) %in% names(supported_objects)) {
+      supported_objects[[class(b)]](b)
+    } else {
       stop("Unknown ReportDocument object element. Currently allowing only: character, ggplot, data.frame.")
-    )
+    }
   } else {
 
   b_content <- b$get_content()
