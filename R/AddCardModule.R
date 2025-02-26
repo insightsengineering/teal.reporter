@@ -95,63 +95,8 @@ add_card_button_srv <- function(id, reporter, card_fun) {
 
     ns <- session$ns
 
-    add_modal <- function() {
-      div(
-        class = "teal-widgets reporter-modal",
-        shiny::modalDialog(
-          easyClose = TRUE,
-          shiny::tags$h3("Add a Card to the Report"),
-          shiny::tags$hr(),
-          shiny::textInput(
-            ns("label"),
-            "Card Name",
-            value = "",
-            placeholder = "Add the card title here",
-            width = "100%"
-          ),
-          shiny::textAreaInput(
-            ns("comment"),
-            "Comment",
-            value = "",
-            placeholder = "Add a comment here...",
-            width = "100%"
-          ),
-          shiny::tags$script(
-            shiny::HTML(
-              sprintf(
-                "
-                $('#shiny-modal').on('shown.bs.modal', () => {
-                  $('#%s').focus()
-                })
-                ",
-                ns("label")
-              )
-            )
-          ),
-          footer = shiny::div(
-            shiny::tags$button(
-              type = "button",
-              class = "btn btn-secondary",
-              `data-dismiss` = "modal",
-              `data-bs-dismiss` = "modal",
-              NULL,
-              "Cancel"
-            ),
-            shiny::tags$button(
-              id = ns("add_card_ok"),
-              type = "button",
-              class = "btn btn-primary action-button",
-              `data-val` = shiny::restoreInput(id = ns("add_card_ok"), default = NULL),
-              NULL,
-              "Add Card"
-            )
-          )
-        )
-      )
-    }
-
     shiny::observeEvent(input$add_report_card_button, {
-      shiny::showModal(add_modal())
+      shiny::showModal(add_modal(ns))
     })
 
     # the add card button is disabled when clicked to prevent multi-clicks
@@ -184,7 +129,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
         arg_list <- c(arg_list, list(card = card))
       }
 
-      card <- try(do.call(card_fun(), arg_list))
+      card <- try(do.call(card_fun, arg_list))
 
       if (inherits(card, "try-error")) {
         msg <- paste0(
@@ -198,29 +143,119 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           type = "error"
         )
       } else {
-        checkmate::assert(
-          checkmate::check_class(card, "ReportCard"),
-          checkmate::check_class(card, "ReportDocument"),
-          combine = "or"
-        )
+        checkmate::assert_class(card, "ReportCard")
         if (!has_comment_arg && length(input$comment) > 0 && input$comment != "") {
-          if (inherits(card, "ReportCard")) {
-            card$append_text("Comment", "header3")
-            card$append_text(input$comment)
-          } else if (inherits(card, "ReportDocument")) {
-            #card <- c(card, list("### Comment"), list(input$comment))
-            attr(card, "comment") <- input$comment
-          }
+          card$append_text("Comment", "header3")
+          card$append_text(input$comment)
         }
 
         if (!has_label_arg && length(input$label) == 1 && input$label != "") {
-          if (inherits(card, "ReportCard")) {
-            card$set_name(input$label)
-          } else if (inherits(card, "ReportDocument")) {
-            #card <- c(card, list(name = paste0("# ", input$label)))
-            attr(card, "name") <- input$label
-          }
+          card$set_name(input$label)
         }
+
+        reporter$append_cards(list(card))
+        shiny::showNotification(sprintf("The card added successfully."), type = "message")
+        shiny::removeModal()
+      }
+    })
+  })
+}
+
+add_modal <- function(ns) {
+  div(
+    class = "teal-widgets reporter-modal",
+    shiny::modalDialog(
+      easyClose = TRUE,
+      shiny::tags$h3("Add a Card to the Report"),
+      shiny::tags$hr(),
+      shiny::textInput(
+        ns("label"),
+        "Card Name",
+        value = "",
+        placeholder = "Add the card title here",
+        width = "100%"
+      ),
+      shiny::textAreaInput(
+        ns("comment"),
+        "Comment",
+        value = "",
+        placeholder = "Add a comment here...",
+        width = "100%"
+      ),
+      shiny::tags$script(
+        shiny::HTML(
+          sprintf(
+            "
+                $('#shiny-modal').on('shown.bs.modal', () => {
+                  $('#%s').focus()
+                })
+                ",
+            ns("label")
+          )
+        )
+      ),
+      footer = shiny::div(
+        shiny::tags$button(
+          type = "button",
+          class = "btn btn-secondary",
+          `data-dismiss` = "modal",
+          `data-bs-dismiss` = "modal",
+          NULL,
+          "Cancel"
+        ),
+        shiny::tags$button(
+          id = ns("add_card_ok"),
+          type = "button",
+          class = "btn btn-primary action-button",
+          `data-val` = shiny::restoreInput(id = ns("add_card_ok"), default = NULL),
+          NULL,
+          "Add Card"
+        )
+      )
+    )
+  )
+}
+
+
+#' @rdname add_card_button
+#' @export
+add_document_button_srv <- function(id, reporter, r_card_fun) {
+  checkmate::assert_class(r_card_fun, "reactive")
+  # checkmate::assert_function(r_card_fun) # reactive is also a function
+  checkmate::assert_class(reporter, "Reporter")
+
+  shiny::moduleServer(id, function(input, output, session) {
+    shiny::setBookmarkExclude(c(
+      "add_report_card_button", "download_button", "reset_reporter",
+      "add_card_ok", "download_data", "reset_reporter_ok",
+      "label", "comment"
+    ))
+
+    ns <- session$ns
+
+    shiny::observeEvent(input$add_report_card_button, {
+      shiny::showModal(add_modal(ns))
+    })
+
+    # the add card button is disabled when clicked to prevent multi-clicks
+    # please check the ui part for more information
+    shiny::observeEvent(input$add_card_ok, {
+      if (inherits(r_card_fun, "try-error")) {
+        msg <- paste0(
+          "The card could not be added to the report. ",
+          "Have the outputs for the report been created yet? If not please try again when they ",
+          "are ready. Otherwise contact your application developer"
+        )
+        warning(msg)
+        shiny::showNotification(
+          msg,
+          type = "error"
+        )
+      } else {
+        card <- r_card_fun()
+        checkmate::assert_class(card, "ReportDocument")
+        attr(card, "comment") <- input$comment
+        attr(card, "name") <- input$label
 
         reporter$append_cards(list(card))
         shiny::showNotification(sprintf("The card added successfully."), type = "message")
