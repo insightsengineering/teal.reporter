@@ -63,3 +63,38 @@ c.ReportDocument <- function(...){
   attributes(xi) <- attrs
   xi
 }
+
+#' @rdname report_document
+#' @param x `ReportDocument`
+#' @param modify `integer(n)` if present, uses `[.` syntax to extract elements.
+#' Can be used to reorder or substract the object
+#' @param append object to be appended to `ReportDocument` with `append` syntax.
+#' Use `after` to specify the position where the object should be added.
+#'
+#' @examples
+#' report <- report_document(1, 2, 'c')
+#'
+#' # Modify and append to the report
+#' new_report <- edit_document_content(report, modify = c(3, 1), append = 'd')
+#' new_report
+#' class(new_report)
+#'
+#' @export
+edit_document_content <- function(x, modify = NULL, append = NULL, after = length(x)) {
+  checkmate::assert_class(x, "ReportDocument")
+  checkmate::assert_class(modify, "numeric", null.ok = TRUE)
+
+  attrs <- attributes(x)
+
+  if (!is.null(modify)) {
+    x <- x[modify]
+  }
+
+  if (!is.null(append)) {
+    x <- append(x, append, after)
+  }
+
+  attributes(x) <- attrs
+  x
+
+}
