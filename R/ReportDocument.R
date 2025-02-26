@@ -6,7 +6,7 @@
 #' It facilitates the creation, manipulation, and serialization of report-related data.
 #'
 #' @return An `S3` `list` of class `ReportDocument`.
-#' @param ... objects passed to `c()` function
+#' @param ... elements included in `ReportDocument`
 #' @param x `ReportDocument` object
 #' @param values objects to be included in the modified `ReportDocument`
 #' @inheritParams base::append
@@ -20,12 +20,16 @@
 #' report <- append(report, c(list("## Table 2"), list(summary(mtcars))), after = 1)
 #' class(report)
 #'
+#' report_document("Report Name", 5)
+#'
 #' @aliases ReportDocument
 #' @name report_document
 #'
 #' @export
-report_document <- function(){
-  structure(list(), class = c('ReportDocument'))
+report_document <- function(...){
+  objects <- list(...)
+  stopifnot("All input objects must be of length 1." = all(unlist(lapply(objects, length)) == 1))
+  structure(objects, class = c('ReportDocument'))
 }
 
 #' @rdname report_document
