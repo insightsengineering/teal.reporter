@@ -309,10 +309,11 @@ block_to_html <- function(b) {
     # 2) ggplot
     # 3) data.frame
     # for now.
+    b_class <- tail(class(b), 1)
 
     supported_objects <- getOption('teal.reporter.objects')
-    if (class(b) %in% names(supported_objects)) {
-      supported_objects[[class(b)]](b)
+    if (b_class %in% names(supported_objects)) {
+      supported_objects[[b_class]](b)
     } else {
       stop("Unknown ReportDocument object element. Currently allowing only: character, ggplot, data.frame.")
     }
