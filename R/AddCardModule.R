@@ -161,7 +161,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
   })
 }
 
-add_modal <- function(ns) {
+add_modal <- function(ns, comment = TRUE) {
   div(
     class = "teal-widgets reporter-modal",
     shiny::modalDialog(
@@ -175,13 +175,15 @@ add_modal <- function(ns) {
         placeholder = "Add the card title here",
         width = "100%"
       ),
-      shiny::textAreaInput(
-        ns("comment"),
-        "Comment",
-        value = "",
-        placeholder = "Add a comment here...",
-        width = "100%"
-      ),
+      if (comment) {
+        shiny::textAreaInput(
+          ns("comment"),
+          "Comment",
+          value = "",
+          placeholder = "Add a comment here...",
+          width = "100%"
+        )
+      },
       shiny::tags$script(
         shiny::HTML(
           sprintf(
@@ -234,7 +236,7 @@ add_document_button_srv <- function(id, reporter, r_card_fun) {
     ns <- session$ns
 
     shiny::observeEvent(input$add_report_card_button, {
-      shiny::showModal(add_modal(ns))
+      shiny::showModal(add_modal(ns, comment = FALSE))
     })
 
     # the add card button is disabled when clicked to prevent multi-clicks
@@ -254,7 +256,6 @@ add_document_button_srv <- function(id, reporter, r_card_fun) {
       } else {
         card <- r_card_fun()
         checkmate::assert_class(card, "ReportDocument")
-        attr(card, "comment") <- input$comment
         attr(card, "name") <- input$label
 
         reporter$append_cards(list(card))
