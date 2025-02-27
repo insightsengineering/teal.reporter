@@ -119,9 +119,18 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       blocks <- list()
       if (length(private$cards) > 0) {
         for (card_idx in head(seq_along(private$cards), -1)) {
-          blocks <- append(blocks, append(private$cards[[card_idx]]$get_content(), sep))
+          if (inherits(private$cards[[card_idx]], "ReportCard")) {
+            blocks <- append(blocks, append(private$cards[[card_idx]]$get_content(), sep))
+          } else if (inherits(private$cards[[card_idx]], "ReportDocument")) {
+            blocks <- append(blocks, append(private$cards[[card_idx]], "## NewPageSep ---")) #TODO - figure out if this is useful sep
+          }
         }
-        blocks <- append(blocks, private$cards[[length(private$cards)]]$get_content())
+        ncards <- length(private$cards)
+        if (inherits(private$cards[[ncards]], "ReportCard")) {
+          blocks <- append(blocks, private$cards[[ncards]]$get_content())
+        } else if (inherits(private$cards[[ncards]], "ReportDocument")) {
+          blocks <- append(blocks, private$cards[[ncards]])
+        }
       }
       blocks
     },
