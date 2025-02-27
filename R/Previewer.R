@@ -442,7 +442,7 @@ previewer_collapse_item <- function(idx, card_name, card_blocks) {
           )
         ),
         shiny::tags$div(
-          id = paste0("collapse", idx), class = "collapse out",
+          id = paste0("collapse", idx), class = "collapse show",
           shiny::tags$div(
             class = "panel-body",
             shiny::tags$div(
