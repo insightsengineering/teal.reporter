@@ -79,10 +79,10 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' result_path <- Renderer$new()$renderRmd(reporter$get_blocks(), yaml_header)
     #'
     renderRmd = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr")) {
-      # checkmate::assert_list(
-      #   blocks,
-      #   c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock", "HTMLBlock")
-      # )
+      checkmate::assert_list(
+        blocks,
+        c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock", "HTMLBlock", "character")
+      )
       checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
       if (missing(yaml_header)) {
         yaml_header <- md_header(yaml::as.yaml(list(title = "Report")))
@@ -221,10 +221,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         block$get_content()
       } else if (inherits(block, "HTMLBlock")) {
         private$htmlBlock2md(block)
-      } else {#if (inherits(block, "list")) {
-        private$list2md(block)
-      # } else {
-      #   stop("Unknown block class")
+      } else if (inherits(block, "character")) {
+        block
       }
     },
     # card specific methods
@@ -283,39 +281,6 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       basename <- basename(tempfile(fileext = ".rds"))
       suppressWarnings(saveRDS(block$get_content(), file = file.path(private$output_dir, basename)))
       sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename)
-    },
-    list2md = function(block) {
-      if (inherits(block, "character")) {
-        block
-      }
-      if (inherits(block, "gg")) {
-
-        path <- tempfile(fileext = ".png")
-        grDevices::png(filename = path)
-        tryCatch(
-          {
-            print(block)
-          },
-          finally = grDevices::dev.off()
-        )
-
-        basename_pic <- basename(path)
-        file.copy(path, file.path(private$output_dir, basename_pic))
-        params <- c(
-          `out.width` = "'100%'",
-          `out.height` = "'100%'"
-        )
-
-        sprintf(
-          "\n```{r, echo = FALSE, %s}\nknitr::include_graphics(path = '%s')\n```\n",
-          paste(names(params), params, sep = "=", collapse = ", "),
-          basename_pic
-        )
-      }
-      # TODO
-      # - extend for other plots,
-      # - extend for tables,
-      # - create something custom for code?
     }
   ),
   lock_objects = TRUE,

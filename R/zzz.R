@@ -10,22 +10,6 @@
     options(default_global_knitr)
   }
 
-  options(teal.reporter.objects = list(
-    character = function(b) shiny::tags$pre(b),
-    ggplot = function(b) {
-      path <- tempfile(fileext = ".png")
-      grDevices::png(filename = path)
-      tryCatch(
-        {
-          print(b)
-        },
-        finally = grDevices::dev.off()
-      )
-      shiny::tags$img(src = knitr::image_uri(path))
-    },
-    data.frame = function(b) shiny::tags$pre(knitr::kable(b))
-  ))
-
   invisible()
 }
 

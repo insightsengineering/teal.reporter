@@ -298,27 +298,8 @@ reporter_previewer_srv <- function(id,
 #' @keywords internal
 block_to_html <- function(b) {
   if (!inherits(b, 'ContentBlock')) {
-    # This function knows how to reshape blocks into html, based on the block class.
-    # ReportDocument is just an S3 list of R objects (mostly character(), ggplot, table)
-    # We can decide how to handle conversion of each element into HTML, based on:
-    # a) object name - then we can have custom configuration file that can be extended by user
-    # b) object class - but how we distinguish code stored as character and text stored as character.
-
-    # Below is the WIP-implementation based on object classes, where I only support:
-    # 1) character(),
-    # 2) ggplot
-    # 3) data.frame
-    # for now.
-    b_class <- tail(class(b), 1)
-
-    supported_objects <- getOption('teal.reporter.objects')
-    if (b_class %in% names(supported_objects)) {
-      supported_objects[[b_class]](b)
-    } else {
-      stop("Unknown ReportDocument object element. Currently allowing only: character, ggplot, data.frame.")
-    }
+    markdown::mark_html(text = b, template = FALSE)
   } else {
-
   b_content <- b$get_content()
   if (inherits(b, "TextBlock")) {
     switch(b$get_style(),
@@ -336,7 +317,7 @@ block_to_html <- function(b) {
   } else if (inherits(b, "TableBlock")) {
     b_table <- readRDS(b_content)
     shiny::tags$pre(
-      flextable::htmltools_value(b_table)
+      flextable::htmltools_valuee(b_table)
     )
   } else if (inherits(b, "NewpageBlock")) {
     shiny::tags$br()

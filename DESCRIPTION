@@ -30,6 +30,7 @@ Imports:
     htmltools (>= 0.5.4),
     knitr (>= 1.42),
     lifecycle (>= 0.2.0),
+    markdown (>= 1.13),
     R6,
     rlistings (>= 0.2.10),
     rmarkdown (>= 2.23),
