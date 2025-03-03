@@ -298,7 +298,7 @@ reporter_previewer_srv <- function(id,
 #' @keywords internal
 block_to_html <- function(b) {
   if (!inherits(b, 'ContentBlock')) {
-    markdown::mark_html(text = b, template = FALSE)
+    shiny::HTML(commonmark::markdown_html(text = b))
   } else {
   b_content <- b$get_content()
   if (inherits(b, "TextBlock")) {
