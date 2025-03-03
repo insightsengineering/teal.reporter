@@ -48,7 +48,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
     append_cards = function(cards) {
-  checkmate::assert_list(cards, c("ReportCard", "ReportDocument")
+     checkmate::assert_list(cards, c("ReportCard", "ReportDocument"))
       private$cards <- append(private$cards, cards)
       private$reactive_add_card(length(private$cards))
       invisible(self)
