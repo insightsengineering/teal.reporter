@@ -41,9 +41,23 @@ reporter_previewer_ui <- function(id) {
       ),
       shiny::tags$div(
         class = "col-md-9",
-        shiny::tags$div(
-          id = "reporter_previewer",
-          shiny::uiOutput(ns("pcards"))
+        shiny::tabsetPanel(
+          id = ns("previewer_tabs"),
+          shiny::tabPanel(
+            "Preview",
+            shiny::tags$div(
+              id = "reporter_previewer",
+              shiny::uiOutput(ns("pcards"))
+            )
+          ),
+          shiny::tabPanel(
+            "Modify",
+            shiny::tags$div(
+              id = "reporter_modifier",
+              shiny::uiOutput(ns("mcards"))
+            )
+          ),
+          selected = "Modify"
         )
       )
     )
@@ -164,7 +178,8 @@ reporter_previewer_srv <- function(id,
             if (inherits(cards[[ic]], "ReportCard")) {
               previewer_collapse_item(ic, cards[[ic]]$get_name(), cards[[ic]]$get_content())
             } else if (inherits(cards[[ic]], "ReportDocument")) {
-              previewer_collapse_item(ic, attr(cards[[ic]], "name"), cards[[ic]])
+              # previewer_collapse_item(ic, attr(cards[[ic]], "name"), cards[[ic]])
+              previewer_collapse_item(ic, attr(cards[[ic]], "name"), input[[paste0('text_card', ic)]])
             }
           })
         )
@@ -175,6 +190,33 @@ reporter_previewer_srv <- function(id,
             class = "text-danger mt-4",
             shiny::tags$strong("No Cards added")
           )
+        )
+      }
+    })
+
+    output$mcards <- shiny::renderUI({
+      reporter$get_reactive_add_card()
+      input$card_remove_id
+      input$card_down_id
+      input$card_up_id
+
+      cards <- reporter$get_cards()
+
+      if (length(cards)) {
+        shiny::tags$div(
+          class = "panel-group accordion",
+          id = "reporter_previewer_panel",
+          lapply(seq_along(cards), function(ic) {
+            if (inherits(cards[[ic]], "ReportDocument")) {
+              shiny::textAreaInput(
+                inputId = ns(paste0('text_card', ic)),
+                label = paste0("markdown input for card: ", attr(cards[[ic]], "name")),
+                value = paste(unlist(cards[[ic]]), collapse = "\n"),
+                width = "100%",
+                height = "800px"
+              )
+            }
+          })
         )
       }
     })
@@ -298,7 +340,7 @@ reporter_previewer_srv <- function(id,
 #' @keywords internal
 block_to_html <- function(b) {
   if (!inherits(b, 'ContentBlock')) {
-    shiny::HTML(commonmark::markdown_html(text = b))
+    shiny::HTML(commonmark::markdown_html(text = b, extensions = TRUE))
   } else {
   b_content <- b$get_content()
   if (inherits(b, "TextBlock")) {
