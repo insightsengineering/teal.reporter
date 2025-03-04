@@ -164,7 +164,7 @@ reporter_previewer_srv <- function(id,
                 if (inherits(cards[[card_name]], "ReportCard")) {
                   previewer_collapse_item(card_name, cards[[card_name]]$get_content())
                 } else if (inherits(cards[[card_name]], "ReportDocument")) {
-                  previewer_collapse_item(card_name, cards[[card_name]])
+                  previewer_collapse_item(card_name, cards[[card_name]], ns)
                 }
               }),
               names(cards)
@@ -179,7 +179,7 @@ reporter_previewer_srv <- function(id,
               ),
               sort = TRUE,
               handle = ".accordion-header",
-              onSort = sortable::sortable_js_capture_input(session$ns("reporter_cards_orders"))
+              onSort = sortable::sortable_js_capture_input(ns("reporter_cards_orders"))
             )
           )
         )
@@ -320,6 +320,83 @@ reporter_previewer_srv <- function(id,
       },
       contentType = "application/zip"
     )
+
+    observe({
+      edit_buttons <- grep("^edit_card_", names(input), value = TRUE)
+
+      if (length(edit_buttons) > 0) {
+        for (btn in edit_buttons) {
+          observeEvent(input[[btn]], {
+            card_name <- sub("^edit_card_", "", btn)
+            showModal(
+              modalDialog(
+                title = paste("Edit Card:", card_name),
+                textAreaInput(
+                  inputId = session$ns(paste0("edit_text_", card_name)),
+                  label = "Modify Content:",
+                  value = paste(unlist(reporter$get_cards()[[card_name]]), collapse = "\n"),
+                  width = "100%",
+                  height = "400px"
+                ),
+                footer = tagList(
+                  modalButton("Cancel"),
+                  actionButton(session$ns(paste0("save_edit_", card_name)), "Save", class = "btn-primary")
+                )
+              )
+            )
+          }, ignoreInit = TRUE, ignoreNULL = TRUE)
+        }
+      }
+    })
+
+    observe({
+      save_buttons <- grep("^save_edit_", names(input), value = TRUE)
+
+      if (length(save_buttons) > 0) {
+        for (btn in save_buttons) {
+          observeEvent(input[[btn]], {
+            card_name <- sub("^save_edit_", "", btn)
+            edited_content <- input[[paste0("edit_text_", card_name)]]
+            edited_report_document <- report_document(edited_content) # TODO, maybe split for the same length? as in input?
+            reporter$set_card_content(card_name, report_document(edited_report_document))
+
+            output$pcards <- shiny::renderUI({
+              reporter$get_reactive_add_card()
+              cards <- reporter$get_cards()
+
+              tags$div(
+                tags$div(
+                  class = "panel-group accordion",
+                  id = "reporter_previewer_panel",
+                  setNames(
+                    lapply(card_name, function(card_name) { # refresh only this one card
+                      previewer_collapse_item(card_name, cards[[card_name]], ns, open = TRUE)
+                    }),
+                    names(cards)
+                  )
+                ),
+                sortable::sortable_js(
+                  "reporter_previewer_panel",
+                  options = sortable::sortable_options(
+                    group = list(
+                      name = "reporter_cards",
+                      put = TRUE
+                    ),
+                    sort = TRUE,
+                    handle = ".accordion-header",
+                    onSort = sortable::sortable_js_capture_input(ns("reporter_cards_orders"))
+                  )
+                )
+              )
+            })
+
+            removeModal()
+            shiny::showNotification(paste("Card", card_name, "has been updated!"))
+          }, ignoreInit = TRUE, ignoreNULL = TRUE)
+        }
+      }
+    })
+
   })
 }
 
@@ -361,13 +438,27 @@ block_to_html <- function(b) {
 
 #' @noRd
 #' @keywords internal
-previewer_collapse_item <- function(card_name, card_blocks) {
+previewer_collapse_item <- function(card_name, card_blocks, ns = NULL, open = FALSE) {
   tags$div(
     `data-rank-id` = card_name,
     bslib::accordion(
-      open = FALSE,
+      open = open,
       bslib::accordion_panel(
         title = card_name,
+        if (!is.null(ns)) {
+          tagList(
+            tags$div(
+              style = "display: flex; justify-content: flex-end; align-items: center;",
+              actionButton(
+                inputId = ns(paste0("edit_card_", card_name)),
+                label = "Edit",
+                icon = shiny::icon("edit"),
+                class = "btn btn-warning btn-sm"
+              )
+            ),
+            tags$hr()
+          )
+        },
         tags$div(
           lapply(
             card_blocks,
@@ -380,3 +471,6 @@ previewer_collapse_item <- function(card_name, card_blocks) {
     )
   )
 }
+
+
+

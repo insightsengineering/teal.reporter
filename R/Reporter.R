@@ -64,6 +64,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       )
       invisible(self)
     },
+    set_card_content = function(card_name, card_content) {
+      private$cards[which(names(private$cards) == card_name)] <- card_content
+      invisible(self)
+    },
     #' @description Retrieves all `ReportCard` objects contained in the `Reporter`.
     #'
     #' @return A (`list`) of [`ReportCard`] objects.
