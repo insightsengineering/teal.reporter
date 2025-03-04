@@ -5,18 +5,29 @@
 \alias{ReportDocument}
 \alias{c.ReportDocument}
 \alias{[.ReportDocument}
+\alias{edit_document_content}
 \title{\code{ReportDocument}: An \code{S3} class for managing \code{teal} reports}
 \usage{
-report_document()
+report_document(...)
 
 \method{c}{ReportDocument}(...)
 
 \method{[}{ReportDocument}(x, i)
+
+edit_document_content(x, modify = NULL, append = NULL, after = length(x))
 }
 \arguments{
-\item{...}{objects passed to \code{c()} function}
+\item{...}{elements included in \code{ReportDocument}}
 
-\item{x}{\code{ReportDocument} object}
+\item{x}{\code{ReportDocument}}
+
+\item{modify}{\code{integer(n)} if present, uses \verb{[.} syntax to extract elements.
+Can be used to reorder or substract the object}
+
+\item{append}{object to be appended to \code{ReportDocument} with \code{append} syntax.
+Use \code{after} to specify the position where the object should be added.}
+
+\item{after}{a subscript, after which the values are to be appended.}
 
 \item{values}{objects to be included in the modified \code{ReportDocument}}
 }
@@ -32,9 +43,19 @@ It facilitates the creation, manipulation, and serialization of report-related d
 \examples{
 report <- report_document()
 class(report)
+attr(report, "name") <- "Report Name"
 report <- c(report, list("## Headline"), list("## Table"), list(summary(iris)))
 report <- report[1:2]
 report <- append(report, c(list("## Table 2"), list(summary(mtcars))), after = 1)
 class(report)
+
+report_document("Report Name", 5)
+
+report <- report_document(1, 2, 'c')
+
+# Modify and append to the report
+new_report <- edit_document_content(report, modify = c(3, 1), append = 'd')
+new_report
+class(new_report)
 
 }

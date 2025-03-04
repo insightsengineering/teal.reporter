@@ -48,9 +48,17 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
     append_cards = function(cards) {
-     checkmate::assert_list(cards, c("ReportCard", "ReportDocument"))
+      checkmate::assert_list(cards, c("ReportCard", "ReportDocument"))
+      names(cards) <- sapply(cards, function(card) card$get_name())
       private$cards <- append(private$cards, cards)
       private$reactive_add_card(length(private$cards))
+      invisible(self)
+    },
+    reorder_cards = function(new_order) {
+      private$cards <- setNames(
+        lapply(new_order, function(name) private$cards[[name]]$clone()),
+        new_order
+      )
       invisible(self)
     },
     #' @description Retrieves all `ReportCard` objects contained in the `Reporter`.
@@ -118,7 +126,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
           if (inherits(private$cards[[card_idx]], "ReportCard")) {
             blocks <- append(blocks, append(private$cards[[card_idx]]$get_content(), sep))
           } else if (inherits(private$cards[[card_idx]], "ReportDocument")) {
-            blocks <- append(blocks, append(private$cards[[card_idx]], "## NewPageSep ---")) #TODO - figure out if this is useful sep
+            blocks <- append(blocks, append(private$cards[[card_idx]], "## NewPageSep ---")) # TODO - figure out if this is useful sep
           }
         }
         ncards <- length(private$cards)
@@ -153,27 +161,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         private$cards <- private$cards[-ids]
       }
       private$reactive_add_card(length(private$cards))
-      invisible(self)
-    },
-    #' @description Swaps the positions of two `ReportCard` objects within the `Reporter`.
-    #'
-    #' @param start (`integer`) the index of the first card
-    #' @param end (`integer`) the index of the second card
-    #' @return `self`, invisibly.
-    swap_cards = function(start, end) {
-      checkmate::assert(
-        checkmate::check_integer(start,
-          min.len = 1, max.len = 1, lower = 1, upper = length(private$cards)
-        ),
-        checkmate::check_integer(end,
-          min.len = 1, max.len = 1, lower = 1, upper = length(private$cards)
-        ),
-        combine = "and"
-      )
-      start_val <- private$cards[[start]]$clone()
-      end_val <- private$cards[[end]]$clone()
-      private$cards[[start]] <- end_val
-      private$cards[[end]] <- start_val
       invisible(self)
     },
     #' @description Gets the current value of the reactive variable for adding cards.
