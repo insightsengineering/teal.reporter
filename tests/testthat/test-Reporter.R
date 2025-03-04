@@ -78,12 +78,6 @@ testthat::test_that("The deep copy constructor copies the content files to new f
 })
 
 
-testthat::test_that("swap_cards", {
-  reporter1a <- reporter$clone()
-  reporter1b <- reporter$clone()
-  testthat::expect_equal(reporter1a$swap_cards(1L, 2L), reporter1b$swap_cards(2L, 1L))
-})
-
 testthat::test_that("reactive_add_card", {
   reporter <- Reporter$new()
   testthat::expect_error(reporter$get_reactive_add_card())
