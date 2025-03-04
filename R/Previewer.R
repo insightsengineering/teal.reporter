@@ -177,6 +177,8 @@ reporter_previewer_srv <- function(id,
               lapply(names(cards), function(card_name) {
                 if (inherits(cards[[card_name]], "ReportCard")) {
                   previewer_collapse_item(card_name, cards[[card_name]]$get_content())
+                } else if (inherits(cards[[card_name]], "ReportDocument")) {
+                  previewer_collapse_item(card_name, cards[[card_name]])
                 }
               }),
               names(cards)
