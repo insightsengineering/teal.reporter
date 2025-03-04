@@ -198,33 +198,6 @@ reporter_previewer_srv <- function(id,
       reporter$reorder_cards(input$reporter_cards_orders)
     })
 
-    output$mcards <- shiny::renderUI({
-      reporter$get_reactive_add_card()
-      input$card_remove_id
-      input$card_down_id
-      input$card_up_id
-
-      cards <- reporter$get_cards()
-
-      if (length(cards)) {
-        shiny::tags$div(
-          class = "panel-group accordion",
-          id = "reporter_previewer_panel",
-          lapply(seq_along(cards), function(ic) {
-            if (inherits(cards[[ic]], "ReportDocument")) {
-              shiny::textAreaInput(
-                inputId = ns(paste0("text_card", ic)),
-                label = paste0("markdown input for card: ", attr(cards[[ic]], "name")),
-                value = paste(unlist(cards[[ic]]), collapse = "\n"),
-                width = "100%",
-                height = "800px"
-              )
-            }
-          })
-        )
-      }
-    })
-
     shiny::observeEvent(input$load_reporter_previewer, {
       nr_cards <- length(reporter$get_cards())
       shiny::showModal(
@@ -355,22 +328,24 @@ reporter_previewer_srv <- function(id,
       if (length(save_buttons) > 0) {
         for (btn in save_buttons) {
           observeEvent(input[[btn]], {
-            card_name <- sub("^save_edit_", "", btn)
-            edited_content <- input[[paste0("edit_text_", card_name)]]
+            saved_card_name <- sub("^save_edit_", "", btn)
+            edited_content <- input[[paste0("edit_text_", saved_card_name)]]
             edited_report_document <- report_document(edited_content) # TODO, maybe split for the same length? as in input?
-            reporter$set_card_content(card_name, report_document(edited_report_document))
-
+            reporter$set_card_content(saved_card_name, edited_report_document)
             output$pcards <- shiny::renderUI({
               reporter$get_reactive_add_card()
               cards <- reporter$get_cards()
-
               tags$div(
                 tags$div(
                   class = "panel-group accordion",
                   id = "reporter_previewer_panel",
                   setNames(
-                    lapply(card_name, function(card_name) { # refresh only this one card
-                      previewer_collapse_item(card_name, cards[[card_name]], ns, open = TRUE)
+                    lapply(names(cards), function(card_name) {
+                      if (inherits(cards[[card_name]], "ReportCard")) {
+                        previewer_collapse_item(card_name, cards[[card_name]]$get_content())
+                      } else if (inherits(cards[[card_name]], "ReportDocument")) {
+                        previewer_collapse_item(card_name, cards[[card_name]], ns, open = card_name == saved_card_name)
+                      }
                     }),
                     names(cards)
                   )
@@ -391,7 +366,7 @@ reporter_previewer_srv <- function(id,
             })
 
             removeModal()
-            shiny::showNotification(paste("Card", card_name, "has been updated!"))
+            shiny::showNotification(paste("Card", saved_card_name, "has been updated!"))
           }, ignoreInit = TRUE, ignoreNULL = TRUE)
         }
       }
