@@ -39,24 +39,10 @@ reporter_previewer_ui <- function(id) {
       ),
       shiny::tags$div(
         class = "col-md-9",
-        shiny::tabsetPanel(
-          id = ns("previewer_tabs"),
-          shiny::tabPanel(
-            "Preview",
-            shiny::tags$div(
-              id = "reporter_previewer",
-              shiny::uiOutput(ns("pcards"))
-            )
-          ),
-          shiny::tabPanel(
-            "Modify",
-            shiny::tags$div(
-              id = "reporter_modifier",
-              shiny::uiOutput(ns("mcards"))
-            )
-          ),
-          selected = "Modify"
-        )
+          shiny::tags$div(
+            id = "reporter_previewer",
+            shiny::uiOutput(ns("pcards"))
+          )
       )
     )
   )
