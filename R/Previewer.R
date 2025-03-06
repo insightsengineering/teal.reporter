@@ -112,14 +112,14 @@ reporter_previewer_srv <- function(id,
 
       previewer_buttons_list <- list(
         download = htmltools::tagAppendAttributes(
-          actionButton(
+          shiny::actionButton(
             ns("download_data_prev"),
             class = "teal-reporter simple_report_button",
             shiny::tags$span("Download Report", shiny::icon("download"))
           ),
           class = if (nr_cards) "" else "disabled"
         ),
-        load = actionButton(
+        load = shiny::actionButton(
           ns("load_reporter_previewer"),
           class = "teal-reporter simple_report_button",
           `data-val` = shiny::restoreInput(id = ns("load_reporter_previewer"), default = NULL),
