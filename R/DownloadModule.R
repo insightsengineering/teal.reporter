@@ -88,7 +88,7 @@ download_report_button_srv <- function(id,
         shiny::icon("download"),
         "Download"
       )
-      div(
+      shiny::tags$div(
         class = "teal-widgets reporter-modal",
         shiny::modalDialog(
           easyClose = TRUE,

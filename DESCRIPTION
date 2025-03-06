@@ -23,7 +23,6 @@ URL: https://github.com/insightsengineering/teal.reporter,
 BugReports: https://github.com/insightsengineering/teal.reporter/issues
 Imports:
     bslib (>= 0.8.0),
-    bslib,
     checkmate (>= 2.1.0),
     flextable (>= 0.9.2),
     grid,

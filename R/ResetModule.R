@@ -25,7 +25,7 @@ reset_report_button_ui <- function(id, label = NULL) {
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
-    actionButton(
+    shiny::actionButton(
       ns("reset_reporter"),
       class = "teal-reporter simple_report_button clear-report btn-warning",
       title = "Reset",
@@ -51,7 +51,7 @@ reset_report_button_srv <- function(id, reporter) {
 
 
     shiny::observeEvent(input$reset_reporter, {
-      div(
+      shiny::tags$div(
         class = "teal-widgets reporter-modal",
         shiny::showModal(
           shiny::modalDialog(
