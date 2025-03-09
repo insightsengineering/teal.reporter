@@ -98,3 +98,30 @@ edit_document_content <- function(x, modify = NULL, append = NULL, after = lengt
   x
 
 }
+
+#' Generate an R Markdown code chunk
+#'
+#' This function takes a character string as input and formats it as an R Markdown code chunk.
+#' Additional named parameters passed via `...` will be included inside `{r}`.
+#'
+#' @param code A character string containing the R code to be wrapped in the chunk.
+#' @param ... Additional named parameters to be included inside `{r}`.
+#'
+#' @return A formatted character string representing an R Markdown code chunk.
+#' @examples
+#' code_chunk("x <- 1:10", echo = TRUE, message = FALSE)
+#' @export
+code_chunk <- function(code, ...) {
+  params <- list(...)
+  params_str <- if (length(params) > 0) {
+    paste(names(params), params, sep = "=", collapse = ", ")
+  } else {
+    ""
+  }
+
+  if (params_str != "") {
+    sprintf("```{r %s}\n%s\n```", params_str, code)
+  } else {
+    sprintf("```{r}\n%s\n```", code)
+  }
+}
