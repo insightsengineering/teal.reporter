@@ -233,11 +233,16 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       checkmate::assert_directory_exists(output_dir)
       rlist <- list(name = "teal Reporter", version = "1", id = self$get_id(), cards = list())
       rlist[["metadata"]] <- self$get_metadata()
-      for (card in self$get_cards()) {
+      cards <- self$get_cards()
+      for (i in seq_along(cards)) {
         # we want to have list names being a class names to indicate the class for $from_list
-        card_class <- class(card)[1]
+        card_class <- class(cards[[i]])[1]
         u_card <- list()
-        u_card[[card_class]] <- card$to_list(output_dir)
+        if (card_class == 'ReportDocument') {
+          u_card[[card_class]] <- c(names(cards)[i], unlist(cards[[i]])) # name needs to be stored, so it can be resotred
+        } else {
+          u_card[[card_class]] <- cards[[i]]$to_list(output_dir)
+        }
         rlist$cards <- c(rlist$cards, u_card)
       }
       rlist
@@ -266,8 +271,17 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         for (iter_c in seq_along(rlist$cards)) {
           card_class <- cards_names[iter_c]
           card <- rlist$cards[[iter_c]]
-          new_card <- eval(str2lang(card_class))$new()
-          new_card$from_list(card, output_dir)
+          if (card_class == "ReportDocument") {
+            # new_card <- report_document(card) # creates too nested structure
+            new_card <- card[-1]
+            new_card_name <- card[[1]]
+            class(new_card) <- "ReportDocument"
+            new_card <- list(new_card) # so that it doesn't loose class and can be used in self$append_cards
+            names(new_card) <- new_card_name
+          } else {
+            new_card <- eval(str2lang(card_class))$new()
+            new_card$from_list(card, output_dir)
+          }
           new_cards <- c(new_cards, new_card)
         }
       } else {
