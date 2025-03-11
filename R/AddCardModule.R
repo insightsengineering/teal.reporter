@@ -67,13 +67,11 @@ add_card_button_ui <- function(id) {
         )
       )
     ),
-    shiny::tags$button(
-      id = ns("add_report_card_button"),
-      type = "button",
-      class = "simple_report_button btn btn-primary action-button",
+    shiny::actionButton(
+      ns("add_report_card_button"),
       title = "Add Card",
+      class = "teal-reporter simple_report_button btn-primary",
       `data-val` = shiny::restoreInput(id = ns("add_report_card_button"), default = NULL),
-      NULL,
       shiny::tags$span(
         shiny::icon("plus")
       )
@@ -98,52 +96,55 @@ add_card_button_srv <- function(id, reporter, card_fun) {
     ns <- session$ns
 
     add_modal <- function() {
-      shiny::modalDialog(
-        easyClose = TRUE,
-        shiny::tags$h3("Add a Card to the Report"),
-        shiny::tags$hr(),
-        shiny::textInput(
-          ns("label"),
-          "Card Name",
-          value = "",
-          placeholder = "Add the card title here",
-          width = "100%"
-        ),
-        shiny::textAreaInput(
-          ns("comment"),
-          "Comment",
-          value = "",
-          placeholder = "Add a comment here...",
-          width = "100%"
-        ),
-        shiny::tags$script(
-          shiny::HTML(
-            sprintf(
-              "
+      shiny::div(
+        class = "teal-widgets reporter-modal",
+        shiny::modalDialog(
+          easyClose = TRUE,
+          shiny::tags$h3("Add a Card to the Report"),
+          shiny::tags$hr(),
+          shiny::textInput(
+            ns("label"),
+            "Card Name",
+            value = "",
+            placeholder = "Add the card title here",
+            width = "100%"
+          ),
+          shiny::textAreaInput(
+            ns("comment"),
+            "Comment",
+            value = "",
+            placeholder = "Add a comment here...",
+            width = "100%"
+          ),
+          shiny::tags$script(
+            shiny::HTML(
+              sprintf(
+                "
                 $('#shiny-modal').on('shown.bs.modal', () => {
                   $('#%s').focus()
                 })
                 ",
-              ns("label")
+                ns("label")
+              )
             )
-          )
-        ),
-        footer = shiny::div(
-          shiny::tags$button(
-            type = "button",
-            class = "btn btn-secondary",
-            `data-dismiss` = "modal",
-            `data-bs-dismiss` = "modal",
-            NULL,
-            "Cancel"
           ),
-          shiny::tags$button(
-            id = ns("add_card_ok"),
-            type = "button",
-            class = "btn btn-primary action-button",
-            `data-val` = shiny::restoreInput(id = ns("add_card_ok"), default = NULL),
-            NULL,
-            "Add Card"
+          footer = shiny::div(
+            shiny::tags$button(
+              type = "button",
+              class = "btn btn-secondary",
+              `data-dismiss` = "modal",
+              `data-bs-dismiss` = "modal",
+              NULL,
+              "Cancel"
+            ),
+            shiny::tags$button(
+              id = ns("add_card_ok"),
+              type = "button",
+              class = "btn btn-primary action-button",
+              `data-val` = shiny::restoreInput(id = ns("add_card_ok"), default = NULL),
+              NULL,
+              "Add Card"
+            )
           )
         )
       )

@@ -80,3 +80,16 @@
   min-width: 55px;
   margin: 1px 1px;
 }
+
+.teal-reporter.simple_report_button.disabled {
+  cursor: not-allowed;
+}
+
+.teal-widgets.reporter-modal .modal-body,
+.modal-footer {
+  padding: 1rem;
+}
+
+.teal-widgets.reporter-modal .modal-footer {
+  padding-top: 0;
+}

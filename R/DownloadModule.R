@@ -27,13 +27,11 @@ download_report_button_ui <- function(id) {
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
-    shiny::tags$button(
-      id = ns("download_button"),
-      type = "button",
-      class = "simple_report_button btn btn-primary action-button",
+    shiny::actionButton(
+      ns("download_button"),
+      class = "teal-reporter simple_report_button btn-primary",
       title = "Download",
       `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
-      NULL,
       shiny::tags$span(
         shiny::icon("download")
       )
@@ -90,43 +88,46 @@ download_report_button_srv <- function(id,
         shiny::icon("download"),
         "Download"
       )
-      shiny::modalDialog(
-        easyClose = TRUE,
-        shiny::tags$h3("Download the Report"),
-        shiny::tags$hr(),
-        if (length(reporter$get_cards()) == 0) {
-          shiny::tags$div(
-            class = "mb-4",
-            shiny::tags$p(
-              class = "text-danger",
-              shiny::tags$strong("No Cards Added")
+      shiny::tags$div(
+        class = "teal-widgets reporter-modal",
+        shiny::modalDialog(
+          easyClose = TRUE,
+          shiny::tags$h3("Download the Report"),
+          shiny::tags$hr(),
+          if (length(reporter$get_cards()) == 0) {
+            shiny::tags$div(
+              class = "mb-4",
+              shiny::tags$p(
+                class = "text-danger",
+                shiny::tags$strong("No Cards Added")
+              )
             )
-          )
-        } else {
-          shiny::tags$div(
-            class = "mb-4",
-            shiny::tags$p(
-              class = "text-success",
-              shiny::tags$strong(paste("Number of cards: ", nr_cards))
-            ),
-          )
-        },
-        reporter_download_inputs(
-          rmd_yaml_args = rmd_yaml_args,
-          rmd_output = rmd_output,
-          showrcode = any_rcode_block(reporter),
-          session = session
-        ),
-        footer = shiny::tagList(
-          shiny::tags$button(
-            type = "button",
-            class = "btn btn-secondary",
-            `data-dismiss` = "modal",
-            `data-bs-dismiss` = "modal",
-            NULL,
-            "Cancel"
+          } else {
+            shiny::tags$div(
+              class = "mb-4",
+              shiny::tags$p(
+                class = "text-success",
+                shiny::tags$strong(paste("Number of cards: ", nr_cards))
+              ),
+            )
+          },
+          reporter_download_inputs(
+            rmd_yaml_args = rmd_yaml_args,
+            rmd_output = rmd_output,
+            showrcode = any_rcode_block(reporter),
+            session = session
           ),
-          downb
+          footer = shiny::tagList(
+            shiny::tags$button(
+              type = "button",
+              class = "btn btn-secondary",
+              `data-dismiss` = "modal",
+              `data-bs-dismiss` = "modal",
+              NULL,
+              "Cancel"
+            ),
+            downb
+          )
         )
       )
     }
