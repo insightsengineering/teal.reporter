@@ -4,14 +4,11 @@
 \alias{add_card_button}
 \alias{add_card_button_ui}
 \alias{add_card_button_srv}
-\alias{add_document_button_srv}
 \title{Add card button module}
 \usage{
 add_card_button_ui(id)
 
 add_card_button_srv(id, reporter, card_fun)
-
-add_document_button_srv(id, reporter, r_card_fun)
 }
 \arguments{
 \item{id}{(\code{character(1)}) this \code{shiny} module's id.}
