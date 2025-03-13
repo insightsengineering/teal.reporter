@@ -93,19 +93,3 @@
 .teal-widgets.reporter-modal .modal-footer {
   padding-top: 0;
 }
-
-.accordion {
-  --bs-accordion-btn-color: #000;
-  --bs-accordion-btn-bg: #f7f7f7;
-  --bs-accordion-active-color: #000;
-  --bs-accordion-active-bg: #dedede;
-}
-
-.sortable-chosen .accordion-item {
-  background: rgba(126, 188, 225, 0.3);
-}
-
-.sortable-chosen .accordion .accordion-header {
-  --bs-accordion-btn-bg: rgba(126, 188, 225, 0.5);
-  --bs-accordion-active-bg: rgba(126, 188, 225, 0.5);
-}

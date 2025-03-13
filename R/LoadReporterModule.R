@@ -13,7 +13,7 @@ report_load_ui <- function(id) {
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
-    actionButton(
+    shiny::actionButton(
       ns("reporter_load"),
       class = "teal-reporter simple_report_button btn-primary",
       title = "Load",
@@ -46,7 +46,7 @@ report_load_srv <- function(id, reporter) {
 
       archiver_modal <- function() {
         nr_cards <- length(reporter$get_cards())
-        div(
+        shiny::div(
           class = "teal-widgets reporter-modal",
           shiny::modalDialog(
             easyClose = TRUE,

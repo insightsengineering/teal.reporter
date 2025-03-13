@@ -27,7 +27,7 @@ download_report_button_ui <- function(id) {
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
-    actionButton(
+    shiny::actionButton(
       ns("download_button"),
       class = "teal-reporter simple_report_button btn-primary",
       title = "Download",
@@ -88,7 +88,7 @@ download_report_button_srv <- function(id,
         shiny::icon("download"),
         "Download"
       )
-      div(
+      shiny::tags$div(
         class = "teal-widgets reporter-modal",
         shiny::modalDialog(
           easyClose = TRUE,

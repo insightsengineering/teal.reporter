@@ -67,7 +67,7 @@ add_card_button_ui <- function(id) {
         )
       )
     ),
-    actionButton(
+    shiny::actionButton(
       ns("add_report_card_button"),
       title = "Add Card",
       class = "teal-reporter simple_report_button btn-primary",
@@ -96,7 +96,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
     ns <- session$ns
 
     add_modal <- function() {
-      div(
+      shiny::div(
         class = "teal-widgets reporter-modal",
         shiny::modalDialog(
           easyClose = TRUE,
