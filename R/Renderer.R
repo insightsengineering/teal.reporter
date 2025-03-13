@@ -81,7 +81,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     renderRmd = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr")) {
       checkmate::assert_list(
         blocks,
-        c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock", "HTMLBlock")
+        c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock", "HTMLBlock", "character")
       )
       checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
       if (missing(yaml_header)) {
@@ -221,8 +221,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         block$get_content()
       } else if (inherits(block, "HTMLBlock")) {
         private$htmlBlock2md(block)
-      } else {
-        stop("Unknown block class")
+      } else if (inherits(block, "character")) {
+        block
       }
     },
     # card specific methods
