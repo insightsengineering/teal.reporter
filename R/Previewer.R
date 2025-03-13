@@ -110,10 +110,10 @@ reporter_previewer_srv <- function(id,
 
       previewer_buttons_list <- list(
         download = htmltools::tagAppendAttributes(
-          shiny::actionButton(
+          shiny::downloadButton(
             ns("download_data_prev"),
-            class = "teal-reporter simple_report_button",
-            shiny::tags$span("Download Report", shiny::icon("download"))
+            label = "Download Report",
+            icon = shiny::icon("download")
           ),
           class = if (nr_cards) "" else "disabled"
         ),
