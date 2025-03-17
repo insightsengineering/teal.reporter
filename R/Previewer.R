@@ -301,7 +301,14 @@ reporter_previewer_srv <- function(id,
 #' @keywords internal
 block_to_html <- function(b) {
   if (!inherits(b, "ContentBlock")) {
-    shiny::HTML(commonmark::markdown_html(text = b, extensions = TRUE))
+    if (is.null(attr(b, "output"))) {
+      shiny::HTML(commonmark::markdown_html(text = block_to_markdown(b), extensions = TRUE))
+    } else {
+      shiny::div(
+        shiny::HTML(commonmark::markdown_html(text = block_to_markdown(b), extensions = TRUE)),
+        shiny::HTML(commonmark::markdown_html(text = block_to_markdown(attr(b, "output")), extensions = TRUE))
+      )
+    }
   } else {
     b_content <- b$get_content()
     if (inherits(b, "TextBlock")) {

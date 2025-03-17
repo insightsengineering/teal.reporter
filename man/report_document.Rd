@@ -43,7 +43,6 @@ It facilitates the creation, manipulation, and serialization of report-related d
 \examples{
 report <- report_document()
 class(report)
-attr(report, "name") <- "Report Name"
 report <- c(report, list("## Headline"), list("## Table"), list(summary(iris)))
 report <- report[1:2]
 report <- append(report, c(list("## Table 2"), list(summary(mtcars))), after = 1)

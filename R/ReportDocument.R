@@ -14,7 +14,6 @@
 #' @examples
 #' report <- report_document()
 #' class(report)
-#' attr(report, "name") <- "Report Name"
 #' report <- c(report, list("## Headline"), list("## Table"), list(summary(iris)))
 #' report <- report[1:2]
 #' report <- append(report, c(list("## Table 2"), list(summary(mtcars))), after = 1)
@@ -111,6 +110,7 @@ edit_document_content <- function(x, modify = NULL, append = NULL, after = lengt
 #' @examples
 #' code_chunk("x <- 1:10", echo = TRUE, message = FALSE)
 #' @export
+#' @rdname code_output
 code_chunk <- function(code, ...) {
   params <- list(...)
   params_str <- if (length(params) > 0) {
@@ -124,4 +124,73 @@ code_chunk <- function(code, ...) {
   } else {
     sprintf("```{r}\n%s\n```", code)
   }
+}
+#' @export
+#' @rdname code_output
+code_output <- function(code) {
+  sprintf("```\n%s\n```", code)
+}
+
+#' @export
+#' @rdname code_output
+link_output <- function(object, output) {
+  attr(object, "output") <- output
+  object
+}
+
+
+
+
+# to_markdown <- function(card){
+#   checkmate::assert_class(card, "ReportDocument")
+#   card_markdown <- lapply(card, block_to_markdown)
+#   class(card_markdown) <- "ReportDocument"
+#   list(card_markdown)
+# }
+
+#' @rdname block_to_markdown
+#' @export block_to_markdown
+block_to_markdown <- function(x) UseMethod("block_to_markdown")
+
+#' @rdname block_to_markdown
+#' @method block_to_markdown default
+#' @exportS3Method teal::block_to_markdown
+block_to_markdown.default <- function(x) x
+
+#' @rdname block_to_markdown
+#' @method block_to_markdown ggplot
+#' @exportS3Method teal::block_to_markdown
+block_to_markdown.ggplot <- function(x, width = 5, height = 4, dpi = 100) {
+  # Temporary file to save the plot
+  tmpfile <- tempfile(fileext = ".png")
+
+  # Save the plot as a PNG file
+  ggsave(tmpfile, plot = x, width = width, height = height, dpi = dpi)
+
+  # Read the binary data and encode as base64
+  # base64enc::base64encode(tmpfile)
+  base64_string<- knitr::image_uri(tmpfile)
+  sprintf("![Plot](%s)", base64_string)
+}
+
+#' @rdname block_to_markdown
+#' @method block_to_markdown data.frame
+#' @exportS3Method teal::block_to_markdown
+block_to_markdown.data.frame <- function(x) {
+  paste(as.character(knitr::kable(x)), collapse = "\n")
+  # I am not sure it renders the table, but it's here to assure it has length 1.
+}
+
+#' @rdname block_to_markdown
+#' @method block_to_markdown rtable
+#' @exportS3Method teal::block_to_markdown
+block_to_markdown.rtable <- function(x) {
+  rtables::as_html(x)
+}
+
+#' @rdname block_to_markdown
+#' @method block_to_markdown ElementaryTable
+#' @exportS3Method teal::block_to_markdown
+block_to_markdown.ElementaryTable <- function(x) {
+  rtables::as_html(x)
 }
