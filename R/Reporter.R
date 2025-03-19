@@ -48,9 +48,25 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
     append_cards = function(cards) {
-      checkmate::assert_list(cards, "ReportCard")
+      checkmate::assert_list(cards, c("ReportCard", "ReportDocument"))
+      rcs <- which(vapply(cards, inherits, logical(1), "ReportCard"))
+      if (length(rcs)) {
+        names(cards)[rcs] <- sapply(cards[rcs], function(card) card$get_name())
+      }
       private$cards <- append(private$cards, cards)
       private$reactive_add_card(length(private$cards))
+      invisible(self)
+    },
+    reorder_cards = function(new_order) {
+      private$cards <- setNames(
+        lapply(new_order, function(name) private$cards[[name]]$clone()),
+        new_order
+      )
+      invisible(self)
+    },
+    set_card_content = function(card_name, card_content) {
+      card_id <- which(names(private$cards) == card_name)
+      private$cards[[card_id]] <- card_content
       invisible(self)
     },
     #' @description Retrieves all `ReportCard` objects contained in the `Reporter`.
@@ -115,9 +131,18 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       blocks <- list()
       if (length(private$cards) > 0) {
         for (card_idx in head(seq_along(private$cards), -1)) {
-          blocks <- append(blocks, append(private$cards[[card_idx]]$get_content(), sep))
+          if (inherits(private$cards[[card_idx]], "ReportCard")) {
+            blocks <- append(blocks, append(private$cards[[card_idx]]$get_content(), sep))
+          } else if (inherits(private$cards[[card_idx]], "ReportDocument")) {
+            blocks <- append(blocks, append(private$cards[[card_idx]], "## NewPageSep ---")) # TODO - figure out if this is useful sep
+          }
         }
-        blocks <- append(blocks, private$cards[[length(private$cards)]]$get_content())
+        ncards <- length(private$cards)
+        if (inherits(private$cards[[ncards]], "ReportCard")) {
+          blocks <- append(blocks, private$cards[[ncards]]$get_content())
+        } else if (inherits(private$cards[[ncards]], "ReportDocument")) {
+          blocks <- append(blocks, private$cards[[ncards]])
+        }
       }
       blocks
     },
@@ -144,27 +169,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         private$cards <- private$cards[-ids]
       }
       private$reactive_add_card(length(private$cards))
-      invisible(self)
-    },
-    #' @description Swaps the positions of two `ReportCard` objects within the `Reporter`.
-    #'
-    #' @param start (`integer`) the index of the first card
-    #' @param end (`integer`) the index of the second card
-    #' @return `self`, invisibly.
-    swap_cards = function(start, end) {
-      checkmate::assert(
-        checkmate::check_integer(start,
-          min.len = 1, max.len = 1, lower = 1, upper = length(private$cards)
-        ),
-        checkmate::check_integer(end,
-          min.len = 1, max.len = 1, lower = 1, upper = length(private$cards)
-        ),
-        combine = "and"
-      )
-      start_val <- private$cards[[start]]$clone()
-      end_val <- private$cards[[end]]$clone()
-      private$cards[[start]] <- end_val
-      private$cards[[end]] <- start_val
       invisible(self)
     },
     #' @description Gets the current value of the reactive variable for adding cards.
@@ -229,11 +233,16 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       checkmate::assert_directory_exists(output_dir)
       rlist <- list(name = "teal Reporter", version = "1", id = self$get_id(), cards = list())
       rlist[["metadata"]] <- self$get_metadata()
-      for (card in self$get_cards()) {
+      cards <- self$get_cards()
+      for (i in seq_along(cards)) {
         # we want to have list names being a class names to indicate the class for $from_list
-        card_class <- class(card)[1]
+        card_class <- class(cards[[i]])[1]
         u_card <- list()
-        u_card[[card_class]] <- card$to_list(output_dir)
+        if (card_class == 'ReportDocument') {
+          u_card[[card_class]] <- c(names(cards)[i], unlist(cards[[i]])) # name needs to be stored, so it can be resotred
+        } else {
+          u_card[[card_class]] <- cards[[i]]$to_list(output_dir)
+        }
         rlist$cards <- c(rlist$cards, u_card)
       }
       rlist
@@ -262,8 +271,17 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         for (iter_c in seq_along(rlist$cards)) {
           card_class <- cards_names[iter_c]
           card <- rlist$cards[[iter_c]]
-          new_card <- eval(str2lang(card_class))$new()
-          new_card$from_list(card, output_dir)
+          if (card_class == "ReportDocument") {
+            # new_card <- report_document(card) # creates too nested structure
+            new_card <- card[-1]
+            new_card_name <- card[[1]]
+            class(new_card) <- "ReportDocument"
+            new_card <- list(new_card) # so that it doesn't loose class and can be used in self$append_cards
+            names(new_card) <- new_card_name
+          } else {
+            new_card <- eval(str2lang(card_class))$new()
+            new_card$from_list(card, output_dir)
+          }
           new_cards <- c(new_cards, new_card)
         }
       } else {

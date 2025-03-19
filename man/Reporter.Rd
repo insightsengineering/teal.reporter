@@ -172,11 +172,12 @@ reporter$from_jsondir(tmp_dir)
 \itemize{
 \item \href{#method-Reporter-new}{\code{Reporter$new()}}
 \item \href{#method-Reporter-append_cards}{\code{Reporter$append_cards()}}
+\item \href{#method-Reporter-reorder_cards}{\code{Reporter$reorder_cards()}}
+\item \href{#method-Reporter-set_card_content}{\code{Reporter$set_card_content()}}
 \item \href{#method-Reporter-get_cards}{\code{Reporter$get_cards()}}
 \item \href{#method-Reporter-get_blocks}{\code{Reporter$get_blocks()}}
 \item \href{#method-Reporter-reset}{\code{Reporter$reset()}}
 \item \href{#method-Reporter-remove_cards}{\code{Reporter$remove_cards()}}
-\item \href{#method-Reporter-swap_cards}{\code{Reporter$swap_cards()}}
 \item \href{#method-Reporter-get_reactive_add_card}{\code{Reporter$get_reactive_add_card()}}
 \item \href{#method-Reporter-get_metadata}{\code{Reporter$get_metadata()}}
 \item \href{#method-Reporter-append_metadata}{\code{Reporter$append_metadata()}}
@@ -231,6 +232,24 @@ Append one or more \code{ReportCard} objects to the \code{Reporter}.
 \subsection{Returns}{
 \code{self}, invisibly.
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-reorder_cards"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-reorder_cards}{}}}
+\subsection{Method \code{reorder_cards()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$reorder_cards(new_order)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-set_card_content"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-set_card_content}{}}}
+\subsection{Method \code{set_card_content()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$set_card_content(card_name, card_content)}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-get_cards"></a>}}
@@ -292,28 +311,6 @@ Removes specific \code{ReportCard} objects from the \code{Reporter} by their ind
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{ids}}{(\code{integer(id)}) the indexes of cards}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Reporter-swap_cards"></a>}}
-\if{latex}{\out{\hypertarget{method-Reporter-swap_cards}{}}}
-\subsection{Method \code{swap_cards()}}{
-Swaps the positions of two \code{ReportCard} objects within the \code{Reporter}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$swap_cards(start, end)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{start}}{(\code{integer}) the index of the first card}
-
-\item{\code{end}}{(\code{integer}) the index of the second card}
 }
 \if{html}{\out{</div>}}
 }
