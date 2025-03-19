@@ -173,24 +173,24 @@ block_to_markdown.ggplot <- function(x, width = 5, height = 4, dpi = 100) {
   sprintf("![Plot](%s)", base64_string)
 }
 
-#' @rdname block_to_markdown
-#' @method block_to_markdown data.frame
-#' @exportS3Method teal::block_to_markdown
-block_to_markdown.data.frame <- function(x) {
-  paste(as.character(knitr::kable(x)), collapse = "\n")
-  # I am not sure it renders the table, but it's here to assure it has length 1.
-}
-
-#' @rdname block_to_markdown
-#' @method block_to_markdown rtable
-#' @exportS3Method teal::block_to_markdown
-block_to_markdown.rtable <- function(x) {
-  rtables::as_html(x)
-}
-
-#' @rdname block_to_markdown
-#' @method block_to_markdown ElementaryTable
-#' @exportS3Method teal::block_to_markdown
-block_to_markdown.ElementaryTable <- function(x) {
-  rtables::as_html(x)
-}
+#' #' @rdname block_to_markdown
+#' #' @method block_to_markdown data.frame
+#' #' @exportS3Method teal::block_to_markdown
+#' block_to_markdown.data.frame <- function(x) {
+#'   paste(as.character(knitr::kable(x)), collapse = "\n")
+#'   # I am not sure it renders the table, but it's here to assure it has length 1.
+#' }
+#'
+#' #' @rdname block_to_markdown
+#' #' @method block_to_markdown rtable
+#' #' @exportS3Method teal::block_to_markdown
+#' block_to_markdown.rtable <- function(x) {
+#'   rtables::as_html(x)
+#' }
+#'
+#' #' @rdname block_to_markdown
+#' #' @method block_to_markdown ElementaryTable
+#' #' @exportS3Method teal::block_to_markdown
+#' block_to_markdown.ElementaryTable <- function(x) {
+#'   rtables::as_html(x) # to_flextable
+#' }
