@@ -193,8 +193,37 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       args <- lapply(args_nams, function(x) args[[x]])
       names(args) <- args_nams
       rmd_path <- do.call(rmarkdown::render, args) # PATH IS RETURNED
+      clean_chunks <- function(input_rmd) {
+        lines <- readLines(input_rmd)
 
-      # TODO: remove Load/Read rds, change code=eval=FALSE to code=eval=TRUE
+        # Identify lines to remove
+        keep <- TRUE
+        new_lines <- c()
+
+        for (i in seq_along(lines)) {
+          line <- lines[i]
+
+          if (stringr::str_detect(line, "^```\\{r object_")) {
+            keep <- FALSE  # Start removing chunk
+          } else if (stringr::str_detect(line, "^```") && !keep) {
+            keep <- TRUE   # Stop removing chunk
+            next  # Skip adding this line
+          }
+
+          # Remove eval=FALSE for code_chunk
+          if (stringr::str_detect(line, "^```\\{r code_chunk") && stringr::str_detect(line, "eval=FALSE")) {
+            line <- stringr::str_replace(line, ",?\\s*eval=FALSE", "")
+          }
+
+          if (keep) {
+            new_lines <- c(new_lines, line)
+          }
+        }
+
+        writeLines(new_lines, input_rmd)
+      }
+
+      clean_chunks(input_path)
       rmd_path
     },
     #' @description Get `output_dir` field.
