@@ -3,14 +3,11 @@
 \name{code_chunk}
 \alias{code_chunk}
 \alias{code_output}
-\alias{link_output}
 \title{Generate an R Markdown code chunk}
 \usage{
 code_chunk(code, ...)
 
 code_output(code)
-
-link_output(object, output)
 }
 \arguments{
 \item{code}{A character string containing the R code to be wrapped in the chunk.}

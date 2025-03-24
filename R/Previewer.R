@@ -301,28 +301,13 @@ reporter_previewer_srv <- function(id,
 #' @keywords internal
 block_to_html <- function(b) {
   if (!inherits(b, "ContentBlock")) {
-
     tables <- c("rtables", "TableTree", "ElementaryTable", "rlisting", "data.frame")
-
-    if (is.null(attr(b, "output"))) {
-      if (inherits(b, tables)) {
-        shiny::tags$pre(
-          flextable::htmltools_value(to_flextable(b))
-        )
-      } else {
-        shiny::HTML(commonmark::markdown_html(text = block_to_markdown(b), extensions = TRUE))
-      }
-    } else {
-      shiny::div(
-        shiny::HTML(commonmark::markdown_html(text = block_to_markdown(b), extensions = TRUE)),
-        if (inherits(attr(b, "output"), tables)) {
-          shiny::tags$pre(
-            flextable::htmltools_value(to_flextable(attr(b, "output")))
-          )
-        } else {
-          shiny::HTML(commonmark::markdown_html(text = block_to_markdown(attr(b, "output")), extensions = TRUE))
-        }
+    if (inherits(b, tables)) {
+      shiny::tags$pre(
+        flextable::htmltools_value(to_flextable(b))
       )
+    } else {
+      shiny::HTML(commonmark::markdown_html(text = block_to_markdown(b), extensions = TRUE))
     }
   } else {
     b_content <- b$get_content()

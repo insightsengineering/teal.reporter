@@ -78,10 +78,11 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' result_path <- Renderer$new()$renderRmd(reporter$get_blocks(), yaml_header)
     #'
-    renderRmd = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr")) {
+    renderRmd = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), output) {
       checkmate::assert_list(
         blocks,
-        c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock", "HTMLBlock", "character")
+        c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock", "HTMLBlock", "character",
+          "gg", "rtables", "TableTree", "ElementaryTable", "rlisting", "data.frame")
       )
       checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
       if (missing(yaml_header)) {
@@ -117,7 +118,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
 
       parsed_blocks <- paste(
         unlist(
-          lapply(blocks, function(b) private$block2md(b))
+          lapply(blocks, function(b) private$block2md(b, output))
         ),
         collapse = "\n\n"
       )
@@ -179,9 +180,9 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' yaml_header <- md_header(as.yaml(yaml_l))
     #' result_path <- Renderer$new()$render(reporter$get_blocks(), yaml_header)
     #'
-    render = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
+    render = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), output, ...) {
       args <- list(...)
-      input_path <- self$renderRmd(blocks, yaml_header, global_knitr)
+      input_path <- self$renderRmd(blocks, yaml_header, global_knitr, output)
       args <- append(args, list(
         input = input_path,
         output_dir = private$output_dir,
@@ -191,7 +192,10 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       args_nams <- unique(names(args))
       args <- lapply(args_nams, function(x) args[[x]])
       names(args) <- args_nams
-      do.call(rmarkdown::render, args)
+      rmd_path <- do.call(rmarkdown::render, args) # PATH IS RETURNED
+
+      # TODO: remove Load/Read rds, change code=eval=FALSE to code=eval=TRUE
+      rmd_path
     },
     #' @description Get `output_dir` field.
     #'
@@ -208,7 +212,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     output_dir = character(0),
     report_type = NULL,
     # factory method
-    block2md = function(block) {
+    block2md = function(block, output) {
       if (inherits(block, "TextBlock")) {
         private$textBlock2md(block)
       } else if (inherits(block, "RcodeBlock")) {
@@ -223,6 +227,17 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
         private$htmlBlock2md(block)
       } else if (inherits(block, "character")) {
         block
+      } else if (inherits(block, "gg")) {
+        private$content2md(block)
+      } else if (inherits(block, c("rtables", "TableTree", "ElementaryTable", "rlisting", "data.frame"))) {
+        if (output == 'html_document') {
+          private$content2md(to_flextable(block))
+        } else if (output == 'pdf_document') {
+          # TODO - verify
+          private$content2md(to_flextable(block))
+        } else if (output == 'word_document') {
+          private$content2md(rtables.officer::tt_to_flextable(block))
+        }
       }
     },
     # card specific methods
@@ -276,6 +291,14 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       basename_table <- basename(block$get_content())
       file.copy(block$get_content(), file.path(private$output_dir, basename_table))
       sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename_table)
+    },
+    content2md = function(content) {
+      hashname <- rlang::hash(content)
+      hashname_file <- paste0(hashname, ".rds")
+      path <- tempfile(fileext = ".rds")
+      saveRDS(content, file = path)
+      file.copy(path, file.path(private$output_dir, hashname_file))
+      sprintf("```{r object_%s, echo = FALSE}\nreadRDS('%s')\n```", hashname, hashname_file)
     },
     htmlBlock2md = function(block) {
       basename <- basename(tempfile(fileext = ".rds"))

@@ -163,7 +163,8 @@ Getting the \code{Rmd} text which could be easily rendered later.
 \if{html}{\out{<div class="r">}}\preformatted{Renderer$renderRmd(
   blocks,
   yaml_header,
-  global_knitr = getOption("teal.reporter.global_knitr")
+  global_knitr = getOption("teal.reporter.global_knitr"),
+  output
 )}\if{html}{\out{</div>}}
 }
 
@@ -203,6 +204,7 @@ Renders the \code{Report} to the desired output format by compiling the \code{rm
   blocks,
   yaml_header,
   global_knitr = getOption("teal.reporter.global_knitr"),
+  output,
   ...
 )}\if{html}{\out{</div>}}
 }

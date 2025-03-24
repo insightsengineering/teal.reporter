@@ -119,11 +119,15 @@ code_chunk <- function(code, ...) {
     ""
   }
 
-  if (params_str != "") {
-    sprintf("```{r %s}\n%s\n```", params_str, code)
-  } else {
-    sprintf("```{r}\n%s\n```", code)
+  if(!grepl("eval=", params_str, fixed = TRUE)) {
+    if (params_str == "") {
+      params_str <- "eval=FALSE"
+    } else {
+      params_str <- paste0(params_str, ", eval=FALSE")
+    }
   }
+  code_chunk_id <- paste0('code_chunk_', rlang::hash(code))
+  sprintf("```{r %s, %s}\n%s\n```", code_chunk_id, params_str, code)
 }
 #' @export
 #' @rdname code_output
@@ -131,12 +135,12 @@ code_output <- function(code) {
   sprintf("```\n%s\n```", code)
 }
 
-#' @export
-#' @rdname code_output
-link_output <- function(object, output) {
-  attr(object, "output") <- output
-  object
-}
+#' #' @export
+#' #' @rdname code_output
+#' link_output <- function(object, output) {
+#'   attr(object, "output") <- output
+#'   object
+#' }
 
 
 

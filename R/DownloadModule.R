@@ -193,7 +193,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
   renderer <- Renderer$new()
 
   tryCatch(
-    renderer$render(reporter$get_blocks(), yaml_header, global_knitr),
+    suppressWarnings(renderer$render(reporter$get_blocks(), yaml_header, global_knitr, output = input_list$output)), #suppressing just for now. Warning in rlang::hash(content) : 'package:teal.modules.general' may not be available when loading
     warning = function(cond) {
       print(cond)
       shiny::showNotification(
@@ -213,9 +213,8 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
   )
 
   output_dir <- renderer$get_output_dir()
-
   tryCatch(
-    archiver_dir <- reporter$to_jsondir(output_dir),
+    suppressWarnings(archiver_dir <- reporter$to_jsondir(output_dir)), # suppersing just for now <simpleWarning in saveRDS(cards[[i]], file = tmp): 'package:teal.modules.general' may not be available when loading>
     warning = function(cond) {
       print(cond)
       shiny::showNotification(
