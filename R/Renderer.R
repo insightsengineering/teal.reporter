@@ -241,26 +241,8 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     output_dir = character(0),
     report_type = NULL,
     # factory method
-    block2md = function(block) {#, output) {
-      if (inherits(block, "TextBlock")) {
-        private$textBlock2md(block)
-      } else if (inherits(block, "RcodeBlock")) {
-        private$rcodeBlock2md(block)
-      } else if (inherits(block, "PictureBlock")) {
-        private$pictureBlock2md(block)
-      } else if (inherits(block, "TableBlock")) {
-        private$tableBlock2md(block)
-      } else if (inherits(block, "NewpageBlock")) {
-        block$get_content()
-      } else if (inherits(block, "HTMLBlock")) {
-        private$htmlBlock2md(block)
-      } else if (inherits(block, "character")) {
-        block
-      } else if (inherits(block, "gg")) {
-        private$content2md(block)
-      } else if (inherits(block, c("rtables", "TableTree", "ElementaryTable", "rlisting", "data.frame"))) {
-        private$content2md(to_flextable(block))
-      }
+    block2md = function(block) {
+      block_to_md(block, private)
     },
     # card specific methods
     textBlock2md = function(block) {
@@ -331,3 +313,85 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
   lock_objects = TRUE,
   lock_class = TRUE
 )
+
+#' @keywords internal
+block_to_md <- function(block, private, ...) {
+  UseMethod("block_to_md")
+}
+
+#' @method block_to_md default
+#' @keywords internal
+block_to_md.default <- function(block, private, ...) {
+  block
+}
+
+#' @method block_to_md TextBlock
+#' @keywords internal
+block_to_md.TextBlock <- function(block, private, ...) {
+  private$textBlock2md(block)
+}
+
+#' @method block_to_md RcodeBlock
+#' @keywords internal
+block_to_md.RcodeBlock <- function(block, private, ...) {
+  private$rcodeBlock2md(block)
+}
+
+#' @method block_to_md PictureBlock
+#' @keywords internal
+block_to_md.PictureBlock <- function(block, private, ...) {
+  private$pictureBlock2md(block)
+}
+
+#' @method block_to_md TableBlock
+#' @keywords internal
+block_to_md.TableBlock <- function(block, private, ...) {
+  private$tableBlock2md(block)
+}
+
+#' @method block_to_md NewpageBlock
+#' @keywords internal
+block_to_md.NewpageBlock <- function(block, private, ...) {
+  block$get_content()
+}
+
+#' @method block_to_md HTMLBlock
+#' @keywords internal
+block_to_md.HTMLBlock <- function(block, private, ...) {
+  private$htmlBlock2md(block)
+}
+
+#' @method block_to_md character
+#' @keywords internal
+block_to_md.character <- function(block, private, ...) {
+  block
+}
+
+#' @method block_to_md gg
+#' @keywords internal
+block_to_md.gg <- function(block, private, ...) {
+  private$content2md(block)
+}
+
+#' @method block_to_md rtables
+#' @keywords internal
+block_to_md.rtables <- function(block, private, ...) {
+  private$content2md(to_flextable(block))
+}
+
+#' @method block_to_md TableTree
+#' @keywords internal
+block_to_md.TableTree <- block_to_md.rtables
+
+#' @method block_to_md ElementaryTable
+#' @keywords internal
+block_to_md.ElementaryTable <- block_to_md.rtables
+
+#' @method block_to_md rlisting
+#' @keywords internal
+block_to_md.rlisting <- block_to_md.rtables
+
+#' @method block_to_md data.frame
+#' @keywords internal
+block_to_md.data.frame <- block_to_md.rtables
+
