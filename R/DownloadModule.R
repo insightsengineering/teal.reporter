@@ -193,7 +193,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
   renderer <- Renderer$new()
 
   tryCatch(
-    suppressWarnings(renderer$render(reporter$get_blocks(), yaml_header, global_knitr, output = input_list$output)), #suppressing just for now. Warning in rlang::hash(content) : 'package:teal.modules.general' may not be available when loading
+    suppressWarnings(renderer$render(reporter$get_blocks(), yaml_header, global_knitr)), #suppressing just for now. Warning in rlang::hash(content) : 'package:teal.modules.general' may not be available when loading
     warning = function(cond) {
       print(cond)
       shiny::showNotification(

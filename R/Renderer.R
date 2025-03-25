@@ -78,7 +78,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' result_path <- Renderer$new()$renderRmd(reporter$get_blocks(), yaml_header)
     #'
-    renderRmd = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), output) {
+    renderRmd = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr")) {
       checkmate::assert_list(
         blocks,
         c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock", "HTMLBlock", "character",
@@ -118,7 +118,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
 
       parsed_blocks <- paste(
         unlist(
-          lapply(blocks, function(b) private$block2md(b, output))
+          lapply(blocks, function(b) private$block2md(b))
         ),
         collapse = "\n\n"
       )
@@ -180,9 +180,9 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     #' yaml_header <- md_header(as.yaml(yaml_l))
     #' result_path <- Renderer$new()$render(reporter$get_blocks(), yaml_header)
     #'
-    render = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), output, ...) {
+    render = function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
       args <- list(...)
-      input_path <- self$renderRmd(blocks, yaml_header, global_knitr, output)
+      input_path <- self$renderRmd(blocks, yaml_header, global_knitr)
       args <- append(args, list(
         input = input_path,
         output_dir = private$output_dir,
@@ -241,7 +241,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     output_dir = character(0),
     report_type = NULL,
     # factory method
-    block2md = function(block, output) {
+    block2md = function(block) {#, output) {
       if (inherits(block, "TextBlock")) {
         private$textBlock2md(block)
       } else if (inherits(block, "RcodeBlock")) {
@@ -259,14 +259,7 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       } else if (inherits(block, "gg")) {
         private$content2md(block)
       } else if (inherits(block, c("rtables", "TableTree", "ElementaryTable", "rlisting", "data.frame"))) {
-        if (output == 'html_document') {
-          private$content2md(to_flextable(block))
-        } else if (output == 'pdf_document') {
-          # TODO - verify
-          private$content2md(to_flextable(block))
-        } else if (output == 'word_document') {
-          private$content2md(rtables.officer::tt_to_flextable(block))
-        }
+        private$content2md(to_flextable(block))
       }
     },
     # card specific methods
