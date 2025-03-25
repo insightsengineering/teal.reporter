@@ -299,45 +299,99 @@ reporter_previewer_srv <- function(id,
 
 #' @noRd
 #' @keywords internal
-block_to_html <- function(b) {
-  if (!inherits(b, "ContentBlock")) {
-    tables <- c("rtables", "TableTree", "ElementaryTable", "rlisting", "data.frame")
-    if (inherits(b, tables)) {
-      shiny::tags$pre(
-        flextable::htmltools_value(to_flextable(b))
-      )
-    } else {
-      shiny::HTML(commonmark::markdown_html(text = block_to_markdown(b), extensions = TRUE))
-    }
-  } else {
-    b_content <- b$get_content()
-    if (inherits(b, "TextBlock")) {
-      switch(b$get_style(),
-        header1 = shiny::tags$h1(b_content),
-        header2 = shiny::tags$h2(b_content),
-        header3 = shiny::tags$h3(b_content),
-        header4 = shiny::tags$h4(b_content),
-        verbatim = shiny::tags$pre(b_content),
-        shiny::tags$pre(b_content)
-      )
-    } else if (inherits(b, "RcodeBlock")) {
-      panel_item("R Code", shiny::tags$pre(b_content))
-    } else if (inherits(b, "PictureBlock")) {
-      shiny::tags$img(src = knitr::image_uri(b_content))
-    } else if (inherits(b, "TableBlock")) {
-      b_table <- readRDS(b_content)
-      shiny::tags$pre(
-        flextable::htmltools_value(b_table)
-      )
-    } else if (inherits(b, "NewpageBlock")) {
-      shiny::tags$br()
-    } else if (inherits(b, "HTMLBlock")) {
-      b_content
-    } else {
-      stop("Unknown block class")
-    }
-  }
+block_to_html <- function(b, ...) {
+  UseMethod("block_to_html")
 }
+
+#' @method block_to_html default
+#' @keywords internal
+block_to_html.default <- function(b, ...) {
+  shiny::HTML(commonmark::markdown_html(b, extensions = TRUE))
+}
+
+#' @method block_to_html ContentBlock
+#' @keywords internal
+block_to_html.ContentBlock <- function(b, ...) {
+  b_content <- b$get_content()
+
+  UseMethod("block_to_html", b) # Further dispatch for subclasses
+}
+
+#' @method block_to_html TextBlock
+#' @keywords internal
+block_to_html.TextBlock <- function(b, ...) {
+  b_content <- b$get_content()
+  switch(
+    b$get_style(),
+    header1 = shiny::tags$h1(b_content),
+    header2 = shiny::tags$h2(b_content),
+    header3 = shiny::tags$h3(b_content),
+    header4 = shiny::tags$h4(b_content),
+    verbatim = shiny::tags$pre(b_content),
+    shiny::tags$pre(b_content)
+  )
+}
+
+#' @method block_to_html RcodeBlock
+#' @keywords internal
+block_to_html.RcodeBlock <- function(b, ...) {
+  panel_item("R Code", shiny::tags$pre(b$get_content()))
+}
+
+#' @method block_to_html PictureBlock
+#' @keywords internal
+block_to_html.PictureBlock <- function(b, ...) {
+  shiny::tags$img(src = knitr::image_uri(b$get_content()))
+}
+
+#' @method block_to_html TableBlock
+#' @keywords internal
+block_to_html.TableBlock <- function(b, ...) {
+  b_table <- readRDS(b$get_content())
+  shiny::tags$pre(flextable::htmltools_value(b_table))
+}
+
+#' @method block_to_html NewpageBlock
+#' @keywords internal
+block_to_html.NewpageBlock <- function(b, ...) {
+  shiny::tags$br()
+}
+
+#' @method block_to_html HTMLBlock
+#' @keywords internal
+block_to_html.HTMLBlock <- function(b, ...) {
+  b$get_content()
+}
+
+#' @method block_to_html rtables
+#' @keywords internal
+block_to_html.rtables <- function(b, ...) {
+  shiny::tags$pre(flextable::htmltools_value(to_flextable(b)))
+}
+
+#' @method block_to_html gg
+#' @keywords internal
+block_to_html.gg <- function(b, ...) {
+  tmpfile <- tempfile(fileext = ".png")
+  ggsave(tmpfile, plot = b, width = 5, height = 4, dpi = 100)
+  shiny::tags$img(src = knitr::image_uri(tmpfile))
+}
+
+#' @method block_to_html TableTree
+#' @keywords internal
+block_to_html.TableTree <- block_to_html.rtables
+
+#' @method block_to_html ElementaryTable
+#' @keywords internal
+block_to_html.ElementaryTable <- block_to_html.rtables
+
+#' @method block_to_html rlisting
+#' @keywords internal
+block_to_html.rlisting <- block_to_html.rtables
+
+#' @method block_to_html data.frame
+#' @keywords internal
+block_to_html.data.frame <- block_to_html.rtables
 
 
 #' @noRd
