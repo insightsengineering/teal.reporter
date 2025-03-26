@@ -190,10 +190,9 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
   }
 
   yaml_header <- as_yaml_auto(input_list)
-  renderer <- Renderer$new()
 
   tryCatch(
-    suppressWarnings(renderer$render(reporter$get_blocks(), yaml_header, global_knitr)), #suppressing just for now. Warning in rlang::hash(content) : 'package:teal.modules.general' may not be available when loading
+    suppressWarnings(output_dir <- report_render(reporter$get_blocks(), yaml_header, global_knitr)), #suppressing just for now. Warning in rlang::hash(content) : 'package:teal.modules.general' may not be available when loading
     warning = function(cond) {
       print(cond)
       shiny::showNotification(
@@ -212,7 +211,6 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
     }
   )
 
-  output_dir <- renderer$get_output_dir()
   tryCatch(
     suppressWarnings(archiver_dir <- reporter$to_jsondir(output_dir)), # suppersing just for now <simpleWarning in saveRDS(cards[[i]], file = tmp): 'package:teal.modules.general' may not be available when loading>
     warning = function(cond) {
@@ -274,7 +272,6 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
     }
   )
 
-  rm(renderer)
   invisible(file)
 }
 
@@ -333,4 +330,243 @@ any_rcode_block <- function(reporter) {
   } else {
     FALSE
   }
+}
+
+
+
+report_render <- function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
+  tmp_dir <- tempdir()
+  output_dir <- file.path(tmp_dir, sprintf("report_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
+  dir.create(path = output_dir)
+
+  args <- list(...)
+  input_path <- report_render_Rmd(blocks, yaml_header, global_knitr, output_dir)
+  args <- append(args, list(
+    input = input_path,
+    output_dir = output_dir,
+    output_format = "all",
+    quiet = TRUE
+  ))
+  args_nams <- unique(names(args))
+  args <- lapply(args_nams, function(x) args[[x]])
+  names(args) <- args_nams
+  do.call(rmarkdown::render, args)
+  clean_chunks <- function(input_rmd) {
+    lines <- readLines(input_rmd)
+
+    # Identify lines to remove
+    keep <- TRUE
+    new_lines <- c()
+
+    for (i in seq_along(lines)) {
+      line <- lines[i]
+
+      if (stringr::str_detect(line, "^```\\{r object_")) {
+        keep <- FALSE  # Start removing chunk
+      } else if (stringr::str_detect(line, "^```") && !keep) {
+        keep <- TRUE   # Stop removing chunk
+        next  # Skip adding this line
+      }
+
+      # Remove eval=FALSE for code_chunk
+      if (stringr::str_detect(line, "^```\\{r code_chunk") && stringr::str_detect(line, "eval=FALSE")) {
+        line <- stringr::str_replace(line, ",?\\s*eval=FALSE", "")
+      }
+
+      if (keep) {
+        new_lines <- c(new_lines, line)
+      }
+    }
+
+    writeLines(new_lines, input_rmd)
+  }
+
+  clean_chunks(input_path)
+  output_dir
+}
+
+report_render_Rmd <- function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), output_dir) {
+  checkmate::assert_list(
+    blocks,
+    c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock", "HTMLBlock", "character",
+      "gg", "rtables", "TableTree", "ElementaryTable", "rlisting", "data.frame")
+  )
+  checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
+  if (missing(yaml_header)) {
+    yaml_header <- md_header(yaml::as.yaml(list(title = "Report")))
+  }
+
+  report_type <- get_yaml_field(yaml_header, "output")
+
+  parsed_global_knitr <- sprintf(
+    "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n%s\n```\n",
+    capture.output(dput(global_knitr)),
+    if (identical(report_type, "powerpoint_presentation")) {
+      format_code_block_function <- quote(
+        code_block <- function(code_text) {
+          df <- data.frame(code_text)
+          ft <- flextable::flextable(df)
+          ft <- flextable::delete_part(ft, part = "header")
+          ft <- flextable::autofit(ft, add_h = 0)
+          ft <- flextable::fontsize(ft, size = 7, part = "body")
+          ft <- flextable::bg(x = ft, bg = "lightgrey")
+          ft <- flextable::border_outer(ft)
+          if (flextable::flextable_dim(ft)$widths > 8) {
+            ft <- flextable::width(ft, width = 8)
+          }
+          ft
+        }
+      )
+      paste(deparse(format_code_block_function), collapse = "\n")
+    } else {
+      ""
+    }
+  )
+
+  parsed_blocks <- paste(
+    unlist(
+      lapply(blocks, function(b) block_to_md(b, output_dir = output_dir, report_type = report_type))
+    ),
+    collapse = "\n\n"
+  )
+
+  rmd_text <- paste0(yaml_header, "\n", parsed_global_knitr, "\n", parsed_blocks, "\n")
+  tmp <- tempfile(fileext = ".Rmd")
+  input_path <- file.path(
+    output_dir,
+    sprintf("input_%s.Rmd", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS3")))
+  )
+  cat(rmd_text, file = input_path)
+  input_path
+}
+
+#' @keywords internal
+block_to_md <- function(block, output_dir, report_type, ...) {
+  UseMethod("block_to_md")
+}
+
+#' @method block_to_md default
+#' @keywords internal
+block_to_md.default <- function(block, output_dir, report_type, ...) {
+  block
+}
+
+#' @method block_to_md TextBlock
+#' @keywords internal
+block_to_md.TextBlock <- function(block, output_dir, report_type, ...) {
+  text_style <- block$get_style()
+  block_content <- block$get_content()
+  switch(text_style,
+         "default" = block_content,
+         "verbatim" = sprintf("\n```\n%s\n```\n", block_content),
+         "header2" = paste0("## ", block_content),
+         "header3" = paste0("### ", block_content),
+         block_content
+  )
+}
+
+#' @method block_to_md RcodeBlock
+#' @keywords internal
+block_to_md.RcodeBlock <- function(block, output_dir, report_type, ...) {
+  params <- block$get_params()
+  params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
+  if (identical(report_type, "powerpoint_presentation")) {
+    block_content_list <- split_text_block(block$get_content(), 30)
+    paste(
+      sprintf(
+        "\\newpage\n\n---\n\n```{r, echo=FALSE}\ncode_block(\n%s)\n```\n",
+        shQuote(block_content_list, type = "cmd")
+      ),
+      collapse = "\n\n"
+    )
+  } else {
+    sprintf(
+      "\\newpage\n\n--- \n\n```{r, %s}\n%s\n```\n",
+      paste(names(params), params, sep = "=", collapse = ", "),
+      block$get_content()
+    )
+  }
+}
+
+#' @method block_to_md PictureBlock
+#' @keywords internal
+block_to_md.PictureBlock <- function(block, output_dir, report_type, ...) {
+  basename_pic <- basename(block$get_content())
+  file.copy(block$get_content(), file.path(output_dir, basename_pic))
+  params <- c(
+    `out.width` = "'100%'",
+    `out.height` = "'100%'"
+  )
+  title <- block$get_title()
+  if (length(title)) params["fig.cap"] <- shQuote(title)
+  sprintf(
+    "\n```{r, echo = FALSE, %s}\nknitr::include_graphics(path = '%s')\n```\n",
+    paste(names(params), params, sep = "=", collapse = ", "),
+    basename_pic
+  )
+}
+
+#' @method block_to_md TableBlock
+#' @keywords internal
+block_to_md.TableBlock <- function(block, output_dir, report_type, ...) {
+  basename_table <- basename(block$get_content())
+  file.copy(block$get_content(), file.path(output_dir, basename_table))
+  sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename_table)
+}
+
+#' @method block_to_md NewpageBlock
+#' @keywords internal
+block_to_md.NewpageBlock <- function(block, output_dir, report_type, ...) {
+  block$get_content()
+}
+
+#' @method block_to_md HTMLBlock
+#' @keywords internal
+block_to_md.HTMLBlock <- function(block, output_dir, report_type, ...) {
+  basename <- basename(tempfile(fileext = ".rds"))
+  suppressWarnings(saveRDS(block$get_content(), file = file.path(output_dir, basename)))
+  sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename)
+}
+
+#' @method block_to_md character
+#' @keywords internal
+block_to_md.character <- function(block, output_dir, report_type, ...) {
+  block
+}
+
+#' @method block_to_md gg
+#' @keywords internal
+block_to_md.gg <- function(block, output_dir, report_type, ...) {
+  content2md(block, output_dir)
+}
+
+#' @method block_to_md rtables
+#' @keywords internal
+block_to_md.rtables <- function(block, output_dir, report_type, ...) {
+  content2md(to_flextable(block), output_dir)
+}
+
+#' @method block_to_md TableTree
+#' @keywords internal
+block_to_md.TableTree <- block_to_md.rtables
+
+#' @method block_to_md ElementaryTable
+#' @keywords internal
+block_to_md.ElementaryTable <- block_to_md.rtables
+
+#' @method block_to_md rlisting
+#' @keywords internal
+block_to_md.rlisting <- block_to_md.rtables
+
+#' @method block_to_md data.frame
+#' @keywords internal
+block_to_md.data.frame <- block_to_md.rtables
+
+content2md = function(content, output_dir) {
+  hashname <- rlang::hash(content)
+  hashname_file <- paste0(hashname, ".rds")
+  path <- tempfile(fileext = ".rds")
+  saveRDS(content, file = path)
+  file.copy(path, file.path(output_dir, hashname_file))
+  sprintf("```{r object_%s, echo = FALSE}\nreadRDS('%s')\n```", hashname, hashname_file)
 }
