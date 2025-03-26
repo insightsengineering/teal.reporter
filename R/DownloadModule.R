@@ -350,39 +350,62 @@ report_render <- function(blocks, yaml_header, global_knitr = getOption("teal.re
   args_nams <- unique(names(args))
   args <- lapply(args_nams, function(x) args[[x]])
   names(args) <- args_nams
+
+  add_eval_false(input_path)
   do.call(rmarkdown::render, args)
-  clean_chunks <- function(input_rmd) {
-    lines <- readLines(input_rmd)
-
-    # Identify lines to remove
-    keep <- TRUE
-    new_lines <- c()
-
-    for (i in seq_along(lines)) {
-      line <- lines[i]
-
-      if (stringr::str_detect(line, "^```\\{r object_")) {
-        keep <- FALSE  # Start removing chunk
-      } else if (stringr::str_detect(line, "^```") && !keep) {
-        keep <- TRUE   # Stop removing chunk
-        next  # Skip adding this line
-      }
-
-      # Remove eval=FALSE for code_chunk
-      if (stringr::str_detect(line, "^```\\{r code_chunk") && stringr::str_detect(line, "eval=FALSE")) {
-        line <- stringr::str_replace(line, ",?\\s*eval=FALSE", "")
-      }
-
-      if (keep) {
-        new_lines <- c(new_lines, line)
-      }
-    }
-
-    writeLines(new_lines, input_rmd)
-  }
-
   clean_chunks(input_path)
   output_dir
+}
+
+add_eval_false <- function(input_rmd) {
+  lines <- readLines(input_rmd)
+
+  # Identify which chunks should NOT be modified
+  valid_chunks <- grepl("^```\\{r", lines) &      # Line starts with an R chunk
+    !grepl("object", lines) &      # Does NOT contain "object"
+    !grepl("eval\\s*=\\s*TRUE", lines) # Does NOT contain eval=TRUE
+
+  # Apply gsub only to valid chunks
+  lines[valid_chunks] <- gsub(
+    "(^```\\{r[^}]*)(\\})",  # Match `{r ... }`
+    "\\1, eval=FALSE\\2",    # Append `eval=FALSE`
+    lines[valid_chunks]
+  )
+
+  writeLines(lines, input_rmd)
+}
+
+clean_chunks <- function(input_rmd) {
+  lines <- readLines(input_rmd)
+
+  new_lines <- c()
+  skip_chunk <- FALSE  # Track if we are inside an 'object' chunk
+
+  for (line in lines) {
+    # Start removing 'object' chunks
+    if (stringr::str_detect(line, "^```\\{r object_")) {
+      skip_chunk <- TRUE
+    }
+
+    # Stop skipping when the chunk ends
+    if (stringr::str_detect(line, "^```$") && skip_chunk) {
+      skip_chunk <- FALSE
+      next  # Skip adding this line
+    }
+
+    if (!skip_chunk) {
+      # Remove eval=FALSE from any R chunk
+      line <- stringr::str_replace(line, ",?\\s*eval=FALSE", "")
+
+      # Clean up extra commas in chunk headers
+      line <- stringr::str_replace(line, "\\{r,\\s*,", "{r,")
+      line <- stringr::str_replace(line, "\\{r,", "{r")  # Remove leftover commas
+
+      new_lines <- c(new_lines, line)
+    }
+  }
+
+  writeLines(new_lines, input_rmd)
 }
 
 report_render_Rmd <- function(blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), output_dir) {
@@ -484,6 +507,29 @@ block_to_md.RcodeBlock <- function(block, output_dir, report_type, ...) {
       "\\newpage\n\n--- \n\n```{r, %s}\n%s\n```\n",
       paste(names(params), params, sep = "=", collapse = ", "),
       block$get_content()
+    )
+  }
+}
+
+#' @method block_to_md code_chunk
+#' @keywords internal
+block_to_md.code_chunk <- function(block, output_dir, report_type, ...) {
+  params <- attr(block, "params")
+  params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
+  if (identical(report_type, "powerpoint_presentation")) {
+    block_content_list <- split_text_block(block, 30)
+    paste(
+      sprintf(
+        "\\newpage\n\n---\n\n```{r, echo=FALSE}\ncode_block(\n%s)\n```\n",
+        shQuote(block_content_list, type = "cmd")
+      ),
+      collapse = "\n\n"
+    )
+  } else {
+    sprintf(
+      "```{r, %s}\n%s\n```\n",
+      paste(names(params), params, sep = "=", collapse = ", "),
+      block
     )
   }
 }

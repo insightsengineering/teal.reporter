@@ -377,6 +377,12 @@ block_to_html.gg <- function(b, ...) {
   shiny::tags$img(src = knitr::image_uri(tmpfile))
 }
 
+#' @method block_to_html code_chunk
+#' @keywords internal
+block_to_html.code_chunk <- function(b, ...) {
+  shiny::tags$pre(b)
+}
+
 #' @method block_to_html TableTree
 #' @keywords internal
 block_to_html.TableTree <- block_to_html.rtables

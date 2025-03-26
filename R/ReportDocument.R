@@ -113,21 +113,11 @@ edit_document_content <- function(x, modify = NULL, append = NULL, after = lengt
 #' @rdname code_output
 code_chunk <- function(code, ...) {
   params <- list(...)
-  params_str <- if (length(params) > 0) {
-    paste(names(params), params, sep = "=", collapse = ", ")
-  } else {
-    ""
-  }
-
-  if(!grepl("eval=", params_str, fixed = TRUE)) {
-    if (params_str == "") {
-      params_str <- "eval=FALSE"
-    } else {
-      params_str <- paste0(params_str, ", eval=FALSE")
-    }
-  }
-  code_chunk_id <- paste0('code_chunk_', rlang::hash(code))
-  sprintf("```{r %s, %s}\n%s\n```", code_chunk_id, params_str, code)
+  structure(
+    code,
+    params = params,
+    class = "code_chunk"
+  )
 }
 #' @export
 #' @rdname code_output
