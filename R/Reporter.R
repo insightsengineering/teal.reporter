@@ -243,7 +243,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
           saveRDS(cards[[i]], file = tmp)
           tmp_base <- basename(tmp)
           file.copy(tmp, file.path(output_dir, tmp_base))
-          u_card[[card_class]] <- tmp_base#c(names(cards)[i], unlist(cards[[i]])) # name needs to be stored, so it can be resotred
+          u_card[[card_class]] <- list(name = names(cards)[i], path = tmp_base)
         } else {
           u_card[[card_class]] <- cards[[i]]$to_list(output_dir)
         }
@@ -276,12 +276,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
           card_class <- cards_names[iter_c]
           card <- rlist$cards[[iter_c]]
           if (card_class == "ReportDocument") {
-            # new_card <- report_document(card) # creates too nested structure
-            new_card <- readRDS(file.path(output_dir, card))
-            # new_card_name <- card[[1]]
+            new_card <- readRDS(file.path(output_dir, card$path))
             class(new_card) <- "ReportDocument"
             new_card <- list(new_card) # so that it doesn't loose class and can be used in self$append_cards
-            names(new_card) <- 'RESTORED new_card_name TO BE ADDED' # TODO
+            names(new_card) <- card$name
           } else {
             new_card <- eval(str2lang(card_class))$new()
             new_card$from_list(card, output_dir)
