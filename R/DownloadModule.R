@@ -192,7 +192,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
   yaml_header <- as_yaml_auto(input_list)
 
   tryCatch(
-    suppressWarnings(output_dir <- report_render(reporter$get_blocks(), yaml_header, global_knitr)), #suppressing just for now. Warning in rlang::hash(content) : 'package:teal.modules.general' may not be available when loading
+    output_dir <- report_render(reporter$get_blocks(), yaml_header, global_knitr),
     warning = function(cond) {
       print(cond)
       shiny::showNotification(
@@ -212,7 +212,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
   )
 
   tryCatch(
-    suppressWarnings(archiver_dir <- reporter$to_jsondir(output_dir)), # suppressing just for now <simpleWarning in saveRDS(cards[[i]], file = tmp): 'package:teal.modules.general' may not be available when loading>
+    reporter$to_jsondir(output_dir),
     warning = function(cond) {
       print(cond)
       shiny::showNotification(
@@ -609,10 +609,10 @@ block_to_md.rlisting <- block_to_md.rtables
 block_to_md.data.frame <- block_to_md.rtables
 
 content2md = function(content, output_dir) {
-  hashname <- rlang::hash(content)
+  suppressWarnings(hashname <- rlang::hash(content))
   hashname_file <- paste0(hashname, ".rds")
   path <- tempfile(fileext = ".rds")
-  saveRDS(content, file = path)
+  suppressWarnings(saveRDS(content, file = path))
   file.copy(path, file.path(output_dir, hashname_file))
   sprintf("```{r object_%s, echo = FALSE}\nreadRDS('%s')\n```", hashname, hashname_file)
 }

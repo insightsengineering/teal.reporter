@@ -240,7 +240,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         u_card <- list()
         if (card_class == 'ReportDocument') {
           tmp <- tempfile(fileext = ".rds")
-          saveRDS(cards[[i]], file = tmp)
+          suppressWarnings(saveRDS(cards[[i]], file = tmp))
           tmp_base <- basename(tmp)
           file.copy(tmp, file.path(output_dir, tmp_base))
           u_card[[card_class]] <- list(name = names(cards)[i], path = tmp_base)
