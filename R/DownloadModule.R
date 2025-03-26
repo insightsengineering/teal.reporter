@@ -212,7 +212,7 @@ report_render_and_compress <- function(reporter, input_list, global_knitr, file 
   )
 
   tryCatch(
-    suppressWarnings(archiver_dir <- reporter$to_jsondir(output_dir)), # suppersing just for now <simpleWarning in saveRDS(cards[[i]], file = tmp): 'package:teal.modules.general' may not be available when loading>
+    suppressWarnings(archiver_dir <- reporter$to_jsondir(output_dir)), # suppressing just for now <simpleWarning in saveRDS(cards[[i]], file = tmp): 'package:teal.modules.general' may not be available when loading>
     warning = function(cond) {
       print(cond)
       shiny::showNotification(
