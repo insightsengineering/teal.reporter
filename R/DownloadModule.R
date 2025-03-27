@@ -351,28 +351,9 @@ report_render <- function(blocks, yaml_header, global_knitr = getOption("teal.re
   args <- lapply(args_nams, function(x) args[[x]])
   names(args) <- args_nams
 
-  add_eval_false(input_path)
   do.call(rmarkdown::render, args)
   clean_chunks(input_path)
   output_dir
-}
-
-add_eval_false <- function(input_rmd) {
-  lines <- readLines(input_rmd)
-
-  # Identify which chunks should NOT be modified
-  valid_chunks <- grepl("^```\\{r", lines) &      # Line starts with an R chunk
-    !grepl("object", lines) &      # Does NOT contain "object"
-    !grepl("eval\\s*=\\s*TRUE", lines) # Does NOT contain eval=TRUE
-
-  # Apply gsub only to valid chunks
-  lines[valid_chunks] <- gsub(
-    "(^```\\{r[^}]*)(\\})",  # Match `{r ... }`
-    "\\1, eval=FALSE\\2",    # Append `eval=FALSE`
-    lines[valid_chunks]
-  )
-
-  writeLines(lines, input_rmd)
 }
 
 clean_chunks <- function(input_rmd) {
@@ -513,8 +494,9 @@ block_to_rmd.RcodeBlock <- function(block, output_dir, report_type, ...) {
 
 #' @method block_to_rmd code_chunk
 #' @keywords internal
-block_to_rmd.code_chunk <- function(block, output_dir, report_type, ...) {
+block_to_rmd.code_chunk <- function(block, output_dir, report_type, ..., eval = FALSE) {
   params <- attr(block, "params")
+  if (!('eval' %in% names(params))) params <- c(params, eval = eval)
   params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
   if (identical(report_type, "powerpoint_presentation")) {
     block_content_list <- split_text_block(block, 30)
