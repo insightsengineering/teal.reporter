@@ -448,7 +448,7 @@ report_render_Rmd <- function(blocks, yaml_header, global_knitr = getOption("tea
 
   parsed_blocks <- paste(
     unlist(
-      lapply(blocks, function(b) block_to_md(b, output_dir = output_dir, report_type = report_type))
+      lapply(blocks, function(b) block_to_rmd(b, output_dir = output_dir, report_type = report_type))
     ),
     collapse = "\n\n"
   )
@@ -464,19 +464,19 @@ report_render_Rmd <- function(blocks, yaml_header, global_knitr = getOption("tea
 }
 
 #' @keywords internal
-block_to_md <- function(block, output_dir, report_type, ...) {
-  UseMethod("block_to_md")
+block_to_rmd <- function(block, output_dir, report_type, ...) {
+  UseMethod("block_to_rmd")
 }
 
-#' @method block_to_md default
+#' @method block_to_rmd default
 #' @keywords internal
-block_to_md.default <- function(block, output_dir, report_type, ...) {
+block_to_rmd.default <- function(block, output_dir, report_type, ...) {
   block
 }
 
-#' @method block_to_md TextBlock
+#' @method block_to_rmd TextBlock
 #' @keywords internal
-block_to_md.TextBlock <- function(block, output_dir, report_type, ...) {
+block_to_rmd.TextBlock <- function(block, output_dir, report_type, ...) {
   text_style <- block$get_style()
   block_content <- block$get_content()
   switch(text_style,
@@ -488,9 +488,9 @@ block_to_md.TextBlock <- function(block, output_dir, report_type, ...) {
   )
 }
 
-#' @method block_to_md RcodeBlock
+#' @method block_to_rmd RcodeBlock
 #' @keywords internal
-block_to_md.RcodeBlock <- function(block, output_dir, report_type, ...) {
+block_to_rmd.RcodeBlock <- function(block, output_dir, report_type, ...) {
   params <- block$get_params()
   params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
   if (identical(report_type, "powerpoint_presentation")) {
@@ -511,9 +511,9 @@ block_to_md.RcodeBlock <- function(block, output_dir, report_type, ...) {
   }
 }
 
-#' @method block_to_md code_chunk
+#' @method block_to_rmd code_chunk
 #' @keywords internal
-block_to_md.code_chunk <- function(block, output_dir, report_type, ...) {
+block_to_rmd.code_chunk <- function(block, output_dir, report_type, ...) {
   params <- attr(block, "params")
   params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
   if (identical(report_type, "powerpoint_presentation")) {
@@ -534,9 +534,9 @@ block_to_md.code_chunk <- function(block, output_dir, report_type, ...) {
   }
 }
 
-#' @method block_to_md PictureBlock
+#' @method block_to_rmd PictureBlock
 #' @keywords internal
-block_to_md.PictureBlock <- function(block, output_dir, report_type, ...) {
+block_to_rmd.PictureBlock <- function(block, output_dir, report_type, ...) {
   basename_pic <- basename(block$get_content())
   file.copy(block$get_content(), file.path(output_dir, basename_pic))
   params <- c(
@@ -552,61 +552,61 @@ block_to_md.PictureBlock <- function(block, output_dir, report_type, ...) {
   )
 }
 
-#' @method block_to_md TableBlock
+#' @method block_to_rmd TableBlock
 #' @keywords internal
-block_to_md.TableBlock <- function(block, output_dir, report_type, ...) {
+block_to_rmd.TableBlock <- function(block, output_dir, report_type, ...) {
   basename_table <- basename(block$get_content())
   file.copy(block$get_content(), file.path(output_dir, basename_table))
   sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename_table)
 }
 
-#' @method block_to_md NewpageBlock
+#' @method block_to_rmd NewpageBlock
 #' @keywords internal
-block_to_md.NewpageBlock <- function(block, output_dir, report_type, ...) {
+block_to_rmd.NewpageBlock <- function(block, output_dir, report_type, ...) {
   block$get_content()
 }
 
-#' @method block_to_md HTMLBlock
+#' @method block_to_rmd HTMLBlock
 #' @keywords internal
-block_to_md.HTMLBlock <- function(block, output_dir, report_type, ...) {
+block_to_rmd.HTMLBlock <- function(block, output_dir, report_type, ...) {
   basename <- basename(tempfile(fileext = ".rds"))
   suppressWarnings(saveRDS(block$get_content(), file = file.path(output_dir, basename)))
   sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename)
 }
 
-#' @method block_to_md character
+#' @method block_to_rmd character
 #' @keywords internal
-block_to_md.character <- function(block, output_dir, report_type, ...) {
+block_to_rmd.character <- function(block, output_dir, report_type, ...) {
   block
 }
 
-#' @method block_to_md gg
+#' @method block_to_rmd gg
 #' @keywords internal
-block_to_md.gg <- function(block, output_dir, report_type, ...) {
+block_to_rmd.gg <- function(block, output_dir, report_type, ...) {
   content2md(block, output_dir)
 }
 
-#' @method block_to_md rtables
+#' @method block_to_rmd rtables
 #' @keywords internal
-block_to_md.rtables <- function(block, output_dir, report_type, ...) {
+block_to_rmd.rtables <- function(block, output_dir, report_type, ...) {
   content2md(to_flextable(block), output_dir)
 }
 
-#' @method block_to_md TableTree
+#' @method block_to_rmd TableTree
 #' @keywords internal
-block_to_md.TableTree <- block_to_md.rtables
+block_to_rmd.TableTree <- block_to_rmd.rtables
 
-#' @method block_to_md ElementaryTable
+#' @method block_to_rmd ElementaryTable
 #' @keywords internal
-block_to_md.ElementaryTable <- block_to_md.rtables
+block_to_rmd.ElementaryTable <- block_to_rmd.rtables
 
-#' @method block_to_md rlisting
+#' @method block_to_rmd rlisting
 #' @keywords internal
-block_to_md.rlisting <- block_to_md.rtables
+block_to_rmd.rlisting <- block_to_rmd.rtables
 
-#' @method block_to_md data.frame
+#' @method block_to_rmd data.frame
 #' @keywords internal
-block_to_md.data.frame <- block_to_md.rtables
+block_to_rmd.data.frame <- block_to_rmd.rtables
 
 content2md = function(content, output_dir) {
   suppressWarnings(hashname <- rlang::hash(content))
