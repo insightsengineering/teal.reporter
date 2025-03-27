@@ -37,7 +37,6 @@ NULL
 #' @rdname simple_reporter
 #' @export
 simple_reporter_ui <- function(id) {
-  lifecycle::deprecate_warn("0.5.0", "simple_reporter_ui()")
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::singleton(
@@ -73,7 +72,6 @@ simple_reporter_srv <- function(
       date = as.character(Sys.Date()), output = "html_document",
       toc = FALSE
     )) {
-  lifecycle::deprecate_warn("0.5.0", "simple_reporter_srv()")
   shiny::moduleServer(
     id,
     function(input, output, session) {

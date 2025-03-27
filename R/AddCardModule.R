@@ -82,7 +82,6 @@ add_card_button_ui <- function(id) {
 #' @rdname add_card_button
 #' @export
 add_card_button_srv <- function(id, reporter, card_fun) {
-  lifecycle::deprecate_warn("0.5.0", "add_card_button_srv()", "teal::add_document_button_srv")
   checkmate::assert_function(card_fun)
   checkmate::assert_class(reporter, "Reporter")
   checkmate::assert_subset(names(formals(card_fun)), c("card", "comment", "label"), empty.ok = TRUE)

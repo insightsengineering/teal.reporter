@@ -21,7 +21,6 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card <- ReportCard$new()
     #'
     initialize = function() {
-      lifecycle::deprecate_warn("0.5.0", "ReportCard$new()", "report_document()")
       private$content <- list()
       private$metadata <- list()
       invisible(self)
