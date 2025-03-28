@@ -119,10 +119,18 @@ code_chunk <- function(code, ...) {
     class = "code_chunk"
   )
 }
+
 #' @export
 #' @rdname code_output
 code_output <- function(code) {
   sprintf("```\n%s\n```", code)
+}
+
+#' @export
+#' @rdname keep_in_report
+keep_in_report <- function(object) {
+  attr(object, "keep") <- TRUE
+  object
 }
 
 #' #' @export

@@ -540,13 +540,15 @@ block_to_rmd.character <- function(block, output_dir, ...) {
 #' @method block_to_rmd gg
 #' @keywords internal
 block_to_rmd.gg <- function(block, output_dir, ..., include_echo) {
-  content2md(block, output_dir, include_echo)
+  content_to_rmd(block, output_dir, include_echo)
 }
 
 #' @method block_to_rmd rtables
 #' @keywords internal
 block_to_rmd.rtables <- function(block, output_dir, ..., include_echo) {
-  content2md(to_flextable(block), output_dir, include_echo)
+  flextable_block <- to_flextable(block)
+  attr(flextable_block, "keep") <- attr(block, "keep")
+  content_to_rmd(flextable_block, output_dir, include_echo)
 }
 
 #' @method block_to_rmd TableTree
@@ -565,13 +567,13 @@ block_to_rmd.rlisting <- block_to_rmd.rtables
 #' @keywords internal
 block_to_rmd.data.frame <- block_to_rmd.rtables
 
-content2md = function(content, output_dir, include_echo) {
-  if (include_echo) {
+content_to_rmd = function(content, output_dir, include_echo) {
+  if (include_echo || isTRUE(attr(content, "keep"))) {
     suppressWarnings(hashname <- rlang::hash(content))
     hashname_file <- paste0(hashname, ".rds")
     path <- tempfile(fileext = ".rds")
     suppressWarnings(saveRDS(content, file = path))
     file.copy(path, file.path(output_dir, hashname_file))
-    sprintf("```{r object_%s, echo = FALSE}\nreadRDS('%s')\n```", hashname, hashname_file)
+    sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", hashname_file)
   }
 }
