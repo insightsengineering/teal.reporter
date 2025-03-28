@@ -285,10 +285,22 @@ reporter_previewer_srv <- function(id,
       content = function(file) {
         shiny::showNotification("Rendering and Downloading the document.")
         shinybusy::block(id = ns("download_data_prev"), text = "", type = "dots")
-        input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
-        names(input_list) <- names(rmd_yaml_args)
+
+        yaml_header <- lapply(names(rmd_yaml_args), function(x) input[[x]])
+        names(yaml_header) <- names(rmd_yaml_args)
         if (is.logical(input$showrcode)) global_knitr[["echo"]] <- input$showrcode
-        report_render_and_compress(reporter, input_list, global_knitr, file)
+
+        if (identical("pdf_document", yaml_header$output) &&
+            inherits(try(system2("pdflatex", "--version", stdout = TRUE), silent = TRUE), "try-error")) {
+          shiny::showNotification(
+            ui = "pdflatex is not available so the pdf_document could not be rendered. Please use other output type.",
+            action = "Please contact app developer",
+            type = "error"
+          )
+          stop("pdflatex is not available so the pdf_document could not be rendered.")
+        }
+
+        report_render_and_compress(reporter, yaml_header, global_knitr, file)
         shinybusy::unblock(id = ns("download_data_prev"))
       },
       contentType = "application/zip"

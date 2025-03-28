@@ -148,10 +148,10 @@ download_report_button_srv <- function(id,
       content = function(file) {
         shiny::showNotification("Rendering and Downloading the document.")
         shinybusy::block(id = ns("download_data"), text = "", type = "dots")
-        input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
-        names(input_list) <- names(rmd_yaml_args)
+        yaml_header <- lapply(names(rmd_yaml_args), function(x) input[[x]])
+        names(yaml_header) <- names(rmd_yaml_args)
         if (is.logical(input$showrcode)) global_knitr[["echo"]] <- input$showrcode
-        report_render_and_compress(reporter, input_list, global_knitr, file)
+        report_render_and_compress(reporter, yaml_header, global_knitr, file)
         shinybusy::unblock(id = ns("download_data"))
       },
       contentType = "application/zip"
@@ -172,106 +172,39 @@ download_report_button_srv <- function(id,
 #' @return `file` argument, invisibly.
 #'
 #' @keywords internal
-report_render_and_compress <- function(reporter, input_list, global_knitr, file = tempdir()) {
+report_render_and_compress <- function(reporter, yaml_header, global_knitr, file = tempdir()) {
   checkmate::assert_class(reporter, "Reporter")
-  checkmate::assert_list(input_list, names = "named")
+  checkmate::assert_list(yaml_header, names = "named")
   checkmate::assert_string(file)
 
-  if (
-    identical("pdf_document", input_list$output) &&
-      inherits(try(system2("pdflatex", "--version", stdout = TRUE), silent = TRUE), "try-error")
-  ) {
-    shiny::showNotification(
-      ui = "pdflatex is not available so the pdf_document could not be rendered. Please use other output type.",
-      action = "Please contact app developer",
-      type = "error"
-    )
-    stop("pdflatex is not available so the pdf_document could not be rendered.")
-  }
+  yaml_content <- as_yaml_auto(yaml_header)
 
-  yaml_header <- as_yaml_auto(input_list)
-
-  tryCatch(
-    output_dir <- report_render(reporter, yaml_header, global_knitr),
-    warning = function(cond) {
-      print(cond)
-      shiny::showNotification(
-        ui = "Render document warning!",
-        action = "Please contact app developer",
-        type = "warning"
-      )
-    },
-    error = function(cond) {
-      print(cond)
-      shiny::showNotification(
-        ui = "Render document error!",
-        action = "Please contact app developer",
-        type = "error"
-      )
-    }
+  output_dir <- tryCatch(
+    report_render(reporter, yaml_content, global_knitr),
+    warning = function(cond) message("Render document warning: ", cond),
+    error = function(cond) {message("Render document error: ", cond); return(NULL)}
   )
+
+  if (is.null(output_dir)) return(NULL)
 
   tryCatch(
     reporter$to_jsondir(output_dir),
-    warning = function(cond) {
-      print(cond)
-      shiny::showNotification(
-        ui = "Archive document warning!",
-        action = "Please contact app developer",
-        type = "warning"
-      )
-    },
-    error = function(cond) {
-      print(cond)
-      shiny::showNotification(
-        ui = "Archive document error!",
-        action = "Please contact app developer",
-        type = "error"
-      )
-    }
+    warning = function(cond) message("Archive document warning: ", cond),
+    error = function(cond) message("Archive document error: ", cond)
   )
 
   temp_zip_file <- tempfile(fileext = ".zip")
   tryCatch(
-    expr = zip::zipr(temp_zip_file, output_dir),
-    warning = function(cond) {
-      print(cond)
-      shiny::showNotification(
-        ui = "Zipping folder warning!",
-        action = "Please contact app developer",
-        type = "warning"
-      )
-    },
-    error = function(cond) {
-      print(cond)
-      shiny::showNotification(
-        ui = "Zipping folder error!",
-        action = "Please contact app developer",
-        type = "error"
-      )
-    }
+    zip::zipr(temp_zip_file, output_dir),
+    warning = function(cond) message("Zipping folder warning: ", cond),
+    error = function(cond) message("Zipping folder error: ", cond)
   )
 
   tryCatch(
-    expr = file.copy(temp_zip_file, file),
-    warning = function(cond) {
-      print(cond)
-      shiny::showNotification(
-        ui = "Copying file warning!",
-        action = "Please contact app developer",
-        type = "warning"
-      )
-    },
-    error = function(cond) {
-      print(cond)
-      shiny::showNotification(
-        ui = "Copying file error!",
-        action = "Please contact app developer",
-        type = "error"
-      )
-    }
+    file.copy(temp_zip_file, file),
+    warning = function(cond) message("Copying file warning: ", cond),
+    error = function(cond) message("Copying file error: ", cond)
   )
-
   invisible(file)
 }
 
