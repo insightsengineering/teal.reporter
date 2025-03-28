@@ -469,25 +469,28 @@ block_to_rmd.RcodeBlock <- function(block, output_dir, ..., report_type) {
 
 #' @method block_to_rmd code_chunk
 #' @keywords internal
-block_to_rmd.code_chunk <- function(block, output_dir, ..., report_type, eval = FALSE) {
-  params <- attr(block, "params")
-  if (!('eval' %in% names(params))) params <- c(params, eval = eval)
-  params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
-  if (identical(report_type, "powerpoint_presentation")) {
-    block_content_list <- split_text_block(block, 30)
-    paste(
+block_to_rmd.code_chunk <- function(block, output_dir, ..., include_echo, report_type, eval = FALSE) {
+
+  if (include_echo || !isFALSE(attr(block, "keep"))) {
+    params <- attr(block, "params")
+    if (!('eval' %in% names(params))) params <- c(params, eval = eval)
+    params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
+    if (identical(report_type, "powerpoint_presentation")) {
+      block_content_list <- split_text_block(block, 30)
+      paste(
+        sprintf(
+          "\\newpage\n\n---\n\n```{r, echo=FALSE}\ncode_block(\n%s)\n```\n",
+          shQuote(block_content_list, type = "cmd")
+        ),
+        collapse = "\n\n"
+      )
+    } else {
       sprintf(
-        "\\newpage\n\n---\n\n```{r, echo=FALSE}\ncode_block(\n%s)\n```\n",
-        shQuote(block_content_list, type = "cmd")
-      ),
-      collapse = "\n\n"
-    )
-  } else {
-    sprintf(
-      "```{r, %s}\n%s\n```\n",
-      paste(names(params), params, sep = "=", collapse = ", "),
-      block
-    )
+        "```{r, %s}\n%s\n```\n",
+        paste(names(params), params, sep = "=", collapse = ", "),
+        block
+      )
+    }
   }
 }
 
@@ -533,8 +536,10 @@ block_to_rmd.HTMLBlock <- function(block, output_dir, ...) {
 
 #' @method block_to_rmd character
 #' @keywords internal
-block_to_rmd.character <- function(block, output_dir, ...) {
-  block
+block_to_rmd.character <- function(block, output_dir, ..., include_echo) {
+  if (include_echo || !isFALSE(attr(block, "keep"))) {
+    block
+  }
 }
 
 #' @method block_to_rmd gg

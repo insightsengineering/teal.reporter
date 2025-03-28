@@ -128,8 +128,8 @@ code_output <- function(code) {
 
 #' @export
 #' @rdname keep_in_report
-keep_in_report <- function(object) {
-  attr(object, "keep") <- TRUE
+keep_in_report <- function(object, keep = TRUE) {
+  attr(object, "keep") <- keep
   object
 }
 
