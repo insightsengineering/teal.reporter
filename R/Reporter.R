@@ -57,6 +57,37 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$reactive_add_card(length(private$cards))
       invisible(self)
     },
+    #' @description Reorders `ReportCard` objects in `Reporter`.
+    #' @param new_order `character` vector with names of `ReportCard`s to be set in this order.
+    #' @return `self`, invisibly.
+    #' @examplesIf require("ggplot2")
+    #' library(ggplot2)
+    #' library(rtables)
+    #'
+    #' card1 <- ReportCard$new()
+    #'
+    #' card1$append_text("Header 2 text", "header2")
+    #' card1$append_text("A paragraph of default text")
+    #' card1$append_plot(
+    #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
+    #' )
+    #' card1$set_name('Card1')
+    #'
+    #' card2 <- ReportCard$new()
+    #'
+    #' card2$append_text("Header 2 text", "header2")
+    #' card2$append_text("A paragraph of default text")
+    #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
+    #' table_res2 <- build_table(lyt, airquality)
+    #' card2$append_table(table_res2)
+    #' card2$set_name('Card2')
+    #'
+    #' reporter <- Reporter$new()
+    #' reporter$append_cards(list(card1, card2))
+    #'
+    #' names(reporter$get_cards())
+    #' reporter$reorder_cards(c("Card2", "Card1"))
+    #' names(reporter$get_cards())
     reorder_cards = function(new_order) {
       private$cards <- setNames(
         lapply(new_order, function(name) private$cards[[name]]$clone()),
@@ -64,12 +95,44 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       )
       invisible(self)
     },
+    #' @description Sets `ReportCard` content.
+    #' @param card_name `ReportCard` name to be substituted with `card_content`
+    #' @param card_content The object to be used as a new value of `card_name` `ReportCard`
+    #' @return `self`, invisibly.
+    #' @examplesIf require("ggplot2")
+    #' library(ggplot2)
+    #' library(rtables)
+    #'
+    #' card1 <- ReportCard$new()
+    #'
+    #' card1$append_text("Header 2 text", "header2")
+    #' card1$append_text("A paragraph of default text")
+    #' card1$append_plot(
+    #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
+    #' )
+    #' card1$set_name('Card1')
+    #'
+    #' reporter <- Reporter$new()
+    #' reporter$append_cards(list(card1))
+    #'
+    #' card2 <- ReportCard$new()
+    #'
+    #' card2$append_text("Header 2 text", "header2")
+    #' card2$append_text("A paragraph of default text")
+    #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
+    #' table_res2 <- build_table(lyt, airquality)
+    #' card2$append_table(table_res2)
+    #' card2$set_name('Card2')
+    #'
+    #' reporter$set_card_content("Card1", card2)
+    #' reporter$get_cards()[[1]]$get_name()
+
     set_card_content = function(card_name, card_content) {
       card_id <- which(names(private$cards) == card_name)
       private$cards[[card_id]] <- card_content
       invisible(self)
     },
-    #' @description Retrieves all `ReportCard` objects contained in the `Reporter`.
+    #' @description Retrieves all `ReportCard` objects contained in `Reporter`.
     #'
     #' @return A (`list`) of [`ReportCard`] objects.
     #' @examplesIf require("ggplot2")

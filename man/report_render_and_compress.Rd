@@ -6,7 +6,7 @@
 \usage{
 report_render_and_compress(
   reporter,
-  input_list,
+  yaml_header,
   global_knitr,
   file = tempdir()
 )
@@ -14,12 +14,12 @@ report_render_and_compress(
 \arguments{
 \item{reporter}{(\code{Reporter}) instance.}
 
-\item{input_list}{(\code{list}) like \code{shiny} input converted to a regular named list.}
-
 \item{global_knitr}{(\code{list}) a global \code{knitr} parameters, like echo.
 But if local parameter is set it will have priority.}
 
 \item{file}{(\code{character(1)}) where to copy the returned directory.}
+
+\item{input_list}{(\code{list}) like \code{shiny} input converted to a regular named list.}
 }
 \value{
 \code{file} argument, invisibly.

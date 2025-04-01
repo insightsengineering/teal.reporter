@@ -50,6 +50,63 @@ card1 <- ReportCard$new()
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text")
 card1$append_plot(
+  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
+)
+card1$set_name('Card1')
+
+card2 <- ReportCard$new()
+
+card2$append_text("Header 2 text", "header2")
+card2$append_text("A paragraph of default text")
+lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
+table_res2 <- build_table(lyt, airquality)
+card2$append_table(table_res2)
+card2$set_name('Card2')
+
+reporter <- Reporter$new()
+reporter$append_cards(list(card1, card2))
+
+names(reporter$get_cards())
+reporter$reorder_cards(c("Card2", "Card1"))
+names(reporter$get_cards())
+\dontshow{\}) # examplesIf}
+\dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(ggplot2)
+library(rtables)
+
+card1 <- ReportCard$new()
+
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text")
+card1$append_plot(
+  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
+)
+card1$set_name('Card1')
+
+reporter <- Reporter$new()
+reporter$append_cards(list(card1))
+
+card2 <- ReportCard$new()
+
+card2$append_text("Header 2 text", "header2")
+card2$append_text("A paragraph of default text")
+lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
+table_res2 <- build_table(lyt, airquality)
+card2$append_table(table_res2)
+card2$set_name('Card2')
+
+reporter$set_card_content("Card1", card2)
+reporter$get_cards()[[1]]$get_name()
+\dontshow{\}) # examplesIf}
+\dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(ggplot2)
+library(rtables)
+
+card1 <- ReportCard$new()
+
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text")
+card1$append_plot(
  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )
 
@@ -237,25 +294,49 @@ Append one or more \code{ReportCard} objects to the \code{Reporter}.
 \if{html}{\out{<a id="method-Reporter-reorder_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-reorder_cards}{}}}
 \subsection{Method \code{reorder_cards()}}{
+Reorders \code{ReportCard} objects in \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$reorder_cards(new_order)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{new_order}}{\code{character} vector with names of \code{ReportCard}s to be set in this order.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{self}, invisibly.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-set_card_content"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-set_card_content}{}}}
 \subsection{Method \code{set_card_content()}}{
+Sets \code{ReportCard} content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$set_card_content(card_name, card_content)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{card_name}}{\code{ReportCard} name to be substituted with \code{card_content}}
+
+\item{\code{card_content}}{The object to be used as a new value of \code{card_name} \code{ReportCard}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{self}, invisibly.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-get_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_cards}{}}}
 \subsection{Method \code{get_cards()}}{
-Retrieves all \code{ReportCard} objects contained in the \code{Reporter}.
+Retrieves all \code{ReportCard} objects contained in \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$get_cards()}\if{html}{\out{</div>}}
 }

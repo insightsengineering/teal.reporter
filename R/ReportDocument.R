@@ -126,6 +126,12 @@ code_output <- function(code) {
   sprintf("```\n%s\n```", code)
 }
 
+#' @title Keep Objects In Report
+#' @description Utility function to change behavior of `report_document()` elements to be
+#' kept (`keep = TRUE`) or discarded (keep = `FALSE`) from the final `.Rmd` file containing downloaded report.
+#' @details By default all R objects are only printed in the output document, but not kept in the `.Rmd` report.
+#' By defaulf all text elements and `code_chunk` objects are kep both in the output document and `.Rmd` report.
+#'
 #' @export
 #' @rdname keep_in_report
 keep_in_report <- function(object, keep = TRUE) {
