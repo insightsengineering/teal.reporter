@@ -50,10 +50,10 @@ class(report)
 
 report_document("Report Name", 5)
 
-report <- report_document(1, 2, 'c')
+report <- report_document(1, 2, "c")
 
 # Modify and append to the report
-new_report <- edit_document_content(report, modify = c(3, 1), append = 'd')
+new_report <- edit_document_content(report, modify = c(3, 1), append = "d")
 new_report
 class(new_report)
 
