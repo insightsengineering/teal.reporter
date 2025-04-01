@@ -19,7 +19,7 @@ testthat::test_that("simple_reporter_srv - reset a reporter", {
     simple_reporter_srv,
     args = list(reporter = reporter, card_fun = card_fun),
     expr = {
-      testthat::expect_identical(reporter$get_cards(), list(card1))
+      testthat::expect_identical(unname(reporter$get_cards()), list(card1))
       session$setInputs(`reset_button_simple-reset_reporter` = 0)
       session$setInputs(`reset_button_simple-reset_reporter_ok` = 0)
       testthat::expect_identical(reporter$get_blocks(), list())

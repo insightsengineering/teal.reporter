@@ -45,7 +45,7 @@ testthat::test_that("set_id sets the reporter id and returns reporter", {
 })
 
 testthat::test_that("get_cards returns the same cards which was added to reporter", {
-  testthat::expect_identical(reporter$get_cards(), list(card1, card2))
+  testthat::expect_identical(unname(reporter$get_cards()), list(card1, card2))
 })
 
 testthat::test_that("get_blocks returns the same blocks which was added to reporter, sep = NULL", {
