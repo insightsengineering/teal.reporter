@@ -299,8 +299,89 @@ reporter_previewer_srv <- function(id,
           )
           stop("pdflatex is not available so the pdf_document could not be rendered.")
         }
+        yaml_content <- as_yaml_auto(yaml_header)
 
-        report_render_and_compress(reporter, yaml_header, global_knitr, file)
+        tryCatch(
+          output_dir <- report_render(reporter, yaml_content, global_knitr),
+          warning = function(cond) {
+            print(cond)
+            shiny::showNotification(
+              ui = "Render document warning!",
+              action = "Please contact app developer",
+              type = "warning"
+            )
+          },
+          error = function(cond) {
+            print(cond)
+            shiny::showNotification(
+              ui = "Render document error!",
+              action = "Please contact app developer",
+              type = "error"
+            )
+          }
+        )
+
+        tryCatch(
+          archiver_dir <- reporter$to_jsondir(output_dir),
+          warning = function(cond) {
+            print(cond)
+            shiny::showNotification(
+              ui = "Archive document warning!",
+              action = "Please contact app developer",
+              type = "warning"
+            )
+          },
+          error = function(cond) {
+            print(cond)
+            shiny::showNotification(
+              ui = "Archive document error!",
+              action = "Please contact app developer",
+              type = "error"
+            )
+          }
+        )
+
+        temp_zip_file <- tempfile(fileext = ".zip")
+        tryCatch(
+          expr = zip::zipr(temp_zip_file, output_dir),
+          warning = function(cond) {
+            print(cond)
+            shiny::showNotification(
+              ui = "Zipping folder warning!",
+              action = "Please contact app developer",
+              type = "warning"
+            )
+          },
+          error = function(cond) {
+            print(cond)
+            shiny::showNotification(
+              ui = "Zipping folder error!",
+              action = "Please contact app developer",
+              type = "error"
+            )
+          }
+        )
+
+        tryCatch(
+          expr = file.copy(temp_zip_file, file),
+          warning = function(cond) {
+            print(cond)
+            shiny::showNotification(
+              ui = "Copying file warning!",
+              action = "Please contact app developer",
+              type = "warning"
+            )
+          },
+          error = function(cond) {
+            print(cond)
+            shiny::showNotification(
+              ui = "Copying file error!",
+              action = "Please contact app developer",
+              type = "error"
+            )
+          }
+        )
+
         shinybusy::unblock(id = ns("download_data_prev"))
       },
       contentType = "application/zip"
