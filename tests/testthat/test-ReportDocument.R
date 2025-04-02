@@ -1,4 +1,3 @@
-
 testthat::test_that("report_document creates a valid ReportDocument", {
   report <- report_document("Title", "Content", 123)
   testthat::expect_s3_class(report, "ReportDocument")
