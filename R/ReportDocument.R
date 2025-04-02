@@ -2,8 +2,8 @@
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This `S3` class is designed to store, manage, edit and adjust report cards.
-#' It facilitates the creation, manipulation, and serialization of report-related data.
+#' The `ReportDocument` `S3` class provides functionality to store, manage, edit, and adjust report contents.
+#' It enables users to create, manipulate, and serialize report-related data efficiently.
 #'
 #' @return An `S3` `list` of class `ReportDocument`.
 #' @param ... elements included in `ReportDocument`
@@ -11,15 +11,27 @@
 #' @param values objects to be included in the modified `ReportDocument`
 #' @inheritParams base::append
 #'
-#' @examples
-#' report <- report_document()
-#' class(report)
-#' report <- c(report, list("## Headline"), list("## Table"), list(summary(iris)))
-#' report <- report[1:2]
-#' report <- append(report, c(list("## Table 2"), list(summary(mtcars))), after = 1)
-#' class(report)
+#' @details The `ReportDocument` class supports `c()` and `x[i]` methods for combining and subsetting elements.
+#' However, these methods only function correctly when the first element is a `ReportDocument`.
+#' To prepend, reorder, or modify a `ReportDocument`, use the `edit_report_document()` function.
 #'
-#' report_document("Report Name", 5)
+#'
+#' @examples
+#' # Create a new ReportDocument
+#' report <- report_document()
+#' class(report)  # Check the class of the object
+#'
+#' # Add elements to the report
+#' report <- c(report, list("## Headline"), list("## Table"), list(summary(iris)))
+#'
+#' # Subset the report to keep only the first two elements
+#' report <- report[1:2]
+#'
+#' # Append new elements after the first element
+#' report <- append(report, c(list("## Table 2"), list(summary(mtcars))), after = 1)
+#'
+#' # Verify that the object remains a ReportDocument
+#' class(report)
 #'
 #' @aliases ReportDocument
 #' @name report_document
@@ -65,21 +77,22 @@ c.ReportDocument <- function(...) {
 
 #' @rdname report_document
 #' @param x `ReportDocument`
-#' @param modify `integer(n)` if present, uses `[.` syntax to extract elements.
-#' Can be used to reorder or substract the object
-#' @param append object to be appended to `ReportDocument` with `append` syntax.
-#' Use `after` to specify the position where the object should be added.
+#' @param modify An integer vector specifying element indices to extract and reorder.
+#' If `NULL`, no modification is applied.
+#' @param append An object to be added to the `ReportDocument` using `append()`.
+#' The `after` parameter determines the insertion position.
 #'
 #' @examples
+#' #### edit_report_document examples ###
 #' report <- report_document(1, 2, "c")
 #'
 #' # Modify and append to the report
-#' new_report <- edit_document_content(report, modify = c(3, 1), append = "d")
+#' new_report <- edit_report_document(report, modify = c(3, 1), append = "d")
 #' new_report
 #' class(new_report)
 #'
 #' @export
-edit_document_content <- function(x, modify = NULL, append = NULL, after = length(x)) {
+edit_report_document <- function(x, modify = NULL, append = NULL, after = length(x)) {
   checkmate::assert_class(x, "ReportDocument")
   checkmate::assert_class(modify, "numeric", null.ok = TRUE)
 

@@ -5,7 +5,7 @@
 \alias{ReportDocument}
 \alias{c.ReportDocument}
 \alias{[.ReportDocument}
-\alias{edit_document_content}
+\alias{edit_report_document}
 \title{\code{ReportDocument}: An \code{S3} class for managing \code{teal} reports}
 \usage{
 report_document(...)
@@ -14,18 +14,18 @@ report_document(...)
 
 \method{[}{ReportDocument}(x, i)
 
-edit_document_content(x, modify = NULL, append = NULL, after = length(x))
+edit_report_document(x, modify = NULL, append = NULL, after = length(x))
 }
 \arguments{
 \item{...}{elements included in \code{ReportDocument}}
 
 \item{x}{\code{ReportDocument}}
 
-\item{modify}{\code{integer(n)} if present, uses \verb{[.} syntax to extract elements.
-Can be used to reorder or substract the object}
+\item{modify}{An integer vector specifying element indices to extract and reorder.
+If \code{NULL}, no modification is applied.}
 
-\item{append}{object to be appended to \code{ReportDocument} with \code{append} syntax.
-Use \code{after} to specify the position where the object should be added.}
+\item{append}{An object to be added to the \code{ReportDocument} using \code{append()}.
+The \code{after} parameter determines the insertion position.}
 
 \item{after}{a subscript, after which the values are to be appended.}
 
@@ -37,23 +37,36 @@ An \code{S3} \code{list} of class \code{ReportDocument}.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This \code{S3} class is designed to store, manage, edit and adjust report cards.
-It facilitates the creation, manipulation, and serialization of report-related data.
+The \code{ReportDocument} \code{S3} class provides functionality to store, manage, edit, and adjust report contents.
+It enables users to create, manipulate, and serialize report-related data efficiently.
+}
+\details{
+The \code{ReportDocument} class supports \code{c()} and \code{x[i]} methods for combining and subsetting elements.
+However, these methods only function correctly when the first element is a \code{ReportDocument}.
+To prepend, reorder, or modify a \code{ReportDocument}, use the \code{edit_report_document()} function.
 }
 \examples{
+# Create a new ReportDocument
 report <- report_document()
-class(report)
+class(report)  # Check the class of the object
+
+# Add elements to the report
 report <- c(report, list("## Headline"), list("## Table"), list(summary(iris)))
+
+# Subset the report to keep only the first two elements
 report <- report[1:2]
+
+# Append new elements after the first element
 report <- append(report, c(list("## Table 2"), list(summary(mtcars))), after = 1)
+
+# Verify that the object remains a ReportDocument
 class(report)
 
-report_document("Report Name", 5)
-
+#### edit_report_document examples ###
 report <- report_document(1, 2, "c")
 
 # Modify and append to the report
-new_report <- edit_document_content(report, modify = c(3, 1), append = "d")
+new_report <- edit_report_document(report, modify = c(3, 1), append = "d")
 new_report
 class(new_report)
 
