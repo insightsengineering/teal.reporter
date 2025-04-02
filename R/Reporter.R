@@ -1,9 +1,11 @@
-#' @title `Reporter`: An `R6` class for managing report cards
+#' @title `Reporter`: An `R6` class for managing reports
 #' @docType class
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This `R6` class is designed to store and manage report cards,
+#' This `R6` class is designed to store and manage reports,
 #' facilitating the creation, manipulation, and serialization of report-related data.
+#' It supports both `ReportCard` (`r lifecycle::badge("deprecated")`) and `ReportDocument` objects, allowing flexibility
+#' in the types of reports that can be stored and managed.
 #'
 #' @export
 #'
@@ -21,32 +23,26 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$reactive_add_card <- shiny::reactiveVal(0)
       invisible(self)
     },
-    #' @description Append one or more `ReportCard` objects to the `Reporter`.
+    #' @description Append one or more `ReportCard` or `ReportDocument` objects to the `Reporter`.
     #'
-    #' @param cards (`ReportCard`) or a list of such objects
+    #' @param cards (`ReportCard` or `ReportDocument`) or a list of such objects
     #' @return `self`, invisibly.
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
     #' library(rtables)
     #'
     #' card1 <- ReportCard$new()
-    #'
     #' card1$append_text("Header 2 text", "header2")
     #' card1$append_text("A paragraph of default text")
     #' card1$append_plot(
     #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
     #'
-    #' card2 <- ReportCard$new()
-    #'
-    #' card2$append_text("Header 2 text", "header2")
-    #' card2$append_text("A paragraph of default text")
-    #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
-    #' table_res2 <- build_table(lyt, airquality)
-    #' card2$append_table(table_res2)
+    #' doc1 <- ReportDocument$new()
+    #' doc1$append_text("Document introduction")
     #'
     #' reporter <- Reporter$new()
-    #' reporter$append_cards(list(card1, card2))
+    #' reporter$append_cards(list(card1, doc1))
     append_cards = function(cards) {
       checkmate::assert_list(cards, c("ReportCard", "ReportDocument"))
       rcs <- which(vapply(cards, inherits, logical(1), "ReportCard"))
@@ -57,8 +53,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$reactive_add_card(length(private$cards))
       invisible(self)
     },
-    #' @description Reorders `ReportCard` objects in `Reporter`.
-    #' @param new_order `character` vector with names of `ReportCard`s to be set in this order.
+    #' @description Reorders `ReportCard` or `ReportDocument` objects in `Reporter`.
+    #' @param new_order `character` vector with names of `ReportCard` or `ReportDocument` objects to be set in this order.
     #' @return `self`, invisibly.
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
@@ -95,9 +91,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       )
       invisible(self)
     },
-    #' @description Sets `ReportCard` content.
-    #' @param card_name `ReportCard` name to be substituted with `card_content`
-    #' @param card_content The object to be used as a new value of `card_name` `ReportCard`
+    #' @description Sets `ReportCard` or `ReportDocument` content.
+    #' @param card_name Name of the `ReportCard` or `ReportDocument` to be replaced.
+    #' @param card_content The new object (`ReportCard` or `ReportDocument`) to replace the existing one.
     #' @return `self`, invisibly.
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
@@ -126,15 +122,13 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' reporter$set_card_content("Card1", card2)
     #' reporter$get_cards()[[1]]$get_name()
-
     set_card_content = function(card_name, card_content) {
       card_id <- which(names(private$cards) == card_name)
       private$cards[[card_id]] <- card_content
       invisible(self)
     },
-    #' @description Retrieves all `ReportCard` objects contained in `Reporter`.
-    #'
-    #' @return A (`list`) of [`ReportCard`] objects.
+    #' @description Retrieves all `ReportCard` and `ReportDocument` objects contained in `Reporter`.
+    #' @return A (`list`) of [`ReportCard`] and [`ReportDocument`] objects.
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
     #' library(rtables)
@@ -161,11 +155,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     get_cards = function() {
       private$cards
     },
-    #' @description Compiles and returns all content blocks from the [`ReportCard`] in the `Reporter`.
-    #'
+    #' @description Compiles and returns all content blocks from the `ReportCard` and `ReportDocument` objects in the `Reporter`.
     #' @param sep An optional separator to insert between each content block.
-    #' Default is a `NewpageBlock$new()`object.
-    #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock` and `NewpageBlock`.
+    #' Default is a `NewpageBlock$new()` object.
+    #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock`, `NewpageBlock`, and raw `ReportDocument` content
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
     #' library(rtables)
@@ -209,7 +202,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
       blocks
     },
-    #' @description Resets the `Reporter`, removing all [`ReportCard`] objects and metadata.
+    #' @description Resets the `Reporter`, removing all `ReportCard` and `ReportDocument` objects and metadata.
     #'
     #' @return `self`, invisibly.
     #'
@@ -219,7 +212,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$reactive_add_card(0)
       invisible(self)
     },
-    #' @description Removes specific `ReportCard` objects from the `Reporter` by their indices.
+    #' @description Removes specific `ReportCard` or `ReportDocument` objects from the `Reporter` by their indices.
     #'
     #' @param ids (`integer(id)`) the indexes of cards
     #' @return `self`, invisibly.

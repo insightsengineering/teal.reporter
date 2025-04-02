@@ -3,12 +3,14 @@
 \docType{class}
 \name{Reporter}
 \alias{Reporter}
-\title{\code{Reporter}: An \code{R6} class for managing report cards}
+\title{\code{Reporter}: An \code{R6} class for managing reports}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This \code{R6} class is designed to store and manage report cards,
+This \code{R6} class is designed to store and manage reports,
 facilitating the creation, manipulation, and serialization of report-related data.
+It supports both \code{ReportCard} (\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}) and \code{ReportDocument} objects, allowing flexibility
+in the types of reports that can be stored and managed.
 }
 \note{
 The function has to be used in the shiny reactive context.
@@ -23,23 +25,17 @@ library(ggplot2)
 library(rtables)
 
 card1 <- ReportCard$new()
-
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text")
 card1$append_plot(
   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )
 
-card2 <- ReportCard$new()
-
-card2$append_text("Header 2 text", "header2")
-card2$append_text("A paragraph of default text")
-lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
-table_res2 <- build_table(lyt, airquality)
-card2$append_table(table_res2)
+doc1 <- ReportDocument$new()
+doc1$append_text("Document introduction")
 
 reporter <- Reporter$new()
-reporter$append_cards(list(card1, card2))
+reporter$append_cards(list(card1, doc1))
 \dontshow{\}) # examplesIf}
 \dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(ggplot2)
@@ -274,7 +270,7 @@ Object of class \code{Reporter}, invisibly.
 \if{html}{\out{<a id="method-Reporter-append_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-append_cards}{}}}
 \subsection{Method \code{append_cards()}}{
-Append one or more \code{ReportCard} objects to the \code{Reporter}.
+Append one or more \code{ReportCard} or \code{ReportDocument} objects to the \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$append_cards(cards)}\if{html}{\out{</div>}}
 }
@@ -282,7 +278,7 @@ Append one or more \code{ReportCard} objects to the \code{Reporter}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{cards}}{(\code{ReportCard}) or a list of such objects}
+\item{\code{cards}}{(\code{ReportCard} or \code{ReportDocument}) or a list of such objects}
 }
 \if{html}{\out{</div>}}
 }
@@ -294,7 +290,7 @@ Append one or more \code{ReportCard} objects to the \code{Reporter}.
 \if{html}{\out{<a id="method-Reporter-reorder_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-reorder_cards}{}}}
 \subsection{Method \code{reorder_cards()}}{
-Reorders \code{ReportCard} objects in \code{Reporter}.
+Reorders \code{ReportCard} or \code{ReportDocument} objects in \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$reorder_cards(new_order)}\if{html}{\out{</div>}}
 }
@@ -302,7 +298,7 @@ Reorders \code{ReportCard} objects in \code{Reporter}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{new_order}}{\code{character} vector with names of \code{ReportCard}s to be set in this order.}
+\item{\code{new_order}}{\code{character} vector with names of \code{ReportCard} or \code{ReportDocument} objects to be set in this order.}
 }
 \if{html}{\out{</div>}}
 }
@@ -314,7 +310,7 @@ Reorders \code{ReportCard} objects in \code{Reporter}.
 \if{html}{\out{<a id="method-Reporter-set_card_content"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-set_card_content}{}}}
 \subsection{Method \code{set_card_content()}}{
-Sets \code{ReportCard} content.
+Sets \code{ReportCard} or \code{ReportDocument} content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$set_card_content(card_name, card_content)}\if{html}{\out{</div>}}
 }
@@ -322,9 +318,9 @@ Sets \code{ReportCard} content.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{card_name}}{\code{ReportCard} name to be substituted with \code{card_content}}
+\item{\code{card_name}}{Name of the \code{ReportCard} or \code{ReportDocument} to be replaced.}
 
-\item{\code{card_content}}{The object to be used as a new value of \code{card_name} \code{ReportCard}}
+\item{\code{card_content}}{The new object (\code{ReportCard} or \code{ReportDocument}) to replace the existing one.}
 }
 \if{html}{\out{</div>}}
 }
@@ -336,20 +332,20 @@ Sets \code{ReportCard} content.
 \if{html}{\out{<a id="method-Reporter-get_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_cards}{}}}
 \subsection{Method \code{get_cards()}}{
-Retrieves all \code{ReportCard} objects contained in \code{Reporter}.
+Retrieves all \code{ReportCard} and \code{ReportDocument} objects contained in \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$get_cards()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-A (\code{list}) of \code{\link{ReportCard}} objects.
+A (\code{list}) of \code{\link{ReportCard}} and \code{\link{ReportDocument}} objects.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-get_blocks"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_blocks}{}}}
 \subsection{Method \code{get_blocks()}}{
-Compiles and returns all content blocks from the \code{\link{ReportCard}} in the \code{Reporter}.
+Compiles and returns all content blocks from the \code{ReportCard} and \code{ReportDocument} objects in the \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$get_blocks(sep = NewpageBlock$new())}\if{html}{\out{</div>}}
 }
@@ -358,19 +354,19 @@ Compiles and returns all content blocks from the \code{\link{ReportCard}} in the
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{sep}}{An optional separator to insert between each content block.
-Default is a \code{NewpageBlock$new()}object.}
+Default is a \code{NewpageBlock$new()} object.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{list()} list of \code{TableBlock}, \code{TextBlock}, \code{PictureBlock} and \code{NewpageBlock}.
+\code{list()} list of \code{TableBlock}, \code{TextBlock}, \code{PictureBlock}, \code{NewpageBlock}, and raw \code{ReportDocument} content
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-reset"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-reset}{}}}
 \subsection{Method \code{reset()}}{
-Resets the \code{Reporter}, removing all \code{\link{ReportCard}} objects and metadata.
+Resets the \code{Reporter}, removing all \code{ReportCard} and \code{ReportDocument} objects and metadata.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$reset()}\if{html}{\out{</div>}}
 }
@@ -383,7 +379,7 @@ Resets the \code{Reporter}, removing all \code{\link{ReportCard}} objects and me
 \if{html}{\out{<a id="method-Reporter-remove_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-remove_cards}{}}}
 \subsection{Method \code{remove_cards()}}{
-Removes specific \code{ReportCard} objects from the \code{Reporter} by their indices.
+Removes specific \code{ReportCard} or \code{ReportDocument} objects from the \code{Reporter} by their indices.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$remove_cards(ids = NULL)}\if{html}{\out{</div>}}
 }
