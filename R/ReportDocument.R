@@ -19,7 +19,7 @@
 #' @examples
 #' # Create a new ReportDocument
 #' report <- report_document()
-#' class(report)  # Check the class of the object
+#' class(report) # Check the class of the object
 #'
 #' # Add elements to the report
 #' report <- c(report, list("## Headline"), list("## Table"), list(summary(iris)))
