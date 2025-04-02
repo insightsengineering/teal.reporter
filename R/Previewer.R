@@ -39,10 +39,10 @@ reporter_previewer_ui <- function(id) {
       ),
       shiny::tags$div(
         class = "col-md-9",
-          shiny::tags$div(
-            id = "reporter_previewer",
-            shiny::uiOutput(ns("pcards"))
-          )
+        shiny::tags$div(
+          id = "reporter_previewer",
+          shiny::uiOutput(ns("pcards"))
+        )
       )
     )
   )
@@ -291,7 +291,7 @@ reporter_previewer_srv <- function(id,
         if (is.logical(input$showrcode)) global_knitr[["echo"]] <- input$showrcode
 
         if (identical("pdf_document", yaml_header$output) &&
-            inherits(try(system2("pdflatex", "--version", stdout = TRUE), silent = TRUE), "try-error")) {
+          inherits(try(system2("pdflatex", "--version", stdout = TRUE), silent = TRUE), "try-error")) {
           shiny::showNotification(
             ui = "pdflatex is not available so the pdf_document could not be rendered. Please use other output type.",
             action = "Please contact app developer",
@@ -386,7 +386,6 @@ reporter_previewer_srv <- function(id,
       },
       contentType = "application/zip"
     )
-
   })
 }
 
@@ -414,8 +413,7 @@ block_to_html.ContentBlock <- function(b, ...) {
 #' @keywords internal
 block_to_html.TextBlock <- function(b, ...) {
   b_content <- b$get_content()
-  switch(
-    b$get_style(),
+  switch(b$get_style(),
     header1 = shiny::tags$h1(b_content),
     header2 = shiny::tags$h2(b_content),
     header3 = shiny::tags$h3(b_content),
@@ -528,6 +526,3 @@ previewer_collapse_item <- function(card_name, card_blocks, ns = NULL, open = FA
     )
   )
 }
-
-
-

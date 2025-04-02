@@ -25,16 +25,16 @@
 #' @name report_document
 #'
 #' @export
-report_document <- function(...){
+report_document <- function(...) {
   objects <- list(...)
   # stopifnot("All input objects must be of length 1." = all(unlist(lapply(objects, length)) == 1))
   # Above is not needed, as ggplot has length 11.
-  structure(objects, class = c('ReportDocument'))
+  structure(objects, class = c("ReportDocument"))
 }
 
 #' @rdname report_document
 #' @export
-c.ReportDocument <- function(...){
+c.ReportDocument <- function(...) {
   # Regular c() drops classes and attributes, so we either overwrite the method
   # or we do not use ReportDocument class, but list class.
 
@@ -71,10 +71,10 @@ c.ReportDocument <- function(...){
 #' Use `after` to specify the position where the object should be added.
 #'
 #' @examples
-#' report <- report_document(1, 2, 'c')
+#' report <- report_document(1, 2, "c")
 #'
 #' # Modify and append to the report
-#' new_report <- edit_document_content(report, modify = c(3, 1), append = 'd')
+#' new_report <- edit_document_content(report, modify = c(3, 1), append = "d")
 #' new_report
 #' class(new_report)
 #'
@@ -95,7 +95,6 @@ edit_document_content <- function(x, modify = NULL, append = NULL, after = lengt
 
   attributes(x) <- attrs
   x
-
 }
 
 #' Generate an R Markdown code chunk
@@ -145,4 +144,3 @@ keep_in_report <- function(object, keep = TRUE) {
 #'   attr(object, "output") <- output
 #'   object
 #' }
-

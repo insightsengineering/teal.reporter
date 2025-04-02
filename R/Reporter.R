@@ -294,7 +294,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         # we want to have list names being a class names to indicate the class for $from_list
         card_class <- class(cards[[i]])[1]
         u_card <- list()
-        if (card_class == 'ReportDocument') {
+        if (card_class == "ReportDocument") {
           tmp <- tempfile(fileext = ".rds")
           suppressWarnings(saveRDS(cards[[i]], file = tmp))
           tmp_base <- basename(tmp)

@@ -182,10 +182,15 @@ report_render_and_compress <- function(reporter, yaml_header, global_knitr, file
   output_dir <- tryCatch(
     report_render(reporter, yaml_content, global_knitr),
     warning = function(cond) message("Render document warning: ", cond),
-    error = function(cond) {message("Render document error: ", cond); return(NULL)}
+    error = function(cond) {
+      message("Render document error: ", cond)
+      return(NULL)
+    }
   )
 
-  if (is.null(output_dir)) return(NULL)
+  if (is.null(output_dir)) {
+    return(NULL)
+  }
 
   tryCatch(
     reporter$to_jsondir(output_dir),
@@ -290,7 +295,7 @@ report_render <- function(reporter, yaml_header, global_knitr = getOption("teal.
   file.remove(input_path)
 
   # Create .Rmd file
-  to_rmd(reporter, yaml_header, global_knitr, output_dir, include_echo = FALSE) #TODO remove eval=FALSE also
+  to_rmd(reporter, yaml_header, global_knitr, output_dir, include_echo = FALSE) # TODO remove eval=FALSE also
   output_dir
 }
 
@@ -312,8 +317,10 @@ to_rmd.Reporter <- function(reporter, yaml_header, global_knitr = getOption("tea
 
   checkmate::assert_list(
     blocks,
-    c("TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock", "HTMLBlock", "character",
-      "gg", "rtables", "TableTree", "ElementaryTable", "rlisting", "data.frame")
+    c(
+      "TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock", "HTMLBlock", "character",
+      "gg", "rtables", "TableTree", "ElementaryTable", "rlisting", "data.frame"
+    )
   )
   checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
   if (missing(yaml_header)) {
@@ -349,8 +356,9 @@ to_rmd.Reporter <- function(reporter, yaml_header, global_knitr = getOption("tea
 
   parsed_blocks <- paste(
     unlist(
-      lapply(blocks,
-             function(b) to_rmd(b, output_dir = output_dir, report_type = report_type, include_echo = include_echo)
+      lapply(
+        blocks,
+        function(b) to_rmd(b, output_dir = output_dir, report_type = report_type, include_echo = include_echo)
       )
     ),
     collapse = "\n\n"
@@ -372,11 +380,11 @@ to_rmd.TextBlock <- function(block, output_dir, ...) {
   text_style <- block$get_style()
   block_content <- block$get_content()
   switch(text_style,
-         "default" = block_content,
-         "verbatim" = sprintf("\n```\n%s\n```\n", block_content),
-         "header2" = paste0("## ", block_content),
-         "header3" = paste0("### ", block_content),
-         block_content
+    "default" = block_content,
+    "verbatim" = sprintf("\n```\n%s\n```\n", block_content),
+    "header2" = paste0("## ", block_content),
+    "header3" = paste0("### ", block_content),
+    block_content
   )
 }
 
@@ -406,10 +414,9 @@ to_rmd.RcodeBlock <- function(block, output_dir, ..., report_type) {
 #' @method to_rmd code_chunk
 #' @keywords internal
 to_rmd.code_chunk <- function(block, output_dir, ..., include_echo, report_type, eval = FALSE) {
-
   if (include_echo || !isFALSE(attr(block, "keep"))) {
     params <- attr(block, "params")
-    if (!('eval' %in% names(params))) params <- c(params, eval = eval)
+    if (!("eval" %in% names(params))) params <- c(params, eval = eval)
     params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
     if (identical(report_type, "powerpoint_presentation")) {
       block_content_list <- split_text_block(block, 30)
@@ -508,7 +515,7 @@ to_rmd.rlisting <- to_rmd.rtables
 #' @keywords internal
 to_rmd.data.frame <- to_rmd.rtables
 
-content_to_rmd = function(content, output_dir, include_echo) {
+content_to_rmd <- function(content, output_dir, include_echo) {
   if (include_echo || isTRUE(attr(content, "keep"))) {
     suppressWarnings(hashname <- rlang::hash(content))
     hashname_file <- paste0(hashname, ".rds")
