@@ -46,8 +46,13 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     append_cards = function(cards) {
       checkmate::assert_list(cards, c("ReportCard", "ReportDocument"))
       rcs <- which(vapply(cards, inherits, logical(1), "ReportCard"))
+      rds <- which(vapply(cards, inherits, logical(1), "ReportDocument"))
       if (length(rcs)) {
         names(cards)[rcs] <- sapply(cards[rcs], function(card) card$get_name())
+      }
+      if (length(rds) && !is.null(self$get_template())) {
+        template_fun <- self$get_template()
+        cards[rds] <- lapply(cards[rds], function(doc) template_fun(doc))
       }
       private$cards <- append(private$cards, cards)
       private$reactive_add_card(length(private$cards))
@@ -407,6 +412,31 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @return `character(1)` the `Reporter` id.
     get_id = function() {
       private$id
+    },
+    #' @description Set template function for `ReportDocument`
+    #' Set a function that is called on every report content (of class `ReportDocument`) added through `$append_cards`
+    #' @param template (`function`) a template function.
+    #' @return `self`, invisibly.
+    #' @examples
+    #'
+    #' reporter <- teal.reporter::Reporter$new()
+    #' template_fun <- function(document) {
+    #'   disclaimer <- teal.reporter::report_document("Here comes disclaimer text")
+    #'   c(disclaimer, document)
+    #' }
+    #' reporter$set_template(template_fun)
+    #' doc1 <- teal.reporter::report_document("## Header 2 text", "Regular text")
+    #' ndoc1 <- setNames(list(doc1), "Welcome card")
+    #' reporter$append_cards(ndoc1)
+    #' reporter$get_cards()
+    set_template = function(template) {
+      private$template <- template
+      invisible(self)
+    },
+    #' @description Get the `Reporter` template
+    #' @return a template `function`.
+    get_template = function() {
+      private$template
     }
   ),
   private = list(
@@ -414,6 +444,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     cards = list(),
     metadata = list(),
     reactive_add_card = NULL,
+    template = NULL,
     # @description The copy constructor.
     #
     # @param name the name of the field

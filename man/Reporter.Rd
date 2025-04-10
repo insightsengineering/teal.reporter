@@ -219,6 +219,22 @@ dir.create(tmp_dir)
 unlink(list.files(tmp_dir, recursive = TRUE))
 reporter$to_jsondir(tmp_dir)
 reporter$from_jsondir(tmp_dir)
+
+## ------------------------------------------------
+## Method `Reporter$set_template`
+## ------------------------------------------------
+
+
+reporter <- teal.reporter::Reporter$new()
+template_fun <- function(document) {
+  disclaimer <- teal.reporter::report_document("Here comes disclaimer text")
+  c(disclaimer, document)
+}
+reporter$set_template(template_fun)
+doc1 <- teal.reporter::report_document("## Header 2 text", "Regular text")
+ndoc1 <- setNames(list(doc1), "Welcome card")
+reporter$append_cards(ndoc1)
+reporter$get_cards()
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -241,6 +257,8 @@ reporter$from_jsondir(tmp_dir)
 \item \href{#method-Reporter-from_jsondir}{\code{Reporter$from_jsondir()}}
 \item \href{#method-Reporter-set_id}{\code{Reporter$set_id()}}
 \item \href{#method-Reporter-get_id}{\code{Reporter$get_id()}}
+\item \href{#method-Reporter-set_template}{\code{Reporter$set_template()}}
+\item \href{#method-Reporter-get_template}{\code{Reporter$get_template()}}
 \item \href{#method-Reporter-clone}{\code{Reporter$clone()}}
 }
 }
@@ -663,6 +681,58 @@ Get the \code{Reporter} id
 
 \subsection{Returns}{
 \code{character(1)} the \code{Reporter} id.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-set_template"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-set_template}{}}}
+\subsection{Method \code{set_template()}}{
+Set template function for \code{ReportDocument}
+Set a function that is called on every report content (of class \code{ReportDocument}) added through \verb{$append_cards}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$set_template(template)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{template}}{(\code{function}) a template function.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{self}, invisibly.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{
+reporter <- teal.reporter::Reporter$new()
+template_fun <- function(document) {
+  disclaimer <- teal.reporter::report_document("Here comes disclaimer text")
+  c(disclaimer, document)
+}
+reporter$set_template(template_fun)
+doc1 <- teal.reporter::report_document("## Header 2 text", "Regular text")
+ndoc1 <- setNames(list(doc1), "Welcome card")
+reporter$append_cards(ndoc1)
+reporter$get_cards()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-get_template"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-get_template}{}}}
+\subsection{Method \code{get_template()}}{
+Get the \code{Reporter} template
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_template()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+a template \code{function}.
 }
 }
 \if{html}{\out{<hr>}}
