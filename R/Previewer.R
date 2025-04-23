@@ -151,11 +151,21 @@ reporter_previewer_srv <- function(id,
       input$card_remove_id
       input$card_down_id
       input$card_up_id
+      rebuild_pcards()
 
       cards <- reporter$get_cards()
 
       if (length(cards)) {
         tags$div(
+          tags$div(
+            style = "display: flex; justify-content: flex-end; align-items: center;",
+            actionButton(
+              inputId = ns("edit_all_cards"),
+              label = "Edit Cards",
+              icon = shiny::icon("edit"),
+              class = "btn btn-warning btn-sm"
+            )
+          ),
           tags$div(
             class = "panel-group accordion",
             id = "reporter_previewer_panel",
@@ -164,7 +174,7 @@ reporter_previewer_srv <- function(id,
                 if (inherits(cards[[card_name]], "ReportCard")) {
                   previewer_collapse_item(card_name, cards[[card_name]]$get_content())
                 } else if (inherits(cards[[card_name]], "ReportDocument")) {
-                  previewer_collapse_item(card_name, cards[[card_name]], ns)
+                  previewer_collapse_item(card_name, cards[[card_name]])
                 }
               }),
               names(cards)
@@ -192,6 +202,55 @@ reporter_previewer_srv <- function(id,
           )
         )
       }
+    })
+
+    observeEvent(input$edit_all_cards, {
+
+      cards <- reporter$get_cards()
+      rds_ids <- which(vapply(cards, inherits, logical(1), "ReportDocument"))
+
+      shiny::showModal(
+        shiny::modalDialog(
+          title = "Select a Card to Edit",
+          shiny::selectInput(
+            ns("select_card"), 
+            "Choose a card:", 
+            choices = names(cards)[rds_ids], 
+            selected = NULL
+          ),
+          footer = shiny::tagList(
+            shiny::modalButton("Dismiss"),
+            shiny::actionButton(
+              ns("edit_selected_card"),
+              label = "Edit Card",
+              icon = shiny::icon("edit"),
+              class = "btn btn-primary"
+            )
+          )
+        )
+      )
+
+    })
+
+    edited_card_content <- reactiveVal(NULL)
+    rebuild_pcards <- reactiveVal(0)
+
+    observeEvent(input$edit_selected_card, {
+      cards <- reporter$get_cards()
+      report_edit_srv(
+        id = ns("edit_card"),
+        input_list_reactive = shiny::reactive(cards[[input$select_card]]),
+        trigger_reactive = shiny::reactive(input$edit_selected_card),
+        save_trigger = function(edited_content) {
+          edited_card_content(edited_content)
+          rebuild_pcards(rebuild_pcards() + 1)
+        }
+      )
+    })
+
+    observeEvent(edited_card_content(), {
+      req(edited_card_content())
+      reporter$set_card_content(input$select_card, edited_card_content())
     })
 
     observeEvent(input$reporter_cards_orders, {
@@ -493,27 +552,13 @@ block_to_html.data.frame <- block_to_html.rtables
 
 #' @noRd
 #' @keywords internal
-previewer_collapse_item <- function(card_name, card_blocks, ns = NULL, open = FALSE) {
+previewer_collapse_item <- function(card_name, card_blocks, open = FALSE) {
   tags$div(
     `data-rank-id` = card_name,
     bslib::accordion(
       open = open,
       bslib::accordion_panel(
         title = card_name,
-        if (!is.null(ns)) {
-          tagList(
-            tags$div(
-              style = "display: flex; justify-content: flex-end; align-items: center;",
-              actionButton(
-                inputId = ns(paste0("edit_card_", card_name)),
-                label = "Edit",
-                icon = shiny::icon("edit"),
-                class = "btn btn-warning btn-sm"
-              )
-            ),
-            tags$hr()
-          )
-        },
         tags$div(
           lapply(
             card_blocks,
