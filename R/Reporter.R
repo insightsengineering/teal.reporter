@@ -91,7 +91,13 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' names(reporter$get_cards())
     reorder_cards = function(new_order) {
       private$cards <- setNames(
-        lapply(new_order, function(name) private$cards[[name]]$clone()),
+        lapply(new_order, function(name) {
+          if (inherits(private$cards[[name]], "ReportDocument")) {
+            private$cards[[name]]
+          } else {
+            private$cards[[name]]$clone(deep = TRUE)
+          }
+        }),
         new_order
       )
       invisible(self)
