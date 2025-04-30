@@ -251,58 +251,71 @@ shiny::setBookmarkExclude(c(
         }
 
         # Display Block List View
-        if(length(current_blocks) == 0) {
-           return(tags$p("This card has no blocks."))
-        }
-
 
         tagList(
-          lapply(seq_along(current_blocks), function(i) {
-            block <- current_blocks[[i]]
-            block_modal_id <- paste0(current_card_name, "_modal_block_", i)
-            block_content_html <- block_to_html(block)
+          div(
+            style = "margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #eee;",
+            actionButton(
+                inputId = ns(paste0("add_text_block_btn_", current_card_name)),
+                label = "Add New Text Block",
+                icon = icon("plus"),
+                class = "btn btn-success btn-sm",
+                onclick = sprintf(
+                  # Triggers input$add_text_block_clicked
+                  "Shiny.setInputValue('%s', { card: '%s' }, {priority: 'event'});",
+                  ns("add_text_block_clicked"),
+                  current_card_name
+                )
+            )
+          ),
+          if (length(current_blocks) == 0) {
+            tags$p("This card has no blocks.")
+          } else {
+            lapply(seq_along(current_blocks), function(i) {
+              block <- current_blocks[[i]]
+              block_modal_id <- paste0(current_card_name, "_modal_block_", i)
+              block_content_html <- block_to_html(block)
 
-            tags$div(
-              style = "border: 1px solid #eee; padding: 10px; margin-bottom: 10px; display: flex; align-items: center;",
-              tags$div(style = "flex-grow: 1; margin-right: 10px;", block_content_html),
-              if (inherits(block, "character")) {
-                actionButton(
-                  inputId = ns(paste0("edit_modal_block_", block_modal_id)),
-                  label = NULL, icon = icon("pen-to-square"),
-                  class = "btn btn-sm btn-outline-primary",
-                  # Use onclick to set the second reactiveVal (text_block_to_edit_rv)
-                  onclick = sprintf(
+              tags$div(
+                style = "border: 1px solid #eee; padding: 10px; margin-bottom: 10px; display: flex; align-items: center;",
+                tags$div(style = "flex-grow: 1; margin-right: 10px;", block_content_html),
+                if (inherits(block, "character")) {
+                  actionButton(
+                    inputId = ns(paste0("edit_modal_block_", block_modal_id)),
+                    label = NULL, icon = icon("pen-to-square"),
+                    class = "btn btn-sm btn-outline-primary",
+                    # Use onclick to set the second reactiveVal (text_block_to_edit_rv)
+                    onclick = sprintf(
+                      "Shiny.setInputValue('%s', { card: '%s', index: %d }, {priority: 'event'});",
+                      ns("text_block_edit_clicked"), 
+                      current_card_name,
+                      i
+                    )
+                  )
+                },
+                {
+                  onclick_js_delete <- sprintf(
                     "Shiny.setInputValue('%s', { card: '%s', index: %d }, {priority: 'event'});",
-                    ns("text_block_edit_clicked"), 
+                    ns("delete_block_clicked"),
                     current_card_name,
                     i
                   )
-                )
-              },
-              {
-                onclick_js_delete <- sprintf(
-                  "Shiny.setInputValue('%s', { card: '%s', index: %d }, {priority: 'event'});",
-                  ns("delete_block_clicked"),
-                  current_card_name,
-                  i
-                )
-                actionButton(
-                  inputId = ns(paste0("delete_modal_block_", block_modal_id)),
-                  label = NULL, icon = icon("trash-alt"),
-                  class = "btn btn-sm btn-outline-danger",
-                  onclick = onclick_js_delete
-                )
-            }
-            )
-          })
+                  actionButton(
+                    inputId = ns(paste0("delete_modal_block_", block_modal_id)),
+                    label = NULL, icon = icon("trash-alt"),
+                    class = "btn btn-sm btn-outline-danger",
+                    onclick = onclick_js_delete
+                  )
+              }
+              )
+            })
+          }
         )
       })
 
       # Reset the trigger for the first modal
       card_to_edit_rv(NULL)
-
     })
-
 
     # Observer 3: Detect click for text block edit from JS
     shiny::observeEvent(input$text_block_edit_clicked, {
@@ -310,8 +323,6 @@ shiny::setBookmarkExclude(c(
         req(edit_info, edit_info$card, edit_info$index)
         text_block_to_edit_rv(edit_info)
     }, ignoreInit = TRUE)
-
-
 
     # Observer 4: Show the second modal (text editing) when text_block_to_edit_rv is set
     shiny::observeEvent(text_block_to_edit_rv(), {
@@ -352,7 +363,7 @@ shiny::setBookmarkExclude(c(
                 footer = tagList(
                     # Cancel button - uses onclick to trigger input$cancel_text_edit_clicked
                     actionButton(
-                       inputId = cancel_button_id_ui, # UI ID
+                       inputId = cancel_button_id_ui,
                        label = "Cancel",
                        class = "btn-secondary",
                        onclick = sprintf(
@@ -362,7 +373,7 @@ shiny::setBookmarkExclude(c(
                     ),
                     # Save button - uses onclick to trigger input$save_text_edit_clicked
                     actionButton(
-                       inputId = save_button_id_ui, # UI ID
+                       inputId = save_button_id_ui,
                        label = "Save Text",
                        class = "btn-primary",
                        onclick = sprintf(
@@ -530,6 +541,87 @@ shiny::setBookmarkExclude(c(
       removeModal()
       card_to_delete_rv(NULL)
     })
+
+    # Observer 12: Show Add Text Block Modal
+    shiny::observeEvent(input$add_text_block_clicked, {
+        add_info <- input$add_text_block_clicked
+        req(add_info, add_info$card)
+        target_card_name <- add_info$card
+
+        add_text_area_id <- ns(paste0("add_text_area_", target_card_name))
+        add_save_button_id_ui <- ns(paste0("add_save_text_btn_", target_card_name))
+        add_cancel_button_id_ui <- ns(paste0("add_cancel_text_btn_", target_card_name))
+
+        showModal(
+            modalDialog(
+                title = paste("Add New Text Block to Card:", target_card_name),
+                textAreaInput(
+                    inputId = add_text_area_id,
+                    label = "Enter Text Content:",
+                    value = "", # Start empty
+                    rows = 15, width = "100%"
+                ),
+                footer = tagList(
+                    actionButton(
+                        inputId = add_cancel_button_id_ui,
+                        label = "Cancel",
+                        class = "btn-secondary",
+                        onclick = sprintf(
+                            # Trigger dedicated cancel input
+                            "Shiny.setInputValue('%s', true, {priority: 'event'});",
+                            ns("add_text_cancel_clicked")
+                        )
+                    ),
+                    actionButton(
+                        inputId = add_save_button_id_ui,
+                        label = "Save New Block",
+                        class = "btn-primary",
+                        onclick = sprintf(
+                            # Send text value and target card name to dedicated save input
+                            "Shiny.setInputValue('%s', { card: '%s', value: document.getElementById('%s').value }, {priority: 'event'});",
+                            ns("add_text_save_clicked"),
+                            target_card_name,
+                            add_text_area_id
+                        )
+                    )
+                ),
+                easyClose = TRUE
+            )
+        )
+    }, ignoreInit = TRUE)
+
+
+    # Observer 13: Handle Cancel for Add Text Block Modal
+    shiny::observeEvent(input$add_text_cancel_clicked, {
+        removeModal()
+    }, ignoreInit = TRUE, ignoreNULL = TRUE)
+
+
+    # Observer 14: Handle Save for Add Text Block Modal
+    shiny::observeEvent(input$add_text_save_clicked, {
+      save_info <- input$add_text_save_clicked
+      req(save_info, save_info$card, !is.null(save_info$value))
+
+      target_card_name <- save_info$card
+      new_text_content <- save_info$value
+
+      cards <- reporter$get_cards()
+      card <- cards[[target_card_name]]
+
+      # Create and append the new block
+      if (nzchar(trimws(new_text_content))) { # ONLY IF TEXT IS NON EMPTY
+        card <- c(card, new_text_content)
+        reporter$set_card_content(target_card_name, card)
+        removeModal() # Close the "Add Text" modal
+        showNotification("New text block added successfully.", type = "message")
+        ui_refresh_trigger(ui_refresh_trigger() + 1)
+      } else {
+        # Text was empty or whitespace only
+        removeModal()
+        showNotification("No text entered, block not added.", type = "warning")
+      }
+    }, ignoreInit = TRUE, ignoreNULL = TRUE)
+
 
     output$download_data_prev <- shiny::downloadHandler(
       filename = function() {
