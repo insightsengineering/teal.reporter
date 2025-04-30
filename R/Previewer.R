@@ -89,7 +89,7 @@ reporter_previewer_srv <- function(id,
   checkmate::assert_true(rmd_yaml_args[["output"]] %in% rmd_output)
 
   shiny::moduleServer(id, function(input, output, session) {
-shiny::setBookmarkExclude(c(
+    shiny::setBookmarkExclude(c(
       "card_remove_id", "card_down_id", "card_up_id", "remove_card_ok", "showrcode", "download_data_prev",
       "load_reporter_previewer", "load_reporter"
     ))
@@ -186,8 +186,8 @@ shiny::setBookmarkExclude(c(
             options = sortable::sortable_options(
               group = list(
                 name = "reporter_cards",
-                 put = TRUE
-              ), 
+                put = TRUE
+              ),
               sort = TRUE,
               handle = ".accordion-header",
               onSort = sortable::sortable_js_capture_input(ns("reporter_cards_orders"))
