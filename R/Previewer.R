@@ -205,8 +205,50 @@ reporter_previewer_srv <- function(id,
       }
     })
 
-    observeEvent(input$reporter_cards_orders, {
+    shiny::observeEvent(input$reporter_cards_orders, {
       reporter$reorder_cards(input$reporter_cards_orders)
+    })
+
+    shiny::observeEvent(input$load_reporter_previewer, {
+      nr_cards <- length(reporter$get_cards())
+      shiny::showModal(
+        shiny::modalDialog(
+          easyClose = TRUE,
+          shiny::tags$h3("Load the Reporter"),
+          shiny::tags$hr(),
+          shiny::fileInput(ns("archiver_zip"), "Choose Reporter File to Load (a zip file)",
+            multiple = FALSE,
+            accept = c(".zip")
+          ),
+          footer = shiny::div(
+            shiny::tags$button(
+              type = "button",
+              class = "btn btn-danger",
+              `data-dismiss` = "modal",
+              `data-bs-dismiss` = "modal",
+              NULL,
+              "Cancel"
+            ),
+            shiny::tags$button(
+              id = ns("load_reporter"),
+              type = "button",
+              class = "btn btn-primary action-button",
+              `data-val` = shiny::restoreInput(id = ns("load_reporter"), default = NULL),
+              NULL,
+              "Load"
+            )
+          )
+        )
+      )
+    })
+
+    shiny::observeEvent(input$load_reporter, {
+      switch("JSON",
+        JSON = load_json_report(reporter, input$archiver_zip[["datapath"]], input$archiver_zip[["name"]]),
+        stop("The provided Reporter file format is not supported")
+      )
+
+      shiny::removeModal()
     })
 
     # Observer 1: Detect click from JS and set reactiveVal
