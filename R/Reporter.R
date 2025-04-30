@@ -136,6 +136,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     set_card_content = function(card_name, card_content) {
       card_id <- which(names(private$cards) == card_name)
       private$cards[[card_id]] <- card_content
+
+      private$reactive_add_card(private$reactive_add_card() + 1)
       invisible(self)
     },
     #' @description Retrieves all `ReportCard` and `ReportDocument` objects contained in `Reporter`.

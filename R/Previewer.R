@@ -41,7 +41,11 @@ reporter_previewer_ui <- function(id) {
         class = "col-md-9",
         shiny::tags$div(
           id = "reporter_previewer",
-          shiny::uiOutput(ns("pcards"))
+          shiny::uiOutput(ns("pcards")),
+          shiny::div(
+            style = "margin-top: 10px;", 
+            shiny::actionButton(ns("add_card_button"), "Add New Card", icon = shiny::icon("plus"), class = "btn-primary")
+          )
         )
       )
     )
@@ -85,7 +89,7 @@ reporter_previewer_srv <- function(id,
   checkmate::assert_true(rmd_yaml_args[["output"]] %in% rmd_output)
 
   shiny::moduleServer(id, function(input, output, session) {
-    shiny::setBookmarkExclude(c(
+shiny::setBookmarkExclude(c(
       "card_remove_id", "card_down_id", "card_up_id", "remove_card_ok", "showrcode", "download_data_prev",
       "load_reporter_previewer", "load_reporter"
     ))
@@ -101,6 +105,10 @@ reporter_previewer_srv <- function(id,
     })
 
     ns <- session$ns
+    card_to_edit_rv <- reactiveVal(NULL)
+    text_block_to_edit_rv <- reactiveVal(NULL)
+    card_to_delete_rv <- reactiveVal(NULL)
+    ui_refresh_trigger <- reactiveVal(0)
 
     reset_report_button_srv("resetButtonPreviewer", reporter)
 
@@ -162,10 +170,13 @@ reporter_previewer_srv <- function(id,
             setNames(
               lapply(names(cards), function(card_name) {
                 if (inherits(cards[[card_name]], "ReportCard")) {
-                  previewer_collapse_item(card_name, cards[[card_name]]$get_content())
+                  content <- cards[[card_name]]$get_content()
+                  edit <- FALSE
                 } else if (inherits(cards[[card_name]], "ReportDocument")) {
-                  previewer_collapse_item(card_name, cards[[card_name]], ns)
+                  edit <- TRUE
+                  content <- cards[[card_name]]
                 }
+                previewer_collapse_item(card_name, content, ns = ns, edit = edit)
               }),
               names(cards)
             )
@@ -175,8 +186,8 @@ reporter_previewer_srv <- function(id,
             options = sortable::sortable_options(
               group = list(
                 name = "reporter_cards",
-                put = TRUE
-              ),
+                 put = TRUE
+              ), 
               sort = TRUE,
               handle = ".accordion-header",
               onSort = sortable::sortable_js_capture_input(ns("reporter_cards_orders"))
@@ -198,79 +209,326 @@ reporter_previewer_srv <- function(id,
       reporter$reorder_cards(input$reporter_cards_orders)
     })
 
-    shiny::observeEvent(input$load_reporter_previewer, {
-      nr_cards <- length(reporter$get_cards())
-      shiny::showModal(
-        shiny::modalDialog(
-          easyClose = TRUE,
-          shiny::tags$h3("Load the Reporter"),
-          shiny::tags$hr(),
-          shiny::fileInput(ns("archiver_zip"), "Choose Reporter File to Load (a zip file)",
-            multiple = FALSE,
-            accept = c(".zip")
-          ),
-          footer = shiny::div(
-            shiny::tags$button(
-              type = "button",
-              class = "btn btn-danger",
-              `data-dismiss` = "modal",
-              `data-bs-dismiss` = "modal",
-              NULL,
-              "Cancel"
-            ),
-            shiny::tags$button(
-              id = ns("load_reporter"),
-              type = "button",
-              class = "btn btn-primary action-button",
-              `data-val` = shiny::restoreInput(id = ns("load_reporter"), default = NULL),
-              NULL,
-              "Load"
-            )
-          )
+    # Observer 1: Detect click from JS and set reactiveVal
+    shiny::observeEvent(input$edit_card_clicked, {
+      card_to_edit_rv(input$edit_card_clicked)
+    })
+
+    # Observer 2: Show the first modal when card_to_edit_rv is set
+    shiny::observeEvent(card_to_edit_rv(), {
+      current_card_name <- card_to_edit_rv()
+
+      cards <- reporter$get_cards()
+      card <- cards[[current_card_name]]
+      current_blocks <- if (inherits(card, "ReportCard")) {
+        card$get_content()
+      } else if (inherits(card, "ReportDocument")) {
+        card
+      }
+
+      # Show the first modal (listing blocks)
+      showModal(
+        modalDialog(
+          title = paste("Editing Card:", current_card_name),
+          size = "l", easyClose = TRUE,
+          uiOutput(ns(paste0("modal_blocks_ui_", current_card_name))),
+          footer = tagList(modalButton("Close"))
         )
       )
-    })
 
-    shiny::observeEvent(input$load_reporter, {
-      switch("JSON",
-        JSON = load_json_report(reporter, input$archiver_zip[["datapath"]], input$archiver_zip[["name"]]),
-        stop("The provided Reporter file format is not supported")
-      )
+      # Render UI for Blocks inside the First Modal
+      output[[paste0("modal_blocks_ui_", current_card_name)]] <- renderUI({
 
-      shiny::removeModal()
-    })
+        ui_refresh_trigger()
 
-    shiny::observeEvent(input$card_remove_id, {
-      shiny::showModal(
-        shiny::modalDialog(
-          title = "Remove the Report Card",
-          shiny::tags$p(
-            shiny::HTML(
-              sprintf(
-                "Do you really want to remove <strong>the card %s</strong> from the Report?",
-                input$card_remove_id
-              )
+        cards <- reporter$get_cards()
+        card <- cards[[current_card_name]]
+        if(is.null(card)) return(tags$p("Card not found."))
+        current_blocks <- if (inherits(card, "ReportCard")) {
+          card$get_content()
+        } else if (inherits(card, "ReportDocument")) {
+          card
+        }
+
+        # Display Block List View
+        if(length(current_blocks) == 0) {
+           return(tags$p("This card has no blocks."))
+        }
+
+
+        tagList(
+          lapply(seq_along(current_blocks), function(i) {
+            block <- current_blocks[[i]]
+            block_modal_id <- paste0(current_card_name, "_modal_block_", i)
+            block_content_html <- block_to_html(block)
+
+            tags$div(
+              style = "border: 1px solid #eee; padding: 10px; margin-bottom: 10px; display: flex; align-items: center;",
+              tags$div(style = "flex-grow: 1; margin-right: 10px;", block_content_html),
+              if (inherits(block, "character")) {
+                actionButton(
+                  inputId = ns(paste0("edit_modal_block_", block_modal_id)),
+                  label = NULL, icon = icon("pen-to-square"),
+                  class = "btn btn-sm btn-outline-primary",
+                  # Use onclick to set the second reactiveVal (text_block_to_edit_rv)
+                  onclick = sprintf(
+                    "Shiny.setInputValue('%s', { card: '%s', index: %d }, {priority: 'event'});",
+                    ns("text_block_edit_clicked"), 
+                    current_card_name,
+                    i
+                  )
+                )
+              },
+              {
+                onclick_js_delete <- sprintf(
+                  "Shiny.setInputValue('%s', { card: '%s', index: %d }, {priority: 'event'});",
+                  ns("delete_block_clicked"),
+                  current_card_name,
+                  i
+                )
+                actionButton(
+                  inputId = ns(paste0("delete_modal_block_", block_modal_id)),
+                  label = NULL, icon = icon("trash-alt"),
+                  class = "btn btn-sm btn-outline-danger",
+                  onclick = onclick_js_delete
+                )
+            }
             )
-          ),
-          footer = shiny::tagList(
-            shiny::tags$button(
-              type = "button",
-              class = "btn btn-secondary",
-              `data-dismiss` = "modal",
-              `data-bs-dismiss` = "modal",
-              NULL,
-              "Cancel"
-            ),
-            shiny::actionButton(ns("remove_card_ok"), "OK", class = "btn-danger")
-          )
+          })
         )
-      )
+      })
+
+      # Reset the trigger for the first modal
+      card_to_edit_rv(NULL)
+
     })
 
-    # Implement remove card using a custom delete icon on the accordion
+
+    # Observer 3: Detect click for text block edit from JS
+    shiny::observeEvent(input$text_block_edit_clicked, {
+        edit_info <- input$text_block_edit_clicked
+        req(edit_info, edit_info$card, edit_info$index)
+        text_block_to_edit_rv(edit_info)
+    }, ignoreInit = TRUE)
+
+
+
+    # Observer 4: Show the second modal (text editing) when text_block_to_edit_rv is set
+    shiny::observeEvent(text_block_to_edit_rv(), {
+        edit_info <- text_block_to_edit_rv()
+        req(edit_info)
+
+        current_card_name <- edit_info$card
+        block_index <- edit_info$index
+
+        cards <- reporter$get_cards()
+        card <- cards[[current_card_name]]
+        current_blocks <- if (inherits(card, "ReportCard")) {
+          card$get_content() 
+        } else if(inherits(card, "ReportDocument")) {
+          card
+        } 
+
+        block_edit <- current_blocks[[block_index]]
+        req(inherits(block_edit, "character"))
+
+        # Define IDs for the second modal's inputs
+        modal_instance_id <- paste0(current_card_name, "_", block_index)
+        text_area_id <- ns(paste0("text_area_edit_", modal_instance_id))
+        save_button_id_ui <- ns(paste0("save_text_edit_", modal_instance_id))
+        cancel_button_id_ui <- ns(paste0("cancel_text_edit_", modal_instance_id))
+
+        # Show the second modal for text editing
+        showModal(
+            modalDialog(
+                title = paste("Edit Text Block", block_index, "in Card:", current_card_name),
+                easyClose = TRUE,
+                textAreaInput(
+                    inputId = text_area_id,
+                    label = "Edit Text Content:",
+                    value = block_edit,
+                    rows = 15, width = "100%"
+                ),
+                footer = tagList(
+                    # Cancel button - uses onclick to trigger input$cancel_text_edit_clicked
+                    actionButton(
+                       inputId = cancel_button_id_ui, # UI ID
+                       label = "Cancel",
+                       class = "btn-secondary",
+                       onclick = sprintf(
+                         "Shiny.setInputValue('%s', true, {priority: 'event'});",
+                         ns("cancel_text_edit_clicked")
+                       )
+                    ),
+                    # Save button - uses onclick to trigger input$save_text_edit_clicked
+                    actionButton(
+                       inputId = save_button_id_ui, # UI ID
+                       label = "Save Text",
+                       class = "btn-primary",
+                       onclick = sprintf(
+                         "Shiny.setInputValue('%s', { value: document.getElementById('%s').value }, {priority: 'event'});",
+                         ns("save_text_edit_clicked"),
+                         text_area_id
+                       )
+                    )
+                )
+            )
+        )
+    }, ignoreInit = TRUE)
+
+    # Observer 5: Handle Cancel Button Click (triggered by JS)
+    shiny::observeEvent(input$cancel_text_edit_clicked, {
+        req(text_block_to_edit_rv())
+        removeModal()
+        text_block_to_edit_rv(NULL)
+    }, ignoreInit = TRUE, ignoreNULL = TRUE)
+
+
+    # Observer 6: Handle Save Button Click (triggered by JS)
+    shiny::observeEvent(input$save_text_edit_clicked, {
+        event_data <- input$save_text_edit_clicked
+        req(event_data, !is.null(event_data$value))
+        new_text <- event_data$value
+
+        edit_info <- text_block_to_edit_rv()
+
+        current_card_name <- edit_info$card
+        block_index <- edit_info$index
+
+        cards <- reporter$get_cards()
+        card <- cards[[current_card_name]]
+        current_blocks <- if (inherits(card, "ReportCard")) {
+          card$get_content()
+        } else if(inherits(card, "ReportDocument")) {
+          card
+        } 
+        block_original <- current_blocks[[block_index]]
+        req(inherits(block_original, "character"))
+
+
+        if (inherits(card, "ReportCard")) {
+          # is anything needed here?
+        } else if (inherits(card, "ReportDocument")) {
+           card[[block_index]] <- new_text
+        }
+
+        reporter$set_card_content(current_card_name, card)
+        removeModal()
+        showNotification("Text block updated successfully!", type = "message")
+
+        text_block_to_edit_rv(NULL)
+
+    }, ignoreInit = TRUE, ignoreNULL = TRUE)
+
+
+    # Observer 7: Detect Delete Button Click (triggered by JS)
+    shiny::observeEvent(input$delete_card_clicked, {
+        card_name_to_delete <- input$delete_card_clicked
+        req(card_name_to_delete)
+
+        card_to_delete_rv(card_name_to_delete)
+
+        showModal(
+            modalDialog(
+                title = "Confirm Deletion",
+                paste("Are you sure you want to delete card:", card_name_to_delete, "?"),
+                easyClose = TRUE,
+                footer = tagList(
+                    modalButton("Cancel"),
+                    actionButton(ns("remove_card_ok"), "Delete Card", class = "btn-danger")
+                )
+            )
+        )
+    }, ignoreInit = TRUE)
+
+    # Observer 8: Handle Block Delete Button Click (triggered by JS)
+    shiny::observeEvent(input$delete_block_clicked, {
+
+        delete_info <- input$delete_block_clicked
+        req(delete_info, delete_info$card, delete_info$index)
+
+        current_card_name <- delete_info$card
+        block_index <- delete_info$index
+
+        cards <- reporter$get_cards()
+        card <- cards[[current_card_name]]
+
+        current_blocks <- if (inherits(card, "ReportCard")) {
+          card$get_content()
+        } else if(inherits(card, "ReportDocument")) {
+          card
+        }
+
+        updated_blocks <- current_blocks[-block_index]
+
+        if (inherits(card, "ReportCard")) {
+           # IS IT EVEN POSSIBLE THAT WE DEAL WITH A ReportCard HERE?
+        } else if (inherits(card, "ReportDocument")) {
+           card <- structure(updated_blocks, class = "ReportDocument")
+        }
+
+        reporter$set_card_content(current_card_name, card)
+
+        showNotification(paste("Block", block_index, "deleted from card:", current_card_name), type = "message")
+
+        # We stay in the modal, no need to reset text_block_to_edit_rv unless it was set
+        ui_refresh_trigger(ui_refresh_trigger() + 1)
+
+    }, ignoreInit = TRUE, ignoreNULL = TRUE)
+
+    # Observer 9: Show Add Card Modal
+    shiny::observeEvent(input$add_card_button, {
+        showModal(
+            modalDialog(
+                title = "Add New Card",
+                textInput(ns("new_card_name"), "Card Name:", placeholder = "Enter a unique card name"),
+                textAreaInput(ns("new_card_comment"), "Initial Comment (Optional):", rows = 4),
+                footer = tagList(
+                    modalButton("Cancel"),
+                    actionButton(ns("confirm_add_card"), "Add Card", class = "btn-primary")
+                ),
+                easyClose = TRUE
+            )
+        )
+    }, ignoreInit = TRUE)
+
+
+    # Observer 10: Confirm Add Card
+    shiny::observeEvent(input$confirm_add_card, {
+        card_name <- trimws(input$new_card_name)
+        comment_text <- trimws(input$new_card_comment)
+
+        existing_card_names <- names(reporter$get_cards())
+        #if (card_name %in% existing_card_names) {
+        #    showNotification(paste("Card name '", card_name, "' already exists. Please choose a unique name."), type = "error")
+        #}
+
+        new_card <- teal.reporter::report_document(comment_text)
+        reporter$append_cards(setNames(list(new_card), card_name))
+        removeModal()
+        showNotification(paste("Card '", card_name, "' added successfully."), type = "message")
+        ui_refresh_trigger(ui_refresh_trigger() + 1)
+
+    }, ignoreInit = TRUE)
+
+
+    # Observer 11: Card Removal
     shiny::observeEvent(input$remove_card_ok, {
-      reporter$remove_cards(input$card_remove_id)
-      shiny::removeModal()
+      card_name <- card_to_delete_rv()
+      req(card_name)
+
+      card_names <- names(reporter$get_cards())
+      card_index <- match(card_name, card_names)
+
+      if (!is.na(card_index)) {
+        reporter$remove_cards(card_index)
+        showNotification(paste("Card:", card_name, "removed."), type = "message")
+      } else {
+        showNotification(paste("Error: Card", card_name, "not found for removal."), type = "error")
+      }
+
+      removeModal()
+      card_to_delete_rv(NULL)
     })
 
     output$download_data_prev <- shiny::downloadHandler(
@@ -493,34 +751,53 @@ block_to_html.data.frame <- block_to_html.rtables
 
 #' @noRd
 #' @keywords internal
-previewer_collapse_item <- function(card_name, card_blocks, ns = NULL, open = FALSE) {
+previewer_collapse_item <- function(card_name, card_blocks, ns = NULL, edit = FALSE, open = FALSE) {
   tags$div(
     `data-rank-id` = card_name,
     bslib::accordion(
       open = open,
+      # CARDS IN THE ACCORDION PANEL SHOULD BE SORTABLE
       bslib::accordion_panel(
-        title = card_name,
-        if (!is.null(ns)) {
-          tagList(
-            tags$div(
-              style = "display: flex; justify-content: flex-end; align-items: center;",
-              actionButton(
-                inputId = ns(paste0("edit_card_", card_name)),
-                label = "Edit",
-                icon = shiny::icon("edit"),
-                class = "btn btn-warning btn-sm"
+        value = card_name,
+        title = tags$div(
+          style = "display: flex; justify-content: space-between; align-items: center; width: 100%;",
+          tags$span(card_name),
+          if (edit) {
+            actionButton(
+              inputId = ns(paste0("edit_card_", card_name)),
+              label = NULL,
+              icon = shiny::icon("edit"),
+              class = "btn btn-warning btn-sm",
+              onclick = sprintf(
+                "event.stopPropagation(); Shiny.setInputValue('%s', '%s', {priority: 'event'});",
+                ns("edit_card_clicked"),
+                card_name
               )
-            ),
-            tags$hr()
-          )
-        },
+            )
+          },
+          if (!is.null(ns)) {
+            actionButton(
+              inputId = ns(paste0("delete_card_", card_name)),
+              label = NULL,
+              icon = shiny::icon("trash-alt"),
+              class = "btn btn-danger btn-sm",
+              onclick = sprintf(
+                # Trigger a new input when clicked, passing the card name
+                "event.stopPropagation(); Shiny.setInputValue('%s', '%s', {priority: 'event'});",
+                ns("delete_card_clicked"),
+                card_name
+              )
+            )
+        }
+        ),
         tags$div(
-          lapply(
-            card_blocks,
-            function(b) {
-              block_to_html(b)
-            }
-          )
+          id = ns(paste0("sortable_", card_name)), # THIS MIGHT BE NEEDED FOR SORTING BUT DOESNT WORK YET
+          class = "card-blocks-container",
+          lapply(seq_along(card_blocks), function(i) {
+            block <- card_blocks[[i]]
+            block_id <- paste0(card_name, "_block_", i) # THIS MIGHT BE NEEDED FOR SORTING BUT DOESNT WORK YET
+            block_to_html(block)
+          })
         )
       )
     )
