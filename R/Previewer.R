@@ -218,14 +218,6 @@ shiny::setBookmarkExclude(c(
     shiny::observeEvent(card_to_edit_rv(), {
       current_card_name <- card_to_edit_rv()
 
-      cards <- reporter$get_cards()
-      card <- cards[[current_card_name]]
-      current_blocks <- if (inherits(card, "ReportCard")) {
-        card$get_content()
-      } else if (inherits(card, "ReportDocument")) {
-        card
-      }
-
       # Show the first modal (listing blocks)
       showModal(
         modalDialog(
@@ -243,12 +235,6 @@ shiny::setBookmarkExclude(c(
 
         cards <- reporter$get_cards()
         card <- cards[[current_card_name]]
-        if(is.null(card)) return(tags$p("Card not found."))
-        current_blocks <- if (inherits(card, "ReportCard")) {
-          card$get_content()
-        } else if (inherits(card, "ReportDocument")) {
-          card
-        }
 
         # Display Block List View
 
@@ -268,11 +254,11 @@ shiny::setBookmarkExclude(c(
                 )
             )
           ),
-          if (length(current_blocks) == 0) {
+          if (length(card) == 0) {
             tags$p("This card has no blocks.")
           } else {
-            lapply(seq_along(current_blocks), function(i) {
-              block <- current_blocks[[i]]
+            lapply(seq_along(card), function(i) {
+              block <- card[[i]]
               block_modal_id <- paste0(current_card_name, "_modal_block_", i)
               block_content_html <- block_to_html(block)
 
@@ -334,13 +320,8 @@ shiny::setBookmarkExclude(c(
 
         cards <- reporter$get_cards()
         card <- cards[[current_card_name]]
-        current_blocks <- if (inherits(card, "ReportCard")) {
-          card$get_content() 
-        } else if(inherits(card, "ReportDocument")) {
-          card
-        } 
-
-        block_edit <- current_blocks[[block_index]]
+ 
+        block_edit <- card[[block_index]]
         req(inherits(block_edit, "character"))
 
         # Define IDs for the second modal's inputs
@@ -408,20 +389,10 @@ shiny::setBookmarkExclude(c(
 
         cards <- reporter$get_cards()
         card <- cards[[current_card_name]]
-        current_blocks <- if (inherits(card, "ReportCard")) {
-          card$get_content()
-        } else if(inherits(card, "ReportDocument")) {
-          card
-        } 
-        block_original <- current_blocks[[block_index]]
+        block_original <- card[[block_index]]
         req(inherits(block_original, "character"))
 
-
-        if (inherits(card, "ReportCard")) {
-          # is anything needed here?
-        } else if (inherits(card, "ReportDocument")) {
-           card[[block_index]] <- new_text
-        }
+        card[[block_index]] <- new_text
 
         reporter$set_card_content(current_card_name, card)
         removeModal()
@@ -440,67 +411,55 @@ shiny::setBookmarkExclude(c(
         card_to_delete_rv(card_name_to_delete)
 
         showModal(
-            modalDialog(
-                title = "Confirm Deletion",
-                paste("Are you sure you want to delete card:", card_name_to_delete, "?"),
-                easyClose = TRUE,
-                footer = tagList(
-                    modalButton("Cancel"),
-                    actionButton(ns("remove_card_ok"), "Delete Card", class = "btn-danger")
-                )
+          modalDialog(
+            title = "Confirm Deletion",
+            paste("Are you sure you want to delete card:", card_name_to_delete, "?"),
+            easyClose = TRUE,
+            footer = tagList(
+              modalButton("Cancel"),
+              actionButton(ns("remove_card_ok"), "Delete Card", class = "btn-danger")
             )
+          )
         )
     }, ignoreInit = TRUE)
 
     # Observer 8: Handle Block Delete Button Click (triggered by JS)
     shiny::observeEvent(input$delete_block_clicked, {
+      delete_info <- input$delete_block_clicked
+      req(delete_info, delete_info$card, delete_info$index)
 
-        delete_info <- input$delete_block_clicked
-        req(delete_info, delete_info$card, delete_info$index)
+      current_card_name <- delete_info$card
+      block_index <- delete_info$index
 
-        current_card_name <- delete_info$card
-        block_index <- delete_info$index
+      cards <- reporter$get_cards()
+      card <- cards[[current_card_name]]
+      updated_blocks <- card[-block_index]
 
-        cards <- reporter$get_cards()
-        card <- cards[[current_card_name]]
+      card <- structure(updated_blocks, class = "ReportDocument")
 
-        current_blocks <- if (inherits(card, "ReportCard")) {
-          card$get_content()
-        } else if(inherits(card, "ReportDocument")) {
-          card
-        }
+      reporter$set_card_content(current_card_name, card)
 
-        updated_blocks <- current_blocks[-block_index]
+      showNotification(paste("Block", block_index, "deleted from card:", current_card_name), type = "message")
 
-        if (inherits(card, "ReportCard")) {
-           # IS IT EVEN POSSIBLE THAT WE DEAL WITH A ReportCard HERE?
-        } else if (inherits(card, "ReportDocument")) {
-           card <- structure(updated_blocks, class = "ReportDocument")
-        }
-
-        reporter$set_card_content(current_card_name, card)
-
-        showNotification(paste("Block", block_index, "deleted from card:", current_card_name), type = "message")
-
-        # We stay in the modal, no need to reset text_block_to_edit_rv unless it was set
-        ui_refresh_trigger(ui_refresh_trigger() + 1)
+      # We stay in the modal, no need to reset text_block_to_edit_rv unless it was set
+      ui_refresh_trigger(ui_refresh_trigger() + 1)
 
     }, ignoreInit = TRUE, ignoreNULL = TRUE)
 
     # Observer 9: Show Add Card Modal
     shiny::observeEvent(input$add_card_button, {
-        showModal(
-            modalDialog(
-                title = "Add New Card",
-                textInput(ns("new_card_name"), "Card Name:", placeholder = "Enter a unique card name"),
-                textAreaInput(ns("new_card_comment"), "Initial Comment (Optional):", rows = 4),
-                footer = tagList(
-                    modalButton("Cancel"),
-                    actionButton(ns("confirm_add_card"), "Add Card", class = "btn-primary")
-                ),
-                easyClose = TRUE
-            )
+      showModal(
+        modalDialog(
+          title = "Add New Card",
+          textInput(ns("new_card_name"), "Card Name:", placeholder = "Enter a unique card name"),
+          textAreaInput(ns("new_card_comment"), "Initial Comment (Optional):", rows = 4),
+          footer = tagList(
+            modalButton("Cancel"),
+            actionButton(ns("confirm_add_card"), "Add Card", class = "btn-primary")
+          ),
+          easyClose = TRUE
         )
+      )
     }, ignoreInit = TRUE)
 
 
@@ -508,12 +467,6 @@ shiny::setBookmarkExclude(c(
     shiny::observeEvent(input$confirm_add_card, {
         card_name <- trimws(input$new_card_name)
         comment_text <- trimws(input$new_card_comment)
-
-        existing_card_names <- names(reporter$get_cards())
-        #if (card_name %in% existing_card_names) {
-        #    showNotification(paste("Card name '", card_name, "' already exists. Please choose a unique name."), type = "error")
-        #}
-
         new_card <- teal.reporter::report_document(comment_text)
         reporter$append_cards(setNames(list(new_card), card_name))
         removeModal()
@@ -531,12 +484,8 @@ shiny::setBookmarkExclude(c(
       card_names <- names(reporter$get_cards())
       card_index <- match(card_name, card_names)
 
-      if (!is.na(card_index)) {
-        reporter$remove_cards(card_index)
-        showNotification(paste("Card:", card_name, "removed."), type = "message")
-      } else {
-        showNotification(paste("Error: Card", card_name, "not found for removal."), type = "error")
-      }
+      reporter$remove_cards(card_index)
+      showNotification(paste("Card:", card_name, "removed."), type = "message")
 
       removeModal()
       card_to_delete_rv(NULL)
