@@ -441,7 +441,7 @@ reporter_previewer_card_srv <- function(id, reporter, card) {
 
     observeEvent(input$edit_save, {
       if (!identical(new_card(), card)) {
-        reporter$replace_card(id = id, card = card) # todo: should be new_card
+        reporter$replace_card(id = id, card = new_card)
         card_reactive(new_card())
       }
     })

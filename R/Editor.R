@@ -38,7 +38,7 @@ editor_srv.ReportDocument <- function(id, x) {
 
     reactive({
       # todo: it needs to return report_document, not just list
-      lapply(new_content, function(reactive_block) reactive_block())
+      structure(lapply(new_content, function(reactive_block) reactive_block()), class = "ReportDocument")
     })
   })
 }
