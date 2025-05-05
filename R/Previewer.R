@@ -418,14 +418,17 @@ reporter_previewer_card_ui <- function(id, card_name) {
 reporter_previewer_card_srv <- function(id, reporter, card) {
   # todo: card_name should be only on the server side
   moduleServer(id, function(input, output, session) {
-    output$card_content <- renderUI(toHTML(card))
+    # to react to the changes in the card
+    card_reactive <- reactiveVal(card)
+
+    output$card_content <- renderUI(toHTML(card_reactive()))
     if (inherits(card, "ReportCard")) {
       shinyjs::hide("edit")
     }
 
     # editor
-    editor_ui <- editor_ui(session$ns("editor"), x = card)
-    new_card <- editor_srv("editor", x = card)
+    editor_ui <- editor_ui(session$ns("editor"), x = card_reactive)
+    new_card <- editor_srv("editor", x = card_reactive)
     observeEvent(input$edit, {
       shiny::showModal(
         shiny::modalDialog(
@@ -439,10 +442,11 @@ reporter_previewer_card_srv <- function(id, reporter, card) {
         )
       )
     })
+
     observeEvent(input$edit_save, {
       if (!identical(new_card(), card)) {
-        # todo: make sure it triggers rerender of the card in the preview
-        reporter$replace_card(id = id, card = card)
+        reporter$replace_card(id = id, card = card) # todo: should be new_card
+        card_reactive(new_card())
       }
     })
 

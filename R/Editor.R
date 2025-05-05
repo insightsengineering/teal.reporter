@@ -6,6 +6,23 @@ editor_srv <- function(id, x) {
   UseMethod("editor_srv", x)
 }
 
+#' @export
+editor_ui.reactiveVal <- function(id, x) {
+  ns <- NS(id)
+  uiOutput(ns("content"))
+}
+
+#' @export
+editor_srv.reactiveVal <- function(id, x) {
+  moduleServer(id, function(input, output, session) {
+    output$content <- renderUI(editor_ui(session$ns("editor"), x()))
+    eventReactive(x(), {
+      editor_srv("editor", x())()
+    })
+  })
+}
+
+#' @export
 editor_ui.ReportDocument <- function(id, x) {
   ns <- NS(id)
   tagList(
@@ -14,30 +31,39 @@ editor_ui.ReportDocument <- function(id, x) {
   )
 }
 
+#' @export
 editor_srv.ReportDocument <- function(id, x) {
   moduleServer(id, function(input, output, session) {
     new_content <- lapply(seq_along(x), function(i) editor_srv(i, x[[i]]))
-    reactive(lapply(new_content, function(reactive_block) reactive_block()))
+
+    reactive({
+      # todo: it needs to return report_document, not just list
+      lapply(new_content, function(reactive_block) reactive_block())
+    })
   })
 }
 
+#' @export
 editor_ui.default <- function(id, x) {
-  shinyjs::disabled(toHTML(x))
+  toHTML(x)
 }
 
+#' @export
 editor_srv.default <- function(id, x) {
   moduleServer(id, function(input, output, session) {
     reactive(x)
   })
 }
 
+#' @export
 editor_ui.character <- function(id, x) {
   ns <- NS(id)
   shiny::textAreaInput(ns("content"), label = NULL, value = x)
 }
 
+#' @export
 editor_srv.character <- function(id, x) {
   moduleServer(id, function(input, output, session) {
-    reactive(input$content)
+    eventReactive(input$content, input$content)
   })
 }
