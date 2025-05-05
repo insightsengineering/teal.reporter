@@ -37,11 +37,7 @@ reporter_previewer_ui <- function(id) {
         class = "col-md-9",
         shiny::tags$div(
           id = "reporter_previewer",
-          bslib::accordion(id = ns("reporter_cards"), open = FALSE),
-          shiny::div(
-            style = "margin-top: 10px;",
-            shiny::actionButton(ns("add_card_button"), "Add New Card", icon = shiny::icon("plus"), class = "btn-primary")
-          )
+          bslib::accordion(id = ns("reporter_cards"), open = FALSE)
         )
       )
     )
