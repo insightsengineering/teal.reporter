@@ -37,7 +37,6 @@ editor_srv.ReportDocument <- function(id, x) {
     new_content <- lapply(seq_along(x), function(i) editor_srv(i, x[[i]]))
 
     reactive({
-      # todo: it needs to return report_document, not just list
       structure(lapply(new_content, function(reactive_block) reactive_block()), class = "ReportDocument")
     })
   })
