@@ -94,7 +94,7 @@ c.ReportDocument <- function(...) {
 #' @export
 edit_report_document <- function(x, modify = NULL, append = NULL, after = length(x)) {
   checkmate::assert_class(x, "ReportDocument")
-  checkmate::assert_class(modify, "integer", null.ok = TRUE)
+  checkmate::assert_class(modify, "numeric", null.ok = TRUE)
 
   attrs <- attributes(x)
 
