@@ -32,6 +32,12 @@ reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny::fluidRow(
     shiny::tagList(
+      sortable::sortable_js(
+        css_id = ns("reporter_cards"),
+        options = sortable::sortable_options(
+          onSort = sortable::sortable_js_capture_input(input_id = ns("reporter_cards_orders"))
+        )
+      ),
       reporter_previewer_encoding_ui(ns("encoding_panel")),
       shiny::tags$div(
         class = "col-md-9",
@@ -143,7 +149,8 @@ reporter_previewer_srv <- function(id,
     })
 
     shiny::observeEvent(input$reporter_cards_orders, {
-      reporter$reorder_cards(input$reporter_cards_orders)
+      # todo: handle "" added by sortable::sortable_js_capture_input
+      reporter$reorder_cards(setdiff(input$reporter_cards_orders, "")) # "" is added by sortable::sortable_js_capture_input
     })
   })
 }
@@ -378,35 +385,30 @@ reporter_previewer_card_ui <- function(id, card_name) {
     title = tags$div(
       style = "display: flex; justify-content: space-between; align-items: center; width: 100%;",
       tags$span(card_name),
-      actionButton(
-        inputId = ns("edit"),
-        label = NULL,
-        icon = shiny::icon("edit"),
-        class = "btn btn-warning btn-sm",
-        onclick = sprintf(
-          "event.stopPropagation(); Shiny.setInputValue('%s', '%s', {priority: 'event'});",
-          ns("edit_card_clicked"),
-          card_name
-        )
-      ),
-      actionButton(
-        inputId = ns("remove"),
-        label = NULL,
-        icon = shiny::icon("trash-alt"),
-        class = "btn btn-danger btn-sm",
-        onclick = sprintf(
-          # Trigger a new input when clicked, passing the card name
-          "event.stopPropagation(); Shiny.setInputValue('%s', '%s', {priority: 'event'});",
-          ns("delete_card_clicked"),
-          card_name
+        actionButton(
+          inputId = ns("edit"),
+          label = NULL,
+          icon = shiny::icon("edit"),
+          class = "btn btn-warning btn-sm",
+          onclick = sprintf(
+            "event.stopPropagation(); Shiny.setInputValue('%s', '%s', {priority: 'event'});",
+            ns("edit_card_clicked"),
+            card_name
+          )
+        ),
+        actionButton(
+          inputId = ns("remove"),
+          label = NULL,
+          icon = shiny::icon("trash-alt"),
+          class = "btn btn-danger btn-sm",
+          onclick = sprintf(
+            "event.stopPropagation(); Shiny.setInputValue('%s', '%s', {priority: 'event'});",
+            ns("delete_card_clicked"),
+            card_name
         )
       )
     ),
-    tags$div(
-      id = ns(paste0("sortable_", card_name)), # THIS MIGHT BE NEEDED FOR SORTING BUT DOESNT WORK YET
-      class = "card-blocks-container",
-      uiOutput(ns("card_content"))
-    )
+    uiOutput(ns("card_content"))
   )
 }
 
