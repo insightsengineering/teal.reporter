@@ -425,12 +425,32 @@ reporter_previewer_card_srv <- function(id, reporter, card) {
     # editor
     editor_ui <- editor_ui(session$ns("editor"), x = card_reactive)
     new_card <- editor_srv("editor", x = card_reactive)
+
+    output$add_text_element_button_ui <- renderUI({
+      if (inherits(card_reactive(), "ReportDocument")) {
+        actionButton(
+          session$ns("add_text_element_action"),
+          "Add Empty Text Element",
+          class = "btn btn-info btn-sm mb-2"
+        )
+      }
+    })
+
+    observeEvent(input$add_text_element_action, {
+      current_card_val <- card_reactive()
+      current_card_val[[length(current_card_val) + 1L]] <- ""
+      card_reactive(current_card_val)
+    }, ignoreInit = TRUE)
+
     observeEvent(input$edit, {
       shiny::showModal(
         shiny::modalDialog(
           title = paste("Editing Card:", id),
           size = "l", easyClose = TRUE,
-          editor_ui,
+          shiny::tagList(
+            editor_ui,
+            uiOutput(session$ns("add_text_element_button_ui"))
+          ),
           footer = shiny::tagList(
             actionButton(session$ns("edit_save"), label = "Save"),
             modalButton("Close")
@@ -444,6 +464,7 @@ reporter_previewer_card_srv <- function(id, reporter, card) {
         reporter$replace_card(id = id, card = new_card)
         card_reactive(new_card())
       }
+      shiny::removeModal()
     })
 
     # remove self from reporter

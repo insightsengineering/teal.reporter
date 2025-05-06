@@ -26,7 +26,6 @@ editor_srv.reactiveVal <- function(id, x) {
 editor_ui.ReportDocument <- function(id, x) {
   ns <- NS(id)
   tagList(
-    # todo: add text button
     lapply(seq_along(x), function(i) editor_ui(ns(i), x[[i]]))
   )
 }
