@@ -55,7 +55,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         cards[rds] <- lapply(cards[rds], function(doc) template_fun(doc))
       }
       private$cards <- append(private$cards, cards)
-      isolate(private$reactive_add_card(length(private$cards)))
+      shiny::isolate(private$reactive_add_card(length(private$cards)))
       invisible(self)
     },
     #' @description Reorders `ReportCard` or `ReportDocument` objects in `Reporter`.
