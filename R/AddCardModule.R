@@ -69,12 +69,8 @@ add_card_button_ui <- function(id) {
     ),
     shiny::actionButton(
       ns("add_report_card_button"),
-      title = "Add Card",
-      class = "teal-reporter simple_report_button btn-primary",
-      `data-val` = shiny::restoreInput(id = ns("add_report_card_button"), default = NULL),
-      shiny::tags$span(
-        shiny::icon("plus")
-      )
+      "Add to Reporter",
+      `data-val` = shiny::restoreInput(id = ns("add_report_card_button"), default = NULL)
     )
   )
 }
