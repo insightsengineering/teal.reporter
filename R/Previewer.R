@@ -30,7 +30,7 @@ NULL
 #' @export
 reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
-  shiny::fluidRow(
+  bslib::page_fluid(
     shiny::tagList(
       sortable::sortable_js(
         css_id = ns("reporter_cards"),
@@ -38,13 +38,24 @@ reporter_previewer_ui <- function(id) {
           onSort = sortable::sortable_js_capture_input(input_id = ns("reporter_cards_orders"))
         )
       ),
-      reporter_previewer_encoding_ui(ns("encoding_panel")),
-      shiny::tags$div(
-        class = "col-md-9",
+      shiny::tagList(
+        shiny::singleton(
+          shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
+        ),
         shiny::tags$div(
-          id = "reporter_previewer",
-          bslib::accordion(id = ns("reporter_cards"), open = FALSE)
+          class = "block mb-4 p-1",
+          # shiny::tags$label(class = "text-primary block -ml-1", shiny::tags$strong("Reporter")),
+          shiny::tags$div(
+            class = "simple_reporter_container",
+            download_report_button_ui(ns("download"), label = "Download Report"),
+            report_load_ui(ns("load"), label = "Load Report"),
+            reset_report_button_ui(ns("reset"), label = "Reset Report")
+          )
         )
+      ),
+      shiny::tags$div(
+        id = "reporter_previewer",
+        bslib::accordion(id = ns("reporter_cards"), open = FALSE)
       )
     )
   )
@@ -104,16 +115,15 @@ reporter_previewer_srv <- function(id,
 
     ns <- session$ns
 
-    reset_report_button_srv("resetButtonPreviewer", reporter)
-
-    reporter_previewer_encoding_srv(
-      id = "encoding_panel",
+    download_report_button_srv(
+      "download",
       reporter = reporter,
       global_knitr = global_knitr,
       rmd_output = rmd_output,
-      rmd_yaml_args = rmd_yaml_args,
-      previewer_buttons = previewer_buttons
+      rmd_yaml_args = rmd_yaml_args
     )
+    report_load_srv("load", reporter = reporter)
+    reset_report_button_srv("reset", reporter = reporter)
 
     current_cards <- reactiveVal()
     insert_cards <- reactiveVal()
@@ -155,229 +165,6 @@ reporter_previewer_srv <- function(id,
   })
 }
 
-reporter_previewer_encoding_ui <- function(id) {
-  ns <- NS(id)
-  shiny::tags$div(
-    class = "col-md-3",
-    shiny::tags$div(class = "well", shiny::uiOutput(ns("encoding")))
-  )
-}
-
-reporter_previewer_encoding_srv <- function(id,
-                                            reporter,
-                                            global_knitr = getOption("teal.reporter.global_knitr"),
-                                            rmd_output = c(
-                                              "html" = "html_document", "pdf" = "pdf_document",
-                                              "powerpoint" = "powerpoint_presentation",
-                                              "word" = "word_document"
-                                            ),
-                                            rmd_yaml_args = list(
-                                              author = "NEST", title = "Report",
-                                              date = as.character(Sys.Date()), output = "html_document",
-                                              toc = FALSE
-                                            ),
-                                            previewer_buttons = c("download", "load", "reset")) {
-  moduleServer(id, function(input, output, session) {
-    output$encoding <- shiny::renderUI({
-      reporter$get_reactive_add_card()
-      nr_cards <- length(reporter$get_cards())
-
-      previewer_buttons_list <- list(
-        download = htmltools::tagAppendAttributes(
-          shiny::downloadButton(
-            session$ns("download_data_prev"),
-            label = "Download Report",
-            icon = shiny::icon("download")
-          ),
-          class = if (nr_cards) "" else "disabled"
-        ),
-        load = shiny::actionButton(
-          session$ns("load_reporter_previewer"),
-          class = "teal-reporter simple_report_button",
-          `data-val` = shiny::restoreInput(id = session$ns("load_reporter_previewer"), default = NULL),
-          shiny::tags$span(
-            "Load Report", shiny::icon("upload")
-          )
-        ),
-        reset = reset_report_button_ui(session$ns("resetButtonPreviewer"), label = "Reset Report")
-      )
-
-      shiny::tags$div(
-        id = "previewer_reporter_encoding",
-        shiny::tags$h3("Download the Report"),
-        shiny::tags$hr(),
-        reporter_download_inputs(
-          rmd_yaml_args = rmd_yaml_args,
-          rmd_output = rmd_output,
-          showrcode = any_rcode_block(reporter),
-          session = session
-        ),
-        shiny::tags$div(
-          id = "previewer_reporter_buttons",
-          class = "previewer_buttons_line",
-          lapply(previewer_buttons_list[previewer_buttons], shiny::tags$div)
-        )
-      )
-    })
-
-    shiny::observeEvent(input$load_reporter_previewer, {
-      nr_cards <- length(reporter$get_cards())
-      shiny::showModal(
-        shiny::modalDialog(
-          easyClose = TRUE,
-          shiny::tags$h3("Load the Reporter"),
-          shiny::tags$hr(),
-          shiny::fileInput(ns("archiver_zip"), "Choose Reporter File to Load (a zip file)",
-            multiple = FALSE,
-            accept = c(".zip")
-          ),
-          footer = shiny::div(
-            shiny::tags$button(
-              type = "button",
-              class = "btn btn-danger",
-              `data-dismiss` = "modal",
-              `data-bs-dismiss` = "modal",
-              NULL,
-              "Cancel"
-            ),
-            shiny::tags$button(
-              id = ns("load_reporter"),
-              type = "button",
-              class = "btn btn-primary action-button",
-              `data-val` = shiny::restoreInput(id = ns("load_reporter"), default = NULL),
-              NULL,
-              "Load"
-            )
-          )
-        )
-      )
-    })
-
-    shiny::observeEvent(input$load_reporter, {
-      switch("JSON",
-        JSON = load_json_report(reporter, input$archiver_zip[["datapath"]], input$archiver_zip[["name"]]),
-        stop("The provided Reporter file format is not supported")
-      )
-
-      shiny::removeModal()
-    })
-
-    output$download_data_prev <- shiny::downloadHandler(
-      filename = function() {
-        paste0(
-          "report_",
-          if (reporter$get_id() == "") NULL else paste0(reporter$get_id(), "_"),
-          format(Sys.time(), "%y%m%d%H%M%S"),
-          ".zip"
-        )
-      },
-      content = function(file) {
-        shiny::showNotification("Rendering and Downloading the document.")
-        shinybusy::block(id = ns("download_data_prev"), text = "", type = "dots")
-
-        yaml_header <- lapply(names(rmd_yaml_args), function(x) input[[x]])
-        names(yaml_header) <- names(rmd_yaml_args)
-        if (is.logical(input$showrcode)) global_knitr[["echo"]] <- input$showrcode
-
-        if (identical("pdf_document", yaml_header$output) &&
-          inherits(try(system2("pdflatex", "--version", stdout = TRUE), silent = TRUE), "try-error")) {
-          shiny::showNotification(
-            ui = "pdflatex is not available so the pdf_document could not be rendered. Please use other output type.",
-            action = "Please contact app developer",
-            type = "error"
-          )
-          stop("pdflatex is not available so the pdf_document could not be rendered.")
-        }
-        yaml_content <- as_yaml_auto(yaml_header)
-
-        tryCatch(
-          output_dir <- report_render(reporter, yaml_content, global_knitr),
-          warning = function(cond) {
-            print(cond)
-            shiny::showNotification(
-              ui = "Render document warning!",
-              action = "Please contact app developer",
-              type = "warning"
-            )
-          },
-          error = function(cond) {
-            print(cond)
-            shiny::showNotification(
-              ui = "Render document error!",
-              action = "Please contact app developer",
-              type = "error"
-            )
-          }
-        )
-
-        tryCatch(
-          archiver_dir <- reporter$to_jsondir(output_dir),
-          warning = function(cond) {
-            print(cond)
-            shiny::showNotification(
-              ui = "Archive document warning!",
-              action = "Please contact app developer",
-              type = "warning"
-            )
-          },
-          error = function(cond) {
-            print(cond)
-            shiny::showNotification(
-              ui = "Archive document error!",
-              action = "Please contact app developer",
-              type = "error"
-            )
-          }
-        )
-
-        temp_zip_file <- tempfile(fileext = ".zip")
-        tryCatch(
-          expr = zip::zipr(temp_zip_file, output_dir),
-          warning = function(cond) {
-            print(cond)
-            shiny::showNotification(
-              ui = "Zipping folder warning!",
-              action = "Please contact app developer",
-              type = "warning"
-            )
-          },
-          error = function(cond) {
-            print(cond)
-            shiny::showNotification(
-              ui = "Zipping folder error!",
-              action = "Please contact app developer",
-              type = "error"
-            )
-          }
-        )
-
-        tryCatch(
-          expr = file.copy(temp_zip_file, file),
-          warning = function(cond) {
-            print(cond)
-            shiny::showNotification(
-              ui = "Copying file warning!",
-              action = "Please contact app developer",
-              type = "warning"
-            )
-          },
-          error = function(cond) {
-            print(cond)
-            shiny::showNotification(
-              ui = "Copying file error!",
-              action = "Please contact app developer",
-              type = "error"
-            )
-          }
-        )
-
-        shinybusy::unblock(id = ns("download_data_prev"))
-      },
-      contentType = "application/zip"
-    )
-  })
-}
-
 reporter_previewer_card_ui <- function(id, card_name) {
   ns <- NS(id)
   bslib::accordion_panel(
@@ -385,26 +172,26 @@ reporter_previewer_card_ui <- function(id, card_name) {
     title = tags$div(
       style = "display: flex; justify-content: space-between; align-items: center; width: 100%;",
       tags$span(card_name),
-        actionButton(
-          inputId = ns("edit"),
-          label = NULL,
-          icon = shiny::icon("edit"),
-          class = "btn btn-warning btn-sm",
-          onclick = sprintf(
-            "event.stopPropagation(); Shiny.setInputValue('%s', '%s', {priority: 'event'});",
-            ns("edit_card_clicked"),
-            card_name
-          )
-        ),
-        actionButton(
-          inputId = ns("remove"),
-          label = NULL,
-          icon = shiny::icon("trash-alt"),
-          class = "btn btn-danger btn-sm",
-          onclick = sprintf(
-            "event.stopPropagation(); Shiny.setInputValue('%s', '%s', {priority: 'event'});",
-            ns("delete_card_clicked"),
-            card_name
+      actionButton(
+        inputId = ns("edit"),
+        label = NULL,
+        icon = shiny::icon("edit"),
+        class = "btn btn-warning btn-sm",
+        onclick = sprintf(
+          "event.stopPropagation(); Shiny.setInputValue('%s', '%s', {priority: 'event'});",
+          ns("edit_card_clicked"),
+          card_name
+        )
+      ),
+      actionButton(
+        inputId = ns("remove"),
+        label = NULL,
+        icon = shiny::icon("trash-alt"),
+        class = "btn btn-danger btn-sm",
+        onclick = sprintf(
+          "event.stopPropagation(); Shiny.setInputValue('%s', '%s', {priority: 'event'});",
+          ns("delete_card_clicked"),
+          card_name
         )
       )
     ),
@@ -438,11 +225,14 @@ reporter_previewer_card_srv <- function(id, reporter, card) {
       }
     })
 
-    observeEvent(input$add_text_element_action, {
-      current_card_val <- card_reactive()
-      current_card_val[[length(current_card_val) + 1L]] <- ""
-      card_reactive(current_card_val)
-    }, ignoreInit = TRUE)
+    observeEvent(input$add_text_element_action,
+      {
+        current_card_val <- card_reactive()
+        current_card_val[[length(current_card_val) + 1L]] <- ""
+        card_reactive(current_card_val)
+      },
+      ignoreInit = TRUE
+    )
 
     observeEvent(input$edit, {
       shiny::showModal(
