@@ -132,7 +132,14 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' card2$set_name('Card2')
     #'
     #' reporter$replace_card("Card1", card2)
+    #' reporter$replace_card("Card1", card2)
     #' reporter$get_cards()[[1]]$get_name()
+    replace_card = function(id, card) {
+      if (is.character(id)) {
+        id <- which(names(private$cards) == id)
+      }
+      private$cards[[id]] <- card
+      private$reactive_add_card(length(private$cards))
     replace_card = function(id, card) {
       if (is.character(id)) {
         id <- which(names(private$cards) == id)
@@ -229,10 +236,13 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @description Removes specific `ReportCard` or `ReportDocument` objects from the `Reporter` by their indices.
     #'
     #' @param ids (`integer`, `character`) the indexes of cards (either name)
+    #' @param ids (`integer`, `character`) the indexes of cards (either name)
     #' @return `self`, invisibly.
     remove_cards = function(ids = NULL) {
       checkmate::assert(
         checkmate::check_null(ids),
+        checkmate::check_integer(ids, min.len = 1, max.len = length(private$cards)),
+        checkmate::check_character(ids, min.len = 1, max.len = length(private$cards))
         checkmate::check_integer(ids, min.len = 1, max.len = length(private$cards)),
         checkmate::check_character(ids, min.len = 1, max.len = length(private$cards))
       )
@@ -242,9 +252,17 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
 
       if (is.character(ids)) {
         ids <- which(names(private$cards) %in% ids)
+      if (is.null(ids)) {
+        return(invisible(self))
+      }
+
+      if (is.character(ids)) {
+        ids <- which(names(private$cards) %in% ids)
       }
       private$cards <- private$cards[-ids]
+      private$cards <- private$cards[-ids]
       private$reactive_add_card(length(private$cards))
+
 
       invisible(self)
     },

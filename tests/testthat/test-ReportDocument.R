@@ -1,40 +1,114 @@
-testthat::test_that("report_document creates a valid ReportDocument", {
-  report <- report_document("Title", "Content", 123)
-  testthat::expect_s3_class(report, "ReportDocument")
-  testthat::expect_length(report, 3)
-  testthat::expect_identical(report[[1]], "Title")
+
+testthat::test_that("report_document creates an empty ReportDocument", {
+  doc <- report_document()
+  testthat::expect_s3_class(doc, "ReportDocument")
+  testthat::expect_length(doc, 0)
 })
 
-testthat::test_that("append adds elements at the correct position", {
-  report <- report_document("Title", "Content")
-  report <- append(report, list("New Section"), after = 1)
-
-  testthat::expect_length(report, 3)
-  testthat::expect_identical(report[[2]], "New Section")
+testthat::test_that("report_document creates a ReportDocument with initial elements", {
+  doc <- report_document("a", list(1, 2), code_chunk("print('hi')"))
+  testthat::expect_s3_class(doc, "ReportDocument")
+  testthat::expect_length(doc, 3)
+  testthat::expect_equal(doc[[1]], "a")
+  testthat::expect_s3_class(doc[[3]], "code_chunk")
 })
 
+testthat::test_that("c.ReportDocument combines elements and retains class", {
+  doc1 <- report_document("a", "b")
+  doc2 <- c(doc1, "c", list("d"))
+  testthat::expect_s3_class(doc2, "ReportDocument")
+  testthat::expect_length(doc2, 4)
+  testthat::expect_equal(doc2[[3]], "c")
 
-testthat::test_that("edit_report_document correctly modifies and appends elements", {
-  report <- report_document("A", "B", "C")
-
-  # Modify order
-  modified_report <- edit_report_document(report, modify = c(3, 1))
-  testthat::expect_identical(modified_report, report_document("C", "A"))
-  testthat::expect_s3_class(modified_report, "ReportDocument")
-
-  # Append new element
-  appended_report <- edit_report_document(report, append = "D")
-  testthat::expect_length(appended_report, 4)
-  testthat::expect_identical(appended_report[[4]], "D")
+  doc3 <- report_document("e")
+  doc4 <- c(doc1, doc3)
+  testthat::expect_s3_class(doc4, "ReportDocument")
+  testthat::expect_length(doc4, 3)
+  testthat::expect_equal(doc4[[3]], "e") # Assuming it unnests the ReportDocument
 })
 
+testthat::test_that("[.ReportDocument subsets and retains class", {
+  doc <- report_document("a", "b", "c", "d")
+  sub_doc <- doc[c(1, 3)]
+  testthat::expect_s3_class(sub_doc, "ReportDocument")
+  testthat::expect_length(sub_doc, 2)
+  testthat::expect_equal(sub_doc[[1]], "a")
+  testthat::expect_equal(sub_doc[[2]], "c")
 
-testthat::test_that("edit_report_document handles empty and null cases correctly", {
-  report <- report_document()
-  testthat::expect_s3_class(report, "ReportDocument")
-  testthat::expect_length(report, 0)
-
-  modified_report <- edit_report_document(report, modify = NULL, append = "X")
-  testthat::expect_length(modified_report, 1)
-  testthat::expect_identical(modified_report[[1]], "X")
+  empty_sub_doc <- doc[0]
+  testthat::expect_s3_class(empty_sub_doc, "ReportDocument")
+  testthat::expect_length(empty_sub_doc, 0)
 })
+
+testthat::test_that("edit_report_document modifies elements", {
+  doc <- report_document("a", "b", "c")
+  edited_doc <- edit_report_document(doc, modify = c(3, 1))
+  testthat::expect_s3_class(edited_doc, "ReportDocument")
+  testthat::expect_length(edited_doc, 2)
+  testthat::expect_equal(edited_doc[[1]], "c")
+  testthat::expect_equal(edited_doc[[2]], "a")
+})
+
+testthat::test_that("edit_report_document appends elements", {
+  doc <- report_document("a", "b")
+  edited_doc <- edit_report_document(doc, append = "c")
+  testthat::expect_s3_class(edited_doc, "ReportDocument")
+  testthat::expect_length(edited_doc, 3)
+  testthat::expect_equal(edited_doc[[3]], "c")
+
+  edited_doc_after <- edit_report_document(doc, append = "c", after = 1)
+  testthat::expect_s3_class(edited_doc_after, "ReportDocument")
+  testthat::expect_length(edited_doc_after, 3)
+  testthat::expect_equal(edited_doc_after[[1]], "a")
+  testthat::expect_equal(edited_doc_after[[2]], "c")
+  testthat::expect_equal(edited_doc_after[[3]], "b")
+})
+
+testthat::test_that("edit_report_document modifies and appends", {
+  doc <- report_document("a", "b", "c", "d")
+  edited_doc <- edit_report_document(doc, modify = c(4, 1), append = "e", after = 1)
+  # After modify: doc becomes ("d", "a")
+  # After append: doc becomes ("d", "e", "a")
+  testthat::expect_s3_class(edited_doc, "ReportDocument")
+  testthat::expect_length(edited_doc, 3)
+  testthat::expect_equal(edited_doc[[1]], "d")
+  testthat::expect_equal(edited_doc[[2]], "e")
+  testthat::expect_equal(edited_doc[[3]], "a")
+})
+
+testthat::test_that("edit_report_document preserves attributes", {
+  doc <- report_document("a")
+  attr(doc, "custom_attr") <- "test_value"
+  edited_doc <- edit_report_document(doc, append = "b")
+  testthat::expect_equal(attributes(edited_doc)$custom_attr, "test_value")
+  testthat::expect_s3_class(edited_doc, "ReportDocument") 
+})
+
+testthat::test_that("code_chunk creates a code_chunk object with params", {
+  chunk <- code_chunk("print('hello')", echo = FALSE, eval = TRUE)
+  testthat::expect_s3_class(chunk, "code_chunk")
+  testthat::expect_equal(as.character(chunk), "print('hello')")
+  testthat::expect_equal(attributes(chunk)$params, list(echo = FALSE, eval = TRUE))
+})
+
+testthat::test_that("code_output formats code as markdown string", {
+  output <- code_output("x <- 1")
+  testthat::expect_type(output, "character")
+  testthat::expect_equal(output, "```\nx <- 1\n```")
+})
+
+testthat::test_that("keep_in_report sets the 'keep' attribute", {
+  obj1 <- "some text"
+  kept_obj1 <- keep_in_report(obj1, TRUE)
+  testthat::expect_true(attributes(kept_obj1)$keep)
+
+  obj2 <- list(a = 1)
+  not_kept_obj2 <- keep_in_report(obj2, FALSE)
+  testthat::expect_false(attributes(not_kept_obj2)$keep)
+
+  # Test default is TRUE
+  obj3 <- "another text"
+  kept_obj3_default <- keep_in_report(obj3)
+  testthat::expect_true(attributes(kept_obj3_default)$keep)
+})
+

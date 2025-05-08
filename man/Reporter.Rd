@@ -92,6 +92,7 @@ card2$append_table(table_res2)
 card2$set_name('Card2')
 
 reporter$replace_card("Card1", card2)
+reporter$replace_card("Card1", card2)
 reporter$get_cards()[[1]]$get_name()
 \dontshow{\}) # examplesIf}
 \dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
@@ -243,6 +244,7 @@ reporter$get_cards()
 \item \href{#method-Reporter-append_cards}{\code{Reporter$append_cards()}}
 \item \href{#method-Reporter-reorder_cards}{\code{Reporter$reorder_cards()}}
 \item \href{#method-Reporter-replace_card}{\code{Reporter$replace_card()}}
+\item \href{#method-Reporter-replace_card}{\code{Reporter$replace_card()}}
 \item \href{#method-Reporter-get_cards}{\code{Reporter$get_cards()}}
 \item \href{#method-Reporter-get_blocks}{\code{Reporter$get_blocks()}}
 \item \href{#method-Reporter-reset}{\code{Reporter$reset()}}
@@ -328,8 +330,12 @@ Reorders \code{ReportCard} or \code{ReportDocument} objects in \code{Reporter}.
 \if{html}{\out{<a id="method-Reporter-replace_card"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-replace_card}{}}}
 \subsection{Method \code{replace_card()}}{
+\if{html}{\out{<a id="method-Reporter-replace_card"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-replace_card}{}}}
+\subsection{Method \code{replace_card()}}{
 Sets \code{ReportCard} or \code{ReportDocument} content.
 \subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$replace_card(id, card)}\if{html}{\out{</div>}}
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$replace_card(id, card)}\if{html}{\out{</div>}}
 }
 
@@ -405,6 +411,7 @@ Removes specific \code{ReportCard} or \code{ReportDocument} objects from the \co
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{ids}}{(\code{integer}, \code{character}) the indexes of cards (either name)}
 \item{\code{ids}}{(\code{integer}, \code{character}) the indexes of cards (either name)}
 }
 \if{html}{\out{</div>}}

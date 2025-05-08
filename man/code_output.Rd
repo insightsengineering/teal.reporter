@@ -10,17 +10,29 @@ code_chunk(code, ...)
 code_output(code)
 }
 \arguments{
-\item{code}{A character string containing the R code to be wrapped in the chunk.}
+\item{code}{A character string containing the R code.}
 
-\item{...}{Additional named parameters to be included inside \code{{r}}.}
+\item{...}{Additional named parameters to be included as chunk options (e.g., \code{echo = TRUE}).}
 }
 \value{
-A formatted character string representing an R Markdown code chunk.
+An object of class \code{code_chunk}.
+
+A character string representing a simple Markdown code block.
 }
 \description{
-This function takes a character string as input and formats it as an R Markdown code chunk.
-Additional named parameters passed via \code{...} will be included inside \code{{r}}.
+This function creates a \code{code_chunk} object, which represents an R Markdown
+code chunk. It stores the R code and any specified chunk options (e.g., \code{echo}, \code{eval}).
+These objects are typically processed later to generate the final R Markdown text.
+
+This function takes a character string of R code and wraps it in
+Markdown's triple backticks for code blocks.
 }
 \examples{
-code_chunk("x <- 1:10", echo = TRUE, message = FALSE)
+my_chunk <- code_chunk("x <- 1:10", echo = TRUE, message = FALSE)
+class(my_chunk)
+attributes(my_chunk)$param
+code_output("y <- rnorm(5)")
+}
+\seealso{
+\code{\link[=code_chunk]{code_chunk()}} for creating structured code chunk objects with options.
 }

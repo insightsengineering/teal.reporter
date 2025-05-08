@@ -32,6 +32,7 @@ reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
   bslib::page_fluid(
     shiny::tagList(
+      
       shiny::tagList(
         shiny::singleton(
           shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
@@ -151,6 +152,7 @@ reporter_previewer_srv <- function(id,
         bslib::accordion_panel_remove(id = "reporter_cards", target = card_name)
       })
     })
+
   })
 }
 

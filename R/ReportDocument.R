@@ -95,15 +95,18 @@ edit_report_document <- function(x, modify = NULL, append = NULL, after = length
 
 #' Generate an R Markdown code chunk
 #'
-#' This function takes a character string as input and formats it as an R Markdown code chunk.
-#' Additional named parameters passed via `...` will be included inside `{r}`.
+#' This function creates a `code_chunk` object, which represents an R Markdown
+#' code chunk. It stores the R code and any specified chunk options (e.g., `echo`, `eval`).
+#' These objects are typically processed later to generate the final R Markdown text.
 #'
-#' @param code A character string containing the R code to be wrapped in the chunk.
-#' @param ... Additional named parameters to be included inside `{r}`.
+#' @param code A character string containing the R code.
+#' @param ... Additional named parameters to be included as chunk options (e.g., `echo = TRUE`).
 #'
-#' @return A formatted character string representing an R Markdown code chunk.
+#' @return An object of class `code_chunk`.
 #' @examples
-#' code_chunk("x <- 1:10", echo = TRUE, message = FALSE)
+#' my_chunk <- code_chunk("x <- 1:10", echo = TRUE, message = FALSE)
+#' class(my_chunk)
+#' attributes(my_chunk)$param
 #' @export
 #' @rdname code_output
 code_chunk <- function(code, ...) {
@@ -115,6 +118,16 @@ code_chunk <- function(code, ...) {
   )
 }
 
+#' Format R code as a simple Markdown code block string
+#'
+#' This function takes a character string of R code and wraps it in
+#' Markdown's triple backticks for code blocks.
+#'
+#' @param code A character string containing the R code.
+#' @return A character string representing a simple Markdown code block.
+#' @seealso [code_chunk()] for creating structured code chunk objects with options.
+#' @examples
+#' code_output("y <- rnorm(5)")
 #' @export
 #' @rdname code_output
 code_output <- function(code) {
@@ -122,21 +135,34 @@ code_output <- function(code) {
 }
 
 #' @title Keep Objects In Report
-#' @description Utility function to change behavior of `report_document()` elements to be
-#' kept (`keep = TRUE`) or discarded (keep = `FALSE`) from the final `.Rmd` file containing downloaded report.
-#' @details By default all R objects are only printed in the output document, but not kept in the `.Rmd` report.
-#' By defaulf all text elements and `code_chunk` objects are kep both in the output document and `.Rmd` report.
+#' @description Utility function to change behavior of `ReportDocument` elements to be
+#' kept (`keep = TRUE`) or discarded (`keep = FALSE`) from the final `.Rmd` file containing the downloaded report.
+#' @details By default, R objects like `summary` outputs are only printed in the output document but their
+#'   code is not included in the `.Rmd` report source. Text elements (character strings) and `code_chunk`
+#'   objects are, by default, kept both in the output document and the `.Rmd` report source.
+#'   This function allows overriding the default behavior for specific objects.
+#' @param object An R object, typically an element intended for a `ReportDocument`.
+#' @param keep (`logical`) If `TRUE` (default), the object is marked to be kept in the `.Rmd` source;
+#'   if `FALSE`, it's marked for printing only in the output document (and not in the `.Rmd` source,
+#'   though its print output will be in the rendered document).
 #'
+#' @return The input `object` with its "keep" attribute modified.
+#' @examples
+#' item1 <- summary(iris)
+#' item1_kept <- keep_in_report(item1, TRUE)
+#' attributes(item1_kept)$keep
+#'
+#' item2 <- "## A Title" # Text is usually kept by default
+#' item2_not_kept_in_rmd_source <- keep_in_report(item2, FALSE) # Example to override
+#' attributes(item2_not_kept_in_rmd_source)$keep
+#'
+#' # Conceptual usage within a ReportDocument
+#' # report <- report_document()
+#' # report <- c(report, keep_in_report(summary(mtcars), FALSE)) # Explicitly don't keep R object source
+#' # report <- c(report, keep_in_report(code_chunk("print('hello')"), TRUE)) # Code chunks kept by default
 #' @export
-#' @rdname keep_in_report
 keep_in_report <- function(object, keep = TRUE) {
   attr(object, "keep") <- keep
   object
 }
 
-#' #' @export
-#' #' @rdname code_output
-#' link_output <- function(object, output) {
-#'   attr(object, "output") <- output
-#'   object
-#' }
