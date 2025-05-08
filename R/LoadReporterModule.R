@@ -4,9 +4,10 @@
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
+#' @param label (`character(1)`) label before the icon. By default `NULL`.
 #' @return `shiny::tagList`
 #' @export
-report_load_ui <- function(id) {
+report_load_ui <- function(id, label = NULL) {
   ns <- shiny::NS(id)
 
   shiny::tagList(
@@ -17,9 +18,8 @@ report_load_ui <- function(id) {
       ns("reporter_load"),
       class = "teal-reporter simple_report_button btn-primary",
       title = "Load",
-      shiny::tags$span(
-        shiny::icon("upload")
-      )
+      label = label,
+      icon = shiny::icon("upload")
     )
   )
 }

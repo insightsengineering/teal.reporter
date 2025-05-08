@@ -9,8 +9,7 @@
 #' @name reset_report_button
 #'
 #' @param id (`character(1)`) `shiny` module instance id.
-#' @param label (`character(1)`) label before the icon.
-#' By default `NULL`.
+#' @param label (`character(1)`) label before the icon. By default `NULL`.
 #' @param reporter (`Reporter`) instance.
 #' @return `NULL`.
 NULL
@@ -25,14 +24,14 @@ reset_report_button_ui <- function(id, label = NULL) {
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
-    shiny::actionButton(
-      ns("reset_reporter"),
-      class = "teal-reporter simple_report_button clear-report btn-warning",
-      title = "Reset",
-      `data-val` = shiny::restoreInput(id = ns("reset_reporter"), default = NULL),
-      shiny::tags$span(
-        if (!is.null(label)) label,
-        shiny::icon("xmark")
+    shinyjs::disabled(
+      shiny::actionButton(
+        ns("reset_reporter"),
+        class = "teal-reporter simple_report_button clear-report btn-warning",
+        title = "Reset",
+        `data-val` = shiny::restoreInput(id = ns("reset_reporter"), default = NULL),
+        label = label,
+        icon = shiny::icon("xmark")
       )
     )
   )
@@ -76,6 +75,14 @@ reset_report_button_srv <- function(id, reporter) {
           )
         )
       )
+    })
+
+    observeEvent(reporter$get_reactive_add_card(), {
+      if (length(reporter$get_cards())) {
+        shinyjs::enable("reset_reporter")
+      } else {
+        shinyjs::disable("reset_reporter")
+      }
     })
 
     shiny::observeEvent(input$reset_reporter_ok, {

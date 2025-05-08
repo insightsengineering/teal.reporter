@@ -11,6 +11,7 @@
 #' @name download_report_button
 #'
 #' @param id (`character(1)`) this `shiny` module's id.
+#' @param label (`character(1)`) label before the icon. By default `NULL`.
 #' @param reporter (`Reporter`) instance.
 #' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
 #'  for customizing the rendering process.
@@ -21,19 +22,20 @@ NULL
 
 #' @rdname download_report_button
 #' @export
-download_report_button_ui <- function(id) {
+download_report_button_ui <- function(id, label = NULL) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
-    shiny::actionButton(
-      ns("download_button"),
-      class = "teal-reporter simple_report_button btn-primary",
-      title = "Download",
-      `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
-      shiny::tags$span(
-        shiny::icon("download")
+    shinyjs::disabled(
+      shiny::actionButton(
+        ns("download_button"),
+        class = "teal-reporter simple_report_button btn-primary",
+        label = label,
+        title = "Download",
+        `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
+        icon = shiny::icon("download")
       )
     )
   )
@@ -78,39 +80,19 @@ download_report_button_srv <- function(id,
 
     download_modal <- function() {
       nr_cards <- length(reporter$get_cards())
-      downb <- shiny::tags$a(
-        id = ns("download_data"),
-        class = paste("btn btn-primary shiny-download-link", if (nr_cards) NULL else "disabled"),
-        style = if (nr_cards) NULL else "pointer-events: none;",
-        href = "",
-        target = "_blank",
-        download = NA,
-        shiny::icon("download"),
-        "Download"
-      )
       shiny::tags$div(
         class = "teal-widgets reporter-modal",
         shiny::modalDialog(
           easyClose = TRUE,
           shiny::tags$h3("Download the Report"),
           shiny::tags$hr(),
-          if (length(reporter$get_cards()) == 0) {
-            shiny::tags$div(
-              class = "mb-4",
-              shiny::tags$p(
-                class = "text-danger",
-                shiny::tags$strong("No Cards Added")
-              )
-            )
-          } else {
-            shiny::tags$div(
-              class = "mb-4",
-              shiny::tags$p(
-                class = "text-success",
-                shiny::tags$strong(paste("Number of cards: ", nr_cards))
-              ),
-            )
-          },
+          shiny::tags$div(
+            class = "mb-4",
+            shiny::tags$p(
+              class = "text-success",
+              shiny::tags$strong(paste("Number of cards: ", nr_cards))
+            ),
+          ),
           reporter_download_inputs(
             rmd_yaml_args = rmd_yaml_args,
             rmd_output = rmd_output,
@@ -126,11 +108,27 @@ download_report_button_srv <- function(id,
               NULL,
               "Cancel"
             ),
-            downb
+            shiny::tags$a(
+              id = ns("download_data"),
+              class = "btn btn-primary shiny-download-link",
+              href = "",
+              target = "_blank",
+              download = NA,
+              shiny::icon("download"),
+              "Download"
+            )
           )
         )
       )
     }
+
+    observeEvent(reporter$get_reactive_add_card(), {
+      if (length(reporter$get_cards())) {
+        shinyjs::enable("download_button")
+      } else {
+        shinyjs::disable("download_button")
+      }
+    })
 
     shiny::observeEvent(input$download_button, {
       shiny::showModal(download_modal())
@@ -257,6 +255,8 @@ reporter_download_inputs <- function(rmd_yaml_args, rmd_output, showrcode, sessi
 #' @keywords internal
 any_rcode_block <- function(reporter) {
   cards <- reporter$get_cards()
+
+  # todo: make sure code_chunk is also noticed
   if (all(vapply(cards, inherits, logical(1), "ReportCard"))) {
     any(
       vapply(
@@ -269,8 +269,6 @@ any_rcode_block <- function(reporter) {
     FALSE
   }
 }
-
-
 
 report_render <- function(reporter, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
   tmp_dir <- tempdir()

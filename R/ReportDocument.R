@@ -39,40 +39,23 @@
 #' @export
 report_document <- function(...) {
   objects <- list(...)
-  # stopifnot("All input objects must be of length 1." = all(unlist(lapply(objects, length)) == 1))
-  # Above is not needed, as ggplot has length 11.
   structure(objects, class = c("ReportDocument"))
 }
 
 #' @rdname report_document
 #' @export
 c.ReportDocument <- function(...) {
-  # Regular c() drops classes and attributes, so we either overwrite the method
-  # or we do not use ReportDocument class, but list class.
-
-  # Does not work, if ReportDocument is the second element, and not the first.
-  # teal.reporter::report_document() -> x
-  # class(c(list(), x)) # list
-  # class(c(x, list())) # ReportDocument
-  # append(x, list(), after = 1) # ReportDocument
-  # append(x, list(), after = 0) # list()
-
-  input_objects <- list(...)
-  attrs <- attributes(input_objects[[1]])
-  objects <- do.call(c, lapply(input_objects, unclass))
-  attributes(objects) <- attrs
-  objects
+  out <- NextMethod()
+  class(out) <- "ReportDocument"
+  out
 }
 
 #' @rdname report_document
 #' @export
 `[.ReportDocument` <- function(x, i) {
-  # Regular [] drops classes, so we either overwrite the method
-  # or we do not use ReportDocument class, but list class.
-  attrs <- attributes(x)
-  xi <- unclass(x)[i]
-  attributes(xi) <- attrs
-  xi
+  out <- NextMethod()
+  class(out) <- "ReportDocument"
+  out
 }
 
 #' @rdname report_document
@@ -94,7 +77,7 @@ c.ReportDocument <- function(...) {
 #' @export
 edit_report_document <- function(x, modify = NULL, append = NULL, after = length(x)) {
   checkmate::assert_class(x, "ReportDocument")
-  checkmate::assert_class(modify, "integer", null.ok = TRUE)
+  checkmate::assert_class(modify, "numeric", null.ok = TRUE)
 
   attrs <- attributes(x)
 
