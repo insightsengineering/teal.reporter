@@ -165,4 +165,3 @@ keep_in_report <- function(object, keep = TRUE) {
   attr(object, "keep") <- keep
   object
 }
-
