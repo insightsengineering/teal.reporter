@@ -39,8 +39,6 @@
 #' @export
 report_document <- function(...) {
   objects <- list(...)
-  # stopifnot("All input objects must be of length 1." = all(unlist(lapply(objects, length)) == 1))
-  # Above is not needed, as ggplot has length 11.
   structure(objects, class = c("ReportDocument"))
 }
 
