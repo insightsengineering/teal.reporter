@@ -2,41 +2,78 @@ editor_ui <- function(id, x) {
   UseMethod("editor_ui", x)
 }
 
-editor_srv <- function(id, x) {
+editor_srv <- function(id, x, x_reactive = x) {
+  checkmate::assert_class(x_reactive, "reactiveVal")
   UseMethod("editor_srv", x)
 }
 
 #' @export
 editor_ui.reactiveVal <- function(id, x) {
   ns <- NS(id)
-  uiOutput(ns("content"))
+  editor_ui(ns("editor"), isolate(x()))
 }
 
 #' @export
-editor_srv.reactiveVal <- function(id, x) {
+editor_srv.reactiveVal <- function(id, x, x_reactive = x) {
   moduleServer(id, function(input, output, session) {
-    output$content <- renderUI(editor_ui(session$ns("editor"), x()))
-    eventReactive(x(), {
-      editor_srv("editor", x())()
+    observeEvent(x(), ignoreNULL = TRUE, once = TRUE, {
+      editor_srv("editor", x(), x)
     })
+    x
   })
 }
 
 #' @export
 editor_ui.ReportDocument <- function(id, x) {
   ns <- NS(id)
-  tagList(
-    lapply(seq_along(x), function(i) editor_ui(ns(i), x[[i]]))
+  tags$div(
+    uiOutput(ns("blocks")),
+    actionButton(ns("add_block"), label = "Add text block", icon = shiny::icon("plus"))
   )
 }
 
 #' @export
-editor_srv.ReportDocument <- function(id, x) {
+editor_srv.ReportDocument <- function(id, x, x_reactive) {
   moduleServer(id, function(input, output, session) {
-    new_content <- lapply(seq_along(x), function(i) editor_srv(i, x[[i]]))
+    output$blocks <- renderUI({
+      tagList(
+        lapply(names(x_reactive()), function(block_name) {
+          editor_ui(session$ns(block_name), x = x_reactive()[[block_name]])
+        })
+      )
+    })
 
-    reactive({
-      structure(lapply(new_content, function(reactive_block) reactive_block()), class = "ReportDocument")
+    # observer calls observer but in a limited scope - only for new items child observers are created
+    #  - we can also keep them in a list in order to kill them when we need.
+    blocks_called <- reactiveVal()
+    blocks_new <- reactive(setdiff(names(x_reactive()), blocks_called()))
+    observeEvent(blocks_new(), {
+      if (length(blocks_new())) {
+        new_blocks <- sapply(blocks_new(), function(block_name) {
+          reactive_block <- reactiveVal(x_reactive()[[block_name]])
+          editor_srv(block_name, x = x_reactive()[[block_name]], x_reactive = reactive_block)
+          observeEvent(reactive_block(), ignoreNULL = FALSE, {
+            new_x <- x_reactive()
+            new_x[[block_name]] <- reactive_block()
+            x_reactive(new_x)
+          })
+        })
+        blocks_called(c(blocks_called(), blocks_new()))
+      }
+    })
+
+    observeEvent(input$add_block, {
+      # because only new names will be called (see blocks_new)
+      new_name <- tail(
+        make.unique(
+          c(
+            blocks_called(),
+            "block"
+          )
+        ),
+        1
+      )
+      x_reactive(c(x_reactive(), setNames(list(""), new_name)))
     })
   })
 }
@@ -47,9 +84,9 @@ editor_ui.default <- function(id, x) {
 }
 
 #' @export
-editor_srv.default <- function(id, x) {
+editor_srv.default <- function(id, x, x_reactive) {
   moduleServer(id, function(input, output, session) {
-    reactive(x)
+    x_reactive
   })
 }
 
@@ -60,8 +97,10 @@ editor_ui.character <- function(id, x) {
 }
 
 #' @export
-editor_srv.character <- function(id, x) {
+editor_srv.character <- function(id, x, x_reactive) {
   moduleServer(id, function(input, output, session) {
-    eventReactive(input$content, input$content)
+    observeEvent(input$content, {
+      x_reactive(input$content)
+    })
   })
 }

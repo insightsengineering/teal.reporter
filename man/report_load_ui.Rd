@@ -4,10 +4,12 @@
 \alias{report_load_ui}
 \title{User Interface to Load \code{Reporter}}
 \usage{
-report_load_ui(id)
+report_load_ui(id, label = NULL)
 }
 \arguments{
 \item{id}{\code{character(1)} this \code{shiny} module's id.}
+
+\item{label}{(\code{character(1)}) label before the icon. By default \code{NULL}.}
 }
 \value{
 \code{shiny::tagList}

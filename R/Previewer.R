@@ -204,6 +204,7 @@ reporter_previewer_card_srv <- function(id, reporter, card) {
   # todo: card_name should be only on the server side
   moduleServer(id, function(input, output, session) {
     # to react to the changes in the card
+    names(card) <- make.unique(rep("block", length(card)))
     card_reactive <- reactiveVal(card)
 
     output$card_content <- renderUI(toHTML(card_reactive()))
@@ -214,25 +215,6 @@ reporter_previewer_card_srv <- function(id, reporter, card) {
     # editor
     editor_ui <- editor_ui(session$ns("editor"), x = card_reactive)
     new_card <- editor_srv("editor", x = card_reactive)
-
-    output$add_text_element_button_ui <- renderUI({
-      if (inherits(card_reactive(), "ReportDocument")) {
-        actionButton(
-          session$ns("add_text_element_action"),
-          "Add Empty Text Element",
-          class = "btn btn-info btn-sm mb-2"
-        )
-      }
-    })
-
-    observeEvent(input$add_text_element_action,
-      {
-        current_card_val <- card_reactive()
-        current_card_val[[length(current_card_val) + 1L]] <- ""
-        card_reactive(current_card_val)
-      },
-      ignoreInit = TRUE
-    )
 
     observeEvent(input$edit, {
       shiny::showModal(

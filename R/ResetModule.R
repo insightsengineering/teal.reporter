@@ -9,8 +9,7 @@
 #' @name reset_report_button
 #'
 #' @param id (`character(1)`) `shiny` module instance id.
-#' @param label (`character(1)`) label before the icon.
-#' By default `NULL`.
+#' @param label (`character(1)`) label before the icon. By default `NULL`.
 #' @param reporter (`Reporter`) instance.
 #' @return `NULL`.
 NULL

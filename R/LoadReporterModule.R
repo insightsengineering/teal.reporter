@@ -4,6 +4,7 @@
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
+#' @param label (`character(1)`) label before the icon. By default `NULL`.
 #' @return `shiny::tagList`
 #' @export
 report_load_ui <- function(id, label = NULL) {

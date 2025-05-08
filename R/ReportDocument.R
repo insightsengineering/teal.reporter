@@ -47,32 +47,17 @@ report_document <- function(...) {
 #' @rdname report_document
 #' @export
 c.ReportDocument <- function(...) {
-  # Regular c() drops classes and attributes, so we either overwrite the method
-  # or we do not use ReportDocument class, but list class.
-
-  # Does not work, if ReportDocument is the second element, and not the first.
-  # teal.reporter::report_document() -> x
-  # class(c(list(), x)) # list
-  # class(c(x, list())) # ReportDocument
-  # append(x, list(), after = 1) # ReportDocument
-  # append(x, list(), after = 0) # list()
-
-  input_objects <- list(...)
-  attrs <- attributes(input_objects[[1]])
-  objects <- do.call(c, lapply(input_objects, unclass))
-  attributes(objects) <- attrs
-  objects
+  out <- NextMethod()
+  class(out) <- "ReportDocument"
+  out
 }
 
 #' @rdname report_document
 #' @export
 `[.ReportDocument` <- function(x, i) {
-  # Regular [] drops classes, so we either overwrite the method
-  # or we do not use ReportDocument class, but list class.
-  attrs <- attributes(x)
-  xi <- unclass(x)[i]
-  attributes(xi) <- attrs
-  xi
+  out <- NextMethod()
+  class(out) <- "ReportDocument"
+  out
 }
 
 #' @rdname report_document

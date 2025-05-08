@@ -11,6 +11,7 @@
 #' @name download_report_button
 #'
 #' @param id (`character(1)`) this `shiny` module's id.
+#' @param label (`character(1)`) label before the icon. By default `NULL`.
 #' @param reporter (`Reporter`) instance.
 #' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
 #'  for customizing the rendering process.
