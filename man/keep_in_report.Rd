@@ -6,11 +6,37 @@
 \usage{
 keep_in_report(object, keep = TRUE)
 }
+\arguments{
+\item{object}{An R object, typically an element intended for a \code{ReportDocument}.}
+
+\item{keep}{(\code{logical}) If \code{TRUE} (default), the object is marked to be kept in the \code{.Rmd} source;
+if \code{FALSE}, it's marked for printing only in the output document (and not in the \code{.Rmd} source,
+though its print output will be in the rendered document).}
+}
+\value{
+The input \code{object} with its "keep" attribute modified.
+}
 \description{
-Utility function to change behavior of \code{report_document()} elements to be
-kept (\code{keep = TRUE}) or discarded (keep = \code{FALSE}) from the final \code{.Rmd} file containing downloaded report.
+Utility function to change behavior of \code{ReportDocument} elements to be
+kept (\code{keep = TRUE}) or discarded (\code{keep = FALSE}) from the final \code{.Rmd} file containing the downloaded report.
 }
 \details{
-By default all R objects are only printed in the output document, but not kept in the \code{.Rmd} report.
-By defaulf all text elements and \code{code_chunk} objects are kep both in the output document and \code{.Rmd} report.
+By default, R objects like \code{summary} outputs are only printed in the output document but their
+code is not included in the \code{.Rmd} report source. Text elements (character strings) and \code{code_chunk}
+objects are, by default, kept both in the output document and the \code{.Rmd} report source.
+This function allows overriding the default behavior for specific objects.
+}
+\examples{
+item1 <- summary(iris)
+item1_kept <- keep_in_report(item1, TRUE)
+attributes(item1_kept)$keep
+
+item2 <- "## A Title" # Text is usually kept by default
+item2_not_kept_in_rmd_source <- keep_in_report(item2, FALSE) # Example to override
+attributes(item2_not_kept_in_rmd_source)$keep
+
+# Conceptual usage within a ReportDocument
+# report <- report_document()
+# report <- c(report, keep_in_report(summary(mtcars), FALSE)) # Explicitly don't keep R object source
+# report <- c(report, keep_in_report(code_chunk("print('hello')"), TRUE)) # Code chunks kept by default
 }

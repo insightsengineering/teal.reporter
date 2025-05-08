@@ -103,7 +103,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
     #' @description Sets `ReportCard` or `ReportDocument` content.
-    #' @param idx Name of the `ReportCard` or `ReportDocument` to be replaced.
+    #' @param id Name of the `ReportCard` or `ReportDocument` to be replaced.
     #' @param card The new object (`ReportCard` or `ReportDocument`) to replace the existing one.
     #' @return `self`, invisibly.
     #' @examplesIf require("ggplot2")

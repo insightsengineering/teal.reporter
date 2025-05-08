@@ -336,9 +336,9 @@ Sets \code{ReportCard} or \code{ReportDocument} content.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{card}}{The new object (\code{ReportCard} or \code{ReportDocument}) to replace the existing one.}
+\item{\code{id}}{Name of the \code{ReportCard} or \code{ReportDocument} to be replaced.}
 
-\item{\code{idx}}{Name of the \code{ReportCard} or \code{ReportDocument} to be replaced.}
+\item{\code{card}}{The new object (\code{ReportCard} or \code{ReportDocument}) to replace the existing one.}
 }
 \if{html}{\out{</div>}}
 }
