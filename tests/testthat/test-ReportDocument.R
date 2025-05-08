@@ -1,4 +1,3 @@
-
 testthat::test_that("report_document creates an empty ReportDocument", {
   doc <- report_document()
   testthat::expect_s3_class(doc, "ReportDocument")
@@ -81,7 +80,7 @@ testthat::test_that("edit_report_document preserves attributes", {
   attr(doc, "custom_attr") <- "test_value"
   edited_doc <- edit_report_document(doc, append = "b")
   testthat::expect_equal(attributes(edited_doc)$custom_attr, "test_value")
-  testthat::expect_s3_class(edited_doc, "ReportDocument") 
+  testthat::expect_s3_class(edited_doc, "ReportDocument")
 })
 
 testthat::test_that("code_chunk creates a code_chunk object with params", {
@@ -111,4 +110,3 @@ testthat::test_that("keep_in_report sets the 'keep' attribute", {
   kept_obj3_default <- keep_in_report(obj3)
   testthat::expect_true(attributes(kept_obj3_default)$keep)
 })
-
