@@ -99,8 +99,10 @@ editor_ui.character <- function(id, x) {
 #' @export
 editor_srv.character <- function(id, x, x_reactive) {
   moduleServer(id, function(input, output, session) {
-    observeEvent(input$content, {
-      x_reactive(input$content)
+       debounced_content <- shiny::debounce(reactive(input$content), millis = 1000) 
+
+    observeEvent(debounced_content(), {
+      x_reactive(debounced_content())
     })
   })
 }
