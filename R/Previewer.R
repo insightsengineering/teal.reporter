@@ -156,35 +156,27 @@ reporter_previewer_srv <- function(id,
 
 reporter_previewer_card_ui <- function(id, card_name) {
   ns <- NS(id)
-  bslib::accordion_panel(
+  accordion_item <- bslib::accordion_panel(
     value = card_name,
-    title = tags$div(
-      style = "display: flex; justify-content: space-between; align-items: center; width: 100%;",
-      tags$span(card_name),
-      actionButton(
-        inputId = ns("edit"),
-        label = NULL,
-        icon = shiny::icon("edit"),
-        class = "btn btn-warning btn-sm",
-        onclick = sprintf(
-          "event.stopPropagation(); Shiny.setInputValue('%s', '%s', {priority: 'event'});",
-          ns("edit_card_clicked"),
-          card_name
-        )
-      ),
-      actionButton(
-        inputId = ns("remove"),
-        label = NULL,
-        icon = shiny::icon("trash-alt"),
-        class = "btn btn-danger btn-sm",
-        onclick = sprintf(
-          "event.stopPropagation(); Shiny.setInputValue('%s', '%s', {priority: 'event'});",
-          ns("delete_card_clicked"),
-          card_name
-        )
-      )
-    ),
+    title = tags$label(card_name),
     uiOutput(ns("card_content"))
+  )
+  accordion_item <- tagAppendAttributes(tag = accordion_item, .cssSelector = ".accordion-header", class = "d-flex")
+  accordion_item <- tagAppendChildren(
+    tag = accordion_item,
+    .cssSelector = ".accordion-header",
+    actionLink(
+      inputId = ns("edit"),
+      class = "btn btn-primary btn-sm float-end p-3",
+      label = NULL,
+      icon = shiny::icon("edit")
+    ),
+    actionLink(
+      inputId = ns("remove"),
+      class = "btn btn-danger btn-sm float-end p-3",
+      label = NULL,
+      icon = shiny::icon("trash-alt"),
+    )
   )
 }
 
