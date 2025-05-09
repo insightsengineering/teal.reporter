@@ -32,6 +32,12 @@ reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
   bslib::page_fluid(
     shiny::tagList(
+      sortable::sortable_js(
+        css_id = ns("reporter_cards"),
+        options = sortable::sortable_options(
+          onSort = sortable::sortable_js_capture_input(input_id = ns("reporter_cards_orders"))
+        )
+      ),
       shiny::tagList(
         shiny::singleton(
           shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
@@ -151,6 +157,12 @@ reporter_previewer_srv <- function(id,
         bslib::accordion_panel_remove(id = "reporter_cards", target = card_name)
       })
     })
+
+   shiny::observeEvent(input$reporter_cards_orders, {
+      reporter$reorder_cards(setdiff(input$reporter_cards_orders, ""))
+    })
+
+
   })
 }
 
