@@ -158,11 +158,9 @@ reporter_previewer_srv <- function(id,
       })
     })
 
-   shiny::observeEvent(input$reporter_cards_orders, {
+    shiny::observeEvent(input$reporter_cards_orders, {
       reporter$reorder_cards(setdiff(input$reporter_cards_orders, ""))
     })
-
-
   })
 }
 
