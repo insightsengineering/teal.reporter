@@ -20,7 +20,6 @@ repos:
           - davidgohel/flextable # Error: package 'flextable' is not available
           - davidgohel/gdtools # for flextable
           - grid
-          - htmltools
           - knitr
           - lifecycle
           - R6
