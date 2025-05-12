@@ -336,9 +336,9 @@ Sets \code{ReportCard} or \code{ReportDocument} content.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{card}}{The new object (\code{ReportCard} or \code{ReportDocument}) to replace the existing one.}
+\item{\code{id}}{Name of the \code{ReportCard} or \code{ReportDocument} to be replaced.}
 
-\item{\code{idx}}{Name of the \code{ReportCard} or \code{ReportDocument} to be replaced.}
+\item{\code{card}}{The new object (\code{ReportCard} or \code{ReportDocument}) to replace the existing one.}
 }
 \if{html}{\out{</div>}}
 }
@@ -405,8 +405,6 @@ Removes specific \code{ReportCard} or \code{ReportDocument} objects from the \co
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{ids}}{(\code{integer}, \code{character}) the indexes of cards (either name)}
-
 \item{\code{ids}}{(\code{integer}, \code{character}) the indexes of cards (either name)}
 }
 \if{html}{\out{</div>}}

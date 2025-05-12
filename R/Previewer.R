@@ -190,7 +190,7 @@ reporter_previewer_card_ui <- function(id, card_name) {
   )
 }
 
-#' @param id (`character(1)`) card name
+# @param id (`character(1)`) card name
 reporter_previewer_card_srv <- function(id, reporter, card) {
   # todo: card_name should be only on the server side
   moduleServer(id, function(input, output, session) {

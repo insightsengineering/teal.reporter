@@ -103,7 +103,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
     #' @description Sets `ReportCard` or `ReportDocument` content.
-    #' @param idx Name of the `ReportCard` or `ReportDocument` to be replaced.
+    #' @param id Name of the `ReportCard` or `ReportDocument` to be replaced.
     #' @param card The new object (`ReportCard` or `ReportDocument`) to replace the existing one.
     #' @return `self`, invisibly.
     #' @examplesIf require("ggplot2")
@@ -228,7 +228,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Removes specific `ReportCard` or `ReportDocument` objects from the `Reporter` by their indices.
     #'
-    #' @param ids (`integer`, `character`) the indexes of cards (either name)
     #' @param ids (`integer`, `character`) the indexes of cards (either name)
     #' @return `self`, invisibly.
     remove_cards = function(ids = NULL) {
