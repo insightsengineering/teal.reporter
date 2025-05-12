@@ -31,7 +31,7 @@ card1$append_plot(
   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )
 
-doc1 <- ReportDocument$new()
+doc1 <- ReportCard$new()
 doc1$append_text("Document introduction")
 
 reporter <- Reporter$new()
@@ -232,7 +232,7 @@ template_fun <- function(document) {
 }
 reporter$set_template(template_fun)
 doc1 <- teal.reporter::report_document("## Header 2 text", "Regular text")
-ndoc1 <- setNames(list(doc1), "Welcome card")
+ndoc1 <- stats::setNames(list(doc1), "Welcome card")
 reporter$append_cards(ndoc1)
 reporter$get_cards()
 }
@@ -713,7 +713,7 @@ template_fun <- function(document) {
 }
 reporter$set_template(template_fun)
 doc1 <- teal.reporter::report_document("## Header 2 text", "Regular text")
-ndoc1 <- setNames(list(doc1), "Welcome card")
+ndoc1 <- stats::setNames(list(doc1), "Welcome card")
 reporter$append_cards(ndoc1)
 reporter$get_cards()
 }

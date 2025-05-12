@@ -38,7 +38,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
     #'
-    #' doc1 <- ReportDocument$new()
+    #' doc1 <- ReportCard$new()
     #' doc1$append_text("Document introduction")
     #'
     #' reporter <- Reporter$new()
@@ -90,7 +90,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter$reorder_cards(c("Card2", "Card1"))
     #' names(reporter$get_cards())
     reorder_cards = function(new_order) {
-      private$cards <- setNames(
+      private$cards <- stats::setNames(
         lapply(new_order, function(name) {
           if (inherits(private$cards[[name]], "ReportDocument")) {
             private$cards[[name]]
@@ -441,7 +441,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' }
     #' reporter$set_template(template_fun)
     #' doc1 <- teal.reporter::report_document("## Header 2 text", "Regular text")
-    #' ndoc1 <- setNames(list(doc1), "Welcome card")
+    #' ndoc1 <- stats::setNames(list(doc1), "Welcome card")
     #' reporter$append_cards(ndoc1)
     #' reporter$get_cards()
     set_template = function(template) {

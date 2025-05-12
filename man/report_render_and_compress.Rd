@@ -18,8 +18,6 @@ report_render_and_compress(
 But if local parameter is set it will have priority.}
 
 \item{file}{(\code{character(1)}) where to copy the returned directory.}
-
-\item{input_list}{(\code{list}) like \code{shiny} input converted to a regular named list.}
 }
 \value{
 \code{file} argument, invisibly.

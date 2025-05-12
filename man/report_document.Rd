@@ -21,6 +21,8 @@ edit_report_document(x, modify = NULL, append = NULL, after = length(x))
 
 \item{x}{\code{ReportDocument}}
 
+\item{i}{index specifying elements to extract or replace}
+
 \item{modify}{An integer vector specifying element indices to extract and reorder.
 If \code{NULL}, no modification is applied.}
 
@@ -28,8 +30,6 @@ If \code{NULL}, no modification is applied.}
 The \code{after} parameter determines the insertion position.}
 
 \item{after}{a subscript, after which the values are to be appended.}
-
-\item{values}{objects to be included in the modified \code{ReportDocument}}
 }
 \value{
 An \code{S3} \code{list} of class \code{ReportDocument}.

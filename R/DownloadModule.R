@@ -122,7 +122,7 @@ download_report_button_srv <- function(id,
       )
     }
 
-    observeEvent(reporter$get_reactive_add_card(), {
+    shiny::observeEvent(reporter$get_reactive_add_card(), {
       if (length(reporter$get_cards())) {
         shinyjs::enable("download_button")
       } else {
@@ -162,7 +162,6 @@ download_report_button_srv <- function(id,
 #' Render the report and zip the created directory.
 #'
 #' @param reporter (`Reporter`) instance.
-#' @param input_list (`list`) like `shiny` input converted to a regular named list.
 #' @param global_knitr (`list`) a global `knitr` parameters, like echo.
 #' But if local parameter is set it will have priority.
 #' @param file (`character(1)`) where to copy the returned directory.
@@ -329,7 +328,7 @@ to_rmd.Reporter <- function(reporter, yaml_header, global_knitr = getOption("tea
 
   parsed_global_knitr <- sprintf(
     "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n%s\n```\n",
-    capture.output(dput(global_knitr)),
+    utils::capture.output(dput(global_knitr)),
     if (identical(report_type, "powerpoint_presentation")) {
       format_code_block_function <- quote(
         code_block <- function(code_text) {

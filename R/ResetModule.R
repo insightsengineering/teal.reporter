@@ -77,7 +77,7 @@ reset_report_button_srv <- function(id, reporter) {
       )
     })
 
-    observeEvent(reporter$get_reactive_add_card(), {
+    shiny::observeEvent(reporter$get_reactive_add_card(), {
       if (length(reporter$get_cards())) {
         shinyjs::enable("reset_reporter")
       } else {

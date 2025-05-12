@@ -125,10 +125,10 @@ reporter_previewer_srv <- function(id,
     report_load_srv("load", reporter = reporter)
     reset_report_button_srv("reset", reporter = reporter)
 
-    current_cards <- reactiveVal()
-    insert_cards <- reactiveVal()
-    remove_cards <- reactiveVal()
-    observeEvent(reporter$get_reactive_add_card(), {
+    current_cards <- shiny::reactiveVal()
+    insert_cards <- shiny::reactiveVal()
+    remove_cards <- shiny::reactiveVal()
+    shiny::observeEvent(reporter$get_reactive_add_card(), {
       to_add <- reporter$get_cards()[!reporter$get_cards() %in% current_cards()] # because setdiff loses names
       to_remove <- current_cards()[!current_cards() %in% reporter$get_cards()]
       if (length(to_add)) insert_cards(to_add)
@@ -136,7 +136,7 @@ reporter_previewer_srv <- function(id,
       current_cards(reporter$get_cards())
     })
 
-    observeEvent(insert_cards(), {
+    shiny::observeEvent(insert_cards(), {
       cards <- insert_cards()
       lapply(names(cards), function(card_name) {
         bslib::accordion_panel_insert(
@@ -151,7 +151,7 @@ reporter_previewer_srv <- function(id,
       })
     })
 
-    observeEvent(remove_cards(), {
+    shiny::observeEvent(remove_cards(), {
       cards <- remove_cards()
       lapply(names(cards), function(card_name) {
         bslib::accordion_panel_remove(id = "reporter_cards", target = card_name)
@@ -165,23 +165,23 @@ reporter_previewer_srv <- function(id,
 }
 
 reporter_previewer_card_ui <- function(id, card_name) {
-  ns <- NS(id)
+  ns <- shiny::NS(id)
   accordion_item <- bslib::accordion_panel(
     value = card_name,
-    title = tags$label(card_name),
-    uiOutput(ns("card_content"))
+    title = shiny::tags$label(card_name),
+    shiny::uiOutput(ns("card_content"))
   )
-  accordion_item <- tagAppendAttributes(tag = accordion_item, .cssSelector = ".accordion-header", class = "d-flex")
-  accordion_item <- tagAppendChildren(
+  accordion_item <- htmltools::tagAppendAttributes(tag = accordion_item, .cssSelector = ".accordion-header", class = "d-flex")
+  accordion_item <- htmltools::tagAppendChildren(
     tag = accordion_item,
     .cssSelector = ".accordion-header",
-    actionLink(
+    shiny::actionLink(
       inputId = ns("edit"),
       class = "btn btn-primary btn-sm float-end p-3",
       label = NULL,
       icon = shiny::icon("edit")
     ),
-    actionLink(
+    shiny::actionLink(
       inputId = ns("remove"),
       class = "btn btn-danger btn-sm float-end p-3",
       label = NULL,
@@ -193,12 +193,12 @@ reporter_previewer_card_ui <- function(id, card_name) {
 # @param id (`character(1)`) card name
 reporter_previewer_card_srv <- function(id, reporter, card) {
   # todo: card_name should be only on the server side
-  moduleServer(id, function(input, output, session) {
+  shiny::moduleServer(id, function(input, output, session) {
     # to react to the changes in the card
     names(card) <- make.unique(rep("block", length(card)))
-    card_reactive <- reactiveVal(card)
+    card_reactive <- shiny::reactiveVal(card)
 
-    output$card_content <- renderUI(toHTML(card_reactive()))
+    output$card_content <- shiny::renderUI(toHTML(card_reactive()))
     if (inherits(card, "ReportCard")) {
       shinyjs::hide("edit")
     }
@@ -207,24 +207,24 @@ reporter_previewer_card_srv <- function(id, reporter, card) {
     editor_ui <- editor_ui(session$ns("editor"), x = card_reactive)
     new_card <- editor_srv("editor", x = card_reactive)
 
-    observeEvent(input$edit, {
+    shiny::observeEvent(input$edit, {
       shiny::showModal(
         shiny::modalDialog(
           title = paste("Editing Card:", id),
           size = "l", easyClose = TRUE,
           shiny::tagList(
             editor_ui,
-            uiOutput(session$ns("add_text_element_button_ui"))
+            shiny::uiOutput(session$ns("add_text_element_button_ui"))
           ),
           footer = shiny::tagList(
-            actionButton(session$ns("edit_save"), label = "Save"),
-            modalButton("Close")
+            shiny::actionButton(session$ns("edit_save"), label = "Save"),
+            shiny::modalButton("Close")
           )
         )
       )
     })
 
-    observeEvent(input$edit_save, {
+    shiny::observeEvent(input$edit_save, {
       if (!identical(new_card(), card)) {
         reporter$replace_card(id = id, card = new_card)
         card_reactive(new_card())
@@ -233,7 +233,7 @@ reporter_previewer_card_srv <- function(id, reporter, card) {
     })
 
     # remove self from reporter
-    observeEvent(input$remove, {
+    shiny::observeEvent(input$remove, {
       reporter$remove_cards(ids = id)
     })
   })
@@ -293,7 +293,7 @@ toHTML.PictureBlock <- function(x, ...) {
 #' @keywords internal
 #' @export
 toHTML.TableBlock <- function(x, ...) {
-  b_table <- readRDS(b$get_content())
+  b_table <- readRDS(x$get_content())
   shiny::tags$pre(flextable::htmltools_value(b_table))
 }
 
@@ -319,7 +319,7 @@ toHTML.rtables <- function(x, ...) {
 #' @export
 toHTML.gg <- function(x, ...) {
   tmpfile <- tempfile(fileext = ".png")
-  ggsave(tmpfile, plot = x, width = 5, height = 4, dpi = 100)
+  ggplot2::ggsave(tmpfile, plot = x, width = 5, height = 4, dpi = 100)
   shiny::tags$img(src = knitr::image_uri(tmpfile))
 }
 

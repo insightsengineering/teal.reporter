@@ -27,16 +27,8 @@ objects are, by default, kept both in the output document and the \code{.Rmd} re
 This function allows overriding the default behavior for specific objects.
 }
 \examples{
-item1 <- summary(iris)
-item1_kept <- keep_in_report(item1, TRUE)
-attributes(item1_kept)$keep
+item <- summary(iris)
+item <- keep_in_report(item, TRUE)
+attributes(item)$keep
 
-item2 <- "## A Title" # Text is usually kept by default
-item2_not_kept_in_rmd_source <- keep_in_report(item2, FALSE) # Example to override
-attributes(item2_not_kept_in_rmd_source)$keep
-
-# Conceptual usage within a ReportDocument
-# report <- report_document()
-# report <- c(report, keep_in_report(summary(mtcars), FALSE)) # Explicitly don't keep R object source
-# report <- c(report, keep_in_report(code_chunk("print('hello')"), TRUE)) # Code chunks kept by default
 }
