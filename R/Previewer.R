@@ -100,7 +100,7 @@ reporter_previewer_srv <- function(id,
   shiny::moduleServer(id, function(input, output, session) {
     shiny::setBookmarkExclude(c(
       "showrcode", "download_data_prev",
-       "load_reporter_previewer", "load_reporter"
+      "load_reporter_previewer", "load_reporter"
     ))
 
     session$onBookmark(function(state) {
