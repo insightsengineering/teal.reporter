@@ -132,9 +132,6 @@ reporter_previewer_srv <- function(id,
       reporter_hashes <- vapply(reporter$get_cards(), attr, character(1L), which = "hash")
       current_hashes <- vapply(current_cards(), attr, character(1L), which = "hash")
 
-      logger::log_fatal("current_hashes: {current_hashes}")
-      logger::log_fatal("reporter_hashes: {reporter_hashes}")
-
       to_add <- reporter$get_cards()[!reporter_hashes %in% current_hashes]
       to_remove <- current_cards()[!current_hashes %in% reporter_hashes]
       if (length(to_add)) insert_cards(to_add)
