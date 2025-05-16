@@ -100,8 +100,8 @@ start_reporter_preview_app <- function(name) {
   skip_if_too_deep(5)
   skip_if_not(requireNamespace("chromote", quietly = TRUE), "chromote is not available")
 
-  testapp <- shinyApp(
-    ui = fluidPage(
+  testapp <- shiny::shinyApp(
+    ui = shiny::fluidPage(
       reporter_previewer_ui("preview")
     ),
     server = function(input, output, session) {
@@ -123,7 +123,7 @@ start_reporter_preview_app <- function(name) {
 
   app <- NULL
   tryCatch({
-    app <- AppDriver$new(
+    app <- shinytest2::AppDriver$new(
       testapp,
       name = name,
       options = list(
