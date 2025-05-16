@@ -27,7 +27,10 @@ editor_srv.reactiveVal <- function(id, x, x_reactive = x) {
 editor_ui.ReportDocument <- function(id, x) {
   ns <- shiny::NS(id)
   shiny::tags$div(
-    shiny::uiOutput(ns("blocks")),
+    shiny::tags$div(
+      id = ns("blocks"),
+      lapply(names(x), function(block_name) editor_ui(ns(block_name), x = x[[block_name]]))
+    ),
     shiny::actionButton(ns("add_block"), label = "Add text block", icon = shiny::icon("plus"))
   )
 }
@@ -35,12 +38,6 @@ editor_ui.ReportDocument <- function(id, x) {
 #' @export
 editor_srv.ReportDocument <- function(id, x, x_reactive) {
   shiny::moduleServer(id, function(input, output, session) {
-    output$blocks <- shiny::renderUI({ # Rendered once at the beginning
-      shiny::tagList(
-        lapply(names(x), function(block_name) editor_ui(session$ns(block_name), x = x[[block_name]]))
-      )
-    })
-
     # observer calls observer but in a limited scope - only for new items child observers are created
     #  - we can also keep them in a list in order to kill them when we need.
     blocks_called <- shiny::reactiveVal()
