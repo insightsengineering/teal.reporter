@@ -454,7 +454,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     # @param label the label to be set
     update_attributes = function(card, label) {
       attr(card, "label") <- label
-      attr(card, "id") <- rlang::hash(list(card, Sys.time()))
+      attr(card, "id") <- sprintf("card_%s", substr(rlang::hash(list(card, Sys.time())), 1, 8))
       card
     },
     # @description The copy constructor.
