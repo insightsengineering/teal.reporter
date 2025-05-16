@@ -127,24 +127,27 @@ start_reporter_preview_app <- function(name) {
   )
 
   app <- NULL
-  tryCatch({
-    app <- shinytest2::AppDriver$new(
-      testapp,
-      name = name,
-      options = list(
-        chromePath = NULL,
-        windowSize = c(1000, 800),
-        browserOptions = list(
-          position = NULL,
-          debug = FALSE
-        )
-      ),
-      seed = 123,
-      timeout = default_idle_timeout
-    )
-  }, error = function(e) {
-    skip(paste("Could not initialize AppDriver:", e$message))
-  })
+  tryCatch(
+    {
+      app <- shinytest2::AppDriver$new(
+        testapp,
+        name = name,
+        options = list(
+          chromePath = NULL,
+          windowSize = c(1000, 800),
+          browserOptions = list(
+            position = NULL,
+            debug = FALSE
+          )
+        ),
+        seed = 123,
+        timeout = default_idle_timeout
+      )
+    },
+    error = function(e) {
+      skip(paste("Could not initialize AppDriver:", e$message))
+    }
+  )
 
   app$wait_for_idle()
   app
