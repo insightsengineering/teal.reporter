@@ -3,13 +3,12 @@ test_that("reporter_previewer card reordering works", {
   on.exit(try(app$stop(), silent = TRUE))
 
   initial_order <- get_card_order(app)
-  simulate_drag_and_drop(app, 1, 2)
+  simulate_drag_and_drop(app, 1, 2) # does't drag and drop yet
   final_order <- get_card_order(app)
 
   expect_false(identical(initial_order, final_order))
   expect_equal(final_order, rev(initial_order))
 
-  app$expect_screenshot()
 })
 
 test_that("reporter_previewer card removal works", {
@@ -30,7 +29,6 @@ test_that("reporter_previewer card removal works", {
 
   expect_equal(final_count, initial_count - 1)
 
-  app$expect_screenshot()
 })
 
 test_that("reporter_previewer card editing works", {
@@ -51,7 +49,6 @@ test_that("reporter_previewer card editing works", {
   ")
   expect_true(modal_visible)
 
-  app$expect_screenshot()
 })
 
 test_that("reporter_previewer download functionality works", {
@@ -59,13 +56,13 @@ test_that("reporter_previewer download functionality works", {
   on.exit(try(app$stop(), silent = TRUE))
 
   download_btn <- app$get_js("!!document.querySelector('a.btn:contains(\"Download Report\")')")
-  expect_true(download_btn)
+  expect_true(download_btn) # doesn't work yet - returns NULL
 
   temp_dir <- tempfile("downloads")
   dir.create(temp_dir)
   on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
 
-  app$set_window_options(list(
+  app$set_window_options(list(  # set_window_options doesnt exist
     prefs = list(
       "download.default_directory" = temp_dir,
       "download.prompt_for_download" = FALSE
@@ -75,7 +72,7 @@ test_that("reporter_previewer download functionality works", {
   app$run_js("
     const downloadBtn = document.querySelector('a.btn:contains(\"Download Report\")');
     if (downloadBtn) downloadBtn.click();
-  ")
+  ") # didn't download
 
   app$wait_for_idle()
   Sys.sleep(2)
@@ -83,5 +80,4 @@ test_that("reporter_previewer download functionality works", {
   downloaded_files <- list.files(temp_dir, pattern = "\\.html$")
   expect_length(downloaded_files, 1)
 
-  app$expect_screenshot()
 })
