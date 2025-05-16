@@ -146,10 +146,8 @@ srv_edit_button <- function(id, original_card, card_r, reporter) {
     })
 
     shiny::observeEvent(input$edit_save, {
-      browser()
       if (!identical(new_card(), card_r())) {
-        card_title <- attr(new_card(), "label", exact = TRUE)
-        reporter$replace_card(id = card_title, card = new_card)
+        reporter$replace_card(id = attr(new_card(), "label", exact = TRUE), card = new_card)
         card_r(new_card())
       }
       shiny::removeModal()
