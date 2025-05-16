@@ -79,7 +79,12 @@ editor_ui.default <- function(id, x) {
   shiny::tags$div(
     class = "expandable-container",
     shiny::tags$h6(
-      shiny::icon("text-slash", class = "text-muted"),
+      tags$span(
+        class = "fa-stack small text-muted",
+        # style = "width: 2em;", # necessary to avoid extra space after icon
+        shiny::icon("pencil", class = "fa-stack-1x"),
+        shiny::icon("ban", class = "fa-stack-2x fa-inverse text-black-50")
+      ),
       "Non-editable block"
     ),
     shiny::tags$div(
