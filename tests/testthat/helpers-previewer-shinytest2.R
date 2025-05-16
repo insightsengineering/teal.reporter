@@ -1,4 +1,3 @@
-
 create_test_reporter <- function(n_cards = 2) {
   cards <- lapply(seq_len(n_cards), function(i) {
     card <- ReportCard$new()
@@ -13,20 +12,24 @@ create_test_reporter <- function(n_cards = 2) {
 }
 
 get_card_order <- function(app) {
-  tryCatch({
-    app$get_js("
+  tryCatch(
+    {
+      app$get_js("
       Array.from(document.querySelectorAll('.accordion-header'))
         .map(el => el.getAttribute('data-value') || el.textContent.trim())
     ")
-  }, error = function(e) {
-    warning("Failed to get card order: ", e$message)
-    NULL
-  })
+    },
+    error = function(e) {
+      warning("Failed to get card order: ", e$message)
+      NULL
+    }
+  )
 }
 
 simulate_drag_and_drop <- function(app, from_idx, to_idx) {
-  tryCatch({
-    app$run_js(sprintf("
+  tryCatch(
+    {
+      app$run_js(sprintf("
       (function() {
         const cards = document.querySelectorAll('.accordion-header');
         if (!cards || cards.length < 2) {
@@ -88,12 +91,14 @@ simulate_drag_and_drop <- function(app, from_idx, to_idx) {
       })();
     ", from_idx - 1, to_idx - 1))
 
-    app$wait_for_idle()
-    Sys.sleep(0.5) # Give a bit more time for animations
-  }, error = function(e) {
-    warning("Failed to simulate drag and drop: ", e$message)
-    FALSE
-  })
+      app$wait_for_idle()
+      Sys.sleep(0.5) # Give a bit more time for animations
+    },
+    error = function(e) {
+      warning("Failed to simulate drag and drop: ", e$message)
+      FALSE
+    }
+  )
 }
 
 start_reporter_preview_app <- function(name) {
@@ -122,24 +127,27 @@ start_reporter_preview_app <- function(name) {
   )
 
   app <- NULL
-  tryCatch({
-    app <- AppDriver$new(
-      testapp,
-      name = name,
-      options = list(
-        chromePath = NULL,
-        windowSize = c(1000, 800),
-        browserOptions = list(
-          position = NULL,
-          debug = FALSE
-        )
-      ),
-      seed = 123,
-      timeout = default_idle_timeout
-    )
-  }, error = function(e) {
-    skip(paste("Could not initialize AppDriver:", e$message))
-  })
+  tryCatch(
+    {
+      app <- AppDriver$new(
+        testapp,
+        name = name,
+        options = list(
+          chromePath = NULL,
+          windowSize = c(1000, 800),
+          browserOptions = list(
+            position = NULL,
+            debug = FALSE
+          )
+        ),
+        seed = 123,
+        timeout = default_idle_timeout
+      )
+    },
+    error = function(e) {
+      skip(paste("Could not initialize AppDriver:", e$message))
+    }
+  )
 
   app$wait_for_idle()
   app
