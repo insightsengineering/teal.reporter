@@ -25,8 +25,10 @@ repos:
           - R6
           - rmarkdown
           - shiny
+          - shinyjs
           - shinybusy
           - shinyWidgets
+          - sortable
           - yaml
           - zip
           - rlistings
