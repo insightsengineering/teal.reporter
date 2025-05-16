@@ -1,0 +1,36 @@
+.expandable-container {
+  position: relative;
+  margin-bottom: 1em;
+}
+
+.expandable-content {
+  position: relative;
+  max-height: 500px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.expandable-content.expanded {
+  max-height: none;
+}
+
+.expandable-content::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20%; /* Bottom 20% of parent */
+  background: linear-gradient(to top, rgb(255, 255, 255, 1), rgba(255, 255, 255, 0));
+  pointer-events: none; /* Allows clicks to pass through */
+}
+
+.expandable-content.expanded::after {
+  display: none;
+}
+
+.expand-toggle {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

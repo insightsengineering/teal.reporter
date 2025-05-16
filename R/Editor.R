@@ -26,7 +26,7 @@ editor_srv.reactiveVal <- function(id, x, x_reactive = x) {
 #' @export
 editor_ui.ReportDocument <- function(id, x) {
   ns <- shiny::NS(id)
-  shiny::tags$div(
+  shiny::tagList(
     shiny::tags$div(
       id = ns("blocks"),
       lapply(names(x), function(block_name) editor_ui(ns(block_name), x = x[[block_name]]))
@@ -66,15 +66,7 @@ editor_srv.ReportDocument <- function(id, x, x_reactive) {
 
     shiny::observeEvent(input$add_block, {
       # because only new names will be called (see blocks_new)
-      new_name <- utils::tail(
-        make.unique(
-          c(
-            blocks_called(),
-            "block"
-          )
-        ),
-        1
-      )
+      new_name <- utils::tail(make.unique(c(blocks_called(), "block")), 1)
       x_reactive(
         modifyList(x_reactive(), stats::setNames(list(""), new_name)) # Preserve attributes
       )
@@ -84,7 +76,13 @@ editor_srv.ReportDocument <- function(id, x, x_reactive) {
 
 #' @export
 editor_ui.default <- function(id, x) {
-  toHTML(x)
+  shiny::tags$div(
+    class = "expandable-container",
+    shiny::tags$div(
+      class = "expandable-content",
+      toHTML(x)
+    )
+  )
 }
 
 #' @export
@@ -97,7 +95,13 @@ editor_srv.default <- function(id, x, x_reactive) {
 #' @export
 editor_ui.character <- function(id, x) {
   ns <- shiny::NS(id)
-  shiny::textAreaInput(ns("content"), label = NULL, value = x)
+  shiny::tagList(
+    shiny::tags$h6(
+      shiny::icon("circle-info", class = "text-muted"),
+      "Editable markdown block"
+    ),
+    shiny::textAreaInput(ns("content"), label = NULL, value = x, width = "100%")
+  )
 }
 
 #' @export

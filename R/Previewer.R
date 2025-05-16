@@ -32,25 +32,27 @@ reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
   bslib::page_fluid(
     shiny::tagList(
+      shiny::singleton(
+        shiny::tags$head(
+          shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")),
+          shiny::includeCSS(system.file("css/expandable.css", package = "teal.reporter")),
+          shiny::includeScript(system.file("js/expandable.js", package = "teal.reporter"))
+        )
+      ),
       sortable::sortable_js(
         css_id = ns("reporter_cards"),
         options = sortable::sortable_options(
           onSort = sortable::sortable_js_capture_input(input_id = ns("reporter_cards_orders"))
         )
       ),
-      shiny::tagList(
-        shiny::singleton(
-          shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-        ),
+      shiny::tags$div(
+        class = "block mb-4 p-1",
+        # shiny::tags$label(class = "text-primary block -ml-1", shiny::tags$strong("Reporter")),
         shiny::tags$div(
-          class = "block mb-4 p-1",
-          # shiny::tags$label(class = "text-primary block -ml-1", shiny::tags$strong("Reporter")),
-          shiny::tags$div(
-            class = "simple_reporter_container",
-            download_report_button_ui(ns("download"), label = "Download Report"),
-            report_load_ui(ns("load"), label = "Load Report"),
-            reset_report_button_ui(ns("reset"), label = "Reset Report")
-          )
+          class = "simple_reporter_container",
+          download_report_button_ui(ns("download"), label = "Download Report"),
+          report_load_ui(ns("load"), label = "Load Report"),
+          reset_report_button_ui(ns("reset"), label = "Reset Report")
         )
       ),
       shiny::tags$div(
