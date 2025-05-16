@@ -1,8 +1,8 @@
 create_test_reporter <- function(n_cards = 2) {
   cards <- lapply(seq_len(n_cards), function(i) {
-      teal.reporter::report_document(
-        sprintf("Card %d", i)
-      )
+    teal.reporter::report_document(
+      sprintf("Card %d", i)
+    )
   })
   names(cards) <- seq_along(1:n_cards)
 

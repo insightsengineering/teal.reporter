@@ -9,7 +9,6 @@ testthat::test_that("reporter_previewer card reordering works", {
 
   testthat::expect_false(identical(initial_order, final_order))
   testthat::expect_equal(final_order, rev(initial_order))
-
 })
 
 testthat::test_that("reporter_previewer card removal works", {
