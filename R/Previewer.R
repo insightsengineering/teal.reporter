@@ -129,11 +129,11 @@ reporter_previewer_srv <- function(id,
     insert_cards <- shiny::reactiveVal()
     remove_cards <- shiny::reactiveVal()
     shiny::observeEvent(reporter$get_reactive_add_card(), {
-      reporter_hashes <- vapply(reporter$get_cards(), attr, character(1L), which = "hash")
-      current_hashes <- vapply(current_cards(), attr, character(1L), which = "hash")
+      reporter_ids <- vapply(reporter$get_cards(), attr, character(1L), which = "id")
+      current_ids <- vapply(current_cards(), attr, character(1L), which = "id")
 
-      to_add <- reporter$get_cards()[!reporter_hashes %in% current_hashes]
-      to_remove <- current_cards()[!current_hashes %in% reporter_hashes]
+      to_add <- reporter$get_cards()[!reporter_ids %in% current_ids]
+      to_remove <- current_cards()[!current_ids %in% reporter_ids]
       if (length(to_add)) insert_cards(to_add)
       if (length(to_remove)) remove_cards(to_remove)
       current_cards(reporter$get_cards())
