@@ -142,12 +142,13 @@ reporter_previewer_srv <- function(id,
     shiny::observeEvent(insert_cards(), {
       cards <- insert_cards()
       lapply(names(cards), function(card_name) {
+        card_id <- attr(cards[[card_name]], "id", exact = TRUE)
         bslib::accordion_panel_insert(
           id = "reporter_cards",
-          reporter_previewer_card_ui(id = session$ns(card_name), card_name = card_name)
+          reporter_previewer_card_ui(id = session$ns(card_id), card_name = card_name)
         )
         reporter_previewer_card_srv(
-          id = card_name,
+          id = card_id,
           reporter = reporter,
           card = cards[[card_name]]
         )
