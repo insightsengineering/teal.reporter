@@ -47,12 +47,14 @@ Imports:
     yaml (>= 1.1.0),
     zip (>= 1.1.0)
 Suggests:
+    chromote,
     DT (>= 0.13),
     formatR (>= 1.5),
     formatters (>= 0.5.10),
     ggplot2 (>= 3.4.3),
     lattice (>= 0.18-4),
     png,
+    shinytest2,
     testthat (>= 3.2.2),
     tinytex,
     withr (>= 2.0.0)
