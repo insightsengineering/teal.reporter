@@ -78,6 +78,10 @@ editor_srv.ReportDocument <- function(id, x, x_reactive) {
 editor_ui.default <- function(id, x) {
   shiny::tags$div(
     class = "expandable-container",
+    shiny::tags$h6(
+      shiny::icon("text-slash", class = "text-muted"),
+      "Non-editable block"
+    ),
     shiny::tags$div(
       class = "expandable-content",
       toHTML(x)
@@ -97,7 +101,7 @@ editor_ui.character <- function(id, x) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::tags$h6(
-      shiny::icon("circle-info", class = "text-muted"),
+      shiny::icon("pencil", class = "text-muted"),
       "Editable markdown block"
     ),
     shiny::textAreaInput(ns("content"), label = NULL, value = x, width = "100%")
