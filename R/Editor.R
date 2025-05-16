@@ -35,11 +35,9 @@ editor_ui.ReportDocument <- function(id, x) {
 #' @export
 editor_srv.ReportDocument <- function(id, x, x_reactive) {
   shiny::moduleServer(id, function(input, output, session) {
-    output$blocks <- shiny::renderUI({
+    output$blocks <- shiny::renderUI({ # Rendered once at the beginning
       shiny::tagList(
-        lapply(names(x_reactive()), function(block_name) {
-          editor_ui(session$ns(block_name), x = x_reactive()[[block_name]])
-        })
+        lapply(names(x), function(block_name) editor_ui(session$ns(block_name), x = x[[block_name]]))
       )
     })
 
@@ -52,6 +50,13 @@ editor_srv.ReportDocument <- function(id, x, x_reactive) {
         new_blocks <- sapply(blocks_new(), function(block_name) {
           reactive_block <- shiny::reactiveVal(x_reactive()[[block_name]])
           editor_srv(block_name, x = x_reactive()[[block_name]], x_reactive = reactive_block)
+
+          insertUI(
+            sprintf("#%s", session$ns("blocks")),
+            where = "beforeEnd",
+            ui = editor_ui(session$ns(block_name), x = x_reactive()[[block_name]])
+          )
+
           shiny::observeEvent(reactive_block(), ignoreNULL = FALSE, {
             new_x <- x_reactive()
             new_x[[block_name]] <- reactive_block()
