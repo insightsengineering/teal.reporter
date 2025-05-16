@@ -449,9 +449,12 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     metadata = list(),
     reactive_add_card = NULL,
     template = NULL,
+    # @description Update the attributes of a card and generates unique hash
+    # @param card the card to be updated
+    # @param label the label to be set
     update_attributes = function(card, label) {
       attr(card, "label") <- label
-      attr(card, "hash") <- rlang::hash(card)
+      attr(card, "id") <- rlang::hash(list(card, Sys.time()))
       card
     },
     # @description The copy constructor.
