@@ -136,8 +136,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       if (is.character(id)) {
         id <- which(names(private$cards) == id)
       }
-      new_card <- private$update_attributes(card(), id)
-      private$cards[[id]] <- new_card
+      private$cards[[id]] <- card()
       private$reactive_add_card(length(private$cards))
       invisible(self)
     },
