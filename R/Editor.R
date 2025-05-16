@@ -111,3 +111,48 @@ editor_srv.character <- function(id, x, x_reactive) {
     })
   })
 }
+
+ui_edit_button <- function(id) {
+  shiny::actionLink(
+    inputId = NS(id, "button"),
+    class = "btn btn-primary btn-sm float-end p-3",
+    label = NULL,
+    title = "Edit card",
+    icon = shiny::icon("edit")
+  )
+}
+
+srv_edit_button <- function(id, original_card, card_r, reporter) {
+  moduleServer(id, function(input, output, session) {
+    new_card <- editor_srv("editor", x = card_r)
+
+    shiny::observeEvent(input$button, {
+      shiny::showModal(
+        shiny::modalDialog(
+          title = paste("Editing Card:", id),
+          size = "l", easyClose = TRUE,
+          shiny::tagList(
+            editor_ui(session$ns("editor"), x = card_r),
+            shiny::uiOutput(session$ns("add_text_element_button_ui"))
+          ),
+          footer = shiny::tagList(
+            shiny::actionButton(session$ns("edit_save"), label = "Save"),
+            shiny::modalButton("Close")
+          )
+        )
+      )
+    })
+
+    shiny::observeEvent(input$edit_save, {
+      browser()
+      if (!identical(new_card(), card_r())) {
+        card_title <- attr(new_card(), "label", exact = TRUE)
+        reporter$replace_card(id = card_title, card = new_card)
+        card_r(new_card())
+      }
+      shiny::removeModal()
+    })
+
+    card_r
+  })
+}

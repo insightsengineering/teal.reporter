@@ -175,12 +175,7 @@ reporter_previewer_card_ui <- function(id, card_name) {
   accordion_item <- htmltools::tagAppendChildren(
     tag = accordion_item,
     .cssSelector = ".accordion-header",
-    shiny::actionLink(
-      inputId = ns("edit"),
-      class = "btn btn-primary btn-sm float-end p-3",
-      label = NULL,
-      icon = shiny::icon("edit")
-    ),
+    ui_edit_button(ns("edit")),
     shiny::actionLink(
       inputId = ns("remove"),
       class = "btn btn-danger btn-sm float-end p-3",
@@ -203,34 +198,7 @@ reporter_previewer_card_srv <- function(id, reporter, card) {
       shinyjs::hide("edit")
     }
 
-    # editor
-    editor_ui <- editor_ui(session$ns("editor"), x = card_reactive)
-    new_card <- editor_srv("editor", x = card_reactive)
-
-    shiny::observeEvent(input$edit, {
-      shiny::showModal(
-        shiny::modalDialog(
-          title = paste("Editing Card:", id),
-          size = "l", easyClose = TRUE,
-          shiny::tagList(
-            editor_ui,
-            shiny::uiOutput(session$ns("add_text_element_button_ui"))
-          ),
-          footer = shiny::tagList(
-            shiny::actionButton(session$ns("edit_save"), label = "Save"),
-            shiny::modalButton("Close")
-          )
-        )
-      )
-    })
-
-    shiny::observeEvent(input$edit_save, {
-      if (!identical(new_card(), card)) {
-        reporter$replace_card(id = id, card = new_card)
-        card_reactive(new_card())
-      }
-      shiny::removeModal()
-    })
+    srv_edit_button("edit", card, card_reactive, reporter)
 
     # remove self from reporter
     shiny::observeEvent(input$remove, {
