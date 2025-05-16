@@ -133,11 +133,12 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter$replace_card("Card1", card2)
     #' reporter$get_cards()[[1]]$get_name()
     replace_card = function(id, card) {
-      # TOOD: remove id argument in favor of using attribute
       if (is.character(id)) {
         id <- which(names(private$cards) == id)
       }
-      private$cards[[id]] <- card()
+      private$cards <- private$cards[-id]
+      new_id <- attr(card(), "label", exact = TRUE)
+      private$cards[[new_id]] <- card()
       private$reactive_add_card(length(private$cards))
       invisible(self)
     },

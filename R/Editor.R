@@ -127,12 +127,14 @@ ui_edit_button <- function(id) {
 srv_edit_button <- function(id, original_card, card_r, reporter) {
   moduleServer(id, function(input, output, session) {
     new_card <- editor_srv("editor", x = card_r)
+    title <- attr(original_card, "label", exact = TRUE)
 
     shiny::observeEvent(input$button, {
       shiny::showModal(
         shiny::modalDialog(
-          title = paste("Editing Card:", id),
-          size = "l", easyClose = TRUE,
+          title = sprintf("Editing Card: %s", title),
+          size = "l",
+          easyClose = TRUE,
           shiny::tagList(
             editor_ui(session$ns("editor"), x = card_r),
             shiny::uiOutput(session$ns("add_text_element_button_ui"))
@@ -146,8 +148,9 @@ srv_edit_button <- function(id, original_card, card_r, reporter) {
     })
 
     shiny::observeEvent(input$edit_save, {
+      # TODO: add check on card validity (duplicate title)
       if (!identical(new_card(), card_r())) {
-        reporter$replace_card(id = attr(new_card(), "label", exact = TRUE), card = new_card)
+        reporter$replace_card(id = title, card = new_card)
         card_r(new_card())
       }
       shiny::removeModal()
