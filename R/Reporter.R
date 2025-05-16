@@ -102,7 +102,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
     #' @description Sets `ReportCard` or `ReportDocument` content.
-    #' @param id Name of the `ReportCard` or `ReportDocument` to be replaced.
+    #' @param old_title Title of the `ReportCard` or `ReportDocument` to be replaced.
     #' @param card The new object (`ReportCard` or `ReportDocument`) to replace the existing one.
     #' @return `self`, invisibly.
     #' @examplesIf require("ggplot2")
@@ -132,13 +132,13 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' reporter$replace_card("Card1", card2)
     #' reporter$get_cards()[[1]]$get_name()
-    replace_card = function(id, card) {
-      if (is.character(id)) {
-        id <- which(names(private$cards) == id)
+    replace_card = function(old_title, card) {
+      if (is.character(old_title)) {
+        index <- which(names(private$cards) == old_title)
       }
-      private$cards <- private$cards[-id]
-      new_id <- attr(card(), "label", exact = TRUE)
-      private$cards[[new_id]] <- card()
+      private$cards <- private$cards[-index]
+      new_title <- attr(card(), "label", exact = TRUE)
+      private$cards[[new_title]] <- card()
       private$reactive_add_card(length(private$cards))
       invisible(self)
     },

@@ -150,7 +150,7 @@ srv_edit_button <- function(id, original_card, card_r, reporter) {
     shiny::observeEvent(input$edit_save, {
       # TODO: add check on card validity (duplicate title)
       if (!identical(new_card(), card_r())) {
-        reporter$replace_card(id = title, card = new_card)
+        reporter$replace_card(old_title = title, card = new_card)
         card_r(new_card())
       }
       shiny::removeModal()
