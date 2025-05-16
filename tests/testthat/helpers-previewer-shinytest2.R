@@ -1,10 +1,10 @@
 create_test_reporter <- function(n_cards = 2) {
   cards <- lapply(seq_len(n_cards), function(i) {
-    card <- ReportCard$new()
-    card$append_text(sprintf("Card %d", i), "header2")
-    card$set_name(sprintf("card%d", i))
-    card
+    teal.reporter::report_document(
+      sprintf("Card %d", i)
+    )
   })
+  names(cards) <- seq_along(1:n_cards)
 
   reporter <- Reporter$new()
   reporter$append_cards(cards)
