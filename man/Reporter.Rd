@@ -330,15 +330,15 @@ Reorders \code{ReportCard} or \code{ReportDocument} objects in \code{Reporter}.
 \subsection{Method \code{replace_card()}}{
 Sets \code{ReportCard} or \code{ReportDocument} content.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$replace_card(old_title, card)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$replace_card(card)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{old_title}}{Title of the \code{ReportCard} or \code{ReportDocument} to be replaced.}
-
 \item{\code{card}}{The new object (\code{ReportCard} or \code{ReportDocument}) to replace the existing one.}
+
+\item{\code{old_title}}{Title of the \code{ReportCard} or \code{ReportDocument} to be replaced.}
 }
 \if{html}{\out{</div>}}
 }
@@ -352,7 +352,7 @@ Sets \code{ReportCard} or \code{ReportDocument} content.
 \subsection{Method \code{get_cards()}}{
 Retrieves all \code{ReportCard} and \code{ReportDocument} objects contained in \code{Reporter}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_cards()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_cards(index = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{

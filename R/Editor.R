@@ -3,7 +3,6 @@ editor_ui <- function(id, x) {
 }
 
 editor_srv <- function(id, x, x_reactive = x) {
-  checkmate::assert_class(x_reactive, "reactiveVal")
   UseMethod("editor_srv", x)
 }
 
@@ -27,9 +26,10 @@ editor_srv.reactiveVal <- function(id, x, x_reactive = x) {
 editor_ui.ReportDocument <- function(id, x) {
   ns <- shiny::NS(id)
   shiny::tagList(
+    # shiny::tags$div(id = ns("blocks")),
     shiny::tags$div(
       id = ns("blocks"),
-      lapply(names(x), function(block_name) editor_ui(ns(block_name), x = x[[block_name]]))
+      lapply(names(x), function(block_name) editor_ui(shiny::NS(ns("blocks"), block_name), x = x[[block_name]]))
     ),
     shiny::actionButton(ns("add_block"), label = "Add text block", icon = shiny::icon("plus"))
   )
@@ -42,23 +42,32 @@ editor_srv.ReportDocument <- function(id, x, x_reactive) {
     #  - we can also keep them in a list in order to kill them when we need.
     blocks_called <- shiny::reactiveVal()
     blocks_new <- shiny::reactive(setdiff(names(x_reactive()), blocks_called()))
+
     shiny::observeEvent(blocks_new(), {
       if (length(blocks_new())) {
-        new_blocks <- sapply(blocks_new(), function(block_name) {
+        lapply(blocks_new(), function(block_name) {
           reactive_block <- shiny::reactiveVal(x_reactive()[[block_name]])
-          editor_srv(block_name, x = x_reactive()[[block_name]], x_reactive = reactive_block)
+          blocks_ns <- shiny::NS(session$ns("blocks"))
+          editor_srv(shiny::NS("blocks", block_name), x = x_reactive()[[block_name]], x_reactive = reactive_block)
+          if (!block_name %in% names(x)) {
+            insertUI(
+              sprintf("#%s", session$ns("blocks")),
+              where = "beforeEnd",
+              ui = editor_ui(blocks_ns(block_name), x = x_reactive()[[block_name]])
+            )
+          }
 
-          insertUI(
-            sprintf("#%s", session$ns("blocks")),
-            where = "beforeEnd",
-            ui = editor_ui(session$ns(block_name), x = x_reactive()[[block_name]])
+          shiny::observeEvent(reactive_block(),
+            ignoreNULL = FALSE,
+            {
+              new_x <- x_reactive()
+              new_x[[block_name]] <- reactive_block()
+              x_reactive(new_x)
+            },
+            ignoreInit = TRUE
           )
 
-          shiny::observeEvent(reactive_block(), ignoreNULL = FALSE, {
-            new_x <- x_reactive()
-            new_x[[block_name]] <- reactive_block()
-            x_reactive(new_x)
-          })
+          NULL
         })
         blocks_called(c(blocks_called(), blocks_new()))
       }
@@ -66,7 +75,7 @@ editor_srv.ReportDocument <- function(id, x, x_reactive) {
 
     shiny::observeEvent(input$add_block, {
       # because only new names will be called (see blocks_new)
-      new_name <- utils::tail(make.unique(c(blocks_called(), "block")), 1)
+      new_name <- utils::tail(make.unique(c(blocks_called(), "block"), sep = "_"), 1)
       x_reactive(
         modifyList(x_reactive(), stats::setNames(list(""), new_name)) # Preserve attributes
       )
@@ -116,11 +125,9 @@ editor_ui.character <- function(id, x) {
 #' @export
 editor_srv.character <- function(id, x, x_reactive) {
   shiny::moduleServer(id, function(input, output, session) {
-    debounced_content <- shiny::debounce(shiny::reactive(input$content), millis = 10000)
+    debounced_content <- shiny::debounce(shiny::reactive(input$content), millis = 1000)
 
-    shiny::observeEvent(debounced_content(), {
-      x_reactive(debounced_content())
-    })
+    shiny::observeEvent(debounced_content(), x_reactive(debounced_content()))
   })
 }
 
@@ -134,19 +141,32 @@ ui_edit_button <- function(id) {
   )
 }
 
-srv_edit_button <- function(id, original_card, card_r, reporter) {
+srv_edit_button <- function(id, card_r, reporter) {
   moduleServer(id, function(input, output, session) {
-    new_card <- editor_srv("editor", x = card_r)
-    title <- attr(original_card, "label", exact = TRUE)
+    card_local <- shiny::reactiveVal()
+    new_card <- editor_srv("editor", x = card_local)
 
     shiny::observeEvent(input$button, {
+      template_card <- card_r()
+      names(template_card) <- make.unique(rep("block", length(template_card)), sep = "_")
+      card_local(template_card)
+
       shiny::showModal(
         shiny::modalDialog(
-          title = sprintf("Editing Card: %s", title),
+          title = tags$span(
+            class = "edit_title",
+            "Editing Card:",
+            shiny::uiOutput(session$ns("title")),
+            shiny::actionLink(
+              session$ns("edit_title"),
+              label = "(edit title)",
+              class = "text-muted"
+            )
+          ),
           size = "l",
           easyClose = TRUE,
           shiny::tagList(
-            editor_ui(session$ns("editor"), x = card_r),
+            editor_ui(session$ns("editor"), x = card_local),
             shiny::uiOutput(session$ns("add_text_element_button_ui"))
           ),
           footer = shiny::tagList(
@@ -157,15 +177,32 @@ srv_edit_button <- function(id, original_card, card_r, reporter) {
       )
     })
 
+    observeEvent(card_r(), {
+      if (!inherits(card_r(), "ReportDocument")) {
+        shiny::removeUI(sprintf("#%s", session$ns("button")))
+      }
+    })
+
+    output$title <- shiny::renderUI({
+      title <- label(card_r())
+      if (!is.null(input$edit_title) && input$edit_title > 0) {
+        shiny::textInput(session$ns("new_title"), label = NULL, value = title)
+        # shinyjs::hide("edit_title")
+      } else {
+        shiny::tags$span(title)
+      }
+    })
+
     shiny::observeEvent(input$edit_save, {
       # TODO: add check on card validity (duplicate title)
-      if (!identical(new_card(), card_r())) {
-        reporter$replace_card(old_title = title, card = new_card)
-        card_r(new_card())
+      new_card_obj <- new_card()
+      if (!is.null(input$new_title)) {
+        attr(new_card_obj, "label") <- input$new_title
+      }
+      if (!identical(new_card_obj, card_r())) {
+        reporter$replace_card(card = new_card_obj)
       }
       shiny::removeModal()
     })
-
-    card_r
   })
 }

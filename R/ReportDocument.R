@@ -58,6 +58,71 @@ c.ReportDocument <- function(...) {
   out
 }
 
+#' @export
+label <- function(object) UseMethod("label", object)
+
+#' @export
+label.ReportDocument <- function(object) {
+  label <- attr(object, which = "label", exact = TRUE)
+  label %||% character(0L)
+}
+
+#' @export
+label.ReportCard <- function(object) {
+  # TODO: soft deprecate
+  object$get_name()
+}
+
+
+#' @export
+`label<-` <- function(object, value) UseMethod("label<-", object)
+
+#' @export
+`label<-.ReportDocument` <- function(object, value) {
+  attr(object, which = "label") <- value
+  object
+}
+
+#' @export
+`label<-.ReportCard` <- function(object, value) {
+  object$set_name(value)
+  object
+}
+
+#' @export
+id <- function(object) UseMethod("id", object)
+
+#' @export
+id.ReportDocument <- function(object) {
+  id <- attr(object, which = "id", exact = TRUE)
+  id %||% character(0L)
+}
+
+#' @export
+id.ReportCard <- function(object) {
+  object$get_id()
+}
+
+#' @export
+`id<-` <- function(object, value) UseMethod("id<-", object)
+
+#' @export
+`id<-.ReportDocument` <- function(object, value) {
+  if (identical(id(object), character(0L))) {
+    attr(object, which = "id") <- value
+    return(object)
+  }
+  warning("'id' for reporter is already set, skipping...")
+  object
+}
+
+#' @export
+`id<-.ReportCard` <- function(object, ...) {
+  # Value is not needed as object can generate id
+  object$generate_id()
+  object
+}
+
 #' @rdname report_document
 #' @param x `ReportDocument`
 #' @param modify An integer vector specifying element indices to extract and reorder.

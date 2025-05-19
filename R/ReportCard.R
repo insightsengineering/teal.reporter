@@ -180,6 +180,31 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       private$name <- name
       invisible(self)
     },
+    #' @description Get the ID of the `ReportCard`.
+    #'
+    #' @return `character` a card id.
+    #' @examples
+    #' ReportCard$new()$set_id("NAME")$get_id()
+    get_id = function() {
+      private$id
+    },
+    #' @description Generate the ID of the `ReportCard`.
+    #' It should only be performed once.
+    #'
+    #' @return `self`, invisibly.
+    #' @examples
+    #' ReportCard$new()$generate_id()$get_id()
+    generate_id = function() {
+      if (identical(private$id, character(0L)) || is.null(private$id)) {
+        private$id <- sprintf("card_%s", substr(rlang::hash(list(self, Sys.time())), 1, 8))
+      }
+      invisible(self)
+    },
+    #' @description Set content block names for compatibility with newer `ReportDocument`
+    #' @param new_nmes (`character`) vector of new names.
+    set_content_names = function(new_names) {
+      names(private$content) <- new_names
+    },
     #' @description Convert the `ReportCard` to a list, including content and metadata.
     #' @param output_dir (`character`) with a path to the directory where files will be copied.
     #' @return (`named list`) a `ReportCard` representation.
@@ -261,7 +286,8 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
   private = list(
     content = list(),
     metadata = list(),
-    name = character(0),
+    name = character(0L),
+    id = character(0L),
     dispatch_block = function(block_class) {
       eval(str2lang(block_class))
     },
@@ -288,3 +314,13 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
   lock_objects = TRUE,
   lock_class = TRUE
 )
+
+#' @export
+length.ReportCard <- function(x) {
+  length(x$get_content())
+}
+
+#' @export
+`names<-.ReportCard` <- function(object, value) {
+
+}
