@@ -50,6 +50,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
 
       checkmate::assert_list(cards, types = c("ReportCard", "ReportDocument"))
+      lapply(cards, function(x) checkmate::assert(private$check_append(x)))
       new_cards <- cards
 
       rds <- vapply(new_cards, inherits, logical(1L), "ReportDocument")
@@ -141,6 +142,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter$replace_card("Card1", card2)
     #' reporter$get_cards()[[1]]$get_name()
     replace_card = function(card) {
+      checkmate::assert(private$check_append(card))
       private$cards[[id(card)]] <- card
       private$trigger_add_card()
       invisible(self)
@@ -490,6 +492,15 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       } else {
         value
       }
+    },
+
+    # @description Check if a card can be appended to the reporter.
+    #
+    # @param card (`ReportDocument`) title of new card.
+    # @return `TRUE` if card can be safely added, otherwise, `FALSE`.
+    check_append = function(card) {
+      ix <- if (length(id(card)) == 0L) rep(TRUE, length(private$cards)) else names(private$cards) != id(card)
+      (!label(card) %in% vapply(private$cards[ix], label, character(1L))) || return("Card with this name already exists")
     }
   ),
   lock_objects = TRUE,

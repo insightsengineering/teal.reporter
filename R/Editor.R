@@ -170,12 +170,26 @@ srv_edit_button <- function(id, card_r, reporter) {
       }
 
       if (isFALSE(is.null(input$new_title))) {
-        attr(new_card, "label") <- input$new_title
+        label(new_card) <- input$new_title
       }
       if (isFALSE(identical(new_card, card_r()))) {
-        reporter$replace_card(card = new_card)
+        tryCatch(
+          {
+            reporter$replace_card(card = new_card)
+            shiny::removeModal()
+          },
+          error = function(err) {
+            shiny::showNotification(
+              sprintf("A card with the name '%s' already exists. Please use a different name.", label(new_card)),
+              type = "error",
+              duration = 5
+            )
+            shinyjs::enable("edit_save")
+          }
+        )
+      } else {
+        shiny::removeModal() # Doing nothing
       }
-      shiny::removeModal()
     })
 
     # Hide button for deprecated objects
