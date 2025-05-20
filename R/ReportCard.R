@@ -320,7 +320,7 @@ length.ReportCard <- function(x) {
   length(x$get_content())
 }
 
-#' @export
-`names<-.ReportCard` <- function(object, value) {
-
-}
+# #' @export
+# `names<-.ReportCard` <- function(object, value) {
+#
+# }

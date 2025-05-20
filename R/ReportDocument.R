@@ -73,7 +73,6 @@ label.ReportCard <- function(object) {
   object$get_name()
 }
 
-
 #' @export
 `label<-` <- function(object, value) UseMethod("label<-", object)
 
