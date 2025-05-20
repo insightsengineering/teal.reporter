@@ -154,7 +154,7 @@ srv_edit_button <- function(id, card_r, reporter) {
       shiny::showModal(
         shiny::modalDialog(
           title = tags$span(
-            class = "edit_title",
+            class = "edit_title_container",
             "Editing Card:",
             shiny::uiOutput(session$ns("title")),
             shiny::actionLink(
@@ -186,8 +186,8 @@ srv_edit_button <- function(id, card_r, reporter) {
     output$title <- shiny::renderUI({
       title <- label(card_r())
       if (!is.null(input$edit_title) && input$edit_title > 0) {
+        shinyjs::hide("edit_title")
         shiny::textInput(session$ns("new_title"), label = NULL, value = title)
-        # shinyjs::hide("edit_title")
       } else {
         shiny::tags$span(title)
       }

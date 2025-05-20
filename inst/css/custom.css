@@ -96,7 +96,7 @@
 
 .fa-stack.small { width: 2em; }
 
-.edit_title {
+.edit_title_container {
   display: flex;
   gap: .5rem;
 }
