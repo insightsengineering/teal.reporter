@@ -20,7 +20,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     initialize = function() {
       private$cards <- list()
-      private$reactive_add_card <- shiny::reactiveVal(0)
+      private$reactive_add_card <- shiny::reactiveVal(NULL)
       invisible(self)
     },
     #' @description Append one or more `ReportCard` or `ReportDocument` objects to the `Reporter`.
@@ -44,16 +44,15 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, doc1))
     append_cards = function(cards) {
-      checkmate::assert_list(cards, c("ReportCard", "ReportDocument"))
+      checkmate::assert_list(cards, types = c("ReportCard", "ReportDocument"))
       rcs <- which(vapply(cards, inherits, logical(1), "ReportCard"))
+      names(cards)[rcs] <- sapply(cards[rcs], function(card) card$get_name())
+
       rds <- which(vapply(cards, inherits, logical(1), "ReportDocument"))
-      if (length(rcs)) {
-        names(cards)[rcs] <- sapply(cards[rcs], function(card) card$get_name())
-      }
       if (length(rds) && !is.null(self$get_template())) {
-        template_fun <- self$get_template()
-        cards[rds] <- lapply(cards[rds], function(doc) template_fun(doc))
+        cards[rds] <- lapply(cards[rds], self$get_template())
       }
+      cards <- mapply(private$update_attributes, card = cards, label = names(cards), SIMPLIFY = FALSE)
       private$cards <- append(private$cards, cards)
       shiny::isolate(private$reactive_add_card(length(private$cards)))
       invisible(self)
@@ -137,7 +136,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       if (is.character(id)) {
         id <- which(names(private$cards) == id)
       }
-      private$cards[[id]] <- card
+      private$cards[[id]] <- card()
       private$reactive_add_card(length(private$cards))
       invisible(self)
     },
@@ -166,9 +165,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
     #' reporter$get_cards()
-    get_cards = function() {
-      private$cards
-    },
+    get_cards = function() private$cards,
     #' @description Compiles and returns all content blocks from the `ReportCard` and `ReportDocument` objects in the `Reporter`.
     #' @param sep An optional separator to insert between each content block.
     #' Default is a `NewpageBlock$new()` object.
@@ -223,7 +220,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     reset = function() {
       private$cards <- list()
       private$metadata <- list()
-      private$reactive_add_card(0)
+      private$reactive_add_card(NULL)
       invisible(self)
     },
     #' @description Removes specific `ReportCard` or `ReportDocument` objects from the `Reporter` by their indices.
@@ -255,9 +252,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' library(shiny)
     #'
     #' isolate(Reporter$new()$get_reactive_add_card())
-    get_reactive_add_card = function() {
-      private$reactive_add_card()
-    },
+    get_reactive_add_card = function() private$reactive_add_card(),
     #' @description Get the metadata associated with this `Reporter`.
     #'
     #' @return `named list` of metadata to be appended.
@@ -265,9 +260,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
     #' reporter$get_metadata()
     #'
-    get_metadata = function() {
-      private$metadata
-    },
+    get_metadata = function() private$metadata,
     #' @description Appends metadata to this `Reporter`.
     #'
     #' @param meta (`named list`) of metadata to be appended.
@@ -425,9 +418,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Get the `Reporter` id
     #' @return `character(1)` the `Reporter` id.
-    get_id = function() {
-      private$id
-    },
+    get_id = function() private$id,
     #' @description Set template function for `ReportDocument`
     #' Set a function that is called on every report content (of class `ReportDocument`) added through `$append_cards`
     #' @param template (`function`) a template function.
@@ -450,9 +441,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Get the `Reporter` template
     #' @return a template `function`.
-    get_template = function() {
-      private$template
-    }
+    get_template = function() private$template
   ),
   private = list(
     id = "",
@@ -460,6 +449,14 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     metadata = list(),
     reactive_add_card = NULL,
     template = NULL,
+    # @description Update the attributes of a card and generates unique hash
+    # @param card the card to be updated
+    # @param label the label to be set
+    update_attributes = function(card, label) {
+      attr(card, "label") <- label
+      attr(card, "id") <- sprintf("card_%s", substr(rlang::hash(list(card, Sys.time())), 1, 8))
+      card
+    },
     # @description The copy constructor.
     #
     # @param name the name of the field

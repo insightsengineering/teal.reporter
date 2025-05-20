@@ -129,8 +129,11 @@ reporter_previewer_srv <- function(id,
     insert_cards <- shiny::reactiveVal()
     remove_cards <- shiny::reactiveVal()
     shiny::observeEvent(reporter$get_reactive_add_card(), {
-      to_add <- reporter$get_cards()[!reporter$get_cards() %in% current_cards()] # because setdiff loses names
-      to_remove <- current_cards()[!current_cards() %in% reporter$get_cards()]
+      reporter_ids <- vapply(reporter$get_cards(), attr, character(1L), which = "id")
+      current_ids <- vapply(current_cards(), attr, character(1L), which = "id")
+
+      to_add <- reporter$get_cards()[!reporter_ids %in% current_ids]
+      to_remove <- current_cards()[!current_ids %in% reporter_ids]
       if (length(to_add)) insert_cards(to_add)
       if (length(to_remove)) remove_cards(to_remove)
       current_cards(reporter$get_cards())
@@ -139,12 +142,13 @@ reporter_previewer_srv <- function(id,
     shiny::observeEvent(insert_cards(), {
       cards <- insert_cards()
       lapply(names(cards), function(card_name) {
+        card_id <- attr(cards[[card_name]], "id", exact = TRUE)
         bslib::accordion_panel_insert(
           id = "reporter_cards",
-          reporter_previewer_card_ui(id = session$ns(card_name), card_name = card_name)
+          reporter_previewer_card_ui(id = session$ns(card_id), card_name = card_name)
         )
         reporter_previewer_card_srv(
-          id = card_name,
+          id = card_id,
           reporter = reporter,
           card = cards[[card_name]]
         )

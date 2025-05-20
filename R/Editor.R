@@ -73,7 +73,9 @@ editor_srv.ReportDocument <- function(id, x, x_reactive) {
         ),
         1
       )
-      x_reactive(c(x_reactive(), stats::setNames(list(""), new_name)))
+      x_reactive(
+        modifyList(x_reactive(), stats::setNames(list(""), new_name)) # Preserve attributes
+      )
     })
   })
 }
