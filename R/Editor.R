@@ -1,13 +1,13 @@
-editor_ui <- function(id, x) {
-  UseMethod("editor_ui", x)
+ui_editor_block <- function(id, x) {
+  UseMethod("ui_editor_block", x)
 }
 
-editor_srv <- function(id, x) {
-  UseMethod("editor_srv", x)
+srv_editor_block <- function(id, x) {
+  UseMethod("srv_editor_block", x)
 }
 
 #' @export
-editor_ui.default <- function(id, x) {
+ui_editor_block.default <- function(id, x) {
   shiny::tags$div(
     class = "expandable-container",
     shiny::tags$h6(
@@ -27,14 +27,14 @@ editor_ui.default <- function(id, x) {
 }
 
 #' @export
-editor_srv.default <- function(id, x) {
+srv_editor_block.default <- function(id, x) {
   shiny::moduleServer(id, function(input, output, session) {
     NULL # No input being changed
   })
 }
 
 #' @export
-editor_ui.character <- function(id, x) {
+ui_editor_block.character <- function(id, x) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::tags$h6(
@@ -46,7 +46,7 @@ editor_ui.character <- function(id, x) {
 }
 
 #' @export
-editor_srv.character <- function(id, x) {
+srv_editor_block.character <- function(id, x) {
   shiny::moduleServer(id, function(input, output, session) session$ns("content"))
 }
 
@@ -55,75 +55,79 @@ ui_report_document_editor <- function(id, x) {
   shiny::tagList(
     shiny::tags$div(
       id = ns("blocks"),
-      lapply(names(x), function(block_name) editor_ui(shiny::NS(ns("blocks"), block_name), x = x[[block_name]]))
+      lapply(names(x), function(block_name) ui_editor_block(shiny::NS(ns("blocks"), block_name), x = x[[block_name]]))
     ),
     shiny::actionButton(ns("add_block"), label = "Add text block", icon = shiny::icon("plus"))
   )
 }
 
-srv_report_document_editor <- function(id, template_card) {
+srv_report_document_editor <- function(id, card_r) {
   shiny::moduleServer(id, function(input, output, session) {
-    # observer calls observer but in a limited scope - only for new items child observers are created
-    #  - we can also keep them in a list in order to kill them when we need.
+    blocks_input_names_rvs <- shiny::reactiveValues() # Store input names for snapshot
+    blocks_new_value_rvs <- shiny::reactiveValues() # Store initial values for new blocks
+    blocks_queue_rv <- shiny::reactiveVal()
 
-    blocks_input_names <- shiny::reactiveValues()
-    blocks_new_value <- shiny::reactiveValues()
-    blocks_queue_r <- shiny::reactiveVal()
+    shiny::observeEvent(card_r(), { # Reset on card change
+      blocks_input_names_rvs <- shiny::reactiveValues()
+      blocks_new_value_rvs <- shiny::reactiveValues()
+      blocks_queue_rv(names(card_r()))
+    })
 
-    shiny::observeEvent(blocks_queue_r(), {
-      queue <- blocks_queue_r()
-      lapply(queue, function(block_name) {
-        blocks_ns <- shiny::NS(session$ns("blocks"))
-        block_content <- template_card[[block_name]] %||% blocks_new_value[[block_name]] # Initialize as empty
-        input_name <- editor_srv(shiny::NS("blocks", block_name), x = block_content)
+    shiny::observeEvent(blocks_queue_rv(), {
+      lapply(blocks_queue_rv(), function(block_name) {
+        new_block_id <- shiny::NS("blocks", block_name)
+        block_content <- card_r()[[block_name]] %||% blocks_new_value_rvs[[block_name]] # Initialize as empty
+        input_name <- srv_editor_block(new_block_id, x = block_content)
         if (isFALSE(is.null(input_name))) {
-          blocks_input_names[[block_name]] <- input_name
+          blocks_input_names_rvs[[block_name]] <- input_name
         }
 
-        if (!block_name %in% names(template_card)) { # Only adds UI if not already rendered
-          insertUI(
-            sprintf("#%s", session$ns("blocks")),
-            where = "beforeEnd",
-            ui = editor_ui(blocks_ns(block_name), x = block_content)
-          )
+        if (!block_name %in% names(card_r())) { # Only adds UI if not already rendered
+          new_block_ui <- ui_editor_block(session$ns(new_block_id), x = block_content)
+          insertUI(sprintf("#%s", session$ns("blocks")), where = "beforeEnd", ui = new_block_ui)
         }
         NULL
       })
     })
 
-    blocks_queue_r(names(template_card)) # Initialize the already rendered blocks
-
     shiny::observeEvent(input$add_block, {
-      new_name <- utils::tail(make.unique(c(names(template_card), names(blocks_new_value), "block"), sep = "_"), 1)
-      blocks_new_value[[new_name]] <- ""
-      blocks_queue_r(new_name)
+      new_name <- utils::tail(make.unique(c(names(card_r()), names(blocks_new_value_rvs), "block"), sep = "_"), 1)
+      blocks_new_value_rvs[[new_name]] <- ""
+      blocks_queue_rv(new_name)
     })
 
-    blocks_input_names
+    blocks_input_names_rvs
   })
 }
 
-ui_edit_button <- function(id) {
-  shiny::actionLink(
-    inputId = NS(id, "button"),
-    class = "btn btn-primary btn-sm float-end p-3",
-    label = NULL,
-    title = "Edit card",
-    icon = shiny::icon("edit")
+ui_previewer_card_actions <- function(id) {
+  ns <- shiny::NS(id)
+  shiny::tagList(
+    shiny::actionLink(
+      inputId = ns("edit_action"),
+      class = "btn btn-primary btn-sm float-end p-3",
+      label = NULL,
+      title = "Edit card",
+      icon = shiny::icon("edit")
+    ),
+    shiny::actionLink(
+      inputId = ns("remove_action"),
+      class = "btn btn-danger btn-sm float-end p-3",
+      label = NULL,
+      icon = shiny::icon("trash-alt"),
+    )
   )
 }
 
-srv_edit_button <- function(id, card_r, reporter) {
+srv_previewer_card_actions <- function(id, card_r, reporter) {
   moduleServer(id, function(input, output, session) {
-    new_card_r <- shiny::reactiveVal()
-    block_input_names_r <- shiny::reactiveVal()
+    new_card_rv <- shiny::reactiveVal()
 
-    shiny::observeEvent(input$button, {
+    shiny::observeEvent(input$edit_action, {
       template_card <- card_r()
       names(template_card) <- make.unique(rep("block", length(template_card)), sep = "_")
-      new_card_r(template_card)
+      new_card_rv(template_card)
 
-      random_editor_id <- sprintf("editor_%s", rlang::hash(list(rnorm(1), Sys.time())))
       shiny::showModal(
         shiny::modalDialog(
           title = tags$span(
@@ -135,7 +139,7 @@ srv_edit_button <- function(id, card_r, reporter) {
           size = "l",
           easyClose = TRUE,
           shiny::tagList(
-            ui_report_document_editor(session$ns(random_editor_id), x = template_card),
+            ui_report_document_editor(session$ns("editor"), x = template_card),
             shiny::uiOutput(session$ns("add_text_element_button_ui"))
           ),
           footer = shiny::tagList(
@@ -144,10 +148,9 @@ srv_edit_button <- function(id, card_r, reporter) {
           )
         )
       )
-
-      result <- srv_report_document_editor(random_editor_id, template_card)
-      block_input_names_r(result)
     })
+
+    block_input_names_rvs <- srv_report_document_editor("editor", new_card_rv)
 
     output$title <- shiny::renderUI({
       title <- label(card_r())
@@ -159,12 +162,11 @@ srv_edit_button <- function(id, card_r, reporter) {
       }
     })
 
+    # Handle
     shiny::observeEvent(input$edit_save, {
-      # TODO: add check on card validity (duplicate title)
-      new_card <- new_card_r()
-      block_input_names <- shiny::reactiveValuesToList(block_input_names_r())
-      # Save snapshot of current inputs
-      for (name in names(block_input_names)) {
+      new_card <- new_card_rv()
+      block_input_names <- shiny::reactiveValuesToList(block_input_names_rvs)
+      for (name in names(block_input_names)) { # Save snapshot of current inputs
         input_ix <- sub(session$ns(""), "", block_input_names[[name]])
         new_card[[name]] <- isolate(input[[input_ix]])
       }
@@ -192,14 +194,20 @@ srv_edit_button <- function(id, card_r, reporter) {
       }
     })
 
-    # Hide button for deprecated objects
-    observeEvent(card_r(),
-      {
+    # Handle remove button
+    shiny::observeEvent(input$remove_action, {
+      reporter$remove_cards(ids = id(card_r()))
+    })
+
+    observeEvent( # Hide button for deprecated objects
+      card_r(),
+      once = TRUE,
+      handlerExpr = {
         if (!inherits(card_r(), "ReportDocument")) {
           shiny::removeUI(sprintf("#%s", session$ns("button")))
+          shiny::removeUI(sprintf("#%s", session$ns("remove")))
         }
-      },
-      once = TRUE
+      }
     )
   })
 }

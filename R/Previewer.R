@@ -154,7 +154,7 @@ reporter_previewer_srv <- function(id,
       to_add <- !reporter_ids %in% current_ids
       to_remove <- !current_ids %in% reporter_ids
       if (any(to_add)) insert_cards(reporter$get_cards(to_add))
-      if (any(to_remove)) remove_cards(reporter$get_cards(to_add))
+      if (any(to_remove)) remove_cards(reporter$get_cards(to_remove))
     })
 
     shiny::observeEvent(insert_cards(), {
@@ -209,13 +209,7 @@ reporter_previewer_card_ui <- function(id, card_id) {
   accordion_item <- htmltools::tagAppendChildren(
     tag = accordion_item,
     .cssSelector = ".accordion-header",
-    ui_edit_button(ns("edit")),
-    shiny::actionLink(
-      inputId = ns("remove"),
-      class = "btn btn-danger btn-sm float-end p-3",
-      label = NULL,
-      icon = shiny::icon("trash-alt"),
-    )
+    ui_previewer_card_actions(ns("actions"))
   )
 }
 
@@ -223,27 +217,10 @@ reporter_previewer_card_ui <- function(id, card_id) {
 reporter_previewer_card_srv <- function(id, reporter, card_r) {
   # todo: card_name should be only on the server side
   shiny::moduleServer(id, function(input, output, session) {
-    output$title <- shiny::renderText(label(card_r()))
-    output$card_content <- shiny::renderUI(toHTML(card_r()))
+    output$title <- shiny::renderText(label(req(card_r())))
+    output$card_content <- shiny::renderUI(toHTML(req(card_r())))
 
-    # card_local <- shiny::reactive({
-    #   card <- card_r()
-    #   names(card) <- make.unique(rep("block", length(card)))
-    #   card
-    # })
-
-    srv_edit_button("edit", card_r, reporter)
-
-    # remove self from reporter
-    shiny::observeEvent(input$remove, {
-      reporter$remove_cards(ids = id)
-    })
-
-    observeEvent(card_r(), {
-      if (!inherits(card_r(), "ReportDocument")) {
-        shiny::removeUI(sprintf("#%s", session$ns("remove")))
-      }
-    })
+    srv_previewer_card_actions("actions", card_r, reporter)
   })
 }
 
