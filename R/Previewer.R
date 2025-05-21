@@ -43,7 +43,7 @@ reporter_previewer_ui <- function(id) {
       sortable::sortable_js(
         css_id = ns("reporter_cards"),
         options = sortable::sortable_options(
-          onSort = sortable::sortable_js_capture_input(ns("reporter_cards_orders"))
+          onSort = sortable::sortable_js_capture_input(ns("reporter_cards_order"))
         )
       ),
       shiny::tags$div(
@@ -56,10 +56,7 @@ reporter_previewer_ui <- function(id) {
           reset_report_button_ui(ns("reset"), label = "Reset Report")
         )
       ),
-      shiny::tags$div(
-        id = "reporter_previewer",
-        bslib::accordion(id = ns("reporter_cards"), open = FALSE)
-      )
+      reporter_previewer_cards_ui(ns("cards"))
     )
   )
 }
@@ -127,63 +124,70 @@ reporter_previewer_srv <- function(id,
     )
     report_load_srv("load", reporter = reporter)
     reset_report_button_srv("reset", reporter = reporter)
+    reporter_previewer_cards_srv("cards", reporter)
+  })
+}
 
-    current_cards <- shiny::reactiveValues()
+reporter_previewer_cards_ui <- function(id) {
+  shiny::tags$div(
+    id = "reporter_previewer",
+    bslib::accordion(id = NS(id, "reporter_cards"), open = FALSE)
+  )
+}
 
-    insert_cards <- shiny::reactiveVal()
-    remove_cards <- shiny::reactiveVal()
+reporter_previewer_cards_srv <- function(id, reporter) {
+  moduleServer(id, function(input, output, session) {
+    current_cards_rvs <- shiny::reactiveValues()
+
+    insert_queue_rv <- shiny::reactiveVal()
+    remove_queue_rv <- shiny::reactiveVal()
     shiny::observeEvent(reporter$get_reactive_add_card(), {
       all_cards <- reporter$get_cards()
 
-      reporter_ids <- vapply(all_cards, function(x) id(x), character(1L))
+      reporter_ids <- vapply(all_cards, function(x) id(x), character(1L), USE.NAMES = FALSE)
+      current_cards <- Filter(Negate(is.null), shiny::reactiveValuesToList(current_cards_rvs))
       current_ids <- names(current_cards)
 
-      # Update modifeid card
-      current_names <- vapply(shiny::reactiveValuesToList(current_cards), label, character(1L))
-      modified_cards_title <- reporter_ids[setdiff(
-        names(reporter_ids)[reporter_ids %in% current_ids],
-        current_names[current_ids %in% reporter_ids]
-      )]
-
-      lapply(names(modified_cards_title), function(modified_name) {
-        card_to_update <- all_cards[[modified_name]]
-        current_cards[[id(card_to_update)]] <- card_to_update
-        NULL
-      })
+      # Update modified card
+      common_ids <- intersect(reporter_ids, current_ids)
+      current_titles <- vapply(current_cards[common_ids], label, character(1L))
+      reporter_titles <- vapply(all_cards[common_ids], function(x) label(x), character(1L))
+      for (title_modified_id in names(current_titles[current_titles != reporter_titles])) {
+        current_cards_rvs[[title_modified_id]] <- all_cards[[title_modified_id]]
+      }
 
       to_add <- !reporter_ids %in% current_ids
       to_remove <- !current_ids %in% reporter_ids
-      if (any(to_add)) insert_cards(reporter_ids[to_add])
-      if (any(to_remove)) remove_cards(current_ids[to_remove])
+      if (any(to_add)) insert_queue_rv(reporter_ids[to_add])
+      if (any(to_remove)) remove_queue_rv(current_ids[to_remove])
     })
 
-    shiny::observeEvent(insert_cards(), {
-      lapply(insert_cards(), function(card_id) {
+    shiny::observeEvent(insert_queue_rv(), {
+      lapply(insert_queue_rv(), function(card_id) {
         bslib::accordion_panel_insert(
           id = "reporter_cards",
           reporter_previewer_card_ui(id = session$ns(card_id), card_id = card_id)
         )
-        current_cards[[card_id]] <- reporter$get_cards(card_id)[[1]]
+        current_cards_rvs[[card_id]] <- reporter$get_cards(card_id)[[1]]
 
         reporter_previewer_card_srv(
           id = card_id,
           reporter = reporter,
-          card_r = reactive(current_cards[[card_id]])
+          card_r = reactive(current_cards_rvs[[card_id]])
         )
       })
     })
 
-    shiny::observeEvent(remove_cards(), {
-      cards <- remove_cards()
+    shiny::observeEvent(remove_queue_rv(), {
+      cards <- remove_queue_rv()
       lapply(cards, function(card_id) {
-        current_cards[[card_id]] <- NULL
+        current_cards_rvs[[card_id]] <- NULL
         bslib::accordion_panel_remove(id = "reporter_cards", target = card_id)
         NULL
       })
     })
 
-    shiny::observeEvent(input$reporter_cards_orders, {
-      # Convert from titles to ids
+    shiny::observeEvent(input$reporter_cards_order, {
       reporter$reorder_cards(setdiff(input$reporter_cards_orders, ""))
     })
   })
