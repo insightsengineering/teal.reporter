@@ -133,8 +133,9 @@ srv_previewer_card_actions <- function(id, card_r, reporter) {
           title = tags$span(
             class = "edit_title_container",
             "Editing Card:",
-            shiny::uiOutput(session$ns("title")),
-            shiny::actionLink(session$ns("edit_title"), label = "(edit title)", class = "text-muted")
+            shiny::tags$span(id = session$ns("static_title"), metadata(template_card, "title")),
+            shiny::actionLink(session$ns("edit_title"), label = "(edit title)", class = "text-muted"),
+            shinyjs::hidden(shiny::textInput(session$ns("new_title"), label = NULL, value = metadata(template_card, "title")))
           ),
           size = "l",
           easyClose = TRUE,
@@ -152,14 +153,20 @@ srv_previewer_card_actions <- function(id, card_r, reporter) {
 
     block_input_names_rvs <- srv_report_document_editor("editor", new_card_rv)
 
-    output$title <- shiny::renderUI({
-      title <- metadata(card_r(), "title")
-      if (!is.null(input$edit_title) && input$edit_title > 0) {
-        shinyjs::hide("edit_title")
-        shiny::textInput(session$ns("new_title"), label = NULL, value = title)
-      } else {
-        shiny::tags$span(title)
-      }
+    observeEvent(input$edit_title, {
+      shinyjs::hide("edit_title")
+      shinyjs::hide("static_title")
+      shinyjs::show("new_title")
+      shinyjs::runjs(
+        sprintf(
+          "
+          const input = document.getElementById('%s');
+          input.focus();
+          input.setSelectionRange(input.value.length, input.value.length);
+          ",
+          session$ns("new_title")
+        )
+      )
     })
 
     # Handle
@@ -206,7 +213,6 @@ srv_previewer_card_actions <- function(id, card_r, reporter) {
       handlerExpr = {
         if (!inherits(card_r(), "ReportDocument")) {
           shiny::removeUI(sprintf("#%s", session$ns("edit_action")))
-          shiny::removeUI(sprintf("#%s", session$ns("remove_action")))
         }
       }
     )

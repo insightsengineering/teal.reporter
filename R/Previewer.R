@@ -137,7 +137,7 @@ reporter_previewer_cards_ui <- function(id) {
       tags$h4(
         class = "text-muted",
         shiny::icon("circle-info"),
-        "No reporters have been added yet."
+        "No reports have been added yet."
       )
     ),
     bslib::accordion(id = ns("reporter_cards"), open = FALSE)
