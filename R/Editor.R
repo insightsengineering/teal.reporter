@@ -68,8 +68,8 @@ srv_report_document_editor <- function(id, card_r) {
     blocks_queue_rv <- shiny::reactiveVal()
 
     shiny::observeEvent(card_r(), { # Reset on card change
-      blocks_input_names_rvs <- shiny::reactiveValues()
-      blocks_new_value_rvs <- shiny::reactiveValues()
+      lapply(names(blocks_input_names_rvs), function(ix) blocks_input_names_rvs[[ix]] <- NA)
+      lapply(names(blocks_new_value_rvs), function(ix) blocks_new_value_rvs[[ix]] <- NA)
       blocks_queue_rv(names(card_r()))
     })
 
@@ -165,12 +165,11 @@ srv_previewer_card_actions <- function(id, card_r, reporter) {
     # Handle
     shiny::observeEvent(input$edit_save, {
       new_card <- new_card_rv()
-      block_input_names <- shiny::reactiveValuesToList(block_input_names_rvs)
+      block_input_names <- Filter(Negate(is.na), shiny::reactiveValuesToList(block_input_names_rvs))
       for (name in names(block_input_names)) { # Save snapshot of current inputs
         input_ix <- sub(session$ns(""), "", block_input_names[[name]])
         new_card[[name]] <- isolate(input[[input_ix]])
       }
-
       if (isFALSE(is.null(input$new_title))) {
         metadata(new_card, "title") <- input$new_title
       }
@@ -178,6 +177,7 @@ srv_previewer_card_actions <- function(id, card_r, reporter) {
         tryCatch(
           {
             reporter$replace_card(card = new_card)
+            new_card_rv(NULL)
             shiny::removeModal()
           },
           error = function(err) {
@@ -190,6 +190,7 @@ srv_previewer_card_actions <- function(id, card_r, reporter) {
           }
         )
       } else {
+        new_card_rv(NULL)
         shiny::removeModal() # Doing nothing
       }
     })
@@ -204,8 +205,8 @@ srv_previewer_card_actions <- function(id, card_r, reporter) {
       once = TRUE,
       handlerExpr = {
         if (!inherits(card_r(), "ReportDocument")) {
-          shiny::removeUI(sprintf("#%s", session$ns("button")))
-          shiny::removeUI(sprintf("#%s", session$ns("remove")))
+          shiny::removeUI(sprintf("#%s", session$ns("edit_action")))
+          shiny::removeUI(sprintf("#%s", session$ns("remove_action")))
         }
       }
     )

@@ -144,6 +144,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     replace_card = function(card) {
       checkmate::assert(private$check_append(card))
       private$cards[[metadata(card, "id")]] <- card
+      private$hashes[[metadata(card, "id")]] <- rlang::hash(list(card, Sys.time()))
       private$trigger_add_card()
       invisible(self)
     },
@@ -454,10 +455,12 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Get the `Reporter` template
     #' @return a template `function`.
-    get_template = function() private$template
+    get_template = function() private$template,
+    get_hash = function(card_id) private$hashes[[card_id]]
   ),
   private = list(
     id = "",
+    hashes = list(),
     cards = list(),
     metadata = list(),
     reactive_add_card = NULL,
@@ -477,7 +480,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     # @param card the card to be updated
     # @param label the label to be set
     update_attributes = function(card) {
-      metadata(card, "id") <- sprintf("card_%s", substr(rlang::hash(list(card, Sys.time())), 1, 8))
+      hash <- rlang::hash(list(card, Sys.time()))
+      metadata(card, "id") <- sprintf("card_%s", substr(hash, 1, 8))
+      private$hashes[[metadata(card, "id")]] <- hash
       card
     },
     # @description The copy constructor.

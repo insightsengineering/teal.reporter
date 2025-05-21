@@ -132,10 +132,10 @@ ReportCard$new()$set_name("NAME")$get_name()
 ## Method `ReportCard$get_id`
 ## ------------------------------------------------
 
-ReportCard$new()$set_id("NAME")$get_id()
+ReportCard$new()$get_id("NAME")$get_id()
 
 ## ------------------------------------------------
-## Method `ReportCard$generate_id`
+## Method `ReportCard$set_id`
 ## ------------------------------------------------
 
 ReportCard$new()$generate_id()$get_id()
@@ -157,7 +157,7 @@ ReportCard$new()$generate_id()$get_id()
 \item \href{#method-ReportCard-get_name}{\code{ReportCard$get_name()}}
 \item \href{#method-ReportCard-set_name}{\code{ReportCard$set_name()}}
 \item \href{#method-ReportCard-get_id}{\code{ReportCard$get_id()}}
-\item \href{#method-ReportCard-generate_id}{\code{ReportCard$generate_id()}}
+\item \href{#method-ReportCard-set_id}{\code{ReportCard$set_id()}}
 \item \href{#method-ReportCard-set_content_names}{\code{ReportCard$set_content_names()}}
 \item \href{#method-ReportCard-to_list}{\code{ReportCard$to_list()}}
 \item \href{#method-ReportCard-from_list}{\code{ReportCard$from_list()}}
@@ -506,7 +506,7 @@ Get the ID of the \code{ReportCard}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{ReportCard$new()$set_id("NAME")$get_id()
+\preformatted{ReportCard$new()$get_id("NAME")$get_id()
 }
 \if{html}{\out{</div>}}
 
@@ -514,13 +514,13 @@ Get the ID of the \code{ReportCard}.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ReportCard-generate_id"></a>}}
-\if{latex}{\out{\hypertarget{method-ReportCard-generate_id}{}}}
-\subsection{Method \code{generate_id()}}{
+\if{html}{\out{<a id="method-ReportCard-set_id"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-set_id}{}}}
+\subsection{Method \code{set_id()}}{
 Generate the ID of the \code{ReportCard}.
 It should only be performed once.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$generate_id()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$set_id(new_id)}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{

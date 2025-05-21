@@ -41,7 +41,7 @@ reporter_previewer_ui <- function(id) {
         )
       ),
       sortable::sortable_js(
-        css_id = ns("reporter_cards"),
+        css_id = ns("cards-reporter_cards"),
         options = sortable::sortable_options(
           onSort = sortable::sortable_js_capture_input(ns("reporter_cards_order"))
         )
@@ -129,15 +129,25 @@ reporter_previewer_srv <- function(id,
 }
 
 reporter_previewer_cards_ui <- function(id) {
+  ns <- shiny::NS(id)
   shiny::tags$div(
     id = "reporter_previewer",
-    bslib::accordion(id = NS(id, "reporter_cards"), open = FALSE)
+    tags$div(
+      id = ns("empty_reporters"),
+      tags$h4(
+        class = "text-muted",
+        shiny::icon("circle-info"),
+        "No reporters have been added yet."
+      )
+    ),
+    bslib::accordion(id = ns("reporter_cards"), open = FALSE)
   )
 }
 
 reporter_previewer_cards_srv <- function(id, reporter) {
   moduleServer(id, function(input, output, session) {
     current_cards_rvs <- shiny::reactiveValues()
+    current_hash_rvs <- shiny::reactiveValues()
 
     insert_queue_rv <- shiny::reactiveVal()
     remove_queue_rv <- shiny::reactiveVal()
@@ -149,11 +159,12 @@ reporter_previewer_cards_srv <- function(id, reporter) {
       current_ids <- names(current_cards)
 
       # Update modified card
-      common_ids <- intersect(reporter_ids, current_ids)
-      current_titles <- vapply(current_cards[common_ids], metadata, character(1L), which = "title")
-      reporter_titles <- vapply(all_cards[common_ids], metadata, character(1L), which = "title")
-      for (title_modified_id in names(current_titles[current_titles != reporter_titles])) {
-        current_cards_rvs[[title_modified_id]] <- all_cards[[title_modified_id]]
+      modified_ids <- Filter(
+        function(card_id) current_hash_rvs[[card_id]] != reporter$get_hash(card_id),
+        intersect(reporter_ids, current_ids)
+      )
+      for (modified_id in modified_ids) { # Update card with change
+        current_cards_rvs[[modified_id]] <- all_cards[[modified_id]]
       }
 
       to_add <- !reporter_ids %in% current_ids
@@ -169,7 +180,8 @@ reporter_previewer_cards_srv <- function(id, reporter) {
           reporter_previewer_card_ui(id = session$ns(card_id), card_id = card_id)
         )
         current_cards_rvs[[card_id]] <- reporter$get_cards(card_id)[[1]]
-
+        current_hash_rvs[[card_id]] <- reporter$get_hash(card_id)
+        shinyjs::hide("empty_reporters")
         reporter_previewer_card_srv(
           id = card_id,
           reporter = reporter,
@@ -185,10 +197,12 @@ reporter_previewer_cards_srv <- function(id, reporter) {
         bslib::accordion_panel_remove(id = "reporter_cards", target = card_id)
         NULL
       })
+
+      if (length(reporter$get_cards()) == 0L) shinyjs::show("empty_reporters")
     })
 
     shiny::observeEvent(input$reporter_cards_order, {
-      reporter$reorder_cards(setdiff(input$reporter_cards_orders, ""))
+      reporter$reorder_cards(setdiff(input$reporter_cards_order, ""))
     })
   })
 }

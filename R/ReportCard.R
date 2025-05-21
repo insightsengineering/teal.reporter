@@ -184,7 +184,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' @return `character` a card id.
     #' @examples
-    #' ReportCard$new()$set_id("NAME")$get_id()
+    #' ReportCard$new()$get_id("NAME")$get_id()
     get_id = function() {
       private$id
     },
@@ -194,9 +194,9 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @return `self`, invisibly.
     #' @examples
     #' ReportCard$new()$generate_id()$get_id()
-    generate_id = function() {
+    set_id = function(new_id) {
       if (identical(private$id, character(0L)) || is.null(private$id)) {
-        private$id <- sprintf("card_%s", substr(rlang::hash(list(self, Sys.time())), 1, 8))
+        private$id <- new_id
       }
       invisible(self)
     },

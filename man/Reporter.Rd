@@ -259,6 +259,7 @@ reporter$get_cards()
 \item \href{#method-Reporter-get_id}{\code{Reporter$get_id()}}
 \item \href{#method-Reporter-set_template}{\code{Reporter$set_template()}}
 \item \href{#method-Reporter-get_template}{\code{Reporter$get_template()}}
+\item \href{#method-Reporter-get_hash}{\code{Reporter$get_hash()}}
 \item \href{#method-Reporter-clone}{\code{Reporter$clone()}}
 }
 }
@@ -734,6 +735,15 @@ Get the \code{Reporter} template
 \subsection{Returns}{
 a template \code{function}.
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-get_hash"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-get_hash}{}}}
+\subsection{Method \code{get_hash()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_hash(card_id)}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-clone"></a>}}
