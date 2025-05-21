@@ -144,14 +144,14 @@ reporter_previewer_cards_srv <- function(id, reporter) {
     shiny::observeEvent(reporter$get_reactive_add_card(), {
       all_cards <- reporter$get_cards()
 
-      reporter_ids <- vapply(all_cards, function(x) id(x), character(1L), USE.NAMES = FALSE)
+      reporter_ids <- vapply(all_cards, metadata, character(1L), USE.NAMES = FALSE, which = "id")
       current_cards <- Filter(Negate(is.null), shiny::reactiveValuesToList(current_cards_rvs))
       current_ids <- names(current_cards)
 
       # Update modified card
       common_ids <- intersect(reporter_ids, current_ids)
-      current_titles <- vapply(current_cards[common_ids], label, character(1L))
-      reporter_titles <- vapply(all_cards[common_ids], function(x) label(x), character(1L))
+      current_titles <- vapply(current_cards[common_ids], metadata, character(1L), which = "title")
+      reporter_titles <- vapply(all_cards[common_ids], metadata, character(1L), which = "title")
       for (title_modified_id in names(current_titles[current_titles != reporter_titles])) {
         current_cards_rvs[[title_modified_id]] <- all_cards[[title_modified_id]]
       }
@@ -218,7 +218,7 @@ reporter_previewer_card_ui <- function(id, card_id) {
 reporter_previewer_card_srv <- function(id, reporter, card_r) {
   # todo: card_name should be only on the server side
   shiny::moduleServer(id, function(input, output, session) {
-    output$title <- shiny::renderText(label(req(card_r())))
+    output$title <- shiny::renderText(metadata(req(card_r()), "title"))
     output$card_content <- shiny::renderUI(toHTML(req(card_r())))
 
     srv_previewer_card_actions("actions", card_r, reporter)

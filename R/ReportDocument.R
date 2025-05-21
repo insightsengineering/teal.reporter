@@ -59,66 +59,52 @@ c.ReportDocument <- function(...) {
 }
 
 #' @export
-label <- function(object) UseMethod("label", object)
-
-#' @export
-label.ReportDocument <- function(object) {
-  label <- attr(object, which = "label", exact = TRUE)
-  label %||% character(0L)
+metadata <- function(object, which = NULL) {
+  checkmate::assert_string(which, null.ok = TRUE)
+  UseMethod("metadata", object)
 }
 
 #' @export
-label.ReportCard <- function(object) {
-  # TODO: soft deprecate
-  object$get_name()
-}
-
-#' @export
-`label<-` <- function(object, value) UseMethod("label<-", object)
-
-#' @export
-`label<-.ReportDocument` <- function(object, value) {
-  attr(object, which = "label") <- value
-  object
-}
-
-#' @export
-`label<-.ReportCard` <- function(object, value) {
-  object$set_name(value)
-  object
-}
-
-#' @export
-id <- function(object) UseMethod("id", object)
-
-#' @export
-id.ReportDocument <- function(object) {
-  id <- attr(object, which = "id", exact = TRUE)
-  id %||% character(0L)
-}
-
-#' @export
-id.ReportCard <- function(object) {
-  object$get_id()
-}
-
-#' @export
-`id<-` <- function(object, value) UseMethod("id<-", object)
-
-#' @export
-`id<-.ReportDocument` <- function(object, value) {
-  if (identical(id(object), character(0L))) {
-    attr(object, which = "id") <- value
-    return(object)
+metadata.ReportDocument <- function(object, which = NULL) {
+  metadata <- attr(object, which = "metadata", exact = TRUE)
+  result <- metadata %||% list()
+  if (is.null(which)) {
+    return(result)
   }
-  warning("'id' for reporter is already set, skipping...")
+  result[[which]]
+}
+
+#' @export
+metadata.ReportCard <- function(object, which = NULL) {
+  # TODO: soft deprecate
+  result <- list(title = object$get_name(), id = object$get_id())
+  if (is.null(which)) {
+    return(result)
+  }
+  result[[which]]
+}
+
+#' @export
+`metadata<-` <- function(object, which, value) {
+  checkmate::assert_string(which)
+  UseMethod("metadata<-", object)
+}
+
+#' @export
+`metadata<-.ReportDocument` <- function(object, which, value) {
+  attr(object, which = "metadata") <- modifyList(
+    metadata(object), structure(list(value), names = which)
+  )
   object
 }
 
 #' @export
-`id<-.ReportCard` <- function(object, ...) {
-  # Value is not needed as object can generate id
-  object$generate_id()
+`metadata<-.ReportCard` <- function(object, which, value) {
+  if (!identical(which, "title")) {
+    warning("ReportCard class only supports `title` in metadata.")
+  } else {
+    object$set_name(value)
+  }
   object
 }
 

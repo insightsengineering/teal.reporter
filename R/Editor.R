@@ -153,7 +153,7 @@ srv_previewer_card_actions <- function(id, card_r, reporter) {
     block_input_names_rvs <- srv_report_document_editor("editor", new_card_rv)
 
     output$title <- shiny::renderUI({
-      title <- label(card_r())
+      title <- metadata(card_r(), "title")
       if (!is.null(input$edit_title) && input$edit_title > 0) {
         shinyjs::hide("edit_title")
         shiny::textInput(session$ns("new_title"), label = NULL, value = title)
@@ -172,7 +172,7 @@ srv_previewer_card_actions <- function(id, card_r, reporter) {
       }
 
       if (isFALSE(is.null(input$new_title))) {
-        label(new_card) <- input$new_title
+        metadata(new_card, "title") <- input$new_title
       }
       if (isFALSE(identical(new_card, card_r()))) {
         tryCatch(
@@ -182,7 +182,7 @@ srv_previewer_card_actions <- function(id, card_r, reporter) {
           },
           error = function(err) {
             shiny::showNotification(
-              sprintf("A card with the name '%s' already exists. Please use a different name.", label(new_card)),
+              sprintf("A card with the name '%s' already exists. Please use a different name.", metadata(new_card, "title")),
               type = "error",
               duration = 5
             )
@@ -196,7 +196,7 @@ srv_previewer_card_actions <- function(id, card_r, reporter) {
 
     # Handle remove button
     shiny::observeEvent(input$remove_action, {
-      reporter$remove_cards(ids = id(card_r()))
+      reporter$remove_cards(ids = metadata(card_r(), "id"))
     })
 
     observeEvent( # Hide button for deprecated objects

@@ -61,7 +61,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       new_cards <- lapply(new_cards, private$update_attributes)
 
       # Set up unique id for each card
-      names(new_cards) <- vapply(new_cards, id, character(1L))
+      names(new_cards) <- vapply(new_cards, metadata, character(1L), which = "id")
       private$cards <- append(private$cards, new_cards)
       shiny::isolate(private$trigger_add_card())
       invisible(self)
@@ -143,7 +143,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter$get_cards()[[1]]$get_name()
     replace_card = function(card) {
       checkmate::assert(private$check_append(card))
-      private$cards[[id(card)]] <- card
+      private$cards[[metadata(card, "id")]] <- card
       private$trigger_add_card()
       invisible(self)
     },
@@ -477,7 +477,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     # @param card the card to be updated
     # @param label the label to be set
     update_attributes = function(card) {
-      id(card) <- sprintf("card_%s", substr(rlang::hash(list(card, Sys.time())), 1, 8))
+      metadata(card, "id") <- sprintf("card_%s", substr(rlang::hash(list(card, Sys.time())), 1, 8))
       card
     },
     # @description The copy constructor.
@@ -499,8 +499,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     # @param card (`ReportDocument`) title of new card.
     # @return `TRUE` if card can be safely added, otherwise, `FALSE`.
     check_append = function(card) {
-      ix <- if (length(id(card)) == 0L) rep(TRUE, length(private$cards)) else names(private$cards) != id(card)
-      (!label(card) %in% vapply(private$cards[ix], label, character(1L))) || return("Card with this name already exists")
+      card_id <- metadata(card, "id")
+      ix <- if (length(card_id) == 0L) rep(TRUE, length(private$cards)) else names(private$cards) != metadata(card, "id")
+      (!metadata(card, "title") %in% vapply(private$cards[ix], metadata, character(1L), which = "title")) || return("Card with this name already exists")
     }
   ),
   lock_objects = TRUE,
