@@ -153,20 +153,17 @@ reporter_previewer_srv <- function(id,
 
       to_add <- !reporter_ids %in% current_ids
       to_remove <- !current_ids %in% reporter_ids
-      if (any(to_add)) insert_cards(reporter$get_cards(to_add))
-      if (any(to_remove)) remove_cards(reporter$get_cards(to_remove))
+      if (any(to_add)) insert_cards(reporter_ids[to_add])
+      if (any(to_remove)) remove_cards(current_ids[to_remove])
     })
 
     shiny::observeEvent(insert_cards(), {
-      cards <- insert_cards()
-      lapply(names(cards), function(card_id) {
-        card <- cards[[card_id]]
+      lapply(insert_cards(), function(card_id) {
         bslib::accordion_panel_insert(
           id = "reporter_cards",
           reporter_previewer_card_ui(id = session$ns(card_id), card_id = card_id)
         )
-
-        current_cards[[card_id]] <- card
+        current_cards[[card_id]] <- reporter$get_cards(card_id)[[1]]
 
         reporter_previewer_card_srv(
           id = card_id,
@@ -178,10 +175,10 @@ reporter_previewer_srv <- function(id,
 
     shiny::observeEvent(remove_cards(), {
       cards <- remove_cards()
-      lapply(names(cards), function(card_name) {
-        card_id <- attr(cards[[card_name]], "id", exact = TRUE)
+      lapply(cards, function(card_id) {
         current_cards[[card_id]] <- NULL
-        bslib::accordion_panel_remove(id = "reporter_cards", target = card_name)
+        bslib::accordion_panel_remove(id = "reporter_cards", target = card_id)
+        NULL
       })
     })
 
