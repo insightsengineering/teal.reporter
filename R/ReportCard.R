@@ -190,6 +190,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Generate the ID of the `ReportCard`.
     #' It should only be performed once.
+    #' @param new_id (`character(1)`) a card unique id.
     #'
     #' @return `self`, invisibly.
     #' @examples
@@ -201,7 +202,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
     #' @description Set content block names for compatibility with newer `ReportDocument`
-    #' @param new_nmes (`character`) vector of new names.
+    #' @param new_names (`character`) vector of new names.
     set_content_names = function(new_names) {
       names(private$content) <- new_names
     },

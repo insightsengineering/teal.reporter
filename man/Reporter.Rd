@@ -353,9 +353,16 @@ Sets \code{ReportCard} or \code{ReportDocument} content.
 \subsection{Method \code{get_cards()}}{
 Retrieves all \code{ReportCard} and \code{ReportDocument} objects contained in \code{Reporter}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_cards(index = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_cards(index)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{index}}{Optional (\code{character}, \code{integer} or \code{logica}) index to select specific cards.}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 A (\code{list}) of \code{\link{ReportCard}} and \code{\link{ReportDocument}} objects.
 }
@@ -740,10 +747,18 @@ a template \code{function}.
 \if{html}{\out{<a id="method-Reporter-get_hash"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_hash}{}}}
 \subsection{Method \code{get_hash()}}{
+Get the hash of a card
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$get_hash(card_id)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{card_id}}{(\code{character(1)}) the id of the card.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-clone"></a>}}

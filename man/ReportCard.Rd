@@ -523,6 +523,13 @@ It should only be performed once.
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$set_id(new_id)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{new_id}}{(\code{character(1)}) a card unique id.}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 \code{self}, invisibly.
 }
@@ -547,7 +554,7 @@ Set content block names for compatibility with newer \code{ReportDocument}
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{new_nmes}}{(\code{character}) vector of new names.}
+\item{\code{new_names}}{(\code{character}) vector of new names.}
 }
 \if{html}{\out{</div>}}
 }

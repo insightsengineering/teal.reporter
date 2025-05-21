@@ -149,6 +149,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
     #' @description Retrieves all `ReportCard` and `ReportDocument` objects contained in `Reporter`.
+    #' @param index Optional (`character`, `integer` or `logica`) index to select specific cards.
     #' @return A (`list`) of [`ReportCard`] and [`ReportDocument`] objects.
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
@@ -173,8 +174,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
     #' reporter$get_cards()
-    get_cards = function(index = NULL) {
-      if (is.null(index)) {
+    get_cards = function(index) {
+      if (missing(index)) {
         private$cards
       } else {
         private$cards[index]
@@ -456,6 +457,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @description Get the `Reporter` template
     #' @return a template `function`.
     get_template = function() private$template,
+    #' @description Get the hash of a card
+    #' @param card_id (`character(1)`) the id of the card.
     get_hash = function(card_id) private$hashes[[card_id]]
   ),
   private = list(
