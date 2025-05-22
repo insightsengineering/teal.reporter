@@ -154,7 +154,7 @@ reporter_previewer_cards_srv <- function(id, reporter) {
     shiny::observeEvent(reporter$get_reactive_add_card(), {
       all_cards <- reporter$get_cards()
 
-      reporter_ids <- vapply(all_cards, metadata, character(1L), USE.NAMES = FALSE, which = "id")
+      reporter_ids <- names(all_cards)
       current_cards <- Filter(Negate(is.null), shiny::reactiveValuesToList(current_cards_rvs))
       current_ids <- names(current_cards)
 
