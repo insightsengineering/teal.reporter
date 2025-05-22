@@ -259,7 +259,6 @@ reporter$get_cards()
 \item \href{#method-Reporter-get_id}{\code{Reporter$get_id()}}
 \item \href{#method-Reporter-set_template}{\code{Reporter$set_template()}}
 \item \href{#method-Reporter-get_template}{\code{Reporter$get_template()}}
-\item \href{#method-Reporter-get_hash}{\code{Reporter$get_hash()}}
 \item \href{#method-Reporter-clone}{\code{Reporter$clone()}}
 }
 }
@@ -331,7 +330,7 @@ Reorders \code{ReportCard} or \code{ReportDocument} objects in \code{Reporter}.
 \subsection{Method \code{replace_card()}}{
 Sets \code{ReportCard} or \code{ReportDocument} content.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$replace_card(card)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$replace_card(card, card_id)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -339,7 +338,7 @@ Sets \code{ReportCard} or \code{ReportDocument} content.
 \describe{
 \item{\code{card}}{The new object (\code{ReportCard} or \code{ReportDocument}) to replace the existing one.}
 
-\item{\code{old_title}}{Title of the \code{ReportCard} or \code{ReportDocument} to be replaced.}
+\item{\code{card_id}}{(\code{character(1)}) the unique id of the card to be replaced.}
 }
 \if{html}{\out{</div>}}
 }
@@ -741,23 +740,6 @@ Get the \code{Reporter} template
 
 \subsection{Returns}{
 a template \code{function}.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Reporter-get_hash"></a>}}
-\if{latex}{\out{\hypertarget{method-Reporter-get_hash}{}}}
-\subsection{Method \code{get_hash()}}{
-Get the hash of a card
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_hash(card_id)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{card_id}}{(\code{character(1)}) the id of the card.}
-}
-\if{html}{\out{</div>}}
 }
 }
 \if{html}{\out{<hr>}}

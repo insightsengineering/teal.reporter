@@ -100,14 +100,10 @@ metadata.ReportCard <- function(object, which = NULL) {
 
 #' @export
 `metadata<-.ReportCard` <- function(object, which, value) {
-  if (!which %in% c("id", "title")) {
+  if (which != "title") {
     warning("ReportCard class only supports `title` in metadata.")
   } else {
-    if (which == "id") {
-      object$set_id(value)
-    } else if (which == "title") {
-      object$set_name(value)
-    }
+    object$set_name(value)
   }
   object
 }

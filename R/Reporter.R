@@ -50,7 +50,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
 
       checkmate::assert_list(cards, types = c("ReportCard", "ReportDocument"))
-      lapply(cards, function(x) checkmate::assert(private$check_append(x)))
+      lapply(cards, function(x) checkmate::assert(private$check_append(x, character(0L))))
       new_cards <- cards
 
       rds <- vapply(new_cards, inherits, logical(1L), "ReportDocument")
@@ -58,15 +58,11 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         new_cards[rds] <- lapply(new_cards[rds], self$get_template())
       }
 
-      new_cards <- lapply(new_cards, function(card) {
-        hash <- rlang::hash(list(card, Sys.time()))
-        metadata(card, "id") <- sprintf("card_%s", substr(hash, 1, 8))
-        private$hashes[[metadata(card, "id")]] <- hash
-        card
-      })
-
       # Set up unique id for each card
-      names(new_cards) <- vapply(new_cards, metadata, character(1L), which = "id")
+      names(new_cards) <- vapply(new_cards, function(card) {
+        sprintf("card_%s", substr(rlang::hash(list(card, Sys.time())), 1, 8))
+      }, character(1L))
+
       private$cards <- append(private$cards, new_cards)
       shiny::isolate(private$trigger_add_card())
       invisible(self)
@@ -116,7 +112,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
     #' @description Sets `ReportCard` or `ReportDocument` content.
-    #' @param old_title Title of the `ReportCard` or `ReportDocument` to be replaced.
+    #' @param card_id (`character(1)`) the unique id of the card to be replaced.
     #' @param card The new object (`ReportCard` or `ReportDocument`) to replace the existing one.
     #' @return `self`, invisibly.
     #' @examplesIf require("ggplot2")
@@ -146,10 +142,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' reporter$replace_card("Card1", card2)
     #' reporter$get_cards()[[1]]$get_name()
-    replace_card = function(card) {
-      checkmate::assert(private$check_append(card))
-      private$cards[[metadata(card, "id")]] <- card
-      private$hashes[[metadata(card, "id")]] <- rlang::hash(list(card, Sys.time()))
+    replace_card = function(card, card_id) {
+      checkmate::assert(private$check_append(card, card_id))
+      private$cards[[card_id]] <- card
       private$trigger_add_card()
       invisible(self)
     },
@@ -461,14 +456,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Get the `Reporter` template
     #' @return a template `function`.
-    get_template = function() private$template,
-    #' @description Get the hash of a card
-    #' @param card_id (`character(1)`) the id of the card.
-    get_hash = function(card_id) private$hashes[[card_id]]
+    get_template = function() private$template
   ),
   private = list(
     id = "",
-    hashes = list(),
     cards = list(),
     metadata = list(),
     reactive_add_card = NULL,
@@ -500,11 +491,11 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
 
     # @description Check if a card can be appended to the reporter.
     #
-    # @param card (`ReportDocument`) title of new card.
+    # @param card (`ReportDocument`) ReportDocument card.
+    # @param card_id (`character(1)`) card_id of the card.
     # @return `TRUE` if card can be safely added, otherwise, `FALSE`.
-    check_append = function(card) {
-      card_id <- metadata(card, "id")
-      ix <- if (length(card_id) == 0L) rep(TRUE, length(private$cards)) else names(private$cards) != metadata(card, "id")
+    check_append = function(card, card_id) {
+      ix <- if (length(card_id) == 0L) rep(TRUE, length(private$cards)) else names(private$cards) != card_id
       (!metadata(card, "title") %in% vapply(private$cards[ix], metadata, character(1L), which = "title")) || return("Card with this name already exists")
     }
   ),

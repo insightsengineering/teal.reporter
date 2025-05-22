@@ -119,7 +119,7 @@ ui_previewer_card_actions <- function(id) {
   )
 }
 
-srv_previewer_card_actions <- function(id, card_r, reporter) {
+srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
   moduleServer(id, function(input, output, session) {
     new_card_rv <- shiny::reactiveVal()
 
@@ -183,7 +183,7 @@ srv_previewer_card_actions <- function(id, card_r, reporter) {
       if (isFALSE(identical(new_card, card_r()))) {
         tryCatch(
           {
-            reporter$replace_card(card = new_card)
+            reporter$replace_card(card = new_card, card_id = card_id)
             new_card_rv(NULL)
             shiny::removeModal()
           },
@@ -203,9 +203,7 @@ srv_previewer_card_actions <- function(id, card_r, reporter) {
     })
 
     # Handle remove button
-    shiny::observeEvent(input$remove_action, {
-      reporter$remove_cards(ids = metadata(card_r(), "id"))
-    })
+    shiny::observeEvent(input$remove_action, reporter$remove_cards(ids = card_id))
 
     observeEvent( # Hide button for deprecated objects
       card_r(),

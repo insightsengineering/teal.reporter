@@ -147,25 +147,26 @@ reporter_previewer_cards_ui <- function(id) {
 reporter_previewer_cards_srv <- function(id, reporter) {
   moduleServer(id, function(input, output, session) {
     current_cards_rvs <- shiny::reactiveValues()
-    current_hash_rvs <- shiny::reactiveValues()
 
     insert_queue_rv <- shiny::reactiveVal()
     remove_queue_rv <- shiny::reactiveVal()
     shiny::observeEvent(reporter$get_reactive_add_card(), {
       all_cards <- reporter$get_cards()
-
       reporter_ids <- names(all_cards)
       current_cards <- Filter(Negate(is.null), shiny::reactiveValuesToList(current_cards_rvs))
       current_ids <- names(current_cards)
 
-      # Update modified card
-      modified_ids <- Filter(
-        function(card_id) current_hash_rvs[[card_id]] != reporter$get_hash(card_id),
-        intersect(reporter_ids, current_ids)
+      # Update modified card (there is no support for ReportCard implementation)
+      lapply(
+        reporter_ids[
+          !vapply(all_cards, rlang::obj_address, character(1)) %in%
+            vapply(current_cards, rlang::obj_address, character(1))
+        ],
+        function(modified_id) {
+          current_cards_rvs[[modified_id]] <- all_cards[[modified_id]]
+          NULL
+        }
       )
-      for (modified_id in modified_ids) { # Update card with change
-        current_cards_rvs[[modified_id]] <- all_cards[[modified_id]]
-      }
 
       to_add <- !reporter_ids %in% current_ids
       to_remove <- !current_ids %in% reporter_ids
@@ -180,12 +181,12 @@ reporter_previewer_cards_srv <- function(id, reporter) {
           reporter_previewer_card_ui(id = session$ns(card_id), card_id = card_id)
         )
         current_cards_rvs[[card_id]] <- reporter$get_cards(card_id)[[1]]
-        current_hash_rvs[[card_id]] <- reporter$get_hash(card_id)
         shinyjs::hide("empty_reporters")
         reporter_previewer_card_srv(
           id = card_id,
-          reporter = reporter,
-          card_r = reactive(current_cards_rvs[[card_id]])
+          card_r = reactive(current_cards_rvs[[card_id]]),
+          card_id = card_id,
+          reporter = reporter
         )
       })
     })
@@ -229,13 +230,13 @@ reporter_previewer_card_ui <- function(id, card_id) {
 }
 
 # @param id (`character(1)`) card name
-reporter_previewer_card_srv <- function(id, reporter, card_r) {
+reporter_previewer_card_srv <- function(id, card_r, card_id, reporter) {
   # todo: card_name should be only on the server side
   shiny::moduleServer(id, function(input, output, session) {
     output$title <- shiny::renderText(metadata(req(card_r()), "title"))
     output$card_content <- shiny::renderUI(toHTML(req(card_r())))
 
-    srv_previewer_card_actions("actions", card_r, reporter)
+    srv_previewer_card_actions("actions", card_r, card_id, reporter)
   })
 }
 
