@@ -28,9 +28,7 @@ ui_editor_block.default <- function(id, x) {
 
 #' @export
 srv_editor_block.default <- function(id, x) {
-  shiny::moduleServer(id, function(input, output, session) {
-    NULL # No input being changed
-  })
+  shiny::moduleServer(id, function(input, output, session) NULL) # No input being changed
 }
 
 #' @export

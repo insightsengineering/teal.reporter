@@ -213,6 +213,7 @@ reporter_previewer_card_ui <- function(id, card_id) {
   accordion_item <- bslib::accordion_panel(
     value = card_id,
     title = shiny::tags$label(shiny::textOutput(ns("title"))),
+    tags$h6(id = ns("loading_placeholder"), class = "text-muted", "Loading the report..."),
     shiny::uiOutput(ns("card_content"))
   )
   accordion_item <- htmltools::tagAppendAttributes(accordion_item, "data-rank-id" = card_id)
@@ -234,7 +235,11 @@ reporter_previewer_card_srv <- function(id, card_r, card_id, reporter) {
   # todo: card_name should be only on the server side
   shiny::moduleServer(id, function(input, output, session) {
     output$title <- shiny::renderText(metadata(req(card_r()), "title"))
-    output$card_content <- shiny::renderUI(toHTML(req(card_r())))
+    output$card_content <- shiny::renderUI({
+      result <- toHTML(req(card_r()))
+      shiny::removeUI(sprintf("#%s", session$ns("loading_placeholder")))
+      result
+    })
 
     srv_previewer_card_actions("actions", card_r, card_id, reporter)
   })
