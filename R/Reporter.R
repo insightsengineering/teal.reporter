@@ -58,7 +58,12 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         new_cards[rds] <- lapply(new_cards[rds], self$get_template())
       }
 
-      new_cards <- lapply(new_cards, private$update_attributes)
+      new_cards <- lapply(new_cards, function(card) {
+        hash <- rlang::hash(list(card, Sys.time()))
+        metadata(card, "id") <- sprintf("card_%s", substr(hash, 1, 8))
+        private$hashes[[metadata(card, "id")]] <- hash
+        card
+      })
 
       # Set up unique id for each card
       names(new_cards) <- vapply(new_cards, metadata, character(1L), which = "id")
@@ -479,15 +484,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$reactive_add_card(new_value)
     },
     template = NULL,
-    # @description Update the attributes of a card and generates unique hash
-    # @param card the card to be updated
-    # @param label the label to be set
-    update_attributes = function(card) {
-      hash <- rlang::hash(list(card, Sys.time()))
-      metadata(card, "id") <- sprintf("card_%s", substr(hash, 1, 8))
-      private$hashes[[metadata(card, "id")]] <- hash
-      card
-    },
     # @description The copy constructor.
     #
     # @param name the name of the field
