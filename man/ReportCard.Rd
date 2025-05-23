@@ -127,18 +127,6 @@ ReportCard$new()$set_name("NAME")$get_name()
 ## ------------------------------------------------
 
 ReportCard$new()$set_name("NAME")$get_name()
-
-## ------------------------------------------------
-## Method `ReportCard$get_id`
-## ------------------------------------------------
-
-ReportCard$new()$get_id("NAME")$get_id()
-
-## ------------------------------------------------
-## Method `ReportCard$set_id`
-## ------------------------------------------------
-
-ReportCard$new()$generate_id()$get_id()
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -156,8 +144,6 @@ ReportCard$new()$generate_id()$get_id()
 \item \href{#method-ReportCard-append_metadata}{\code{ReportCard$append_metadata()}}
 \item \href{#method-ReportCard-get_name}{\code{ReportCard$get_name()}}
 \item \href{#method-ReportCard-set_name}{\code{ReportCard$set_name()}}
-\item \href{#method-ReportCard-get_id}{\code{ReportCard$get_id()}}
-\item \href{#method-ReportCard-set_id}{\code{ReportCard$set_id()}}
 \item \href{#method-ReportCard-set_content_names}{\code{ReportCard$set_content_names()}}
 \item \href{#method-ReportCard-to_list}{\code{ReportCard$to_list()}}
 \item \href{#method-ReportCard-from_list}{\code{ReportCard$from_list()}}
@@ -486,56 +472,6 @@ Set the name of the \code{ReportCard}.
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{ReportCard$new()$set_name("NAME")$get_name()
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ReportCard-get_id"></a>}}
-\if{latex}{\out{\hypertarget{method-ReportCard-get_id}{}}}
-\subsection{Method \code{get_id()}}{
-Get the ID of the \code{ReportCard}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_id()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-\code{character} a card id.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{ReportCard$new()$get_id("NAME")$get_id()
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ReportCard-set_id"></a>}}
-\if{latex}{\out{\hypertarget{method-ReportCard-set_id}{}}}
-\subsection{Method \code{set_id()}}{
-Generate the ID of the \code{ReportCard}.
-It should only be performed once.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$set_id(new_id)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{new_id}}{(\code{character(1)}) a card unique id.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{ReportCard$new()$generate_id()$get_id()
 }
 \if{html}{\out{</div>}}
 

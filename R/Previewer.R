@@ -146,60 +146,40 @@ reporter_previewer_cards_ui <- function(id) {
 
 reporter_previewer_cards_srv <- function(id, reporter) {
   moduleServer(id, function(input, output, session) {
-    current_cards_rvs <- shiny::reactiveValues()
+    current_cards_rv <- shiny::reactiveVal()
+    queues_rv <- list(insert = shiny::reactiveVal(), remove = shiny::reactiveVal())
 
-    insert_queue_rv <- shiny::reactiveVal()
-    remove_queue_rv <- shiny::reactiveVal()
-    shiny::observeEvent(reporter$get_reactive_add_card(), {
+    shiny::observeEvent(reporter$get_cards(), {
       all_cards <- reporter$get_cards()
       reporter_ids <- names(all_cards)
-      current_cards <- Filter(Negate(is.null), shiny::reactiveValuesToList(current_cards_rvs))
-      current_ids <- names(current_cards)
-
-      # Update modified card (there is no support for ReportCard implementation)
-      lapply(
-        reporter_ids[
-          !vapply(all_cards, rlang::obj_address, character(1)) %in%
-            vapply(current_cards, rlang::obj_address, character(1))
-        ],
-        function(modified_id) {
-          current_cards_rvs[[modified_id]] <- all_cards[[modified_id]]
-          NULL
-        }
-      )
+      current_ids <- current_cards_rv()
 
       to_add <- !reporter_ids %in% current_ids
       to_remove <- !current_ids %in% reporter_ids
-      if (any(to_add)) insert_queue_rv(reporter_ids[to_add])
-      if (any(to_remove)) remove_queue_rv(current_ids[to_remove])
+      if (any(to_add)) queues_rv$insert(reporter_ids[to_add])
+      if (any(to_remove)) queues_rv$remove(current_ids[to_remove])
+
+      shinyjs::toggle("empty_reporters", condition = length(reporter$get_cards()) == 0L)
     })
 
-    shiny::observeEvent(insert_queue_rv(), {
-      lapply(insert_queue_rv(), function(card_id) {
+    shiny::observeEvent(queues_rv$insert(), {
+      lapply(queues_rv$insert(), function(card_id) {
         bslib::accordion_panel_insert(
           id = "reporter_cards",
           reporter_previewer_card_ui(id = session$ns(card_id), card_id = card_id)
         )
-        current_cards_rvs[[card_id]] <- reporter$get_cards()[[card_id]]
-        shinyjs::hide("empty_reporters")
+        current_cards_rv(c(current_cards_rv(), card_id))
         reporter_previewer_card_srv(
           id = card_id,
-          card_r = reactive(current_cards_rvs[[card_id]]),
+          card_r = reactive(reporter$get_cards()[[card_id]]),
           card_id = card_id,
           reporter = reporter
         )
       })
     })
 
-    shiny::observeEvent(remove_queue_rv(), {
-      cards <- remove_queue_rv()
-      lapply(cards, function(card_id) {
-        current_cards_rvs[[card_id]] <- NULL
-        bslib::accordion_panel_remove(id = "reporter_cards", target = card_id)
-        NULL
-      })
-
-      if (length(reporter$get_cards()) == 0L) shinyjs::show("empty_reporters")
+    shiny::observeEvent(queues_rv$remove(), {
+      lapply(queues_rv$remove(), bslib::accordion_panel_remove, id = "reporter_cards")
     })
 
     shiny::observeEvent(input$reporter_cards_order, {
@@ -212,7 +192,7 @@ reporter_previewer_card_ui <- function(id, card_id) {
   ns <- shiny::NS(id)
   accordion_item <- bslib::accordion_panel(
     value = card_id,
-    title = shiny::tags$label(shiny::textOutput(ns("title"))),
+    title = shiny::tags$label(shiny::uiOutput(ns("title"))),
     tags$h6(id = ns("loading_placeholder"), class = "text-muted", "Loading the report..."),
     shiny::uiOutput(ns("card_content"))
   )
@@ -234,7 +214,13 @@ reporter_previewer_card_ui <- function(id, card_id) {
 reporter_previewer_card_srv <- function(id, card_r, card_id, reporter) {
   # todo: card_name should be only on the server side
   shiny::moduleServer(id, function(input, output, session) {
-    output$title <- shiny::renderText(metadata(req(card_r()), "title"))
+    output$title <- shiny::renderUI({
+      title <- metadata(req(card_r()), "title")
+      if (isFALSE(nzchar(title))) {
+        title <- tags$span("(empty title)", class = "text-muted")
+      }
+      title
+    })
     output$card_content <- shiny::renderUI({
       result <- toHTML(req(card_r()))
       shiny::removeUI(sprintf("#%s", session$ns("loading_placeholder")))

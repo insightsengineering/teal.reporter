@@ -13,8 +13,6 @@ It supports both \code{ReportCard} (\ifelse{html}{\href{https://lifecycle.r-lib.
 in the types of reports that can be stored and managed.
 }
 \note{
-The function has to be used in the shiny reactive context.
-
 if Report has an id when converting to JSON then It will be compared to the currently available one.
 
 if Report has an id when converting to JSON then It will be compared to the currently available one.
@@ -151,14 +149,6 @@ reporter <- Reporter$new()
 
 
 ## ------------------------------------------------
-## Method `Reporter$get_reactive_add_card`
-## ------------------------------------------------
-
-library(shiny)
-
-isolate(Reporter$new()$get_reactive_add_card())
-
-## ------------------------------------------------
 ## Method `Reporter$get_metadata`
 ## ------------------------------------------------
 
@@ -247,7 +237,6 @@ reporter$get_cards()
 \item \href{#method-Reporter-get_blocks}{\code{Reporter$get_blocks()}}
 \item \href{#method-Reporter-reset}{\code{Reporter$reset()}}
 \item \href{#method-Reporter-remove_cards}{\code{Reporter$remove_cards()}}
-\item \href{#method-Reporter-get_reactive_add_card}{\code{Reporter$get_reactive_add_card()}}
 \item \href{#method-Reporter-get_metadata}{\code{Reporter$get_metadata()}}
 \item \href{#method-Reporter-append_metadata}{\code{Reporter$append_metadata()}}
 \item \href{#method-Reporter-from_reporter}{\code{Reporter$from_reporter()}}
@@ -352,16 +341,9 @@ Sets \code{ReportCard} or \code{ReportDocument} content.
 \subsection{Method \code{get_cards()}}{
 Retrieves all \code{ReportCard} and \code{ReportDocument} objects contained in \code{Reporter}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_cards(index)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_cards()}\if{html}{\out{</div>}}
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{index}}{Optional (\code{character}, \code{integer} or \code{logica}) index to select specific cards.}
-}
-\if{html}{\out{</div>}}
-}
 \subsection{Returns}{
 A (\code{list}) of \code{\link{ReportCard}} and \code{\link{ReportDocument}} objects.
 }
@@ -419,29 +401,6 @@ Removes specific \code{ReportCard} or \code{ReportDocument} objects from the \co
 \subsection{Returns}{
 \code{self}, invisibly.
 }
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Reporter-get_reactive_add_card"></a>}}
-\if{latex}{\out{\hypertarget{method-Reporter-get_reactive_add_card}{}}}
-\subsection{Method \code{get_reactive_add_card()}}{
-Gets the current value of the reactive variable for adding cards.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_reactive_add_card()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-\code{reactive_add_card} current \code{numeric} value of the reactive variable.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{library(shiny)
-
-isolate(Reporter$new()$get_reactive_add_card())
-}
-\if{html}{\out{</div>}}
-
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-get_metadata"></a>}}

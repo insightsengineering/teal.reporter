@@ -19,8 +19,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter <- Reporter$new()
     #'
     initialize = function() {
-      private$cards <- list()
-      private$reactive_add_card <- shiny::reactiveVal(NULL)
+      private$cards <- shiny::reactiveValues()
       invisible(self)
     },
 
@@ -50,7 +49,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
 
       checkmate::assert_list(cards, types = c("ReportCard", "ReportDocument"))
-      lapply(cards, function(x) checkmate::assert(private$check_append(x, character(0L))))
       new_cards <- cards
 
       rds <- vapply(new_cards, inherits, logical(1L), "ReportDocument")
@@ -63,8 +61,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         sprintf("card_%s", substr(rlang::hash(list(card, Sys.time())), 1, 8))
       }, character(1L))
 
-      private$cards <- append(private$cards, new_cards)
-      shiny::isolate(private$trigger_add_card())
+      for (card_id in names(new_cards)) {
+        private$cards[[card_id]] <- new_cards[[card_id]]
+      }
       invisible(self)
     },
     #' @description Reorders `ReportCard` or `ReportDocument` objects in `Reporter`.
@@ -143,13 +142,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter$replace_card("Card1", card2)
     #' reporter$get_cards()[[1]]$get_name()
     replace_card = function(card, card_id) {
-      checkmate::assert(private$check_append(card, card_id))
       private$cards[[card_id]] <- card
-      private$trigger_add_card()
       invisible(self)
     },
     #' @description Retrieves all `ReportCard` and `ReportDocument` objects contained in `Reporter`.
-    #' @param index Optional (`character`, `integer` or `logica`) index to select specific cards.
     #' @return A (`list`) of [`ReportCard`] and [`ReportDocument`] objects.
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
@@ -174,12 +170,13 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
     #' reporter$get_cards()
-    get_cards = function(index) {
-      if (missing(index)) {
-        private$cards
+    get_cards = function() {
+      result <- if (shiny::isRunning()) {
+        shiny::reactiveValuesToList(private$cards)
       } else {
-        private$cards[index]
+        shiny::isolate(shiny::reactiveValuesToList(private$cards))
       }
+      Filter(Negate(is.null), result)
     },
     #' @description Compiles and returns all content blocks from the `ReportCard` and `ReportDocument` objects in the `Reporter`.
     #' @param sep An optional separator to insert between each content block.
@@ -248,26 +245,11 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         checkmate::check_integer(ids, min.len = 1, max.len = length(private$cards)),
         checkmate::check_character(ids, min.len = 1, max.len = length(private$cards))
       )
-      if (is.null(ids)) {
-        return(invisible(self))
+      for (card_id in ids) {
+        private$cards[[card_id]] <- NULL
       }
-
-      if (is.character(ids)) {
-        ids <- which(names(private$cards) %in% ids)
-      }
-      private$cards <- private$cards[-ids]
-      private$trigger_add_card()
       invisible(self)
     },
-    #' @description Gets the current value of the reactive variable for adding cards.
-    #'
-    #' @return `reactive_add_card` current `numeric` value of the reactive variable.
-    #' @note The function has to be used in the shiny reactive context.
-    #' @examples
-    #' library(shiny)
-    #'
-    #' isolate(Reporter$new()$get_reactive_add_card())
-    get_reactive_add_card = function() private$reactive_add_card(),
     #' @description Get the metadata associated with this `Reporter`.
     #'
     #' @return `named list` of metadata to be appended.
@@ -460,20 +442,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
   ),
   private = list(
     id = "",
-    cards = list(),
+    cards = NULL,
     metadata = list(),
     reactive_add_card = NULL,
-    trigger_add_card = function() {
-      new_value <- if (is.null(private$reactive_add_card)) {
-        private$reactive_add_card <- reactiveVal(NULL)
-        1
-      } else if (is.null(private$reactive_add_card())) {
-        1
-      } else {
-        private$reactive_add_card() + 1
-      }
-      private$reactive_add_card(new_value)
-    },
     template = NULL,
     # @description The copy constructor.
     #
@@ -483,20 +454,11 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #
     deep_clone = function(name, value) {
       if (name == "cards") {
-        lapply(value, function(card) card$clone(deep = TRUE))
+        new_cards <- lapply(shiny::isolate(shiny::reactiveValuesToList(value)), function(card) card$clone(deep = TRUE))
+        do.call(shiny::reactiveValues, new_cards)
       } else {
         value
       }
-    },
-
-    # @description Check if a card can be appended to the reporter.
-    #
-    # @param card (`ReportDocument`) ReportDocument card.
-    # @param card_id (`character(1)`) card_id of the card.
-    # @return `TRUE` if card can be safely added, otherwise, `FALSE`.
-    check_append = function(card, card_id) {
-      ix <- if (length(card_id) == 0L) rep(TRUE, length(private$cards)) else names(private$cards) != card_id
-      (!metadata(card, "title") %in% vapply(private$cards[ix], metadata, character(1L), which = "title")) || return("Card with this name already exists")
     }
   ),
   lock_objects = TRUE,

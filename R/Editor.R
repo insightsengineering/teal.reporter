@@ -1,7 +1,9 @@
+#' @export
 ui_editor_block <- function(id, x) {
   UseMethod("ui_editor_block", x)
 }
 
+#' @export
 srv_editor_block <- function(id, x) {
   UseMethod("srv_editor_block", x)
 }

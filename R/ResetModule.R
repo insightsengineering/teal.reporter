@@ -45,10 +45,6 @@ reset_report_button_srv <- function(id, reporter) {
   shiny::moduleServer(id, function(input, output, session) {
     shiny::setBookmarkExclude(c("reset_reporter"))
 
-    ns <- session$ns
-    nr_cards <- length(reporter$get_cards())
-
-
     shiny::observeEvent(input$reset_reporter, {
       shiny::tags$div(
         class = "teal-widgets reporter-modal",
@@ -70,14 +66,14 @@ reset_report_button_srv <- function(id, reporter) {
                 NULL,
                 "Cancel"
               ),
-              shiny::actionButton(ns("reset_reporter_ok"), "Reset", class = "btn-danger")
+              shiny::actionButton(session$ns("reset_reporter_ok"), "Reset", class = "btn-danger")
             )
           )
         )
       )
     })
 
-    shiny::observeEvent(reporter$get_reactive_add_card(), {
+    shiny::observeEvent(reporter$get_cards(), {
       if (length(reporter$get_cards())) {
         shinyjs::enable("reset_reporter")
       } else {

@@ -122,12 +122,8 @@ download_report_button_srv <- function(id,
       )
     }
 
-    shiny::observeEvent(reporter$get_reactive_add_card(), {
-      if (length(reporter$get_cards())) {
-        shinyjs::enable("download_button")
-      } else {
-        shinyjs::disable("download_button")
-      }
+    shiny::observeEvent(reporter$get_cards(), {
+      shinyjs::toggleState(length(reporter$get_cards()) > 0, id = "download_button")
     })
 
     shiny::observeEvent(input$download_button, {
