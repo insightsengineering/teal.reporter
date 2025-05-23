@@ -77,7 +77,7 @@ metadata.ReportDocument <- function(object, which = NULL) {
 #' @export
 metadata.ReportCard <- function(object, which = NULL) {
   # TODO: soft deprecate
-  result <- list(title = object$get_name(), id = object$get_id())
+  result <- list(title = object$get_name())
   if (is.null(which)) {
     return(result)
   }

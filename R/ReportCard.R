@@ -180,27 +180,6 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       private$name <- name
       invisible(self)
     },
-    #' @description Get the ID of the `ReportCard`.
-    #'
-    #' @return `character` a card id.
-    #' @examples
-    #' ReportCard$new()$get_id("NAME")$get_id()
-    get_id = function() {
-      private$id
-    },
-    #' @description Generate the ID of the `ReportCard`.
-    #' It should only be performed once.
-    #' @param new_id (`character(1)`) a card unique id.
-    #'
-    #' @return `self`, invisibly.
-    #' @examples
-    #' ReportCard$new()$generate_id()$get_id()
-    set_id = function(new_id) {
-      if (identical(private$id, character(0L)) || is.null(private$id)) {
-        private$id <- new_id
-      }
-      invisible(self)
-    },
     #' @description Set content block names for compatibility with newer `ReportDocument`
     #' @param new_names (`character`) vector of new names.
     set_content_names = function(new_names) {
@@ -321,7 +300,3 @@ length.ReportCard <- function(x) {
   length(x$get_content())
 }
 
-# #' @export
-# `names<-.ReportCard` <- function(object, value) {
-#
-# }
