@@ -180,7 +180,7 @@ reporter_previewer_cards_srv <- function(id, reporter) {
           id = "reporter_cards",
           reporter_previewer_card_ui(id = session$ns(card_id), card_id = card_id)
         )
-        current_cards_rvs[[card_id]] <- reporter$get_cards(card_id)[[1]]
+        current_cards_rvs[[card_id]] <- reporter$get_cards()[[card_id]]
         shinyjs::hide("empty_reporters")
         reporter_previewer_card_srv(
           id = card_id,
