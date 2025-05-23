@@ -146,20 +146,20 @@ reporter_previewer_cards_ui <- function(id) {
 
 reporter_previewer_cards_srv <- function(id, reporter) {
   moduleServer(id, function(input, output, session) {
-    current_cards_rv <- shiny::reactiveVal()
+    current_ids_rv <- shiny::reactiveVal()
     queues_rv <- list(insert = shiny::reactiveVal(), remove = shiny::reactiveVal())
 
     shiny::observeEvent(reporter$get_cards(), {
       all_cards <- reporter$get_cards()
       reporter_ids <- names(all_cards)
-      current_ids <- current_cards_rv()
+      current_ids <- current_ids_rv()
 
       to_add <- !reporter_ids %in% current_ids
       to_remove <- !current_ids %in% reporter_ids
       if (any(to_add)) queues_rv$insert(reporter_ids[to_add])
       if (any(to_remove)) queues_rv$remove(current_ids[to_remove])
 
-      shinyjs::toggle("empty_reporters", condition = length(reporter$get_cards()) == 0L)
+      shinyjs::toggle("empty_reporters", condition = length(all_cards) == 0L)
     })
 
     shiny::observeEvent(queues_rv$insert(), {
@@ -168,7 +168,7 @@ reporter_previewer_cards_srv <- function(id, reporter) {
           id = "reporter_cards",
           reporter_previewer_card_ui(id = session$ns(card_id), card_id = card_id)
         )
-        current_cards_rv(c(current_cards_rv(), card_id))
+        current_ids_rv(c(current_ids_rv(), card_id))
         reporter_previewer_card_srv(
           id = card_id,
           card_r = reactive(reporter$get_cards()[[card_id]]),
