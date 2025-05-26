@@ -35,9 +35,7 @@ reporter_previewer_ui <- function(id) {
     shiny::tagList(
       shiny::singleton(
         shiny::tags$head(
-          shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")),
-          shiny::includeCSS(system.file("css/expandable.css", package = "teal.reporter")),
-          shiny::includeScript(system.file("js/expandable.js", package = "teal.reporter"))
+          shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter"))
         )
       ),
       sortable::sortable_js(

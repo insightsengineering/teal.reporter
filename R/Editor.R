@@ -11,7 +11,6 @@ srv_editor_block <- function(id, value) {
 #' @export
 ui_editor_block.default <- function(id, value) {
   shiny::tags$div(
-    class = "expandable-container",
     shiny::tags$h6(
       tags$span(
         class = "fa-stack small text-muted",
@@ -21,7 +20,7 @@ ui_editor_block.default <- function(id, value) {
       ),
       "Non-editable block"
     ),
-    shiny::tags$div(class = "expandable-content", toHTML(value))
+    toHTML(value)
   )
 }
 
