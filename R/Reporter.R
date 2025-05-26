@@ -98,16 +98,18 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter$reorder_cards(c("Card2", "Card1"))
     #' names(reporter$get_cards())
     reorder_cards = function(new_order) {
-      private$cards <- stats::setNames(
-        lapply(new_order, function(name) {
-          if (inherits(private$cards[[name]], "ReportDocument")) {
-            private$cards[[name]]
-          } else {
-            private$cards[[name]]$clone(deep = TRUE)
-          }
-        }),
-        new_order
-      )
+      private$override_order <- new_order
+      # private$cards <- stats::setNames(
+      #   lapply(new_order, function(name) {
+      #     if (inherits(private$cards[[name]], "ReportDocument")) {
+      #       private$cards[[name]]
+      #     } else {
+      #       private$cards[[name]]$clone(deep = TRUE)
+      #     }
+      #   }),
+      #   new_order
+      # )
+      # browser()
       invisible(self)
     },
     #' @description Sets `ReportCard` or `ReportDocument` content.
@@ -176,7 +178,11 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       } else {
         shiny::isolate(shiny::reactiveValuesToList(private$cards))
       }
-      Filter(Negate(is.null), result)
+      result <- Filter(Negate(is.null), result)
+      if (!is.null(private$override_order)) {
+        result <- result[private$override_order]
+      }
+      result
     },
     #' @description Compiles and returns all content blocks from the `ReportCard` and `ReportDocument` objects in the `Reporter`.
     #' @param sep An optional separator to insert between each content block.
@@ -230,7 +236,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @return `self`, invisibly.
     #'
     reset = function() {
-      private$cards <- list()
+      for (card_id in names(private$cards)) {
+        private$cards[[card_id]] <- NULL
+      }
+      private$override_order <- NULL
       private$metadata <- list()
       private$reactive_add_card(NULL)
       invisible(self)
@@ -443,6 +452,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
   private = list(
     id = "",
     cards = NULL,
+    override_order = NULL,
     metadata = list(),
     reactive_add_card = NULL,
     template = NULL,

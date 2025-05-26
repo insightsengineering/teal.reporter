@@ -125,6 +125,10 @@ reporter_previewer_srv <- function(id,
     report_load_srv("load", reporter = reporter)
     reset_report_button_srv("reset", reporter = reporter)
     reporter_previewer_cards_srv("cards", reporter)
+
+    shiny::observeEvent(input$reporter_cards_order, {
+      reporter$reorder_cards(setdiff(input$reporter_cards_order, ""))
+    })
   })
 }
 
@@ -180,10 +184,6 @@ reporter_previewer_cards_srv <- function(id, reporter) {
 
     shiny::observeEvent(queues_rv$remove(), {
       lapply(queues_rv$remove(), bslib::accordion_panel_remove, id = "reporter_cards")
-    })
-
-    shiny::observeEvent(input$reporter_cards_order, {
-      reporter$reorder_cards(setdiff(input$reporter_cards_order, ""))
     })
   })
 }
