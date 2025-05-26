@@ -203,3 +203,52 @@ testthat::test_that("to_jsondir and from_jsondir could be used to save and retri
   testthat::expect_identical(reporter$get_cards(), reporter_arch$get_cards())
   testthat::expect_identical(reporter$get_metadata(), reporter_arch$get_metadata())
 })
+
+
+testthat::describe("reorder_cards", {
+  card1 <- report_document("# Section 1")
+  metadata(card1, "title") <- "Card1"
+  card2 <- report_document("# Section A")
+  metadata(card2, "title") <- "Card2"
+  card3 <- report_document("# Section I")
+  metadata(card3, "title") <- "Card3"
+  card4 <- report_document("# Section i")
+  metadata(card4, "title") <- "Card4"
+
+
+  testthat::it("returns the correct order", {
+    reporter <- teal.reporter::Reporter$new() # prefix needed in "it" to avoid testthat::Reporter
+    reporter$append_cards(list(card1, card2, card3))
+
+    names_before <- names(reporter$get_cards())
+    reporter$reorder_cards(rev(names_before))
+    names_after <- names(reporter$get_cards())
+
+    testthat::expect_equal(names_after, rev(names_before))
+  })
+
+  testthat::it("returns the correct order after removal", {
+    reporter <- teal.reporter::Reporter$new() # prefix needed in "it" to avoid testthat::Reporter
+    reporter$append_cards(list(card1, card2, card3))
+
+    names_before <- names(reporter$get_cards())
+    reporter$reorder_cards(rev(names_before))
+    name_to_remove <- sample(names_before, 1) # Random pick to avoid any bias
+    reporter$remove_cards(name_to_remove)
+
+    names_after <- names(reporter$get_cards())
+    testthat::expect_equal(names_after, rev(names_before[names_before != name_to_remove]))
+  })
+
+  testthat::it("returns the correct order after adding (new card at the end)", {
+    reporter <- teal.reporter::Reporter$new() # prefix needed in "it" to avoid testthat::Reporter
+    reporter$append_cards(list(card1, card2, card3))
+
+    names_before <- names(reporter$get_cards())
+    reporter$reorder_cards(rev(names_before))
+    reporter$append_cards(card4)
+
+    names_after <- names(reporter$get_cards())
+    testthat::expect_equal(names_after, c(rev(names_before), setdiff(names_after, names_before)))
+  })
+})

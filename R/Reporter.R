@@ -167,10 +167,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       } else {
         shiny::isolate(shiny::reactiveValuesToList(private$cards))
       }
-      result <- Filter(Negate(is.null), result)
+      result <- Filter(Negate(is.null), result) # Exclude all cards that were removed
       if (!is.null(private$override_order)) {
-        # Ensure that cards added after reorder are returned
-        result <- result[union(private$override_order, names(result))]
+        # Ensure that cards added after reorder are returned (as well as reordered ones that were removed are excluded)
+        result <- result[union(intersect(private$override_order, names(result)), names(result))]
       }
       result
     },
