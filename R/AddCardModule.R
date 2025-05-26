@@ -111,8 +111,8 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           ),
           shiny::tags$script(
             shiny::HTML(
-              sprintf("shinyjs.autoFocusModal('%s');", ns("label")), # See modalHelpers.js
-              sprintf("shinyjs.enterToSubmit('%s', '%s');", ns("label"), ns("add_card_ok")) # See modalHelpers.js
+              sprintf("shinyjs.autoFocusModal('%s');", ns("label")), # See extendShinyJs.js
+              sprintf("shinyjs.enterToSubmit('%s', '%s');", ns("label"), ns("add_card_ok")) # See extendShinyJs.js
             )
           ),
           footer = shiny::div(
