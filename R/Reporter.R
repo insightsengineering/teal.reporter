@@ -453,12 +453,14 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     # @return the new value of the field
     #
     deep_clone = function(name, value) {
-      if (name == "cards") {
-        new_cards <- lapply(shiny::isolate(shiny::reactiveValuesToList(value)), function(card) card$clone(deep = TRUE))
-        do.call(shiny::reactiveValues, new_cards)
-      } else {
-        value
-      }
+      shiny::isolate({
+        if (name == "cards") {
+          new_cards <- lapply(shiny::reactiveValuesToList(value), function(card) card$clone(deep = TRUE))
+          do.call(shiny::reactiveValues, new_cards)
+        } else {
+          value
+        }
+      })
     }
   ),
   lock_objects = TRUE,
