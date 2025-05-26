@@ -1,3 +1,4 @@
+/* Focus on element with 'id' when shiny modal is shown */
 shinyjs.autoFocusModal = function(id) {
   document.getElementById('shiny-modal').addEventListener(
     'shown.bs.modal',
@@ -6,6 +7,10 @@ shinyjs.autoFocusModal = function(id) {
   );
 }
 
+/* When user has focus on 'id' they can press enter to mock a click to
+ * button/link/...
+ * Typically used to submit a form or trigger an action.
+ */
 shinyjs.enterToSubmit = function(id, submit_id) {
   document.getElementById('shiny-modal').addEventListener(
     'shown.bs.modal',
@@ -18,8 +23,13 @@ shinyjs.enterToSubmit = function(id, submit_id) {
   );
 }
 
+/* Jump focus to element with 'id' and if it is an input / textarea, go to end
+ * of the input.
+ */
 shinyjs.jumpToFocus = function(focus_id) {
   const input = document.getElementById(focus_id);
   input.focus();
-  input.setSelectionRange(input.value.length, input.value.length);
+  if (typeof input.setSelectionRange === 'function') {
+    input.setSelectionRange(input.value.length, input.value.length);
+  }
 }
