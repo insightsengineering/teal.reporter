@@ -180,7 +180,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
       result <- Filter(Negate(is.null), result)
       if (!is.null(private$override_order)) {
-        result <- result[private$override_order]
+        # Ensure that cards added after reorder are returned
+        result <- result[union(private$override_order, names(result))]
       }
       result
     },
