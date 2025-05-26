@@ -99,17 +99,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' names(reporter$get_cards())
     reorder_cards = function(new_order) {
       private$override_order <- new_order
-      # private$cards <- stats::setNames(
-      #   lapply(new_order, function(name) {
-      #     if (inherits(private$cards[[name]], "ReportDocument")) {
-      #       private$cards[[name]]
-      #     } else {
-      #       private$cards[[name]]$clone(deep = TRUE)
-      #     }
-      #   }),
-      #   new_order
-      # )
-      # browser()
       invisible(self)
     },
     #' @description Sets `ReportCard` or `ReportDocument` content.
