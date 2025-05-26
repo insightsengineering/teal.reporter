@@ -30,14 +30,16 @@ NULL
 #' @export
 reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
-
   bslib::page_fluid(
     shiny::tagList(
       shiny::singleton(
         shiny::tags$head(
-          shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter"))
+          shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")),
+          shiny::includeScript(system.file("js/extendShinyJs.js", package = "teal.reporter"))
         )
       ),
+      # Extend shinyjs::js to include function defined in extendShinyJs.js
+      shinyjs::extendShinyjs(text = "", functions = c("jumpToFocus", "enterToSubmit", "autoFocusModal")),
       sortable::sortable_js(
         css_id = ns("cards-reporter_cards"),
         options = sortable::sortable_options(

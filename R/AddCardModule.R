@@ -49,12 +49,6 @@ add_card_button_ui <- function(id) {
   shiny::tagList(
     shiny::singleton(
       shiny::tags$head(
-        shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")),
-        shiny::includeScript(system.file("js/modalHelpers.js", package = "teal.reporter"))
-      )
-    ),
-    shiny::singleton(
-      shiny::tags$head(
         shiny::tags$script(
           shiny::HTML(
             sprintf(
@@ -117,8 +111,8 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           ),
           shiny::tags$script(
             shiny::HTML(
-              sprintf("shinyjs.autoFocusModal('%s');", ns("label")),
-              sprintf("shinyjs.enterToSubmit('%s', '%s');", ns("label"), ns("add_card_ok"))
+              sprintf("shinyjs.autoFocusModal('%s');", ns("label")), # See modalHelpers.js
+              sprintf("shinyjs.enterToSubmit('%s', '%s');", ns("label"), ns("add_card_ok")) # See modalHelpers.js
             )
           ),
           footer = shiny::div(

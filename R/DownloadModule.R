@@ -24,19 +24,14 @@ NULL
 #' @export
 download_report_button_ui <- function(id, label = NULL) {
   ns <- shiny::NS(id)
-  shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-    ),
-    shinyjs::disabled(
-      shiny::actionButton(
-        ns("download_button"),
-        class = "teal-reporter simple_report_button btn-primary",
-        label = label,
-        title = "Download",
-        `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
-        icon = shiny::icon("download")
-      )
+  shinyjs::disabled(
+    shiny::actionButton(
+      ns("download_button"),
+      class = "teal-reporter simple_report_button btn-primary",
+      label = label,
+      title = "Download",
+      `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
+      icon = shiny::icon("download")
     )
   )
 }

@@ -9,18 +9,12 @@
 #' @export
 report_load_ui <- function(id, label = NULL) {
   ns <- shiny::NS(id)
-
-  shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-    ),
-    shiny::actionButton(
-      ns("reporter_load"),
-      class = "teal-reporter simple_report_button btn-primary",
-      title = "Load",
-      label = label,
-      icon = shiny::icon("upload")
-    )
+  shiny::actionButton(
+    ns("reporter_load"),
+    class = "teal-reporter simple_report_button btn-primary",
+    title = "Load",
+    label = label,
+    icon = shiny::icon("upload")
   )
 }
 

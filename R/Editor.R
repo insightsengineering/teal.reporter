@@ -156,7 +156,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
       shinyjs::hide("edit_title")
       shinyjs::hide("static_title")
       shinyjs::show("new_title")
-      shinyjs::runjs(sprintf("shinyjs.jumpToFocus('%s');", session$ns("new_title")))
+      shinyjs::js$jumpToFocus(session$ns("new_title"))
     })
 
     # Handle
