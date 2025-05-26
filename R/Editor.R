@@ -156,16 +156,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
       shinyjs::hide("edit_title")
       shinyjs::hide("static_title")
       shinyjs::show("new_title")
-      shinyjs::runjs(
-        sprintf(
-          "
-          const input = document.getElementById('%s');
-          input.focus();
-          input.setSelectionRange(input.value.length, input.value.length);
-          ",
-          session$ns("new_title")
-        )
-      )
+      shinyjs::runjs(sprintf("shinyjs.jumpToFocus('%s');", session$ns("new_title")))
     })
 
     # Handle

@@ -17,3 +17,9 @@ shinyjs.enterToSubmit = function(id, submit_id) {
     })
   );
 }
+
+shinyjs.jumpToFocus = function(focus_id) {
+  const input = document.getElementById(focus_id);
+  input.focus();
+  input.setSelectionRange(input.value.length, input.value.length);
+}
