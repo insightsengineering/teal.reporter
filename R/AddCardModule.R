@@ -48,9 +48,6 @@ add_card_button_ui <- function(id) {
   # js code to disable the add card button when clicked to prevent multi-clicks
   shiny::tagList(
     shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-    ),
-    shiny::singleton(
       shiny::tags$head(
         shiny::tags$script(
           shiny::HTML(
@@ -114,14 +111,8 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           ),
           shiny::tags$script(
             shiny::HTML(
-              sprintf(
-                "
-                $('#shiny-modal').on('shown.bs.modal', () => {
-                  $('#%s').focus()
-                })
-                ",
-                ns("label")
-              )
+              sprintf("shinyjs.autoFocusModal('%s');", ns("label")), # See extendShinyJs.js
+              sprintf("shinyjs.enterToSubmit('%s', '%s');", ns("label"), ns("add_card_ok")) # See extendShinyJs.js
             )
           ),
           footer = shiny::div(

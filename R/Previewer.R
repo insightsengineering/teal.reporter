@@ -32,31 +32,31 @@ reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
   bslib::page_fluid(
     shiny::tagList(
-      sortable::sortable_js(
-        css_id = ns("reporter_cards"),
-        options = sortable::sortable_options(
-          onSort = sortable::sortable_js_capture_input(input_id = ns("reporter_cards_orders"))
+      shiny::singleton(
+        shiny::tags$head(
+          shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")),
+          shiny::includeScript(system.file("js/extendShinyJs.js", package = "teal.reporter"))
         )
       ),
-      shiny::tagList(
-        shiny::singleton(
-          shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-        ),
-        shiny::tags$div(
-          class = "block mb-4 p-1",
-          # shiny::tags$label(class = "text-primary block -ml-1", shiny::tags$strong("Reporter")),
-          shiny::tags$div(
-            class = "simple_reporter_container",
-            download_report_button_ui(ns("download"), label = "Download Report"),
-            report_load_ui(ns("load"), label = "Load Report"),
-            reset_report_button_ui(ns("reset"), label = "Reset Report")
-          )
+      # Extend shinyjs::js to include function defined in extendShinyJs.js
+      shinyjs::extendShinyjs(text = "", functions = c("jumpToFocus", "enterToSubmit", "autoFocusModal")),
+      sortable::sortable_js(
+        css_id = ns("cards-reporter_cards"),
+        options = sortable::sortable_options(
+          onSort = sortable::sortable_js_capture_input(ns("reporter_cards_order"))
         )
       ),
       shiny::tags$div(
-        id = "reporter_previewer",
-        bslib::accordion(id = ns("reporter_cards"), open = FALSE)
-      )
+        class = "block mb-4 p-1",
+        # shiny::tags$label(class = "text-primary block -ml-1", shiny::tags$strong("Reporter")),
+        shiny::tags$div(
+          class = "simple_reporter_container",
+          download_report_button_ui(ns("download"), label = "Download Report"),
+          report_load_ui(ns("load"), label = "Load Report"),
+          reset_report_button_ui(ns("reset"), label = "Reset Report")
+        )
+      ),
+      reporter_previewer_cards_ui(ns("cards"))
     )
   )
 }
@@ -124,122 +124,110 @@ reporter_previewer_srv <- function(id,
     )
     report_load_srv("load", reporter = reporter)
     reset_report_button_srv("reset", reporter = reporter)
+    reporter_previewer_cards_srv("cards", reporter)
 
-    current_cards <- shiny::reactiveVal()
-    insert_cards <- shiny::reactiveVal()
-    remove_cards <- shiny::reactiveVal()
-    shiny::observeEvent(reporter$get_reactive_add_card(), {
-      reporter_ids <- vapply(reporter$get_cards(), attr, character(1L), which = "id")
-      current_ids <- vapply(current_cards(), attr, character(1L), which = "id")
-
-      to_add <- reporter$get_cards()[!reporter_ids %in% current_ids]
-      to_remove <- current_cards()[!current_ids %in% reporter_ids]
-      if (length(to_add)) insert_cards(to_add)
-      if (length(to_remove)) remove_cards(to_remove)
-      current_cards(reporter$get_cards())
-    })
-
-    shiny::observeEvent(insert_cards(), {
-      cards <- insert_cards()
-      lapply(names(cards), function(card_name) {
-        card_id <- attr(cards[[card_name]], "id", exact = TRUE)
-        bslib::accordion_panel_insert(
-          id = "reporter_cards",
-          reporter_previewer_card_ui(id = session$ns(card_id), card_name = card_name)
-        )
-        reporter_previewer_card_srv(
-          id = card_id,
-          reporter = reporter,
-          card = cards[[card_name]]
-        )
-      })
-    })
-
-    shiny::observeEvent(remove_cards(), {
-      cards <- remove_cards()
-      lapply(names(cards), function(card_name) {
-        bslib::accordion_panel_remove(id = "reporter_cards", target = card_name)
-      })
-    })
-
-    shiny::observeEvent(input$reporter_cards_orders, {
-      reporter$reorder_cards(setdiff(input$reporter_cards_orders, ""))
+    shiny::observeEvent(input$reporter_cards_order, {
+      reporter$reorder_cards(setdiff(input$reporter_cards_order, ""))
     })
   })
 }
 
-reporter_previewer_card_ui <- function(id, card_name) {
+reporter_previewer_cards_ui <- function(id) {
+  ns <- shiny::NS(id)
+  shiny::tags$div(
+    id = "reporter_previewer",
+    tags$div(
+      id = ns("empty_reporters"),
+      tags$h4(
+        class = "text-muted",
+        shiny::icon("circle-info"),
+        "No reports have been added yet."
+      )
+    ),
+    bslib::accordion(id = ns("reporter_cards"), open = FALSE)
+  )
+}
+
+reporter_previewer_cards_srv <- function(id, reporter) {
+  moduleServer(id, function(input, output, session) {
+    current_ids_rv <- shiny::reactiveVal()
+    queues_rv <- list(insert = shiny::reactiveVal(), remove = shiny::reactiveVal())
+
+    shiny::observeEvent(reporter$get_cards(), {
+      all_cards <- reporter$get_cards()
+      reporter_ids <- names(all_cards)
+      current_ids <- current_ids_rv()
+
+      to_add <- !reporter_ids %in% current_ids
+      to_remove <- !current_ids %in% reporter_ids
+      if (any(to_add)) queues_rv$insert(reporter_ids[to_add])
+      if (any(to_remove)) queues_rv$remove(current_ids[to_remove])
+
+      shinyjs::toggle("empty_reporters", condition = length(all_cards) == 0L)
+    })
+
+    shiny::observeEvent(queues_rv$insert(), {
+      lapply(queues_rv$insert(), function(card_id) {
+        bslib::accordion_panel_insert(
+          id = "reporter_cards",
+          reporter_previewer_card_ui(id = session$ns(card_id), card_id = card_id)
+        )
+        current_ids_rv(c(current_ids_rv(), card_id))
+        reporter_previewer_card_srv(
+          id = card_id,
+          card_r = reactive(reporter$get_cards()[[card_id]]),
+          card_id = card_id,
+          reporter = reporter
+        )
+      })
+    })
+
+    shiny::observeEvent(queues_rv$remove(), {
+      lapply(queues_rv$remove(), bslib::accordion_panel_remove, id = "reporter_cards")
+    })
+  })
+}
+
+reporter_previewer_card_ui <- function(id, card_id) {
   ns <- shiny::NS(id)
   accordion_item <- bslib::accordion_panel(
-    value = card_name,
-    title = shiny::tags$label(card_name),
+    value = card_id,
+    title = shiny::tags$label(shiny::uiOutput(ns("title"))),
+    tags$h6(id = ns("loading_placeholder"), class = "text-muted", "Loading the report..."),
     shiny::uiOutput(ns("card_content"))
   )
-  accordion_item <- htmltools::tagAppendAttributes(tag = accordion_item, .cssSelector = ".accordion-header", class = "d-flex")
+  accordion_item <- htmltools::tagAppendAttributes(accordion_item, "data-rank-id" = card_id)
+
+  accordion_item <- htmltools::tagAppendAttributes(
+    tag = accordion_item,
+    .cssSelector = ".accordion-header",
+    class = "d-flex",
+  )
   accordion_item <- htmltools::tagAppendChildren(
     tag = accordion_item,
     .cssSelector = ".accordion-header",
-    shiny::actionLink(
-      inputId = ns("edit"),
-      class = "btn btn-primary btn-sm float-end p-3",
-      label = NULL,
-      icon = shiny::icon("edit")
-    ),
-    shiny::actionLink(
-      inputId = ns("remove"),
-      class = "btn btn-danger btn-sm float-end p-3",
-      label = NULL,
-      icon = shiny::icon("trash-alt"),
-    )
+    ui_previewer_card_actions(ns("actions"))
   )
 }
 
 # @param id (`character(1)`) card name
-reporter_previewer_card_srv <- function(id, reporter, card) {
+reporter_previewer_card_srv <- function(id, card_r, card_id, reporter) {
   # todo: card_name should be only on the server side
   shiny::moduleServer(id, function(input, output, session) {
-    # to react to the changes in the card
-    names(card) <- make.unique(rep("block", length(card)))
-    card_reactive <- shiny::reactiveVal(card)
-
-    output$card_content <- shiny::renderUI(toHTML(card_reactive()))
-    if (inherits(card, "ReportCard")) {
-      shinyjs::hide("edit")
-    }
-
-    # editor
-    editor_ui <- editor_ui(session$ns("editor"), x = card_reactive)
-    new_card <- editor_srv("editor", x = card_reactive)
-
-    shiny::observeEvent(input$edit, {
-      shiny::showModal(
-        shiny::modalDialog(
-          title = paste("Editing Card:", id),
-          size = "l", easyClose = TRUE,
-          shiny::tagList(
-            editor_ui,
-            shiny::uiOutput(session$ns("add_text_element_button_ui"))
-          ),
-          footer = shiny::tagList(
-            shiny::actionButton(session$ns("edit_save"), label = "Save"),
-            shiny::modalButton("Close")
-          )
-        )
-      )
-    })
-
-    shiny::observeEvent(input$edit_save, {
-      if (!identical(new_card(), card)) {
-        reporter$replace_card(id = id, card = new_card)
-        card_reactive(new_card())
+    output$title <- shiny::renderUI({
+      title <- metadata(req(card_r()), "title")
+      if (isFALSE(nzchar(title))) {
+        title <- tags$span("(empty title)", class = "text-muted")
       }
-      shiny::removeModal()
+      title
+    })
+    output$card_content <- shiny::renderUI({
+      result <- toHTML(req(card_r()))
+      shiny::removeUI(sprintf("#%s", session$ns("loading_placeholder")))
+      result
     })
 
-    # remove self from reporter
-    shiny::observeEvent(input$remove, {
-      reporter$remove_cards(ids = id)
-    })
+    srv_previewer_card_actions("actions", card_r, card_id, reporter)
   })
 }
 

@@ -144,6 +144,7 @@ ReportCard$new()$set_name("NAME")$get_name()
 \item \href{#method-ReportCard-append_metadata}{\code{ReportCard$append_metadata()}}
 \item \href{#method-ReportCard-get_name}{\code{ReportCard$get_name()}}
 \item \href{#method-ReportCard-set_name}{\code{ReportCard$set_name()}}
+\item \href{#method-ReportCard-set_content_names}{\code{ReportCard$set_content_names()}}
 \item \href{#method-ReportCard-to_list}{\code{ReportCard$to_list()}}
 \item \href{#method-ReportCard-from_list}{\code{ReportCard$from_list()}}
 \item \href{#method-ReportCard-clone}{\code{ReportCard$clone()}}
@@ -476,6 +477,23 @@ Set the name of the \code{ReportCard}.
 
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ReportCard-set_content_names"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-set_content_names}{}}}
+\subsection{Method \code{set_content_names()}}{
+Set content block names for compatibility with newer \code{ReportDocument}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$set_content_names(new_names)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{new_names}}{(\code{character}) vector of new names.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-to_list"></a>}}

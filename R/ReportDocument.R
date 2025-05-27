@@ -58,6 +58,56 @@ c.ReportDocument <- function(...) {
   out
 }
 
+#' @export
+metadata <- function(object, which = NULL) {
+  checkmate::assert_string(which, null.ok = TRUE)
+  UseMethod("metadata", object)
+}
+
+#' @export
+metadata.ReportDocument <- function(object, which = NULL) {
+  metadata <- attr(object, which = "metadata", exact = TRUE)
+  result <- metadata %||% list()
+  if (is.null(which)) {
+    return(result)
+  }
+  result[[which]]
+}
+
+#' @export
+metadata.ReportCard <- function(object, which = NULL) {
+  # TODO: soft deprecate
+  result <- list(title = object$get_name())
+  if (is.null(which)) {
+    return(result)
+  }
+  result[[which]]
+}
+
+#' @export
+`metadata<-` <- function(object, which, value) {
+  checkmate::assert_string(which)
+  UseMethod("metadata<-", object)
+}
+
+#' @export
+`metadata<-.ReportDocument` <- function(object, which, value) {
+  attr(object, which = "metadata") <- modifyList(
+    metadata(object), structure(list(value), names = which)
+  )
+  object
+}
+
+#' @export
+`metadata<-.ReportCard` <- function(object, which, value) {
+  if (which != "title") {
+    warning("ReportCard class only supports `title` in metadata.")
+  } else {
+    object$set_name(value)
+  }
+  object
+}
+
 #' @rdname report_document
 #' @param x `ReportDocument`
 #' @param modify An integer vector specifying element indices to extract and reorder.

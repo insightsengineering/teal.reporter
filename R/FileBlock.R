@@ -9,12 +9,6 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
   classname = "FileBlock",
   inherit = ContentBlock,
   public = list(
-    #' @description Finalize the `FileBlock`.
-    #'
-    #' @details Removes the temporary file created in the constructor.
-    finalize = function() {
-      try(unlink(super$get_content()))
-    },
     #' @description Create the `FileBlock` from a list.
     #' The list should contain one named field, `"basename"`.
     #'
@@ -57,7 +51,13 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
     }
   ),
   private = list(
-    content = character(0)
+    content = character(0),
+    # @description Finalize the `FileBlock`.
+    #
+    # @details Removes the temporary file created in the constructor.
+    finalize = function() {
+      try(unlink(super$get_content()))
+    }
   ),
   lock_objects = TRUE,
   lock_class = TRUE
