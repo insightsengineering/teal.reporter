@@ -44,7 +44,7 @@ report_document <- function(...) {
 #' @rdname report_document
 #' @export
 c.ReportDocument <- function(...) {
-  out <- NextMethod()
+  out <- c(list(), list(...)[[1]], list(...)[-1])
   class(out) <- "ReportDocument"
   out
 }
@@ -160,9 +160,10 @@ edit_report_document <- function(x, modify = NULL, append = NULL, after = length
 #' @export
 #' @rdname code_output
 code_chunk <- function(code, ...) {
+  checkmate::assert_character(code)
   params <- list(...)
   structure(
-    code,
+    paste(code, collapse = "\n"),
     params = params,
     class = "code_chunk"
   )
