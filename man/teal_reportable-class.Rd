@@ -35,7 +35,7 @@ Access or modify with \code{\link[=join_keys]{join_keys()}}.}
 proven to yield contents of \verb{@.xData}.
 Used internally. See \code{\link[=verify]{verify()}} for more details.}
 
-\item{\code{report}}{(\code{ReportDocument})}
+\item{\code{report}}{(\code{doc})}
 }}
 
 \section{Code}{

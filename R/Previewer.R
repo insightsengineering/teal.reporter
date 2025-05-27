@@ -240,7 +240,7 @@ toHTML.ReportCard <- function(x, ...) {
 
 #' @keywords internal
 #' @export
-toHTML.ReportDocument <- function(x, ...) {
+toHTML.doc <- function(x, ...) {
   lapply(x, toHTML)
 }
 

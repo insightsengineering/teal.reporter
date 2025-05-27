@@ -1,22 +1,22 @@
-#' @title `ReportDocument`: An `S3` class for managing `teal` reports
+#' @title `doc`: An `S3` class for managing `teal` reports
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' The `ReportDocument` `S3` class provides functionality to store, manage, edit, and adjust report contents.
+#' The `doc` `S3` class provides functionality to store, manage, edit, and adjust report contents.
 #' It enables users to create, manipulate, and serialize report-related data efficiently.
 #'
-#' @return An `S3` `list` of class `ReportDocument`.
-#' @param ... elements included in `ReportDocument`
-#' @param x `ReportDocument` object
+#' @return An `S3` `list` of class `doc`.
+#' @param ... elements included in `doc`
+#' @param x `doc` object
 #' @inheritParams base::append
 #'
-#' @details The `ReportDocument` class supports `c()` and `x[i]` methods for combining and subsetting elements.
-#' However, these methods only function correctly when the first element is a `ReportDocument`.
-#' To prepend, reorder, or modify a `ReportDocument`, use the `edit_report_document()` function.
+#' @details The `doc` class supports `c()` and `x[i]` methods for combining and subsetting elements.
+#' However, these methods only function correctly when the first element is a `doc`.
+#' To prepend, reorder, or modify a `doc`, use the `edit_report_document()` function.
 #'
 #'
 #' @examples
-#' # Create a new ReportDocument
+#' # Create a new doc
 #' report <- report_document()
 #' class(report) # Check the class of the object
 #'
@@ -29,32 +29,32 @@
 #' # Append new elements after the first element
 #' report <- append(report, c(list("## Table 2"), list(summary(mtcars))), after = 1)
 #'
-#' # Verify that the object remains a ReportDocument
+#' # Verify that the object remains a doc
 #' class(report)
 #'
-#' @aliases ReportDocument
+#' @aliases doc
 #' @name report_document
 #'
 #' @export
 report_document <- function(...) {
   objects <- list(...)
-  structure(objects, class = c("ReportDocument"))
+  structure(objects, class = c("doc"))
 }
 
 #' @rdname report_document
 #' @export
-c.ReportDocument <- function(...) {
+c.doc <- function(...) {
   out <- c(list(), list(...)[[1]], list(...)[-1])
-  class(out) <- "ReportDocument"
+  class(out) <- "doc"
   out
 }
 
 #' @param i index specifying elements to extract or replace
 #' @rdname report_document
 #' @export
-`[.ReportDocument` <- function(x, i) {
+`[.doc` <- function(x, i) {
   out <- NextMethod()
-  class(out) <- "ReportDocument"
+  class(out) <- "doc"
   out
 }
 
@@ -65,7 +65,7 @@ metadata <- function(object, which = NULL) {
 }
 
 #' @export
-metadata.ReportDocument <- function(object, which = NULL) {
+metadata.doc <- function(object, which = NULL) {
   metadata <- attr(object, which = "metadata", exact = TRUE)
   result <- metadata %||% list()
   if (is.null(which)) {
@@ -91,7 +91,7 @@ metadata.ReportCard <- function(object, which = NULL) {
 }
 
 #' @export
-`metadata<-.ReportDocument` <- function(object, which, value) {
+`metadata<-.doc` <- function(object, which, value) {
   attr(object, which = "metadata") <- modifyList(
     metadata(object), structure(list(value), names = which)
   )
@@ -109,10 +109,10 @@ metadata.ReportCard <- function(object, which = NULL) {
 }
 
 #' @rdname report_document
-#' @param x `ReportDocument`
+#' @param x `doc`
 #' @param modify An integer vector specifying element indices to extract and reorder.
 #' If `NULL`, no modification is applied.
-#' @param append An object to be added to the `ReportDocument` using `append()`.
+#' @param append An object to be added to the `doc` using `append()`.
 #' The `after` parameter determines the insertion position.
 #'
 #' @examples
@@ -126,7 +126,7 @@ metadata.ReportCard <- function(object, which = NULL) {
 #'
 #' @export
 edit_report_document <- function(x, modify = NULL, append = NULL, after = length(x)) {
-  checkmate::assert_class(x, "ReportDocument")
+  checkmate::assert_class(x, "doc")
   checkmate::assert_class(modify, "numeric", null.ok = TRUE)
 
   attrs <- attributes(x)
@@ -186,13 +186,13 @@ code_output <- function(code) {
 }
 
 #' @title Keep Objects In Report
-#' @description Utility function to change behavior of `ReportDocument` elements to be
+#' @description Utility function to change behavior of `doc` elements to be
 #' kept (`keep = TRUE`) or discarded (`keep = FALSE`) from the final `.Rmd` file containing the downloaded report.
 #' @details By default, R objects like `summary` outputs are only printed in the output document but their
 #'   code is not included in the `.Rmd` report source. Text elements (character strings) and `code_chunk`
 #'   objects are, by default, kept both in the output document and the `.Rmd` report source.
 #'   This function allows overriding the default behavior for specific objects.
-#' @param object An R object, typically an element intended for a `ReportDocument`.
+#' @param object An R object, typically an element intended for a `doc`.
 #' @param keep (`logical`) If `TRUE` (default), the object is marked to be kept in the `.Rmd` source;
 #'   if `FALSE`, it's marked for printing only in the output document (and not in the `.Rmd` source,
 #'   though its print output will be in the rendered document).

@@ -1,4 +1,4 @@
-setOldClass("ReportDocument")
+setOldClass("doc")
 
 #' Reproducible report
 #'
@@ -27,7 +27,7 @@ setOldClass("ReportDocument")
 #' @slot verified (`logical(1)`) flag signifying that code in `@code` has been
 #'  proven to yield contents of `@.xData`.
 #'  Used internally. See [`verify()`] for more details.
-#' @slot report (`ReportDocument`)
+#' @slot report (`doc`)
 #'
 #' @inheritSection teal.data::`teal_data-class` Code
 #'
@@ -37,7 +37,7 @@ setOldClass("ReportDocument")
 setClass(
   Class = "teal_reportable",
   contains = "teal_data",
-  slots = c(report = "ReportDocument")
+  slots = c(report = "doc")
 )
 
 
@@ -52,7 +52,7 @@ setMethod(
   function(.Object, report = report_document(), ...) { # nolint: object_name.
     print("init teal_reportable")
     args <- list(...)
-    checkmate::assert_class(report, "ReportDocument")
+    checkmate::assert_class(report, "doc")
     checkmate::assert_list(args, names = "named")
     methods::callNextMethod(
       .Object,
@@ -71,7 +71,7 @@ setMethod(
 #' Initializes a reportable data for `teal` application.
 #'
 #' @inheritParams teal.data::teal_data
-#' @param raport (`ReportDocument`)
+#' @param raport (`doc`)
 #' @return A `teal_reportable` object.
 #'
 #' @seealso [`teal.data::teal_data`]

@@ -23,7 +23,7 @@ Use \code{\link[teal.data:verify]{verify()}} to verify code reproducibility.}
 optional object with datasets column names used for joining.
 If empty then no joins between pairs of objects.}
 
-\item{raport}{(\code{ReportDocument})}
+\item{raport}{(\code{doc})}
 }
 \value{
 A \code{teal_reportable} object.

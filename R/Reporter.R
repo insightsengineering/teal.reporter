@@ -4,7 +4,7 @@
 #'
 #' This `R6` class is designed to store and manage reports,
 #' facilitating the creation, manipulation, and serialization of report-related data.
-#' It supports both `ReportCard` (`r lifecycle::badge("deprecated")`) and `ReportDocument` objects, allowing flexibility
+#' It supports both `ReportCard` (`r lifecycle::badge("deprecated")`) and `doc` objects, allowing flexibility
 #' in the types of reports that can be stored and managed.
 #'
 #' @export
@@ -23,9 +23,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
 
-    #' @description Append one or more `ReportCard` or `ReportDocument` objects to the `Reporter`.
+    #' @description Append one or more `ReportCard` or `doc` objects to the `Reporter`.
     #'
-    #' @param cards (`ReportCard` or `ReportDocument`) or a list of such objects
+    #' @param cards (`ReportCard` or `doc`) or a list of such objects
     #' @return `self`, invisibly.
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
@@ -44,14 +44,14 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, doc1))
     append_cards = function(cards) {
-      if (checkmate::test_multi_class(cards, classes = c("ReportDocument", "ReportCard"))) {
+      if (checkmate::test_multi_class(cards, classes = c("doc", "ReportCard"))) {
         cards <- list(cards)
       }
 
-      checkmate::assert_list(cards, types = c("ReportCard", "ReportDocument"))
+      checkmate::assert_list(cards, types = c("ReportCard", "doc"))
       new_cards <- cards
 
-      rds <- vapply(new_cards, inherits, logical(1L), "ReportDocument")
+      rds <- vapply(new_cards, inherits, logical(1L), "doc")
       if (!is.null(self$get_template())) {
         new_cards[rds] <- lapply(new_cards[rds], self$get_template())
       }
@@ -66,8 +66,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
       invisible(self)
     },
-    #' @description Reorders `ReportCard` or `ReportDocument` objects in `Reporter`.
-    #' @param new_order `character` vector with names of `ReportCard` or `ReportDocument` objects to be set in this order.
+    #' @description Reorders `ReportCard` or `doc` objects in `Reporter`.
+    #' @param new_order `character` vector with names of `ReportCard` or `doc` objects to be set in this order.
     #' @return `self`, invisibly.
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
@@ -101,9 +101,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$override_order <- new_order
       invisible(self)
     },
-    #' @description Sets `ReportCard` or `ReportDocument` content.
+    #' @description Sets `ReportCard` or `doc` content.
     #' @param card_id (`character(1)`) the unique id of the card to be replaced.
-    #' @param card The new object (`ReportCard` or `ReportDocument`) to replace the existing one.
+    #' @param card The new object (`ReportCard` or `doc`) to replace the existing one.
     #' @return `self`, invisibly.
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
@@ -136,8 +136,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$cards[[card_id]] <- card
       invisible(self)
     },
-    #' @description Retrieves all `ReportCard` and `ReportDocument` objects contained in `Reporter`.
-    #' @return A (`list`) of [`ReportCard`] and [`ReportDocument`] objects.
+    #' @description Retrieves all `ReportCard` and `doc` objects contained in `Reporter`.
+    #' @return A (`list`) of [`ReportCard`] and [`doc`] objects.
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
     #' library(rtables)
@@ -171,10 +171,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       # Ensure that cards added after reorder are returned (as well as reordered ones that were removed are excluded)
       result[union(intersect(private$override_order, names(result)), names(result))]
     },
-    #' @description Compiles and returns all content blocks from the `ReportCard` and `ReportDocument` objects in the `Reporter`.
+    #' @description Compiles and returns all content blocks from the `ReportCard` and `doc` objects in the `Reporter`.
     #' @param sep An optional separator to insert between each content block.
     #' Default is a `NewpageBlock$new()` object.
-    #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock`, `NewpageBlock`, and raw `ReportDocument` content
+    #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock`, `NewpageBlock`, and raw `doc` content
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
     #' library(rtables)
@@ -205,20 +205,20 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         for (card_idx in head(seq_along(private$cards), -1)) {
           if (inherits(private$cards[[card_idx]], "ReportCard")) {
             blocks <- append(blocks, append(private$cards[[card_idx]]$get_content(), sep))
-          } else if (inherits(private$cards[[card_idx]], "ReportDocument")) {
+          } else if (inherits(private$cards[[card_idx]], "doc")) {
             blocks <- append(blocks, append(private$cards[[card_idx]], "## NewPageSep ---")) # TODO - figure out if this is useful sep
           }
         }
         ncards <- length(private$cards)
         if (inherits(private$cards[[ncards]], "ReportCard")) {
           blocks <- append(blocks, private$cards[[ncards]]$get_content())
-        } else if (inherits(private$cards[[ncards]], "ReportDocument")) {
+        } else if (inherits(private$cards[[ncards]], "doc")) {
           blocks <- append(blocks, private$cards[[ncards]])
         }
       }
       blocks
     },
-    #' @description Resets the `Reporter`, removing all `ReportCard` and `ReportDocument` objects and metadata.
+    #' @description Resets the `Reporter`, removing all `ReportCard` and `doc` objects and metadata.
     #'
     #' @return `self`, invisibly.
     #'
@@ -231,7 +231,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$reactive_add_card(NULL)
       invisible(self)
     },
-    #' @description Removes specific `ReportCard` or `ReportDocument` objects from the `Reporter` by their indices.
+    #' @description Removes specific `ReportCard` or `doc` objects from the `Reporter` by their indices.
     #'
     #' @param ids (`integer`, `character`) the indexes of cards (either name)
     #' @return `self`, invisibly.
@@ -300,7 +300,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         # we want to have list names being a class names to indicate the class for $from_list
         card_class <- class(cards[[i]])[1]
         u_card <- list()
-        if (card_class == "ReportDocument") {
+        if (card_class == "doc") {
           tmp <- tempfile(fileext = ".rds")
           suppressWarnings(saveRDS(cards[[i]], file = tmp))
           tmp_base <- basename(tmp)
@@ -337,9 +337,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         for (iter_c in seq_along(rlist$cards)) {
           card_class <- cards_names[iter_c]
           card <- rlist$cards[[iter_c]]
-          if (card_class == "ReportDocument") {
+          if (card_class == "doc") {
             new_card <- readRDS(file.path(output_dir, card$path))
-            class(new_card) <- "ReportDocument"
+            class(new_card) <- "doc"
             new_card <- list(new_card) # so that it doesn't loose class and can be used in self$append_cards
             names(new_card) <- card$name
           } else {
@@ -412,8 +412,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @description Get the `Reporter` id
     #' @return `character(1)` the `Reporter` id.
     get_id = function() private$id,
-    #' @description Set template function for `ReportDocument`
-    #' Set a function that is called on every report content (of class `ReportDocument`) added through `$append_cards`
+    #' @description Set template function for `doc`
+    #' Set a function that is called on every report content (of class `doc`) added through `$append_cards`
     #' @param template (`function`) a template function.
     #' @return `self`, invisibly.
     #' @examples

@@ -11,12 +11,12 @@ report <- function(x) {
 #' Replace a report in `teal_reportable`
 #'
 #' @param x (`teal_reportable`)
-#' @param value (`ReportDocument`)
+#' @param value (`doc`)
 #' @return `teal_reportable`
 #' @export
 `report<-` <- function(x, value) {
   checkmate::assert_class(x, "teal_reportable")
-  checkmate::assert_class(value, classes = "ReportDocument")
+  checkmate::assert_class(value, classes = "doc")
   x@report <- value
   x
 }

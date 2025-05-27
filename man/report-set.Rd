@@ -9,7 +9,7 @@ report(x) <- value
 \arguments{
 \item{x}{(\code{teal_reportable})}
 
-\item{value}{(\code{ReportDocument})}
+\item{value}{(\code{doc})}
 }
 \value{
 \code{teal_reportable}
