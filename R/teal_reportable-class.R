@@ -97,9 +97,17 @@ teal_reportable <- function(...,
 #' @export
 as.reportable <- function(x) {
   checkmate::assert_class(x, "qenv")
-  new_reportable <- teal_reportable()
-  for (slot_name in slotNames(x)) {
-    slot(new_reportable, slot_name) <- slot(x, slot_name)
+  if (inherits(x, "teal_reportable")) {
+    return(x)
   }
-  new_reportable
+  new_x <- teal_reportable()
+  for (slot_name in slotNames(x)) {
+    slot(new_x, slot_name) <- slot(x, slot_name)
+  }
+  report(new_x) <- c(
+    report(new_report),
+    code_chunk(teal.code::get_code(new_x))
+  )
+
+  new_x
 }
