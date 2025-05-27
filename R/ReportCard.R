@@ -299,4 +299,3 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
 length.ReportCard <- function(x) {
   length(x$get_content())
 }
-
