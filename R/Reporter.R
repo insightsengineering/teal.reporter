@@ -441,8 +441,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
   ),
   private = list(
     id = "",
-    cards = NULL,
-    override_order = NULL,
+    cards = NULL, # reactiveValues
+    override_order = character(0), # to sort cards (reactiveValues are not sortable)
     metadata = list(),
     reactive_add_card = NULL,
     template = NULL,
