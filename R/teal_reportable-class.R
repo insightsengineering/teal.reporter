@@ -105,7 +105,7 @@ as.reportable <- function(x) {
     slot(new_x, slot_name) <- slot(x, slot_name)
   }
   report(new_x) <- c(
-    report(new_report),
+    report(new_x),
     code_chunk(teal.code::get_code(new_x))
   )
 

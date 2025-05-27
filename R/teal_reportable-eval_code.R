@@ -7,7 +7,7 @@ setMethod(
     if (length(code)) {
       report(out) <- c(
         report(object),
-        do.call(teal.reporter::code_chunk, args = c(list(code = code), code_block_opts)), # todo: cache is an attribute of a code chunk
+        do.call(code_chunk, args = c(list(code = code), code_block_opts)), # todo: cache is an attribute of a code chunk
         attr(out@code[[length(out@code)]], "cache")
       )
     }
