@@ -1,3 +1,4 @@
+#' @export
 setMethod(
   "eval_code",
   signature = c("teal_reportable", "character"),
@@ -16,6 +17,7 @@ setMethod(
 )
 
 
+#' @export
 setMethod(
   "eval_code",
   signature = c("teal_reportable", "language"),
@@ -30,6 +32,7 @@ setMethod(
   }
 )
 
+#' @export
 setMethod(
   "eval_code",
   signature = c("teal_reportable", "expression"),

@@ -32,6 +32,7 @@ setOldClass("ReportDocument")
 #' @inheritSection teal.data::`teal_data-class` Code
 #'
 #' @import teal.data
+#' @import teal.code
 #' @keywords internal
 setClass(
   Class = "teal_reportable",
@@ -69,7 +70,8 @@ setMethod(
 #'
 #' Initializes a reportable data for `teal` application.
 #'
-#' @param
+#' @inheritParams teal.data::teal_data
+#' @param raport (`ReportDocument`)
 #' @return A `teal_reportable` object.
 #'
 #' @seealso [`teal.data::teal_data`]
