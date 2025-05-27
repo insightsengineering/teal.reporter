@@ -11,8 +11,8 @@ setOldClass("doc")
 #' As code is evaluated in `teal_data`, messages and warnings are stored in their respective slots.
 #' If errors are raised, a `qenv.error` object is returned.
 #'
-#' @name teal_reportable-class
-#' @rdname teal_reportable-class
+#' @name teal_report-class
+#' @rdname teal_report-class
 #'
 #' @slot .xData (`environment`) environment containing data sets and possibly
 #'  auxiliary variables.
@@ -35,22 +35,22 @@ setOldClass("doc")
 #' @import teal.code
 #' @keywords internal
 setClass(
-  Class = "teal_reportable",
+  Class = "teal_report",
   contains = "teal_data",
   slots = c(report = "doc")
 )
 
 
-#' It initializes the `teal_reportable` class
+#' It initializes the `teal_report` class
 #'
 #' Accepts .xData as a list and converts it to an environment before initializing
 #' parent constructor (`teal_data`).
 #' @noRd
 setMethod(
   "initialize",
-  "teal_reportable",
+  "teal_report",
   function(.Object, report = report_document(), ...) { # nolint: object_name.
-    print("init teal_reportable")
+    print("init teal_report")
     args <- list(...)
     checkmate::assert_class(report, "doc")
     checkmate::assert_list(args, names = "named")
@@ -72,21 +72,21 @@ setMethod(
 #'
 #' @inheritParams teal.data::teal_data
 #' @param raport (`doc`)
-#' @return A `teal_reportable` object.
+#' @return A `teal_report` object.
 #'
 #' @seealso [`teal.data::teal_data`]
 #'
 #' @export
 #'
 #' @examples
-#' teal_reportable(x1 = iris, x2 = mtcars)
+#' teal_report(x1 = iris, x2 = mtcars)
 #'
-teal_reportable <- function(...,
-                            report = report_document(),
-                            code = character(0),
-                            join_keys = teal.data::join_keys()) {
+teal_report <- function(...,
+                        report = report_document(),
+                        code = character(0),
+                        join_keys = teal.data::join_keys()) {
   methods::new(
-    "teal_reportable",
+    "teal_report",
     .xData = list2env(list(...)),
     report = report,
     join_keys = join_keys,
@@ -97,10 +97,10 @@ teal_reportable <- function(...,
 #' @export
 as.reportable <- function(x) {
   checkmate::assert_class(x, "qenv")
-  if (inherits(x, "teal_reportable")) {
+  if (inherits(x, "teal_report")) {
     return(x)
   }
-  new_x <- teal_reportable()
+  new_x <- teal_report()
   for (slot_name in slotNames(x)) {
     slot(new_x, slot_name) <- slot(x, slot_name)
   }

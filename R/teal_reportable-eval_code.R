@@ -1,7 +1,7 @@
 #' @export
 setMethod(
   "eval_code",
-  signature = c("teal_reportable", "character"),
+  signature = c("teal_report", "character"),
   function(object, code, cache = FALSE, code_block_opts = list(), ...) {
     out <- methods::callNextMethod(object = object, code = code, cache = cache, ...)
     if (length(code)) {
@@ -20,7 +20,7 @@ setMethod(
 #' @export
 setMethod(
   "eval_code",
-  signature = c("teal_reportable", "language"),
+  signature = c("teal_report", "language"),
   function(object, code, cache = FALSE, code_block_opts = list(), ...) {
     teal.code::eval_code(
       object = object,
@@ -35,7 +35,7 @@ setMethod(
 #' @export
 setMethod(
   "eval_code",
-  signature = c("teal_reportable", "expression"),
+  signature = c("teal_report", "expression"),
   function(object, code, cache = FALSE, code_block_opts = list(), ...) {
     srcref <- attr(code, "wholeSrcref")
     if (length(srcref)) {
