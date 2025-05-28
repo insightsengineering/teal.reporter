@@ -44,9 +44,15 @@ doc <- function(...) {
 #' @rdname doc
 #' @export
 c.doc <- function(...) {
-  out <- c(list(), list(...)[[1]], list(...)[-1])
-  class(out) <- "doc"
-  out
+  dots <- list(...)
+  structure(
+    Reduce(
+      f = function(u, v) append(u, if (inherits(v, "doc")) v else list(v)),
+      x = dots[-1],
+      init = unclass(dots[[1]]) # unclass to avoid infinite recursion
+    ),
+    class = "doc"
+  )
 }
 
 #' @param i index specifying elements to extract or replace

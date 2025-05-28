@@ -12,18 +12,54 @@ testthat::test_that("doc creates a doc with initial elements", {
   testthat::expect_s3_class(doc[[3]], "code_chunk")
 })
 
-testthat::test_that("c.doc combines elements and retains class", {
-  doc1 <- doc("a", "b")
-  doc2 <- c(doc1, "c", list("d"))
-  testthat::expect_s3_class(doc2, "doc")
-  testthat::expect_length(doc2, 4)
-  testthat::expect_equal(doc2[[3]], "c")
+testthat::describe("c.doc combines with", {
+  doc_base <- doc("a", "b")
 
-  doc3 <- doc("e")
-  doc4 <- c(doc1, doc3)
-  testthat::expect_s3_class(doc4, "doc")
-  testthat::expect_length(doc4, 3)
-  testthat::expect_equal(doc4[[3]], "e") # Assuming it unnests the doc
+  it("character element and retains class", {
+    doc_result <- c(doc_base, "c")
+    testthat::expect_s3_class(doc_result, "doc")
+    testthat::expect_length(doc_result, 3)
+    testthat::expect_equal(doc_result[[3]], "c")
+  })
+
+  it("multiple character elements and retains class", {
+    doc_result <- c(doc_base, "c", list("d"))
+    testthat::expect_s3_class(doc_result, "doc")
+    testthat::expect_length(doc_result, 4)
+    testthat::expect_equal(doc_result[[3]], "c")
+  })
+
+  it("multiple character elements and retains class", {
+    doc_result <- c(doc_base, "c", list("d", "e"))
+    testthat::expect_s3_class(doc_result, "doc")
+    testthat::expect_length(doc_result, 4)
+    testthat::expect_equal(doc_result[[4]], list("d", "e"))
+  })
+
+  it("doc with multiple elements and retains class", {
+    doc_result <- c(doc_base, doc("c", "d"))
+    testthat::expect_s3_class(doc_result, "doc")
+    testthat::expect_length(doc_result, 4)
+    testthat::expect_equal(doc_result[[3]], "c") # Assuming it unnests the doc
+  })
+
+  it("with single ggplot2 element and retains class", {
+    plot <- ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) +
+      ggplot2::geom_point()
+    doc_result <- c(doc_base, plot)
+    testthat::expect_s3_class(doc_result, "doc")
+    testthat::expect_length(doc_result, 3)
+    testthat::expect_identical(doc_result[[3]], plot)
+  })
+
+  it("ggplot2 section and retains class", {
+    plot <- ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) +
+      ggplot2::geom_point()
+    doc_result <- c(doc_base, doc("# Plot", plot))
+    testthat::expect_s3_class(doc_result, "doc")
+    testthat::expect_length(doc_result, 4)
+    testthat::expect_identical(doc_result[[4]], plot)
+  })
 })
 
 testthat::test_that("[.doc subsets and retains class", {
