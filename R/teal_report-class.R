@@ -95,7 +95,7 @@ teal_report <- function(...,
 }
 
 #' @export
-as.reportable <- function(x) {
+as.teal_report <- function(x) {
   checkmate::assert_class(x, "qenv")
   if (inherits(x, "teal_report")) {
     return(x)
