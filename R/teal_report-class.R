@@ -49,7 +49,7 @@ setClass(
 setMethod(
   "initialize",
   "teal_report",
-  function(.Object, report = report_document(), ...) { # nolint: object_name.
+  function(.Object, report = doc(), ...) { # nolint: object_name.
     print("init teal_report")
     args <- list(...)
     checkmate::assert_class(report, "doc")
@@ -82,7 +82,7 @@ setMethod(
 #' teal_report(x1 = iris, x2 = mtcars)
 #'
 teal_report <- function(...,
-                        report = report_document(),
+                        report = doc(),
                         code = character(0),
                         join_keys = teal.data::join_keys()) {
   methods::new(

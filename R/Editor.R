@@ -43,7 +43,7 @@ srv_editor_block.character <- function(id, value) {
   shiny::moduleServer(id, function(input, output, session) reactive(input$content))
 }
 
-ui_report_document_editor <- function(id, value) {
+ui_doc_editor <- function(id, value) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::tags$div(
@@ -56,7 +56,7 @@ ui_report_document_editor <- function(id, value) {
   )
 }
 
-srv_report_document_editor <- function(id, card_r) {
+srv_doc_editor <- function(id, card_r) {
   shiny::moduleServer(id, function(input, output, session) {
     blocks_inputs_rvs <- shiny::reactiveValues() # Store input names for snapshot
     blocks_queue_rv <- shiny::reactiveVal()
@@ -139,7 +139,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
           size = "l",
           easyClose = TRUE,
           shiny::tagList(
-            ui_report_document_editor(session$ns("editor"), value = template_card),
+            ui_doc_editor(session$ns("editor"), value = template_card),
             shiny::uiOutput(session$ns("add_text_element_button_ui"))
           ),
           footer = shiny::tagList(
@@ -150,7 +150,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
       )
     })
 
-    block_input_names_rvs <- srv_report_document_editor("editor", new_card_rv)
+    block_input_names_rvs <- srv_doc_editor("editor", new_card_rv)
 
     observeEvent(input$edit_title, {
       shinyjs::hide("edit_title")

@@ -420,11 +420,11 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' reporter <- teal.reporter::Reporter$new()
     #' template_fun <- function(document) {
-    #'   disclaimer <- teal.reporter::report_document("Here comes disclaimer text")
+    #'   disclaimer <- teal.reporter::doc("Here comes disclaimer text")
     #'   c(disclaimer, document)
     #' }
     #' reporter$set_template(template_fun)
-    #' doc1 <- teal.reporter::report_document("## Header 2 text", "Regular text")
+    #' doc1 <- teal.reporter::doc("## Header 2 text", "Regular text")
     #' ndoc1 <- stats::setNames(list(doc1), "Welcome card")
     #' reporter$append_cards(ndoc1)
     #' reporter$get_cards()

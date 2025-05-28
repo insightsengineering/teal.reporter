@@ -6,7 +6,7 @@
 \usage{
 teal_report(
   ...,
-  report = report_document(),
+  report = doc(),
   code = character(0),
   join_keys = teal.data::join_keys()
 )

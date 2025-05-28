@@ -12,12 +12,12 @@
 #'
 #' @details The `doc` class supports `c()` and `x[i]` methods for combining and subsetting elements.
 #' However, these methods only function correctly when the first element is a `doc`.
-#' To prepend, reorder, or modify a `doc`, use the `edit_report_document()` function.
+#' To prepend, reorder, or modify a `doc`, use the `edit_doc()` function.
 #'
 #'
 #' @examples
 #' # Create a new doc
-#' report <- report_document()
+#' report <- doc()
 #' class(report) # Check the class of the object
 #'
 #' # Add elements to the report
@@ -33,15 +33,15 @@
 #' class(report)
 #'
 #' @aliases doc
-#' @name report_document
+#' @name doc
 #'
 #' @export
-report_document <- function(...) {
+doc <- function(...) {
   objects <- list(...)
   structure(objects, class = c("doc"))
 }
 
-#' @rdname report_document
+#' @rdname doc
 #' @export
 c.doc <- function(...) {
   out <- c(list(), list(...)[[1]], list(...)[-1])
@@ -50,7 +50,7 @@ c.doc <- function(...) {
 }
 
 #' @param i index specifying elements to extract or replace
-#' @rdname report_document
+#' @rdname doc
 #' @export
 `[.doc` <- function(x, i) {
   out <- NextMethod()
@@ -108,7 +108,7 @@ metadata.ReportCard <- function(object, which = NULL) {
   object
 }
 
-#' @rdname report_document
+#' @rdname doc
 #' @param x `doc`
 #' @param modify An integer vector specifying element indices to extract and reorder.
 #' If `NULL`, no modification is applied.
@@ -116,16 +116,16 @@ metadata.ReportCard <- function(object, which = NULL) {
 #' The `after` parameter determines the insertion position.
 #'
 #' @examples
-#' #### edit_report_document examples ###
-#' report <- report_document(1, 2, "c")
+#' #### edit_doc examples ###
+#' report <- doc(1, 2, "c")
 #'
 #' # Modify and append to the report
-#' new_report <- edit_report_document(report, modify = c(3, 1), append = "d")
+#' new_report <- edit_doc(report, modify = c(3, 1), append = "d")
 #' new_report
 #' class(new_report)
 #'
 #' @export
-edit_report_document <- function(x, modify = NULL, append = NULL, after = length(x)) {
+edit_doc <- function(x, modify = NULL, append = NULL, after = length(x)) {
   checkmate::assert_class(x, "doc")
   checkmate::assert_class(modify, "numeric", null.ok = TRUE)
 

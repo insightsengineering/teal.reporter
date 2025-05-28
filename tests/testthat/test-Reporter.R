@@ -206,13 +206,13 @@ testthat::test_that("to_jsondir and from_jsondir could be used to save and retri
 
 
 testthat::describe("reorder_cards", {
-  card1 <- report_document("# Section 1")
+  card1 <- doc("# Section 1")
   metadata(card1, "title") <- "Card1"
-  card2 <- report_document("# Section A")
+  card2 <- doc("# Section A")
   metadata(card2, "title") <- "Card2"
-  card3 <- report_document("# Section I")
+  card3 <- doc("# Section I")
   metadata(card3, "title") <- "Card3"
-  card4 <- report_document("# Section i")
+  card4 <- doc("# Section i")
   metadata(card4, "title") <- "Card4"
 
 
