@@ -50,7 +50,6 @@ setMethod(
   "initialize",
   "teal_report",
   function(.Object, report = doc(), ...) { # nolint: object_name.
-    print("init teal_report")
     args <- list(...)
     checkmate::assert_class(report, "doc")
     checkmate::assert_list(args, names = "named")
