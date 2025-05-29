@@ -216,7 +216,7 @@ testthat::describe("reorder_cards", {
   metadata(card4, "title") <- "Card4"
 
 
-  testthat::it("returns the correct order", {
+  it("returns the correct order", {
     reporter <- teal.reporter::Reporter$new() # prefix needed in "it" to avoid testthat::Reporter
     reporter$append_cards(list(card1, card2, card3))
 
@@ -227,7 +227,7 @@ testthat::describe("reorder_cards", {
     testthat::expect_equal(names_after, rev(names_before))
   })
 
-  testthat::it("returns the correct order after removal", {
+  it("returns the correct order after removal", {
     reporter <- teal.reporter::Reporter$new() # prefix needed in "it" to avoid testthat::Reporter
     reporter$append_cards(list(card1, card2, card3))
 
@@ -240,7 +240,7 @@ testthat::describe("reorder_cards", {
     testthat::expect_equal(names_after, rev(names_before[names_before != name_to_remove]))
   })
 
-  testthat::it("returns the correct order after adding (new card at the end)", {
+  it("returns the correct order after adding (new card at the end)", {
     reporter <- teal.reporter::Reporter$new() # prefix needed in "it" to avoid testthat::Reporter
     reporter$append_cards(list(card1, card2, card3))
 
