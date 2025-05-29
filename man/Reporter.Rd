@@ -305,7 +305,8 @@ Reorders \code{ReportCard} or \code{ReportDocument} objects in \code{Reporter}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{new_order}}{\code{character} vector with names of \code{ReportCard} or \code{ReportDocument} objects to be set in this order.}
+\item{\code{new_order}}{\code{character} vector with names of \code{ReportCard} or \code{ReportDocument}
+objects to be set in this order.}
 }
 \if{html}{\out{</div>}}
 }
@@ -352,7 +353,8 @@ A (\code{list}) of \code{\link{ReportCard}} and \code{\link{ReportDocument}} obj
 \if{html}{\out{<a id="method-Reporter-get_blocks"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_blocks}{}}}
 \subsection{Method \code{get_blocks()}}{
-Compiles and returns all content blocks from the \code{ReportCard} and \code{ReportDocument} objects in the \code{Reporter}.
+Compiles and returns all content blocks from the \code{ReportCard}
+and \code{ReportDocument} objects in the \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$get_blocks(sep = "\\n\\n---\\n\\n\\\\newpage\\n\\n")}\if{html}{\out{</div>}}
 }
@@ -366,7 +368,8 @@ Default is a \code{NewpageBlock$new()} object.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{list()} list of \code{TableBlock}, \code{TextBlock}, \code{PictureBlock}, \code{NewpageBlock}, and raw \code{ReportDocument} content
+\code{list()} list of \code{TableBlock}, \code{TextBlock}, \code{PictureBlock},
+\code{NewpageBlock}, and raw \code{ReportDocument} content
 }
 }
 \if{html}{\out{<hr>}}
