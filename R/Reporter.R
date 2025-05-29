@@ -58,7 +58,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
 
       # Set up unique id for each card
       names(new_cards) <- vapply(new_cards, function(card) {
-        sprintf("card_%s", substr(rlang::hash(list(card, Sys.time())), 1, 8))
+        sprintf("card_%s", substr(rlang::hash(list(deparse1(card), Sys.time())), 1, 8))
       }, character(1L))
 
       for (card_id in names(new_cards)) {
@@ -222,12 +222,13 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @return `self`, invisibly.
     #'
     reset = function() {
-      for (card_id in names(private$cards)) {
-        private$cards[[card_id]] <- NULL
+      if (shiny::isRunning()) {
+        for (card_id in shiny::names(private$cards)) private$cards[[card_id]] <- NULL
+      } else {
+        private$cards <- shiny::reactiveValues()
       }
-      private$override_order <- NULL
+      private$override_order <- character(0L)
       private$metadata <- list()
-      private$reactive_add_card(NULL)
       invisible(self)
     },
     #' @description Removes specific `ReportCard` or `ReportDocument` objects from the `Reporter` by their indices.
@@ -433,14 +434,22 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Get the `Reporter` template
     #' @return a template `function`.
-    get_template = function() private$template
+    get_template = function() private$template,
+    #' @description Compare two Reporter objects for equality.
+    #' @param other (`Reporter`) another `Reporter` object to compare with.
+    #' @return `logical(1)` indicating whether the two `Reporter` objects are equal.
+    equals = function(other) {
+      checkmate::assert_class(other, "Reporter")
+      identical(self$get_id(), other$get_id()) &&
+        identical(self$get_metadata(), other$get_metadata()) &&
+        identical(unname(self$get_cards()), unname(other$get_cards()))
+    }
   ),
   private = list(
     id = "",
     cards = NULL, # reactiveValues
-    override_order = character(0), # to sort cards (reactiveValues are not sortable)
+    override_order = character(0L), # to sort cards (reactiveValues are not sortable)
     metadata = list(),
-    reactive_add_card = NULL,
     template = NULL,
     # @description The copy constructor.
     #
@@ -451,7 +460,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     deep_clone = function(name, value) {
       shiny::isolate({
         if (name == "cards") {
-          new_cards <- lapply(shiny::reactiveValuesToList(value), function(card) card$clone(deep = TRUE))
+          new_cards <- lapply(shiny::reactiveValuesToList(value), function(card) {
+            if (R6::is.R6(card)) card$clone(deep = TRUE) else card
+          })
           do.call(shiny::reactiveValues, new_cards)
         } else {
           value
