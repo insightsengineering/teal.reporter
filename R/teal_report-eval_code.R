@@ -2,7 +2,6 @@ setMethod(
   "eval_code",
   signature = c("teal_report", "ANY"),
   function(object, code, cache = FALSE, code_block_opts = list(), ...) {
-    logger::log_fatal("eval_code with 'teal_report'")
     new_object <- methods::callNextMethod(object = object, code = code, cache = cache, ...)
     if (inherits(new_object, "error")) {
       return(new_object)
