@@ -199,22 +199,18 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter$append_cards(list(card1, card2))
     #' reporter$get_blocks()
     #'
-    get_blocks = function(sep = NewpageBlock$new()) {
+    get_blocks = function(sep = "\n\n---\n\n\\newpage\n\n") {
+      cards <- self$get_cards()
       blocks <- list()
-      if (length(private$cards) > 0) {
-        for (card_idx in head(seq_along(private$cards), -1)) {
-          if (inherits(private$cards[[card_idx]], "ReportCard")) {
-            blocks <- append(blocks, append(private$cards[[card_idx]]$get_content(), sep))
-          } else if (inherits(private$cards[[card_idx]], "ReportDocument")) {
-            blocks <- append(blocks, append(private$cards[[card_idx]], "## NewPageSep ---")) # TODO - figure out if this is useful sep
-          }
+      for (idx in seq_along(cards)) {
+        card <- cards[[idx]]
+        if (inherits(card, "ReportCard")) {
+          blocks <- append(blocks, card$get_content())
+          if (idx != length(cards)) blocks <- append(blocks, sep)
+          next # Easier to remove when ReportCard is fully deprecated
         }
-        ncards <- length(private$cards)
-        if (inherits(private$cards[[ncards]], "ReportCard")) {
-          blocks <- append(blocks, private$cards[[ncards]]$get_content())
-        } else if (inherits(private$cards[[ncards]], "ReportDocument")) {
-          blocks <- append(blocks, private$cards[[ncards]])
-        }
+        blocks <- append(blocks, unclass(card))
+        if (idx != length(cards)) blocks <- append(blocks, sep)
       }
       blocks
     },
