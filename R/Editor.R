@@ -81,7 +81,7 @@ srv_doc_editor <- function(id, card_r) {
     })
 
     shiny::observeEvent(input$add_block, {
-      new_name <- utils::tail(make.unique(c(names(card_r()), "block"), sep = "_"), 1)
+      new_name <- utils::tail(make.unique(c(names(blocks_inputs_rvs), "block"), sep = "_"), 1)
       blocks_queue_rv(new_name)
     })
 
