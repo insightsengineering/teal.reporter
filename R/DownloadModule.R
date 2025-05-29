@@ -170,7 +170,7 @@ report_render_and_compress <- function(reporter, yaml_header, global_knitr, file
     warning = function(cond) message("Render document warning: ", cond),
     error = function(cond) {
       message("Render document error: ", cond)
-      return(NULL)
+      NULL
     }
   )
 
@@ -298,7 +298,11 @@ to_rmd.default <- function(block, output_dir, ...) {
 
 #' @method to_rmd Reporter
 #' @keywords internal
-to_rmd.Reporter <- function(reporter, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), output_dir, include_echo) {
+to_rmd.Reporter <- function(reporter,
+                            yaml_header,
+                            global_knitr = getOption("teal.reporter.global_knitr"),
+                            output_dir,
+                            include_echo) {
   blocks <- reporter$get_blocks()
 
   checkmate::assert_list(

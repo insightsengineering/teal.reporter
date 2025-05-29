@@ -134,7 +134,11 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
               class = "fs-6",
               title = "Edit title"
             ),
-            shinyjs::hidden(shiny::textInput(session$ns("new_title"), label = NULL, value = metadata(template_card, "title")))
+            shinyjs::hidden(
+              shiny::textInput(
+                session$ns("new_title"), label = NULL, value = metadata(template_card, "title")
+              )
+            )
           ),
           size = "l",
           easyClose = TRUE,
@@ -178,7 +182,10 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
           },
           error = function(err) {
             shiny::showNotification(
-              sprintf("A card with the name '%s' already exists. Please use a different name.", metadata(new_card, "title")),
+              sprintf(
+                "A card with the name '%s' already exists. Please use a different name.",
+                metadata(new_card, "title")
+              ),
               type = "error",
               duration = 5
             )

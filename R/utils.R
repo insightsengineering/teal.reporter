@@ -114,7 +114,7 @@ get_merge_index_single <- function(span) {
     }
     j <- j + span[j]
   }
-  return(ret)
+  ret
 }
 
 #' Divide text block into smaller blocks

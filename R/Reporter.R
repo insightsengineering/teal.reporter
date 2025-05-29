@@ -67,7 +67,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
     #' @description Reorders `ReportCard` or `ReportDocument` objects in `Reporter`.
-    #' @param new_order `character` vector with names of `ReportCard` or `ReportDocument` objects to be set in this order.
+    #' @param new_order `character` vector with names of `ReportCard` or `ReportDocument`
+    #' objects to be set in this order.
     #' @return `self`, invisibly.
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
@@ -171,10 +172,12 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       # Ensure that cards added after reorder are returned (as well as reordered ones that were removed are excluded)
       result[union(intersect(private$override_order, names(result)), names(result))]
     },
-    #' @description Compiles and returns all content blocks from the `ReportCard` and `ReportDocument` objects in the `Reporter`.
+    #' @description Compiles and returns all content blocks from the `ReportCard`
+    #' and `ReportDocument` objects in the `Reporter`.
     #' @param sep An optional separator to insert between each content block.
     #' Default is a `NewpageBlock$new()` object.
-    #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock`, `NewpageBlock`, and raw `ReportDocument` content
+    #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock`,
+    #' `NewpageBlock`, and raw `ReportDocument` content
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
     #' library(rtables)

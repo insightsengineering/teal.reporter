@@ -48,7 +48,6 @@ reporter_previewer_ui <- function(id) {
       ),
       shiny::tags$div(
         class = "block mb-4 p-1",
-        # shiny::tags$label(class = "text-primary block -ml-1", shiny::tags$strong("Reporter")),
         shiny::tags$div(
           class = "simple_reporter_container",
           download_report_button_ui(ns("download"), label = "Download Report"),
