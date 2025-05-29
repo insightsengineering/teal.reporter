@@ -121,18 +121,17 @@ download_report_button_srv <- function(id,
       shinyjs::toggleState(length(reporter$get_cards()) > 0, id = "download_button")
     })
 
-    shiny::observeEvent(input$download_button, {
-      shiny::showModal(download_modal())
-    })
+    shiny::observeEvent(input$download_button, shiny::showModal(download_modal()))
 
     output$download_data <- shiny::downloadHandler(
       filename = function() {
-        paste0(
-          "report_",
-          if (reporter$get_id() == "") NULL else paste0(reporter$get_id(), "_"),
-          format(Sys.time(), "%y%m%d%H%M%S"),
-          ".zip"
-        )
+        id <- reporter$get_id() %||% ""
+        timestamp <- format(Sys.time(), "%y%m%d%H%M%S")
+        fmt <- if (identical(id, "")) {
+          sprintf("reporter_%s.zip", timestamp)
+        } else {
+          sprintf("reporter_%s_%s.zip", id, timestamp)
+        }
       },
       content = function(file) {
         shiny::showNotification("Rendering and Downloading the document.")
@@ -166,7 +165,6 @@ report_render_and_compress <- function(reporter, yaml_header, global_knitr, file
   checkmate::assert_string(file)
 
   yaml_content <- as_yaml_auto(yaml_header)
-
   output_dir <- tryCatch(
     report_render(reporter, yaml_content, global_knitr),
     warning = function(cond) message("Render document warning: ", cond),
