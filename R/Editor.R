@@ -136,7 +136,8 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
             ),
             shinyjs::hidden(
               shiny::textInput(
-                session$ns("new_title"), label = NULL, value = metadata(template_card, "title")
+                session$ns("new_title"),
+                label = NULL, value = metadata(template_card, "title")
               )
             )
           ),
