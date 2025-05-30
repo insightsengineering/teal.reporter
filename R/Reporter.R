@@ -434,16 +434,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Get the `Reporter` template
     #' @return a template `function`.
-    get_template = function() private$template,
-    #' @description Compare two Reporter objects for equality.
-    #' @param other (`Reporter`) another `Reporter` object to compare with.
-    #' @return `logical(1)` indicating whether the two `Reporter` objects are equal.
-    equals = function(other) {
-      checkmate::assert_class(other, "Reporter")
-      identical(self$get_id(), other$get_id()) &&
-        identical(self$get_metadata(), other$get_metadata()) &&
-        identical(unname(self$get_cards()), unname(other$get_cards()))
-    }
+    get_template = function() private$template
   ),
   private = list(
     id = "",

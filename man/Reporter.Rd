@@ -248,7 +248,6 @@ reporter$get_cards()
 \item \href{#method-Reporter-get_id}{\code{Reporter$get_id()}}
 \item \href{#method-Reporter-set_template}{\code{Reporter$set_template()}}
 \item \href{#method-Reporter-get_template}{\code{Reporter$get_template()}}
-\item \href{#method-Reporter-equals}{\code{Reporter$equals()}}
 \item \href{#method-Reporter-clone}{\code{Reporter$clone()}}
 }
 }
@@ -703,26 +702,6 @@ Get the \code{Reporter} template
 
 \subsection{Returns}{
 a template \code{function}.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Reporter-equals"></a>}}
-\if{latex}{\out{\hypertarget{method-Reporter-equals}{}}}
-\subsection{Method \code{equals()}}{
-Compare two Reporter objects for equality.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$equals(other)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{other}}{(\code{Reporter}) another \code{Reporter} object to compare with.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{logical(1)} indicating whether the two \code{Reporter} objects are equal.
 }
 }
 \if{html}{\out{<hr>}}
