@@ -178,8 +178,7 @@ testthat::describe("from_reporter", {
     testthat::expect_identical(reporter, (Reporter$new()$from_reporter(reporter)))
   })
 
-  # TODO: Q: should we add keep id with "from_reporter"?
-  it("returns different object if id has already been set", {
+  it("returns different object if id has already been set", { # TODO: Q: is this test valid? in other words should override id when using "from_reporter"?
     reporter1 <- test_reporter(test_card1(), test_card2())
     reporter2 <- teal.reporter::Reporter$new()
     reporter1$set_id("a_id")
