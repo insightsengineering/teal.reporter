@@ -1,4 +1,5 @@
 test_card1.ReportCard <- function() {
+  testthat::skip_if_not_installed("ggplot2")
   card <- ReportCard$new()
 
   card$append_text("Header 2 text", "header2")

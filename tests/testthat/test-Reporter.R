@@ -6,8 +6,6 @@ testthat::test_that("new returns an object of type Reporter", {
   testthat::expect_true(inherits(Reporter$new(), "Reporter"))
 })
 
-testthat::skip_if_not_installed("ggplot2")
-
 testthat::test_that("default reporter id", {
   testthat::expect_identical(Reporter$new()$get_id(), "")
 })
@@ -37,6 +35,7 @@ testthat::describe("Reporter with ReportCard", {
   })
 
   it("The deep copy constructor copies the content files to new files", {
+    testthat::skip_if_not_installed("ggplot2")
     card <- ReportCard$new()$append_plot(ggplot2::ggplot(iris))
     # needs prefix otherwise it conflicts with testthat::Reporter
     reporter <- teal.reporter::Reporter$new()$append_cards(list(card))
@@ -78,6 +77,7 @@ testthat::test_that("get_blocks and get_cards return empty list by default", {
 })
 
 testthat::test_that("The deep copy constructor copies the content files to new files", {
+  testthat::skip_if_not_installed("ggplot2")
   card <- report_document(ggplot2::ggplot(iris))
   reporter <- Reporter$new()$append_cards(card)
   reporter_copy <- reporter$clone(deep = TRUE)
@@ -113,25 +113,27 @@ testthat::describe("metadata", {
   })
 })
 
-testthat::test_that("from_reporter returns identical/equal object from the same reporter", {
-  reporter <- test_reporter()
-  testthat::expect_identical(reporter, reporter$from_reporter(reporter))
-})
+testthat::describe("from_reporter", {
+  it("from_reporter returns identical/equal object from the same reporter", {
+    reporter <- test_reporter()
+    testthat::expect_identical(reporter, reporter$from_reporter(reporter))
+  })
 
-testthat::test_that("from_reporter does not return identical/equal object form other reporter", {
-  reporter1 <- test_reporter(test_card1(), test_card2())
-  reporter2 <- Reporter$new()
+  it("from_reporter does not return identical/equal object form other reporter", {
+    reporter1 <- test_reporter(test_card1(), test_card2())
+    reporter2 <- Reporter$new()
 
-  testthat::expect_false(identical(reporter1, reporter2$from_reporter(reporter1)))
-})
+    testthat::expect_false(identical(reporter1, reporter2$from_reporter(reporter1)))
+  })
 
-testthat::test_that("from_reporter persists the cards structure, but not the name", {
-  reporter1 <- test_reporter(test_card1(), test_card2())
-  reporter2 <- Reporter$new()
-  testthat::expect_identical(
-    unname(reporter1$get_cards()),
-    unname(reporter2$from_reporter(reporter1)$get_cards())
-  )
+  it("from_reporter persists the cards structure, but not the name", {
+    reporter1 <- test_reporter(test_card1(), test_card2())
+    reporter2 <- Reporter$new()
+    testthat::expect_identical(
+      unname(reporter1$get_cards()),
+      unname(reporter2$from_reporter(reporter1)$get_cards())
+    )
+  })
 })
 
 testthat::describe("to_list", {
@@ -198,31 +200,33 @@ testthat::describe("from_reporter", {
   })
 })
 
-testthat::test_that("to_jsondir require the existing directory path", {
-  reporter <- test_reporter(test_card1(), test_card2())
-  testthat::expect_error(reporter$to_jsondir(), 'argument "output_dir" is missing, with no default')
-  testthat::expect_error(reporter$to_jsondir("/path/WRONG"), "Directory '/path/WRONG' does not exist.")
-})
+testthat::describe("to_jsondir", {
+  it("to_jsondir require the existing directory path", {
+    reporter <- test_reporter(test_card1(), test_card2())
+    testthat::expect_error(reporter$to_jsondir(), 'argument "output_dir" is missing, with no default')
+    testthat::expect_error(reporter$to_jsondir("/path/WRONG"), "Directory '/path/WRONG' does not exist.")
+  })
 
-testthat::test_that("to_jsondir returns the same dir it was provided to it", {
-  temp_dir <- withr::local_tempdir()
-  reporter <- test_reporter(test_card1(), test_card2())
-  testthat::expect_identical(temp_dir, reporter$to_jsondir(temp_dir))
-})
+  it("to_jsondir returns the same dir it was provided to it", {
+    temp_dir <- withr::local_tempdir()
+    reporter <- test_reporter(test_card1(), test_card2())
+    testthat::expect_identical(temp_dir, reporter$to_jsondir(temp_dir))
+  })
 
-testthat::test_that("from_jsondir returns identical/equal object", {
-  temp_dir <- withr::local_tempdir()
-  reporter <- test_reporter(test_card1(), test_card2())
-  reporter$to_jsondir(temp_dir)
-  testthat::expect_identical(reporter, reporter$from_jsondir(temp_dir))
-})
+  it("from_jsondir returns identical/equal object", {
+    temp_dir <- withr::local_tempdir()
+    reporter <- test_reporter(test_card1(), test_card2())
+    reporter$to_jsondir(temp_dir)
+    testthat::expect_identical(reporter, reporter$from_jsondir(temp_dir))
+  })
 
-testthat::test_that("to_jsondir and from_jsondir could be used to save and retrive a Reporter", {
-  temp_dir <- withr::local_tempdir()
-  reporter <- test_reporter(test_card1(), test_card2())
-  reporter_arch <- reporter$from_jsondir(reporter$to_jsondir(temp_dir))
-  testthat::expect_identical(reporter$get_cards(), reporter_arch$get_cards())
-  testthat::expect_identical(reporter$get_metadata(), reporter_arch$get_metadata())
+  it("to_jsondir and from_jsondir could be used to save and retrive a Reporter", {
+    temp_dir <- withr::local_tempdir()
+    reporter <- test_reporter(test_card1(), test_card2())
+    reporter_arch <- reporter$from_jsondir(reporter$to_jsondir(temp_dir))
+    testthat::expect_identical(reporter$get_cards(), reporter_arch$get_cards())
+    testthat::expect_identical(reporter$get_metadata(), reporter_arch$get_metadata())
+  })
 })
 
 testthat::describe("reorder_cards", {
