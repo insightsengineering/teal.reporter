@@ -65,12 +65,20 @@ c.ReportDocument <- function(...) {
   out
 }
 
+#' Access metadata from a `ReportDocument` or `ReportCard`
+#'
+#' This function retrieves metadata from a `ReportDocument` or `ReportCard` object.
+#' When `which` is `NULL`, it returns all metadata fields as a list.
+#' @param object (`ReportDocument` or `ReportCard`) The object from which to extract metadata.
+#' @param which (`character` or `NULL`) The name of the metadata field to extract.
+#' @return A list of metadata fields or a specific field if `which` is provided.
 #' @export
 metadata <- function(object, which = NULL) {
   checkmate::assert_string(which, null.ok = TRUE)
   UseMethod("metadata", object)
 }
 
+#' @rdname metadata
 #' @export
 metadata.ReportDocument <- function(object, which = NULL) {
   metadata <- attr(object, which = "metadata", exact = TRUE)
@@ -81,6 +89,7 @@ metadata.ReportDocument <- function(object, which = NULL) {
   result[[which]]
 }
 
+#' @rdname metadata
 #' @export
 metadata.ReportCard <- function(object, which = NULL) {
   # TODO: soft deprecate
@@ -91,20 +100,32 @@ metadata.ReportCard <- function(object, which = NULL) {
   result[[which]]
 }
 
+#' Set metadata for a `ReportDocument` or `ReportCard`
+#'
+#' This function allows you to set or modify metadata fields in a `ReportDocument` or `ReportCard` object.
+#' It can be used to add new metadata or update existing fields.
+#' @param object (`ReportDocument` or `ReportCard`) The object to modify.
+#' @param which (`character`) The name of the metadata field to set.
+#' @param value The value to assign to the specified metadata field.
+#' @return The modified object with updated metadata.
 #' @export
 `metadata<-` <- function(object, which, value) {
   checkmate::assert_string(which)
   UseMethod("metadata<-", object)
 }
 
+#' @rdname metadata-set
 #' @export
 `metadata<-.ReportDocument` <- function(object, which, value) {
-  attr(object, which = "metadata") <- modifyList(
+  attr(object, which = "metadata") <- utils::modifyList(
     metadata(object), structure(list(value), names = which)
   )
   object
 }
 
+#' @rdname metadata-set
+#' @details
+#' The `ReportCard` class only supports the `title` field in metadata.
 #' @export
 `metadata<-.ReportCard` <- function(object, which, value) {
   if (which != "title") {

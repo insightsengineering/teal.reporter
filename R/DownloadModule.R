@@ -267,7 +267,13 @@ report_render <- function(reporter, yaml_header, global_knitr = getOption("teal.
   args <- list(...)
 
   # Create output file with report, code and outputs
-  input_path <- to_rmd(reporter, yaml_header, global_knitr, output_dir, include_echo = TRUE)
+  input_path <- to_rmd(
+    reporter,
+    output_dir,
+    yaml_header = yaml_header,
+    global_knitr = global_knitr,
+    include_echo = TRUE
+  )
   args <- append(args, list(
     input = input_path,
     output_dir = output_dir,
@@ -282,7 +288,13 @@ report_render <- function(reporter, yaml_header, global_knitr = getOption("teal.
   file.remove(input_path)
 
   # Create .Rmd file
-  to_rmd(reporter, yaml_header, global_knitr, output_dir, include_echo = FALSE) # TODO remove eval=FALSE also
+  to_rmd(
+    reporter,
+    output_dir,
+    yaml_header = yaml_header,
+    global_knitr = global_knitr,
+    include_echo = FALSE
+  ) # TODO remove eval=FALSE also
   output_dir
 }
 
@@ -299,12 +311,13 @@ to_rmd.default <- function(block, output_dir, ...) {
 
 #' @method to_rmd Reporter
 #' @keywords internal
-to_rmd.Reporter <- function(reporter,
+to_rmd.Reporter <- function(block,
+                            output_dir,
                             yaml_header,
                             global_knitr = getOption("teal.reporter.global_knitr"),
-                            output_dir,
-                            include_echo) {
-  blocks <- reporter$get_blocks()
+                            include_echo,
+                            ...) {
+  blocks <- block$get_blocks()
 
   checkmate::assert_list(
     blocks,

@@ -73,7 +73,7 @@ card1 <- ReportCard$new()
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text")
 card1$append_plot(
-  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
+  ggplot(iris, aes(x = Petal.Length)) + geom_histogram(binwidth = 0.2)
 )
 card1$set_name('Card1')
 
@@ -85,11 +85,11 @@ card2 <- ReportCard$new()
 card2$append_text("Header 2 text", "header2")
 card2$append_text("A paragraph of default text")
 lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
-table_res2 <- build_table(lyt, airquality)
+table_res2 <- build_table(lyt, within(airquality, Day <- factor(Day)))
 card2$append_table(table_res2)
 card2$set_name('Card2')
 
-reporter$replace_card("Card1", card2)
+reporter$replace_card(card2, "Card1")
 reporter$get_cards()[[1]]$get_name()
 \dontshow{\}) # examplesIf}
 \dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
@@ -222,8 +222,8 @@ template_fun <- function(document) {
 }
 reporter$set_template(template_fun)
 doc1 <- teal.reporter::report_document("## Header 2 text", "Regular text")
-ndoc1 <- stats::setNames(list(doc1), "Welcome card")
-reporter$append_cards(ndoc1)
+metadata(doc1, "title") <- "Welcome card"
+reporter$append_cards(doc1)
 reporter$get_cards()
 }
 \section{Methods}{
@@ -682,8 +682,8 @@ template_fun <- function(document) {
 }
 reporter$set_template(template_fun)
 doc1 <- teal.reporter::report_document("## Header 2 text", "Regular text")
-ndoc1 <- stats::setNames(list(doc1), "Welcome card")
-reporter$append_cards(ndoc1)
+metadata(doc1, "title") <- "Welcome card"
+reporter$append_cards(doc1)
 reporter$get_cards()
 }
 \if{html}{\out{</div>}}

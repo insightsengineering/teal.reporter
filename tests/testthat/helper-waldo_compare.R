@@ -1,24 +1,19 @@
-compare_proxy.Reporter <- function(x, path = "x") {
-  list(
-    object = list(
-      "get_cards()" = unname(x$get_cards()),
-      "get_metadata()" = x$get_metadata(),
-      "get_id()" = x$get_id(),
-      "get_template()" = x$get_template()
-    ),
-    path = path
-  )
-}
-
 # Register the `compare_proxy` method for the `Reporter` class only for use in
 # testthat.
-if (requireNamespace("testthat", quietly = TRUE) && requireNamespace("waldo", quietly = TRUE)) {
-  local({
-    compare_proxy <- getFromNamespace("compare_proxy", "waldo")
-    registerS3method(
-      "compare_proxy",
-      "Reporter",
-      compare_proxy.Reporter
+testthat::skip_if_not_installed("waldo")
+registerS3method(
+  "compare_proxy",
+  "Reporter",
+  function(x, path = "x") {
+    list(
+      object = list(
+        "get_cards()" = unname(x$get_cards()),
+        "get_metadata()" = x$get_metadata(),
+        "get_id()" = x$get_id(),
+        "get_template()" = x$get_template()
+      ),
+      path = path
     )
-  })
-}
+  },
+  env = asNamespace("waldo")
+)

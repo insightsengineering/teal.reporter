@@ -77,39 +77,27 @@ testthat::test_that("add_card_button_srv supports passing no default object to t
 })
 
 testthat::test_that("add_card_button_srv try the card_fun", {
-  card_fun <- function(card) {
-    stop("ARTIFICIAL ERROR")
-  }
-
   shiny::testServer(
     add_card_button_srv,
-    args = list(reporter = Reporter$new(), card_fun = card_fun),
+    args = list(reporter = Reporter$new(), card_fun = function(card) stop("ARTIFICIAL ERROR")),
     expr = {
       session$setInputs(`add_report_card_button` = 0)
       testthat::expect_warning(session$setInputs(`add_card_ok` = 0))
     }
   )
 
-  card_fun <- function(card, comment) {
-    stop("ARTIFICIAL ERROR")
-  }
-
   shiny::testServer(
     add_card_button_srv,
-    args = list(reporter = Reporter$new(), card_fun = card_fun),
+    args = list(reporter = Reporter$new(), card_fun = function(card, comment) stop("ARTIFICIAL ERROR")),
     expr = {
       session$setInputs(`add_report_card_button` = 0)
       testthat::expect_warning(session$setInputs(`add_card_ok` = 0))
     }
   )
 
-  card_fun <- function() {
-    stop("ARTIFICIAL ERROR")
-  }
-
   shiny::testServer(
     add_card_button_srv,
-    args = list(reporter = Reporter$new(), card_fun = card_fun),
+    args = list(reporter = Reporter$new(), card_fun = function(card) stop("ARTIFICIAL ERROR")),
     expr = {
       session$setInputs(`add_report_card_button` = 0)
       testthat::expect_warning(session$setInputs(`add_card_ok` = 0))
