@@ -202,7 +202,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter$append_cards(list(card1, card2))
     #' reporter$get_blocks()
     #'
-    get_blocks = function(sep = "\n\n---\n\n\\newpage\n\n") {
+    get_blocks = function(sep = "\n\\newpage\n") {
       cards <- self$get_cards()
       blocks <- list()
       for (idx in seq_along(cards)) {
@@ -212,8 +212,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
           if (idx != length(cards)) blocks <- append(blocks, sep)
           next # Easier to remove when ReportCard is fully deprecated
         }
-        blocks <- append(blocks, unclass(card))
-        if (idx != length(cards)) blocks <- append(blocks, sep)
+        card_with_title <- c(report_document(sprintf("# %s", metadata(card, "title"))), card)
+        blocks <- append(blocks, unclass(card_with_title))
+        if (idx != length(cards)) blocks <- append(blocks, trimws(sep))
       }
       blocks
     },
