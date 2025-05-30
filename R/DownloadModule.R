@@ -152,6 +152,7 @@ download_report_button_srv <- function(id,
 #' Render the report and zip the created directory.
 #'
 #' @param reporter (`Reporter`) instance.
+#' @param yaml_header (`named list`) with `Rmd` `yaml` header fields and their values.
 #' @param global_knitr (`list`) a global `knitr` parameters, like echo.
 #' But if local parameter is set it will have priority.
 #' @param file (`character(1)`) where to copy the returned directory.
