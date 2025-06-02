@@ -1,6 +1,6 @@
 setMethod(
   "eval_code",
-  signature = c("teal_report", "ANY"),
+  signature = c(object = "teal_report"),
   function(object, code, cache = FALSE, code_block_opts = list(), ...) {
     new_object <- methods::callNextMethod(object = object, code = code, cache = cache, ...)
     if (inherits(new_object, "error")) {
