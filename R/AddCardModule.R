@@ -185,7 +185,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           type = "error"
         )
       } else {
-        checkmate::assert_multi_class(card, c("ReportCard", "ReportDocument"))
+        checkmate::assert_multi_class(card, c("ReportCard", "doc"))
         if (inherits(card, "ReportCard")) {
           if (!has_comment_arg && length(input$comment) > 0 && input$comment != "") {
             card$append_text("Comment", "header3")
@@ -195,7 +195,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           if (!has_label_arg && length(input$label) == 1 && input$label != "") {
             card$set_name(input$label)
           }
-        } else if (inherits(card, "ReportDocument")) {
+        } else if (inherits(card, "doc")) {
           if (!has_comment_arg && length(input$comment) > 0 && input$comment != "") {
             card <- c(card, "### Comment", input$comment)
           }

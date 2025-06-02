@@ -52,10 +52,10 @@ reference:
       - rmd_outputs
   - title: "Classes used inside package"
     contents:
-      - report_document
+      - doc
       - ReportCard
       - Reporter
-  - title: "Utility functions for `report_document` objects"
+  - title: "Utility functions for `doc` object"
     contents:
       - code_chunk
       - keep_in_report

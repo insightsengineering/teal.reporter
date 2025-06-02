@@ -64,11 +64,11 @@ c.doc <- function(...) {
   out
 }
 
-#' Access metadata from a `ReportDocument` or `ReportCard`
+#' Access metadata from a `doc` or `ReportCard`
 #'
-#' This function retrieves metadata from a `ReportDocument` or `ReportCard` object.
+#' This function retrieves metadata from a `doc` or `ReportCard` object.
 #' When `which` is `NULL`, it returns all metadata fields as a list.
-#' @param object (`ReportDocument` or `ReportCard`) The object from which to extract metadata.
+#' @param object (`doc` or `ReportCard`) The object from which to extract metadata.
 #' @param which (`character` or `NULL`) The name of the metadata field to extract.
 #' @return A list of metadata fields or a specific field if `which` is provided.
 #' @export
@@ -99,11 +99,11 @@ metadata.ReportCard <- function(object, which = NULL) {
   result[[which]]
 }
 
-#' Set metadata for a `ReportDocument` or `ReportCard`
+#' Set metadata for a `doc` or `ReportCard`
 #'
-#' This function allows you to set or modify metadata fields in a `ReportDocument` or `ReportCard` object.
+#' This function allows you to set or modify metadata fields in a `doc` or `ReportCard` object.
 #' It can be used to add new metadata or update existing fields.
-#' @param object (`ReportDocument` or `ReportCard`) The object to modify.
+#' @param object (`doc` or `ReportCard`) The object to modify.
 #' @param which (`character`) The name of the metadata field to set.
 #' @param value The value to assign to the specified metadata field.
 #' @return The modified object with updated metadata.

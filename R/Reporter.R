@@ -214,7 +214,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
           next # Easier to remove when ReportCard is fully deprecated
         }
         card_with_title <- if (length(metadata(card, "title")) > 0) {
-          c(report_document(sprintf("# %s", metadata(card, "title"))), card)
+          c(doc(sprintf("# %s", metadata(card, "title"))), card)
         } else {
           card
         }

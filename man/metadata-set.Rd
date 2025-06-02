@@ -4,7 +4,7 @@
 \alias{metadata<-}
 \alias{metadata<-.doc}
 \alias{metadata<-.ReportCard}
-\title{Set metadata for a \code{ReportDocument} or \code{ReportCard}}
+\title{Set metadata for a \code{doc} or \code{ReportCard}}
 \usage{
 metadata(object, which) <- value
 
@@ -13,7 +13,7 @@ metadata(object, which) <- value
 \method{metadata}{ReportCard}(object, which) <- value
 }
 \arguments{
-\item{object}{(\code{ReportDocument} or \code{ReportCard}) The object to modify.}
+\item{object}{(\code{doc} or \code{ReportCard}) The object to modify.}
 
 \item{which}{(\code{character}) The name of the metadata field to set.}
 
@@ -23,7 +23,7 @@ metadata(object, which) <- value
 The modified object with updated metadata.
 }
 \description{
-This function allows you to set or modify metadata fields in a \code{ReportDocument} or \code{ReportCard} object.
+This function allows you to set or modify metadata fields in a \code{doc} or \code{ReportCard} object.
 It can be used to add new metadata or update existing fields.
 }
 \details{
