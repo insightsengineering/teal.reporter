@@ -213,12 +213,13 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
           if (idx != length(cards)) blocks <- append(blocks, sep)
           next # Easier to remove when ReportCard is fully deprecated
         }
-        card_with_title <- if (length(metadata(card, "title")) > 0) {
-          c(doc(sprintf("# %s", metadata(card, "title"))), card)
+        title <- trimws(metadata(card, "title"))
+        card_title <- if (length(title) > 0 && nzchar(title)) {
+          doc(sprintf("# %s", title))
         } else {
-          card
+          doc(sprintf("# _Unnamed Card (%d)_", idx))
         }
-
+        card_with_title <- c(card_title, card)
         blocks <- append(blocks, unclass(card_with_title))
         if (idx != length(cards)) blocks <- append(blocks, trimws(sep))
       }
