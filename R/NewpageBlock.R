@@ -18,7 +18,7 @@ NewpageBlock <- R6::R6Class( # nolint: object_name_linter.
     #' block <- NewpageBlock$new()
     #'
     initialize = function() {
-      super$set_content("\n\\newpage\n")
+      super$set_content("\\newpage")
       invisible(self)
     }
   ),
