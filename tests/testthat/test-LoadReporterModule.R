@@ -1,7 +1,7 @@
 testthat::test_that("report_load_srv - loading reporter restores saved content", {
   testthat::skip_if_not_installed("ggplot2")
 
-  card <- teal.reporter::report_document(
+  card <- teal.reporter::doc(
     "## Header 2 text",
     "A paragraph of default text",
     ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +

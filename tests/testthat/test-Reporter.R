@@ -78,7 +78,7 @@ testthat::test_that("get_blocks and get_cards return empty list by default", {
 
 testthat::test_that("The deep copy constructor copies the content files to new files", {
   testthat::skip_if_not_installed("ggplot2")
-  card <- report_document(ggplot2::ggplot(iris))
+  card <- doc(ggplot2::ggplot(iris))
   reporter <- Reporter$new()$append_cards(card)
   reporter_copy <- reporter$clone(deep = TRUE)
   original_content_file <- reporter$get_blocks()
