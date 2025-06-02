@@ -11,7 +11,6 @@ ui_editor_block <- function(id, value) {
 #' @param id (`character(1)`) A unique identifier for the module.
 #' @param value The content of the block to be edited. It can be a character string or other types.
 #' @export
-#' @export
 srv_editor_block <- function(id, value) {
   UseMethod("srv_editor_block", value)
 }

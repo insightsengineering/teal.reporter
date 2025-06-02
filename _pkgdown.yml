@@ -21,6 +21,7 @@ navbar:
     github:
       icon: fa-github
       href: https://github.com/insightsengineering/teal.reporter
+      aria-label: View on Github
 
 reference:
   - title: "`shiny` modules for adding content to reports"
@@ -41,13 +42,22 @@ reference:
       - reset_report_button_ui
       - report_load_srv
       - report_load_ui
+      - srv_editor_block
+      - ui_editor_block
   - title: "`yaml` and rmd utility functions"
     contents:
       - as_yaml_auto
       - print.rmd_yaml_header
       - rmd_output_arguments
       - rmd_outputs
-  - title: "`R6` classes used inside package"
+  - title: "Classes used inside package"
     contents:
+      - report_document
       - ReportCard
       - Reporter
+  - title: "Utility functions for `report_document` objects"
+    contents:
+      - code_chunk
+      - keep_in_report
+      - metadata
+      - "metadata<-"
