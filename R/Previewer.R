@@ -48,7 +48,6 @@ reporter_previewer_ui <- function(id) {
       ),
       shiny::tags$div(
         class = "block mb-4 p-1",
-        # shiny::tags$label(class = "text-primary block -ml-1", shiny::tags$strong("Reporter")),
         shiny::tags$div(
           class = "simple_reporter_container",
           download_report_button_ui(ns("download"), label = "Download Report"),
@@ -136,9 +135,9 @@ reporter_previewer_cards_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny::tags$div(
     id = "reporter_previewer",
-    tags$div(
+    shiny::tags$div(
       id = ns("empty_reporters"),
-      tags$h4(
+      shiny::tags$h4(
         class = "text-muted",
         shiny::icon("circle-info"),
         "No reports have been added yet."
@@ -149,7 +148,7 @@ reporter_previewer_cards_ui <- function(id) {
 }
 
 reporter_previewer_cards_srv <- function(id, reporter) {
-  moduleServer(id, function(input, output, session) {
+  shiny::moduleServer(id, function(input, output, session) {
     current_ids_rv <- shiny::reactiveVal()
     queues_rv <- list(insert = shiny::reactiveVal(), remove = shiny::reactiveVal())
 
@@ -175,7 +174,7 @@ reporter_previewer_cards_srv <- function(id, reporter) {
         current_ids_rv(c(current_ids_rv(), card_id))
         reporter_previewer_card_srv(
           id = card_id,
-          card_r = reactive(reporter$get_cards()[[card_id]]),
+          card_r = shiny::reactive(reporter$get_cards()[[card_id]]),
           card_id = card_id,
           reporter = reporter
         )
@@ -193,7 +192,7 @@ reporter_previewer_card_ui <- function(id, card_id) {
   accordion_item <- bslib::accordion_panel(
     value = card_id,
     title = shiny::tags$label(shiny::uiOutput(ns("title"))),
-    tags$h6(id = ns("loading_placeholder"), class = "text-muted", "Loading the report..."),
+    shiny::tags$h6(id = ns("loading_placeholder"), class = "text-muted", "Loading the report..."),
     shiny::uiOutput(ns("card_content"))
   )
   accordion_item <- htmltools::tagAppendAttributes(accordion_item, "data-rank-id" = card_id)
@@ -215,14 +214,14 @@ reporter_previewer_card_srv <- function(id, card_r, card_id, reporter) {
   # todo: card_name should be only on the server side
   shiny::moduleServer(id, function(input, output, session) {
     output$title <- shiny::renderUI({
-      title <- metadata(req(card_r()), "title")
+      title <- metadata(shiny::req(card_r()), "title")
       if (isFALSE(nzchar(title))) {
-        title <- tags$span("(empty title)", class = "text-muted")
+        title <- shiny::tags$span("(empty title)", class = "text-muted")
       }
       title
     })
     output$card_content <- shiny::renderUI({
-      result <- toHTML(req(card_r()))
+      result <- toHTML(shiny::req(card_r()))
       shiny::removeUI(sprintf("#%s", session$ns("loading_placeholder")))
       result
     })
@@ -250,8 +249,10 @@ toHTML.default <- function(x, ...) {
   shiny::HTML(commonmark::markdown_html(x, extensions = TRUE))
 }
 
+#' Convert a `ContentBlock` to HTML
+#' @inheritParams tools::toHTML
 #' @keywords internal
-#' @export
+#' @exportS3Method tools::toHTML
 toHTML.ContentBlock <- function(x, ...) {
   UseMethod("toHTML", x$get_content()) # Further dispatch for subclasses
 }

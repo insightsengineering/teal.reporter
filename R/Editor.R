@@ -1,8 +1,16 @@
+#' @rdname srv_editor_block
 #' @export
 ui_editor_block <- function(id, value) {
   UseMethod("ui_editor_block", value)
 }
 
+#' UI and Server functions for editing report document blocks
+#'
+#' These functions provide a user interface and server logic for editing and extending
+#' the editor functionality to support new data types.
+#' @param id (`character(1)`) A unique identifier for the module.
+#' @param value The content of the block to be edited. It can be a character string or other types.
+#' @export
 #' @export
 srv_editor_block <- function(id, value) {
   UseMethod("srv_editor_block", value)
@@ -12,7 +20,7 @@ srv_editor_block <- function(id, value) {
 ui_editor_block.default <- function(id, value) {
   shiny::tags$div(
     shiny::tags$h6(
-      tags$span(
+      shiny::tags$span(
         class = "fa-stack small text-muted",
         # style = "width: 2em;", # necessary to avoid extra space after icon
         shiny::icon("pencil", class = "fa-stack-1x"),
@@ -40,7 +48,7 @@ ui_editor_block.character <- function(id, value) {
 
 #' @export
 srv_editor_block.character <- function(id, value) {
-  shiny::moduleServer(id, function(input, output, session) reactive(input$content))
+  shiny::moduleServer(id, function(input, output, session) shiny::reactive(input$content))
 }
 
 ui_doc_editor <- function(id, value) {
@@ -75,7 +83,7 @@ srv_doc_editor <- function(id, card_r) {
 
         if (!block_name %in% names(card_r())) { # Only adds UI if not already rendered
           new_block_ui <- ui_editor_block(session$ns(new_block_id), value = block_content)
-          insertUI(sprintf("#%s", session$ns("blocks")), where = "beforeEnd", ui = new_block_ui)
+          shiny::insertUI(sprintf("#%s", session$ns("blocks")), where = "beforeEnd", ui = new_block_ui)
         }
       })
     })
@@ -109,7 +117,7 @@ ui_previewer_card_actions <- function(id) {
 }
 
 srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
-  moduleServer(id, function(input, output, session) {
+  shiny::moduleServer(id, function(input, output, session) {
     new_card_rv <- shiny::reactiveVal()
 
     shiny::observeEvent(input$edit_action, {
@@ -119,22 +127,27 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
       title <- metadata(template_card, "title")
 
       if (isFALSE(nzchar(title))) {
-        title <- tags$span(class = "text-muted", "(empty title)")
+        title <- shiny::tags$span(class = "text-muted", "(empty title)")
       }
 
       shiny::showModal(
         shiny::modalDialog(
-          title = tags$span(
+          title = shiny::tags$span(
             class = "edit_title_container",
             "Editing Card:",
             shiny::tags$span(id = session$ns("static_title"), title),
             shiny::actionButton(
               session$ns("edit_title"),
-              label = tags$span(shiny::icon("pen-to-square"), "edit title"),
+              label = shiny::tags$span(shiny::icon("pen-to-square"), "edit title"),
               class = "fs-6",
               title = "Edit title"
             ),
-            shinyjs::hidden(shiny::textInput(session$ns("new_title"), label = NULL, value = metadata(template_card, "title")))
+            shinyjs::hidden(
+              shiny::textInput(
+                session$ns("new_title"),
+                label = NULL, value = metadata(template_card, "title")
+              )
+            )
           ),
           size = "l",
           easyClose = TRUE,
@@ -152,7 +165,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
 
     block_input_names_rvs <- srv_doc_editor("editor", new_card_rv)
 
-    observeEvent(input$edit_title, {
+    shiny::observeEvent(input$edit_title, {
       shinyjs::hide("edit_title")
       shinyjs::hide("static_title")
       shinyjs::show("new_title")
@@ -164,7 +177,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
       new_card <- new_card_rv()
       input_r <- Filter(Negate(is.null), shiny::reactiveValuesToList(block_input_names_rvs))
       for (name in names(input_r)) {
-        new_card[[name]] <- isolate(input_r[[name]]())
+        new_card[[name]] <- shiny::isolate(input_r[[name]]())
       }
       if (isFALSE(is.null(input$new_title))) {
         metadata(new_card, "title") <- input$new_title
@@ -178,7 +191,10 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
           },
           error = function(err) {
             shiny::showNotification(
-              sprintf("A card with the name '%s' already exists. Please use a different name.", metadata(new_card, "title")),
+              sprintf(
+                "A card with the name '%s' already exists. Please use a different name.",
+                metadata(new_card, "title")
+              ),
               type = "error",
               duration = 5
             )
@@ -194,7 +210,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
     # Handle remove button
     shiny::observeEvent(input$remove_action, reporter$remove_cards(ids = card_id))
 
-    observeEvent( # Hide button for deprecated objects
+    shiny::observeEvent( # Hide button for deprecated objects
       card_r(),
       once = TRUE,
       handlerExpr = {

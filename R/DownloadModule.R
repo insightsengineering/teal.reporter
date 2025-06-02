@@ -152,6 +152,7 @@ download_report_button_srv <- function(id,
 #' Render the report and zip the created directory.
 #'
 #' @param reporter (`Reporter`) instance.
+#' @param yaml_header (`named list`) with `Rmd` `yaml` header fields and their values.
 #' @param global_knitr (`list`) a global `knitr` parameters, like echo.
 #' But if local parameter is set it will have priority.
 #' @param file (`character(1)`) where to copy the returned directory.
@@ -170,7 +171,7 @@ report_render_and_compress <- function(reporter, yaml_header, global_knitr, file
     warning = function(cond) message("Render document warning: ", cond),
     error = function(cond) {
       message("Render document error: ", cond)
-      return(NULL)
+      NULL
     }
   )
 
@@ -266,7 +267,13 @@ report_render <- function(reporter, yaml_header, global_knitr = getOption("teal.
   args <- list(...)
 
   # Create output file with report, code and outputs
-  input_path <- to_rmd(reporter, yaml_header, global_knitr, output_dir, include_echo = TRUE)
+  input_path <- to_rmd(
+    reporter,
+    output_dir,
+    yaml_header = yaml_header,
+    global_knitr = global_knitr,
+    include_echo = TRUE
+  )
   args <- append(args, list(
     input = input_path,
     output_dir = output_dir,
@@ -281,7 +288,13 @@ report_render <- function(reporter, yaml_header, global_knitr = getOption("teal.
   file.remove(input_path)
 
   # Create .Rmd file
-  to_rmd(reporter, yaml_header, global_knitr, output_dir, include_echo = FALSE) # TODO remove eval=FALSE also
+  to_rmd(
+    reporter,
+    output_dir,
+    yaml_header = yaml_header,
+    global_knitr = global_knitr,
+    include_echo = FALSE
+  ) # TODO remove eval=FALSE also
   output_dir
 }
 
@@ -298,8 +311,13 @@ to_rmd.default <- function(block, output_dir, ...) {
 
 #' @method to_rmd Reporter
 #' @keywords internal
-to_rmd.Reporter <- function(reporter, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), output_dir, include_echo) {
-  blocks <- reporter$get_blocks()
+to_rmd.Reporter <- function(block,
+                            output_dir,
+                            yaml_header,
+                            global_knitr = getOption("teal.reporter.global_knitr"),
+                            include_echo,
+                            ...) {
+  blocks <- block$get_blocks()
 
   checkmate::assert_list(
     blocks,

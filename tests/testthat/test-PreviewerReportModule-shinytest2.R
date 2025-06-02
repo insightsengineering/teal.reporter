@@ -83,7 +83,9 @@ testthat::test_that("reporter_previewer download functionality works", {
   app$wait_for_idle()
   Sys.sleep(2)
 
+  # nolint start: commented_code.
   # TO DO - verify that download actually happened
   # downloaded_files <- list.files(temp_dir, pattern = "\\.html$")
   # testthat::expect_length(downloaded_files, 1)
+  # nolint end: commented_code.
 })

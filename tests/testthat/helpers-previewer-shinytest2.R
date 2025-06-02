@@ -1,10 +1,9 @@
 create_test_reporter <- function(n_cards = 2) {
   cards <- lapply(seq_len(n_cards), function(i) {
-    teal.reporter::doc(
-      sprintf("Card %d", i)
-    )
+    new_doc <- teal.reporter::doc(sprintf("Card %d", i))
+    metadata(new_doc, "title") <- sprintf("Card %d Title", i)
+    new_doc
   })
-  names(cards) <- seq_along(1:n_cards)
 
   reporter <- Reporter$new()
   reporter$append_cards(cards)
@@ -107,13 +106,13 @@ start_reporter_preview_app <- function(name) {
 
   testapp <- shiny::shinyApp(
     ui = shiny::fluidPage(
+      shinyjs::useShinyjs(),
       reporter_previewer_ui("preview")
     ),
     server = function(input, output, session) {
-      reporter <- create_test_reporter(2)
       reporter_previewer_srv(
         "preview",
-        reporter = reporter,
+        reporter = create_test_reporter(2),
         rmd_output = c("html" = "html_document"),
         rmd_yaml_args = list(
           author = "TEST",

@@ -73,7 +73,7 @@ card1 <- ReportCard$new()
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text")
 card1$append_plot(
-  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
+  ggplot(iris, aes(x = Petal.Length)) + geom_histogram(binwidth = 0.2)
 )
 card1$set_name('Card1')
 
@@ -85,11 +85,11 @@ card2 <- ReportCard$new()
 card2$append_text("Header 2 text", "header2")
 card2$append_text("A paragraph of default text")
 lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
-table_res2 <- build_table(lyt, airquality)
+table_res2 <- build_table(lyt, within(airquality, Day <- factor(Day)))
 card2$append_table(table_res2)
 card2$set_name('Card2')
 
-reporter$replace_card("Card1", card2)
+reporter$replace_card(card2, "Card1")
 reporter$get_cards()[[1]]$get_name()
 \dontshow{\}) # examplesIf}
 \dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
@@ -222,8 +222,8 @@ template_fun <- function(document) {
 }
 reporter$set_template(template_fun)
 doc1 <- teal.reporter::doc("## Header 2 text", "Regular text")
-ndoc1 <- stats::setNames(list(doc1), "Welcome card")
-reporter$append_cards(ndoc1)
+metadata(doc1, "title") <- "Welcome card"
+reporter$append_cards(doc1)
 reporter$get_cards()
 }
 \section{Methods}{
@@ -298,6 +298,9 @@ Append one or more \code{ReportCard} or \code{doc} objects to the \code{Reporter
 \if{latex}{\out{\hypertarget{method-Reporter-reorder_cards}{}}}
 \subsection{Method \code{reorder_cards()}}{
 Reorders \code{ReportCard} or \code{doc} objects in \code{Reporter}.
+
+
+Reorders \code{ReportCard} or \code{doc} objects in \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$reorder_cards(new_order)}\if{html}{\out{</div>}}
 }
@@ -305,7 +308,8 @@ Reorders \code{ReportCard} or \code{doc} objects in \code{Reporter}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{new_order}}{\code{character} vector with names of \code{ReportCard} or \code{doc} objects to be set in this order.}
+\item{\code{new_order}}{\code{character} vector with names of \code{ReportCard} or \code{doc}
+objects to be set in this order.}
 }
 \if{html}{\out{</div>}}
 }
@@ -352,7 +356,8 @@ A (\code{list}) of \code{\link{ReportCard}} and \code{\link{doc}} objects.
 \if{html}{\out{<a id="method-Reporter-get_blocks"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_blocks}{}}}
 \subsection{Method \code{get_blocks()}}{
-Compiles and returns all content blocks from the \code{ReportCard} and \code{doc} objects in the \code{Reporter}.
+Compiles and returns all content blocks from the \code{ReportCard}
+and \code{doc} objects in the \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$get_blocks(sep = "\\n\\n---\\n\\n\\\\newpage\\n\\n")}\if{html}{\out{</div>}}
 }
@@ -361,12 +366,13 @@ Compiles and returns all content blocks from the \code{ReportCard} and \code{doc
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{sep}}{An optional separator to insert between each content block.
-Default is a \code{NewpageBlock$new()} object.}
+Default is a \verb{\\n\\\\newpage\\n} markdown.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{list()} list of \code{TableBlock}, \code{TextBlock}, \code{PictureBlock}, \code{NewpageBlock}, and raw \code{doc} content
+\code{list()} list of \code{TableBlock}, \code{TextBlock}, \code{PictureBlock},
+\code{NewpageBlock}, and raw \code{doc} content
 }
 }
 \if{html}{\out{<hr>}}
@@ -679,8 +685,8 @@ template_fun <- function(document) {
 }
 reporter$set_template(template_fun)
 doc1 <- teal.reporter::doc("## Header 2 text", "Regular text")
-ndoc1 <- stats::setNames(list(doc1), "Welcome card")
-reporter$append_cards(ndoc1)
+metadata(doc1, "title") <- "Welcome card"
+reporter$append_cards(doc1)
 reporter$get_cards()
 }
 \if{html}{\out{</div>}}
