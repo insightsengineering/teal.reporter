@@ -29,7 +29,7 @@ testthat::describe("Reporter with ReportCard", {
   it("get_blocks by default adds NewpageBlock$new() between cards", {
     reporter <- test_reporter.ReportCard(card1 <- test_card1.ReportCard(), card2 <- test_card2.ReportCard())
     reporter_blocks <- reporter$get_blocks()
-    reporter_blocks2 <- append(reporter_blocks[1:3], "\n\n---\n\n\\newpage\n\n")
+    reporter_blocks2 <- append(reporter_blocks[1:3], "\\newpage")
     reporter_blocks2 <- append(reporter_blocks2, reporter_blocks[5:8])
     testthat::expect_equal(reporter$get_blocks(), reporter_blocks2)
   })
@@ -65,7 +65,7 @@ testthat::test_that("get_blocks returns the same blocks which was added to repor
 testthat::test_that("get_blocks by default adds NewpageBlock$new() between cards", {
   reporter <- test_reporter(card1 <- test_card1(), card2 <- test_card2())
   reporter_blocks <- reporter$get_blocks()
-  reporter_blocks2 <- append(reporter_blocks[1:3], "\n\n---\n\n\\newpage\n\n")
+  reporter_blocks2 <- append(reporter_blocks[1:3], "\\newpage")
   reporter_blocks2 <- append(reporter_blocks2, reporter_blocks[5:8])
   testthat::expect_equal(reporter$get_blocks(), reporter_blocks2)
 })

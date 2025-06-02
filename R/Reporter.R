@@ -202,7 +202,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter$append_cards(list(card1, card2))
     #' reporter$get_blocks()
     #'
-    get_blocks = function(sep = "\n\\newpage\n") {
+    get_blocks = function(sep = "\\newpage") {
       cards <- self$get_cards()
       blocks <- list()
       for (idx in seq_along(cards)) {
