@@ -41,7 +41,6 @@ Imports:
     shinyjs (>= 2.1.0),
     shinyWidgets (>= 0.5.1),
     sortable (>= 0.5.0),
-    stats,
     tools,
     utils,
     yaml (>= 1.1.0),
@@ -57,6 +56,7 @@ Suggests:
     shinytest2,
     testthat (>= 3.2.2),
     tinytex,
+    waldo (>= 0.2.0),
     withr (>= 2.0.0)
 VignetteBuilder:
     knitr,
@@ -77,3 +77,4 @@ Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+Config/testthat/edition: 3

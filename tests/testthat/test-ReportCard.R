@@ -170,7 +170,7 @@ testthat::test_that("setting and getting a name to the ReportCard", {
 testthat::skip_if_not_installed("ggplot2")
 
 card <- ReportCard$new()
-rcode <- "ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram()"
+rcode <- "ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) + ggplot2::geom_histogram(binwidth=  0.2)"
 card$append_text("Header 2 text", "header2")
 card$append_text("A paragraph of default text", "header2")
 card$append_rcode(rcode)
