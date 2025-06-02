@@ -34,7 +34,7 @@ testthat::test_that("report_load_srv - loading reporter restores saved content",
   )
 })
 
-testthat::test_that("report_load_srv - loading reporter with ReportCard restores saved content", {
+testthat::test_that("report_load_srv - loading reporter with ReportCard restores saved content (with old blocks)", {
   testthat::skip_if_not_installed("ggplot2")
 
   card <- teal.reporter::ReportCard$new()
