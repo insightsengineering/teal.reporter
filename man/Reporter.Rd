@@ -356,7 +356,7 @@ A (\code{list}) of \code{\link{ReportCard}} and \code{\link{ReportDocument}} obj
 Compiles and returns all content blocks from the \code{ReportCard}
 and \code{ReportDocument} objects in the \code{Reporter}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_blocks(sep = "\\n\\n---\\n\\n\\\\newpage\\n\\n")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_blocks(sep = "\\n\\\\newpage\\n")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
