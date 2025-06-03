@@ -58,15 +58,27 @@ testthat::test_that("get_cards returns the same cards which was added to reporte
 })
 
 testthat::test_that("get_blocks returns the same blocks which was added to reporter, sep = NULL", {
-  reporter <- test_reporter(card1 <- test_card1(), card2 <- test_card2())
-  testthat::expect_identical(reporter$get_blocks(sep = NULL), append(unclass(card1), unclass(card2)))
+  reporter <- test_reporter(card1 <- test_card1("A title"), card2 <- test_card2("Another title"))
+  testthat::expect_identical(
+    reporter$get_blocks(sep = NULL),
+    append(
+      c(sprintf("# %s", metadata(card1, "title")), card1),
+      c(sprintf("# %s", metadata(card2, "title")), card2)
+    )
+  )
 })
 
 testthat::test_that("get_blocks by default adds NewpageBlock$new() between cards", {
-  reporter <- test_reporter(card1 <- test_card1(), card2 <- test_card2())
+  card1 <- test_card1("A title")
+  card2 <- test_card2("Another title")
+  reporter <- test_reporter(card1, card2)
+
+  reporter_1 <- Reporter$new()$append_cards(card1)
+  reporter_2 <- Reporter$new()$append_cards(card2)
+
   reporter_blocks <- reporter$get_blocks()
-  reporter_blocks2 <- append(reporter_blocks[1:3], "\\newpage")
-  reporter_blocks2 <- append(reporter_blocks2, reporter_blocks[5:8])
+  reporter_blocks2 <- append(reporter_1$get_blocks(), "\\newpage")
+  reporter_blocks2 <- append(reporter_blocks2, reporter_2$get_blocks())
   testthat::expect_equal(reporter$get_blocks(), reporter_blocks2)
 })
 
