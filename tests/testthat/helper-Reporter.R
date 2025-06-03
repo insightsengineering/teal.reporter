@@ -33,6 +33,7 @@ test_card1 <- function(title = NULL) {
   withr::with_environment(emptyenv(), plot <- ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
     ggplot2::geom_histogram(binwidth = 0.2))
   new_card <- doc("## Header 2 text", "A paragraph of default text", plot)
+  new_card <- report_document("## Header 2 text", "A paragraph of default text", plot)
   if (!is.null(title)) metadata(new_card, "title") <- title
   new_card
 }
