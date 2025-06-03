@@ -311,10 +311,35 @@ toHTML.rtables <- function(x, ...) {
 #' @keywords internal
 #' @export
 toHTML.gg <- function(x, ...) {
+  on.exit(unlink(tmpfile))
   tmpfile <- tempfile(fileext = ".png")
   ggplot2::ggsave(tmpfile, plot = x, width = 5, height = 4, dpi = 100)
   shiny::tags$img(src = knitr::image_uri(tmpfile))
 }
+
+#' @keywords internal
+#' @export
+toHTML.trellis <- function(x, ...) {
+  on.exit(unlink(tmpfile))
+  tmpfile <- tempfile(fileext = ".png")
+  grDevices::png(filename = tmpfile)
+  print(x)
+  grDevices::dev.off()
+  shiny::tags$img(src = knitr::image_uri(tmpfile))
+}
+
+#' @keywords internal
+#' @export
+toHTML.grob <- function(x, ...) {
+  on.exit(unlink(tmpfile))
+  tmpfile <- tempfile(fileext = ".png")
+  grDevices::png(filename = tmpfile)
+  grid::grid.newpage()
+  grid::grid.draw(x)
+  grDevices::dev.off()
+  shiny::tags$img(src = knitr::image_uri(tmpfile))
+}
+
 
 #' @keywords internal
 #' @export

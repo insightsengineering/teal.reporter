@@ -272,7 +272,7 @@ report_render <- function(reporter, yaml_header, global_knitr = getOption("teal.
     output_dir,
     yaml_header = yaml_header,
     global_knitr = global_knitr,
-    include_echo = TRUE
+    include_results = TRUE
   )
   args <- append(args, list(
     input = input_path,
@@ -293,11 +293,27 @@ report_render <- function(reporter, yaml_header, global_knitr = getOption("teal.
     output_dir,
     yaml_header = yaml_header,
     global_knitr = global_knitr,
-    include_echo = FALSE
+    include_results = FALSE
   ) # TODO remove eval=FALSE also
   output_dir
 }
 
+content_to_rmd <- function(content, output_dir, ..., include_results) {
+  if (include_results || isTRUE(attr(content, "keep"))) {
+    suppressWarnings(hashname <- rlang::hash(content))
+    hashname_file <- paste0(hashname, ".rds")
+    path <- tempfile(fileext = ".rds")
+    suppressWarnings(saveRDS(content, file = path))
+    file.copy(path, file.path(output_dir, hashname_file))
+    sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", hashname_file)
+  }
+}
+
+#' Convert `Reporter`/`doc` content to `rmarkdown`
+#'
+#' @param block (`any`) content which can be represented in `rmarkdown` syntax
+#' @param output_dir (`character(1)`) path to the directory where files should be written to.
+#' @return `character(1)` containing a content or `rmarkdown` document
 #' @keywords internal
 to_rmd <- function(block, output_dir, ...) {
   UseMethod("to_rmd")
@@ -315,17 +331,9 @@ to_rmd.Reporter <- function(block,
                             output_dir,
                             yaml_header,
                             global_knitr = getOption("teal.reporter.global_knitr"),
-                            include_echo,
+                            include_results,
                             ...) {
   blocks <- block$get_blocks()
-
-  checkmate::assert_list(
-    blocks,
-    c(
-      "TextBlock", "PictureBlock", "NewpageBlock", "TableBlock", "RcodeBlock", "HTMLBlock", "character",
-      "gg", "rtables", "TableTree", "ElementaryTable", "rlisting", "data.frame"
-    )
-  )
   checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
   if (missing(yaml_header)) {
     yaml_header <- md_header(yaml::as.yaml(list(title = "Report")))
@@ -362,7 +370,7 @@ to_rmd.Reporter <- function(block,
     unlist(
       lapply(
         blocks,
-        function(b) to_rmd(b, output_dir = output_dir, report_type = report_type, include_echo = include_echo)
+        function(b) to_rmd(b, output_dir = output_dir, report_type = report_type, include_results = include_results)
       )
     ),
     collapse = "\n\n"
@@ -376,7 +384,6 @@ to_rmd.Reporter <- function(block,
   cat(rmd_text, file = input_path)
   input_path
 }
-
 
 #' @method to_rmd TextBlock
 #' @keywords internal
@@ -417,8 +424,8 @@ to_rmd.RcodeBlock <- function(block, output_dir, ..., report_type) {
 
 #' @method to_rmd code_chunk
 #' @keywords internal
-to_rmd.code_chunk <- function(block, output_dir, ..., include_echo, report_type, eval = FALSE) {
-  if (include_echo || !isFALSE(attr(block, "keep"))) {
+to_rmd.code_chunk <- function(block, output_dir, ..., include_results, report_type, eval = FALSE) {
+  if (include_results || !isFALSE(attr(block, "keep"))) {
     params <- attr(block, "params")
     if (!("eval" %in% names(params))) params <- c(params, eval = eval)
     params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
@@ -483,25 +490,36 @@ to_rmd.HTMLBlock <- function(block, output_dir, ...) {
 
 #' @method to_rmd character
 #' @keywords internal
-to_rmd.character <- function(block, output_dir, ..., include_echo) {
-  if (include_echo || !isFALSE(attr(block, "keep"))) {
+to_rmd.character <- function(block, output_dir, ..., include_results) {
+  if (include_results || !isFALSE(attr(block, "keep"))) {
     block
   }
 }
 
 #' @method to_rmd gg
 #' @keywords internal
-to_rmd.gg <- function(block, output_dir, ..., include_echo) {
-  content_to_rmd(block, output_dir, include_echo)
-}
+to_rmd.gg <- content_to_rmd
 
 #' @method to_rmd rtables
 #' @keywords internal
-to_rmd.rtables <- function(block, output_dir, ..., include_echo) {
+to_rmd.rtables <- function(block, output_dir, ..., include_results) {
   flextable_block <- to_flextable(block)
   attr(flextable_block, "keep") <- attr(block, "keep")
-  content_to_rmd(flextable_block, output_dir, include_echo)
+  content_to_rmd(flextable_block, output_dir, include_results)
 }
+
+#' @method to_rmd trellis
+#' @keywords internal
+to_rmd.trellis <- content_to_rmd
+
+#' @method to_rmd grob
+#' @keywords internal
+to_rmd.grob <- content_to_rmd
+
+#' @method to_rmd Heatmap
+#' @keywords internal
+to_rmd.Heatmap <- content_to_rmd
+
 
 #' @method to_rmd TableTree
 #' @keywords internal
@@ -518,14 +536,3 @@ to_rmd.rlisting <- to_rmd.rtables
 #' @method to_rmd data.frame
 #' @keywords internal
 to_rmd.data.frame <- to_rmd.rtables
-
-content_to_rmd <- function(content, output_dir, include_echo) {
-  if (include_echo || isTRUE(attr(content, "keep"))) {
-    suppressWarnings(hashname <- rlang::hash(content))
-    hashname_file <- paste0(hashname, ".rds")
-    path <- tempfile(fileext = ".rds")
-    suppressWarnings(saveRDS(content, file = path))
-    file.copy(path, file.path(output_dir, hashname_file))
-    sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", hashname_file)
-  }
-}
