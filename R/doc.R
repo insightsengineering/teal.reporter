@@ -185,7 +185,6 @@ edit_teal_document <- function(x, modify = NULL, append = NULL, after = length(x
 #' class(my_chunk)
 #' attributes(my_chunk)$param
 #' @export
-#' @rdname code_output
 code_chunk <- function(code, ...) {
   checkmate::assert_character(code)
   params <- list(...)
@@ -194,22 +193,6 @@ code_chunk <- function(code, ...) {
     params = params,
     class = "code_chunk"
   )
-}
-
-#' Format R code as a simple Markdown code block string
-#'
-#' This function takes a character string of R code and wraps it in
-#' Markdown's triple backticks for code blocks.
-#'
-#' @param code A character string containing the R code.
-#' @return A character string representing a simple Markdown code block.
-#' @seealso [code_chunk()] for creating structured code chunk objects with options.
-#' @examples
-#' code_output("y <- rnorm(5)")
-#' @export
-#' @rdname code_output
-code_output <- function(code) {
-  sprintf("```\n%s\n```", code)
 }
 
 #' @title Keep Objects In Report

@@ -82,12 +82,6 @@ testthat::test_that("code_chunk creates a code_chunk object with params", {
   testthat::expect_equal(attributes(chunk)$params, list(echo = FALSE, eval = TRUE))
 })
 
-testthat::test_that("code_output formats code as markdown string", {
-  output <- code_output("x <- 1")
-  testthat::expect_type(output, "character")
-  testthat::expect_equal(output, "```\nx <- 1\n```")
-})
-
 testthat::test_that("keep_in_report sets the 'keep' attribute", {
   obj1 <- "some text"
   kept_obj1 <- keep_in_report(obj1, TRUE)
