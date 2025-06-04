@@ -135,3 +135,36 @@ as_teal_document <- function(x) {
   x@document <- as_teal_document(value)
   x
 }
+
+
+#' Append elements to a teal_report document
+#'
+#' This function appends elements to the document slot of a teal_report object.
+#' It follows the same pattern as base R's append() function.
+#'
+#' @param x A teal_report object
+#' @param values (`teal_document`) object(s) to append
+#' @param after Integer, the position after which the elements are to be appended.
+#'   If negative or zero, the values are prepended to the document.
+#'   If missing, the values are appended at the end.
+#'
+#' @return A teal_report object with updated document slot
+#'
+#' @examples
+#' data <- teal_report()
+#' data <- append_document(data, teal_document("Some text"))
+#' data <- append_document(data, list(
+#'   teal_document("More text"),
+#'   teal_document("Even more text")
+#' ))
+#' data <- append_document(data, teal_document("First text"), after = 0)
+#' document(data)
+#' 
+#' @export
+append_document <- function(x, values, after = length(document(x))) {
+  checkmate::assert_class(x, "teal_report")
+  checkmate::assert_int(after, lower = 0, upper = length(document(x)), null.ok = TRUE)
+
+  document(x) <- append(document(x), values, after = after)
+  x
+}
