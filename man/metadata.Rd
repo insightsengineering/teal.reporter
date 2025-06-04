@@ -2,18 +2,18 @@
 % Please edit documentation in R/doc.R
 \name{metadata}
 \alias{metadata}
-\alias{metadata.doc}
+\alias{metadata.teal_document}
 \alias{metadata.ReportCard}
-\title{Access metadata from a \code{doc} or \code{ReportCard}}
+\title{Access metadata from a \code{teal_document} or \code{ReportCard}}
 \usage{
 metadata(object, which = NULL)
 
-\method{metadata}{doc}(object, which = NULL)
+\method{metadata}{teal_document}(object, which = NULL)
 
 \method{metadata}{ReportCard}(object, which = NULL)
 }
 \arguments{
-\item{object}{(\code{doc} or \code{ReportCard}) The object from which to extract metadata.}
+\item{object}{(\code{teal_document} or \code{ReportCard}) The object from which to extract metadata.}
 
 \item{which}{(\code{character} or \code{NULL}) The name of the metadata field to extract.}
 }
@@ -21,6 +21,6 @@ metadata(object, which = NULL)
 A list of metadata fields or a specific field if \code{which} is provided.
 }
 \description{
-This function retrieves metadata from a \code{doc} or \code{ReportCard} object.
+This function retrieves metadata from a \code{teal_document} or \code{ReportCard} object.
 When \code{which} is \code{NULL}, it returns all metadata fields as a list.
 }

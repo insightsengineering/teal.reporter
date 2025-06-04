@@ -2,18 +2,18 @@
 % Please edit documentation in R/doc.R
 \name{metadata<-}
 \alias{metadata<-}
-\alias{metadata<-.doc}
+\alias{metadata<-.teal_document}
 \alias{metadata<-.ReportCard}
-\title{Set metadata for a \code{doc} or \code{ReportCard}}
+\title{Set metadata for a \code{teal_document} or \code{ReportCard}}
 \usage{
 metadata(object, which) <- value
 
-\method{metadata}{doc}(object, which) <- value
+\method{metadata}{teal_document}(object, which) <- value
 
 \method{metadata}{ReportCard}(object, which) <- value
 }
 \arguments{
-\item{object}{(\code{doc} or \code{ReportCard}) The object to modify.}
+\item{object}{(\code{teal_document} or \code{ReportCard}) The object to modify.}
 
 \item{which}{(\code{character}) The name of the metadata field to set.}
 
@@ -23,7 +23,7 @@ metadata(object, which) <- value
 The modified object with updated metadata.
 }
 \description{
-This function allows you to set or modify metadata fields in a \code{doc} or \code{ReportCard} object.
+This function allows you to set or modify metadata fields in a \code{teal_document} or \code{ReportCard} object.
 It can be used to add new metadata or update existing fields.
 }
 \details{

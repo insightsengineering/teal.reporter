@@ -1,22 +1,19 @@
-#' Extract report from `teal_report`
+#' Get or set the document of a `teal_report` object
 #'
+#' @name document
 #' @param x (`teal_report`)
-#' @return `teal_report`
+#' @param value (`teal_document`)
+#'
+#' @return The document of the `teal_report` object.
+#'
 #' @export
-report <- function(x) {
-  checkmate::assert_class(x, "teal_report")
-  x@report
+document <- function(x) {
+  x@document
 }
 
-#' Replace a report in `teal_report`
-#'
-#' @param x (`teal_report`)
-#' @param value (`doc`)
-#' @return `teal_report`
+#' @rdname document
 #' @export
-`report<-` <- function(x, value) {
-  checkmate::assert_class(x, "teal_report")
-  checkmate::assert_class(value, classes = "doc")
-  x@report <- value
+`document<-` <- function(x, value) {
+  x@document <- value
   x
 }

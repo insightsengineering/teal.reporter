@@ -7,7 +7,7 @@
 keep_in_report(object, keep = TRUE)
 }
 \arguments{
-\item{object}{An R object, typically an element intended for a \code{doc}.}
+\item{object}{An R object, typically an element intended for a \code{teal_document}.}
 
 \item{keep}{(\code{logical}) If \code{TRUE} (default), the object is marked to be kept in the \code{.Rmd} source;
 if \code{FALSE}, it's marked for printing only in the output document (and not in the \code{.Rmd} source,
@@ -17,7 +17,7 @@ though its print output will be in the rendered document).}
 The input \code{object} with its "keep" attribute modified.
 }
 \description{
-Utility function to change behavior of \code{doc} elements to be
+Utility function to change behavior of \code{teal_document} elements to be
 kept (\code{keep = TRUE}) or discarded (\code{keep = FALSE}) from the final \code{.Rmd} file containing the downloaded report.
 }
 \details{
