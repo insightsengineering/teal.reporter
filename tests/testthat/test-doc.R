@@ -15,35 +15,35 @@ testthat::test_that("doc creates a doc with initial elements", {
 testthat::describe("c.doc combines with", {
   doc_base <- doc("a", "b")
 
-  testthat::it("character element and retains class", {
+  it("character element and retains class", {
     doc_result <- c(doc_base, "c")
     testthat::expect_s3_class(doc_result, "doc")
     testthat::expect_length(doc_result, 3)
     testthat::expect_equal(doc_result[[3]], "c")
   })
 
-  testthat::it("multiple character elements and retains class", {
+  it("multiple character elements and retains class", {
     doc_result <- c(doc_base, "c", list("d"))
     testthat::expect_s3_class(doc_result, "doc")
     testthat::expect_length(doc_result, 4)
     testthat::expect_equal(doc_result[[3]], "c")
   })
 
-  testthat::it("multiple character elements and retains class", {
+  it("multiple character elements and retains class", {
     doc_result <- c(doc_base, "c", list("d", "e"))
     testthat::expect_s3_class(doc_result, "doc")
     testthat::expect_length(doc_result, 4)
     testthat::expect_equal(doc_result[[4]], list("d", "e"))
   })
 
-  testthat::it("doc with multiple elements and retains class", {
+  it("doc with multiple elements and retains class", {
     doc_result <- c(doc_base, doc("c", "d"))
     testthat::expect_s3_class(doc_result, "doc")
     testthat::expect_length(doc_result, 4)
     testthat::expect_equal(doc_result[[3]], "c") # Assuming it unnests the doc
   })
 
-  testthat::it("with single ggplot2 element and retains class", {
+  it("with single ggplot2 element and retains class", {
     plot <- ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) +
       ggplot2::geom_point()
     doc_result <- c(doc_base, plot)
@@ -52,7 +52,7 @@ testthat::describe("c.doc combines with", {
     testthat::expect_identical(doc_result[[3]], plot)
   })
 
-  testthat::it("ggplot2 section and retains class", {
+  it("ggplot2 section and retains class", {
     plot <- ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) +
       ggplot2::geom_point()
     doc_result <- c(doc_base, doc("# Plot", plot))
