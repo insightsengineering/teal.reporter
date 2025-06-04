@@ -2,7 +2,7 @@
 % Please edit documentation in R/DownloadModule.R
 \name{to_rmd}
 \alias{to_rmd}
-\title{Convert \code{Reporter}/\code{doc} content to \code{rmarkdown}}
+\title{Convert \code{Reporter}/\code{teal_document} content to \code{rmarkdown}}
 \usage{
 to_rmd(block, output_dir, ...)
 }
@@ -15,6 +15,6 @@ to_rmd(block, output_dir, ...)
 \code{character(1)} containing a content or \code{rmarkdown} document
 }
 \description{
-Convert \code{Reporter}/\code{doc} content to \code{rmarkdown}
+Convert \code{Reporter}/\code{teal_document} content to \code{rmarkdown}
 }
 \keyword{internal}

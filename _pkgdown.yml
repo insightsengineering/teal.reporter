@@ -55,7 +55,7 @@ reference:
       - doc
       - ReportCard
       - Reporter
-  - title: "Utility functions for `doc` object"
+  - title: "Utility functions for `teal_document` object"
     contents:
       - code_chunk
       - keep_in_report

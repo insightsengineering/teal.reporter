@@ -32,8 +32,7 @@ test_card2.ReportCard <- local({ # nolint: object_name.
 test_card1 <- function(title = NULL) {
   withr::with_environment(emptyenv(), plot <- ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
     ggplot2::geom_histogram(binwidth = 0.2))
-  new_card <- doc("## Header 2 text", "A paragraph of default text", plot)
-  new_card <- report_document("## Header 2 text", "A paragraph of default text", plot)
+  new_card <- teal_document("## Header 2 text", "A paragraph of default text", plot)
   if (!is.null(title)) metadata(new_card, "title") <- title
   new_card
 }
@@ -42,7 +41,7 @@ test_card2 <- local({
   fun <- function(title = NULL) {
     lyt <- rtables::analyze(rtables::split_rows_by(rtables::basic_table(), "Day"), "Ozone", afun = mean)
     table_res2 <- rtables::build_table(lyt, within(airquality, Day <- factor(Day))) # nolint: object_name.
-    new_card <- doc("## Header 2 text", "A paragraph of default text", table_res2, iris)
+    new_card <- teal_document("## Header 2 text", "A paragraph of default text", table_res2, iris)
     if (!is.null(title)) metadata(new_card, "title") <- title
     new_card
   }

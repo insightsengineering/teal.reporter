@@ -309,7 +309,7 @@ content_to_rmd <- function(content, output_dir, ..., include_results) {
   }
 }
 
-#' Convert `Reporter`/`doc` content to `rmarkdown`
+#' Convert `Reporter`/`teal_document` content to `rmarkdown`
 #'
 #' @param block (`any`) content which can be represented in `rmarkdown` syntax
 #' @param output_dir (`character(1)`) path to the directory where files should be written to.

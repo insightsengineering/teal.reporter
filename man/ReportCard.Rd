@@ -482,7 +482,7 @@ Set the name of the \code{ReportCard}.
 \if{html}{\out{<a id="method-ReportCard-set_content_names"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-set_content_names}{}}}
 \subsection{Method \code{set_content_names()}}{
-Set content block names for compatibility with newer \code{doc}
+Set content block names for compatibility with newer \code{teal_document}
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$set_content_names(new_names)}\if{html}{\out{</div>}}
 }
