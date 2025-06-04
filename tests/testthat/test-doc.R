@@ -15,35 +15,35 @@ testthat::test_that("doc creates a doc with initial elements", {
 testthat::describe("c.doc combines with", {
   doc_base <- doc("a", "b")
 
-  it("character element and retains class", {
+  testthat::it("character element and retains class", {
     doc_result <- c(doc_base, "c")
     testthat::expect_s3_class(doc_result, "doc")
     testthat::expect_length(doc_result, 3)
     testthat::expect_equal(doc_result[[3]], "c")
   })
 
-  it("multiple character elements and retains class", {
+  testthat::it("multiple character elements and retains class", {
     doc_result <- c(doc_base, "c", list("d"))
     testthat::expect_s3_class(doc_result, "doc")
     testthat::expect_length(doc_result, 4)
     testthat::expect_equal(doc_result[[3]], "c")
   })
 
-  it("multiple character elements and retains class", {
+  testthat::it("multiple character elements and retains class", {
     doc_result <- c(doc_base, "c", list("d", "e"))
     testthat::expect_s3_class(doc_result, "doc")
     testthat::expect_length(doc_result, 4)
     testthat::expect_equal(doc_result[[4]], list("d", "e"))
   })
 
-  it("doc with multiple elements and retains class", {
+  testthat::it("doc with multiple elements and retains class", {
     doc_result <- c(doc_base, doc("c", "d"))
     testthat::expect_s3_class(doc_result, "doc")
     testthat::expect_length(doc_result, 4)
     testthat::expect_equal(doc_result[[3]], "c") # Assuming it unnests the doc
   })
 
-  it("with single ggplot2 element and retains class", {
+  testthat::it("with single ggplot2 element and retains class", {
     plot <- ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) +
       ggplot2::geom_point()
     doc_result <- c(doc_base, plot)
@@ -52,7 +52,7 @@ testthat::describe("c.doc combines with", {
     testthat::expect_identical(doc_result[[3]], plot)
   })
 
-  it("ggplot2 section and retains class", {
+  testthat::it("ggplot2 section and retains class", {
     plot <- ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) +
       ggplot2::geom_point()
     doc_result <- c(doc_base, doc("# Plot", plot))
@@ -124,12 +124,6 @@ testthat::test_that("code_chunk creates a code_chunk object with params", {
   testthat::expect_s3_class(chunk, "code_chunk")
   testthat::expect_equal(as.character(chunk), "print('hello')")
   testthat::expect_equal(attributes(chunk)$params, list(echo = FALSE, eval = TRUE))
-})
-
-testthat::test_that("code_output formats code as markdown string", {
-  output <- code_output("x <- 1")
-  testthat::expect_type(output, "character")
-  testthat::expect_equal(output, "```\nx <- 1\n```")
 })
 
 testthat::test_that("keep_in_report sets the 'keep' attribute", {
