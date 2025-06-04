@@ -41,13 +41,10 @@ to_rmd <- function(block, output_dir, ...) {
 #' @method to_rmd default
 #' @keywords internal
 to_rmd.default <- function(block, output_dir, ...) {
-  logger::log_failure("to_rmd.default {paste(class(block), collapse = ', ')}")
-  logger::log_fatal("to_rmd.default ... {paste(names(list(...)), collapse = ', ')}")
   .to_rmd(block, output_dir, ...)
 }
 
 .to_rmd <- function(block, output_dir, ...) {
-  logger::log_fatal(".to_rmd ... {paste(names(list(...)), collapse = ', ')}")
   UseMethod(".to_rmd")
 }
 
