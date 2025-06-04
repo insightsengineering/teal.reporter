@@ -110,3 +110,28 @@ as.teal_report <- function(x) {
 
   new_x
 }
+
+#' Create or coerce to a teal_document
+#'
+#' This function ensures that input is converted to a teal_document object.
+#' It accepts various input types and converts them appropriately.
+#'
+#' @param x Object to convert to teal_document
+#' @return A teal_document object
+#' @export
+as_teal_document <- function(x) {
+  if (inherits(x, "teal_document")) {
+    return(x)
+  }
+  if (is.list(x)) {
+    return(do.call(teal_document, x))
+  }
+  teal_document(x)
+}
+
+#' @rdname document
+#' @export
+`document<-` <- function(x, value) {
+  x@document <- as_teal_document(value)
+  x
+}
