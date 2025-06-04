@@ -45,9 +45,6 @@ srv_editor_block <- function(id, value) {
 
 #' @export
 ui_editor_block.default <- function(id, value) {
-  logger::log_warn(
-    "No UI editor block defined for value of type {class(value)}. Using default editor."
-  )
   .ui_editor_block(id, value)
 }
 
