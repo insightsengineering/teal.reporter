@@ -20,7 +20,7 @@ from various types of blocks in a \code{ReporterCard} or \code{doc} object.
 }
 \details{
 The methods for this S3 generic can be extended by the app developer or even overwritten.
-For this a function with the name \verb{.to_rmd.<class>} should be defined in the
+For this a function with the name \verb{to_rmd.<class>} should be defined in the
 Global Environment, where \verb{<class>} is the class of the object to be converted.
 
 For example, to override the default behavior for \code{code_chunk} class, you can use:

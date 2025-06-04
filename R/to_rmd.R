@@ -16,7 +16,7 @@ content_to_rmd <- function(content, output_dir, ..., include_results) {
 #'
 #' @details
 #' The methods for this S3 generic can be extended by the app developer or even overwritten.
-#' For this a function with the name `.to_rmd.<class>` should be defined in the
+#' For this a function with the name `to_rmd.<class>` should be defined in the
 #' Global Environment, where `<class>` is the class of the object to be converted.
 #'
 #' For example, to override the default behavior for `code_chunk` class, you can use:
@@ -60,11 +60,11 @@ to_rmd.default <- function(block, output_dir, ...) {
 #' @method .to_rmd Reporter
 #' @keywords internal
 .to_rmd.Reporter <- function(block,
-                            output_dir,
-                            yaml_header,
-                            global_knitr = getOption("teal.reporter.global_knitr"),
-                            include_results,
-                            ...) {
+                             output_dir,
+                             yaml_header,
+                             global_knitr = getOption("teal.reporter.global_knitr"),
+                             include_results,
+                             ...) {
   blocks <- block$get_blocks()
   checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
   if (missing(yaml_header)) {
@@ -123,11 +123,11 @@ to_rmd.default <- function(block, output_dir, ...) {
   text_style <- block$get_style()
   block_content <- block$get_content()
   switch(text_style,
-         "default" = block_content,
-         "verbatim" = sprintf("\n```\n%s\n```\n", block_content),
-         "header2" = paste0("## ", block_content),
-         "header3" = paste0("### ", block_content),
-         block_content
+    "default" = block_content,
+    "verbatim" = sprintf("\n```\n%s\n```\n", block_content),
+    "header2" = paste0("## ", block_content),
+    "header3" = paste0("### ", block_content),
+    block_content
   )
 }
 

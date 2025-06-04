@@ -18,3 +18,29 @@ srv_editor_block(id, value)
 These functions provide a user interface and server logic for editing and extending
 the editor functionality to support new data types.
 }
+\details{
+The methods for this S3 generic can be extended by the app developer to new classes
+or even overwritten.
+For this a function with the name \verb{srv_editor_block.<class>} and/or \verb{ui_editor_block.<class>}
+should be defined in the Global Environment, where \verb{<class>} is the class of
+the object to be used in the method.
+
+For example, to override the default behavior for \code{character} class, you can use:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{ui_editor_block.character <- function(id, value) \{
+  # custom implementation
+  shiny::tagList(
+    shiny::tags$h6(shiny::icon("pencil", class = "text-muted"), "Editable CUSTOM markdown block"),
+    shiny::textAreaInput(ns("content"), label = NULL, value = value, width = "100\%")
+  )
+\}
+srv_editor_block.character <- function(id, value) \{
+ # custom implementation
+ # ...
+\}
+}\if{html}{\out{</div>}}
+
+Alternatively, you can register the S3 method using
+\code{registerS3method("ui_editor_block", "<class>", fun)} and
+\code{registerS3method("srv_editor_block", "<class>", fun)}.
+}
