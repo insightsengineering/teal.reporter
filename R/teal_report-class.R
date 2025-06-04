@@ -119,7 +119,7 @@ as.teal_report <- function(x) {
 #' @param x Object to convert to teal_document
 #' @return A teal_document object
 #' @export
-as_teal_document <- function(x) {
+as.teal_document <- function(x) {
   if (inherits(x, "teal_document")) {
     return(x)
   }
@@ -129,10 +129,25 @@ as_teal_document <- function(x) {
   teal_document(x)
 }
 
+#' Get or set the document of a `teal_report` object
+#'
+#' @name document
+#' @param x (`teal_report`)
+#' @param value (`teal_document`)
+#'
+#' @return The document of the `teal_report` object.
+#'
+#' @export
+document <- function(x) {
+  checkmate::assert_class(x, "teal_report")
+  x@document
+}
+
 #' @rdname document
 #' @export
 `document<-` <- function(x, value) {
-  x@document <- as_teal_document(value)
+  checkmate::assert_class(x, "teal_report")
+  x@document <- as.teal_document(value)
   x
 }
 
