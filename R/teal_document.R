@@ -5,23 +5,33 @@
 #' The `teal_document` `S3` class provides functionality to store, manage, edit, and adjust report contents.
 #' It enables users to create, manipulate, and serialize report-related data efficiently.
 #'
+#' The `teal_document()` function serves two purposes:
+#' 1. When called with a `teal_report` object, it acts as a getter and returns the document slot
+#' 2. When called with other arguments, it creates a new `teal_document` object from those arguments
+#'
 #' @return An `S3` `list` of class `teal_document`.
-#' @param ... elements included in `teal_document`
-#' @param x `teal_document` object
+#' @param x A `teal_report` object to extract document from, or any other object to include in a new `teal_document`
+#' @param ... Additional elements to include when creating a new `teal_document`
 #' @inheritParams base::append
 #'
 #' @details The `teal_document` class supports `c()` and `x[i]` methods for combining and subsetting elements.
 #' However, these methods only function correctly when the first element is a `teal_document`.
 #' To prepend, reorder, or modify a `teal_document`, use the `edit_teal_document()` function.
 #'
-#'
 #' @examples
-#' # Create a new teal_document
+#' # Create a new empty teal_document
 #' report <- teal_document()
 #' class(report) # Check the class of the object
 #'
+#' # Create a teal_document with content
+#' report <- teal_document("## Headline", "Some text", summary(iris))
+#'
+#' # Extract document from a teal_report
+#' tr <- teal_report(document = teal_document("## Title"))
+#' doc <- teal_document(tr)
+#'
 #' # Add elements to the report
-#' report <- c(report, list("## Headline"), list("## Table"), list(summary(iris)))
+#' report <- c(report, list("## Table"), list(summary(mtcars)))
 #'
 #' # Subset the report to keep only the first two elements
 #' report <- report[1:2]
@@ -36,10 +46,40 @@
 #' @name teal_document
 #'
 #' @export
-teal_document <- function(...) {
-  objects <- list(...)
-  structure(objects, class = c("teal_document"))
+teal_document <- function(x, ...) {
+  if (inherits(x, "teal_report")) {
+    x@document
+  } else {
+    objects <- list(x, ...)
+    structure(objects, class = "teal_document")
+  }
 }
+
+#' @rdname teal_document
+#' @export
+`teal_document<-` <- function(x, value) {
+  checkmate::assert_class(x, "teal_report")
+  x@document <- as.teal_document(value)
+  x
+}
+
+#' Create or coerce to a teal_document
+#'
+#' This function ensures that input is converted to a teal_document object.
+#' It accepts various input types and converts them appropriately.
+#'
+#' @param x Object to convert to teal_document
+#' @return A teal_document object
+#' @export
+as.teal_document <- function(x) {
+  if (inherits(x, "teal_document")) {
+    return(x)
+  }
+  if (is.list(x)) {
+    return(do.call(teal_document, x))
+  }
+  teal_document(x)
+} 
 
 #' @rdname teal_document
 #' @export

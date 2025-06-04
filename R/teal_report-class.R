@@ -103,50 +103,10 @@ as.teal_report <- function(x) {
   for (slot_name in slotNames(x)) {
     slot(new_x, slot_name) <- slot(x, slot_name)
   }
-  document(new_x) <- c(
-    document(new_x),
+  teal_document(new_x) <- c(
+    teal_document(new_x),
     code_chunk(teal.code::get_code(new_x))
   )
 
   new_x
-}
-
-#' Create or coerce to a teal_document
-#'
-#' This function ensures that input is converted to a teal_document object.
-#' It accepts various input types and converts them appropriately.
-#'
-#' @param x Object to convert to teal_document
-#' @return A teal_document object
-#' @export
-as.teal_document <- function(x) {
-  if (inherits(x, "teal_document")) {
-    return(x)
-  }
-  if (is.list(x)) {
-    return(do.call(teal_document, x))
-  }
-  teal_document(x)
-}
-
-#' Get or set the document of a `teal_report` object
-#'
-#' @name document
-#' @param x (`teal_report`)
-#' @param value (`teal_document`)
-#'
-#' @return The document of the `teal_report` object.
-#'
-#' @export
-document <- function(x) {
-  checkmate::assert_class(x, "teal_report")
-  x@document
-}
-
-#' @rdname document
-#' @export
-`document<-` <- function(x, value) {
-  checkmate::assert_class(x, "teal_report")
-  x@document <- as.teal_document(value)
-  x
 }
