@@ -75,6 +75,51 @@ testthat::test_that("[.teal_document subsets and retains class", {
   testthat::expect_length(empty_sub_doc, 0)
 })
 
+testthat::test_that("edit_teal_document modifies elements", {
+  doc <- doc("a", "b", "c")
+  edited_doc <- edit_teal_document(doc, modify = c(3, 1))
+  testthat::expect_s3_class(edited_doc, "doc")
+  testthat::expect_length(edited_doc, 2)
+  testthat::expect_equal(edited_doc[[1]], "c")
+  testthat::expect_equal(edited_doc[[2]], "a")
+})
+
+testthat::test_that("edit_teal_document appends elements", {
+  doc <- doc("a", "b")
+  edited_doc <- edit_teal_document(doc, append = "c")
+  testthat::expect_s3_class(edited_doc, "doc")
+  testthat::expect_length(edited_doc, 3)
+  testthat::expect_equal(edited_doc[[3]], "c")
+
+  edited_doc_after <- edit_teal_document(doc, append = "c", after = 1)
+  testthat::expect_s3_class(edited_doc_after, "doc")
+  testthat::expect_length(edited_doc_after, 3)
+  testthat::expect_equal(edited_doc_after[[1]], "a")
+  testthat::expect_equal(edited_doc_after[[2]], "c")
+  testthat::expect_equal(edited_doc_after[[3]], "b")
+})
+
+testthat::test_that("edit_teal_document modifies and appends", {
+  doc <- doc("a", "b", "c", "d")
+  edited_doc <- edit_teal_document(doc, modify = c(4, 1), append = "e", after = 1)
+  # After modify: doc becomes ("d", "a")
+  # After append: doc becomes ("d", "e", "a")
+  testthat::expect_s3_class(edited_doc, "doc")
+  testthat::expect_length(edited_doc, 3)
+  testthat::expect_equal(edited_doc[[1]], "d")
+  testthat::expect_equal(edited_doc[[2]], "e")
+  testthat::expect_equal(edited_doc[[3]], "a")
+})
+
+testthat::test_that("edit_teal_document preserves attributes", {
+  doc <- doc("a")
+  attr(doc, "custom_attr") <- "test_value"
+  edited_doc <- edit_teal_document(doc, append = "b")
+  testthat::expect_equal(attributes(edited_doc)$custom_attr, "test_value")
+  testthat::expect_s3_class(edited_doc, "doc")
+})
+
+
 testthat::test_that("code_chunk creates a code_chunk object with params", {
   chunk <- code_chunk("print('hello')", echo = FALSE, eval = TRUE)
   testthat::expect_s3_class(chunk, "code_chunk")
