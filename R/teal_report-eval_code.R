@@ -1,3 +1,4 @@
+#' @importFrom teal.code eval_code
 setMethod(
   "eval_code",
   signature = c(object = "teal_report"),

@@ -195,14 +195,14 @@ reporter_previewer_card_ui <- function(id, card_id) {
     shiny::tags$h6(id = ns("loading_placeholder"), class = "text-muted", "Loading the report..."),
     shiny::uiOutput(ns("card_content"))
   )
-  accordion_item <- htmltools::tagAppendAttributes(accordion_item, "data-rank-id" = card_id)
+  accordion_item <- shiny::tagAppendAttributes(accordion_item, "data-rank-id" = card_id)
 
-  accordion_item <- htmltools::tagAppendAttributes(
+  accordion_item <- shiny::tagAppendAttributes(
     tag = accordion_item,
     .cssSelector = ".accordion-header",
     class = "d-flex",
   )
-  accordion_item <- htmltools::tagAppendChildren(
+  accordion_item <- shiny::tagAppendChildren(
     tag = accordion_item,
     .cssSelector = ".accordion-header",
     ui_previewer_card_actions(ns("actions"))

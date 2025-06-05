@@ -1,9 +1,9 @@
-content_to_rmd <- function(content, output_dir, ..., include_results) {
-  if (include_results || isTRUE(attr(content, "keep"))) {
-    suppressWarnings(hashname <- rlang::hash(content))
+.content_to_rmd <- function(block, output_dir, ..., include_results) {
+  if (include_results || isTRUE(attr(block, "keep"))) {
+    suppressWarnings(hashname <- rlang::hash(block))
     hashname_file <- paste0(hashname, ".rds")
     path <- tempfile(fileext = ".rds")
-    suppressWarnings(saveRDS(content, file = path))
+    suppressWarnings(saveRDS(block, file = path))
     file.copy(path, file.path(output_dir, hashname_file))
     sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", hashname_file)
   }
@@ -227,28 +227,27 @@ to_rmd.default <- function(block, output_dir, ...) {
 
 #' @method .to_rmd gg
 #' @keywords internal
-.to_rmd.gg <- content_to_rmd
+.to_rmd.gg <- .content_to_rmd
 
 #' @method .to_rmd rtables
 #' @keywords internal
 .to_rmd.rtables <- function(block, output_dir, ..., include_results) {
   flextable_block <- to_flextable(block)
   attr(flextable_block, "keep") <- attr(block, "keep")
-  content_to_rmd(flextable_block, output_dir, include_results = include_results)
+  .content_to_rmd(flextable_block, output_dir, include_results = include_results)
 }
 
 #' @method .to_rmd trellis
 #' @keywords internal
-.to_rmd.trellis <- content_to_rmd
+.to_rmd.trellis <- .content_to_rmd
 
 #' @method .to_rmd grob
 #' @keywords internal
-.to_rmd.grob <- content_to_rmd
+.to_rmd.grob <- .content_to_rmd
 
 #' @method .to_rmd Heatmap
 #' @keywords internal
-.to_rmd.Heatmap <- content_to_rmd
-
+.to_rmd.Heatmap <- .content_to_rmd
 
 #' @method .to_rmd TableTree
 #' @keywords internal

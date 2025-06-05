@@ -26,13 +26,11 @@ setOldClass("doc")
 #'  Access or modify with [teal.data::join_keys()].
 #' @slot verified (`logical(1)`) flag signifying that code in `@code` has been
 #'  proven to yield contents of `@.xData`.
-#'  Used internally. See [`verify()`] for more details.
+#'  Used internally. See [`teal.data::verify()`] for more details.
 #' @slot report (`doc`)
 #'
 #' @inheritSection teal.data::`teal_data-class` Code
 #'
-#' @import teal.data
-#' @import teal.code
 #' @keywords internal
 setClass(
   Class = "teal_report",
@@ -106,7 +104,7 @@ as.teal_report <- function(x) { # nolint: object_name.
   }
   report(new_x) <- c(
     report(new_x),
-    code_chunk(teal.code::get_code(new_x))
+    code_chunk(teal.data::get_code(new_x))
   )
 
   new_x
