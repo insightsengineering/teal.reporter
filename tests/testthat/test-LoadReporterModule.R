@@ -1,7 +1,7 @@
 testthat::test_that("report_load_srv - loading reporter restores saved content", {
   testthat::skip_if_not_installed("ggplot2")
 
-  card <- teal.reporter::teal_document(
+  card <- teal.reporter::card(
     "## Header 2 text",
     "A paragraph of default text",
     ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
@@ -103,4 +103,37 @@ testthat::test_that("report_load_srv - fail to load a reporter because of differ
 
 testthat::test_that("report_load_ui - returns a tagList", {
   checkmate::expect_multi_class(report_load_ui("sth"), c("shiny.tag.list", "shiny.tag"))
+})
+
+testthat::test_that("LoadReporterModule works", {
+  testthat::skip_if_not_installed("shiny")
+  testthat::skip_if_not_installed("shinytest2")
+
+  card <- teal.reporter::card(
+    "## Header 2 text",
+    "A paragraph of default text",
+    ggplot2::ggplot(iris) +
+      ggplot2::geom_point(ggplot2::aes(x = Sepal.Length, y = Sepal.Width))
+  )
+
+  reporter <- Reporter$new()
+  reporter$append_cards(card)
+
+  # Save reporter to a file
+  tmp <- tempfile(fileext = ".rds")
+  saveRDS(reporter, tmp)
+
+  # Test loading the reporter
+  app <- shiny::shinyApp(
+    ui = shiny::fluidPage(
+      LoadReporterModule$ui("test")
+    ),
+    server = function(input, output, session) {
+      LoadReporterModule$server("test", reporter_path = tmp)
+    }
+  )
+
+  test_app <- shinytest2::AppDriver$new(app)
+  testthat::expect_true(test_app$get_value(input = "test-load_report")$html == "Load Report")
+  test_app$stop()
 })

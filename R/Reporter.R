@@ -4,7 +4,7 @@
 #'
 #' This `R6` class is designed to store and manage reports,
 #' facilitating the creation, manipulation, and serialization of report-related data.
-#' It supports both `ReportCard` (`r lifecycle::badge("deprecated")`) and `teal_document` objects, allowing flexibility
+#' It supports both `ReportCard` (`r lifecycle::badge("deprecated")`) and `card` objects, allowing flexibility
 #' in the types of reports that can be stored and managed.
 #'
 #' @export
@@ -23,9 +23,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
 
-    #' @description Append one or more `ReportCard` or `teal_document` objects to the `Reporter`.
+    #' @description Append one or more `ReportCard` or `card` objects to the `Reporter`.
     #'
-    #' @param cards (`ReportCard` or `teal_document`) or a list of such objects
+    #' @param cards (`ReportCard` or `card`) or a list of such objects
     #' @return `self`, invisibly.
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
@@ -44,14 +44,14 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, doc1))
     append_cards = function(cards) {
-      if (checkmate::test_multi_class(cards, classes = c("teal_document", "ReportCard"))) {
+      if (checkmate::test_multi_class(cards, classes = c("card", "ReportCard"))) {
         cards <- list(cards)
       }
 
-      checkmate::assert_list(cards, types = c("ReportCard", "teal_document"))
+      checkmate::assert_list(cards, types = c("ReportCard", "card"))
       new_cards <- cards
 
-      rds <- vapply(new_cards, inherits, logical(1L), "teal_document")
+      rds <- vapply(new_cards, inherits, logical(1L), "card")
       if (!is.null(self$get_template())) {
         new_cards[rds] <- lapply(new_cards[rds], self$get_template())
       }
@@ -66,10 +66,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
       invisible(self)
     },
-    #' @description Reorders `ReportCard` or `teal_document` objects in `Reporter`.
-    #' @param new_order `character` vector with names of `ReportCard` or `teal_document`
+    #' @description Reorders `ReportCard` or `card` objects in `Reporter`.
+    #' @param new_order `character` vector with names of `ReportCard` or `card`
     #' objects to be set in this order.
-    #' @description Reorders `ReportCard` or `teal_document` objects in `Reporter`.
+    #' @description Reorders `ReportCard` or `card` objects in `Reporter`.
     #' @return `self`, invisibly.
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
@@ -103,9 +103,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$override_order <- new_order
       invisible(self)
     },
-    #' @description Sets `ReportCard` or `teal_document` content.
+    #' @description Sets `ReportCard` or `card` content.
     #' @param card_id (`character(1)`) the unique id of the card to be replaced.
-    #' @param card The new object (`ReportCard` or `teal_document`) to replace the existing one.
+    #' @param card The new object (`ReportCard` or `card`) to replace the existing one.
     #' @return `self`, invisibly.
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
@@ -138,8 +138,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$cards[[card_id]] <- card
       invisible(self)
     },
-    #' @description Retrieves all `ReportCard` and `teal_document` objects contained in `Reporter`.
-    #' @return A (`list`) of [`ReportCard`] and [`teal_document`] objects.
+    #' @description Retrieves all `ReportCard` and `card` objects contained in `Reporter`.
+    #' @return A (`list`) of [`ReportCard`] and [`card`] objects.
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
     #' library(rtables)
@@ -174,11 +174,11 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       result[union(intersect(private$override_order, names(result)), names(result))]
     },
     #' @description Compiles and returns all content blocks from the `ReportCard`
-    #' and `teal_document` objects in the `Reporter`.
+    #' and `card` objects in the `Reporter`.
     #' @param sep An optional separator to insert between each content block.
     #' Default is a `\n\\newpage\n` markdown.
     #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock`,
-    #' `NewpageBlock`, and raw `teal_document` content
+    #' `NewpageBlock`, and raw `card` content
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
     #' library(rtables)
@@ -215,9 +215,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         }
         title <- trimws(metadata(card, "title"))
         card_title <- if (length(title) > 0 && nzchar(title)) {
-          teal_document(sprintf("# %s", title))
+          card(sprintf("# %s", title))
         } else {
-          teal_document(sprintf("# _Unnamed Card (%d)_", idx))
+          card(sprintf("# _Unnamed Card (%d)_", idx))
         }
         card_with_title <- c(card_title, card)
         blocks <- append(blocks, unclass(card_with_title))
@@ -225,7 +225,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
       blocks
     },
-    #' @description Resets the `Reporter`, removing all `ReportCard` and `teal_document` objects and metadata.
+    #' @description Resets the `Reporter`, removing all `ReportCard` and `card` objects and metadata.
     #'
     #' @return `self`, invisibly.
     #'
@@ -239,7 +239,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$metadata <- list()
       invisible(self)
     },
-    #' @description Removes specific `ReportCard` or `teal_document` objects from the `Reporter` by their indices.
+    #' @description Removes specific `ReportCard` or `card` objects from the `Reporter` by their indices.
     #'
     #' @param ids (`integer`, `character`) the indexes of cards (either name)
     #' @return `self`, invisibly.
@@ -308,7 +308,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         # we want to have list names being a class names to indicate the class for $from_list
         card_class <- class(cards[[i]])[1]
         u_card <- list()
-        if (card_class == "teal_document") {
+        if (card_class == "card") {
           tmp <- tempfile(fileext = ".rds")
           suppressWarnings(saveRDS(cards[[i]], file = tmp))
           tmp_base <- basename(tmp)
@@ -345,9 +345,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         for (iter_c in seq_along(rlist$cards)) {
           card_class <- cards_names[iter_c]
           card <- rlist$cards[[iter_c]]
-          if (card_class == "teal_document") {
+          if (card_class == "card") {
             new_card <- readRDS(file.path(output_dir, card$path))
-            class(new_card) <- "teal_document"
+            class(new_card) <- "card"
             new_card <- list(new_card) # so that it doesn't loose class and can be used in self$append_cards
             names(new_card) <- card$name
           } else {
@@ -420,19 +420,19 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @description Get the `Reporter` id
     #' @return `character(1)` the `Reporter` id.
     get_id = function() private$id,
-    #' @description Set template function for `teal_document`
-    #' Set a function that is called on every report content (of class `teal_document`) added through `$append_cards`
+    #' @description Set template function for `card`
+    #' Set a function that is called on every report content (of class `card`) added through `$append_cards`
     #' @param template (`function`) a template function.
     #' @return `self`, invisibly.
     #' @examples
     #'
     #' reporter <- teal.reporter::Reporter$new()
     #' template_fun <- function(document) {
-    #'   disclaimer <- teal.reporter::teal_document("Here comes disclaimer text")
+    #'   disclaimer <- teal.reporter::card("Here comes disclaimer text")
     #'   c(disclaimer, document)
     #' }
     #' reporter$set_template(template_fun)
-    #' doc1 <- teal.reporter::teal_document("## Header 2 text", "Regular text")
+    #' doc1 <- teal.reporter::card("## Header 2 text", "Regular text")
     #' metadata(doc1, "title") <- "Welcome card"
     #' reporter$append_cards(doc1)
     #' reporter$get_cards()

@@ -6,7 +6,7 @@
 \usage{
 teal_report(
   ...,
-  document = teal_document(),
+  card = card(),
   code = character(0),
   join_keys = teal.data::join_keys()
 )
@@ -14,7 +14,7 @@ teal_report(
 \arguments{
 \item{...}{any number of objects (presumably data objects) provided as \code{name = value} pairs.}
 
-\item{document}{(\code{teal_document})}
+\item{card}{(\code{card})}
 
 \item{code}{(\code{character}, \code{language}) optional code to reproduce the datasets provided in \code{...}.
 Note this code is not executed and the \code{teal_data} may not be reproducible

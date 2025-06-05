@@ -90,7 +90,7 @@ testthat::test_that("get_blocks and get_cards return empty list by default", {
 
 testthat::test_that("The deep copy constructor copies the content files to new files", {
   testthat::skip_if_not_installed("ggplot2")
-  card <- teal_document(ggplot2::ggplot(iris))
+  card <- card(ggplot2::ggplot(iris))
   reporter <- Reporter$new()$append_cards(card)
   reporter_copy <- reporter$clone(deep = TRUE)
   original_content_file <- reporter$get_blocks()
@@ -243,13 +243,13 @@ testthat::describe("to_jsondir", {
 })
 
 testthat::describe("reorder_cards", {
-  card1 <- teal_document("# Section 1")
+  card1 <- card("# Section 1")
   metadata(card1, "title") <- "Card1"
-  card2 <- teal_document("# Section A")
+  card2 <- card("# Section A")
   metadata(card2, "title") <- "Card2"
-  card3 <- teal_document("# Section I")
+  card3 <- card("# Section I")
   metadata(card3, "title") <- "Card3"
-  card4 <- teal_document("# Section i")
+  card4 <- card("# Section i")
   metadata(card4, "title") <- "Card4"
 
 
@@ -288,4 +288,47 @@ testthat::describe("reorder_cards", {
     names_after <- names(reporter$get_cards())
     testthat::expect_equal(names_after, c(rev(names_before), setdiff(names_after, names_before)))
   })
+})
+
+testthat::test_that("Reporter class works", {
+  reporter <- Reporter$new()
+  testthat::expect_r6(reporter, "Reporter")
+  testthat::expect_length(reporter$get_cards(), 0)
+  testthat::expect_equal(reporter$n_cards(), 0)
+  testthat::expect_equal(reporter$card_names(), NULL)
+
+  # Test appending a card
+  card <- card(ggplot2::ggplot(iris))
+  reporter$append_cards(card)
+  testthat::expect_length(reporter$get_cards(), 1)
+  testthat::expect_equal(reporter$n_cards(), 1)
+  testthat::expect_length(reporter$card_names(), 1)
+
+  # Test appending multiple cards
+  card1 <- card("# Section 1")
+  card2 <- card("# Section A")
+  reporter$append_cards(list(card1, card2))
+  testthat::expect_length(reporter$get_cards(), 3)
+  testthat::expect_equal(reporter$n_cards(), 3)
+  testthat::expect_length(reporter$card_names(), 3)
+
+  # Test reordering cards
+  card3 <- card("# Section I")
+  card4 <- card("# Section i")
+  reporter$append_cards(list(card3, card4))
+  testthat::expect_length(reporter$get_cards(), 5)
+  testthat::expect_equal(reporter$n_cards(), 5)
+  testthat::expect_length(reporter$card_names(), 5)
+
+  # Test removing cards
+  reporter$remove_cards(c(1, 3))
+  testthat::expect_length(reporter$get_cards(), 3)
+  testthat::expect_equal(reporter$n_cards(), 3)
+  testthat::expect_length(reporter$card_names(), 3)
+
+  # Test resetting reporter
+  reporter$reset()
+  testthat::expect_length(reporter$get_cards(), 0)
+  testthat::expect_equal(reporter$n_cards(), 0)
+  testthat::expect_equal(reporter$card_names(), NULL)
 })

@@ -1,6 +1,6 @@
 create_test_reporter <- function(n_cards = 2) {
   cards <- lapply(seq_len(n_cards), function(i) {
-    new_doc <- teal.reporter::teal_document(sprintf("Card %d", i))
+    new_doc <- teal.reporter::card(sprintf("Card %d", i))
     metadata(new_doc, "title") <- sprintf("Card %d Title", i)
     new_doc
   })
@@ -150,4 +150,12 @@ start_reporter_preview_app <- function(name) {
 
   app$wait_for_idle()
   app
+}
+
+add_cards_to_reporter <- function(reporter, n = 1) {
+  for (i in seq_len(n)) {
+    new_doc <- teal.reporter::card(sprintf("Card %d", i))
+    reporter$append_cards(new_doc)
+  }
+  reporter
 }

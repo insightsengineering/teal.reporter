@@ -35,7 +35,7 @@ Access or modify with \code{\link[=join_keys]{join_keys()}}.}
 proven to yield contents of \verb{@.xData}.
 Used internally. See \code{\link[=verify]{verify()}} for more details.}
 
-\item{\code{document}}{(\code{teal_document})}
+\item{\code{card}}{(\code{card})}
 }}
 
 \section{Code}{

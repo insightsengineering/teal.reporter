@@ -55,9 +55,11 @@ reference:
       - doc
       - ReportCard
       - Reporter
-  - title: "Utility functions for `teal_document` object"
+  - title: "Utility functions for `card` object"
     contents:
-      - code_chunk
-      - keep_in_report
+      - card
+      - edit_card
+      - as.card
       - metadata
-      - "metadata<-"
+      - keep_in_report
+      - code_chunk

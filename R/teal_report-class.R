@@ -1,4 +1,4 @@
-setOldClass("teal_document")
+setOldClass("card")
 
 #' Reproducible report
 #'
@@ -27,7 +27,7 @@ setOldClass("teal_document")
 #' @slot verified (`logical(1)`) flag signifying that code in `@code` has been
 #'  proven to yield contents of `@.xData`.
 #'  Used internally. See [`verify()`] for more details.
-#' @slot document (`teal_document`)
+#' @slot card (`card`)
 #'
 #' @inheritSection teal.data::`teal_data-class` Code
 #'
@@ -37,7 +37,7 @@ setOldClass("teal_document")
 setClass(
   Class = "teal_report",
   contains = "teal_data",
-  slots = c(document = "teal_document")
+  slots = c(card = "card")
 )
 
 
@@ -49,13 +49,13 @@ setClass(
 setMethod(
   "initialize",
   "teal_report",
-  function(.Object, document = teal_document(), ...) { # nolint: object_name.
+  function(.Object, card = card(), ...) { # nolint: object_name.
     args <- list(...)
-    checkmate::assert_class(document, "teal_document")
+    checkmate::assert_class(card, "card")
     checkmate::assert_list(args, names = "named")
     methods::callNextMethod(
       .Object,
-      document = document,
+      card = card,
       ...
     )
   }
@@ -70,7 +70,7 @@ setMethod(
 #' Initializes a reportable data for `teal` application.
 #'
 #' @inheritParams teal.data::teal_data
-#' @param document (`teal_document`)
+#' @param card (`card`)
 #' @return A `teal_report` object.
 #'
 #' @seealso [`teal.data::teal_data`]
@@ -81,13 +81,13 @@ setMethod(
 #' teal_report(x1 = iris, x2 = mtcars)
 #'
 teal_report <- function(...,
-                        document = teal_document(),
-                        code = character(0),
-                        join_keys = teal.data::join_keys()) {
+                         card = card(),
+                         code = character(0),
+                         join_keys = teal.data::join_keys()) {
   methods::new(
     "teal_report",
     .xData = list2env(list(...)),
-    document = document,
+    card = card,
     join_keys = join_keys,
     code = code
   )
@@ -103,8 +103,8 @@ as.teal_report <- function(x) {
   for (slot_name in slotNames(x)) {
     slot(new_x, slot_name) <- slot(x, slot_name)
   }
-  teal_document(new_x) <- c(
-    teal_document(new_x),
+  card(new_x) <- c(
+    card(new_x),
     code_chunk(teal.code::get_code(new_x))
   )
 
