@@ -30,7 +30,7 @@ setOldClass("doc")
 #' @slot report (`doc`)
 #'
 #' @inheritSection teal.data::`teal_data-class` Code
-#'
+#' @importFrom teal.data teal_data
 #' @keywords internal
 setClass(
   Class = "teal_report",
