@@ -2,12 +2,9 @@
 % Please edit documentation in R/doc.R
 \name{code_chunk}
 \alias{code_chunk}
-\alias{code_output}
 \title{Generate an R Markdown code chunk}
 \usage{
 code_chunk(code, ...)
-
-code_output(code)
 }
 \arguments{
 \item{code}{A character string containing the R code.}
@@ -16,23 +13,14 @@ code_output(code)
 }
 \value{
 An object of class \code{code_chunk}.
-
-A character string representing a simple Markdown code block.
 }
 \description{
 This function creates a \code{code_chunk} object, which represents an R Markdown
 code chunk. It stores the R code and any specified chunk options (e.g., \code{echo}, \code{eval}).
 These objects are typically processed later to generate the final R Markdown text.
-
-This function takes a character string of R code and wraps it in
-Markdown's triple backticks for code blocks.
 }
 \examples{
 my_chunk <- code_chunk("x <- 1:10", echo = TRUE, message = FALSE)
 class(my_chunk)
 attributes(my_chunk)$param
-code_output("y <- rnorm(5)")
-}
-\seealso{
-\code{\link[=code_chunk]{code_chunk()}} for creating structured code chunk objects with options.
 }
