@@ -103,6 +103,8 @@ Collate:
     'teal_report-class.R'
     'teal_report-eval_code.R'
     'teal_report-extract.R'
+    'toHTML.R'
+    'to_rmd.R'
     'utils.R'
     'yaml_utils.R'
     'zzz.R'
