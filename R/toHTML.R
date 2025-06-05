@@ -9,7 +9,7 @@ toHTML.default <- function(x, ...) {
 }
 
 #' @keywords internal
-.toHTML <- function(x, ...) {
+.toHTML <- function(x, ...) { # nolint: object_name
   UseMethod(".toHTML", x)
 }
 

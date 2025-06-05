@@ -18,7 +18,7 @@ to_rmd(block, output_dir, ...)
 This is an S3 generic that is used to generate content in \code{rmarkdown} format
 from various types of blocks in a \code{ReporterCard} or \code{doc} object.
 }
-\details{
+\section{Customise \code{to_rmd}}{
 The methods for this S3 generic can be extended by the app developer or even overwritten.
 For this a function with the name \verb{to_rmd.<class>} should be defined in the
 Global Environment, where \verb{<class>} is the class of the object to be converted.
@@ -33,4 +33,5 @@ For example, to override the default behavior for \code{code_chunk} class, you c
 
 Alternatively, you can register the S3 method using \code{registerS3method("to_rmd", "<class>", fun)}
 }
+
 \keyword{internal}
