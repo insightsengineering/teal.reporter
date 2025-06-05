@@ -47,7 +47,9 @@
 #'
 #' @export
 teal_document <- function(x, ...) {
-  if (inherits(x, "teal_report")) {
+  if (missing(x)) {
+    structure(list(), class = "teal_document")
+  } else if (inherits(x, "teal_report")) {
     x@document
   } else {
     objects <- list(x, ...)
