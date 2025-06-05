@@ -42,12 +42,12 @@ toHTML.default <- function(x, ...) {
 .toHTML.TextBlock <- function(x, ...) {
   b_content <- x$get_content()
   switch(x$get_style(),
-         header1 = shiny::tags$h1(b_content),
-         header2 = shiny::tags$h2(b_content),
-         header3 = shiny::tags$h3(b_content),
-         header4 = shiny::tags$h4(b_content),
-         verbatim = shiny::tags$pre(b_content),
-         shiny::tags$pre(b_content)
+    header1 = shiny::tags$h1(b_content),
+    header2 = shiny::tags$h2(b_content),
+    header3 = shiny::tags$h3(b_content),
+    header4 = shiny::tags$h4(b_content),
+    verbatim = shiny::tags$pre(b_content),
+    shiny::tags$pre(b_content)
   )
 }
 
