@@ -28,7 +28,6 @@ Imports:
     flextable (>= 0.9.2),
     grid,
     knitr (>= 1.42),
-    lifecycle (>= 0.2.0),
     methods,
     R6,
     rlang (>= 1.0.0),
@@ -54,6 +53,7 @@ Suggests:
     formatters (>= 0.5.10),
     ggplot2 (>= 3.4.3),
     lattice (>= 0.18-4),
+    lifecycle (>= 0.2.0),
     png,
     shinytest2,
     testthat (>= 3.2.2),
@@ -63,8 +63,6 @@ Suggests:
 VignetteBuilder:
     knitr,
     rmarkdown
-RdMacros:
-    lifecycle
 Remotes:
     insightsengineering/teal.code@teal_reportable,
     insightsengineering/teal.data@teal_reportable
