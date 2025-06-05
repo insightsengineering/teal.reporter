@@ -12,7 +12,7 @@ setMethod(
     if (length(new_code)) {
       card(new_object) <- c(
         card(object),
-        do.call(code_chunk, args = c(list(code = new_code), code_block_opts)), # todo: keep_output is an attribute of a code chunk
+        do.call(code_chunk, args = c(list(code = new_code), code_block_opts)), # TODO: cache an attribute of code chunk
         attr(new_object@code[[length(new_object@code)]], "output")
       )
     }

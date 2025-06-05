@@ -29,7 +29,7 @@ No setter provided. Evaluate code to append code to the slot.}
 
 \item{\code{join_keys}}{(\code{join_keys}) object specifying joining keys for data sets in
 \verb{@.xData}.
-Access or modify with \code{\link[=join_keys]{join_keys()}}.}
+Access or modify with \code{\link[teal.data:join_keys]{teal.data::join_keys()}}.}
 
 \item{\code{verified}}{(\code{logical(1)}) flag signifying that code in \verb{@code} has been
 proven to yield contents of \verb{@.xData}.

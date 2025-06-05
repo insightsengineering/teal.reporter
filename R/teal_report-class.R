@@ -23,7 +23,7 @@ setOldClass("card")
 #'  No setter provided. Evaluate code to append code to the slot.
 #' @slot join_keys (`join_keys`) object specifying joining keys for data sets in
 #' `@.xData`.
-#'  Access or modify with [join_keys()].
+#'  Access or modify with [teal.data::join_keys()].
 #' @slot verified (`logical(1)`) flag signifying that code in `@code` has been
 #'  proven to yield contents of `@.xData`.
 #'  Used internally. See [`verify()`] for more details.
@@ -71,7 +71,7 @@ setMethod(
 #' Initializes a reportable data for `teal` application.
 #'
 #' @inheritParams teal.data::teal_data
-#' @param card (`card`)
+#' @param card (`card`) object containing the report content.
 #' @return A `teal_report` object.
 #'
 #' @seealso [`teal.data::teal_data`]
@@ -80,7 +80,6 @@ setMethod(
 #'
 #' @examples
 #' teal_report(x1 = iris, x2 = mtcars)
-#'
 teal_report <- function(...,
                          card = NULL,
                          code = character(0),
@@ -95,15 +94,17 @@ teal_report <- function(...,
   )
 }
 
+#' @rdname teal_report
+#' @param x (`qenv` or `teal_data`) object to convert to `teal_report`.
 #' @export
-as.teal_report <- function(x) {
+as.teal_report <- function(x) { # nolint: object_name.
   checkmate::assert_class(x, "qenv")
   if (inherits(x, "teal_report")) {
     return(x)
   }
   new_x <- teal_report()
-  for (slot_name in slotNames(x)) {
-    slot(new_x, slot_name) <- slot(x, slot_name)
+  for (slot_name in methods::slotNames(x)) {
+    methods::slot(new_x, slot_name) <- methods::slot(x, slot_name)
   }
   card(new_x) <- c(
     card(new_x),

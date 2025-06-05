@@ -82,7 +82,7 @@ as.card <- function(x) {
     return(do.call(card, x))
   }
   card(x)
-} 
+}
 
 #' @rdname card
 #' @export
@@ -90,7 +90,7 @@ c.card <- function(...) {
   dots <- list(...)
   structure(
     Reduce(
-      f = function(u, v) append(u, if (inherits(v, "card")) v else list(v)),
+      f = function(u, v) append(u, if (inherits(v, "card") || inherits(v, "list")) v else list(v)),
       x = dots[-1],
       init = unclass(dots[[1]]) # unclass to avoid infinite recursion
     ),
@@ -260,4 +260,4 @@ code_chunk <- function(code, ...) {
 keep_in_report <- function(object, keep = TRUE) {
   attr(object, "keep") <- keep
   object
-} 
+}

@@ -176,7 +176,10 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @examples
     #' ReportCard$new()$set_name("NAME")$get_name()
     set_name = function(name) {
-      checkmate::assert_character(name)
+      checkmate::assert_character(name, null.ok = TRUE)
+      if (is.null(name)) {
+        name <- character(0L)
+      }
       private$name <- name
       invisible(self)
     },

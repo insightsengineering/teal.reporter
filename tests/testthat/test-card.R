@@ -116,4 +116,4 @@ testthat::test_that("edit_card preserves attributes", {
   attr(doc, "test") <- "test"
   edited_doc <- edit_card(doc, append = "b")
   testthat::expect_equal(attr(edited_doc, "test"), "test")
-}) 
+})
