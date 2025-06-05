@@ -9,10 +9,10 @@ content_to_rmd <- function(content, output_dir, ..., include_results) {
   }
 }
 
-#' Convert `ReporterCard`/`doc` content to `rmarkdown`
+#' Convert `ReporterCard`/`card` content to `rmarkdown`
 #'
 #' This is an S3 generic that is used to generate content in `rmarkdown` format
-#' from various types of blocks in a `ReporterCard` or `doc` object.
+#' from various types of blocks in a `ReporterCard` or `card` object.
 #'
 #' # Customise `to_rmd`
 #' The methods for this S3 generic can be extended by the app developer or even overwritten.
