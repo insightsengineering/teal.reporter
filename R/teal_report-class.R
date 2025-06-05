@@ -49,8 +49,9 @@ setClass(
 setMethod(
   "initialize",
   "teal_report",
-  function(.Object, card = card(), ...) { # nolint: object_name.
+  function(.Object, card = NULL, ...) { # nolint: object_name.
     args <- list(...)
+    if (is.null(card)) card <- teal.reporter::card()
     checkmate::assert_class(card, "card")
     checkmate::assert_list(args, names = "named")
     methods::callNextMethod(
@@ -81,9 +82,10 @@ setMethod(
 #' teal_report(x1 = iris, x2 = mtcars)
 #'
 teal_report <- function(...,
-                         card = card(),
+                         card = NULL,
                          code = character(0),
                          join_keys = teal.data::join_keys()) {
+  if (is.null(card)) card <- teal.reporter::card()
   methods::new(
     "teal_report",
     .xData = list2env(list(...)),
