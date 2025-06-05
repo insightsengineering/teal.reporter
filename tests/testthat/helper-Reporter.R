@@ -1,7 +1,8 @@
-test_card1.ReportCard <- function() { # nolint: object_name.
+test_card1.ReportCard <- function(title = NULL) { # nolint: object_name.
   testthat::skip_if_not_installed("ggplot2")
   card <- ReportCard$new()
 
+  metadata(card, "title") <- title
   card$append_text("Header 2 text", "header2")
   card$append_text("A paragraph of default text", "header2")
   card$append_plot(
@@ -12,8 +13,9 @@ test_card1.ReportCard <- function() { # nolint: object_name.
 }
 
 test_card2.ReportCard <- local({ # nolint: object_name.
-  fun <- function() {
+  fun <- function(title = NULL) {
     card <- ReportCard$new()
+    metadata(card, "title") <- title
 
     card$append_text("Header 2 text", "header2")
     card$append_text("A paragraph of default text", "header2")
@@ -23,8 +25,8 @@ test_card2.ReportCard <- local({ # nolint: object_name.
     card$append_table(iris)
   }
   cache <- NULL
-  function() {
-    if (is.null(cache)) cache <<- fun()
+  function(title = NULL) {
+    if (is.null(cache)) cache <<- fun(title = title)
     cache$clone()
   }
 })
@@ -33,7 +35,7 @@ test_card1 <- function(title = NULL) {
   withr::with_environment(emptyenv(), plot <- ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
     ggplot2::geom_histogram(binwidth = 0.2))
   new_card <- doc("## Header 2 text", "A paragraph of default text", plot)
-  new_card <- report_document("## Header 2 text", "A paragraph of default text", plot)
+  new_card <- doc("## Header 2 text", "A paragraph of default text", plot)
   if (!is.null(title)) metadata(new_card, "title") <- title
   new_card
 }
