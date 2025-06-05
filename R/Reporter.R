@@ -215,9 +215,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         }
         title <- trimws(metadata(card, "title"))
         card_title <- if (length(title) > 0 && nzchar(title)) {
-          doc(sprintf("# %s", title))
+          teal_document(sprintf("# %s", title))
         } else {
-          doc(sprintf("# _Unnamed Card (%d)_", idx))
+          teal_document(sprintf("# _Unnamed Card (%d)_", idx))
         }
         card_with_title <- c(card_title, card)
         blocks <- append(blocks, unclass(card_with_title))

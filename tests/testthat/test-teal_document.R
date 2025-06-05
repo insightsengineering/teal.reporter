@@ -64,7 +64,7 @@ testthat::describe("c.teal_document combines with", {
 
 testthat::test_that("[.teal_document subsets and retains class", {
   doc <- teal_document("a", "b", "c", "d")
-  sub_doc <- doc[c(1, 3)]
+  sub_doc <- teal_document[c(1, 3)]
   testthat::expect_s3_class(sub_doc, "teal_document")
   testthat::expect_length(sub_doc, 2)
   testthat::expect_equal(sub_doc[[1]], "a")
@@ -76,7 +76,7 @@ testthat::test_that("[.teal_document subsets and retains class", {
 })
 
 testthat::test_that("edit_teal_document modifies elements", {
-  doc <- doc("a", "b", "c")
+  doc <- teal_document("a", "b", "c")
   edited_doc <- edit_teal_document(doc, modify = c(3, 1))
   testthat::expect_s3_class(edited_doc, "doc")
   testthat::expect_length(edited_doc, 2)
@@ -85,7 +85,7 @@ testthat::test_that("edit_teal_document modifies elements", {
 })
 
 testthat::test_that("edit_teal_document appends elements", {
-  doc <- doc("a", "b")
+  doc <- teal_document("a", "b")
   edited_doc <- edit_teal_document(doc, append = "c")
   testthat::expect_s3_class(edited_doc, "doc")
   testthat::expect_length(edited_doc, 3)
@@ -100,7 +100,7 @@ testthat::test_that("edit_teal_document appends elements", {
 })
 
 testthat::test_that("edit_teal_document modifies and appends", {
-  doc <- doc("a", "b", "c", "d")
+  doc <- teal_document("a", "b", "c", "d")
   edited_doc <- edit_teal_document(doc, modify = c(4, 1), append = "e", after = 1)
   # After modify: doc becomes ("d", "a")
   # After append: doc becomes ("d", "e", "a")
@@ -112,7 +112,7 @@ testthat::test_that("edit_teal_document modifies and appends", {
 })
 
 testthat::test_that("edit_teal_document preserves attributes", {
-  doc <- doc("a")
+  doc <- teal_document("a")
   attr(doc, "custom_attr") <- "test_value"
   edited_doc <- edit_teal_document(doc, append = "b")
   testthat::expect_equal(attributes(edited_doc)$custom_attr, "test_value")
