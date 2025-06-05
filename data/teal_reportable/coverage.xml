@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.692874692874693" branch-rate="0" lines-covered="1128" lines-valid="1628" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2025-06-05 14:46:41.600533">
+<coverage line-rate="0.692874692874693" branch-rate="0" lines-covered="1128" lines-valid="1628" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2025-06-05 16:29:31.521476">
   <sources>
     <source>/__w/teal.reporter/teal.reporter/teal.reporter</source>
   </sources>
@@ -3939,25 +3939,24 @@
           <methods>
             <method name="teal_report" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
+                <line number="51" hits="0" branch="false"/>
+                <line number="52" hits="0" branch="false"/>
                 <line number="53" hits="0" branch="false"/>
                 <line number="54" hits="0" branch="false"/>
                 <line number="55" hits="0" branch="false"/>
                 <line number="56" hits="0" branch="false"/>
                 <line number="57" hits="0" branch="false"/>
                 <line number="58" hits="0" branch="false"/>
-                <line number="59" hits="0" branch="false"/>
-                <line number="60" hits="0" branch="false"/>
+                <line number="84" hits="0" branch="false"/>
+                <line number="85" hits="0" branch="false"/>
                 <line number="86" hits="0" branch="false"/>
                 <line number="87" hits="0" branch="false"/>
                 <line number="88" hits="0" branch="false"/>
                 <line number="89" hits="0" branch="false"/>
                 <line number="90" hits="0" branch="false"/>
-                <line number="91" hits="0" branch="false"/>
-                <line number="92" hits="0" branch="false"/>
-                <line number="5" hits="0" branch="false"/>
                 <line number="6" hits="0" branch="false"/>
                 <line number="7" hits="0" branch="false"/>
-                <line number="9" hits="0" branch="false"/>
+                <line number="8" hits="0" branch="false"/>
                 <line number="10" hits="0" branch="false"/>
                 <line number="11" hits="0" branch="false"/>
                 <line number="12" hits="0" branch="false"/>
@@ -3966,77 +3965,77 @@
                 <line number="15" hits="0" branch="false"/>
                 <line number="16" hits="0" branch="false"/>
                 <line number="17" hits="0" branch="false"/>
-                <line number="19" hits="0" branch="false"/>
+                <line number="18" hits="0" branch="false"/>
+                <line number="20" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="as.teal_report" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
+                <line number="97" hits="0" branch="false"/>
+                <line number="98" hits="0" branch="false"/>
                 <line number="99" hits="0" branch="false"/>
-                <line number="100" hits="0" branch="false"/>
                 <line number="101" hits="0" branch="false"/>
+                <line number="102" hits="0" branch="false"/>
                 <line number="103" hits="0" branch="false"/>
-                <line number="104" hits="0" branch="false"/>
                 <line number="105" hits="0" branch="false"/>
+                <line number="106" hits="0" branch="false"/>
                 <line number="107" hits="0" branch="false"/>
                 <line number="108" hits="0" branch="false"/>
-                <line number="109" hits="0" branch="false"/>
                 <line number="110" hits="0" branch="false"/>
-                <line number="112" hits="0" branch="false"/>
               </lines>
             </method>
           </methods>
           <lines>
+            <line number="51" hits="0" branch="false"/>
+            <line number="52" hits="0" branch="false"/>
             <line number="53" hits="0" branch="false"/>
             <line number="54" hits="0" branch="false"/>
             <line number="55" hits="0" branch="false"/>
             <line number="56" hits="0" branch="false"/>
             <line number="57" hits="0" branch="false"/>
             <line number="58" hits="0" branch="false"/>
-            <line number="59" hits="0" branch="false"/>
-            <line number="60" hits="0" branch="false"/>
+            <line number="84" hits="0" branch="false"/>
+            <line number="85" hits="0" branch="false"/>
             <line number="86" hits="0" branch="false"/>
             <line number="87" hits="0" branch="false"/>
             <line number="88" hits="0" branch="false"/>
             <line number="89" hits="0" branch="false"/>
             <line number="90" hits="0" branch="false"/>
-            <line number="91" hits="0" branch="false"/>
-            <line number="92" hits="0" branch="false"/>
+            <line number="97" hits="0" branch="false"/>
+            <line number="98" hits="0" branch="false"/>
             <line number="99" hits="0" branch="false"/>
-            <line number="100" hits="0" branch="false"/>
             <line number="101" hits="0" branch="false"/>
+            <line number="102" hits="0" branch="false"/>
             <line number="103" hits="0" branch="false"/>
-            <line number="104" hits="0" branch="false"/>
             <line number="105" hits="0" branch="false"/>
+            <line number="106" hits="0" branch="false"/>
             <line number="107" hits="0" branch="false"/>
             <line number="108" hits="0" branch="false"/>
-            <line number="109" hits="0" branch="false"/>
             <line number="110" hits="0" branch="false"/>
-            <line number="112" hits="0" branch="false"/>
           </lines>
         </class>
         <class name="teal_report-eval_code.R" filename="R/teal_report-eval_code.R" line-rate="0" branch-rate="0" complexity="0">
           <methods>
             <method name="teal_report" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
+                <line number="51" hits="0" branch="false"/>
+                <line number="52" hits="0" branch="false"/>
                 <line number="53" hits="0" branch="false"/>
                 <line number="54" hits="0" branch="false"/>
                 <line number="55" hits="0" branch="false"/>
                 <line number="56" hits="0" branch="false"/>
                 <line number="57" hits="0" branch="false"/>
                 <line number="58" hits="0" branch="false"/>
-                <line number="59" hits="0" branch="false"/>
-                <line number="60" hits="0" branch="false"/>
+                <line number="84" hits="0" branch="false"/>
+                <line number="85" hits="0" branch="false"/>
                 <line number="86" hits="0" branch="false"/>
                 <line number="87" hits="0" branch="false"/>
                 <line number="88" hits="0" branch="false"/>
                 <line number="89" hits="0" branch="false"/>
                 <line number="90" hits="0" branch="false"/>
-                <line number="91" hits="0" branch="false"/>
-                <line number="92" hits="0" branch="false"/>
-                <line number="5" hits="0" branch="false"/>
                 <line number="6" hits="0" branch="false"/>
                 <line number="7" hits="0" branch="false"/>
-                <line number="9" hits="0" branch="false"/>
+                <line number="8" hits="0" branch="false"/>
                 <line number="10" hits="0" branch="false"/>
                 <line number="11" hits="0" branch="false"/>
                 <line number="12" hits="0" branch="false"/>
@@ -4045,15 +4044,15 @@
                 <line number="15" hits="0" branch="false"/>
                 <line number="16" hits="0" branch="false"/>
                 <line number="17" hits="0" branch="false"/>
-                <line number="19" hits="0" branch="false"/>
+                <line number="18" hits="0" branch="false"/>
+                <line number="20" hits="0" branch="false"/>
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="5" hits="0" branch="false"/>
             <line number="6" hits="0" branch="false"/>
             <line number="7" hits="0" branch="false"/>
-            <line number="9" hits="0" branch="false"/>
+            <line number="8" hits="0" branch="false"/>
             <line number="10" hits="0" branch="false"/>
             <line number="11" hits="0" branch="false"/>
             <line number="12" hits="0" branch="false"/>
@@ -4062,7 +4061,8 @@
             <line number="15" hits="0" branch="false"/>
             <line number="16" hits="0" branch="false"/>
             <line number="17" hits="0" branch="false"/>
-            <line number="19" hits="0" branch="false"/>
+            <line number="18" hits="0" branch="false"/>
+            <line number="20" hits="0" branch="false"/>
           </lines>
         </class>
         <class name="teal_report-extract.R" filename="R/teal_report-extract.R" line-rate="0" branch-rate="0" complexity="0">
@@ -4336,7 +4336,7 @@
         </class>
         <class name="to_rmd.R" filename="R/to_rmd.R" line-rate="0.495934959349593" branch-rate="0" complexity="0">
           <methods>
-            <method name="content_to_rmd" signature="" line-rate="1" branch-rate="0" complexity="0">
+            <method name=".to_rmd.trellis" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="2" hits="6" branch="false"/>
                 <line number="3" hits="3" branch="false"/>
