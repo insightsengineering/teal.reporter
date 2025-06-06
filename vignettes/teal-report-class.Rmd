@@ -78,27 +78,25 @@ library(teal.code)
 report <- teal_report(iris = iris)
 
 # Add computed results using eval_code
-report <- eval_code(report, {
+report <- eval_code(report, "
   # Compute summary statistics
   iris_summary <- summary(iris)
   
   # Create a simple model
   model <- lm(Sepal.Length ~ Sepal.Width, data = iris)
   model_summary <- summary(model)
-})
+")
 
 # The code is automatically tracked
-get_code(report)
+cat(get_code(report))
 
 # Create a card with the results
 results_card <- teal_card(
   "## Statistical Analysis",
   "### Summary Statistics",
   code_chunk("print(iris_summary)", echo = TRUE),
-  "",
   "### Linear Model Results", 
   paste("**R-squared:**", round(report[["model_summary"]]$r.squared, 3)),
-  "",
   "### Reproducible Code",
   code_chunk(get_code(report), echo = TRUE, eval = FALSE)
 )
@@ -133,10 +131,16 @@ tm_simple_regression <- function(label = "Simple Regression") {
       report_data <- as.teal_report(data())
         
       # Add computed analysis using eval_code
-      report_data <- eval_code(report_data, {
-        # Compute correlation
-        correlation <- cor(iris[[input$x_var]], iris[[input$y_var]])
-      })
+      report_data <- eval_code(
+        report_data, 
+        sprintf(
+          "# Compute correlation
+            correlation <- cor(iris[['%s']], iris[['%s']])
+          ", 
+          input$x_var, 
+          input$y_var
+        )
+      )
         
       # Create a card with the analysis
       analysis_card <- teal_card(
