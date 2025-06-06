@@ -48,12 +48,12 @@ setMethod(
   "teal_report",
   function(.Object, teal_card = NULL, ...) { # nolint: object_name.
     args <- list(...)
-    if (is.null(card)) card <- teal_card()
-    checkmate::assert_class(card, "teal_card")
+    if (is.null(teal_card)) teal_card <- teal_card()
+    checkmate::assert_class(teal_card, "teal_card")
     checkmate::assert_list(args, names = "named")
     methods::callNextMethod(
       .Object,
-      teal_card = card,
+      teal_card = teal_card,
       ...
     )
   }
