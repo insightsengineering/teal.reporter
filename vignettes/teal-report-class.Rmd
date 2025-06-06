@@ -1,0 +1,222 @@
+---
+title: "teal_report Class"
+author: "NEST CoreDev"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{teal_report Class}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+library(teal.reporter)
+```
+
+## Introduction
+
+The `teal_report` class in `teal.reporter` provides a powerful way to create reproducible reports within teal applications. 
+
+The `teal_report` class is built on top of [`teal_data`](https://insightsengineering.github.io/teal.data/latest-tag/articles/teal-data.html), inheriting all its reproducibility and code-tracking capabilities while adding reporting-specific functionality through `teal_card`.
+
+This vignette shows you how to use `teal_report` and `teal_card` to enhance your teal modules with reporting capabilities.
+
+## Creating a teal_report
+
+Creating a `teal_report` is straightforward - you can include your data and it automatically tracks the code needed to reproduce your analysis:
+
+```{r basic-usage}
+library(teal.reporter)
+
+# Create a teal_report with data
+report <- teal_report(
+  iris = iris,
+  mtcars = mtcars
+)
+
+# You can also start with an empty report
+empty_report <- teal_report()
+```
+
+## Working with teal_card
+
+The `teal_card` is where your report content lives. You can create cards with text, code, results, and any other content:
+
+```{r teal-card-basics}
+# Create a simple card
+card <- teal_card(
+  "## My Analysis",
+  "This analysis looks at the iris dataset.",
+  summary(iris)
+)
+
+# Add more content to an existing card
+card <- c(card, list(
+  "### Conclusion", 
+  "The data shows interesting patterns."
+))
+
+# Add the card to a report
+report <- teal_report(iris = iris)
+teal_card(report) <- card
+```
+
+## Adding Computed Results with eval_code
+
+Since `teal_report` inherits from `teal_data`, you can use `eval_code()` to add computed results that are automatically tracked for reproducibility:
+
+```{r eval-code-example}
+library(teal.code)
+
+# Start with a teal_report
+report <- teal_report(iris = iris)
+
+# Add computed results using eval_code
+report <- eval_code(report, {
+  # Compute summary statistics
+  iris_summary <- summary(iris)
+  
+  # Create a simple model
+  model <- lm(Sepal.Length ~ Sepal.Width, data = iris)
+  model_summary <- summary(model)
+})
+
+# The code is automatically tracked
+get_code(report)
+
+# Create a card with the results
+results_card <- teal_card(
+  "## Statistical Analysis",
+  "### Summary Statistics",
+  code_chunk("print(iris_summary)", echo = TRUE),
+  "",
+  "### Linear Model Results", 
+  paste("**R-squared:**", round(report[["model_summary"]]$r.squared, 3)),
+  "",
+  "### Reproducible Code",
+  code_chunk(get_code(report), echo = TRUE, eval = FALSE)
+)
+
+# Add to the report
+teal_card(report) <- results_card
+```
+
+## Simple Regression Module Example
+
+Here's a practical example of how to create a simple teal module that uses `teal_report` for reporting:
+
+```{r simple-module}
+library(teal)
+library(teal.reporter)
+
+tm_simple_regression <- function(label = "Simple Regression") {
+  module(
+    label = label,
+    server = function(input, output, session, data, reporter, ...) {
+      
+      # Create the plot
+      output$plot <- renderPlot({
+        req(input$x_var, input$y_var)
+        dataset <- data()[["iris"]]
+        plot(dataset[[input$x_var]], dataset[[input$y_var]],
+             xlab = input$x_var, ylab = input$y_var,
+             main = paste("Plot of", input$y_var, "vs", input$x_var))
+      })
+      
+      # Create a teal_report from current data
+      report_data <- as.teal_report(data())
+        
+      # Add computed analysis using eval_code
+      report_data <- eval_code(report_data, {
+        # Compute correlation
+        correlation <- cor(iris[[input$x_var]], iris[[input$y_var]])
+      })
+        
+      # Create a card with the analysis
+      analysis_card <- teal_card(
+        "## Simple Regression Analysis",
+        paste("**X Variable:**", input$x_var),
+        paste("**Y Variable:**", input$y_var),
+        paste("**Correlation:**", round(report_data[["correlation"]], 3)),
+        "",
+        "### R Code",
+        code_chunk(c(
+          get_code(report_data),
+          paste0("plot(iris$", input$x_var, ", iris$", input$y_var, ","),
+          paste0('     xlab = "', input$x_var, '", ylab = "', input$y_var, '",'),
+          paste0('     main = "Plot of ', input$y_var, ' vs ', input$x_var, '")')
+        ), echo = TRUE, eval = FALSE)
+      )
+        
+      # Add the card to the report
+      teal_card(report_data) <- c(teal_card(report_data), analysis_card)
+        
+      # Return the report_data object
+      report_data
+    },
+    
+    ui = function(id) {
+      ns <- NS(id)
+      fluidPage(
+        h3("Simple Regression Plot"),
+        fluidRow(
+          column(6,
+            selectInput(ns("x_var"), "X Variable:", 
+                       choices = names(iris)[1:4], selected = "Sepal.Length")
+          ),
+          column(6,
+            selectInput(ns("y_var"), "Y Variable:", 
+                       choices = names(iris)[1:4], selected = "Sepal.Width")
+          )
+        ),
+        plotOutput(ns("plot")),
+        br(),
+        actionButton(ns("add_report"), "Add to Report", 
+                    icon = icon("plus"), class = "btn-primary")
+      )
+    }
+  )
+}
+```
+
+## Using the Module in a teal App
+
+Here's how you would use this module in a complete teal application:
+
+```{r complete-app}
+library(teal)
+library(teal.reporter)
+
+app <- init(
+  data = teal_data(iris = iris),
+  modules = modules(
+    tm_simple_regression("Regression Analysis")
+  ),
+  header = "Simple Teal App with Reporting"
+)
+
+# Run the app
+if (interactive()) {
+  shinyApp(app$ui, app$server)
+}
+```
+
+## Key Benefits
+
+Using `teal_report` in your modules provides several advantages:
+
+1. **Reproducibility**: All analysis code is automatically captured via the underlying `teal_data` infrastructure
+2. **Consistency**: Standardized way to create reports across modules  
+3. **Flexibility**: Easy to add different types of content to reports
+4. **Integration**: Works seamlessly with the teal reporter infrastructure
+5. **Code Tracking**: Inherited `eval_code()` functionality ensures all computations are reproducible
+
+## Further Reading
+
+For more details on the underlying `teal_data` functionality, see the [Introduction to teal.data](https://insightsengineering.github.io/teal.data/latest-tag/articles/teal-data.html). 
