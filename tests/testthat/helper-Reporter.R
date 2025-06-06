@@ -64,4 +64,3 @@ test_reporter <- function(card1 = test_card1(), card2 = test_card2(), ...) {
   reporter$append_cards(new_cards)
   reporter
 }
-
