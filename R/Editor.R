@@ -261,7 +261,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
       card_r(),
       once = TRUE,
       handlerExpr = {
-        if (!inherits(card_r(), "doc")) {
+        if (!inherits(card_r(), "teal_card")) {
           shiny::removeUI(sprintf("#%s", session$ns("edit_action")))
         }
       }

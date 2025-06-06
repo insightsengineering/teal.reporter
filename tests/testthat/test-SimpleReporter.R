@@ -45,7 +45,7 @@ testthat::test_that("simple_reporter_srv - add a Card (ReportCard) to Reporter",
   )
 })
 
-testthat::test_that("simple_reporter_srv - add a Card (doc) to Reporter", {
+testthat::test_that("simple_reporter_srv - add a Card (teal_card) to Reporter", {
   shiny::testServer(
     simple_reporter_srv,
     args = list(reporter = Reporter$new(), card_fun = test_card1),

@@ -2,7 +2,7 @@
 % Please edit documentation in R/to_rmd.R
 \name{to_rmd}
 \alias{to_rmd}
-\title{Convert \code{ReporterCard}/\code{doc} content to \code{rmarkdown}}
+\title{Convert \code{ReporterCard}/\code{teal_card} content to \code{rmarkdown}}
 \usage{
 to_rmd(block, output_dir, ...)
 }
@@ -16,7 +16,7 @@ to_rmd(block, output_dir, ...)
 }
 \description{
 This is an S3 generic that is used to generate content in \code{rmarkdown} format
-from various types of blocks in a \code{ReporterCard} or \code{doc} object.
+from various types of blocks in a \code{ReporterCard} or \code{teal_card} object.
 }
 \section{Customise \code{to_rmd}}{
 The methods for this S3 generic can be extended by the app developer or even overwritten.

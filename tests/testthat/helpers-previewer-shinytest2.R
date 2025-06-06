@@ -1,6 +1,6 @@
 create_test_reporter <- function(n_cards = 2) {
   cards <- lapply(seq_len(n_cards), function(i) {
-    new_doc <- teal.reporter::doc(sprintf("Card %d", i))
+    new_doc <- teal.reporter::teal_card(sprintf("Card %d", i))
     metadata(new_doc, "title") <- sprintf("Card %d Title", i)
     new_doc
   })
