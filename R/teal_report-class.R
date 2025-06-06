@@ -48,7 +48,7 @@ setMethod(
   "teal_report",
   function(.Object, card = NULL, ...) { # nolint: object_name.
     args <- list(...)
-    if (is.null(card)) card <- teal.reporter::card()
+    if (is.null(card)) card <- card()
     checkmate::assert_class(card, "card")
     checkmate::assert_list(args, names = "named")
     methods::callNextMethod(
