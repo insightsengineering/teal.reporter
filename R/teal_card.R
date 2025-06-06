@@ -84,7 +84,7 @@ as.teal_card <- function(x) {
   teal_card(x)
 }
 
-#' @rdname card
+#' @rdname teal_card
 #' @export
 c.teal_card <- function(...) {
   dots <- list(...)
@@ -99,7 +99,7 @@ c.teal_card <- function(...) {
 }
 
 #' @param i index specifying elements to extract or replace
-#' @rdname card
+#' @rdname teal_card
 #' @export
 `[.teal_card` <- function(x, i) {
   out <- NextMethod()

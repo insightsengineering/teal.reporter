@@ -101,7 +101,7 @@ Collate:
     'SimpleReporter.R'
     'TableBlock.R'
     'TextBlock.R'
-    'card.R'
+    'teal_card.R'
     'teal.reporter.R'
     'teal_report-class.R'
     'teal_report-eval_code.R'
