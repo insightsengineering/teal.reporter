@@ -26,6 +26,8 @@ edit_teal_card(x, modify = NULL, append = NULL, after = length(x))
 
 \item{...}{Additional elements to include when creating a new \code{teal_card}}
 
+\item{value}{(\code{teal_card}) object to set in the \code{teal_report}.}
+
 \item{i}{index specifying elements to extract or replace}
 
 \item{modify}{An integer vector specifying element indices to extract and reorder.
