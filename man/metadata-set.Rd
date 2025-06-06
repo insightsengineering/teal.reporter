@@ -2,18 +2,18 @@
 % Please edit documentation in R/card.R
 \name{metadata<-}
 \alias{metadata<-}
-\alias{metadata<-.card}
+\alias{metadata<-.teal_card}
 \alias{metadata<-.ReportCard}
-\title{Set metadata for a \code{card} or \code{ReportCard}}
+\title{Set metadata for a \code{teal_card} or \code{ReportCard}}
 \usage{
 metadata(object, which) <- value
 
-\method{metadata}{card}(object, which) <- value
+\method{metadata}{teal_card}(object, which) <- value
 
 \method{metadata}{ReportCard}(object, which) <- value
 }
 \arguments{
-\item{object}{(\code{card} or \code{ReportCard}) The object to modify.}
+\item{object}{(\code{teal_card} or \code{ReportCard}) The object to modify.}
 
 \item{which}{(\code{character}) The name of the metadata field to set.}
 
@@ -23,7 +23,7 @@ metadata(object, which) <- value
 The modified object with updated metadata.
 }
 \description{
-This function allows you to set or modify metadata fields in a \code{card} or \code{ReportCard} object.
+This function allows you to set or modify metadata fields in a \code{teal_card} or \code{ReportCard} object.
 It can be used to add new metadata or update existing fields.
 }
 \details{

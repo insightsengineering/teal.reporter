@@ -9,10 +9,10 @@
   }
 }
 
-#' Convert `ReporterCard`/`card` content to `rmarkdown`
+#' Convert `ReporterCard`/`teal_card` content to `rmarkdown`
 #'
 #' This is an S3 generic that is used to generate content in `rmarkdown` format
-#' from various types of blocks in a `ReporterCard` or `card` object.
+#' from various types of blocks in a `ReporterCard` or `teal_card` object.
 #'
 #' # Customise `to_rmd`
 #' The methods for this S3 generic can be extended by the app developer or even overwritten.

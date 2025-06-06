@@ -183,7 +183,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       private$name <- name
       invisible(self)
     },
-    #' @description Set content block names for compatibility with newer `card`
+    #' @description Set content block names for compatibility with newer `teal_card`
     #' @param new_names (`character`) vector of new names.
     set_content_names = function(new_names) {
       names(private$content) <- new_names

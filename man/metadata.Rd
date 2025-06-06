@@ -2,18 +2,18 @@
 % Please edit documentation in R/card.R
 \name{metadata}
 \alias{metadata}
-\alias{metadata.card}
+\alias{metadata.teal_card}
 \alias{metadata.ReportCard}
-\title{Access metadata from a \code{card} or \code{ReportCard}}
+\title{Access metadata from a \code{teal_card} or \code{ReportCard}}
 \usage{
 metadata(object, which = NULL)
 
-\method{metadata}{card}(object, which = NULL)
+\method{metadata}{teal_card}(object, which = NULL)
 
 \method{metadata}{ReportCard}(object, which = NULL)
 }
 \arguments{
-\item{object}{(\code{card} or \code{ReportCard}) The object from which to extract metadata.}
+\item{object}{(\code{teal_card} or \code{ReportCard}) The object from which to extract metadata.}
 
 \item{which}{(\code{character} or \code{NULL}) The name of the metadata field to extract.}
 }
@@ -21,6 +21,6 @@ metadata(object, which = NULL)
 A list of metadata fields or a specific field if \code{which} is provided.
 }
 \description{
-This function retrieves metadata from a \code{card} or \code{ReportCard} object.
+This function retrieves metadata from a \code{teal_card} or \code{ReportCard} object.
 When \code{which} is \code{NULL}, it returns all metadata fields as a list.
 }

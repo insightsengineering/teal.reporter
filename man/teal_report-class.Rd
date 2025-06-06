@@ -35,7 +35,7 @@ Access or modify with \code{\link[teal.data:join_keys]{teal.data::join_keys()}}.
 proven to yield contents of \verb{@.xData}.
 Used internally. See \code{\link[=verify]{verify()}} for more details.}
 
-\item{\code{card}}{(\code{card})}
+\item{\code{card}}{(\code{teal_card})}
 }}
 
 \keyword{internal}

@@ -1,34 +1,34 @@
-#' @title `card`: An `S3` class for managing `teal` reports
+#' @title `teal_card`: An `S3` class for managing `teal` reports
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' The `card` `S3` class provides functionality to store, manage, edit, and adjust report contents.
+#' The `teal_card` `S3` class provides functionality to store, manage, edit, and adjust report contents.
 #' It enables users to create, manipulate, and serialize report-related data efficiently.
 #'
-#' The `card()` function serves two purposes:
+#' The `teal_card()` function serves two purposes:
 #' 1. When called with a `teal_report` object, it acts as a getter and returns the card slot
-#' 2. When called with other arguments, it creates a new `card` object from those arguments
+#' 2. When called with other arguments, it creates a new `teal_card` object from those arguments
 #'
-#' @return An `S3` `list` of class `card`.
-#' @param x A `teal_report` object to extract card from, or any other object to include in a new `card`
-#' @param ... Additional elements to include when creating a new `card`
+#' @return An `S3` `list` of class `teal_card`.
+#' @param x A `teal_report` object to extract card from, or any other object to include in a new `teal_card`
+#' @param ... Additional elements to include when creating a new `teal_card`
 #' @inheritParams base::append
 #'
-#' @details The `card` class supports `c()` and `x[i]` methods for combining and subsetting elements.
-#' However, these methods only function correctly when the first element is a `card`.
-#' To prepend, reorder, or modify a `card`, use the `edit_card()` function.
+#' @details The `teal_card` class supports `c()` and `x[i]` methods for combining and subsetting elements.
+#' However, these methods only function correctly when the first element is a `teal_card`.
+#' To prepend, reorder, or modify a `teal_card`, use the `edit_teal_card()` function.
 #'
 #' @examples
 #' # Create a new empty card
-#' report <- card()
+#' report <- teal_card()
 #' class(report) # Check the class of the object
 #'
 #' # Create a card with content
-#' report <- card("## Headline", "Some text", summary(iris))
+#' report <- teal_card("## Headline", "Some text", summary(iris))
 #'
 #' # Extract card from a teal_report
-#' tr <- teal_report(card = card("## Title"))
-#' doc <- card(tr)
+#' tr <- teal_report(teal_card = teal_card("## Title"))
+#' doc <- teal_card(tr)
 #'
 #' # Add elements to the report
 #' report <- c(report, list("## Table"), list(summary(mtcars)))
@@ -39,79 +39,79 @@
 #' # Append new elements after the first element
 #' report <- append(report, c(list("## Table 2"), list(summary(mtcars))), after = 1)
 #'
-#' # Verify that the object remains a card
+#' # Verify that the object remains a teal_card
 #' class(report)
 #'
-#' @aliases card
-#' @name card
+#' @aliases teal_card
+#' @name teal_card
 #'
 #' @export
-card <- function(x, ...) {
+teal_card <- function(x, ...) {
   if (missing(x)) {
-    structure(list(), class = "card")
+    structure(list(), class = "teal_card")
   } else if (inherits(x, "teal_report")) {
-    x@card
+    x@teal_card
   } else {
     objects <- list(x, ...)
-    structure(objects, class = "card")
+    structure(objects, class = "teal_card")
   }
 }
 
-#' @rdname card
+#' @rdname teal_card
 #' @export
-`card<-` <- function(x, value) {
+`teal_card<-` <- function(x, value) {
   checkmate::assert_class(x, "teal_report")
-  x@card <- as.card(value)
+  x@teal_card <- as.teal_card(value)
   x
 }
 
-#' Create or coerce to a card
+#' Create or coerce to a teal_card
 #'
-#' This function ensures that input is converted to a card object.
+#' This function ensures that input is converted to a teal_card object.
 #' It accepts various input types and converts them appropriately.
 #'
-#' @param x Object to convert to card
-#' @return A card object
-#' @rdname card
+#' @param x Object to convert to teal_card
+#' @return A teal_card object
+#' @rdname teal_card
 #' @export
-as.card <- function(x) {
-  if (inherits(x, "card")) {
+as.teal_card <- function(x) {
+  if (inherits(x, "teal_card")) {
     return(x)
   }
   if (is.list(x)) {
-    return(do.call(card, x))
+    return(do.call(teal_card, x))
   }
-  card(x)
+  teal_card(x)
 }
 
 #' @rdname card
 #' @export
-c.card <- function(...) {
+c.teal_card <- function(...) {
   dots <- list(...)
   structure(
     Reduce(
-      f = function(u, v) append(u, if (inherits(v, "card") || inherits(v, "list")) v else list(v)),
+      f = function(u, v) append(u, if (inherits(v, "teal_card") || inherits(v, "list")) v else list(v)),
       x = dots[-1],
       init = unclass(dots[[1]]) # unclass to avoid infinite recursion
     ),
-    class = "card"
+    class = "teal_card"
   )
 }
 
 #' @param i index specifying elements to extract or replace
 #' @rdname card
 #' @export
-`[.card` <- function(x, i) {
+`[.teal_card` <- function(x, i) {
   out <- NextMethod()
-  class(out) <- "card"
+  class(out) <- "teal_card"
   out
 }
 
-#' Access metadata from a `card` or `ReportCard`
+#' Access metadata from a `teal_card` or `ReportCard`
 #'
-#' This function retrieves metadata from a `card` or `ReportCard` object.
+#' This function retrieves metadata from a `teal_card` or `ReportCard` object.
 #' When `which` is `NULL`, it returns all metadata fields as a list.
-#' @param object (`card` or `ReportCard`) The object from which to extract metadata.
+#' @param object (`teal_card` or `ReportCard`) The object from which to extract metadata.
 #' @param which (`character` or `NULL`) The name of the metadata field to extract.
 #' @return A list of metadata fields or a specific field if `which` is provided.
 #' @export
@@ -122,7 +122,7 @@ metadata <- function(object, which = NULL) {
 
 #' @rdname metadata
 #' @export
-metadata.card <- function(object, which = NULL) {
+metadata.teal_card <- function(object, which = NULL) {
   metadata <- attr(object, which = "metadata", exact = TRUE)
   result <- metadata %||% list()
   if (is.null(which)) {
@@ -142,11 +142,11 @@ metadata.ReportCard <- function(object, which = NULL) {
   result[[which]]
 }
 
-#' Set metadata for a `card` or `ReportCard`
+#' Set metadata for a `teal_card` or `ReportCard`
 #'
-#' This function allows you to set or modify metadata fields in a `card` or `ReportCard` object.
+#' This function allows you to set or modify metadata fields in a `teal_card` or `ReportCard` object.
 #' It can be used to add new metadata or update existing fields.
-#' @param object (`card` or `ReportCard`) The object to modify.
+#' @param object (`teal_card` or `ReportCard`) The object to modify.
 #' @param which (`character`) The name of the metadata field to set.
 #' @param value The value to assign to the specified metadata field.
 #' @return The modified object with updated metadata.
@@ -158,7 +158,7 @@ metadata.ReportCard <- function(object, which = NULL) {
 
 #' @rdname metadata-set
 #' @export
-`metadata<-.card` <- function(object, which, value) {
+`metadata<-.teal_card` <- function(object, which, value) {
   attr(object, which = "metadata") <- utils::modifyList(
     metadata(object), structure(list(value), names = which)
   )
@@ -178,25 +178,25 @@ metadata.ReportCard <- function(object, which = NULL) {
   object
 }
 
-#' @rdname card
-#' @param x `card`
+#' @rdname teal_card
+#' @param x `teal_card`
 #' @param modify An integer vector specifying element indices to extract and reorder.
 #' If `NULL`, no modification is applied.
-#' @param append An object to be added to the `card` using `append()`.
+#' @param append An object to be added to the `teal_card` using `append()`.
 #' The `after` parameter determines the insertion position.
 #'
 #' @examples
-#' #### edit_card examples ###
-#' report <- card(1, 2, "c")
+#' #### edit_teal_card examples ###
+#' report <- teal_card(1, 2, "c")
 #'
 #' # Modify and append to the report
-#' new_report <- edit_card(report, modify = c(3, 1), append = "d")
+#' new_report <- edit_teal_card(report, modify = c(3, 1), append = "d")
 #' new_report
 #' class(new_report)
 #'
 #' @export
-edit_card <- function(x, modify = NULL, append = NULL, after = length(x)) {
-  checkmate::assert_class(x, "card")
+edit_teal_card <- function(x, modify = NULL, append = NULL, after = length(x)) {
+  checkmate::assert_class(x, "teal_card")
   checkmate::assert_class(modify, "numeric", null.ok = TRUE)
 
   attrs <- attributes(x)
@@ -239,13 +239,13 @@ code_chunk <- function(code, ...) {
 }
 
 #' @title Keep Objects In Report
-#' @description Utility function to change behavior of `card` elements to be
+#' @description Utility function to change behavior of `teal_card` elements to be
 #' kept (`keep = TRUE`) or discarded (`keep = FALSE`) from the final `.Rmd` file containing the downloaded report.
 #' @details By default, R objects like `summary` outputs are only printed in the output document but their
 #'   code is not included in the `.Rmd` report source. Text elements (character strings) and `code_chunk`
 #'   objects are, by default, kept both in the output document and the `.Rmd` report source.
 #'   This function allows overriding the default behavior for specific objects.
-#' @param object An R object, typically an element intended for a `card`.
+#' @param object An R object, typically an element intended for a `teal_card`.
 #' @param keep (`logical`) If `TRUE` (default), the object is marked to be kept in the `.Rmd` source;
 #'   if `FALSE`, it's marked for printing only in the output document (and not in the `.Rmd` source,
 #'   though its print output will be in the rendered document).

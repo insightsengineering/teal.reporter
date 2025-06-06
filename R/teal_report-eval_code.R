@@ -11,8 +11,8 @@ setMethod(
     temporary_q@code <- setdiff(new_object@code, object@code)
     new_code <- teal.code::get_code(temporary_q)
     if (length(new_code)) {
-      card(new_object) <- c(
-        card(object),
+      teal_card(new_object) <- c(
+        teal_card(object),
         do.call(code_chunk, args = c(list(code = new_code), code_block_opts)), # TODO: cache an attribute of code chunk
         attr(new_object@code[[length(new_object@code)]], "output")
       )

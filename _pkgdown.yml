@@ -58,7 +58,7 @@ reference:
       - teal_report
       - ReportCard
       - Reporter
-  - title: "Utility functions for `card` object"
+  - title: "Utility functions for `teal_card` object"
     contents:
       - card
       - edit_card

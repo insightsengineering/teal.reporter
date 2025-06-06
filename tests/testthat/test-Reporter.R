@@ -90,7 +90,7 @@ testthat::test_that("get_blocks and get_cards return empty list by default", {
 
 testthat::test_that("The deep copy constructor copies the content files to new files", {
   testthat::skip_if_not_installed("ggplot2")
-  card <- card(ggplot2::ggplot(iris))
+  card <- teal_card(ggplot2::ggplot(iris))
   reporter <- Reporter$new()$append_cards(card)
   reporter_copy <- reporter$clone(deep = TRUE)
   original_content_file <- reporter$get_blocks()
@@ -243,13 +243,13 @@ testthat::describe("to_jsondir", {
 })
 
 testthat::describe("reorder_cards", {
-  card1 <- card("# Section 1")
+  card1 <- teal_card("# Section 1")
   metadata(card1, "title") <- "Card1"
-  card2 <- card("# Section A")
+  card2 <- teal_card("# Section A")
   metadata(card2, "title") <- "Card2"
-  card3 <- card("# Section I")
+  card3 <- teal_card("# Section I")
   metadata(card3, "title") <- "Card3"
-  card4 <- card("# Section i")
+  card4 <- teal_card("# Section i")
   metadata(card4, "title") <- "Card4"
 
 

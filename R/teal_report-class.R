@@ -1,4 +1,4 @@
-setOldClass("card")
+setOldClass("teal_card")
 
 #' Reproducible report
 #'
@@ -27,14 +27,14 @@ setOldClass("card")
 #' @slot verified (`logical(1)`) flag signifying that code in `@code` has been
 #'  proven to yield contents of `@.xData`.
 #'  Used internally. See [`verify()`] for more details.
-#' @slot card (`card`)
+#' @slot card (`teal_card`)
 #' @inheritSection teal.data::`teal_data-class` Code
 #' @importFrom teal.data teal_data
 #' @keywords internal
 setClass(
   Class = "teal_report",
   contains = "teal_data",
-  slots = c(card = "card")
+  slots = c(teal_card = "teal_card")
 )
 
 
@@ -46,14 +46,14 @@ setClass(
 setMethod(
   "initialize",
   "teal_report",
-  function(.Object, card = NULL, ...) { # nolint: object_name.
+  function(.Object, teal_card = NULL, ...) { # nolint: object_name.
     args <- list(...)
-    if (is.null(card)) card <- card()
-    checkmate::assert_class(card, "card")
+    if (is.null(card)) card <- teal_card()
+    checkmate::assert_class(card, "teal_card")
     checkmate::assert_list(args, names = "named")
     methods::callNextMethod(
       .Object,
-      card = card,
+      teal_card = card,
       ...
     )
   }
@@ -68,7 +68,7 @@ setMethod(
 #' Initializes a reportable data for `teal` application.
 #'
 #' @inheritParams teal.data::teal_data
-#' @param card (`card`) object containing the report content.
+#' @param card (`teal_card`) object containing the report content.
 #' @return A `teal_report` object.
 #'
 #' @seealso [`teal.data::teal_data`]
@@ -78,14 +78,14 @@ setMethod(
 #' @examples
 #' teal_report(x1 = iris, x2 = mtcars)
 teal_report <- function(...,
-                         card = NULL,
+                         teal_card = NULL,
                          code = character(0),
                          join_keys = teal.data::join_keys()) {
-  if (is.null(card)) card <- card()
+  if (is.null(card)) card <- teal_card()
   methods::new(
     "teal_report",
     .xData = list2env(list(...)),
-    card = card,
+    teal_card = card,
     join_keys = join_keys,
     code = code
   )
@@ -103,8 +103,8 @@ as.teal_report <- function(x) { # nolint: object_name.
   for (slot_name in methods::slotNames(x)) {
     methods::slot(new_x, slot_name) <- methods::slot(x, slot_name)
   }
-  card(new_x) <- c(
-    card(new_x),
+  teal_card(new_x) <- c(
+    teal_card(new_x),
     code_chunk(teal.code::get_code(new_x))
   )
 

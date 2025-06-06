@@ -8,17 +8,17 @@
 #'
 #' @details
 #' The `card_fun` function is designed to create a new `ReportCard` instance and optionally customize it:
-#' - The `card` parameter allows for specifying a custom or default `ReportCard` instance.
+#' - The `teal_card` parameter allows for specifying a custom or default `ReportCard` instance.
 #' - Use the `comment` parameter to add a comment to the card via `card$append_text()` - if `card_fun` does not
 #' have the `comment` parameter, then `comment` from `Add Card UI` module will be added at the end of the content of the
 #' card.
 #' - The `label` parameter enables customization of the card's name and its content through `card$append_text()`-
 #' if `card_fun` does not have the `label` parameter, then card name will be set to the name passed in
-#' `Add Card UI` module, but no text will be added to the content of the `card`.
+#' `Add Card UI` module, but no text will be added to the content of the `teal_card`.
 #'
 #' This module supports using a subclass of [`ReportCard`] for added flexibility.
 #' A subclass instance should be passed as the default value of
-#' the `card` argument in the `card_fun` function.
+#' the `teal_card` argument in the `card_fun` function.
 #' See below:
 #' ```{r}
 #' CustomReportCard <- R6::R6Class(
@@ -145,7 +145,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
     # please check the ui part for more information
     shiny::observeEvent(input$add_card_ok, {
       card_fun_args_nams <- names(formals(card_fun))
-      has_card_arg <- "card" %in% card_fun_args_nams
+      has_card_arg <- "teal_card" %in% card_fun_args_nams
       has_comment_arg <- "comment" %in% card_fun_args_nams
       has_label_arg <- "label" %in% card_fun_args_nams
 
@@ -185,7 +185,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           type = "error"
         )
       } else {
-        checkmate::assert_multi_class(card, c("ReportCard", "card"))
+        checkmate::assert_multi_class(card, c("ReportCard", "teal_card"))
         if (inherits(card, "ReportCard")) {
           if (!has_comment_arg && length(input$comment) > 0 && input$comment != "") {
             card$append_text("Comment", "header3")
@@ -195,7 +195,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           if (!has_label_arg && length(input$label) == 1 && input$label != "") {
             card$set_name(input$label)
           }
-        } else if (inherits(card, "card")) {
+        } else if (inherits(card, "teal_card")) {
           if (!has_comment_arg && length(input$comment) > 0 && input$comment != "") {
             card <- c(card, "### Comment", input$comment)
           }
