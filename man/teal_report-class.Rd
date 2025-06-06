@@ -33,7 +33,7 @@ Access or modify with \code{\link[teal.data:join_keys]{teal.data::join_keys()}}.
 
 \item{\code{verified}}{(\code{logical(1)}) flag signifying that code in \verb{@code} has been
 proven to yield contents of \verb{@.xData}.
-Used internally. See \code{\link[=verify]{verify()}} for more details.}
+Used internally. See \code{\link[teal.data:verify]{teal.data::verify()}} for more details.}
 
 \item{\code{card}}{(\code{teal_card})}
 }}
