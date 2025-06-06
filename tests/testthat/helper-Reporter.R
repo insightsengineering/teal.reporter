@@ -65,32 +65,3 @@ test_reporter <- function(card1 = test_card1(), card2 = test_card2(), ...) {
   reporter
 }
 
-create_test_reporter <- function() {
-  testthat::skip_if_not_installed("ggplot2")
-  library(ggplot2)
-
-  reporter <- Reporter$new()
-
-  # Create a plot
-  plot <- ggplot(iris) +
-    geom_point(aes(x = Sepal.Length, y = Sepal.Width))
-
-  # Create a table
-  table_res <- summary(iris)
-
-  # Create a table with a caption
-  table_res2 <- summary(iris)
-  attr(table_res2, "caption") <- "Summary of iris dataset"
-
-  # Create a new card with a plot
-  new_card <- card("## Header 2 text", "A paragraph of default text", plot)
-  metadata(new_card, "title") <- "Card with plot"
-  reporter$append_cards(new_card)
-
-  # Create a new card with a table
-  new_card <- card("## Header 2 text", "A paragraph of default text", table_res2, iris)
-  metadata(new_card, "title") <- "Card with table"
-  reporter$append_cards(new_card)
-
-  reporter
-}
