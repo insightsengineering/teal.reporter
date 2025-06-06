@@ -232,7 +232,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
       if (isFALSE(identical(new_card, card_r()))) {
         tryCatch(
           {
-            reporter$replace_card(teal_card = new_card, card_id = card_id)
+            reporter$replace_card(card = new_card, card_id = card_id)
             new_card_rv(NULL)
             shiny::removeModal()
           },
