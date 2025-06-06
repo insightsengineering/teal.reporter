@@ -49,7 +49,7 @@ It enables users to create, manipulate, and serialize report-related data effici
 
 The \code{teal_card()} function serves two purposes:
 \enumerate{
-\item When called with a \code{teal_report} object, it acts as a "getter" and returns the card slot
+\item When called with a \code{teal_report} object, it acts as a getter and returns the card slot
 \item When called with other arguments, it creates a new \code{teal_card} object from those arguments
 }
 

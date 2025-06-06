@@ -6,7 +6,7 @@
 #' It enables users to create, manipulate, and serialize report-related data efficiently.
 #'
 #' The `teal_card()` function serves two purposes:
-#' 1. When called with a `teal_report` object, it acts as a "getter" and returns the card slot
+#' 1. When called with a `teal_report` object, it acts as a getter and returns the card slot
 #' 2. When called with other arguments, it creates a new `teal_card` object from those arguments
 #'
 #' @return An `S3` `list` of class `teal_card`.
