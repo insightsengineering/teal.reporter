@@ -81,11 +81,11 @@ teal_report <- function(...,
                          teal_card = NULL,
                          code = character(0),
                          join_keys = teal.data::join_keys()) {
-  if (is.null(card)) card <- teal_card()
+  if (is.null(teal_card)) teal_card <- teal_card()
   methods::new(
     "teal_report",
     .xData = list2env(list(...)),
-    teal_card = card,
+    teal_card = teal_card,
     join_keys = join_keys,
     code = code
   )
