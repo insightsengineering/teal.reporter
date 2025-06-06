@@ -26,7 +26,7 @@ setOldClass("teal_card")
 #'  Access or modify with [teal.data::join_keys()].
 #' @slot verified (`logical(1)`) flag signifying that code in `@code` has been
 #'  proven to yield contents of `@.xData`.
-#'  Used internally. See [`verify()`] for more details.
+#'  Used internally. See [`teal.data::verify()`] for more details.
 #' @slot card (`teal_card`)
 #' @inheritSection teal.data::`teal_data-class` Code
 #' @importFrom teal.data teal_data
