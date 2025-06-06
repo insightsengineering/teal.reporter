@@ -28,11 +28,8 @@ setOldClass("card")
 #'  proven to yield contents of `@.xData`.
 #'  Used internally. See [`verify()`] for more details.
 #' @slot card (`card`)
-#'
 #' @inheritSection teal.data::`teal_data-class` Code
-#'
-#' @import teal.data
-#' @import teal.code
+#' @importFrom teal.data teal_data
 #' @keywords internal
 setClass(
   Class = "teal_report",

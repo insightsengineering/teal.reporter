@@ -1,3 +1,4 @@
+#' @importFrom teal.code eval_code
 setMethod(
   "eval_code",
   signature = c(object = "teal_report"),
@@ -6,9 +7,9 @@ setMethod(
     if (inherits(new_object, "error")) {
       return(new_object)
     }
-    temporary_q <- qenv()
+    temporary_q <- teal.code::qenv()
     temporary_q@code <- setdiff(new_object@code, object@code)
-    new_code <- get_code(temporary_q)
+    new_code <- teal.code::get_code(temporary_q)
     if (length(new_code)) {
       card(new_object) <- c(
         card(object),
