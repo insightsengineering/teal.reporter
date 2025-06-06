@@ -145,7 +145,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
     # please check the ui part for more information
     shiny::observeEvent(input$add_card_ok, {
       card_fun_args_nams <- names(formals(card_fun))
-      has_card_arg <- "teal_card" %in% card_fun_args_nams
+      has_card_arg <- "card" %in% card_fun_args_nams
       has_comment_arg <- "comment" %in% card_fun_args_nams
       has_label_arg <- "label" %in% card_fun_args_nams
 
