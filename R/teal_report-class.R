@@ -78,9 +78,9 @@ setMethod(
 #' @examples
 #' teal_report(x1 = iris, x2 = mtcars)
 teal_report <- function(...,
-                         teal_card = NULL,
-                         code = character(0),
-                         join_keys = teal.data::join_keys()) {
+                        teal_card = NULL,
+                        code = character(0),
+                        join_keys = teal.data::join_keys()) {
   if (is.null(teal_card)) teal_card <- teal_card()
   methods::new(
     "teal_report",
