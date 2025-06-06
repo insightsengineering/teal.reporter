@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.692874692874693" branch-rate="0" lines-covered="1128" lines-valid="1628" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2025-06-06 07:13:07.322063">
+<coverage line-rate="0.690097799511002" branch-rate="0" lines-covered="1129" lines-valid="1636" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2025-06-06 12:37:35.65232">
   <sources>
     <source>/__w/teal.reporter/teal.reporter/teal.reporter</source>
   </sources>
   <packages>
-    <package name="teal.reporter" line-rate="0.692874692874693" branch-rate="0" complexity="0">
+    <package name="teal.reporter" line-rate="0.690097799511002" branch-rate="0" complexity="0">
       <classes>
         <class name="AddCardModule.R" filename="R/AddCardModule.R" line-rate="0.979020979020979" branch-rate="0" complexity="0">
           <methods>
@@ -527,166 +527,6 @@
             <line number="71" hits="7" branch="false"/>
             <line number="72" hits="7" branch="false"/>
             <line number="74" hits="149" branch="false"/>
-          </lines>
-        </class>
-        <class name="doc.R" filename="R/doc.R" line-rate="0.905660377358491" branch-rate="0" complexity="0">
-          <methods>
-            <method name="doc" signature="" line-rate="1" branch-rate="0" complexity="0">
-              <lines>
-                <line number="40" hits="76" branch="false"/>
-                <line number="41" hits="76" branch="false"/>
-              </lines>
-            </method>
-            <method name="c.doc" signature="" line-rate="1" branch-rate="0" complexity="0">
-              <lines>
-                <line number="47" hits="40" branch="false"/>
-                <line number="48" hits="40" branch="false"/>
-                <line number="49" hits="40" branch="false"/>
-                <line number="50" hits="40" branch="false"/>
-                <line number="51" hits="40" branch="false"/>
-                <line number="52" hits="40" branch="false"/>
-                <line number="53" hits="40" branch="false"/>
-                <line number="54" hits="40" branch="false"/>
-                <line number="55" hits="40" branch="false"/>
-              </lines>
-            </method>
-            <method name="[.doc" signature="" line-rate="1" branch-rate="0" complexity="0">
-              <lines>
-                <line number="62" hits="8" branch="false"/>
-                <line number="63" hits="8" branch="false"/>
-                <line number="64" hits="8" branch="false"/>
-              </lines>
-            </method>
-            <method name="metadata" signature="" line-rate="1" branch-rate="0" complexity="0">
-              <lines>
-                <line number="76" hits="78" branch="false"/>
-                <line number="77" hits="78" branch="false"/>
-              </lines>
-            </method>
-            <method name="metadata.doc" signature="" line-rate="1" branch-rate="0" complexity="0">
-              <lines>
-                <line number="83" hits="78" branch="false"/>
-                <line number="84" hits="78" branch="false"/>
-                <line number="85" hits="78" branch="false"/>
-                <line number="86" hits="35" branch="false"/>
-                <line number="88" hits="43" branch="false"/>
-              </lines>
-            </method>
-            <method name="metadata.ReportCard" signature="" line-rate="0" branch-rate="0" complexity="0">
-              <lines>
-                <line number="95" hits="0" branch="false"/>
-                <line number="96" hits="0" branch="false"/>
-                <line number="97" hits="0" branch="false"/>
-                <line number="99" hits="0" branch="false"/>
-              </lines>
-            </method>
-            <method name="metadata&lt;-" signature="" line-rate="1" branch-rate="0" complexity="0">
-              <lines>
-                <line number="112" hits="47" branch="false"/>
-                <line number="113" hits="47" branch="false"/>
-              </lines>
-            </method>
-            <method name="metadata&lt;-.doc" signature="" line-rate="1" branch-rate="0" complexity="0">
-              <lines>
-                <line number="119" hits="35" branch="false"/>
-                <line number="120" hits="35" branch="false"/>
-                <line number="121" hits="35" branch="false"/>
-                <line number="122" hits="35" branch="false"/>
-              </lines>
-            </method>
-            <method name="metadata&lt;-.ReportCard" signature="" line-rate="0.75" branch-rate="0" complexity="0">
-              <lines>
-                <line number="130" hits="12" branch="false"/>
-                <line number="131" hits="0" branch="false"/>
-                <line number="133" hits="12" branch="false"/>
-                <line number="135" hits="12" branch="false"/>
-              </lines>
-            </method>
-            <method name="edit_doc" signature="" line-rate="1" branch-rate="0" complexity="0">
-              <lines>
-                <line number="156" hits="5" branch="false"/>
-                <line number="157" hits="5" branch="false"/>
-                <line number="159" hits="5" branch="false"/>
-                <line number="161" hits="5" branch="false"/>
-                <line number="162" hits="2" branch="false"/>
-                <line number="165" hits="5" branch="false"/>
-                <line number="166" hits="4" branch="false"/>
-                <line number="169" hits="5" branch="false"/>
-                <line number="170" hits="5" branch="false"/>
-              </lines>
-            </method>
-            <method name="code_chunk" signature="" line-rate="1" branch-rate="0" complexity="0">
-              <lines>
-                <line number="189" hits="2" branch="false"/>
-                <line number="190" hits="2" branch="false"/>
-                <line number="191" hits="2" branch="false"/>
-                <line number="192" hits="2" branch="false"/>
-                <line number="193" hits="2" branch="false"/>
-                <line number="194" hits="2" branch="false"/>
-                <line number="195" hits="2" branch="false"/>
-              </lines>
-            </method>
-            <method name="keep_in_report" signature="" line-rate="1" branch-rate="0" complexity="0">
-              <lines>
-                <line number="218" hits="3" branch="false"/>
-                <line number="219" hits="3" branch="false"/>
-              </lines>
-            </method>
-          </methods>
-          <lines>
-            <line number="40" hits="76" branch="false"/>
-            <line number="41" hits="76" branch="false"/>
-            <line number="47" hits="40" branch="false"/>
-            <line number="48" hits="40" branch="false"/>
-            <line number="49" hits="40" branch="false"/>
-            <line number="50" hits="40" branch="false"/>
-            <line number="51" hits="40" branch="false"/>
-            <line number="52" hits="40" branch="false"/>
-            <line number="53" hits="40" branch="false"/>
-            <line number="54" hits="40" branch="false"/>
-            <line number="55" hits="40" branch="false"/>
-            <line number="62" hits="8" branch="false"/>
-            <line number="63" hits="8" branch="false"/>
-            <line number="64" hits="8" branch="false"/>
-            <line number="76" hits="78" branch="false"/>
-            <line number="77" hits="78" branch="false"/>
-            <line number="83" hits="78" branch="false"/>
-            <line number="84" hits="78" branch="false"/>
-            <line number="85" hits="78" branch="false"/>
-            <line number="86" hits="35" branch="false"/>
-            <line number="88" hits="43" branch="false"/>
-            <line number="95" hits="0" branch="false"/>
-            <line number="96" hits="0" branch="false"/>
-            <line number="97" hits="0" branch="false"/>
-            <line number="99" hits="0" branch="false"/>
-            <line number="112" hits="47" branch="false"/>
-            <line number="113" hits="47" branch="false"/>
-            <line number="119" hits="35" branch="false"/>
-            <line number="120" hits="35" branch="false"/>
-            <line number="121" hits="35" branch="false"/>
-            <line number="122" hits="35" branch="false"/>
-            <line number="130" hits="12" branch="false"/>
-            <line number="131" hits="0" branch="false"/>
-            <line number="133" hits="12" branch="false"/>
-            <line number="135" hits="12" branch="false"/>
-            <line number="156" hits="5" branch="false"/>
-            <line number="157" hits="5" branch="false"/>
-            <line number="159" hits="5" branch="false"/>
-            <line number="161" hits="5" branch="false"/>
-            <line number="162" hits="2" branch="false"/>
-            <line number="165" hits="5" branch="false"/>
-            <line number="166" hits="4" branch="false"/>
-            <line number="169" hits="5" branch="false"/>
-            <line number="170" hits="5" branch="false"/>
-            <line number="189" hits="2" branch="false"/>
-            <line number="190" hits="2" branch="false"/>
-            <line number="191" hits="2" branch="false"/>
-            <line number="192" hits="2" branch="false"/>
-            <line number="193" hits="2" branch="false"/>
-            <line number="194" hits="2" branch="false"/>
-            <line number="195" hits="2" branch="false"/>
-            <line number="218" hits="3" branch="false"/>
-            <line number="219" hits="3" branch="false"/>
           </lines>
         </class>
         <class name="DownloadModule.R" filename="R/DownloadModule.R" line-rate="0.943877551020408" branch-rate="0" complexity="0">
@@ -3935,10 +3775,203 @@
             <line number="44" hits="15" branch="false"/>
           </lines>
         </class>
+        <class name="teal_card.R" filename="R/teal_card.R" line-rate="0.753846153846154" branch-rate="0" complexity="0">
+          <methods>
+            <method name="teal_card" signature="" line-rate="0.833333333333333" branch-rate="0" complexity="0">
+              <lines>
+                <line number="50" hits="76" branch="false"/>
+                <line number="51" hits="1" branch="false"/>
+                <line number="52" hits="75" branch="false"/>
+                <line number="53" hits="0" branch="false"/>
+                <line number="55" hits="75" branch="false"/>
+                <line number="56" hits="75" branch="false"/>
+              </lines>
+            </method>
+            <method name="teal_card&lt;-" signature="" line-rate="0" branch-rate="0" complexity="0">
+              <lines>
+                <line number="63" hits="0" branch="false"/>
+                <line number="64" hits="0" branch="false"/>
+                <line number="65" hits="0" branch="false"/>
+              </lines>
+            </method>
+            <method name="as.teal_card" signature="" line-rate="0" branch-rate="0" complexity="0">
+              <lines>
+                <line number="78" hits="0" branch="false"/>
+                <line number="79" hits="0" branch="false"/>
+                <line number="81" hits="0" branch="false"/>
+                <line number="82" hits="0" branch="false"/>
+                <line number="84" hits="0" branch="false"/>
+              </lines>
+            </method>
+            <method name="c.teal_card" signature="" line-rate="1" branch-rate="0" complexity="0">
+              <lines>
+                <line number="90" hits="40" branch="false"/>
+                <line number="91" hits="40" branch="false"/>
+                <line number="92" hits="40" branch="false"/>
+                <line number="93" hits="40" branch="false"/>
+                <line number="94" hits="40" branch="false"/>
+                <line number="95" hits="40" branch="false"/>
+                <line number="96" hits="40" branch="false"/>
+                <line number="97" hits="40" branch="false"/>
+                <line number="98" hits="40" branch="false"/>
+              </lines>
+            </method>
+            <method name="[.teal_card" signature="" line-rate="1" branch-rate="0" complexity="0">
+              <lines>
+                <line number="105" hits="8" branch="false"/>
+                <line number="106" hits="8" branch="false"/>
+                <line number="107" hits="8" branch="false"/>
+              </lines>
+            </method>
+            <method name="metadata" signature="" line-rate="1" branch-rate="0" complexity="0">
+              <lines>
+                <line number="119" hits="78" branch="false"/>
+                <line number="120" hits="78" branch="false"/>
+              </lines>
+            </method>
+            <method name="metadata.teal_card" signature="" line-rate="1" branch-rate="0" complexity="0">
+              <lines>
+                <line number="126" hits="78" branch="false"/>
+                <line number="127" hits="78" branch="false"/>
+                <line number="128" hits="78" branch="false"/>
+                <line number="129" hits="35" branch="false"/>
+                <line number="131" hits="43" branch="false"/>
+              </lines>
+            </method>
+            <method name="metadata.ReportCard" signature="" line-rate="0" branch-rate="0" complexity="0">
+              <lines>
+                <line number="138" hits="0" branch="false"/>
+                <line number="139" hits="0" branch="false"/>
+                <line number="140" hits="0" branch="false"/>
+                <line number="142" hits="0" branch="false"/>
+              </lines>
+            </method>
+            <method name="metadata&lt;-" signature="" line-rate="1" branch-rate="0" complexity="0">
+              <lines>
+                <line number="155" hits="47" branch="false"/>
+                <line number="156" hits="47" branch="false"/>
+              </lines>
+            </method>
+            <method name="metadata&lt;-.teal_card" signature="" line-rate="1" branch-rate="0" complexity="0">
+              <lines>
+                <line number="162" hits="35" branch="false"/>
+                <line number="163" hits="35" branch="false"/>
+                <line number="164" hits="35" branch="false"/>
+                <line number="165" hits="35" branch="false"/>
+              </lines>
+            </method>
+            <method name="metadata&lt;-.ReportCard" signature="" line-rate="0.75" branch-rate="0" complexity="0">
+              <lines>
+                <line number="173" hits="12" branch="false"/>
+                <line number="174" hits="0" branch="false"/>
+                <line number="176" hits="12" branch="false"/>
+                <line number="178" hits="12" branch="false"/>
+              </lines>
+            </method>
+            <method name="edit_teal_card" signature="" line-rate="1" branch-rate="0" complexity="0">
+              <lines>
+                <line number="199" hits="5" branch="false"/>
+                <line number="200" hits="5" branch="false"/>
+                <line number="202" hits="5" branch="false"/>
+                <line number="204" hits="5" branch="false"/>
+                <line number="205" hits="2" branch="false"/>
+                <line number="208" hits="5" branch="false"/>
+                <line number="209" hits="4" branch="false"/>
+                <line number="212" hits="5" branch="false"/>
+                <line number="213" hits="5" branch="false"/>
+              </lines>
+            </method>
+            <method name="code_chunk" signature="" line-rate="1" branch-rate="0" complexity="0">
+              <lines>
+                <line number="232" hits="1" branch="false"/>
+                <line number="233" hits="1" branch="false"/>
+                <line number="234" hits="1" branch="false"/>
+                <line number="235" hits="1" branch="false"/>
+                <line number="236" hits="1" branch="false"/>
+                <line number="237" hits="1" branch="false"/>
+                <line number="238" hits="1" branch="false"/>
+              </lines>
+            </method>
+            <method name="keep_in_report" signature="" line-rate="0" branch-rate="0" complexity="0">
+              <lines>
+                <line number="261" hits="0" branch="false"/>
+                <line number="262" hits="0" branch="false"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="50" hits="76" branch="false"/>
+            <line number="51" hits="1" branch="false"/>
+            <line number="52" hits="75" branch="false"/>
+            <line number="53" hits="0" branch="false"/>
+            <line number="55" hits="75" branch="false"/>
+            <line number="56" hits="75" branch="false"/>
+            <line number="63" hits="0" branch="false"/>
+            <line number="64" hits="0" branch="false"/>
+            <line number="65" hits="0" branch="false"/>
+            <line number="78" hits="0" branch="false"/>
+            <line number="79" hits="0" branch="false"/>
+            <line number="81" hits="0" branch="false"/>
+            <line number="82" hits="0" branch="false"/>
+            <line number="84" hits="0" branch="false"/>
+            <line number="90" hits="40" branch="false"/>
+            <line number="91" hits="40" branch="false"/>
+            <line number="92" hits="40" branch="false"/>
+            <line number="93" hits="40" branch="false"/>
+            <line number="94" hits="40" branch="false"/>
+            <line number="95" hits="40" branch="false"/>
+            <line number="96" hits="40" branch="false"/>
+            <line number="97" hits="40" branch="false"/>
+            <line number="98" hits="40" branch="false"/>
+            <line number="105" hits="8" branch="false"/>
+            <line number="106" hits="8" branch="false"/>
+            <line number="107" hits="8" branch="false"/>
+            <line number="119" hits="78" branch="false"/>
+            <line number="120" hits="78" branch="false"/>
+            <line number="126" hits="78" branch="false"/>
+            <line number="127" hits="78" branch="false"/>
+            <line number="128" hits="78" branch="false"/>
+            <line number="129" hits="35" branch="false"/>
+            <line number="131" hits="43" branch="false"/>
+            <line number="138" hits="0" branch="false"/>
+            <line number="139" hits="0" branch="false"/>
+            <line number="140" hits="0" branch="false"/>
+            <line number="142" hits="0" branch="false"/>
+            <line number="155" hits="47" branch="false"/>
+            <line number="156" hits="47" branch="false"/>
+            <line number="162" hits="35" branch="false"/>
+            <line number="163" hits="35" branch="false"/>
+            <line number="164" hits="35" branch="false"/>
+            <line number="165" hits="35" branch="false"/>
+            <line number="173" hits="12" branch="false"/>
+            <line number="174" hits="0" branch="false"/>
+            <line number="176" hits="12" branch="false"/>
+            <line number="178" hits="12" branch="false"/>
+            <line number="199" hits="5" branch="false"/>
+            <line number="200" hits="5" branch="false"/>
+            <line number="202" hits="5" branch="false"/>
+            <line number="204" hits="5" branch="false"/>
+            <line number="205" hits="2" branch="false"/>
+            <line number="208" hits="5" branch="false"/>
+            <line number="209" hits="4" branch="false"/>
+            <line number="212" hits="5" branch="false"/>
+            <line number="213" hits="5" branch="false"/>
+            <line number="232" hits="1" branch="false"/>
+            <line number="233" hits="1" branch="false"/>
+            <line number="234" hits="1" branch="false"/>
+            <line number="235" hits="1" branch="false"/>
+            <line number="236" hits="1" branch="false"/>
+            <line number="237" hits="1" branch="false"/>
+            <line number="238" hits="1" branch="false"/>
+            <line number="261" hits="0" branch="false"/>
+            <line number="262" hits="0" branch="false"/>
+          </lines>
+        </class>
         <class name="teal_report-class.R" filename="R/teal_report-class.R" line-rate="0" branch-rate="0" complexity="0">
           <methods>
             <method name="teal_report" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
+                <line number="50" hits="0" branch="false"/>
                 <line number="51" hits="0" branch="false"/>
                 <line number="52" hits="0" branch="false"/>
                 <line number="53" hits="0" branch="false"/>
@@ -3954,6 +3987,7 @@
                 <line number="88" hits="0" branch="false"/>
                 <line number="89" hits="0" branch="false"/>
                 <line number="90" hits="0" branch="false"/>
+                <line number="91" hits="0" branch="false"/>
                 <line number="6" hits="0" branch="false"/>
                 <line number="7" hits="0" branch="false"/>
                 <line number="8" hits="0" branch="false"/>
@@ -3971,21 +4005,22 @@
             </method>
             <method name="as.teal_report" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="97" hits="0" branch="false"/>
                 <line number="98" hits="0" branch="false"/>
                 <line number="99" hits="0" branch="false"/>
-                <line number="101" hits="0" branch="false"/>
+                <line number="100" hits="0" branch="false"/>
                 <line number="102" hits="0" branch="false"/>
                 <line number="103" hits="0" branch="false"/>
-                <line number="105" hits="0" branch="false"/>
+                <line number="104" hits="0" branch="false"/>
                 <line number="106" hits="0" branch="false"/>
                 <line number="107" hits="0" branch="false"/>
                 <line number="108" hits="0" branch="false"/>
-                <line number="110" hits="0" branch="false"/>
+                <line number="109" hits="0" branch="false"/>
+                <line number="111" hits="0" branch="false"/>
               </lines>
             </method>
           </methods>
           <lines>
+            <line number="50" hits="0" branch="false"/>
             <line number="51" hits="0" branch="false"/>
             <line number="52" hits="0" branch="false"/>
             <line number="53" hits="0" branch="false"/>
@@ -4001,23 +4036,25 @@
             <line number="88" hits="0" branch="false"/>
             <line number="89" hits="0" branch="false"/>
             <line number="90" hits="0" branch="false"/>
-            <line number="97" hits="0" branch="false"/>
+            <line number="91" hits="0" branch="false"/>
             <line number="98" hits="0" branch="false"/>
             <line number="99" hits="0" branch="false"/>
-            <line number="101" hits="0" branch="false"/>
+            <line number="100" hits="0" branch="false"/>
             <line number="102" hits="0" branch="false"/>
             <line number="103" hits="0" branch="false"/>
-            <line number="105" hits="0" branch="false"/>
+            <line number="104" hits="0" branch="false"/>
             <line number="106" hits="0" branch="false"/>
             <line number="107" hits="0" branch="false"/>
             <line number="108" hits="0" branch="false"/>
-            <line number="110" hits="0" branch="false"/>
+            <line number="109" hits="0" branch="false"/>
+            <line number="111" hits="0" branch="false"/>
           </lines>
         </class>
         <class name="teal_report-eval_code.R" filename="R/teal_report-eval_code.R" line-rate="0" branch-rate="0" complexity="0">
           <methods>
             <method name="teal_report" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
+                <line number="50" hits="0" branch="false"/>
                 <line number="51" hits="0" branch="false"/>
                 <line number="52" hits="0" branch="false"/>
                 <line number="53" hits="0" branch="false"/>
@@ -4033,6 +4070,7 @@
                 <line number="88" hits="0" branch="false"/>
                 <line number="89" hits="0" branch="false"/>
                 <line number="90" hits="0" branch="false"/>
+                <line number="91" hits="0" branch="false"/>
                 <line number="6" hits="0" branch="false"/>
                 <line number="7" hits="0" branch="false"/>
                 <line number="8" hits="0" branch="false"/>
@@ -4079,32 +4117,6 @@
             <line number="3" hits="0" branch="false"/>
             <line number="4" hits="0" branch="false"/>
             <line number="5" hits="0" branch="false"/>
-          </lines>
-        </class>
-        <class name="teal_report-report.R" filename="R/teal_report-report.R" line-rate="0" branch-rate="0" complexity="0">
-          <methods>
-            <method name="report" signature="" line-rate="0" branch-rate="0" complexity="0">
-              <lines>
-                <line number="7" hits="0" branch="false"/>
-                <line number="8" hits="0" branch="false"/>
-              </lines>
-            </method>
-            <method name="report&lt;-" signature="" line-rate="0" branch-rate="0" complexity="0">
-              <lines>
-                <line number="18" hits="0" branch="false"/>
-                <line number="19" hits="0" branch="false"/>
-                <line number="20" hits="0" branch="false"/>
-                <line number="21" hits="0" branch="false"/>
-              </lines>
-            </method>
-          </methods>
-          <lines>
-            <line number="7" hits="0" branch="false"/>
-            <line number="8" hits="0" branch="false"/>
-            <line number="18" hits="0" branch="false"/>
-            <line number="19" hits="0" branch="false"/>
-            <line number="20" hits="0" branch="false"/>
-            <line number="21" hits="0" branch="false"/>
           </lines>
         </class>
         <class name="TextBlock.R" filename="R/TextBlock.R" line-rate="1" branch-rate="0" complexity="0">
@@ -4673,7 +4685,7 @@
                 <line number="31" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name=".toHTML.doc" signature="" line-rate="0" branch-rate="0" complexity="0">
+            <method name=".toHTML.teal_card" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="37" hits="0" branch="false"/>
               </lines>
