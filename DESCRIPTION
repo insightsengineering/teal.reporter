@@ -106,7 +106,6 @@ Collate:
     'teal_report-class.R'
     'teal_report-eval_code.R'
     'teal_report-extract.R'
-    'teal_report-within.R'
     'toHTML.R'
     'to_rmd.R'
     'utils.R'

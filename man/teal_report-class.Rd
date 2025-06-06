@@ -33,26 +33,9 @@ Access or modify with \code{\link[teal.data:join_keys]{teal.data::join_keys()}}.
 
 \item{\code{verified}}{(\code{logical(1)}) flag signifying that code in \verb{@code} has been
 proven to yield contents of \verb{@.xData}.
-Used internally. See \code{\link[teal.data:verify]{teal.data::verify()}} for more details.}
+Used internally. See \code{\link[=verify]{verify()}} for more details.}
 
 \item{\code{card}}{(\code{card})}
 }}
-
-\section{Code}{
-
-
-
-
-Each code element is a character representing one call. Each element is named with the random
-identifier to make sure uniqueness when joining. Each element has possible attributes:
-\itemize{
-\item \code{warnings} (\code{character}) the warnings output when evaluating the code element.
-\item \code{messages} (\code{character}) the messages output when evaluating the code element.
-\item \code{dependency} (\code{character}) names of objects that appear in this call and gets affected by this call,
-separated by \verb{<-} (objects on LHS of \verb{<-} are affected by this line, and objects on RHS are affecting this line).
-}
-
-
-}
 
 \keyword{internal}

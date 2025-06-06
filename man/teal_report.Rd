@@ -15,18 +15,7 @@ teal_report(
 as.teal_report(x)
 }
 \arguments{
-\item{...}{any number of objects (presumably data objects) provided as \code{name = value} pairs.}
-
 \item{card}{(\code{card}) object containing the report content.}
-
-\item{code}{(\code{character}, \code{language}) optional code to reproduce the datasets provided in \code{...}.
-Note this code is not executed and the \code{teal_data} may not be reproducible
-
-Use \code{\link[teal.data:verify]{verify()}} to verify code reproducibility.}
-
-\item{join_keys}{(\code{join_keys} or single \code{join_key_set})
-optional object with datasets column names used for joining.
-If empty then no joins between pairs of objects.}
 
 \item{x}{(\code{qenv} or \code{teal_data}) object to convert to \code{teal_report}.}
 }
