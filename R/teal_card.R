@@ -74,7 +74,7 @@ teal_card <- function(x, ...) {
 #' @return A teal_card object
 #' @rdname teal_card
 #' @export
-as.teal_card <- function(x) {
+as.teal_card <- function(x) { # nolint: object_name.
   if (inherits(x, "teal_card")) {
     return(x)
   }
