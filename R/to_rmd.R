@@ -264,3 +264,7 @@ to_rmd.default <- function(block, output_dir, ...) {
 #' @method .to_rmd data.frame
 #' @keywords internal
 .to_rmd.data.frame <- .to_rmd.rtables
+
+#' @method .to_rmd datatables
+#' @keywords internal
+.to_rmd.datatables <- .content_to_rmd
