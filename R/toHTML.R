@@ -33,7 +33,7 @@ toHTML.default <- function(x, ...) {
 
 #' @method .toHTML teal_card
 #' @keywords internal
-.toHTML.card <- function(x, ...) {
+.toHTML.teal_card <- function(x, ...) {
   lapply(x, toHTML, ...)
 }
 
