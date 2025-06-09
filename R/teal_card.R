@@ -58,6 +58,7 @@ teal_card <- function(x, ...) {
 }
 
 #' @rdname teal_card
+#' @param value (`teal_card`) object to set in the `teal_report`.
 #' @export
 `teal_card<-` <- function(x, value) {
   checkmate::assert_class(x, "teal_report")
