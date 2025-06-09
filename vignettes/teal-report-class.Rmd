@@ -118,4 +118,5 @@ Using `teal_report` in your modules provides several advantages:
 ## Further Reading
 
 For more details on the underlying `teal_data` functionality, see the [Introduction to teal.data](https://insightsengineering.github.io/teal.data/latest-tag/articles/teal-data.html). 
+
 For more information on the `teal_report` class usage in `teal`, see the [Managing Reproducible Report Documents in teal](https://insightsengineering.github.io/teal/latest-tag/articles/managing-reproducible-report-documents-in-teal.html).
