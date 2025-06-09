@@ -105,86 +105,6 @@ results_card <- teal_card(
 teal_card(report) <- results_card
 ```
 
-## Simple Regression Module Example
-
-Here's a practical example of how to create a simple teal module that uses `teal_report` for reporting:
-
-```{r simple-module}
-library(teal)
-library(teal.reporter)
-
-tm_simple_regression <- function(label = "Simple Regression") {
-  module(
-    label = label,
-    server = function(input, output, session, data, reporter, ...) {
-      
-      # Create the plot
-      output$plot <- renderPlot({
-        req(input$x_var, input$y_var)
-        dataset <- data()[["iris"]]
-        plot(dataset[[input$x_var]], dataset[[input$y_var]])
-      })
-      
-      report_data <- reactive({
-        obj <- data()
-        teal.reporter::teal_card(obj) <- 
-          c(teal.reporter::teal_card(obj), "# Module's computation")
-        eval_code(
-          obj, 
-          sprintf(
-            "correlation <- cor(iris[['%s']], iris[['%s']]);correlation", 
-            input$x_var, 
-            input$y_var
-          ),
-          keep_output = TRUE
-        )
-      })
-      report_data
-    },
-    
-    ui = function(id) {
-      ns <- NS(id)
-      fluidPage(
-        h3("Simple Regression Plot"),
-        fluidRow(
-          column(6,
-            selectInput(ns("x_var"), "X Variable:", 
-                       choices = names(iris)[1:4], selected = "Sepal.Length")
-          ),
-          column(6,
-            selectInput(ns("y_var"), "Y Variable:", 
-                       choices = names(iris)[1:4], selected = "Sepal.Width")
-          )
-        ),
-        plotOutput(ns("plot"))
-      )
-    }
-  )
-}
-```
-
-## Using the Module in a teal App
-
-Here's how you would use this module in a complete teal application:
-
-```{r complete-app}
-library(teal)
-library(teal.reporter)
-
-app <- init(
-  data = teal_data(iris = iris),
-  modules = modules(
-    tm_simple_regression("Regression Analysis")
-  ),
-  header = "Simple Teal App with Reporting"
-)
-
-# Run the app
-if (interactive()) {
-  shinyApp(app$ui, app$server)
-}
-```
-
 ## Key Benefits
 
 Using `teal_report` in your modules provides several advantages:
@@ -198,3 +118,4 @@ Using `teal_report` in your modules provides several advantages:
 ## Further Reading
 
 For more details on the underlying `teal_data` functionality, see the [Introduction to teal.data](https://insightsengineering.github.io/teal.data/latest-tag/articles/teal-data.html). 
+For more information on the `teal_report` class usage in `teal`, see the [Managing Reproducible Report Documents in teal](https://insightsengineering.github.io/teal/latest-tag/articles/managing-reproducible-report-documents-in-teal.html).
