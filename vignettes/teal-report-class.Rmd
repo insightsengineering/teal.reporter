@@ -21,7 +21,7 @@ library(teal.reporter)
 
 ## Introduction
 
-The `teal_report` class in `teal.reporter` provides a powerful way to create reproducible reports within teal applications. 
+The `teal_report` class in `teal.reporter` provides a way to create reproducible reports by adding, editing and removing document elements.
 
 The `teal_report` class is built on top of [`teal_data`](https://insightsengineering.github.io/teal.data/latest-tag/articles/teal-data.html), inheriting all its reproducibility and code-tracking capabilities while adding reporting-specific functionality through `teal_card`.
 
