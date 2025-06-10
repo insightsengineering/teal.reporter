@@ -10,22 +10,13 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  eval = FALSE
-)
-library(teal.reporter)
-```
-
 ## Introduction
 
 The `teal_report` class in `teal.reporter` provides a way to create reproducible reports by adding, editing and removing document elements.
 
 The `teal_report` class is built on top of [`teal_data`](https://insightsengineering.github.io/teal.data/latest-tag/articles/teal-data.html), inheriting all its reproducibility and code-tracking capabilities while adding reporting-specific functionality through `teal_card`.
 
-This vignette shows you how to use `teal_report` and `teal_card` to enhance your teal modules with reporting capabilities.
+This vignette shows you how to use `teal_report` to enhance your teal modules with reporting capabilities.
 
 ## Creating a teal_report
 
@@ -33,80 +24,67 @@ Creating a `teal_report` is straightforward - you can include your data and it a
 
 ```{r basic-usage}
 library(teal.reporter)
-
-# Create a teal_report with data
-report <- teal_report(
-  iris = iris,
-  mtcars = mtcars
-)
-
-# You can also start with an empty report
-empty_report <- teal_report()
+report <- teal_report()
 ```
 
-## Working with teal_card
-
-The `teal_card` is where your report content lives. You can create cards with text, code, results, and any other content:
-
-```{r teal-card-basics}
-# Create a simple card
-card <- teal_card(
-  "## My Analysis",
-  "This analysis looks at the iris dataset.",
-  summary(iris)
-)
-
-# Add more content to an existing card
-card <- c(card, list(
-  "### Conclusion", 
-  "The data shows interesting patterns."
-))
-
-# Add the card to a report
-report <- teal_report(iris = iris)
-teal_card(report) <- card
-```
-
-## Adding Computed Results with eval_code
+## Adding Computed Results with `eval_code`
 
 Since `teal_report` inherits from `teal_data`, you can use `eval_code()` to add computed results that are automatically tracked for reproducibility:
 
 ```{r eval-code-example}
 library(teal.code)
 
-# Start with a teal_report
-report <- teal_report(iris = iris)
-
-# Add computed results using eval_code
-report <- eval_code(report, "
-  iris_summary <- summary(iris)
-  model <- lm(Sepal.Length ~ Sepal.Width, data = iris)
-  model_summary <- summary(model)
-")
-
-# The code is automatically tracked
-cat(get_code(report))
-
-# Create a card with the results
-results_card <- teal_card(
-  "## Statistical Analysis",
-  "### Summary Statistics",
-  code_chunk("print(iris_summary)", echo = TRUE),
-  "### Linear Model Results", 
-  paste("**R-squared:**", round(report[["model_summary"]]$r.squared, 3)),
-  "### Reproducible Code",
-  code_chunk(get_code(report), echo = TRUE, eval = FALSE)
+report <- eval_code(
+  report, 
+  "iris_head <- head(iris)",
+  keep_output = TRUE
 )
+```
 
-# Add to the report
-teal_card(report) <- results_card
+The code is automatically tracked
+
+```{r get_code}
+cat(get_code(report))
+```
+
+Also, the last output of `code` is automatically tracked, if you specify `keep_output = TRUE` in `eval_code()`.
+
+## Converting to HTML
+
+The `teal_report` object can be converted to HTML using `toHTML()`.
+
+```{r html}
+library(tools)
+toHTML(report)
+```
+
+This is used in the `Reporter` class to display the report in the `Reporter previewer` module,
+but this is also helpful in displaying report object in HTML output Rmarkdown files.
+
+## Adding text content to the report
+
+In most cases it is convenient to add code and the results of its evalutation to the report using `eval_code()`.
+For the scenarios where user would like to add commentary and section headers, `teal_card` can be used.
+
+```{r c_cards}
+teal_card(report) <- c(teal_card(report), "This analysis looks at the iris dataset.")
+```
+
+You can also prepend the content of the report by using `after` parameter in `append` function.
+
+```{r append_cards}
+teal_card(report) <- append(teal_card(report), "## My analysis", after = 0)
+```
+
+```{r final_toHTML}	
+toHTML(report)
 ```
 
 ## Key Benefits
 
 Using `teal_report` in your modules provides several advantages:
 
-1. **Reproducibility**: All analysis code is automatically captured via the underlying `teal_data` infrastructure
+1. **Reproducibility**: All code is automatically captured via the underlying `teal_data` infrastructure
 2. **Consistency**: Standardized way to create reports across modules  
 3. **Flexibility**: Easy to add different types of content to reports
 4. **Integration**: Works seamlessly with the teal reporter infrastructure
