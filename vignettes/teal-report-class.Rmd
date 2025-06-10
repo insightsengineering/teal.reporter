@@ -79,10 +79,7 @@ report <- teal_report(iris = iris)
 
 # Add computed results using eval_code
 report <- eval_code(report, "
-  # Compute summary statistics
   iris_summary <- summary(iris)
-  
-  # Create a simple model
   model <- lm(Sepal.Length ~ Sepal.Width, data = iris)
   model_summary <- summary(model)
 ")
