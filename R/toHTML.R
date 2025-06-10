@@ -28,13 +28,19 @@ toHTML.default <- function(x, ...) {
 #' @method .toHTML ReportCard
 #' @keywords internal
 .toHTML.ReportCard <- function(x, ...) {
-  lapply(x$get_content(), toHTML)
+  htmltools::tagList(lapply(x$get_content(), toHTML))
 }
 
 #' @method .toHTML teal_card
 #' @keywords internal
 .toHTML.teal_card <- function(x, ...) {
-  lapply(x, toHTML, ...)
+  htmltools::tagList(lapply(x, toHTML, ...))
+}
+
+#' @method .toHTML teal_report
+#' @keywords internal
+.toHTML.teal_report <- function(x, ...) {
+  toHTML(teal_card(x), ...)
 }
 
 #' @method .toHTML TextBlock
