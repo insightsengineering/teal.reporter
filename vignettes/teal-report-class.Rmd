@@ -20,7 +20,9 @@ This vignette shows you how to use `teal_report` to enhance your teal modules wi
 
 ## Creating a teal_report
 
-Creating a `teal_report` is straightforward - you can include your data and it automatically tracks the code needed to reproduce your analysis:
+A `teal_report` is an object where developers can add, edit and remove various content (markdown text, plots, tables), evaluate and add code chunks within its environment. It provides a framework for building reproducible reports by combining content management with automatic code tracking.
+
+To ensure complete reproducibility, it's recommended to start with an empty `teal_report` and build up your data and analysis using `eval_code()`:
 
 ```{r basic-usage}
 library(teal.reporter)
