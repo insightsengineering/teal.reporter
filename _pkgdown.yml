@@ -52,16 +52,15 @@ reference:
       - rmd_outputs
   - title: "Classes used inside package"
     contents:
-      - doc
-      - report
-      - "report<-"
+      - teal_card
       - teal_report
       - ReportCard
       - Reporter
   - title: "Utility functions for `teal_card` object"
     contents:
-      - card
-      - edit_card
-      - as.card
+      - teal_card
+      - "teal_card<-"
+      - as.teal_card
       - metadata
+      - "metadata<-"
       - code_chunk
