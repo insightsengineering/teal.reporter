@@ -1,8 +1,5 @@
 testthat::describe("reporter_previewer", {
-  # https://github.com/rstudio/sortable/issues/123
-  # teal.reporter issue: https://github.com/insightsengineering/teal.reporter/issues/336
-  it("card reordering works")
-
+  # Sortable raw object is printed in DOM. Upstream ticket: https://github.com/rstudio/sortable/issues/123
   it("card removal works", {
     app <- start_reporter_preview_app("reporter_previewer_remove")
 
@@ -35,8 +32,4 @@ testthat::describe("reporter_previewer", {
     ")
     testthat::expect_true(modal_visible)
   })
-
-  it("card download")
-
-  it("card editing")
 })
