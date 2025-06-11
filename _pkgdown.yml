@@ -64,5 +64,4 @@ reference:
       - edit_card
       - as.card
       - metadata
-      - keep_in_report
       - code_chunk

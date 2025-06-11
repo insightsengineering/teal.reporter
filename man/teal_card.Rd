@@ -6,7 +6,6 @@
 \alias{as.teal_card}
 \alias{c.teal_card}
 \alias{[.teal_card}
-\alias{edit_teal_card}
 \title{\code{teal_card}: An \code{S3} class for managing \code{teal} reports}
 \usage{
 teal_card(x, ...)
@@ -18,25 +17,15 @@ as.teal_card(x)
 \method{c}{teal_card}(...)
 
 \method{[}{teal_card}(x, i)
-
-edit_teal_card(x, modify = NULL, append = NULL, after = length(x))
 }
 \arguments{
-\item{x}{\code{teal_card}}
+\item{x}{Object to convert to teal_card}
 
 \item{...}{Additional elements to include when creating a new \code{teal_card}}
 
 \item{value}{(\code{teal_card}) object to set in the \code{teal_report}.}
 
 \item{i}{index specifying elements to extract or replace}
-
-\item{modify}{An integer vector specifying element indices to extract and reorder.
-If \code{NULL}, no modification is applied.}
-
-\item{append}{An object to be added to the \code{teal_card} using \code{append()}.
-The \code{after} parameter determines the insertion position.}
-
-\item{after}{a subscript, after which the values are to be appended.}
 }
 \value{
 An \code{S3} \code{list} of class \code{teal_card}.
@@ -61,7 +50,6 @@ It accepts various input types and converts them appropriately.
 \details{
 The \code{teal_card} class supports \code{c()} and \code{x[i]} methods for combining and subsetting elements.
 However, these methods only function correctly when the first element is a \code{teal_card}.
-To prepend, reorder, or modify a \code{teal_card}, use the \code{edit_teal_card()} function.
 }
 \examples{
 # Create a new empty card
@@ -86,13 +74,5 @@ report <- append(report, c(list("## Table 2"), list(summary(mtcars))), after = 1
 
 # Verify that the object remains a teal_card
 class(report)
-
-#### edit_teal_card examples ###
-report <- teal_card(1, 2, "c")
-
-# Modify and append to the report
-new_report <- edit_teal_card(report, modify = c(3, 1), append = "d")
-new_report
-class(new_report)
 
 }
