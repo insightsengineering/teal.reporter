@@ -114,6 +114,10 @@ reporter_previewer_srv <- function(id,
 
     ns <- session$ns
 
+    shiny::exportTestValues(
+      cards = reporter$get_cards()
+    )
+
     download_report_button_srv(
       "download",
       reporter = reporter,
