@@ -1,12 +1,10 @@
-.content_to_rmd <- function(block, output_dir, ..., include_results) {
-  if (include_results || isTRUE(attr(block, "keep"))) {
-    suppressWarnings(hashname <- rlang::hash(block))
-    hashname_file <- paste0(hashname, ".rds")
-    path <- tempfile(fileext = ".rds")
-    suppressWarnings(saveRDS(block, file = path))
-    file.copy(path, file.path(output_dir, hashname_file))
-    sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", hashname_file)
-  }
+.content_to_rmd <- function(block, output_dir, ...) {
+  suppressWarnings(hashname <- rlang::hash(block))
+  hashname_file <- paste0(hashname, ".rds")
+  path <- tempfile(fileext = ".rds")
+  suppressWarnings(saveRDS(block, file = path))
+  file.copy(path, file.path(output_dir, hashname_file))
+  sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", hashname_file)
 }
 
 #' Convert `ReporterCard`/`teal_card` content to `rmarkdown`
@@ -22,7 +20,7 @@
 #' For example, to override the default behavior for `code_chunk` class, you can use:
 #'
 #' ```r
-#' to_rmd.code_chunk <- function(block, output_dir, ..., include_results, report_type, eval = TRUE) {
+#' to_rmd.code_chunk <- function(block, output_dir, ..., report_type, eval = TRUE) {
 #'   # custom implementation
 #'   sprintf("### A custom code chunk\n\n```{r}\n%s\n```\n", block)
 #' }
@@ -60,7 +58,7 @@ to_rmd.default <- function(block, output_dir, ...) {
                              output_dir,
                              yaml_header,
                              global_knitr = getOption("teal.reporter.global_knitr"),
-                             include_results,
+                             include_chunk_output,
                              ...) {
   blocks <- block$get_blocks()
   checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
@@ -99,7 +97,14 @@ to_rmd.default <- function(block, output_dir, ...) {
     unlist(
       lapply(
         blocks,
-        function(b) to_rmd(b, output_dir = output_dir, report_type = report_type, include_results = include_results)
+        function(b) {
+          to_rmd(
+            b,
+            output_dir = output_dir,
+            report_type = report_type,
+            include_chunk_output = include_chunk_output
+          )
+        }
       )
     ),
     collapse = "\n\n"
@@ -153,27 +158,25 @@ to_rmd.default <- function(block, output_dir, ...) {
 
 #' @method .to_rmd code_chunk
 #' @keywords internal
-.to_rmd.code_chunk <- function(block, output_dir, ..., include_results, report_type, eval = FALSE) {
-  if (include_results || !isFALSE(attr(block, "keep"))) {
-    params <- attr(block, "params")
-    if (!("eval" %in% names(params))) params <- c(params, eval = eval)
-    params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
-    if (identical(report_type, "powerpoint_presentation")) {
-      block_content_list <- split_text_block(block, 30)
-      paste(
-        sprintf(
-          "\\newpage\n\n---\n\n```{r, echo=FALSE}\ncode_block(\n%s)\n```\n",
-          shQuote(block_content_list, type = "cmd")
-        ),
-        collapse = "\n\n"
-      )
-    } else {
+.to_rmd.code_chunk <- function(block, output_dir, ..., report_type, eval = FALSE) {
+  params <- attr(block, "params")
+  if (!("eval" %in% names(params))) params <- c(params, eval = eval)
+  params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
+  if (identical(report_type, "powerpoint_presentation")) {
+    block_content_list <- split_text_block(block, 30)
+    paste(
       sprintf(
-        "```{r, %s}\n%s\n```\n",
-        paste(names(params), params, sep = "=", collapse = ", "),
-        block
-      )
-    }
+        "\\newpage\n\n---\n\n```{r, echo=FALSE}\ncode_block(\n%s)\n```\n",
+        shQuote(block_content_list, type = "cmd")
+      ),
+      collapse = "\n\n"
+    )
+  } else {
+    sprintf(
+      "```{r, %s}\n%s\n```\n",
+      paste(names(params), params, sep = "=", collapse = ", "),
+      block
+    )
   }
 }
 
@@ -219,9 +222,15 @@ to_rmd.default <- function(block, output_dir, ...) {
 
 #' @method .to_rmd character
 #' @keywords internal
-.to_rmd.character <- function(block, output_dir, ..., include_results) {
-  if (include_results || !isFALSE(attr(block, "keep"))) {
-    block
+.to_rmd.character <- function(block, output_dir, ...) {
+  block
+}
+
+#' @method .to_rmd PictureBlock
+#' @keywords internal
+.to_rmd.chunk_output <- function(block, output_dir, ..., include_chunk_output) {
+  if (!missing(include_chunk_output) && isTRUE(include_chunk_output)) {
+    NextMethod()
   }
 }
 
@@ -229,12 +238,13 @@ to_rmd.default <- function(block, output_dir, ...) {
 #' @keywords internal
 .to_rmd.gg <- .content_to_rmd
 
+
 #' @method .to_rmd rtables
 #' @keywords internal
-.to_rmd.rtables <- function(block, output_dir, ..., include_results) {
+.to_rmd.rtables <- function(block, output_dir, ...) {
   flextable_block <- to_flextable(block)
   attr(flextable_block, "keep") <- attr(block, "keep")
-  .content_to_rmd(flextable_block, output_dir, include_results = include_results)
+  .content_to_rmd(flextable_block, output_dir)
 }
 
 #' @method .to_rmd trellis

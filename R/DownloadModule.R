@@ -272,7 +272,7 @@ report_render <- function(reporter, yaml_header, global_knitr = getOption("teal.
     output_dir,
     yaml_header = yaml_header,
     global_knitr = global_knitr,
-    include_results = TRUE
+    include_chunk_output = TRUE
   )
   args <- append(args, list(
     input = input_path,
@@ -293,7 +293,7 @@ report_render <- function(reporter, yaml_header, global_knitr = getOption("teal.
     output_dir,
     yaml_header = yaml_header,
     global_knitr = global_knitr,
-    include_results = FALSE
+    include_chunk_output = FALSE
   ) # TODO remove eval=FALSE also
   output_dir
 }
