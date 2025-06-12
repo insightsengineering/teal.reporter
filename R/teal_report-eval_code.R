@@ -31,10 +31,19 @@ setMethod(
         do.call(code_chunk, args = c(list(code = new_code), code_block_opts))
       )
       teal_card(new_object) <- Reduce(
-        function(result, this) c(result, new_object[[this]]),
+        function(result, this) {
+          this_output <- new_object[[this]]
+          c(
+            result,
+            structure(
+              this_output,
+              class = c("chunk_output", class(this_output))
+            )
+          )
+        },
         init = teal_card(new_object),
         x = keep_output
-      ) # TODO: cache an attribute of code chunk
+      )
     }
     new_object
   }
