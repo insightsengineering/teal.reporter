@@ -1,4 +1,11 @@
 #' @inherit teal.code::eval_code
+#' @param object (`teal_report`)
+#' @param keep_output (`character` or `NULL`) Names of output objects in the environment
+#' that are will be added in the card for the reporter.
+#' These are shown in the card via the [tools::toHTML()] and [to_rmd()] implementations.
+#' @param code_block_opts (`list`) Additional options for the R code chunk in R Markdown.
+#' @return `teal_reporter` environment with the code evaluated and the outputs added
+#' to the card or `qenv.error` if evaluation fails.
 #' @importFrom teal.code eval_code
 setMethod(
   "eval_code",
