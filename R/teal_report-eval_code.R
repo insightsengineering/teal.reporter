@@ -1,3 +1,4 @@
+#' @inherit teal.code::eval_code
 #' @importFrom teal.code eval_code
 setMethod(
   "eval_code",
@@ -8,23 +9,13 @@ setMethod(
       return(new_object)
     }
 
-    if (isTRUE(keep_output)) {
-      keep_output <- setdiff(
-        ls(new_object, all.names = TRUE, sorted = TRUE), ls(object, all.names = TRUE)
-      )
-    } else if (isFALSE(keep_output)) {
-      keep_output <- NULL
-    }
-
     checkmate::assert(
       combine = "and",
       .var.name = "keep_output",
       checkmate::check_character(keep_output, null.ok = TRUE),
       checkmate::check_subset(keep_output, ls(new_object, all.names = TRUE), empty.ok = TRUE)
     )
-    temporary_q <- teal.code::qenv()
-    temporary_q@code <- setdiff(new_object@code, object@code)
-    new_code <- teal.code::get_code(temporary_q)
+    new_code <- .preprocess_code(code)
     if (length(new_code)) {
       teal_card(new_object) <- c(
         teal_card(new_object),
@@ -34,8 +25,10 @@ setMethod(
         function(result, this) c(result, new_object[[this]]),
         init = teal_card(new_object),
         x = keep_output
-      ) # TODO: cache an attribute of code chunk
+      )
     }
     new_object
   }
 )
+
+.preprocess_code <- getFromNamespace(".preprocess_code", "teal.code")
