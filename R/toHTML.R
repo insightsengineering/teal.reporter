@@ -133,6 +133,12 @@ toHTML.default <- function(x, ...) {
   shiny::tags$pre(x)
 }
 
+#' @method .toHTML summary.lm
+#' @keywords internal
+.toHTML.summary.lm <- function(x, ...) {
+  shiny::tags$pre(paste(capture.output(print(x)), collapse = "\n"))
+}
+
 #' @method .toHTML TableTree
 #' @keywords internal
 .toHTML.TableTree <- .toHTML.rtables
