@@ -58,7 +58,7 @@ card <- teal_card(
 
 # Add more content to an existing card
 card <- c(card, list(
-  "### Conclusion", 
+  "### Conclusion",
   "The data shows interesting patterns."
 ))
 
@@ -81,7 +81,7 @@ report <- teal_report(iris = iris)
 report <- eval_code(report, {
   # Compute summary statistics
   iris_summary <- summary(iris)
-  
+
   # Create a simple model
   model <- lm(Sepal.Length ~ Sepal.Width, data = iris)
   model_summary <- summary(model)
@@ -96,7 +96,7 @@ results_card <- teal_card(
   "### Summary Statistics",
   code_chunk("print(iris_summary)", echo = TRUE),
   "",
-  "### Linear Model Results", 
+  "### Linear Model Results",
   paste("**R-squared:**", round(report[["model_summary"]]$r.squared, 3)),
   "",
   "### Reproducible Code",
@@ -119,25 +119,25 @@ tm_simple_regression <- function(label = "Simple Regression") {
   module(
     label = label,
     server = function(input, output, session, data, reporter, ...) {
-      
       # Create the plot
       output$plot <- renderPlot({
         req(input$x_var, input$y_var)
         dataset <- data()[["iris"]]
         plot(dataset[[input$x_var]], dataset[[input$y_var]],
-             xlab = input$x_var, ylab = input$y_var,
-             main = paste("Plot of", input$y_var, "vs", input$x_var))
+          xlab = input$x_var, ylab = input$y_var,
+          main = paste("Plot of", input$y_var, "vs", input$x_var)
+        )
       })
-      
+
       # Create a teal_report from current data
       report_data <- as.teal_report(data())
-        
+
       # Add computed analysis using eval_code
       report_data <- eval_code(report_data, {
         # Compute correlation
         correlation <- cor(iris[[input$x_var]], iris[[input$y_var]])
       })
-        
+
       # Create a card with the analysis
       analysis_card <- teal_card(
         "## Simple Regression Analysis",
@@ -150,35 +150,39 @@ tm_simple_regression <- function(label = "Simple Regression") {
           get_code(report_data),
           paste0("plot(iris$", input$x_var, ", iris$", input$y_var, ","),
           paste0('     xlab = "', input$x_var, '", ylab = "', input$y_var, '",'),
-          paste0('     main = "Plot of ', input$y_var, ' vs ', input$x_var, '")')
+          paste0('     main = "Plot of ', input$y_var, " vs ", input$x_var, '")')
         ), echo = TRUE, eval = FALSE)
       )
-        
+
       # Add the card to the report
       teal_card(report_data) <- c(teal_card(report_data), analysis_card)
-        
+
       # Return the report_data object
       report_data
     },
-    
     ui = function(id) {
       ns <- NS(id)
       fluidPage(
         h3("Simple Regression Plot"),
         fluidRow(
-          column(6,
-            selectInput(ns("x_var"), "X Variable:", 
-                       choices = names(iris)[1:4], selected = "Sepal.Length")
+          column(
+            6,
+            selectInput(ns("x_var"), "X Variable:",
+              choices = names(iris)[1:4], selected = "Sepal.Length"
+            )
           ),
-          column(6,
-            selectInput(ns("y_var"), "Y Variable:", 
-                       choices = names(iris)[1:4], selected = "Sepal.Width")
+          column(
+            6,
+            selectInput(ns("y_var"), "Y Variable:",
+              choices = names(iris)[1:4], selected = "Sepal.Width"
+            )
           )
         ),
         plotOutput(ns("plot")),
         br(),
-        actionButton(ns("add_report"), "Add to Report", 
-                    icon = icon("plus"), class = "btn-primary")
+        actionButton(ns("add_report"), "Add to Report",
+          icon = icon("plus"), class = "btn-primary"
+        )
       )
     }
   )
