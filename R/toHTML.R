@@ -142,3 +142,9 @@ toHTML.default <- function(x, ...) {
 #' @method .toHTML data.frame
 #' @keywords internal
 .toHTML.data.frame <- .toHTML.rtables
+
+#' @method .toHTML datatables
+#' @keywords internal
+.toHTML.datatables <- function(x, ...) {
+  htmltools::as.tags(x)
+}

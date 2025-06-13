@@ -12,11 +12,9 @@
 #' @return An `S3` `list` of class `teal_card`.
 #' @param x A `teal_report` object to extract card from, or any other object to include in a new `teal_card`
 #' @param ... Additional elements to include when creating a new `teal_card`
-#' @inheritParams base::append
 #'
 #' @details The `teal_card` class supports `c()` and `x[i]` methods for combining and subsetting elements.
 #' However, these methods only function correctly when the first element is a `teal_card`.
-#' To prepend, reorder, or modify a `teal_card`, use the `edit_teal_card()` function.
 #'
 #' @examples
 #' # Create a new empty card
@@ -58,6 +56,7 @@ teal_card <- function(x, ...) {
 }
 
 #' @rdname teal_card
+#' @param value (`teal_card`) object to set in the `teal_report`.
 #' @export
 `teal_card<-` <- function(x, value) {
   checkmate::assert_class(x, "teal_report")
@@ -178,41 +177,6 @@ metadata.ReportCard <- function(object, which = NULL) {
   object
 }
 
-#' @rdname teal_card
-#' @param x `teal_card`
-#' @param modify An integer vector specifying element indices to extract and reorder.
-#' If `NULL`, no modification is applied.
-#' @param append An object to be added to the `teal_card` using `append()`.
-#' The `after` parameter determines the insertion position.
-#'
-#' @examples
-#' #### edit_teal_card examples ###
-#' report <- teal_card(1, 2, "c")
-#'
-#' # Modify and append to the report
-#' new_report <- edit_teal_card(report, modify = c(3, 1), append = "d")
-#' new_report
-#' class(new_report)
-#'
-#' @export
-edit_teal_card <- function(x, modify = NULL, append = NULL, after = length(x)) {
-  checkmate::assert_class(x, "teal_card")
-  checkmate::assert_class(modify, "numeric", null.ok = TRUE)
-
-  attrs <- attributes(x)
-
-  if (!is.null(modify)) {
-    x <- x[modify]
-  }
-
-  if (!is.null(append)) {
-    x <- append(x, append, after)
-  }
-
-  attributes(x) <- attrs
-  x
-}
-
 #' Generate an R Markdown code chunk
 #'
 #' This function creates a `code_chunk` object, which represents an R Markdown
@@ -236,28 +200,4 @@ code_chunk <- function(code, ...) {
     params = params,
     class = "code_chunk"
   )
-}
-
-#' @title Keep Objects In Report
-#' @description Utility function to change behavior of `teal_card` elements to be
-#' kept (`keep = TRUE`) or discarded (`keep = FALSE`) from the final `.Rmd` file containing the downloaded report.
-#' @details By default, R objects like `summary` outputs are only printed in the output document but their
-#'   code is not included in the `.Rmd` report source. Text elements (character strings) and `code_chunk`
-#'   objects are, by default, kept both in the output document and the `.Rmd` report source.
-#'   This function allows overriding the default behavior for specific objects.
-#' @param object An R object, typically an element intended for a `teal_card`.
-#' @param keep (`logical`) If `TRUE` (default), the object is marked to be kept in the `.Rmd` source;
-#'   if `FALSE`, it's marked for printing only in the output document (and not in the `.Rmd` source,
-#'   though its print output will be in the rendered document).
-#'
-#' @return The input `object` with its "keep" attribute modified.
-#' @examples
-#' item <- summary(iris)
-#' item <- keep_in_report(item, TRUE)
-#' attributes(item)$keep
-#'
-#' @export
-keep_in_report <- function(object, keep = TRUE) {
-  attr(object, "keep") <- keep
-  object
 }

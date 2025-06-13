@@ -68,7 +68,7 @@ setMethod(
 #' Initializes a reportable data for `teal` application.
 #'
 #' @inheritParams teal.data::teal_data
-#' @param card (`teal_card`) object containing the report content.
+#' @param teal_card (`teal_card`) object containing the report content.
 #' @return A `teal_report` object.
 #'
 #' @seealso [`teal.data::teal_data`]
