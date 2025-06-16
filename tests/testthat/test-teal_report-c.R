@@ -1,7 +1,7 @@
 testthat::test_that("c.teal_report concatenates multiple teal_report objects and concatenates teal_card objects", {
-  treport1 <- teal_report(code = "x = 1", teal_card = teal_card("Text 1"))
-  treport2 <- teal_report(code = "x = 2", teal_card = teal_card("Text 2"))
-  treport3 <- teal_report(code = "x = 3", teal_card = teal_card("Text 3"))
+  treport1 <- teal_report(teal_card = teal_card("Text 1"))
+  treport2 <- teal_report(teal_card = teal_card("Text 2"))
+  treport3 <- teal_report(teal_card = teal_card("Text 3"))
 
   combined_treport <- c(treport1, treport2, treport3)
 
