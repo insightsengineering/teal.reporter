@@ -87,7 +87,7 @@ as.teal_card <- function(x) { # nolint: object_name.
 #' @export
 c.teal_card <- function(...) {
   dots <- list(...)
-  structure(
+  cards <- structure(
     Reduce(
       f = function(u, v) append(u, if (inherits(v, "teal_card") || inherits(v, "list")) v else list(v)),
       x = dots[-1],
@@ -95,6 +95,8 @@ c.teal_card <- function(...) {
     ),
     class = "teal_card"
   )
+  metadata(cards, which = "title") <- metadata(dots[[1]], which = "title")
+  cards
 }
 
 #' @param i index specifying elements to extract or replace
