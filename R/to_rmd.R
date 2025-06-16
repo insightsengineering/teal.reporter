@@ -238,15 +238,6 @@ to_rmd.default <- function(block, output_dir, ...) {
 #' @keywords internal
 .to_rmd.gg <- .content_to_rmd
 
-
-#' @method .to_rmd rtables
-#' @keywords internal
-.to_rmd.rtables <- function(block, output_dir, ...) {
-  flextable_block <- to_flextable(block)
-  attr(flextable_block, "keep") <- attr(block, "keep")
-  .content_to_rmd(flextable_block, output_dir)
-}
-
 #' @method .to_rmd trellis
 #' @keywords internal
 .to_rmd.trellis <- .content_to_rmd
@@ -258,6 +249,22 @@ to_rmd.default <- function(block, output_dir, ...) {
 #' @method .to_rmd Heatmap
 #' @keywords internal
 .to_rmd.Heatmap <- .content_to_rmd
+
+#' @method .to_rmd datatables
+#' @keywords internal
+.to_rmd.datatables <- .content_to_rmd
+
+#' @method .to_rmd summary.lm
+#' @keywords internal
+.to_rmd.summary.lm <- .content_to_rmd
+
+#' @method .to_rmd rtables
+#' @keywords internal
+.to_rmd.rtables <- function(block, output_dir, ...) {
+  flextable_block <- to_flextable(block)
+  attr(flextable_block, "keep") <- attr(block, "keep")
+  .content_to_rmd(flextable_block, output_dir)
+}
 
 #' @method .to_rmd TableTree
 #' @keywords internal
@@ -274,7 +281,3 @@ to_rmd.default <- function(block, output_dir, ...) {
 #' @method .to_rmd data.frame
 #' @keywords internal
 .to_rmd.data.frame <- .to_rmd.rtables
-
-#' @method .to_rmd datatables
-#' @keywords internal
-.to_rmd.datatables <- .content_to_rmd
