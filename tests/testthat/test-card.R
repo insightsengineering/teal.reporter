@@ -76,3 +76,12 @@ testthat::test_that("[.card subsets and retains class", {
   testthat::expect_s3_class(empty_sub_doc, "teal_card")
   testthat::expect_length(empty_sub_doc, 0)
 })
+
+testthat::test_that("c.card preserves metadata", {
+  tc1 <- teal_card("Text 1")
+  tc2 <- teal_card("Text 2")
+  metadata(tc1, "title") <- "Title 1"
+  metadata(tc2, "title") <- "Title 2"
+  tc_combined <- c(tc1, tc2)
+  testthat::expect_equal(metadata(tc_combined, "title"), "Title 1")
+})
