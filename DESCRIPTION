@@ -65,8 +65,8 @@ VignetteBuilder:
     knitr,
     rmarkdown
 Remotes:
-    insightsengineering/teal.code@teal_reportable,
-    insightsengineering/teal.data@teal_reportable
+    insightsengineering/teal.code@main,
+    insightsengineering/teal.data@main
 Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate,
     davidgohel/flextable, yihui/knitr, r-lib/lifecycle,
     r-lib/R6, r-lib/rlang, insightsengineering/rlistings, rstudio/rmarkdown,
