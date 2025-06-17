@@ -98,7 +98,7 @@ teal_card(report)
 
 `teal_report` supports several output formats. Currently it is possible to render `.Rmd`, `.md`, `.pptx`, `.doc`, `.pdf` and `.html`.
 
-```{r}
+```{r. eval=FALSE}
 # todo: we only export toHTML for now
 #       it is not possible to generate other formats without passing to Reporter and using a shiny module
 #       Do we need function like `export(output_format)` or `to_pdf`, `to_md`, `to_pptx`, `to_doc`
