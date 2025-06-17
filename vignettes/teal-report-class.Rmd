@@ -67,7 +67,7 @@ report <- within(report,
     head_of_iris <- head(iris)
     head_of_iris
   },
-  keep_output = "TRUE"
+  keep_output = "head_of_iris"
 )
 
 teal_card(report)
