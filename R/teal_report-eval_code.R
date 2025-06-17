@@ -7,6 +7,15 @@
 #' @return `teal_reporter` environment with the code evaluated and the outputs added
 #' to the card or `qenv.error` if evaluation fails.
 #' @importFrom teal.code eval_code
+#' @examples
+#' td <- teal.data::teal_data()
+#' td <- teal.code::eval_code(td, "iris <- iris")
+#' tr <- as.teal_report(td)
+#' tr <- eval_code(tr, "a <- 1")
+#' tr <- eval_code(tr, "b <- 2L # with comment")
+#' tr <- eval_code(tr, quote(library(checkmate)))
+#' tr <- eval_code(tr, expression(assert_number(a)))
+#' teal_card(tr)
 setMethod(
   "eval_code",
   signature = c(object = "teal_report"),
