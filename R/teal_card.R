@@ -93,7 +93,7 @@ c.teal_card <- function(...) {
         if (!inherits(v, "teal_card")) v <- as.teal_card(v)
         result <- append(u, v)
         attributes(result) <- modifyList(attributes(u) %||% list(), metadata(v))
-        unclass(result)
+        result
       },
       x = dots[-1],
       init = unclass(dots[[1]]) # unclass to avoid infinite recursion
