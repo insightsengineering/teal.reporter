@@ -76,3 +76,34 @@ testthat::test_that("[.card subsets and retains class", {
   testthat::expect_s3_class(empty_sub_doc, "teal_card")
   testthat::expect_length(empty_sub_doc, 0)
 })
+
+testthat::describe("as.teal_card" , {
+  it("converts a simple list with each element being converted to a report content", {
+    simple_list <- list("a", "b", "c")
+    doc <- as.teal_card(simple_list)
+    testthat::expect_s3_class(doc, "teal_card")
+    testthat::expect_length(doc, 3)
+    testthat::expect_equal(doc[[1]], "a")
+    testthat::expect_equal(doc[[2]], "b")
+    testthat::expect_equal(doc[[3]], "c")
+  })
+
+  it("converts a custom list with many elements with only 1 element being created as report content", {
+    custom_list <- list("a", "b", "c", "d")
+    class(custom_list) <- c(custom_list, "extra class")
+    doc <- as.teal_card(custom_list)
+    testthat::expect_s3_class(doc, "teal_card")
+    testthat::expect_length(doc, 1)
+    testthat::expect_equal(doc[[1]], custom_list)
+  })
+
+  it("converts a ggplot2 to a teal_card with only 1 report content", {
+    testthat::skip_if_not_installed("ggplot2")
+    plot <- ggplot2::ggplot(iris) +
+      ggplot2::geom_point(ggplot2::aes(x = Sepal.Length, y = Sepal.Width))
+    doc <- as.teal_card(plot)
+    testthat::expect_s3_class(doc, "teal_card")
+    testthat::expect_length(doc, 1)
+    testthat::expect_s3_class(doc[[1]], "ggplot")
+  })
+})

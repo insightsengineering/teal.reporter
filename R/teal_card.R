@@ -77,7 +77,7 @@ as.teal_card <- function(x) { # nolint: object_name.
   if (inherits(x, "teal_card")) {
     return(x)
   }
-  if (is.list(x)) {
+  if (identical(class(x), "list")) {
     return(do.call(teal_card, x))
   }
   teal_card(x)
@@ -90,11 +90,7 @@ c.teal_card <- function(...) {
   structure(
     Reduce(
       f = function(u, v) {
-        if (identical(class(v), "list")) {
-          v <- as.teal_card(v)
-        } else if (!inherits(v, "teal_card")) {
-          v <- teal_card(v)
-        }
+        if (!inherits(v, "teal_card")) v <- as.teal_card(v)
         result <- append(u, v)
         attributes(result) <- modifyList(attributes(u) %||% list(), metadata(v))
         unclass(result)
