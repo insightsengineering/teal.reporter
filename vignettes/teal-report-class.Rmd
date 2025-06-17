@@ -1,0 +1,122 @@
+---
+title: "teal_report Class"
+author: "NEST CoreDev"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{teal_report Class}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Introduction
+
+The `teal_report` class in `teal.reporter` provides a way to create reproducible reports step by step by adding markdown content alongside code evaluation.
+
+The `teal_report` class is built on top of [`teal_data`](https://insightsengineering.github.io/teal.data/latest-tag/articles/teal-data.html), inheriting all its reproducibility and code-tracking capabilities while adding reporting-specific functionality through `teal_card`.
+
+This vignette shows you how to use `teal_report` to enhance your teal modules with reporting capabilities.
+
+
+## Creating a teal_report
+
+A `teal_report` is an object where developers can add, edit and remove various content (markdown content, plots, tables), evaluate and add code chunks within its environment. It provides a framework for building reproducible reports by combining content management with automatic code tracking.
+
+To ensure complete reproducibility, it's recommended to start with an empty `teal_report` and build up your data and analysis using `eval_code()`:
+
+```{r basic-usage}
+library(teal.reporter)
+report <- teal_report()
+```
+
+## Adding content to the `teal_report`
+
+### Adding arbitrary markdown content
+
+`teal_report` object allows one to compose a reproducible document containing markdown components. Use `teal_card(report)` to access and change elements of the document.
+To add a new element in the `teal_card` one can use `c` method.
+
+```{r}
+teal_card(report) <- c(
+  teal_card(report),
+  "## Document section",
+  "Lorem ipsum dolor sit amet"
+)
+
+teal_card(report)
+```
+
+### Adding reproducible code chunks
+
+`teal_report` inherits all methods from `teal.data`. Class utilizes `within()` and `teal.code::eval_code()` which execute arbitrary code in its environment but also add a code chunk to the reproducible document.
+
+```{r}
+report <- within(report, {
+  a <- 2
+})
+report$a
+teal_card(report)
+```
+
+In case when code generates an output one should specify which objects should be displayed below code chunk element. In the example below `head_of_iris` terminates a code chunk so adding `keep_output = "head_of_iris"` is needed to include it in the rendered document.
+
+```{r}
+report <- within(report,
+  {
+    head_of_iris <- head(iris)
+    head_of_iris
+  },
+  keep_output = "TRUE"
+)
+
+teal_card(report)
+```
+
+## Modify `teal_report` content
+
+`teal_report` allows to modify its content. Depending on the needs one can add, remove and replace element in the same way as one modifies a list (because `teal_card` is a `list`)
+
+```{r}
+# adding element in the beginnning of the document
+teal_card(report) <- append(teal_card(report), "# My report", after = 0)
+
+# removing code_chunk(s)
+teal_card(report) <- Filter(
+  function(x) !inherits(x, "code_chunk"),
+  teal_card(report)
+)
+
+# replace an element
+teal_card(report)[[1]] <- "# My report (replaced)"
+
+teal_card(report)
+```
+
+
+## Output teal_report
+
+`teal_report` supports several output formats. Currently it is possible to render `.Rmd`, `.md`, `.pptx`, `.doc`, `.pdf` and `.html`.
+
+```{r}
+# todo: we only export toHTML for now
+#       it is not possible to generate other formats without passing to Reporter and using a shiny module
+#       Do we need function like `export(output_format)` or `to_pdf`, `to_md`, `to_pptx`, `to_doc`
+toHTML()
+```
+
+## Key Benefits
+
+Using `teal_report` in your modules provides several advantages:
+
+1. **Reproducibility**: All code is automatically captured via the underlying `teal_data` infrastructure
+2. **Consistency**: Standardized way to create reports across modules  
+3. **Flexibility**: Easy to add different types of content to reports
+4. **Integration**: Works seamlessly with the teal reporter infrastructure
+5. **Code Tracking**: Inherited `eval_code()` functionality ensures all computations are reproducible
+
+## Further Reading
+
+For more details on the underlying `teal_data` functionality, see the [Introduction to teal.data](https://insightsengineering.github.io/teal.data/latest-tag/articles/teal-data.html). 
+
+For more information on the `teal_report` class usage in `teal`, see the [Managing Reproducible Report Documents in teal](https://insightsengineering.github.io/teal/latest-tag/articles/managing-reproducible-report-documents-in-teal.html).
