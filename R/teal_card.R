@@ -89,7 +89,16 @@ c.teal_card <- function(...) {
   dots <- list(...)
   structure(
     Reduce(
-      f = function(u, v) append(u, if (inherits(v, "teal_card") || inherits(v, "list")) v else list(v)),
+      f = function(u, v) {
+        if (identical(class(v), "list")) {
+          v <- as.teal_card(v)
+        } else if (!inherits(v, "teal_card")) {
+          v <- teal_card(v)
+        }
+        result <- append(u, v)
+        attributes(result) <- modifyList(attributes(u) %||% list(), metadata(v))
+        unclass(result)
+      },
       x = dots[-1],
       init = unclass(dots[[1]]) # unclass to avoid infinite recursion
     ),
