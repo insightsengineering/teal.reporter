@@ -136,7 +136,7 @@ toHTML.default <- function(x, ...) {
 #' @method .toHTML summary.lm
 #' @keywords internal
 .toHTML.summary.lm <- function(x, ...) {
-  shiny::tags$pre(paste(capture.output(print(x)), collapse = "\n"))
+  shiny::tags$pre(paste(utils::capture.output(print(x)), collapse = "\n"))
 }
 
 #' @method .toHTML TableTree
