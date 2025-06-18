@@ -92,7 +92,7 @@ c.teal_card <- function(...) {
       f = function(u, v) {
         if (!inherits(v, "teal_card")) v <- as.teal_card(v)
         result <- append(u, v)
-        attributes(result) <- modifyList(attributes(u) %||% list(), metadata(v))
+        attributes(result) <- modifyList(attributes(u) %||% list(), attributes(v))
         result
       },
       x = dots[-1],
@@ -108,6 +108,7 @@ c.teal_card <- function(...) {
 `[.teal_card` <- function(x, i) {
   out <- NextMethod()
   class(out) <- "teal_card"
+  attr(out, "metadata") <- metadata(x)
   out
 }
 
