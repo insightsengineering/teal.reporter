@@ -137,7 +137,7 @@ testthat::describe("as.teal_card" , {
   })
 })
 
-testthat::describe("metatada", {
+testthat::describe("metadata", {
   it("can be assigned individually to `teal_card` object", {
     doc <- teal_card("a", "b")
     metadata(doc, "title") <- "A Title"
