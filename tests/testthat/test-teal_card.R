@@ -138,32 +138,51 @@ testthat::describe("as.teal_card" , {
 })
 
 testthat::describe("metatada", {
-  it("can be set individually to `teal_card` object", {
+  it("can be assigned individually to `teal_card` object", {
     doc <- teal_card("a", "b")
     metadata(doc, "title") <- "A Title"
     testthat::expect_equal(metadata(doc, "title"), "A Title")
   })
 
-  it("can be set as named list to `teal_card` object", {
+  it("can be assigned as named list to `teal_card` object", {
     doc <- teal_card("a", "b")
     metadata(doc) <- list(title = "A Title")
     testthat::expect_equal(metadata(doc, "title"), "A Title")
   })
 
-  it("can be set individually to `ReportCard` object", {
+  it("can be assigned individually to `ReportCard` object", {
     doc <- ReportCard$new()
     metadata(doc, "title") <- "A Title"
     testthat::expect_equal(metadata(doc, "title"), "A Title")
     testthat::expect_equal(doc$get_name(), "A Title")
   })
 
-  it("does not support named list assignment with  `ReportCard` object", {
+  it("can be assigned as named list to `ReportCard` object if only has title", {
     doc <- ReportCard$new()
-    testthat::expect_error(
+    metadata(doc) <- list(title = "A Title")
+    testthat::expect_equal(metadata(doc, "title"), "A Title")
+    testthat::expect_equal(doc$get_name(), "A Title")
+  })
+
+  it("assignment throws warning when named list has other elements than title", {
+    doc <- ReportCard$new()
+    testthat::expect_warning(
       fixed = TRUE,
-      metadata(doc) <- list(title = "A Title"),
-      "Assertion on `which` failed: Must be specified for assigning metadata to ReportCard"
+      metadata(doc) <- list(title = "A Title", prop = "A property"),
+      "ReportCard class only supports `title` in metadata"
     )
+    testthat::expect_equal(metadata(doc, "title"), "A Title")
+    testthat::expect_equal(doc$get_name(), "A Title")
+  })
+
+  it("assignment throws warning when named list has element, but not title", {
+    doc <- ReportCard$new()
+    testthat::expect_warning(
+      fixed = TRUE,
+      metadata(doc) <- list(prop = "A property"),
+      "ReportCard class only supports `title` in metadata"
+    )
+    testthat::expect_equal(metadata(doc), list(title = character(0L)))
   })
 
   it("only supports assigning `title` in `ReportCard` object", {

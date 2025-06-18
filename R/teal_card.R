@@ -181,7 +181,13 @@ metadata.ReportCard <- function(object, which = NULL) {
 #' @export
 `metadata<-.ReportCard` <- function(object, which, value) {
   if (missing(which)) {
-    stop("Assertion on `which` failed: Must be specified for assigning metadata to ReportCard.")
+    if (!is.null(value[["title"]])) {
+      object$set_name(value[["title"]])
+    }
+    if (length(value) >= 2 || length(value) == 1 && is.null(value[["title"]])) {
+      warning("ReportCard class only supports `title` in metadata.")
+    }
+    return(object)
   }
 
   if (isFALSE(identical(which, "title"))) {
