@@ -33,12 +33,14 @@ Evaluate code in \code{qenv}
 Thus, if the \code{qenv} had been instantiated empty, contents of the environment are always a result of the stored code.
 }
 \examples{
-# evaluate code in qenv
-q <- qenv()
-q <- eval_code(q, "a <- 1")
-q <- eval_code(q, "b <- 2L # with comment")
-q <- eval_code(q, quote(library(checkmate)))
-q <- eval_code(q, expression(assert_number(a)))
+td <- teal.data::teal_data()
+td <- teal.code::eval_code(td, "iris <- iris")
+tr <- as.teal_report(td)
+tr <- teal.code::eval_code(tr, "a <- 1")
+tr <- teal.code::eval_code(tr, "b <- 2L # with comment")
+tr <- teal.code::eval_code(tr, quote(library(checkmate)))
+tr <- teal.code::eval_code(tr, expression(assert_number(a)))
+teal_card(tr)
 }
 \seealso{
 \link[teal.code]{within.qenv}
