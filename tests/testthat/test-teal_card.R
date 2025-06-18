@@ -136,3 +136,42 @@ testthat::describe("as.teal_card" , {
     testthat::expect_s3_class(doc[[1]], "ggplot")
   })
 })
+
+testthat::describe("metatada", {
+  it("can be set individually to `teal_card` object", {
+    doc <- teal_card("a", "b")
+    metadata(doc, "title") <- "A Title"
+    testthat::expect_equal(metadata(doc, "title"), "A Title")
+  })
+
+  it("can be set as named list to `teal_card` object", {
+    doc <- teal_card("a", "b")
+    metadata(doc) <- list(title = "A Title")
+    testthat::expect_equal(metadata(doc, "title"), "A Title")
+  })
+
+  it("can be set individually to `ReportCard` object", {
+    doc <- ReportCard$new()
+    metadata(doc, "title") <- "A Title"
+    testthat::expect_equal(metadata(doc, "title"), "A Title")
+    testthat::expect_equal(doc$get_name(), "A Title")
+  })
+
+  it("does not support named list assignment with  `ReportCard` object", {
+    doc <- ReportCard$new()
+    testthat::expect_error(
+      fixed = TRUE,
+      metadata(doc) <- list(title = "A Title"),
+      "Assertion on `which` failed: Must be specified for assigning metadata to ReportCard"
+    )
+  })
+
+  it("only supports assigning `title` in `ReportCard` object", {
+    doc <- ReportCard$new()
+    testthat::expect_warning(
+      fixed = TRUE,
+      metadata(doc, "prop") <- "A Property",
+      "ReportCard class only supports `title` in metadata"
+    )
+  })
+})

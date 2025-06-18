@@ -156,14 +156,19 @@ metadata.ReportCard <- function(object, which = NULL) {
 #' @param value The value to assign to the specified metadata field.
 #' @return The modified object with updated metadata.
 #' @export
-`metadata<-` <- function(object, which, value) {
-  checkmate::assert_string(which)
+`metadata<-` <- function(object, which = NULL, value) {
+  checkmate::assert_string(which, null.ok = TRUE)
   UseMethod("metadata<-", object)
 }
 
 #' @rdname metadata-set
 #' @export
-`metadata<-.teal_card` <- function(object, which, value) {
+`metadata<-.teal_card` <- function(object, which = NULL, value) {
+  if (missing(which)) {
+    checkmate::assert_list(value, names = "named")
+    attr(object, which = "metadata") <- value
+    return(object)
+  }
   attr(object, which = "metadata") <- utils::modifyList(
     metadata(object), structure(list(value), names = which)
   )
@@ -175,7 +180,11 @@ metadata.ReportCard <- function(object, which = NULL) {
 #' The `ReportCard` class only supports the `title` field in metadata.
 #' @export
 `metadata<-.ReportCard` <- function(object, which, value) {
-  if (which != "title") {
+  if (missing(which)) {
+    stop("Assertion on `which` failed: Must be specified for assigning metadata to ReportCard.")
+  }
+
+  if (isFALSE(identical(which, "title"))) {
     warning("ReportCard class only supports `title` in metadata.")
   } else {
     object$set_name(value)
