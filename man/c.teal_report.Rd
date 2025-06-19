@@ -2,16 +2,16 @@
 % Please edit documentation in R/teal_report-c.R
 \name{c.teal_report}
 \alias{c.teal_report}
-\title{Concatenate teal_report objects}
+\title{Concatenate \code{teal_report} objects}
 \usage{
 \method{c}{teal_report}(...)
 }
 \arguments{
-\item{...}{teal_report objects to concatenate}
+\item{...}{(\code{teal_report}) objects to concatenate}
 }
 \value{
-A teal_report object with concatenated code, .xData, and teal_card fields
+A \code{\link{teal_report}} object with combined \code{\link{teal_card}} elements.
 }
 \description{
-Concatenate teal_report objects
+Concatenate \code{teal_report} objects
 }

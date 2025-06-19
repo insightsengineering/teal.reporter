@@ -1,13 +1,16 @@
-#' Concatenate teal_report objects
+#' Concatenate `teal_report` objects
 #'
-#' @param ... teal_report objects to concatenate
+#' @param ... (`teal_report`) objects to concatenate
 #'
-#' @return A teal_report object with concatenated code, .xData, and teal_card fields
+#' @return A [`teal_report`] object with combined [`teal_card`] elements.
 #'
 #' @export
 #' @method c teal_report
 c.teal_report <- function(...) {
   result <- NextMethod()
-  teal.reporter::teal_card(result) <- do.call(c, lapply(list(...), teal.reporter::teal_card))
+  l <- Filter(function(x) inherits(x, "teal_report"), list(...))
+  if (length(l) > 1) {
+    teal_card(result) <- do.call(c, lapply(l, function(x) teal_card(x)))
+  }
   result
-} 
+}

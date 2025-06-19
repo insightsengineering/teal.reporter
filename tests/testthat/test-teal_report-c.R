@@ -1,10 +1,37 @@
-testthat::test_that("c.teal_report concatenates multiple teal_report objects and concatenates teal_card objects", {
-  treport1 <- teal_report(teal_card = teal_card("Text 1"))
-  treport2 <- teal_report(teal_card = teal_card("Text 2"))
-  treport3 <- teal_report(teal_card = teal_card("Text 3"))
+testthat::describe("c.teal_report combines", {
+  it("two empty teal_report objects", {
+    testthat::expect_equal(c(teal_report(), teal_report()), teal_report())
+  })
 
-  combined_treport <- c(treport1, treport2, treport3)
+  it("empty and non-empty teal_report by appending elements of teal_card", {
+    treport1 <- teal_report()
+    treport2 <- teal_report(teal_card = teal_card("Text 2"))
 
-  testthat::expect_length(teal_card(combined_treport), 3)
-  testthat::expect_equal(teal_card(combined_treport), c(teal_card(treport1), teal_card(treport2), teal_card(treport3))) 
+    testthat::expect_identical(
+      teal_card(c(treport1, treport2)),
+      teal_card("Text 2")
+    )
+  })
+
+  it("two teal_report by combining elements of teal_card", {
+    treport1 <- teal_report(teal_card = teal_card("Text 1"))
+    treport2 <- teal_report(teal_card = teal_card("Text 2"))
+
+    testthat::expect_identical(
+      teal_card(c(treport1, treport2)),
+      teal_card("Text 1", "Text 2")
+    )
+  })
+
+  it("multiple teal_report by combining elements of teal_card", {
+    treport1 <- teal_report(teal_card = teal_card("Text 1"))
+    treport2 <- teal_report(teal_card = teal_card("Text 2"))
+    treport3 <- teal_report()
+    treport4 <- teal_report(teal_card = teal_card("Text 2"))
+
+    testthat::expect_identical(
+      teal_card(c(treport1, treport2, treport3, treport4)),
+      teal_card("Text 1", "Text 2", "Text 2")
+    )
+  })
 })
