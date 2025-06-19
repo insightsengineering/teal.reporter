@@ -15,6 +15,6 @@ if (requireNamespace("waldo", quietly = TRUE)) {
         path = path
       )
     },
-    env = asNamespace("waldo")
+    envir = asNamespace("waldo")
   )
 }

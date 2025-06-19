@@ -1,7 +1,13 @@
 testthat::describe("keep_output stores the objects in teal_card", {
   it("using eval_code and explicit reference", {
-    q <- eval_code(teal_report(), "a <- 1L;b <-2L;c<- 3L", keep_output = "b")
-    testthat::expect_equal(teal_card(q)[[length(teal_card(q))]], 2L)
+    q <- eval_code(teal_report(), "a <- 1L;b <- 2L;c <- 3L", keep_output = "b")
+    testthat::expect_identical(
+      teal_card(q),
+      teal_card(
+        code_chunk("a <- 1L;b <- 2L;c <- 3L"),
+        structure(2L, class = c("chunk_output", "integer"))
+      )
+    )
   })
 
   it("using within and explicit reference", {
@@ -11,19 +17,34 @@ testthat::describe("keep_output stores the objects in teal_card", {
         b <- 2L
         c <- 3L
       },
-      keep_output = "a"
+      keep_output = "b"
     )
-    testthat::expect_equal(teal_card(q)[[length(teal_card(q))]], 1L)
+    testthat::expect_identical(
+      teal_card(q),
+      teal_card(
+        code_chunk("a <- 1L\nb <- 2L\nc <- 3L"),
+        structure(2L, class = c("chunk_output", "integer"))
+      )
+    )
   })
 
   it("with multiple explicit object references", {
-    q <- eval_code(teal_report(), "a <- 1L;b <- 2L;c <- 3L", keep_output = c("c", "a"))
-    testthat::expect_equal(teal_card(q)[[length(teal_card(q)) - 1]], 3L)
-    testthat::expect_equal(teal_card(q)[[length(teal_card(q))]], 1L)
+    q <- eval_code(teal_report(), "a <- 1L;b <- 2L;c <- 3L", keep_output = c("a", "b"))
+    testthat::expect_identical(
+      teal_card(q),
+      teal_card(
+        code_chunk("a <- 1L;b <- 2L;c <- 3L"),
+        structure(1L, class = c("chunk_output", "integer")),
+        structure(2L, class = c("chunk_output", "integer"))
+      )
+    )
   })
 
   it("without explicit reference returing none", {
-    q <- eval_code(teal_report(), "a <- 1L;z <- 2L;c <- 3L", keep_output = character(0L))
-    testthat::expect_equal(teal_card(q)[-1], teal_card())
+    q <- eval_code(teal_report(), "a <- 1L;b <- 2L;c <- 3L", keep_output = character(0L))
+    testthat::expect_identical(
+      teal_card(q),
+      teal_card(code_chunk("a <- 1L;b <- 2L;c <- 3L"))
+    )
   })
 })
