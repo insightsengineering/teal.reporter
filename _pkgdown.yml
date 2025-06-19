@@ -67,3 +67,4 @@ reference:
   - title: "Utility functions for `teal_report` object"
     contents:
       - eval_code,teal_report-method
+      - c.teal_report
