@@ -64,3 +64,6 @@ reference:
       - metadata
       - "metadata<-"
       - code_chunk
+  - title: "Utility functions for `teal_report` object"
+    contents:
+      - eval_code,teal_report-method
