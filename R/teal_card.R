@@ -77,7 +77,7 @@ as.teal_card <- function(x) { # nolint: object_name.
   if (inherits(x, "teal_card")) {
     return(x)
   }
-  if (is.list(x)) {
+  if (identical(class(x), "list")) {
     return(do.call(teal_card, x))
   }
   teal_card(x)
@@ -89,9 +89,15 @@ c.teal_card <- function(...) {
   dots <- list(...)
   structure(
     Reduce(
-      f = function(u, v) append(u, if (inherits(v, "teal_card") || inherits(v, "list")) v else list(v)),
-      x = dots[-1],
-      init = unclass(dots[[1]]) # unclass to avoid infinite recursion
+      f = function(u, v) {
+        v <- as.teal_card(v)
+        attrs <- utils::modifyList(attributes(u) %||% list(), attributes(v))
+        result <- c(unclass(u), v)
+        attributes(result) <- attrs
+        result
+      },
+      x = dots,
+      init = list()
     ),
     class = "teal_card"
   )
@@ -103,6 +109,7 @@ c.teal_card <- function(...) {
 `[.teal_card` <- function(x, i) {
   out <- NextMethod()
   class(out) <- "teal_card"
+  attr(out, "metadata") <- metadata(x)
   out
 }
 
@@ -150,14 +157,19 @@ metadata.ReportCard <- function(object, which = NULL) {
 #' @param value The value to assign to the specified metadata field.
 #' @return The modified object with updated metadata.
 #' @export
-`metadata<-` <- function(object, which, value) {
-  checkmate::assert_string(which)
+`metadata<-` <- function(object, which = NULL, value) {
+  checkmate::assert_string(which, null.ok = TRUE)
   UseMethod("metadata<-", object)
 }
 
 #' @rdname metadata-set
 #' @export
-`metadata<-.teal_card` <- function(object, which, value) {
+`metadata<-.teal_card` <- function(object, which = NULL, value) {
+  if (missing(which)) {
+    checkmate::assert_list(value, names = "named")
+    attr(object, which = "metadata") <- value
+    return(object)
+  }
   attr(object, which = "metadata") <- utils::modifyList(
     metadata(object), structure(list(value), names = which)
   )
@@ -169,7 +181,17 @@ metadata.ReportCard <- function(object, which = NULL) {
 #' The `ReportCard` class only supports the `title` field in metadata.
 #' @export
 `metadata<-.ReportCard` <- function(object, which, value) {
-  if (which != "title") {
+  if (missing(which)) {
+    if (!is.null(value[["title"]])) {
+      object$set_name(value[["title"]])
+    }
+    if (length(value) >= 2 || length(value) == 1 && is.null(value[["title"]])) {
+      warning("ReportCard class only supports `title` in metadata.")
+    }
+    return(object)
+  }
+
+  if (isFALSE(identical(which, "title"))) {
     warning("ReportCard class only supports `title` in metadata.")
   } else {
     object$set_name(value)
