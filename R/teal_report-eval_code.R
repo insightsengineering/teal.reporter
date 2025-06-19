@@ -1,8 +1,5 @@
 #' @inherit teal.code::eval_code
 #' @param object (`teal_report`)
-#' @param keep_output (`character` or `NULL`) Names of output objects in the environment
-#' that are will be added in the card for the reporter.
-#' These are shown in the card via the [tools::toHTML()] and [to_rmd()] implementations.
 #' @param code_block_opts (`list`) Additional options for the R code chunk in R Markdown.
 #' @return `teal_reporter` environment with the code evaluated and the outputs added
 #' to the card or `qenv.error` if evaluation fails.
@@ -19,41 +16,26 @@
 setMethod(
   "eval_code",
   signature = c(object = "teal_report"),
-  function(object, code, keep_output = NULL, code_block_opts = list(), ...) {
+  function(object, code, code_block_opts = list(), ...) {
     new_object <- methods::callNextMethod(object = object, code = code, ...)
     if (inherits(new_object, "error")) {
       return(new_object)
     }
 
-    checkmate::assert(
-      combine = "and",
-      .var.name = "keep_output",
-      checkmate::check_character(keep_output, null.ok = TRUE),
-      checkmate::check_subset(keep_output, ls(new_object, all.names = TRUE), empty.ok = TRUE)
+    new_blocks <- Reduce(
+      function(items, code_elem) {
+        this_chunk <- do.call(code_chunk, c(list(code = code_elem), code_block_opts))
+        this_outs <- lapply(attr(code_elem, "outputs"), function(x) structure(x, class = c("chunk_output", class(x))))
+        c(items, list(this_chunk), this_outs)
+      },
+      init = list(),
+      x = setdiff(new_object@code, object@code)
     )
-    new_code <- .preprocess_code(code)
-    if (length(new_code)) {
-      teal_card(new_object) <- c(
-        teal_card(new_object),
-        do.call(code_chunk, args = c(list(code = new_code), code_block_opts))
-      )
-      teal_card(new_object) <- Reduce(
-        function(result, this) {
-          this_output <- new_object[[this]]
-          c(
-            result,
-            structure(
-              this_output,
-              class = c("chunk_output", class(this_output))
-            )
-          )
-        },
-        init = teal_card(new_object),
-        x = keep_output
-      )
+
+
+    if (length(new_blocks)) {
+      teal_card(new_object) <- c(teal_card(new_object), new_blocks)
     }
     new_object
   }
 )
-
-.preprocess_code <- getFromNamespace(".preprocess_code", "teal.code")

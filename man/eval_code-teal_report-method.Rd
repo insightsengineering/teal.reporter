@@ -4,7 +4,7 @@
 \alias{eval_code,teal_report-method}
 \title{Evaluate code in \code{qenv}}
 \usage{
-\S4method{eval_code}{teal_report}(object, code, keep_output = NULL, code_block_opts = list(), ...)
+\S4method{eval_code}{teal_report}(object, code, code_block_opts = list(), ...)
 }
 \arguments{
 \item{object}{(\code{teal_report})}
@@ -12,10 +12,6 @@
 \item{code}{(\code{character}, \code{language} or \code{expression}) code to evaluate.
 It is possible to preserve original formatting of the \code{code} by providing a \code{character} or an
 \code{expression} being a result of \code{parse(keep.source = TRUE)}.}
-
-\item{keep_output}{(\code{character} or \code{NULL}) Names of output objects in the environment
-that are will be added in the card for the reporter.
-These are shown in the card via the \code{\link[tools:toHTML]{tools::toHTML()}} and \code{\link[=to_rmd]{to_rmd()}} implementations.}
 
 \item{code_block_opts}{(\code{list}) Additional options for the R code chunk in R Markdown.}
 

@@ -1,29 +1,62 @@
-testthat::describe("keep_output stores the objects in teal_card", {
-  it("using eval_code and explicit reference", {
-    q <- eval_code(teal_report(), "a <- 1L;b <-2L;c<- 3L", keep_output = "b")
-    testthat::expect_equal(teal_card(q)[[length(teal_card(q))]], 2L)
-  })
-
-  it("using within and explicit reference", {
-    q <- within(teal_report(),
-      {
-        a <- 1L
-        b <- 2L
-        c <- 3L
-      },
-      keep_output = "a"
+testthat::describe("eval_code appends to teal_card", {
+  it("code as code_chunk", {
+    q <- eval_code(teal_report(), "a <- 1L;b <- 2L;c <- 3L")
+    testthat::expect_identical(
+      teal_card(q),
+      c(
+        teal_card(),
+        code_chunk("a <- 1L"),
+        code_chunk("b <- 2L"),
+        code_chunk("c <- 3L")
+      )
     )
-    testthat::expect_equal(teal_card(q)[[length(teal_card(q))]], 1L)
   })
 
-  it("with multiple explicit object references", {
-    q <- eval_code(teal_report(), "a <- 1L;b <- 2L;c <- 3L", keep_output = c("c", "a"))
-    testthat::expect_equal(teal_card(q)[[length(teal_card(q)) - 1]], 3L)
-    testthat::expect_equal(teal_card(q)[[length(teal_card(q))]], 1L)
+  it("code as code_chunk and its output as chunk_output", {
+    q <- eval_code(teal_report(), "a <- 1L;a")
+    testthat::expect_identical(
+      teal_card(q),
+      c(
+        teal_card(),
+        code_chunk("a <- 1L"),
+        code_chunk("a"),
+        structure(1L, class = c("chunk_output", "integer"))
+      )
+    )
+  })
+})
+
+testthat::describe("within appends to teal_card", {
+  it("code as code_chunk", {
+    q <- within(teal_report(), {
+      a <- 1L
+      b <- 2L
+      c <- 3L
+    })
+    testthat::expect_identical(
+      teal_card(q),
+      c(
+        teal_card(),
+        code_chunk("a <- 1L"),
+        code_chunk("b <- 2L"),
+        code_chunk("c <- 3L")
+      )
+    )
   })
 
-  it("without explicit reference returing none", {
-    q <- eval_code(teal_report(), "a <- 1L;z <- 2L;c <- 3L", keep_output = character(0L))
-    testthat::expect_equal(teal_card(q)[-1], teal_card())
+  it("code as code_chunk and its output as chunk_output", {
+    q <- within(teal_report(), {
+      a <- 1L
+      a
+    })
+    testthat::expect_identical(
+      teal_card(q),
+      c(
+        teal_card(),
+        code_chunk("a <- 1L"),
+        code_chunk("a"),
+        structure(1L, class = c("chunk_output", "integer"))
+      )
+    )
   })
 })
