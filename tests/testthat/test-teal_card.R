@@ -1,93 +1,101 @@
-testthat::test_that("card creates an empty document", {
-  doc <- teal_card()
-  testthat::expect_s3_class(doc, "teal_card")
-  testthat::expect_length(doc, 0)
+testthat::describe("teal_card contructor creates", {
+  testthat::it("empty teal_card", {
+    doc <- teal_card()
+    testthat::expect_identical(doc, structure(list(), class = "teal_card"))
+  })
+
+  testthat::it("teal_card doesn't ignore NULL", {
+    doc <- teal_card(NULL)
+    testthat::expect_identical(doc, structure(list(NULL), class = "teal_card"))
+  })
+
+  testthat::it("teal_card keeps conditions", {
+    doc <- teal_card(simpleCondition("test"))
+    testthat::expect_identical(doc, structure(list(simpleCondition("test")), class = "teal_card"))
+  })
+
+  testthat::it("teal_card appends each element asis (no list unwrapping)", {
+    doc <- teal_card("a", list(1, list(2)), code_chunk("print('hi')"))
+    testthat::expect_identical(
+      doc,
+      structure(
+        list("a", list(1, list(2)), code_chunk("print('hi')")),
+        class = "teal_card"
+      )
+    )
+  })
 })
 
-testthat::test_that("card creates a document with initial elements", {
-  doc <- teal_card("a", list(1, 2), code_chunk("print('hi')"))
-  testthat::expect_s3_class(doc, "teal_card")
-  testthat::expect_length(doc, 3)
-  testthat::expect_equal(doc[[1]], "a")
-  testthat::expect_equal(doc[[2]], list(1, 2))
-})
-
-testthat::describe("c.card combines with", {
-  doc_base <- teal_card("a", "b")
-
-  it("character and retains class", {
-    doc_result <- c(doc_base, "c")
-    testthat::expect_s3_class(doc_result, "teal_card")
-    testthat::expect_length(doc_result, 3)
-    testthat::expect_equal(doc_result[[3]], "c")
+testthat::describe("c.teal_card combines", {
+  it("two empty teal_card(s)", {
+    testthat::expect_identical(c(teal_card(), teal_card()), teal_card())
   })
 
-  it("list and retains class", {
-    doc_result <- c(doc_base, list(1, 2))
-    testthat::expect_s3_class(doc_result, "teal_card")
-    testthat::expect_length(doc_result, 4)
-    testthat::expect_equal(doc_result[[3]], 1)
-    testthat::expect_equal(doc_result[[4]], 2)
+  it("empty teal_card with non-empty", {
+    testthat::expect_identical(c(teal_card(), teal_card(TRUE)), teal_card(TRUE))
   })
 
-  it("NULL and retains class", {
-    doc_result <- c(doc_base, NULL)
-    testthat::expect_s3_class(doc_result, "teal_card")
-    testthat::expect_length(doc_result, 2)
+  it("with empty teal_card and remains the same", {
+    testthat::expect_identical(c(teal_card("a", "b"), teal_card()), teal_card("a", "b"))
   })
 
-  it("card with multiple elements and retains class", {
-    doc_result <- c(doc_base, teal_card("c", "d"))
-    testthat::expect_s3_class(doc_result, "teal_card")
-    testthat::expect_length(doc_result, 4)
-    testthat::expect_equal(doc_result[[3]], "c")
-    testthat::expect_equal(doc_result[[4]], "d")
+  it("with character, preserves class and append as a new element", {
+    doc_result <- c(teal_card("a", "b"), "c")
+    testthat::expect_identical(doc_result, teal_card("a", "b", "c"))
   })
 
-  it("ggplot and retains class", {
+  it("with list, preserves the class and adds each element separately (unwraps list)", {
+    doc_result <- c(teal_card("a", "b"), list(1, 2))
+    testthat::expect_identical(doc_result, teal_card("a", "b", 1, 2))
+  })
+
+  it("with teal_card containing a list and doesn't unwrap the list (asis)", {
+    doc_result <- c(teal_card("a", "b"), teal_card(list(1, 2)))
+    testthat::expect_identical(doc_result, teal_card("a", "b", list(1, 2)))
+  })
+
+  it("with NULL and remains the same (ignores NULL)", {
+    doc_result <- c(teal_card("a", "b"), NULL)
+    testthat::expect_identical(doc_result, teal_card("a", "b"))
+  })
+
+  it("with character(0) and appends as a new element", {
+    doc_result <- c(teal_card("a", "b"), character(0))
+    testthat::expect_identical(doc_result, teal_card("a", "b", character(0)))
+  })
+
+  it("with teal_card and appends new elements asis", {
+    doc_result <- c(teal_card("a", "b"), teal_card("c", "d"))
+    testthat::expect_identical(doc_result, teal_card("a", "b", "c", "d"))
+  })
+
+  it("with ggplot, preserves the class class and append as a new element", {
+    plot <- ggplot2::ggplot(iris)
+    doc_result <- c(teal_card("a", "b"), plot)
+    testthat::expect_identical(doc_result, teal_card("a", "b", plot))
+  })
+
+  it("with teal_card containing ggplot and appends elements asis", {
     plot <- ggplot2::ggplot(iris) +
       ggplot2::geom_point(ggplot2::aes(x = Sepal.Length, y = Sepal.Width))
-    doc_result <- c(doc_base, plot)
-    testthat::expect_s3_class(doc_result, "teal_card")
-    testthat::expect_length(doc_result, 3)
-    testthat::expect_s3_class(doc_result[[3]], "ggplot")
+    doc_result <- c(teal_card("a", "b"), teal_card("# Plot", plot))
+    testthat::expect_identical(doc_result, teal_card("a", "b", "# Plot", plot))
   })
 
-  it("ggplot with title and retains class", {
-    plot <- ggplot2::ggplot(iris) +
-      ggplot2::geom_point(ggplot2::aes(x = Sepal.Length, y = Sepal.Width))
-    doc_result <- c(doc_base, teal_card("# Plot", plot))
-    testthat::expect_s3_class(doc_result, "teal_card")
-    testthat::expect_length(doc_result, 4)
-    testthat::expect_equal(doc_result[[3]], "# Plot")
-    testthat::expect_s3_class(doc_result[[4]], "ggplot")
+  it("with a `teal_card` and keeps original metadata", {
+    doc <- teal_card("a", "b")
+    metadata(doc) <- list(title = "A Title", a = "test")
+    doc_result <- c(doc, teal_card("new content"))
+    testthat::expect_identical(metadata(doc_result), list(title = "A Title", a = "test"))
   })
 
-  it("new `teal_card` and keeps original title", {
-    metadata(doc_base, "title") <- "A Title"
-    doc_result <- c(doc_base, teal_card("new content"))
-    testthat::expect_equal(metadata(doc_result, "title"), "A Title")
-  })
-
-  it("new `teal_card` and adds new metadata", {
-    metadata(doc_base, "title") <- "A Title"
-    second_doc <- teal_card("new content")
-    metadata(second_doc, "prop") <- "A property of metadata"
-    doc_result <- c(doc_base, second_doc)
-    testthat::expect_equal(metadata(doc_result, "title"), "A Title")
-    testthat::expect_equal(metadata(doc_result, "prop"), "A property of metadata")
-  })
-
-  it("new `teal_card` and merges metadata", {
-    metadata(doc_base, "title") <- "A Title"
-    metadata(doc_base, "prop_base") <- "An unchanged property"
-    second_doc <- teal_card("new content")
-    metadata(second_doc, "prop") <- "A property of metadata"
-    metadata(second_doc, "title") <- "A modified title"
-    doc_result <- c(doc_base, second_doc)
-    testthat::expect_equal(metadata(doc_result, "title"), "A modified title")
-    testthat::expect_equal(metadata(doc_result, "prop"), "A property of metadata")
-    testthat::expect_equal(metadata(doc_result, "prop_base"), "An unchanged property")
+  it("new `teal_card` and combines metadata and overwrites original", {
+    doc1 <- teal_card("a", "b")
+    metadata(doc1) <- list(title = "A Title", a = "test")
+    doc2 <- teal_card("new content")
+    metadata(doc2) <- list(title = "A New Title", b = "test2")
+    doc_result <- c(doc1, doc2)
+    testthat::expect_identical(metadata(doc_result), list(title = "A New Title", a = "test", b = "test2"))
   })
 })
 
@@ -106,24 +114,18 @@ testthat::it("[.card subsets and", {
   })
 })
 
-testthat::describe("as.teal_card" , {
+testthat::describe("as.teal_card", {
   it("converts a simple list with each element being converted to a report content", {
     simple_list <- list("a", "b", "c")
     doc <- as.teal_card(simple_list)
-    testthat::expect_s3_class(doc, "teal_card")
-    testthat::expect_length(doc, 3)
-    testthat::expect_equal(doc[[1]], "a")
-    testthat::expect_equal(doc[[2]], "b")
-    testthat::expect_equal(doc[[3]], "c")
+    testthat::expect_identical(doc, teal_card("a", "b", "c"))
   })
 
-  it("converts a custom list with many elements with only 1 element being created as report content", {
+  it("converts a custom list class with many elements into single-element-teal_card", {
     custom_list <- list("a", "b", "c", "d")
-    class(custom_list) <- c(custom_list, "extra class")
+    class(custom_list) <- "extra class"
     doc <- as.teal_card(custom_list)
-    testthat::expect_s3_class(doc, "teal_card")
-    testthat::expect_length(doc, 1)
-    testthat::expect_equal(doc[[1]], custom_list)
+    testthat::expect_identical(doc, teal_card(custom_list))
   })
 
   it("converts a ggplot2 to a teal_card with only 1 report content", {
@@ -131,16 +133,20 @@ testthat::describe("as.teal_card" , {
     plot <- ggplot2::ggplot(iris) +
       ggplot2::geom_point(ggplot2::aes(x = Sepal.Length, y = Sepal.Width))
     doc <- as.teal_card(plot)
-    testthat::expect_s3_class(doc, "teal_card")
-    testthat::expect_length(doc, 1)
-    testthat::expect_s3_class(doc[[1]], "ggplot")
+    testthat::expect_identical(doc, teal_card(plot))
   })
 })
 
 testthat::describe("metadata", {
-  it("can be assigned individually to `teal_card` object", {
+  it("can be assigned individually to `teal_card` object using 'which' argument", {
     doc <- teal_card("a", "b")
     metadata(doc, "title") <- "A Title"
+    testthat::expect_equal(metadata(doc, "title"), "A Title")
+  })
+
+  it("can be assigned individually to `teal_card` using `$`", {
+    doc <- teal_card("a", "b")
+    metadata(doc)$title <- "A Title"
     testthat::expect_equal(metadata(doc, "title"), "A Title")
   })
 

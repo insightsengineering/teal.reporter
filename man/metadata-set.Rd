@@ -6,9 +6,9 @@
 \alias{metadata<-.ReportCard}
 \title{Set metadata for a \code{teal_card} or \code{ReportCard}}
 \usage{
-metadata(object, which) <- value
+metadata(object, which = NULL) <- value
 
-\method{metadata}{teal_card}(object, which) <- value
+\method{metadata}{teal_card}(object, which = NULL) <- value
 
 \method{metadata}{ReportCard}(object, which) <- value
 }
