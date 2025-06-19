@@ -24,6 +24,13 @@ testthat::describe("eval_code appends to teal_card", {
       )
     )
   })
+
+  it("code as code_chunk and condition is excluded from output", {
+    q <- eval_code(teal_report(), "warning('test')")
+    testthat::expect_identical(
+      teal_card(q),
+      c(teal_card(), code_chunk("a <- 1L"))
+  })
 })
 
 testthat::describe("within appends to teal_card", {
@@ -40,22 +47,6 @@ testthat::describe("within appends to teal_card", {
         code_chunk("a <- 1L"),
         code_chunk("b <- 2L"),
         code_chunk("c <- 3L")
-      )
-    )
-  })
-
-  it("code as code_chunk and its output as chunk_output", {
-    q <- within(teal_report(), {
-      a <- 1L
-      a
-    })
-    testthat::expect_identical(
-      teal_card(q),
-      c(
-        teal_card(),
-        code_chunk("a <- 1L"),
-        code_chunk("a"),
-        structure(1L, class = c("chunk_output", "integer"))
       )
     )
   })

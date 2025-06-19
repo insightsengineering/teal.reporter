@@ -25,7 +25,13 @@ setMethod(
     new_blocks <- Reduce(
       function(items, code_elem) {
         this_chunk <- do.call(code_chunk, c(list(code = code_elem), code_block_opts))
-        this_outs <- lapply(attr(code_elem, "outputs"), function(x) structure(x, class = c("chunk_output", class(x))))
+        this_outs <- Filter( # intentionally remove warnings,messages from the generated report
+          function(x) !inherits(x, "condition"),
+          lapply(
+            attr(code_elem, "outputs"),
+            function(x) structure(x, class = c("chunk_output", class(x)))
+          )
+        )
         c(items, list(this_chunk), this_outs)
       },
       init = list(),
