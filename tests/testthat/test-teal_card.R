@@ -4,18 +4,23 @@ testthat::describe("teal_card contructor creates", {
     testthat::expect_identical(doc, structure(list(), class = "teal_card"))
   })
 
+  testthat::it("teal_card appends arguments and sets them random unique names", {
+    doc <- teal_card("a", "b", "c", "d", "e", "f", "g", "h")
+    testthat::expect_true(all(!duplicated(names(doc))))
+  })
+
   testthat::it("teal_card doesn't ignore NULL", {
-    doc <- teal_card(NULL)
+    doc <- unname(teal_card(NULL))
     testthat::expect_identical(doc, structure(list(NULL), class = "teal_card"))
   })
 
   testthat::it("teal_card keeps conditions", {
-    doc <- teal_card(simpleCondition("test"))
+    doc <- unname(teal_card(simpleCondition("test")))
     testthat::expect_identical(doc, structure(list(simpleCondition("test")), class = "teal_card"))
   })
 
   testthat::it("teal_card appends each element asis (no list unwrapping)", {
-    doc <- teal_card("a", list(1, list(2)), code_chunk("print('hi')"))
+    doc <- unname(teal_card("a", list(1, list(2)), code_chunk("print('hi')")))
     testthat::expect_identical(
       doc,
       structure(
@@ -32,54 +37,76 @@ testthat::describe("c.teal_card combines", {
   })
 
   it("empty teal_card with non-empty", {
-    testthat::expect_identical(c(teal_card(), teal_card(TRUE)), teal_card(TRUE))
+    doc2 <- teal_card(TRUE)
+    testthat::expect_identical(c(teal_card(), doc2), doc2)
   })
 
   it("with empty teal_card and remains the same", {
-    testthat::expect_identical(c(teal_card("a", "b"), teal_card()), teal_card("a", "b"))
+    doc <- teal_card("a", "b")
+    testthat::expect_identical(c(doc, teal_card()), doc)
   })
 
   it("with character, preserves class and append as a new element", {
     doc_result <- c(teal_card("a", "b"), "c")
-    testthat::expect_identical(doc_result, teal_card("a", "b", "c"))
+    testthat::expect_equal(doc_result, teal_card("a", "b", "c"), ignore_attr = TRUE)
   })
 
   it("with list, preserves the class and adds each element separately (unwraps list)", {
     doc_result <- c(teal_card("a", "b"), list(1, 2))
-    testthat::expect_identical(doc_result, teal_card("a", "b", 1, 2))
+    testthat::expect_equal(doc_result, teal_card("a", "b", 1, 2), ignore_attr = TRUE)
   })
 
   it("with teal_card containing a list and doesn't unwrap the list (asis)", {
     doc_result <- c(teal_card("a", "b"), teal_card(list(1, 2)))
-    testthat::expect_identical(doc_result, teal_card("a", "b", list(1, 2)))
+    testthat::expect_equal(doc_result, teal_card("a", "b", list(1, 2)), ignore_attr = TRUE)
   })
 
   it("with NULL and remains the same (ignores NULL)", {
     doc_result <- c(teal_card("a", "b"), NULL)
-    testthat::expect_identical(doc_result, teal_card("a", "b"))
+    testthat::expect_equal(doc_result, teal_card("a", "b"), ignore_attr = TRUE)
   })
 
   it("with character(0) and appends as a new element", {
     doc_result <- c(teal_card("a", "b"), character(0))
-    testthat::expect_identical(doc_result, teal_card("a", "b", character(0)))
+    testthat::expect_equal(doc_result, teal_card("a", "b", character(0)), ignore_attr = TRUE)
   })
 
   it("with teal_card and appends new elements asis", {
     doc_result <- c(teal_card("a", "b"), teal_card("c", "d"))
-    testthat::expect_identical(doc_result, teal_card("a", "b", "c", "d"))
+    testthat::expect_equal(doc_result, teal_card("a", "b", "c", "d"), ignore_attr = TRUE)
   })
 
   it("with ggplot, preserves the class class and append as a new element", {
     plot <- ggplot2::ggplot(iris)
     doc_result <- c(teal_card("a", "b"), plot)
-    testthat::expect_identical(doc_result, teal_card("a", "b", plot))
+    testthat::expect_equal(doc_result, teal_card("a", "b", plot), ignore_attr = TRUE)
   })
 
   it("with teal_card containing ggplot and appends elements asis", {
     plot <- ggplot2::ggplot(iris) +
       ggplot2::geom_point(ggplot2::aes(x = Sepal.Length, y = Sepal.Width))
     doc_result <- c(teal_card("a", "b"), teal_card("# Plot", plot))
-    testthat::expect_identical(doc_result, teal_card("a", "b", "# Plot", plot))
+    testthat::expect_equal(doc_result, teal_card("a", "b", "# Plot", plot), ignore_attr = TRUE)
+  })
+
+  it("with teal_card containing duplicated items but appends only unique", {
+    doc1 <- teal_card("a", "b")
+    doc2 <- c(doc1, "c", "d")
+    testthat::expect_equal(c(doc1, doc2), teal_card("a", "b", "c", "d"), ignore_attr = TRUE)
+  })
+
+  it("with teal_card containing duplicated items but appends even if their order is different", {
+    doc1 <- teal_card("a", "b")
+    doc2 <- c(doc1, "c", "d")
+    doc2 <- doc2[c(3, 1, 4, 2)]
+    testthat::expect_equal(c(doc1, doc2), teal_card("c", "a", "d", "b"), ignore_attr = TRUE)
+  })
+
+  it("with teal_card containing duplicated items but appends even if their order is different", {
+    doc1 <- teal_card("a", "b")
+    doc2 <- c(doc1, "c", "d")
+    doc2 <- doc2[-1]
+    testthat::expect_equal(c(doc1, doc2), teal_card("b", "c", "d"), ignore_attr = TRUE)
   })
 
   it("with a `teal_card` and keeps original metadata", {
@@ -118,14 +145,14 @@ testthat::describe("as.teal_card", {
   it("converts a simple list with each element being converted to a report content", {
     simple_list <- list("a", "b", "c")
     doc <- as.teal_card(simple_list)
-    testthat::expect_identical(doc, teal_card("a", "b", "c"))
+    testthat::expect_equal(doc, teal_card("a", "b", "c"), ignore_attr = TRUE)
   })
 
   it("converts a custom list class with many elements into single-element-teal_card", {
     custom_list <- list("a", "b", "c", "d")
     class(custom_list) <- "extra class"
     doc <- as.teal_card(custom_list)
-    testthat::expect_identical(doc, teal_card(custom_list))
+    testthat::expect_equal(doc, teal_card(custom_list), ignore_attr = TRUE)
   })
 
   it("converts a ggplot2 to a teal_card with only 1 report content", {
@@ -133,7 +160,7 @@ testthat::describe("as.teal_card", {
     plot <- ggplot2::ggplot(iris) +
       ggplot2::geom_point(ggplot2::aes(x = Sepal.Length, y = Sepal.Width))
     doc <- as.teal_card(plot)
-    testthat::expect_identical(doc, teal_card(plot))
+    testthat::expect_equal(doc, teal_card(plot), ignore_attr = TRUE)
   })
 })
 

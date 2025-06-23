@@ -59,12 +59,13 @@ testthat::test_that("get_cards returns the same cards which was added to reporte
 
 testthat::test_that("get_blocks returns the same blocks which was added to reporter, sep = NULL", {
   reporter <- test_reporter(card1 <- test_card1("A title"), card2 <- test_card2("Another title"))
-  testthat::expect_identical(
+  testthat::expect_equal(
     reporter$get_blocks(sep = NULL),
     append(
       c(sprintf("# %s", metadata(card1, "title")), card1),
       c(sprintf("# %s", metadata(card2, "title")), card2)
-    )
+    ),
+    ignore_attr = TRUE
   )
 })
 
@@ -79,7 +80,7 @@ testthat::test_that("get_blocks by default adds NewpageBlock$new() between cards
   reporter_blocks <- reporter$get_blocks()
   reporter_blocks2 <- append(reporter_1$get_blocks(), "\\newpage")
   reporter_blocks2 <- append(reporter_blocks2, reporter_2$get_blocks())
-  testthat::expect_equal(reporter$get_blocks(), reporter_blocks2)
+  testthat::expect_equal(reporter$get_blocks(), reporter_blocks2, ignore_attr = TRUE)
 })
 
 testthat::test_that("get_blocks and get_cards return empty list by default", {
@@ -99,7 +100,7 @@ testthat::test_that("The deep copy constructor copies the content files to new f
   testthat::expect_failure(
     testthat::expect_equal(rlang::obj_address(original_content_file), rlang::obj_address(copied_content_file))
   )
-  testthat::expect_identical(original_content_file, copied_content_file)
+  testthat::expect_equal(original_content_file, copied_content_file, ignore_attr = TRUE)
 })
 
 testthat::describe("metadata", {
@@ -188,6 +189,7 @@ testthat::describe("to_list", {
 
 testthat::describe("from_reporter", {
   it("returns same object from the same reporter", {
+    shiny::reactiveConsole(TRUE)
     reporter <- test_reporter(card1 <- test_card1(), card2 <- test_card2())
     testthat::expect_identical(reporter, (Reporter$new()$from_reporter(reporter)))
   })
@@ -206,9 +208,10 @@ testthat::describe("from_reporter", {
   it("from_reporter persists the cards structure", {
     reporter1 <- test_reporter(test_card1(), test_card2())
     reporter2 <- teal.reporter::Reporter$new()
-    testthat::expect_identical(
-      unname(reporter1$get_cards()),
-      unname(reporter2$from_reporter(reporter1)$get_cards())
+    testthat::expect_equal(
+      reporter1$get_cards(),
+      reporter2$from_reporter(reporter1)$get_cards(),
+      ignore_attr = TRUE
     )
   })
 })

@@ -51,6 +51,7 @@ teal_card <- function(x, ...) {
     x@teal_card
   } else {
     objects <- list(x, ...)
+    names(objects) <- sample.int(.Machine$integer.max, size = length(objects))
     structure(objects, class = "teal_card")
   }
 }
@@ -91,10 +92,16 @@ c.teal_card <- function(...) {
     Reduce(
       f = function(u, v) {
         v <- as.teal_card(v)
-        attrs <- utils::modifyList(attributes(u) %||% list(), attributes(v))
-        result <- c(unclass(u), v)
-        attributes(result) <- attrs
-        result
+        if (length(names(x)) && length(names(v)) && any(names(u) %in% names(v))) {
+          # if there are extra names in x it means they have been removed in y
+          v
+        } else {
+          attrs <- utils::modifyList(attributes(u) %||% list(), attributes(v))
+          attrs$names <- union(names(u), names(v))
+          result <- utils::modifyList(u, v)
+          attributes(result) <- attrs
+          result
+        }
       },
       x = dots,
       init = list()
