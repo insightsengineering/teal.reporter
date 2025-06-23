@@ -41,82 +41,83 @@ testthat::describe("c.teal_card combines", {
     testthat::expect_identical(c(teal_card(), doc2), doc2)
   })
 
-  it("with empty teal_card and remains the same", {
+  it("with empty teal_card - remains the same", {
     doc <- teal_card("a", "b")
     testthat::expect_identical(c(doc, teal_card()), doc)
   })
 
-  it("with character, preserves class and append as a new element", {
+  it("with character - adds as a new element", {
     doc_result <- c(teal_card("a", "b"), "c")
     testthat::expect_equal(doc_result, teal_card("a", "b", "c"), ignore_attr = TRUE)
   })
 
-  it("with list, preserves the class and adds each element separately (unwraps list)", {
+  it("with list - adds each list element separately (unwraps list)", {
     doc_result <- c(teal_card("a", "b"), list(1, 2))
     testthat::expect_equal(doc_result, teal_card("a", "b", 1, 2), ignore_attr = TRUE)
   })
 
-  it("with teal_card containing a list and doesn't unwrap the list (asis)", {
+  it("with teal_card containing a list - append this list asis (doesn't unwrap list)", {
     doc_result <- c(teal_card("a", "b"), teal_card(list(1, 2)))
     testthat::expect_equal(doc_result, teal_card("a", "b", list(1, 2)), ignore_attr = TRUE)
   })
 
-  it("with NULL and remains the same (ignores NULL)", {
+  it("with NULL - remains the same (ignores NULL)", {
     doc_result <- c(teal_card("a", "b"), NULL)
     testthat::expect_equal(doc_result, teal_card("a", "b"), ignore_attr = TRUE)
   })
 
-  it("with character(0) and appends as a new element", {
+  it("with character(0) - adds as a new element", {
     doc_result <- c(teal_card("a", "b"), character(0))
     testthat::expect_equal(doc_result, teal_card("a", "b", character(0)), ignore_attr = TRUE)
   })
 
-  it("with teal_card and appends new elements asis", {
-    doc_result <- c(teal_card("a", "b"), teal_card("c", "d"))
-    testthat::expect_equal(doc_result, teal_card("a", "b", "c", "d"), ignore_attr = TRUE)
-  })
-
-  it("with ggplot, preserves the class class and append as a new element", {
+  it("with ggplot - adds as a new element", {
     plot <- ggplot2::ggplot(iris)
     doc_result <- c(teal_card("a", "b"), plot)
     testthat::expect_equal(doc_result, teal_card("a", "b", plot), ignore_attr = TRUE)
   })
 
-  it("with teal_card containing ggplot and appends elements asis", {
+  it("with new teal_card - adds new elements asis", {
+    doc_result <- c(teal_card("a", "b"), teal_card("c", "d"))
+    testthat::expect_equal(doc_result, teal_card("a", "b", "c", "d"), ignore_attr = TRUE)
+  })
+
+  it("with new teal_card containing ggplot - adds new elements asis", {
     plot <- ggplot2::ggplot(iris) +
       ggplot2::geom_point(ggplot2::aes(x = Sepal.Length, y = Sepal.Width))
     doc_result <- c(teal_card("a", "b"), teal_card("# Plot", plot))
     testthat::expect_equal(doc_result, teal_card("a", "b", "# Plot", plot), ignore_attr = TRUE)
   })
 
-  it("with teal_card containing duplicated items but appends only unique", {
+  it("with teal_card containing new and old items - adds only new", {
     doc1 <- teal_card("a", "b")
     doc2 <- c(doc1, "c", "d")
     testthat::expect_equal(c(doc1, doc2), teal_card("a", "b", "c", "d"), ignore_attr = TRUE)
   })
 
-  it("with teal_card containing duplicated items but appends even if their order is different", {
+  it("with teal_card containing new and old items - adds even if their order is different", {
     doc1 <- teal_card("a", "b")
     doc2 <- c(doc1, "c", "d")
     doc2 <- doc2[c(3, 1, 4, 2)]
     testthat::expect_equal(c(doc1, doc2), teal_card("c", "a", "d", "b"), ignore_attr = TRUE)
   })
 
-  it("with teal_card containing duplicated items but appends even if their order is different", {
+  it("with teal_card with new and missing old items - restores original items, adds new at the end and warn", {
     doc1 <- teal_card("a", "b")
-    doc2 <- c(doc1, "c", "d")
-    doc2 <- doc2[-1]
-    testthat::expect_equal(c(doc1, doc2), teal_card("b", "c", "d"), ignore_attr = TRUE)
+    doc2 <- c(doc1, "c", "d")[c(4, 3, 2)]
+    testthat::expect_warning(
+      testthat::expect_equal(c(doc1, doc2), teal_card("a", "b", "d", "c"), ignore_attr = TRUE)
+    )
   })
 
-  it("with a `teal_card` and keeps original metadata", {
+  it("with a `teal_card` - keeps original metadata", {
     doc <- teal_card("a", "b")
     metadata(doc) <- list(title = "A Title", a = "test")
     doc_result <- c(doc, teal_card("new content"))
     testthat::expect_identical(metadata(doc_result), list(title = "A Title", a = "test"))
   })
 
-  it("new `teal_card` and combines metadata and overwrites original", {
+  it("new `teal_card` - combines metadata and overwrites original", {
     doc1 <- teal_card("a", "b")
     metadata(doc1) <- list(title = "A Title", a = "test")
     doc2 <- teal_card("new content")
