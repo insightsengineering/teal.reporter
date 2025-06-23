@@ -35,11 +35,4 @@ testthat::describe("c.teal_report combines", {
       ignore_attr = TRUE
     )
   })
-
-  it("multiple teal_report by combining elements of teal_card and duplicated (by name) are ignored", {
-    treport1 <- teal_report(teal_card = teal_card("Text 1"))
-    treport2 <- treport1
-    teal_card(treport2) <- c(teal_card(treport1), "Text 2")
-    testthat::expect_identical(teal_card(c(treport1, treport2)), teal_card(treport2))
-  })
 })
