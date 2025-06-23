@@ -92,7 +92,7 @@ c.teal_card <- function(...) {
     Reduce(
       f = function(u, v) {
         v <- as.teal_card(v)
-        if (length(names(x)) && length(names(v)) && any(names(u) %in% names(v))) {
+        if (length(names(u)) && length(names(v)) && any(names(u) %in% names(v))) {
           # if there are extra names in x it means they have been removed in y
           v
         } else {
