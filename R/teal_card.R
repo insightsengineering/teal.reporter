@@ -97,7 +97,7 @@ c.teal_card <- function(...) {
             v
           } else {
             warning(
-              "Appended `teal_card` doesn't removed some of the elements from previous `teal_card`.\n",
+              "Appended `teal_card` doesn't remove some of the elements from previous `teal_card`.\n",
               "Restoring original content and adding only new items to the end of the card."
             )
             modifyList(u, v)
