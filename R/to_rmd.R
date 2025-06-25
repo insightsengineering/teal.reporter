@@ -242,6 +242,10 @@ to_rmd.default <- function(block, output_dir, ...) {
 #' @keywords internal
 .to_rmd.trellis <- .content_to_rmd
 
+#' @method .to_rmd recordedplot
+#' @keywords internal
+.to_rmd.recordedplot <- .content_to_rmd
+
 #' @method .to_rmd grob
 #' @keywords internal
 .to_rmd.grob <- .content_to_rmd
