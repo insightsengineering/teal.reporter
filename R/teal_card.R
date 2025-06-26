@@ -51,6 +51,11 @@ teal_card <- function(x, ...) {
     x@teal_card
   } else {
     objects <- list(x, ...)
+    names(objects) <- vapply(
+      sample.int(.Machine$integer.max, size = length(objects)),
+      function(x) substr(rlang::hash(list(Sys.time(), x)), 1, 8),
+      character(1)
+    )
     structure(objects, class = "teal_card")
   }
 }
@@ -91,10 +96,23 @@ c.teal_card <- function(...) {
     Reduce(
       f = function(u, v) {
         v <- as.teal_card(v)
-        attrs <- utils::modifyList(attributes(u) %||% list(), attributes(v))
-        result <- c(unclass(u), v)
-        attributes(result) <- attrs
-        result
+        if (length(names(u)) && length(names(v)) && any(names(u) %in% names(v))) { # when v stems from u
+          if (all(names(u) %in% names(v))) { # nothing from `u` is removed in `v`
+            v
+          } else {
+            warning(
+              "Appended `teal_card` doesn't remove some of the elements from previous `teal_card`.\n",
+              "Restoring original content and adding only new items to the end of the card."
+            )
+            modifyList(u, v)
+          }
+        } else {
+          attrs <- utils::modifyList(attributes(u) %||% list(), attributes(v))
+          attrs$names <- union(names(u), names(v))
+          result <- utils::modifyList(u, v)
+          attributes(result) <- attrs
+          result
+        }
       },
       x = dots,
       init = list()
