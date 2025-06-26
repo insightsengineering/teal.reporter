@@ -51,7 +51,11 @@ teal_card <- function(x, ...) {
     x@teal_card
   } else {
     objects <- list(x, ...)
-    names(objects) <- sample.int(.Machine$integer.max, size = length(objects))
+    names(objects) <- vapply(
+      sample.int(.Machine$integer.max, size = length(objects)),
+      function(x) substr(rlang::hash(list(Sys.time(), x)), 1, 8),
+      character(1)
+    )
     structure(objects, class = "teal_card")
   }
 }
