@@ -174,7 +174,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
       title <- metadata(template_card, "title")
 
       if (isFALSE(nzchar(title))) {
-        title <- shiny::tags$span(class = "text-muted", "(empty title)")
+        title <- shiny::tags$span(class = "text-muted", "(Empty title)")
       }
 
       shiny::showModal(
