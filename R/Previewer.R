@@ -219,8 +219,8 @@ reporter_previewer_card_srv <- function(id, card_r, card_id, reporter) {
   shiny::moduleServer(id, function(input, output, session) {
     output$title <- shiny::renderUI({
       title <- metadata(shiny::req(card_r()), "title")
-      if (isFALSE(nzchar(title))) {
-        title <- shiny::tags$span("(empty title)", class = "text-muted")
+      if (is.null(title) || isFALSE(nzchar(title))) {
+        title <- shiny::tags$span("(Empty title)", class = "text-muted")
       }
       title
     })
