@@ -167,7 +167,7 @@ report_render_and_compress <- function(reporter, yaml_header, global_knitr, file
 
   yaml_content <- as_yaml_auto(yaml_header)
   output_dir <- tryCatch(
-    report_render(reporter, yaml_content, global_knitr),
+    report_render(reporter, yaml_content, global_knitr), # todo: replace with render
     warning = function(cond) message("Render document warning: ", cond),
     error = function(cond) {
       message("Render document error: ", cond)
@@ -265,7 +265,6 @@ report_render <- function(reporter, yaml_header, global_knitr = getOption("teal.
   dir.create(path = output_dir)
 
   args <- list(...)
-
   # Create output file with report, code and outputs
   input_path <- to_rmd(
     reporter,

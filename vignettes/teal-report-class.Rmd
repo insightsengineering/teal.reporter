@@ -107,7 +107,7 @@ metadata(teal_card(report)) <- list(
 
 ## Output teal_report
 
-`teal_report` supports several output formats. `teal_report` uses `rmarkdown::render` so it supports the same [output formats](https://pkgs.rstudio.com/rmarkdown/reference/index.html#output-formats).
+`teal_report` supports several output formats. `render` for `teal_report` utilizes `rmarkdown::render` so it supports the same [output formats](https://pkgs.rstudio.com/rmarkdown/reference/index.html#output-formats) and arguments.
 
 ```{r. eval=FALSE}
 render(report, output_format = rmarkdown::pdf_document())

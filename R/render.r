@@ -25,7 +25,21 @@ render <- function(
     # todo: include collapse_subsequent_chunks?
     ...) {
   checkmate::assert_subset(names(list(...)), names(formals(rmarkdown::render)))
-  on.exit(try(file.remove(file_path), silent = TRUE))
+  on.exit(
+    try(
+      {
+        file.remove(rmd_file_name)
+        to_rmd(
+          block = input,
+          output_dir = output_dir,
+          include_chunk_output = FALSE,
+          # todo: include collapse_subsequent_chunks?
+          global_knitr = global_knitr
+        )
+      },
+      silent = TRUE
+    )
+  )
   if (is.null(output_dir)) output_dir <- getwd()
   dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
   rmd_file_name <- "document.Rmd"
