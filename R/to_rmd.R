@@ -119,6 +119,31 @@ to_rmd.default <- function(block, output_dir, ...) {
   input_path
 }
 
+#' @method .to_rmd teal_report
+#' @keywords internal
+.to_rmd.teal_report <- function(block, output_dir, ...) {
+  .to_rmd(teal_card(block), output_dir = output_dir, ...)
+}
+
+#' @method .to_rmd teal_card
+#' @keywords internal
+.to_rmd.teal_card <- function(block, output_dir, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
+  m <- metadata(block)
+  yaml_header <- if (length(m)) sprintf("---\n%s\n---", yaml::as.yaml(m))
+  paste(
+    c(
+      yaml_header,
+      sprintf(
+        "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n```\n",
+        utils::capture.output(dput(global_knitr))
+      ),
+      lapply(block, function(x) .to_rmd(x, output_dir = output_dir, ...))
+    ),
+    collapse = "\n"
+  )
+}
+
+
 #' @method .to_rmd TextBlock
 #' @keywords internal
 .to_rmd.TextBlock <- function(block, output_dir, ...) {
@@ -158,7 +183,7 @@ to_rmd.default <- function(block, output_dir, ...) {
 
 #' @method .to_rmd code_chunk
 #' @keywords internal
-.to_rmd.code_chunk <- function(block, output_dir, ..., report_type, eval = FALSE) {
+.to_rmd.code_chunk <- function(block, output_dir, ..., report_type = NULL, eval = FALSE) {
   params <- attr(block, "params")
   if (!("eval" %in% names(params))) params <- c(params, eval = eval)
   params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
@@ -281,6 +306,7 @@ to_rmd.default <- function(block, output_dir, ...) {
 #' @method .to_rmd rlisting
 #' @keywords internal
 .to_rmd.rlisting <- .to_rmd.rtables
+
 
 #' @method .to_rmd data.frame
 #' @keywords internal

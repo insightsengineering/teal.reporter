@@ -12,16 +12,16 @@ vignette: >
 
 ## Introduction
 
-The `teal_report` class in `teal.reporter` provides a way to create reproducible reports step by step by adding markdown content alongside code evaluation.
+The `teal_report` class in `teal.reporter` provides a way to create reproducible documents step by step by adding markdown content alongside code evaluation.
 
-The `teal_report` class is built on top of [`teal_data`](https://insightsengineering.github.io/teal.data/latest-tag/articles/teal-data.html), inheriting all its reproducibility and code-tracking capabilities while adding reporting-specific functionality through `teal_card`.
+The `teal_report` class is built on top of [`teal_data`](https://insightsengineering.github.io/teal.data/latest-tag/articles/teal-data.html), inheriting all its reproducibility and code-tracking capabilities while adding reporting-specific functionality through `teal_card()`.
 
-This vignette shows you how to use `teal_report` to enhance your teal modules with reporting capabilities.
+This vignette shows you how to use `teal_report()` to enhance your teal modules with reporting capabilities.
 
 
 ## Creating a teal_report
 
-A `teal_report` is an object where developers can add, edit and remove various content (markdown content, plots, tables), evaluate and add code chunks within its environment. It provides a framework for building reproducible reports by combining content management with automatic code tracking.
+A `teal_report` is an object where developers can add, edit and remove various content (markdown content, plots, tables), evaluate and add code chunks. It provides a framework for building reproducible reports by combining content management with automatic code tracking. 
 
 To ensure complete reproducibility, it's recommended to start with an empty `teal_report` and build up your data and analysis using `eval_code()`:
 
@@ -34,7 +34,7 @@ report <- teal_report()
 
 ### Adding arbitrary markdown content
 
-`teal_report` object allows one to compose a reproducible document containing markdown components. Use `teal_card(report)` to access and change elements of the document.
+Think of a `teal_report` as a Rmarkdown document build and evaluated step by step. Use `teal_card(report)` to access and change elements of the document.
 To add a new element in the `teal_card` one can use `c` method.
 
 ```{r}
@@ -49,7 +49,8 @@ teal_card(report)
 
 ### Adding reproducible code chunks
 
-`teal_report` inherits all methods from `teal.data`. Class utilizes `within()` and `teal.code::eval_code()` which execute arbitrary code in its environment but also add a code chunk to the reproducible document.
+`teal_report` inherits all methods from `teal.data`. Class utilizes `within()` and `teal.code::eval_code()` which execute arbitrary code in its environment. Consider this as executing code chunk in Rmarkdown document. In the same
+time you can access objects created during code execution.
 
 ```{r}
 report <- within(report, {
@@ -59,23 +60,20 @@ report$a
 teal_card(report)
 ```
 
-In case when code generates an output one should specify which objects should be displayed below code chunk element. In the example below `head_of_iris` terminates a code chunk so adding `keep_output = "head_of_iris"` is needed to include it in the rendered document.
+In the above chunk of code `a` is created but nothing has been output to the console nor to the graphic devices. In case one decides to print or plot `teal_report` automatically captures outputs, which can be retrieved using `teal.code::get_outputs()`.
 
 ```{r}
-report <- within(report,
-  {
-    head_of_iris <- head(iris)
-    head_of_iris
-  },
-  keep_output = "head_of_iris"
-)
+report <- within(report, {
+  head_of_iris <- head(iris)
+  head_of_iris
+})
 
-teal_card(report)
+teal.code::get_outputs(report) # returns a list of all outputs
 ```
 
 ## Modify `teal_report` content
 
-`teal_report` allows to modify its content. Depending on the needs one can add, remove and replace element in the same way as one modifies a list (because `teal_card` is a `list`)
+`teal_report` allows to modify its content. Depending on the needs, one can add, remove and replace element in the same way as one modifies a list (because `teal_card` is a `list`).
 
 ```{r}
 # adding element in the beginnning of the document
@@ -94,15 +92,25 @@ teal_card(report)
 ```
 
 
+### Document metadata
+
+In Rmarkdown it is possible specify certain parameters as a YAML header. `teal_report` allows to specify metadata using
+`metadata()`. 
+
+```{r, eval = FALSE}
+metadata(teal_card(report)) <- list(
+  title = "My Document",
+  author = "NEST"
+)
+```
+
+
 ## Output teal_report
 
-`teal_report` supports several output formats. Currently it is possible to render `.Rmd`, `.md`, `.pptx`, `.doc`, `.pdf` and `.html`.
+`teal_report` supports several output formats. `teal_report` uses `rmarkdown::render` so it supports the same [output formats](https://pkgs.rstudio.com/rmarkdown/reference/index.html#output-formats).
 
 ```{r. eval=FALSE}
-# todo: we only export toHTML for now
-#       it is not possible to generate other formats without passing to Reporter and using a shiny module
-#       Do we need function like `export(output_format)` or `to_pdf`, `to_md`, `to_pptx`, `to_doc`
-toHTML()
+render(report, output_format = rmarkdown::pdf_document())
 ```
 
 ## Key Benefits
