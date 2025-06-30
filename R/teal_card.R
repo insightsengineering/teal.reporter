@@ -110,7 +110,7 @@ c.teal_card <- function(...) {
               "Appended `teal_card` doesn't remove some of the elements from previous `teal_card`.\n",
               "Restoring original content and adding only new items to the end of the card."
             )
-            modifyList(u, v)
+            utils::modifyList(u, v)
           }
         } else {
           attrs <- utils::modifyList(attributes(u) %||% list(), attributes(v))
