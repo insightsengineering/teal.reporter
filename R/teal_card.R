@@ -50,7 +50,7 @@ teal_card <- function(x, ...) {
   } else if (inherits(x, "teal_report")) {
     x@teal_card
   } else if (inherits(x, "teal_data")) {
-    teal_card()
+    .build_card_from_code(x)
   } else {
     objects <- list(x, ...)
     names(objects) <- vapply(
@@ -246,4 +246,21 @@ code_chunk <- function(code, ...) {
     params = params,
     class = "code_chunk"
   )
+}
+
+#' @noRd
+.build_card_from_code <- function(data) {
+  card <- teal_card()
+  for (chunk in data@code) {
+    outs <- if (!is.null(attr(chunk, "outputs"))) {
+      sapply(
+        attr(chunk, "outputs"),
+        function(x) structure(x, class = c("chunk_output", class(x))),
+        USE.NAMES = FALSE,
+        simplify = FALSE
+      )
+    }
+    card <- c(card, code_chunk(chunk), outs)
+  }
+  card
 }

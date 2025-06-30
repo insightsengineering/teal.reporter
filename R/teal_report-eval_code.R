@@ -45,19 +45,3 @@ setMethod(
     new_object
   }
 )
-
-.build_card_from_code <- function(data) {
-  card <- teal_card()
-  for (chunk in data@code) {
-    outs <- if (!is.null(attr(chunk, "outputs"))) {
-      sapply(
-        attr(chunk, "outputs"),
-        function(x) structure(x, class = c("chunk_output", class(x))),
-        USE.NAMES = FALSE,
-        simplify = FALSE
-      )
-    }
-    card <- c(card, code_chunk(chunk), outs)
-  }
-  card
-}

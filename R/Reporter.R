@@ -13,17 +13,13 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
   classname = "Reporter",
   public = list(
     #' @description Initialize a `Reporter` object.
-    #' @param preprocessing_with_titles (`logical(1)`) flag indicating if the
-    #' preprocessing code added to report should have titles:
-    #' - Data preparation;
-    #' - Filter.
+    #'
     #' @return Object of class `Reporter`, invisibly.
     #' @examples
     #' reporter <- Reporter$new()
     #'
-    initialize = function(preprocessing_with_titles = FALSE) {
+    initialize = function() {
       private$cards <- shiny::reactiveValues()
-      private$preprocessing_with_titles <- preprocessing_with_titles
       invisible(self)
     },
 
@@ -141,9 +137,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     replace_card = function(card, card_id) {
       private$cards[[card_id]] <- card
       invisible(self)
-    },
-    get_preprocessing_with_titles_flag = function() {
-      private$preprocessing_with_titles
     },
     #' @description Retrieves all `ReportCard` and `teal_card` objects contained in `Reporter`.
     #' @return A (`list`) of [`ReportCard`] and [`teal_card`] objects.
@@ -453,7 +446,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
   ),
   private = list(
     id = "",
-    preprocessing_with_titles = FALSE,
     cards = NULL, # reactiveValues
     override_order = character(0L), # to sort cards (reactiveValues are not sortable)
     metadata = list(),
