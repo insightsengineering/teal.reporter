@@ -21,7 +21,6 @@ setMethod(
     if (inherits(new_object, "error")) {
       return(new_object)
     }
-
     new_blocks <- Reduce(
       function(items, code_elem) {
         this_chunk <- do.call(code_chunk, c(list(code = code_elem), code_block_opts))
@@ -37,7 +36,6 @@ setMethod(
       init = list(),
       x = setdiff(new_object@code, object@code)
     )
-
 
     if (length(new_blocks)) {
       teal_card(new_object) <- c(teal_card(new_object), new_blocks)

@@ -136,10 +136,15 @@ download_report_button_srv <- function(id,
       content = function(file) {
         shiny::showNotification("Rendering and Downloading the document.")
         shinybusy::block(id = ns("download_data"), text = "", type = "dots")
-        yaml_header <- lapply(names(rmd_yaml_args), function(x) input[[x]])
-        names(yaml_header) <- names(rmd_yaml_args)
+        rmd_yaml_with_inputs <- lapply(names(rmd_yaml_args), function(x) input[[x]])
+        names(rmd_yaml_with_inputs) <- names(rmd_yaml_args)
         if (is.logical(input$showrcode)) global_knitr[["echo"]] <- input$showrcode
-        report_render_and_compress(reporter, yaml_header, global_knitr, file)
+        report_render_and_compress(
+          reporter = reporter,
+          rmd_yaml_args = rmd_yaml_with_inputs,
+          global_knitr = global_knitr,
+          file = file
+        )
         shinybusy::unblock(id = ns("download_data"))
       },
       contentType = "application/zip"
@@ -152,7 +157,7 @@ download_report_button_srv <- function(id,
 #' Render the report and zip the created directory.
 #'
 #' @param reporter (`Reporter`) instance.
-#' @param yaml_header (`named list`) with `Rmd` `yaml` header fields and their values.
+#' @param rmd_yaml_args (`named list`) with `Rmd` `yaml` header fields and their values.
 #' @param global_knitr (`list`) a global `knitr` parameters, like echo.
 #' But if local parameter is set it will have priority.
 #' @param file (`character(1)`) where to copy the returned directory.
@@ -160,14 +165,13 @@ download_report_button_srv <- function(id,
 #' @return `file` argument, invisibly.
 #'
 #' @keywords internal
-report_render_and_compress <- function(reporter, yaml_header, global_knitr, file = tempdir()) {
+report_render_and_compress <- function(reporter, rmd_yaml_args, global_knitr, file = tempdir()) {
   checkmate::assert_class(reporter, "Reporter")
-  checkmate::assert_list(yaml_header, names = "named")
+  checkmate::assert_list(rmd_yaml_args, names = "named")
   checkmate::assert_string(file)
 
-  yaml_content <- as_yaml_auto(yaml_header)
   output_dir <- tryCatch(
-    report_render(reporter, yaml_content, global_knitr), # todo: replace with render
+    report_render(input = reporter, rmd_yaml_args = rmd_yaml_args, global_knitr = global_knitr),
     warning = function(cond) message("Render document warning: ", cond),
     error = function(cond) {
       message("Render document error: ", cond)
@@ -193,7 +197,10 @@ report_render_and_compress <- function(reporter, yaml_header, global_knitr, file
   )
 
   tryCatch(
-    file.copy(temp_zip_file, file),
+    {
+      file.copy(temp_zip_file, file)
+      unlink(output_dir)
+    },
     warning = function(cond) message("Copying file warning: ", cond),
     error = function(cond) message("Copying file error: ", cond)
   )
@@ -259,40 +266,18 @@ any_rcode_block <- function(reporter) {
   }
 }
 
-report_render <- function(reporter, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
+report_render <- function(reporter, rmd_yaml_args, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
   tmp_dir <- tempdir()
   output_dir <- file.path(tmp_dir, sprintf("report_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
-  dir.create(path = output_dir)
-
-  args <- list(...)
-  # Create output file with report, code and outputs
-  input_path <- to_rmd(
-    reporter,
-    output_dir,
-    yaml_header = yaml_header,
-    global_knitr = global_knitr,
-    include_chunk_output = TRUE
-  )
-  args <- append(args, list(
-    input = input_path,
+  render(
+    input = reporter,
     output_dir = output_dir,
-    output_format = "all",
-    quiet = TRUE
-  ))
-  args_nams <- unique(names(args))
-  args <- lapply(args_nams, function(x) args[[x]])
-  names(args) <- args_nams
-
-  do.call(rmarkdown::render, args)
-  file.remove(input_path)
-
-  # Create .Rmd file
-  to_rmd(
-    reporter,
-    output_dir,
-    yaml_header = yaml_header,
+    rmd_yaml_args = rmd_yaml_args,
     global_knitr = global_knitr,
-    include_chunk_output = FALSE
-  ) # TODO remove eval=FALSE also
+    keep_rmd = TRUE,
+    quiet = TRUE,
+    ...
+  )
+
   output_dir
 }

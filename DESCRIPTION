@@ -84,7 +84,6 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Config/testthat/edition: 3
 Collate: 
-    'Reporter.R'
     'AddCardModule.R'
     'ContentBlock.R'
     'DownloadModule.R'
@@ -96,8 +95,9 @@ Collate:
     'PictureBlock.R'
     'Previewer.R'
     'RcodeBlock.R'
-    'Renderer.R'
+    'render.R'
     'ReportCard.R'
+    'Reporter.R'
     'ResetModule.R'
     'SimpleReporter.R'
     'TableBlock.R'

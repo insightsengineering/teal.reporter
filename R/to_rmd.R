@@ -4,7 +4,7 @@
   path <- tempfile(fileext = ".rds")
   suppressWarnings(saveRDS(block, file = path))
   file.copy(path, file.path(output_dir, hashname_file))
-  sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", hashname_file)
+  sprintf("```{r echo = FALSE, eval = TRUE}\nreadRDS('%s')\n```", hashname_file)
 }
 
 #' Convert `ReporterCard`/`teal_card` content to `rmarkdown`
@@ -20,7 +20,7 @@
 #' For example, to override the default behavior for `code_chunk` class, you can use:
 #'
 #' ```r
-#' to_rmd.code_chunk <- function(block, output_dir, ..., report_type, eval = TRUE) {
+#' to_rmd.code_chunk <- function(block, output_dir, ..., report_type) {
 #'   # custom implementation
 #'   sprintf("### A custom code chunk\n\n```{r}\n%s\n```\n", block)
 #' }
@@ -56,21 +56,17 @@ to_rmd.default <- function(block, output_dir, ...) {
 #' @keywords internal
 .to_rmd.Reporter <- function(block,
                              output_dir,
-                             yaml_header,
+                             rmd_yaml_args = list(),
                              global_knitr = getOption("teal.reporter.global_knitr"),
                              include_chunk_output,
                              ...) {
   blocks <- block$get_blocks()
   checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
-  if (missing(yaml_header)) {
-    yaml_header <- md_header(yaml::as.yaml(list(title = "Report")))
-  }
-
-  report_type <- get_yaml_field(yaml_header, "output")
+  report_type <- rmd_yaml_args$output
 
   parsed_global_knitr <- sprintf(
     "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n%s\n```\n",
-    utils::capture.output(dput(global_knitr)),
+    paste(utils::capture.output(dput(global_knitr)), collapse = ""),
     if (identical(report_type, "powerpoint_presentation")) {
       format_code_block_function <- quote(
         code_block <- function(code_text) {
@@ -93,24 +89,14 @@ to_rmd.default <- function(block, output_dir, ...) {
     }
   )
 
-  parsed_blocks <- paste(
-    unlist(
-      lapply(
-        blocks,
-        function(b) {
-          to_rmd(
-            b,
-            output_dir = output_dir,
-            report_type = report_type,
-            include_chunk_output = include_chunk_output
-          )
-        }
-      )
-    ),
-    collapse = "\n\n"
+  parsed_blocks <- .to_rmd(
+    as.teal_card(blocks),
+    output_dir = output_dir,
+    report_type = report_type,
+    include_chunk_output = include_chunk_output
   )
 
-  rmd_text <- paste0(yaml_header, "\n", parsed_global_knitr, "\n", parsed_blocks, "\n")
+  rmd_text <- paste0(as_yaml_auto(rmd_yaml_args), "\n", parsed_global_knitr, "\n", parsed_blocks, "\n")
   input_path <- file.path(
     output_dir,
     sprintf("input_%s.Rmd", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS3")))
@@ -127,22 +113,22 @@ to_rmd.default <- function(block, output_dir, ...) {
 
 #' @method .to_rmd teal_card
 #' @keywords internal
-.to_rmd.teal_card <- function(block, output_dir, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
+.to_rmd.teal_card <- function(block, output_dir, global_knitr = NULL, ...) {
   m <- metadata(block)
-  yaml_header <- if (length(m)) sprintf("---\n%s\n---", yaml::as.yaml(m))
   paste(
     c(
-      yaml_header,
-      sprintf(
-        "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n```\n",
-        utils::capture.output(dput(global_knitr))
-      ),
-      lapply(block, function(x) .to_rmd(x, output_dir = output_dir, ...))
+      if (length(m)) sprintf("---\n%s\n---", yaml::as.yaml(m)),
+      if (!is.null(global_knitr)) {
+        sprintf(
+          "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n```\n",
+          paste(utils::capture.output(dput(global_knitr)), collapse = "")
+        )
+      },
+      unlist(lapply(block, function(x) .to_rmd(x, output_dir = output_dir, ...)))
     ),
     collapse = "\n"
   )
 }
-
 
 #' @method .to_rmd TextBlock
 #' @keywords internal
@@ -183,9 +169,8 @@ to_rmd.default <- function(block, output_dir, ...) {
 
 #' @method .to_rmd code_chunk
 #' @keywords internal
-.to_rmd.code_chunk <- function(block, output_dir, ..., report_type = NULL, eval = FALSE) {
+.to_rmd.code_chunk <- function(block, output_dir, ..., report_type = NULL) {
   params <- attr(block, "params")
-  if (!("eval" %in% names(params))) params <- c(params, eval = eval)
   params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
   if (identical(report_type, "powerpoint_presentation")) {
     block_content_list <- split_text_block(block, 30)
@@ -198,8 +183,8 @@ to_rmd.default <- function(block, output_dir, ...) {
     )
   } else {
     sprintf(
-      "```{r, %s}\n%s\n```\n",
-      paste(names(params), params, sep = "=", collapse = ", "),
+      "```{%s}\n%s\n```\n",
+      toString(c("r", paste(names(params), params, sep = "="))),
       block
     )
   }
