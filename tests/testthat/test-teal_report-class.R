@@ -22,6 +22,14 @@ testthat::describe("teal_card built from teal_data", {
 
     testthat::expect_equal(unname(teal_card(as.teal_report(td))), unname(teal_card(tr)))
   })
+
+  it("is identical when calling as.teal_report with multiple calls", {
+    td <- Reduce(f = eval_code, init = teal.data::teal_data(), x = code)
+    tr <- Reduce(f = eval_code, init = teal_report(), x = code )
+
+    testthat::expect_equal(unname(teal_card(as.teal_report(td))), unname(teal_card(tr)))
+  })
+
 })
 
 testthat::test_that("teal_data converts to teal_report when assigning teal_card", {
