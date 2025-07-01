@@ -246,10 +246,10 @@ code_chunk <- function(code, ...) {
 }
 
 #' Builds `teal_card` from code and outputs in `qenv` object
-#' 
+#'
 #' Builds a `teal_card` from the code and outputs of a `teal_data`
 #' object, preserving the order of code execution and output display.
-#' 
+#'
 #' @param data (`qenv`) object.
 #' @return A `teal_card` built from the code and outputs in a `qenv`
 #' object.
