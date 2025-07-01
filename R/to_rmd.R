@@ -56,7 +56,7 @@ to_rmd.default <- function(block, output_dir, ...) {
 #' @keywords internal
 .to_rmd.Reporter <- function(block,
                              output_dir,
-                             rmd_yaml_args = list(),
+                             rmd_yaml_args,
                              global_knitr = getOption("teal.reporter.global_knitr"),
                              include_chunk_output,
                              ...) {
@@ -64,45 +64,43 @@ to_rmd.default <- function(block, output_dir, ...) {
   checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
   report_type <- rmd_yaml_args$output
 
-  parsed_global_knitr <- sprintf(
-    "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n%s\n```\n",
-    paste(utils::capture.output(dput(global_knitr)), collapse = ""),
-    if (identical(report_type, "powerpoint_presentation")) {
-      format_code_block_function <- quote(
-        code_block <- function(code_text) {
-          df <- data.frame(code_text)
-          ft <- flextable::flextable(df)
-          ft <- flextable::delete_part(ft, part = "header")
-          ft <- flextable::autofit(ft, add_h = 0)
-          ft <- flextable::fontsize(ft, size = 7, part = "body")
-          ft <- flextable::bg(x = ft, bg = "lightgrey")
-          ft <- flextable::border_outer(ft)
-          if (flextable::flextable_dim(ft)$widths > 8) {
-            ft <- flextable::width(ft, width = 8)
-          }
-          ft
-        }
-      )
-      paste(deparse(format_code_block_function), collapse = "\n")
-    } else {
-      ""
-    }
+  global_knitr_parsed <- sprintf(
+    "knitr::opts_chunk$set(%s)",
+    paste(utils::capture.output(dput(global_knitr)), collapse = "")
   )
 
-  parsed_blocks <- .to_rmd(
-    as.teal_card(blocks),
+  powerpoint_exception_parsed <- if (identical(report_type, "powerpoint_presentation")) {
+    format_code_block_function <- quote(
+      code_block <- function(code_text) {
+        df <- data.frame(code_text)
+        ft <- flextable::flextable(df)
+        ft <- flextable::delete_part(ft, part = "header")
+        ft <- flextable::autofit(ft, add_h = 0)
+        ft <- flextable::fontsize(ft, size = 7, part = "body")
+        ft <- flextable::bg(x = ft, bg = "lightgrey")
+        ft <- flextable::border_outer(ft)
+        if (flextable::flextable_dim(ft)$widths > 8) {
+          ft <- flextable::width(ft, width = 8)
+        }
+        ft
+      }
+    )
+    deparse1(format_code_block_function, collapse = "\n")
+  } else {
+    NULL
+  }
+
+  global_knitr_code_chunk <- code_chunk(c(global_knitr_parsed, powerpoint_exception_parsed), include = FALSE)
+
+  tc <- as.teal_card(append(blocks, list(global_knitr_code_chunk), after = 0))
+  metadata(tc) <- rmd_yaml_args
+  .to_rmd(
+    tc,
     output_dir = output_dir,
     report_type = report_type,
     include_chunk_output = include_chunk_output
   )
 
-  rmd_text <- paste0(as_yaml_auto(rmd_yaml_args), "\n", parsed_global_knitr, "\n", parsed_blocks, "\n")
-  input_path <- file.path(
-    output_dir,
-    sprintf("input_%s.Rmd", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS3")))
-  )
-  cat(rmd_text, file = input_path)
-  input_path
 }
 
 #' @method .to_rmd teal_report
@@ -118,12 +116,6 @@ to_rmd.default <- function(block, output_dir, ...) {
   paste(
     c(
       if (length(m)) sprintf("---\n%s\n---", yaml::as.yaml(m)),
-      if (!is.null(global_knitr)) {
-        sprintf(
-          "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n```\n",
-          paste(utils::capture.output(dput(global_knitr)), collapse = "")
-        )
-      },
       unlist(lapply(block, function(x) .to_rmd(x, output_dir = output_dir, ...)))
     ),
     collapse = "\n"

@@ -14,7 +14,7 @@ render(
 )
 }
 \arguments{
-\item{input}{(\code{teal_report} or \code{teal_code}) object to render}
+\item{input}{(\code{teal_report} or \code{teal_code}) object to render.}
 
 \item{output_dir}{The output directory for the rendered \code{output_file}.
 This allows for a choice of an alternate directory to which the output file
@@ -23,11 +23,13 @@ If a path is provided with a filename in \code{output_file} the directory
 specified here will take precedence. Please note that any directory path
 provided will create any necessary directories if they do not exist.}
 
-\item{rmd_yaml_args}{(\code{list}) going to be deprecated - applies to the \code{Reporter} object.}
+\item{rmd_yaml_args}{(\code{list}) going to be deprecated - applies only to the \code{Reporter} object as an
+equivalent of \verb{metadata(<teal_card>).}}
 
-\item{global_knitr}{(\code{list}) # todo}
+\item{global_knitr}{(\code{list}) options to apply to every code chunk in a teal_card document.
+\href{https://rmarkdown.rstudio.com/lesson-3.html#global-options}{Read more here}.}
 
-\item{keep_rmd}{(\code{logical(1)}) if \code{.Rmd} should be kept after rendering to desired \code{output_format}}
+\item{keep_rmd}{(\code{logical(1)}) if \code{.Rmd} should be kept after rendering to desired \code{output_format}.}
 
 \item{...}{arguments passed to \code{rmarkdown::render}.}
 }
@@ -47,5 +49,7 @@ metadata(teal_card(report)) <- list(
   title = "My Document",
   author = "NEST"
 )
-render(report, output_format = rmarkdown::pdf_document())
+if (interactive()) {
+  render(report, output_format = rmarkdown::pdf_document(), global_knitr = list(fig.width = 10))
+}
 }

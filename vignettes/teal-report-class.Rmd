@@ -97,7 +97,7 @@ teal_card(report)
 In Rmarkdown it is possible specify certain parameters as a YAML header. `teal_report` allows to specify metadata using
 `metadata()`. 
 
-```{r, eval = FALSE}
+```{r}
 metadata(teal_card(report)) <- list(
   title = "My Document",
   author = "NEST"
@@ -110,7 +110,7 @@ metadata(teal_card(report)) <- list(
 `teal_report` supports several output formats. `render` for `teal_report` utilizes `rmarkdown::render` so it supports the same [output formats](https://pkgs.rstudio.com/rmarkdown/reference/index.html#output-formats) and arguments.
 
 ```{r. eval=FALSE}
-render(report, output_format = rmarkdown::pdf_document())
+render(report, output_format = rmarkdown::pdf_document(), global_knitr = list(fig.width = 10))
 ```
 
 ## Key Benefits

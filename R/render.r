@@ -1,9 +1,11 @@
 #' Render `teal_card`
 #' @inheritParams rmarkdown::render
-#' @param input (`teal_report` or `teal_code`) object to render
-#' @param global_knitr (`list`) # todo
-#' @param rmd_yaml_args (`list`) going to be deprecated - applies to the `Reporter` object.
-#' @param keep_rmd (`logical(1)`) if `.Rmd` should be kept after rendering to desired `output_format`
+#' @param input (`teal_report` or `teal_code`) object to render.
+#' @param global_knitr (`list`) options to apply to every code chunk in a teal_card document.
+#' [Read more here](https://rmarkdown.rstudio.com/lesson-3.html#global-options).
+#' @param rmd_yaml_args (`list`) going to be deprecated - applies only to the `Reporter` object as an
+#' equivalent of `metadata(<teal_card>).`
+#' @param keep_rmd (`logical(1)`) if `.Rmd` should be kept after rendering to desired `output_format`.
 #' @param ... arguments passed to `rmarkdown::render`.
 #' @examples
 #' report <- teal_report()
@@ -18,7 +20,9 @@
 #'   title = "My Document",
 #'   author = "NEST"
 #' )
-#' render(report, output_format = rmarkdown::pdf_document())
+#' if (interactive()) {
+#'   render(report, output_format = rmarkdown::pdf_document(), global_knitr = list(fig.width = 10))
+#' }
 #' @export
 render <- function(
     input,

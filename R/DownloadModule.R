@@ -199,7 +199,7 @@ report_render_and_compress <- function(reporter, rmd_yaml_args, global_knitr, fi
   tryCatch(
     {
       file.copy(temp_zip_file, file)
-      unlink(output_dir)
+      unlink(output_dir, recursive = TRUE)
     },
     warning = function(cond) message("Copying file warning: ", cond),
     error = function(cond) message("Copying file error: ", cond)
@@ -266,18 +266,16 @@ any_rcode_block <- function(reporter) {
   }
 }
 
-report_render <- function(reporter, rmd_yaml_args, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
+report_render <- function(input, rmd_yaml_args, global_knitr = getOption("teal.reporter.global_knitr")) {
   tmp_dir <- tempdir()
   output_dir <- file.path(tmp_dir, sprintf("report_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
   render(
-    input = reporter,
+    input = input,
     output_dir = output_dir,
     rmd_yaml_args = rmd_yaml_args,
     global_knitr = global_knitr,
     keep_rmd = TRUE,
-    quiet = TRUE,
-    ...
+    quiet = TRUE
   )
-
   output_dir
 }
