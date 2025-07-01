@@ -9,7 +9,8 @@ to_rmd(block, output_dir, ...)
 \arguments{
 \item{block}{(\code{any}) content which can be represented in \code{rmarkdown} syntax}
 
-\item{output_dir}{(\code{character(1)}) path to the directory where files should be written to.}
+\item{output_dir}{(\code{character(1)}) path to the directory where files should be written to. Beware
+that absolute paths will break a reproducibility of the Rmd document.}
 }
 \value{
 \code{character(1)} containing a content or \code{rmarkdown} document

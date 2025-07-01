@@ -19,22 +19,22 @@ testthat::describe("render() accepts", {
 
 testthat::describe("render() by default", {
   it("outputs and keeps report.Rmd file in the working directory", {
-    temp_dir <- tempdir()
+    temp_dir <- tempfile()
+    dir.create(temp_dir)
     setwd(temp_dir)
     render(teal_report(), quiet = TRUE)
     testthat::expect_true(file.exists(file.path(temp_dir, "report.Rmd")))
   })
 
   it("renders report.html file in the working directory", {
-    temp_dir <- tempdir()
+    temp_dir <- tempfile()
+    dir.create(temp_dir)
     setwd(temp_dir)
     render(teal_report(), quiet = TRUE)
     testthat::expect_true(file.exists(file.path(temp_dir, "report.html")))
   })
 
   it("outputs report.Rmd file containing knitr::opts_chunk$set with tidy options set", {
-    temp_dir <- tempdir()
-    setwd(temp_dir)
     render(teal_report(), quiet = TRUE)
     lines <- base::readLines("report.Rmd", warn = FALSE)
     testthat::expect_identical(
@@ -167,6 +167,23 @@ testthat::describe("render() renders output based on metadata$output field:", {
         "",
         "Lorem ipsum",
         "",
+        "    plot(1:10)",
+        "",
+        sprintf("![](report_files/figure-markdown_strict/unnamed-chunk-3-1.png)")
+      )
+    )
+  })
+
+  it("- md_document containing absolute path to a plot even if output_dir is set to absolute path", {
+    temp_dir <- tempfile()
+    tr <- teal_report()
+    tr <- within(tr, plot(1:10))
+    metadata(teal_card(tr)) <- list(output = "md_document")
+    render(tr, output_dir = temp_dir)
+    lines <- base::readLines(file.path(temp_dir, "report.md"), warn = FALSE)
+    testthat::expect_identical(
+      lines,
+      c(
         "    plot(1:10)",
         "",
         sprintf("![](report_files/figure-markdown_strict/unnamed-chunk-3-1.png)")

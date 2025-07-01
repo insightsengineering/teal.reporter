@@ -29,7 +29,8 @@
 #' Alternatively, you can register the S3 method using `registerS3method("to_rmd", "<class>", fun)`
 #'
 #' @param block (`any`) content which can be represented in `rmarkdown` syntax
-#' @param output_dir (`character(1)`) path to the directory where files should be written to.
+#' @param output_dir (`character(1)`) path to the directory where files should be written to. Beware
+#' that absolute paths will break a reproducibility of the Rmd document.
 #' @return `character(1)` containing a content or `rmarkdown` document
 #' @keywords internal
 to_rmd <- function(block, output_dir, ...) {

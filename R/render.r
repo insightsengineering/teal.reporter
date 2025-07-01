@@ -32,38 +32,38 @@ render <- function(
     keep_rmd = TRUE,
     ...) {
   checkmate::assert_subset(names(list(...)), names(formals(rmarkdown::render)))
-  on.exit({
-    # replace temporary file with reproducible rmd (with eval = TRUE)
-    suppressWarnings(file.remove(rmd_filepath))
-    if (keep_rmd) {
-      out_rmd_content <- to_rmd(
-        block = input,
-        output_dir = output_dir,
-        rmd_yaml_args = rmd_yaml_args,
-        global_knitr = global_knitr,
-        include_chunk_output = FALSE
-      )
-      cat(out_rmd_content, file = rmd_filepath)
-    }
-  })
+
+  # Set output dir to a new working directory. Absolute paths in rmarkdown files will break .Rmd portability
   dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
-  rmd_filepath <- file.path(output_dir, "report.Rmd")
+  old_wd <- setwd(dir = output_dir)
+  on.exit(setwd(old_wd))
+
+  # This Rmd file is for render purpose as it contains evaluated code chunks and their outputs.
+  rmd_filepath <- "report.Rmd"
   temp_rmd_content <- to_rmd(
     block = input,
-    output_dir = output_dir,
+    output_dir = ".",
     rmd_yaml_args = rmd_yaml_args,
     global_knitr = c(global_knitr, list(eval = FALSE)), # we don't want to rerun evaluated code chunks to render
     include_chunk_output = TRUE
   )
   cat(temp_rmd_content, file = rmd_filepath)
-  args <- utils::modifyList(
-    list(...),
-    list(
-      input = rmd_filepath
-    )
+  args <- utils::modifyList(list(...), list(input = rmd_filepath))
+  tryCatch(
+    do.call(rmarkdown::render, args),
+    finally = suppressWarnings(file.remove(rmd_filepath))
   )
-  old <- setwd(dir = output_dir)
-  on.exit(setwd(old))
-  do.call(rmarkdown::render, args)
+
+  if (keep_rmd) {
+    # This Rmd file contains code-chunks and their outputs can be reproduced when rendering this file
+    out_rmd_content <- to_rmd(
+      block = input,
+      output_dir = ".",
+      rmd_yaml_args = rmd_yaml_args,
+      global_knitr = global_knitr,
+      include_chunk_output = FALSE
+    )
+    cat(out_rmd_content, file = rmd_filepath)
+  }
   output_dir
 }
