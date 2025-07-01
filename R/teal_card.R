@@ -49,7 +49,7 @@ teal_card <- function(x, ...) {
     structure(list(), class = "teal_card")
   } else if (inherits(x, "teal_report")) {
     x@teal_card
-  } else if (inherits(x, "teal_data")) {
+  } else if (inherits(x, "qenv")) {
     .build_card_from_code(x)
   } else {
     objects <- list(x, ...)
@@ -66,10 +66,7 @@ teal_card <- function(x, ...) {
 #' @param value (`teal_card`) object to set in the `teal_report`.
 #' @export
 `teal_card<-` <- function(x, value) {
-  if (!checkmate::test_class(x, "teal_report") && checkmate::test_class(x, "teal_data")) {
-    x <- as.teal_report(x)
-    value <- c(x@teal_card, value)
-  }
+  x <- as.teal_report(x)
   checkmate::assert_class(x, "teal_report")
   x@teal_card <- as.teal_card(value)
   x
