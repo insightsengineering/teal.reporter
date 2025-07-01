@@ -103,10 +103,7 @@ as.teal_report <- function(x) { # nolint: object_name.
   for (slot_name in methods::slotNames(x)) {
     methods::slot(new_x, slot_name) <- methods::slot(x, slot_name)
   }
-  teal_card(new_x) <- c(
-    teal_card(new_x),
-    code_chunk(teal.code::get_code(new_x))
-  )
+  teal_card(new_x) <- .build_card_from_code(x)
 
   new_x
 }
