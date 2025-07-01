@@ -25,7 +25,7 @@ Global Environment, where \verb{<class>} is the class of the object to be conver
 
 For example, to override the default behavior for \code{code_chunk} class, you can use:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{to_rmd.code_chunk <- function(block, output_dir, ..., report_type) \{
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{to_rmd.code_chunk <- function(block, output_dir, ..., output_format) \{
   # custom implementation
   sprintf("### A custom code chunk\\n\\n```\{r\}\\n\%s\\n```\\n", block)
 \}

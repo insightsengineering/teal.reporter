@@ -20,7 +20,7 @@
 #' For example, to override the default behavior for `code_chunk` class, you can use:
 #'
 #' ```r
-#' to_rmd.code_chunk <- function(block, output_dir, ..., report_type) {
+#' to_rmd.code_chunk <- function(block, output_dir, ..., output_format) {
 #'   # custom implementation
 #'   sprintf("### A custom code chunk\n\n```{r}\n%s\n```\n", block)
 #' }
@@ -33,6 +33,7 @@
 #' @return `character(1)` containing a content or `rmarkdown` document
 #' @keywords internal
 to_rmd <- function(block, output_dir, ...) {
+  checkmate::assert_string(output_dir)
   UseMethod("to_rmd")
 }
 
@@ -57,19 +58,25 @@ to_rmd.default <- function(block, output_dir, ...) {
 .to_rmd.Reporter <- function(block,
                              output_dir,
                              rmd_yaml_args,
-                             global_knitr = getOption("teal.reporter.global_knitr"),
-                             include_chunk_output,
                              ...) {
-  blocks <- block$get_blocks()
+  checkmate::assert_list(rmd_yaml_args, names = "named")
+  tc <- as.teal_card(block$get_blocks())
+  metadata(tc) <- rmd_yaml_args
+  .to_rmd(tc, output_dir = output_dir, ...)
+}
+
+#' @method .to_rmd teal_report
+#' @keywords internal
+.to_rmd.teal_report <- function(block, output_dir, ...) {
+  .to_rmd(teal_card(block), output_dir = output_dir, ...)
+}
+
+#' @method .to_rmd teal_card
+#' @keywords internal
+.to_rmd.teal_card <- function(block, output_dir, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
   checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
-  report_type <- rmd_yaml_args$output
-
-  global_knitr_parsed <- sprintf(
-    "knitr::opts_chunk$set(%s)",
-    paste(utils::capture.output(dput(global_knitr)), collapse = "")
-  )
-
-  powerpoint_exception_parsed <- if (identical(report_type, "powerpoint_presentation")) {
+  is_powerpoint <- identical(metadata(block)$output, "powerpoint_presentation")
+  powerpoint_exception_parsed <- if (is_powerpoint) {
     format_code_block_function <- quote(
       code_block <- function(code_text) {
         df <- data.frame(code_text)
@@ -90,33 +97,26 @@ to_rmd.default <- function(block, output_dir, ...) {
     NULL
   }
 
+  global_knitr_parsed <- sprintf(
+    "knitr::opts_chunk$set(%s)",
+    paste(utils::capture.output(dput(global_knitr)), collapse = "")
+  )
   global_knitr_code_chunk <- code_chunk(c(global_knitr_parsed, powerpoint_exception_parsed), include = FALSE)
 
-  tc <- as.teal_card(append(blocks, list(global_knitr_code_chunk), after = 0))
-  metadata(tc) <- rmd_yaml_args
-  .to_rmd(
-    tc,
-    output_dir = output_dir,
-    report_type = report_type,
-    include_chunk_output = include_chunk_output
+  blocks_w_global_knitr <- append(
+    block,
+    if (length(global_knitr) || is_powerpoint) list(global_knitr_code_chunk),
+    after = 0
   )
 
-}
-
-#' @method .to_rmd teal_report
-#' @keywords internal
-.to_rmd.teal_report <- function(block, output_dir, ...) {
-  .to_rmd(teal_card(block), output_dir = output_dir, ...)
-}
-
-#' @method .to_rmd teal_card
-#' @keywords internal
-.to_rmd.teal_card <- function(block, output_dir, global_knitr = NULL, ...) {
   m <- metadata(block)
   paste(
     c(
-      if (length(m)) sprintf("---\n%s\n---", yaml::as.yaml(m)),
-      unlist(lapply(block, function(x) .to_rmd(x, output_dir = output_dir, ...)))
+      if (length(m)) sprintf("---\n%s\n---", trimws(yaml::as.yaml(m))),
+      unlist(lapply(
+        blocks_w_global_knitr,
+        function(x) .to_rmd(x, output_dir = output_dir, output_format = m$output, ...)
+      ))
     ),
     collapse = "\n"
   )
@@ -138,10 +138,10 @@ to_rmd.default <- function(block, output_dir, ...) {
 
 #' @method .to_rmd RcodeBlock
 #' @keywords internal
-.to_rmd.RcodeBlock <- function(block, output_dir, ..., report_type) {
+.to_rmd.RcodeBlock <- function(block, output_dir, ..., output_format) {
   params <- block$get_params()
   params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
-  if (identical(report_type, "powerpoint_presentation")) {
+  if (identical(output_format, "powerpoint_presentation")) {
     block_content_list <- split_text_block(block$get_content(), 30)
     paste(
       sprintf(
@@ -161,10 +161,10 @@ to_rmd.default <- function(block, output_dir, ...) {
 
 #' @method .to_rmd code_chunk
 #' @keywords internal
-.to_rmd.code_chunk <- function(block, output_dir, ..., report_type = NULL) {
+.to_rmd.code_chunk <- function(block, output_dir, ..., output_format = NULL) {
   params <- attr(block, "params")
   params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
-  if (identical(report_type, "powerpoint_presentation")) {
+  if (identical(output_format, "powerpoint_presentation")) {
     block_content_list <- split_text_block(block, 30)
     paste(
       sprintf(

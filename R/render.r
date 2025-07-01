@@ -59,10 +59,11 @@ render <- function(
   args <- utils::modifyList(
     list(...),
     list(
-      input = rmd_filepath,
-      output_dir = output_dir
+      input = rmd_filepath
     )
   )
+  old <- setwd(dir = output_dir)
+  on.exit(setwd(old))
   do.call(rmarkdown::render, args)
   output_dir
 }
