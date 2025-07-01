@@ -29,7 +29,7 @@ setMethod(
           function(x) !inherits(x, "condition"),
           lapply(
             attr(code_elem, "outputs"),
-            function(x) structure(x, class = c("chunk_output", class(x)))
+            function(x) if (isS4(x)) x else structure(x, class = c("chunk_output", class(x)))
           )
         )
         c(items, list(this_chunk), this_outs)
@@ -37,7 +37,6 @@ setMethod(
       init = list(),
       x = setdiff(new_object@code, object@code)
     )
-
 
     if (length(new_blocks)) {
       teal_card(new_object) <- c(teal_card(new_object), new_blocks)
