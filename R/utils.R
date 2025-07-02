@@ -90,9 +90,13 @@ to_flextable <- function(content) {
     rtables::header_section_div(ft) <- mf$header_section_div
     ft <- rtables.officer::tt_to_flextable(ft, total_width = c(grDevices::pdf.options()$width - 1))
   } else if (inherits(content, "data.frame")) {
-    ft <- rtables.officer::tt_to_flextable(
-      rtables::df_to_tt(content)
-    )
+    ft <- if (nrow(content) == 0) {
+      flextable::flextable(content)
+    } else {
+      rtables.officer::tt_to_flextable(
+        rtables::df_to_tt(content)
+      )
+    }
   } else {
     stop(paste0("Unsupported class `(", format(class(content)), ")` when exporting table"))
   }
