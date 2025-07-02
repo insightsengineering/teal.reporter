@@ -28,10 +28,10 @@
 #'
 #' Alternatively, you can register the S3 method using `registerS3method("to_rmd", "<class>", fun)`
 #'
-#' @param block (`any`) content which can be represented in `rmarkdown` syntax
+#' @param block (`any`) content which can be represented in Rmarkdown syntax.
 #' @param output_dir (`character(1)`) path to the directory where files should be written to. Beware
-#' that absolute paths will break a reproducibility of the Rmd document.
-#' @return `character(1)` containing a content or `rmarkdown` document
+#' that absolute paths will break a reproducibility of the Rmarkdown document.
+#' @return `character(1)` containing a content or Rmarkdown document.
 #' @keywords internal
 to_rmd <- function(block, output_dir, ...) {
   checkmate::assert_string(output_dir)
@@ -63,13 +63,13 @@ to_rmd.default <- function(block, output_dir, ...) {
   checkmate::assert_list(rmd_yaml_args, names = "named")
   tc <- as.teal_card(block$get_blocks())
   metadata(tc) <- rmd_yaml_args
-  .to_rmd(tc, output_dir = output_dir, ...)
+  to_rmd(tc, output_dir = output_dir, ...)
 }
 
 #' @method .to_rmd teal_report
 #' @keywords internal
 .to_rmd.teal_report <- function(block, output_dir, ...) {
-  .to_rmd(teal_card(block), output_dir = output_dir, ...)
+  to_rmd(teal_card(block), output_dir = output_dir, ...)
 }
 
 #' @method .to_rmd teal_card
@@ -116,7 +116,7 @@ to_rmd.default <- function(block, output_dir, ...) {
       if (length(m)) sprintf("---\n%s\n---", trimws(yaml::as.yaml(m))),
       unlist(lapply(
         blocks_w_global_knitr,
-        function(x) .to_rmd(x, output_dir = output_dir, output_format = m$output, ...)
+        function(x) to_rmd(x, output_dir = output_dir, output_format = m$output, ...)
       ))
     ),
     collapse = "\n"

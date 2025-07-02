@@ -2,9 +2,9 @@
 #' @inheritParams rmarkdown::render
 #' @param input (`teal_report` or `teal_code`) object to render.
 #' @param global_knitr (`list`) options to apply to every code chunk in a teal_card document.
-#' [Read more here](https://rmarkdown.rstudio.com/lesson-3.html#global-options).
+#'  [Read more here](https://rmarkdown.rstudio.com/lesson-3.html#global-options).
 #' @param rmd_yaml_args (`list`) going to be deprecated - applies only to the `Reporter` object as an
-#' equivalent of `metadata(<teal_card>).`
+#'  equivalent of `metadata(<teal_card>)`.
 #' @param keep_rmd (`logical(1)`) if `.Rmd` should be kept after rendering to desired `output_format`.
 #' @param ... arguments passed to `rmarkdown::render`.
 #' @examples
@@ -31,6 +31,12 @@ render <- function(
     global_knitr = getOption("teal.reporter.global_knitr"),
     keep_rmd = TRUE,
     ...) {
+  checkmate::assert_multi_class(input, c("teal_report", "teal_card"))
+  checkmate::assert_string(output_dir)
+  checkmate::assert_list(rmd_yaml_args, names = "named")
+  checkmate::assert_list(global_knitr, names = "named")
+  checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
+  checkmate::assert_flag(keep_rmd)
   checkmate::assert_subset(names(list(...)), names(formals(rmarkdown::render)))
 
   # Set output dir to a new working directory. Absolute paths in rmarkdown files will break .Rmd portability
@@ -55,7 +61,7 @@ render <- function(
   )
 
   if (keep_rmd) {
-    # This Rmd file contains code-chunks and their outputs can be reproduced when rendering this file
+    # This Rmd file doesn't contain chunk_outputs as theycan be reproduced when executing code-chunks
     out_rmd_content <- to_rmd(
       block = input,
       output_dir = ".",

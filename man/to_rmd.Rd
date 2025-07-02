@@ -7,13 +7,13 @@
 to_rmd(block, output_dir, ...)
 }
 \arguments{
-\item{block}{(\code{any}) content which can be represented in \code{rmarkdown} syntax}
+\item{block}{(\code{any}) content which can be represented in Rmarkdown syntax.}
 
 \item{output_dir}{(\code{character(1)}) path to the directory where files should be written to. Beware
-that absolute paths will break a reproducibility of the Rmd document.}
+that absolute paths will break a reproducibility of the Rmarkdown document.}
 }
 \value{
-\code{character(1)} containing a content or \code{rmarkdown} document
+\code{character(1)} containing a content or Rmarkdown document.
 }
 \description{
 This is an S3 generic that is used to generate content in \code{rmarkdown} format

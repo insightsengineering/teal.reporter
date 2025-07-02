@@ -24,7 +24,7 @@ specified here will take precedence. Please note that any directory path
 provided will create any necessary directories if they do not exist.}
 
 \item{rmd_yaml_args}{(\code{list}) going to be deprecated - applies only to the \code{Reporter} object as an
-equivalent of \verb{metadata(<teal_card>).}}
+equivalent of \verb{metadata(<teal_card>)}.}
 
 \item{global_knitr}{(\code{list}) options to apply to every code chunk in a teal_card document.
 \href{https://rmarkdown.rstudio.com/lesson-3.html#global-options}{Read more here}.}

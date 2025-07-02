@@ -34,7 +34,7 @@ report <- teal_report()
 
 ### Adding arbitrary markdown content
 
-Think of a `teal_report` as a Rmarkdown document build and evaluated step by step. Use `teal_card(report)` to access and change elements of the document.
+Think of a `teal_report` as a Rmarkdown document built and evaluated step by step. Use `teal_card(report)` to access and change elements of the document.
 To add a new element in the `teal_card` one can use `c` method.
 
 ```{r}
@@ -49,8 +49,8 @@ teal_card(report)
 
 ### Adding reproducible code chunks
 
-`teal_report` inherits all methods from `teal.data`. Class utilizes `within()` and `teal.code::eval_code()` which execute arbitrary code in its environment. Consider this as executing code chunk in Rmarkdown document. In the same
-time you can access objects created during code execution.
+`teal_report` inherits all methods from `teal_data`. The class supports `within()` and `teal.code::eval_code()`, which execute arbitrary code in its environment. Consider this as executing a code chunk in a Rmarkdown document. 
+In the same time you can access objects created during code execution.
 
 ```{r}
 report <- within(report, {
