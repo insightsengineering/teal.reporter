@@ -231,7 +231,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     reset = function() {
       if (shiny::isRunning()) {
-        for (card_id in shiny::names(private$cards)) private$cards[[card_id]] <- NULL
+        for (card_id in names(private$cards)) private$cards[[card_id]] <- NULL
       } else {
         private$cards <- shiny::reactiveValues()
       }

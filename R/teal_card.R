@@ -49,6 +49,8 @@ teal_card <- function(x, ...) {
     structure(list(), class = "teal_card")
   } else if (inherits(x, "teal_report")) {
     x@teal_card
+  } else if (inherits(x, "qenv")) {
+    .build_card_from_code(x)
   } else {
     objects <- list(x, ...)
     names(objects) <- vapply(
@@ -64,6 +66,7 @@ teal_card <- function(x, ...) {
 #' @param value (`teal_card`) object to set in the `teal_report`.
 #' @export
 `teal_card<-` <- function(x, value) {
+  x <- as.teal_report(x)
   checkmate::assert_class(x, "teal_report")
   x@teal_card <- as.teal_card(value)
   x
@@ -240,4 +243,29 @@ code_chunk <- function(code, ...) {
     params = params,
     class = "code_chunk"
   )
+}
+
+#' Builds `teal_card` from code and outputs in `qenv` object
+#'
+#' Builds a `teal_card` from the code and outputs of a `teal_data`
+#' object, preserving the order of code execution and output display.
+#'
+#' @param data (`qenv`) object.
+#' @return A `teal_card` built from the code and outputs in a `qenv`
+#' object.
+#' @keywords internal
+.build_card_from_code <- function(data) {
+  card <- teal_card()
+  for (chunk in data@code) {
+    outs <- if (!is.null(attr(chunk, "outputs"))) {
+      sapply(
+        attr(chunk, "outputs"),
+        function(x) structure(x, class = c("chunk_output", class(x))),
+        USE.NAMES = FALSE,
+        simplify = FALSE
+      )
+    }
+    card <- c(card, code_chunk(chunk), outs)
+  }
+  card
 }
