@@ -28,9 +28,7 @@ setMethod(
     }
     new_blocks <- .code_to_card(x = setdiff(new_object@code, object@code), code_block_opts = code_block_opts)
 
-    if (length(new_blocks)) {
-      teal_card(new_object) <- c(teal_card(new_object), new_blocks)
-    }
+    teal_card(new_object) <- c(teal_card(new_object), new_blocks)
     new_object
   }
 )

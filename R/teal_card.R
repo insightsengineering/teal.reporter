@@ -259,10 +259,10 @@ code_chunk <- function(code, ...) {
     function(items, code_elem) {
       this_chunk <- do.call(code_chunk, c(list(code = code_elem), code_block_opts))
       this_outs <- Filter( # intentionally remove warnings,messages from the generated report
-        function(x) !inherits(x, "condition"),
+        function(x) !inherits(x[[1]], "condition"),
         lapply(
           attr(code_elem, "outputs"),
-          function(x) if (isS4(x)) x else structure(x, class = c("chunk_output", class(x)))
+          function(x) structure(list(x), class = c("chunk_output"))
         )
       )
       c(items, list(this_chunk), this_outs)

@@ -230,7 +230,7 @@ to_rmd.default <- function(block, output_dir, ...) {
 #' @keywords internal
 .to_rmd.chunk_output <- function(block, output_dir, ..., include_chunk_output) {
   if (!missing(include_chunk_output) && isTRUE(include_chunk_output)) {
-    NextMethod()
+    to_rmd(block[[1]], output_dir = output_dir, ..., include_chunk_output = include_chunk_output)
   }
 }
 
