@@ -50,7 +50,7 @@ teal_card <- function(x, ...) {
   } else if (inherits(x, "teal_report")) {
     x@teal_card
   } else if (inherits(x, "qenv")) {
-    .build_card_from_code(x)
+    .code_to_card(x@code)
   } else {
     objects <- list(x, ...)
     names(objects) <- vapply(
@@ -250,22 +250,25 @@ code_chunk <- function(code, ...) {
 #' Builds a `teal_card` from the code and outputs of a `teal_data`
 #' object, preserving the order of code execution and output display.
 #'
-#' @param data (`qenv`) object.
-#' @return A `teal_card` built from the code and outputs in a `qenv`
-#' object.
+#' @inheritParams eval_code-teal_report
+#' @param x (`list`) object from `qenv@code`.
+#' @return A `teal_card` built from the code and outputs in a `qenv` object.
 #' @keywords internal
-.build_card_from_code <- function(data) {
-  card <- teal_card()
-  for (chunk in data@code) {
-    outs <- if (!is.null(attr(chunk, "outputs"))) {
-      sapply(
-        attr(chunk, "outputs"),
-        function(x) structure(x, class = c("chunk_output", class(x))),
-        USE.NAMES = FALSE,
-        simplify = FALSE
+.code_to_card <- function(x, code_block_opts = list()) {
+  elems <- Reduce(
+    function(items, code_elem) {
+      this_chunk <- do.call(code_chunk, c(list(code = code_elem), code_block_opts))
+      this_outs <- Filter( # intentionally remove warnings,messages from the generated report
+        function(x) !inherits(x[[1]], "condition"),
+        lapply(
+          attr(code_elem, "outputs"),
+          function(x) structure(list(x), class = c("chunk_output"))
+        )
       )
-    }
-    card <- c(card, code_chunk(chunk), outs)
-  }
-  card
+      c(items, list(this_chunk), this_outs)
+    },
+    init = list(),
+    x = x
+  )
+  do.call(teal_card, args = elems)
 }
