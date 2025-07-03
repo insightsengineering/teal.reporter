@@ -21,8 +21,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card <- ReportCard$new()
     #'
     initialize = function() {
-      private$content <- list()
-      private$metadata <- list()
+      private$content <- teal_card()
       invisible(self)
     },
     #' @description Appends a table to this `ReportCard`.
@@ -33,10 +32,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @examples
     #' card <- ReportCard$new()$append_table(iris)
     #'
-    append_table = function(table) {
-      self$append_content(TableBlock$new(table))
-      invisible(self)
-    },
+    append_table = function(table) self$append_content(table),
     #' @description Appends a html content to this `ReportCard`.
     #'
     #' @param content An object that can be rendered as a HTML content.
@@ -44,10 +40,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @examples
     #' card <- ReportCard$new()$append_html(shiny::div("HTML Content"))
     #'
-    append_html = function(content) {
-      self$append_content(HTMLBlock$new(content))
-      invisible(self)
-    },
+    append_html = function(content) self$append_content(content),
     #' @description Appends a plot to this `ReportCard`.
     #'
     #' @param plot (`ggplot` or `grob` or `trellis`) plot object.
@@ -60,15 +53,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
     #'
-    append_plot = function(plot, dim = NULL) {
-      pb <- PictureBlock$new()
-      if (!is.null(dim) && length(dim) == 2) {
-        pb$set_dim(dim)
-      }
-      pb$set_content(plot)
-      self$append_content(pb)
-      invisible(self)
-    },
+    append_plot = function(plot, dim = NULL) self$append_content(plot),
     #' @description Appends a text paragraph to this `ReportCard`.
     #'
     #' @param text (`character`) The text content to add.
@@ -77,9 +62,15 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @examples
     #' card <- ReportCard$new()$append_text("A paragraph of default text")
     #'
-    append_text = function(text, style = TextBlock$new()$get_available_styles()[1]) {
-      self$append_content(TextBlock$new(text, style))
-      invisible(self)
+    append_text = function(text, style = c("default", "header2", "header3", "verbatim")) {
+      styled <- switch(match.arg(style),
+        "default" = text,
+        "verbatim" = sprintf("\n```\n%s\n```\n", text),
+        "header2" = paste0("## ", text),
+        "header3" = paste0("### ", text),
+        text
+      )
+      self$append_content(styled)
     },
     #' @description Appends an `R` code chunk to `ReportCard`.
     #'
@@ -89,10 +80,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @examples
     #' card <- ReportCard$new()$append_rcode("2+2", echo = FALSE)
     #'
-    append_rcode = function(text, ...) {
-      self$append_content(RcodeBlock$new(text, ...))
-      invisible(self)
-    },
+    append_rcode = function(text, ...) self$append_content(code_chunk(text)),
     #' @description Appends a generic `ContentBlock` to this `ReportCard`.
     #'
     #' @param content (`ContentBlock`) object.
@@ -102,8 +90,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card <- ReportCard$new()$append_content(NewpageBlock$new())
     #'
     append_content = function(content) {
-      checkmate::assert_class(content, "ContentBlock")
-      private$content <- append(private$content, content)
+      private$content <- c(private$content, content)
       invisible(self)
     },
     #' @description Get all content blocks from this `ReportCard`.
@@ -115,16 +102,13 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card$get_content()
     #'
     #'
-    get_content = function() {
-      private$content
-    },
+    get_content = function() private$content,
     #' @description Clears all content and metadata from `ReportCard`.
     #'
     #' @return `self`, invisibly.
     #'
     reset = function() {
       private$content <- list()
-      private$metadata <- list()
       invisible(self)
     },
     #' @description Get the metadata associated with `ReportCard`.
@@ -136,7 +120,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card$get_metadata()
     #'
     get_metadata = function() {
-      private$metadata
+      metadata(private$content)
     },
     #' @description Appends metadata to this `ReportCard`.
     #'
@@ -155,10 +139,8 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     append_metadata = function(key, value) {
       checkmate::assert_character(key, min.len = 0, max.len = 1)
-      checkmate::assert_false(key %in% names(private$metadata))
-      meta_list <- list()
-      meta_list[[key]] <- value
-      private$metadata <- append(private$metadata, meta_list)
+      checkmate::assert_false(key %in% names(metadata(private$content)))
+      metadata(private$content, key) <- value
       invisible(self)
     },
     #' @description Get the name of the `ReportCard`.
@@ -167,7 +149,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @examples
     #' ReportCard$new()$set_name("NAME")$get_name()
     get_name = function() {
-      private$name
+      metadata(private$content, "title")
     },
     #' @description Set the name of the `ReportCard`.
     #'
@@ -176,11 +158,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @examples
     #' ReportCard$new()$set_name("NAME")$get_name()
     set_name = function(name) {
-      checkmate::assert_character(name, null.ok = TRUE)
-      if (is.null(name)) {
-        name <- character(0L)
-      }
-      private$name <- name
+      metadata(private$content, "title") <- name
       invisible(self)
     },
     #' @description Set content block names for compatibility with newer `teal_card`
@@ -202,25 +180,11 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' card$to_list(tempdir())
     #'
-    to_list = function(output_dir) {
-      new_blocks <- list()
-      for (block in self$get_content()) {
-        block_class <- class(block)[1]
-        formal_args <- formalArgs(block$to_list)
-        cblock <- if ("output_dir" %in% formal_args) {
-          block$to_list(output_dir)
-        } else {
-          block$to_list()
-        }
-        new_block <- list()
-        new_block[[block_class]] <- cblock
-        new_blocks <- c(new_blocks, new_block)
+    to_list = function(output_dir = lifecycle::deprecated()) {
+      if (lifecycle::is_present(output_dir)) {
+        lifecycle::deprecate_soft("1.0.0", "ReportCard$to_list(output_dir)")
       }
-      new_card <- list()
-      new_card[["blocks"]] <- new_blocks
-      new_card[["metadata"]] <- self$get_metadata()
-      new_card[["name"]] <- self$get_name()
-      new_card
+      private$content
     },
     #' @description Reconstructs the `ReportCard` from a list representation.
     #' @param card (`named list`) a `ReportCard` representation.
@@ -237,43 +201,16 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     #' ReportCard$new()$from_list(card$to_list(tempdir()), tempdir())
     #'
-    from_list = function(card, output_dir) {
+    from_list = function(card, output_dir = lifecycle::deprecated()) {
       self$reset()
-      blocks <- card$blocks
-      metadata <- card$metadata
-      name <- card$name
-      if (length(name) == 0) name <- character(0)
-      blocks_names <- names(blocks)
-      blocks_names <- gsub("[.][0-9]*$", "", blocks_names)
-      for (iter_b in seq_along(blocks)) {
-        block_class <- blocks_names[iter_b]
-        block <- blocks[[iter_b]]
-        instance <- private$dispatch_block(block_class)
-        formal_args <- formalArgs(instance$new()$from_list)
-        cblock <- if (all(c("x", "output_dir") %in% formal_args)) {
-          instance$new()$from_list(block, output_dir)
-        } else if ("x" %in% formal_args) {
-          instance$new()$from_list(block)
-        } else {
-          instance$new()$from_list()
-        }
-        self$append_content(cblock)
-      }
-      for (meta in names(metadata)) {
-        self$append_metadata(meta, metadata[[meta]])
-      }
-      self$set_name(name)
+      private$content <- card
       invisible(self)
     }
   ),
   private = list(
     content = list(),
-    metadata = list(),
     name = character(0L),
     id = character(0L),
-    dispatch_block = function(block_class) {
-      eval(str2lang(block_class))
-    },
     # @description The copy constructor.
     #
     # @param name the name of the field
@@ -282,13 +219,19 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #
     deep_clone = function(name, value) {
       if (name == "content") {
-        lapply(value, function(content_block) {
-          if (inherits(content_block, "R6")) {
-            content_block$clone(deep = TRUE)
-          } else {
-            content_block
-          }
-        })
+        content <- Reduce(
+          f = function(result, this) {
+            if (inherits(this, "R6")) {
+              this <- this$clone(deep = TRUE)
+            }
+            c(result, this)
+          },
+          init = teal_card(),
+          x = value
+        )
+        
+        metadata(content) <- metadata(value)
+        content
       } else {
         value
       }

@@ -74,7 +74,8 @@ testthat::test_that("get_content returns a list of ContentBlock objects", {
 
   card <- ReportCard$new()
   card$append_text("test")$append_plot(ggplot2::ggplot(iris))$append_metadata("SRC", "A <- plot()")
-  testthat::expect_true(checkmate::test_list(card$get_content(), types = "ContentBlock"))
+  testthat::expect_s3_class(card$get_content(), "teal_card")
+  checkmate::expect_list(card$get_content())
 })
 
 testthat::test_that("get_metadata returns a list of mixed objects", {
@@ -82,7 +83,7 @@ testthat::test_that("get_metadata returns a list of mixed objects", {
 
   card <- ReportCard$new()
   card$append_metadata("sth", "test")$append_metadata("sth2", ggplot2::ggplot(iris))
-  testthat::expect_false(checkmate::test_list(card$get_metadata(), types = "ContentBlock"))
+  testthat::expect_failure(testthat::expect_s3_class(card$get_metadata(), "teal_card"))
 })
 
 testthat::test_that("get_metadata returns a named list", {
@@ -135,15 +136,12 @@ testthat::test_that("append_metadata throws error if keys are duplicated", {
   )
 })
 
-
-testthat::test_that("The deep copy constructor copies the file in the content blocks", {
+testthat::test_that("The deep copy constructor copies the plot object", {
   testthat::skip_if_not_installed("ggplot2")
   card <- ReportCard$new()
   card$append_text("test")$append_plot(ggplot2::ggplot(iris))$append_metadata("SRC", "A <- plot(1)")
   card_copy <- card$clone(deep = TRUE)
-  original_filepath <- card$get_content()[[2]]$get_content()
-  copied_filepath <- card_copy$get_content()[[2]]$get_content()
-  testthat::expect_true(original_filepath != copied_filepath)
+  testthat::expect_identical(card$get_content()[[2]], card_copy$get_content()[[2]])
 })
 
 testthat::test_that("The deep copy constructor copies the non ContentBlock objects", {
