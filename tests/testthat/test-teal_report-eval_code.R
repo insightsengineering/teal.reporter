@@ -20,7 +20,7 @@ testthat::describe("eval_code appends code_chunks to the teal_card", {
         teal_card(),
         code_chunk("a <- 1L"),
         code_chunk("a"),
-        structure(1L, class = c("chunk_output", "integer"))
+        structure(list(1L), class = c("chunk_output"))
       ),
       ignore_attr = TRUE
     )
