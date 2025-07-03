@@ -1,9 +1,14 @@
+#' @name eval_code-teal_report
+#' @rdname eval_code-teal_report
+#' @aliases eval_code,teal_report-method
+#'
 #' @inherit teal.code::eval_code
 #' @param object (`teal_report`)
 #' @param code_block_opts (`list`) Additional options for the R code chunk in R Markdown.
 #' @return `teal_reporter` environment with the code evaluated and the outputs added
 #' to the card or `qenv.error` if evaluation fails.
 #' @importFrom teal.code eval_code
+#'
 #' @examples
 #' td <- teal.data::teal_data()
 #' td <- teal.code::eval_code(td, "iris <- iris")
@@ -21,22 +26,7 @@ setMethod(
     if (inherits(new_object, "error")) {
       return(new_object)
     }
-
-    new_blocks <- Reduce(
-      function(items, code_elem) {
-        this_chunk <- do.call(code_chunk, c(list(code = code_elem), code_block_opts))
-        this_outs <- Filter( # intentionally remove warnings,messages from the generated report
-          function(x) !inherits(x, "condition"),
-          lapply(
-            attr(code_elem, "outputs"),
-            function(x) if (isS4(x)) x else structure(x, class = c("chunk_output", class(x)))
-          )
-        )
-        c(items, list(this_chunk), this_outs)
-      },
-      init = list(),
-      x = setdiff(new_object@code, object@code)
-    )
+    new_blocks <- .code_to_card(x = setdiff(new_object@code, object@code), code_block_opts = code_block_opts)
 
     if (length(new_blocks)) {
       teal_card(new_object) <- c(teal_card(new_object), new_blocks)
