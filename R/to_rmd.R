@@ -94,16 +94,17 @@ to_rmd.default <- function(block, output_dir, ...) {
   } else {
     NULL
   }
-
   global_knitr_parsed <- sprintf(
     "knitr::opts_chunk$set(%s)",
     paste(utils::capture.output(dput(global_knitr)), collapse = "")
   )
   global_knitr_code_chunk <- code_chunk(c(global_knitr_parsed, powerpoint_exception_parsed), include = FALSE)
+  global_knitr_rendered <- to_rmd(global_knitr_code_chunk, output_dir = output_dir)
 
+  # we need to prerender global_knitr as code_chunk for powerpoint will wrap it in code_block() call
   blocks_w_global_knitr <- append(
     block,
-    if (length(global_knitr) || is_powerpoint) list(global_knitr_code_chunk),
+    if (length(global_knitr) || is_powerpoint) list(global_knitr_rendered),
     after = 0
   )
 
