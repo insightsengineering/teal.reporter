@@ -1,10 +1,7 @@
 .content_to_rmd <- function(block, output_dir, ...) {
-  suppressWarnings(hashname <- rlang::hash(block))
-  hashname_file <- paste0(hashname, ".rds")
-  path <- tempfile(fileext = ".rds")
+  path <- tempfile(pattern = "report_item_", fileext = ".rds", tmpdir = output_dir)
   suppressWarnings(saveRDS(block, file = path))
-  file.copy(path, file.path(output_dir, hashname_file))
-  sprintf("```{r echo = FALSE, eval = TRUE}\nreadRDS('%s')\n```", hashname_file)
+  sprintf("```{r echo = FALSE, eval = TRUE}\nreadRDS('%s')\n```", path)
 }
 
 #' Convert `ReporterCard`/`teal_card` content to `rmarkdown`
@@ -119,7 +116,7 @@ to_rmd.default <- function(block, output_dir, ...) {
         function(x) to_rmd(x, output_dir = output_dir, output_format = m$output, ...)
       ))
     ),
-    collapse = "\n"
+    collapse = "\n\n"
   )
 }
 
@@ -176,7 +173,7 @@ to_rmd.default <- function(block, output_dir, ...) {
     )
   } else {
     sprintf(
-      "```{%s}\n%s\n```\n",
+      "```{%s}\n%s\n```",
       toString(c("r", paste(names(params), params, sep = "="))),
       block
     )
@@ -235,6 +232,12 @@ to_rmd.default <- function(block, output_dir, ...) {
   if (!missing(include_chunk_output) && isTRUE(include_chunk_output)) {
     NextMethod()
   }
+}
+
+#' @method .to_rmd condition
+#' @keywords internal
+.to_rmd.condition <- function(block, output_dir, ...) {
+  conditionMessage(block)
 }
 
 #' @method .to_rmd gg

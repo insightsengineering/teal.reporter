@@ -123,16 +123,9 @@ download_report_button_srv <- function(id,
 
     shiny::observeEvent(input$download_button, shiny::showModal(download_modal()))
 
+
     output$download_data <- shiny::downloadHandler(
-      filename = function() {
-        id <- reporter$get_id() %||% ""
-        timestamp <- format(Sys.time(), "%y%m%d%H%M%S")
-        fmt <- if (identical(id, "")) {
-          sprintf("reporter_%s.zip", timestamp)
-        } else {
-          sprintf("reporter_%s_%s.zip", id, timestamp)
-        }
-      },
+      filename = function() paste0(.report_identifier(reporter), ".zip"),
       content = function(file) {
         shiny::showNotification("Rendering and Downloading the document.")
         shinybusy::block(id = ns("download_data"), text = "", type = "dots")
@@ -160,38 +153,41 @@ download_report_button_srv <- function(id,
 #' @param rmd_yaml_args (`named list`) with `Rmd` `yaml` header fields and their values.
 #' @param global_knitr (`list`) a global `knitr` parameters, like echo.
 #' But if local parameter is set it will have priority.
-#' @param file (`character(1)`) where to copy the returned directory.
+#' @param file (`character(1)`) where to copy created zip file.
 #'
 #' @return `file` argument, invisibly.
 #'
 #' @keywords internal
-report_render_and_compress <- function(reporter, rmd_yaml_args, global_knitr, file = tempdir()) {
+report_render_and_compress <- function(reporter, rmd_yaml_args, global_knitr, file = tempfile()) {
   checkmate::assert_class(reporter, "Reporter")
   checkmate::assert_list(rmd_yaml_args, names = "named")
   checkmate::assert_string(file)
 
-  output_dir <- tryCatch(
-    report_render(input = reporter, rmd_yaml_args = rmd_yaml_args, global_knitr = global_knitr),
+  tmp_dir <- file.path(tempdir(), .report_identifier(reporter))
+  tryCatch(
+    render(
+      input = reporter,
+      output_dir = tmp_dir,
+      rmd_yaml_args = rmd_yaml_args,
+      global_knitr = global_knitr,
+      quiet = TRUE
+    ),
     warning = function(cond) message("Render document warning: ", cond),
     error = function(cond) {
       message("Render document error: ", cond)
-      NULL
+      do.call("return", args = list(), envir = parent.frame(2))
     }
   )
 
-  if (is.null(output_dir)) {
-    return(NULL)
-  }
-
   tryCatch(
-    reporter$to_jsondir(output_dir),
+    reporter$to_jsondir(tmp_dir),
     warning = function(cond) message("Archive document warning: ", cond),
     error = function(cond) message("Archive document error: ", cond)
   )
 
   temp_zip_file <- tempfile(fileext = ".zip")
   tryCatch(
-    zip::zipr(temp_zip_file, output_dir),
+    zip::zipr(temp_zip_file, tmp_dir),
     warning = function(cond) message("Zipping folder warning: ", cond),
     error = function(cond) message("Zipping folder error: ", cond)
   )
@@ -199,7 +195,7 @@ report_render_and_compress <- function(reporter, rmd_yaml_args, global_knitr, fi
   tryCatch(
     {
       file.copy(temp_zip_file, file)
-      unlink(output_dir, recursive = TRUE)
+      unlink(tmp_dir, recursive = TRUE)
     },
     warning = function(cond) message("Copying file warning: ", cond),
     error = function(cond) message("Copying file error: ", cond)
@@ -266,16 +262,8 @@ any_rcode_block <- function(reporter) {
   }
 }
 
-report_render <- function(input, rmd_yaml_args, global_knitr = getOption("teal.reporter.global_knitr")) {
-  tmp_dir <- tempdir()
-  output_dir <- file.path(tmp_dir, sprintf("report_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
-  render(
-    input = input,
-    output_dir = output_dir,
-    rmd_yaml_args = rmd_yaml_args,
-    global_knitr = global_knitr,
-    keep_rmd = TRUE,
-    quiet = TRUE
-  )
-  output_dir
+.report_identifier <- function(reporter) {
+  id <- paste0("_", reporter$get_id()) %||% ""
+  timestamp <- format(Sys.time(), "_%y%m%d%H%M%S")
+  sprintf("reporter%s%s", id, timestamp)
 }

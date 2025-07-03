@@ -65,7 +65,7 @@ testthat::describe("render() outputs report.Rmd with", {
     teal_card(tr) <- c(teal_card(tr), "# test heading", "Lorem ipsum")
     render(tr, quiet = TRUE)
     lines <- base::readLines("report.Rmd", warn = FALSE)
-    testthat::expect_identical(lines, c("# test heading", "Lorem ipsum"))
+    testthat::expect_identical(lines, c("# test heading", "", "Lorem ipsum"))
   })
 
   it("yaml header containing entries set through metadata", {
@@ -82,6 +82,7 @@ testthat::describe("render() outputs report.Rmd with", {
         "title: test title",
         "author: me is tot",
         "---",
+        "",
         "# test heading"
       )
     )
@@ -134,6 +135,7 @@ testthat::describe("render() outputs report.Rmd with", {
       lines,
       c(
         "# test heading",
+        "",
         "```{r, eval=FALSE, echo=FALSE}",
         "a <- 1L",
         "```"
@@ -167,7 +169,7 @@ testthat::describe("render() renders output based on metadata$output field:", {
     teal_card(tr) <- c(teal_card(tr), "# test heading", "Lorem ipsum")
     tr <- within(tr, plot(1:10))
     metadata(teal_card(tr)) <- list(output = "md_document")
-    render(tr)
+    render(tr, quiet = TRUE)
     lines <- base::readLines("report.md", warn = FALSE)
     testthat::expect_identical(
       lines,
@@ -188,7 +190,7 @@ testthat::describe("render() renders output based on metadata$output field:", {
     tr <- teal_report()
     tr <- within(tr, plot(1:10))
     metadata(teal_card(tr)) <- list(output = "md_document")
-    render(tr, output_dir = temp_dir)
+    render(tr, output_dir = temp_dir, quiet = TRUE)
     lines <- base::readLines(file.path(temp_dir, "report.md"), warn = FALSE)
     testthat::expect_identical(
       lines,

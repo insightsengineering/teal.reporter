@@ -8,7 +8,7 @@ report_render_and_compress(
   reporter,
   rmd_yaml_args,
   global_knitr,
-  file = tempdir()
+  file = tempfile()
 )
 }
 \arguments{
@@ -19,7 +19,7 @@ report_render_and_compress(
 \item{global_knitr}{(\code{list}) a global \code{knitr} parameters, like echo.
 But if local parameter is set it will have priority.}
 
-\item{file}{(\code{character(1)}) where to copy the returned directory.}
+\item{file}{(\code{character(1)}) where to copy created zip file.}
 }
 \value{
 \code{file} argument, invisibly.

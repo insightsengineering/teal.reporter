@@ -57,11 +57,14 @@ render <- function(
   args <- utils::modifyList(list(...), list(input = rmd_filepath))
   tryCatch(
     do.call(rmarkdown::render, args),
-    finally = suppressWarnings(file.remove(rmd_filepath))
+    finally = {
+      report_items <- list.files(pattern = "report_item_")
+      unlink(c(rmd_filepath, report_items))
+    }
   )
 
   if (keep_rmd) {
-    # This Rmd file doesn't contain chunk_outputs as theycan be reproduced when executing code-chunks
+    # This Rmd file doesn't contain chunk_outputs as they can be reproduced when executing code-chunks
     out_rmd_content <- to_rmd(
       block = input,
       output_dir = ".",

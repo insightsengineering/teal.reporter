@@ -94,6 +94,12 @@ toHTML.default <- function(x, ...) {
   shiny::tags$pre(flextable::htmltools_value(to_flextable(x)))
 }
 
+#' @method .toHTML condition
+#' @keywords internal
+.toHTML.condition <- function(x, ...) {
+  conditionMessage(x)
+}
+
 .plot2html <- function(x, ...) {
   on.exit(unlink(tmpfile))
   tmpfile <- tempfile(fileext = ".png")
