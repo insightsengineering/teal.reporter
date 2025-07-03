@@ -29,6 +29,11 @@ testthat::describe("teal_card built from teal_data", {
 
     testthat::expect_equal(unname(teal_card(as.teal_report(td))), unname(teal_card(tr)))
   })
+
+  it("drops conditions produced in a code-chunk evaluation", {
+    td <- eval_code(teal.data::teal_data(), "warning(1)")
+    testthat::expect_equal(unname(teal_card(as.teal_report(td))), unname(teal_card(code_chunk("warning(1)"))))
+  })
 })
 
 testthat::test_that("teal_data converts to teal_report when assigning teal_card", {
