@@ -57,7 +57,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @description Appends a text paragraph to this `ReportCard`.
     #'
     #' @param text (`character`) The text content to add.
-    #' @param style (`character(1)`) the style of the paragraph. One of: `r TextBlock$new()$get_available_styles()`.
+    #' @param style (`character(1)`) the style of the paragraph.
     #' @return `self`, invisibly.
     #' @examples
     #' card <- ReportCard$new()$append_text("A paragraph of default text")
@@ -81,13 +81,12 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card <- ReportCard$new()$append_rcode("2+2", echo = FALSE)
     #'
     append_rcode = function(text, ...) self$append_content(code_chunk(text)),
-    #' @description Appends a generic `ContentBlock` to this `ReportCard`.
+    #' @description Appends a generic content to this `ReportCard`.
     #'
-    #' @param content (`ContentBlock`) object.
+    #' @param content (Object.)
     #' @return `self`, invisibly.
     #' @examples
-    #' NewpageBlock <- getFromNamespace("NewpageBlock", "teal.reporter")
-    #' card <- ReportCard$new()$append_content(NewpageBlock$new())
+    #' card <- ReportCard$new()$append_content(code_chunk("foo <- 2"))
     #'
     append_content = function(content) {
       private$content <- c(private$content, content)
@@ -95,7 +94,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Get all content blocks from this `ReportCard`.
     #'
-    #' @return `list()` list of `TableBlock`, `TextBlock` and `PictureBlock`.
+    #' @return `list()` list of raw `teal_card` content.
     #' @examples
     #' card <- ReportCard$new()$append_text("Some text")$append_metadata("rc", "a <- 2 + 2")
     #'

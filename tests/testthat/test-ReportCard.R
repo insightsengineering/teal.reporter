@@ -69,7 +69,7 @@ testthat::test_that("append_rcode returns self", {
   )
 })
 
-testthat::test_that("get_content returns a list of ContentBlock objects", {
+testthat::test_that("get_content returns a list of objects", {
   testthat::skip_if_not_installed("ggplot2")
 
   card <- ReportCard$new()
@@ -144,7 +144,7 @@ testthat::test_that("The deep copy constructor copies the plot object", {
   testthat::expect_identical(card$get_content()[[2]], card_copy$get_content()[[2]])
 })
 
-testthat::test_that("The deep copy constructor copies the non ContentBlock objects", {
+testthat::test_that("The deep copy constructor copies the objects", {
   testthat::skip_if_not_installed("ggplot2")
 
   card <- ReportCard$new()

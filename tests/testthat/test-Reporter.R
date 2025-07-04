@@ -35,7 +35,7 @@ testthat::describe("Reporter with ReportCard", {
     )
   })
 
-  it("get_blocks by default adds NewpageBlock$new() between cards", {
+  it("get_blocks by default adds 'newpage' between cards", {
     reporter <- test_reporter.ReportCard(card1 <- test_card1.ReportCard(), card2 <- test_card2.ReportCard())
     reporter_blocks <- reporter$get_blocks()
     reporter_blocks2 <- c(teal_card("# _Unnamed Card (1)_"), reporter$get_cards()[[1]]$get_content(), "\\newpage")
@@ -74,7 +74,7 @@ testthat::test_that("get_blocks returns the same blocks which was added to repor
   )
 })
 
-testthat::test_that("get_blocks by default adds NewpageBlock$new() between cards", {
+testthat::test_that("get_blocks by default adds 'newpage' between cards", {
   card1 <- test_card1("A title")
   card2 <- test_card2("Another title")
   reporter <- test_reporter(card1, card2)

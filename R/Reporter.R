@@ -177,8 +177,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' and `teal_card` objects in the `Reporter`.
     #' @param sep An optional separator to insert between each content block.
     #' Default is a `\n\\newpage\n` markdown.
-    #' @return `list()` list of `TableBlock`, `TextBlock`, `PictureBlock`,
-    #' `NewpageBlock`, and raw `teal_card` content
+    #' @return `list()` list of raw `teal_card` content
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
     #' library(rtables)
