@@ -228,6 +228,7 @@ metadata.ReportCard <- function(object, which = NULL) {
 #'
 #' @param code A character string containing the R code.
 #' @param ... Additional named parameters to be included as chunk options (e.g., `echo = TRUE`).
+#' @param lang (`character(1)`) See [`knitr::knit_engines`].
 #'
 #' @return An object of class `code_chunk`.
 #' @examples
@@ -235,12 +236,13 @@ metadata.ReportCard <- function(object, which = NULL) {
 #' class(my_chunk)
 #' attributes(my_chunk)$param
 #' @export
-code_chunk <- function(code, ...) {
+code_chunk <- function(code, ..., lang = "r") {
   checkmate::assert_character(code)
   params <- list(...)
   structure(
     paste(code, collapse = "\n"),
     params = params,
+    lang = lang,
     class = "code_chunk"
   )
 }

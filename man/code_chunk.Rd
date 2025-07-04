@@ -4,7 +4,7 @@
 \alias{code_chunk}
 \title{Generate an R Markdown code chunk}
 \usage{
-code_chunk(code, ...)
+code_chunk(code, ..., lang = "R")
 }
 \arguments{
 \item{code}{A character string containing the R code.}

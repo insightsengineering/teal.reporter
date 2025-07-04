@@ -130,7 +130,8 @@ to_rmd.default <- function(block, output_dir, ...) {
     block_content_list <- split_text_block(block, 30)
     paste(
       sprintf(
-        "\\newpage\n\n---\n\n```{r, echo=FALSE}\ncode_block(\n%s)\n```\n",
+        "\\newpage\n\n---\n\n```{%s, echo=FALSE}\ncode_block(\n%s)\n```\n",
+        attr(block, "lang"),
         shQuote(block_content_list, type = "cmd")
       ),
       collapse = "\n\n"
@@ -138,7 +139,7 @@ to_rmd.default <- function(block, output_dir, ...) {
   } else {
     sprintf(
       "```{%s}\n%s\n```",
-      toString(c("r", paste(names(params), params, sep = "="))),
+      toString(c(attr(block, "lang"), paste(names(params), params, sep = "="))),
       block
     )
   }
