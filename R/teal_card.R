@@ -236,7 +236,7 @@ metadata.ReportCard <- function(object, which = NULL) {
 #' class(my_chunk)
 #' attributes(my_chunk)$param
 #' @export
-code_chunk <- function(code, ..., lang = "r") {
+code_chunk <- function(code, ..., lang = "R") {
   checkmate::assert_character(code)
   params <- list(...)
   structure(

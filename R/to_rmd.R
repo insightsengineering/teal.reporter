@@ -121,27 +121,25 @@ to_rmd.default <- function(block, output_dir, ...) {
   )
 }
 
+
 #' @method .to_rmd code_chunk
 #' @keywords internal
 .to_rmd.code_chunk <- function(block, output_dir, ..., output_format = NULL) {
-  params <- attr(block, "params")
-  params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
+  params <- lapply(attr(block, "params"), function(l) if (is.character(l)) shQuote(l) else l)
+  block_str <- format(block)
+  lang <- attr(block, "lang", exact = TRUE)
   if (identical(output_format, "powerpoint_presentation")) {
-    block_content_list <- split_text_block(block, 30)
-    paste(
-      sprintf(
-        "\\newpage\n\n---\n\n```{%s, echo=FALSE}\ncode_block(\n%s)\n```\n",
-        attr(block, "lang"),
-        shQuote(block_content_list, type = "cmd")
-      ),
-      collapse = "\n\n"
+    block_content_list <- lapply(
+      split_text_block(block, 30),
+      function(x, lang) {
+        code_block <- sprintf("code_block(\n%s)", shQuote(x, type = "cmd"))
+        format(code_chunk(code_block, echo = FALSE, lang = lang))
+      },
+      lang = lang
     )
+    paste(sprintf("\\newpage\n\n---\n\n%s\n", block_content_list), collapse = "\n\n")
   } else {
-    sprintf(
-      "```{%s}\n%s\n```",
-      toString(c(attr(block, "lang"), paste(names(params), params, sep = "="))),
-      block
-    )
+    format(block)
   }
 }
 

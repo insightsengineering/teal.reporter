@@ -10,6 +10,8 @@ code_chunk(code, ..., lang = "R")
 \item{code}{A character string containing the R code.}
 
 \item{...}{Additional named parameters to be included as chunk options (e.g., \code{echo = TRUE}).}
+
+\item{lang}{(\code{character(1)}) See \code{\link[knitr:knit_engines]{knitr::knit_engines}}.}
 }
 \value{
 An object of class \code{code_chunk}.
