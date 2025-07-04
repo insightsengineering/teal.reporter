@@ -96,6 +96,12 @@ toHTML.default <- function(x, ...) {
   shiny::tags$pre(x)
 }
 
+#' @method .toHTML chunk_output
+#' @keywords internal
+.toHTML.chunk_output <- function(x, ...) {
+  toHTML(x[[1]], ...)
+}
+
 #' @method .toHTML code_chunk
 #' @keywords internal
 .toHTML.code_output <- function(x, ...) {

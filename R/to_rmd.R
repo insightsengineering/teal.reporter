@@ -217,7 +217,7 @@ to_rmd.default <- function(block, output_dir, ...) {
 #' @keywords internal
 .to_rmd.data.frame <- .to_rmd.rtables
 
-#' @method .to_rmd shiny.tagframe
+#' @method .to_rmd shiny.tag
 #' @keywords internal
 .to_rmd.shiny.tag <- tools::toHTML
 

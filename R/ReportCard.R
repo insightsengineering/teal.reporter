@@ -80,7 +80,9 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @examples
     #' card <- ReportCard$new()$append_rcode("2+2", echo = FALSE)
     #'
-    append_rcode = function(text, ...) self$append_content(code_chunk(text)),
+    append_rcode = function(text, ...) {
+      self$append_content(code_chunk(code = text, ...))
+    },
     #' @description Appends a generic content to this `ReportCard`.
     #'
     #' @param content (Object.)
@@ -228,7 +230,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
           init = teal_card(),
           x = value
         )
-        
+
         metadata(content) <- metadata(value)
         content
       } else {

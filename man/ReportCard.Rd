@@ -321,7 +321,7 @@ Appends an \code{R} code chunk to \code{ReportCard}.
 \if{html}{\out{<a id="method-ReportCard-append_content"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-append_content}{}}}
 \subsection{Method \code{append_content()}}{
-Appends a generic \code{ContentBlock} to this \code{ReportCard}.
+Appends a generic content to this \code{ReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_content(content)}\if{html}{\out{</div>}}
 }
@@ -356,7 +356,7 @@ Get all content blocks from this \code{ReportCard}.
 }
 
 \subsection{Returns}{
-\code{list()} list of \code{TableBlock}, \code{TextBlock} and \code{PictureBlock}.
+\code{list()} list of raw \code{teal_card} content.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
