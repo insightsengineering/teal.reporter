@@ -121,43 +121,6 @@ to_rmd.default <- function(block, output_dir, ...) {
   )
 }
 
-#' @method .to_rmd TextBlock
-#' @keywords internal
-.to_rmd.TextBlock <- function(block, output_dir, ...) {
-  text_style <- block$get_style()
-  block_content <- block$get_content()
-  switch(text_style,
-    "default" = block_content,
-    "verbatim" = sprintf("\n```\n%s\n```\n", block_content),
-    "header2" = paste0("## ", block_content),
-    "header3" = paste0("### ", block_content),
-    block_content
-  )
-}
-
-#' @method .to_rmd RcodeBlock
-#' @keywords internal
-.to_rmd.RcodeBlock <- function(block, output_dir, ..., output_format) {
-  params <- block$get_params()
-  params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
-  if (identical(output_format, "powerpoint_presentation")) {
-    block_content_list <- split_text_block(block$get_content(), 30)
-    paste(
-      sprintf(
-        "\\newpage\n\n---\n\n```{r, echo=FALSE}\ncode_block(\n%s)\n```\n",
-        shQuote(block_content_list, type = "cmd")
-      ),
-      collapse = "\n\n"
-    )
-  } else {
-    sprintf(
-      "\\newpage\n\n--- \n\n```{r, %s}\n%s\n```\n",
-      paste(names(params), params, sep = "=", collapse = ", "),
-      block$get_content()
-    )
-  }
-}
-
 #' @method .to_rmd code_chunk
 #' @keywords internal
 .to_rmd.code_chunk <- function(block, output_dir, ..., output_format = NULL) {
@@ -181,53 +144,13 @@ to_rmd.default <- function(block, output_dir, ...) {
   }
 }
 
-#' @method .to_rmd PictureBlock
-#' @keywords internal
-.to_rmd.PictureBlock <- function(block, output_dir, ...) {
-  basename_pic <- basename(block$get_content())
-  file.copy(block$get_content(), file.path(output_dir, basename_pic))
-  params <- c(
-    `out.width` = "'100%'",
-    `out.height` = "'100%'"
-  )
-  title <- block$get_title()
-  if (length(title)) params["fig.cap"] <- shQuote(title)
-  sprintf(
-    "\n```{r, echo = FALSE, %s}\nknitr::include_graphics(path = '%s')\n```\n",
-    paste(names(params), params, sep = "=", collapse = ", "),
-    basename_pic
-  )
-}
-
-#' @method .to_rmd TableBlock
-#' @keywords internal
-.to_rmd.TableBlock <- function(block, output_dir, ...) {
-  basename_table <- basename(block$get_content())
-  file.copy(block$get_content(), file.path(output_dir, basename_table))
-  sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename_table)
-}
-
-#' @method .to_rmd NewpageBlock
-#' @keywords internal
-.to_rmd.NewpageBlock <- function(block, output_dir, ...) {
-  block$get_content()
-}
-
-#' @method .to_rmd HTMLBlock
-#' @keywords internal
-.to_rmd.HTMLBlock <- function(block, output_dir, ...) {
-  basename <- basename(tempfile(fileext = ".rds"))
-  suppressWarnings(saveRDS(block$get_content(), file = file.path(output_dir, basename)))
-  sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename)
-}
-
 #' @method .to_rmd character
 #' @keywords internal
 .to_rmd.character <- function(block, output_dir, ...) {
   block
 }
 
-#' @method .to_rmd PictureBlock
+#' @method .to_rmd chunk_output
 #' @keywords internal
 .to_rmd.chunk_output <- function(block, output_dir, ..., include_chunk_output) {
   if (!missing(include_chunk_output) && isTRUE(include_chunk_output)) {

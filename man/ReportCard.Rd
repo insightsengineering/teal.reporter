@@ -93,8 +93,7 @@ card <- ReportCard$new()$append_rcode("2+2", echo = FALSE)
 ## Method `ReportCard$append_content`
 ## ------------------------------------------------
 
-NewpageBlock <- getFromNamespace("NewpageBlock", "teal.reporter")
-card <- ReportCard$new()$append_content(NewpageBlock$new())
+card <- ReportCard$new()$append_content(code_chunk("foo <- 2"))
 
 
 ## ------------------------------------------------
@@ -259,7 +258,10 @@ Appends a plot to this \code{ReportCard}.
 \subsection{Method \code{append_text()}}{
 Appends a text paragraph to this \code{ReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_text(text, style = TextBlock$new()$get_available_styles()[1])}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_text(
+  text,
+  style = c("default", "header2", "header3", "verbatim")
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -267,7 +269,7 @@ Appends a text paragraph to this \code{ReportCard}.
 \describe{
 \item{\code{text}}{(\code{character}) The text content to add.}
 
-\item{\code{style}}{(\code{character(1)}) the style of the paragraph. One of: default, header2, header3, verbatim.}
+\item{\code{style}}{(\code{character(1)}) the style of the paragraph.}
 }
 \if{html}{\out{</div>}}
 }
@@ -327,7 +329,7 @@ Appends a generic \code{ContentBlock} to this \code{ReportCard}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{content}}{(\code{ContentBlock}) object.}
+\item{\code{content}}{(Object.)}
 }
 \if{html}{\out{</div>}}
 }
@@ -336,8 +338,7 @@ Appends a generic \code{ContentBlock} to this \code{ReportCard}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{NewpageBlock <- getFromNamespace("NewpageBlock", "teal.reporter")
-card <- ReportCard$new()$append_content(NewpageBlock$new())
+\preformatted{card <- ReportCard$new()$append_content(code_chunk("foo <- 2"))
 
 }
 \if{html}{\out{</div>}}
@@ -501,7 +502,7 @@ Set content block names for compatibility with newer \code{teal_card}
 \subsection{Method \code{to_list()}}{
 Convert the \code{ReportCard} to a list, including content and metadata.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$to_list(output_dir)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$to_list(output_dir = lifecycle::deprecated())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -521,7 +522,7 @@ Convert the \code{ReportCard} to a list, including content and metadata.
 \subsection{Method \code{from_list()}}{
 Reconstructs the \code{ReportCard} from a list representation.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$from_list(card, output_dir)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$from_list(card, output_dir = lifecycle::deprecated())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
