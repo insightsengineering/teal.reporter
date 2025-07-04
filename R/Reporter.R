@@ -209,9 +209,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       for (idx in seq_along(cards)) {
         card <- cards[[idx]]
         if (inherits(card, "ReportCard")) {
-          blocks <- append(blocks, card$get_content())
-          if (idx != length(cards)) blocks <- append(blocks, sep)
-          next # Easier to remove when ReportCard is fully deprecated
+          card <- card$get_content()
         }
         title <- trimws(metadata(card, "title"))
         card_title <- if (length(title) > 0 && nzchar(title)) {
@@ -306,17 +304,17 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       cards <- self$get_cards()
       for (i in seq_along(cards)) {
         # we want to have list names being a class names to indicate the class for $from_list
-        card_class <- class(cards[[i]])[1]
-        u_card <- list()
-        if (card_class == "teal_card") {
-          tmp <- tempfile(fileext = ".rds")
-          suppressWarnings(saveRDS(cards[[i]], file = tmp))
-          tmp_base <- basename(tmp)
-          file.copy(tmp, file.path(output_dir, tmp_base))
-          u_card[[card_class]] <- list(name = names(cards)[i], path = tmp_base)
-        } else {
-          u_card[[card_class]] <- cards[[i]]$to_list(output_dir)
+        card <- cards[[i]]
+        if (inherits(card, "ReportCard")) {
+          card <- card$get_content()
         }
+        card_class <- class(card)[1]
+        u_card <- list()
+        tmp <- tempfile(fileext = ".rds")
+        suppressWarnings(saveRDS(card, file = tmp))
+        tmp_base <- basename(tmp)
+        file.copy(tmp, file.path(output_dir, tmp_base))
+        u_card[[card_class]] <- list(name = names(cards)[i], path = tmp_base)
         rlist$cards <- c(rlist$cards, u_card)
       }
       rlist

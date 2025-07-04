@@ -32,7 +32,7 @@ test_card1.ReportCard <- function(card = NULL) { # nolint: object_name.
   new_card <- ReportCard$new()
 
   metadata(new_card, "title") <- metadata(template, "title")
-  new_card$append_text(sub("^# ", "", template), "header2")
+  new_card$append_text(sub("^# ", "", template[[1]]), "header2")
   new_card$append_text(template[[2]])
   new_card$append_plot(template[[3]])
   new_card

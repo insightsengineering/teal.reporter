@@ -253,7 +253,7 @@ any_rcode_block <- function(reporter) {
     any(
       vapply(
         reporter$get_blocks(),
-        function(e) inherits(e, "RcodeBlock"),
+        function(e) inherits(e, "code_chunk"),
         logical(1)
       )
     )

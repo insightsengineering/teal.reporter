@@ -108,7 +108,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @return `self`, invisibly.
     #'
     reset = function() {
-      private$content <- list()
+      private$content <- teal_card()
       invisible(self)
     },
     #' @description Get the metadata associated with `ReportCard`.
@@ -149,7 +149,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' @examples
     #' ReportCard$new()$set_name("NAME")$get_name()
     get_name = function() {
-      metadata(private$content, "title")
+      metadata(private$content, "title") %||% character(0L)
     },
     #' @description Set the name of the `ReportCard`.
     #'
