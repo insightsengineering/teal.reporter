@@ -11,8 +11,7 @@
 
   # Manual import instead of using backports and adding 1 more dependency
   if (getRversion() < "4.4") {
-    `%||%` <- function(x, y) if (is.null(x)) y else x
-    assign("`%||%`", `%||%`, envir = getNamespace(pkgname))
+    assign("%||%", rlang::`%||%`, envir = getNamespace(pkgname))
   }
 
   invisible()
