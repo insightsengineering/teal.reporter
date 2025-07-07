@@ -51,18 +51,6 @@ to_rmd.default <- function(block, output_dir, ...) {
   block
 }
 
-#' @method .to_rmd Reporter
-#' @keywords internal
-.to_rmd.Reporter <- function(block,
-                             output_dir,
-                             rmd_yaml_args,
-                             ...) {
-  checkmate::assert_list(rmd_yaml_args, names = "named")
-  tc <- block$get_blocks()
-  metadata(tc) <- rmd_yaml_args
-  to_rmd(tc, output_dir = output_dir, ...)
-}
-
 #' @method .to_rmd teal_report
 #' @keywords internal
 .to_rmd.teal_report <- function(block, output_dir, ...) {
@@ -120,7 +108,6 @@ to_rmd.default <- function(block, output_dir, ...) {
     collapse = "\n\n"
   )
 }
-
 
 #' @method .to_rmd code_chunk
 #' @keywords internal

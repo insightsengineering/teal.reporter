@@ -164,11 +164,14 @@ report_render_and_compress <- function(reporter, rmd_yaml_args, global_knitr, fi
   checkmate::assert_string(file)
 
   tmp_dir <- file.path(tempdir(), .report_identifier(reporter))
+
+  cards_combined <- reporter$get_blocks()
+  metadata(cards) <- utils::modifyList(metadata(cards), rmd_yaml_args)
+
   tryCatch(
     render(
-      input = reporter,
+      input = cards_combined,
       output_dir = tmp_dir,
-      rmd_yaml_args = rmd_yaml_args,
       global_knitr = global_knitr,
       quiet = TRUE
     ),

@@ -7,7 +7,6 @@
 render(
   input,
   output_dir = getwd(),
-  rmd_yaml_args = list(),
   global_knitr = getOption("teal.reporter.global_knitr"),
   keep_rmd = TRUE,
   ...
@@ -22,9 +21,6 @@ should be written (the default output directory of that of the input file).
 If a path is provided with a filename in \code{output_file} the directory
 specified here will take precedence. Please note that any directory path
 provided will create any necessary directories if they do not exist.}
-
-\item{rmd_yaml_args}{(\code{list}) going to be deprecated - applies only to the \code{Reporter} object as an
-equivalent of \verb{metadata(<teal_card>)}.}
 
 \item{global_knitr}{(\code{list}) options to apply to every code chunk in a teal_card document.
 \href{https://rmarkdown.rstudio.com/lesson-3.html#global-options}{Read more here}.}

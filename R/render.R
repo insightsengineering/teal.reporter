@@ -3,8 +3,6 @@
 #' @param input (`teal_report` or `teal_code`) object to render.
 #' @param global_knitr (`list`) options to apply to every code chunk in a teal_card document.
 #'  [Read more here](https://rmarkdown.rstudio.com/lesson-3.html#global-options).
-#' @param rmd_yaml_args (`list`) going to be deprecated - applies only to the `Reporter` object as an
-#'  equivalent of `metadata(<teal_card>)`.
 #' @param keep_rmd (`logical(1)`) if `.Rmd` should be kept after rendering to desired `output_format`.
 #' @param ... arguments passed to `rmarkdown::render`.
 #' @examples
@@ -27,13 +25,11 @@
 render <- function(
     input,
     output_dir = getwd(),
-    rmd_yaml_args = list(),
     global_knitr = getOption("teal.reporter.global_knitr"),
     keep_rmd = TRUE,
     ...) {
   checkmate::assert_multi_class(input, c("teal_report", "teal_card", "Reporter"))
   checkmate::assert_string(output_dir)
-  checkmate::assert_list(rmd_yaml_args, names = "named")
   checkmate::assert_list(global_knitr, names = "named")
   checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
   checkmate::assert_flag(keep_rmd)
@@ -49,7 +45,6 @@ render <- function(
   temp_rmd_content <- to_rmd(
     block = input,
     output_dir = ".",
-    rmd_yaml_args = rmd_yaml_args,
     global_knitr = c(global_knitr, list(eval = FALSE)), # we don't want to rerun evaluated code chunks to render
     include_chunk_output = TRUE
   )
@@ -68,7 +63,6 @@ render <- function(
     out_rmd_content <- to_rmd(
       block = input,
       output_dir = ".",
-      rmd_yaml_args = rmd_yaml_args,
       global_knitr = global_knitr,
       include_chunk_output = FALSE
     )
