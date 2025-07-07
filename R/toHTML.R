@@ -28,13 +28,13 @@ toHTML.default <- function(x, ...) {
 #' @method .toHTML ReportCard
 #' @keywords internal
 .toHTML.ReportCard <- function(x, ...) {
-  htmltools::tagList(lapply(x$get_content(), toHTML))
+  htmltools::tagList(lapply(x$get_content(), tools::toHTML))
 }
 
 #' @method .toHTML teal_card
 #' @keywords internal
 .toHTML.teal_card <- function(x, ...) {
-  htmltools::tagList(lapply(x, toHTML, ...))
+  htmltools::tagList(lapply(x, tools::toHTML, ...))
 }
 
 #' @method .toHTML teal_report
@@ -143,8 +143,8 @@ toHTML.default <- function(x, ...) {
 
 #' @method .toHTML code_chunk
 #' @keywords internal
-.toHTML.code_output <- function(x, ...) {
-  toHTML(x[[1]])
+.toHTML.chunk_output <- function(x, ...) {
+  tools::toHTML(x[[1]])
 }
 
 
