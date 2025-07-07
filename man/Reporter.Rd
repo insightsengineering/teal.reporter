@@ -371,7 +371,7 @@ Default is a \verb{\\n\\\\newpage\\n} markdown.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{list()} list of raw \code{teal_card} content
+\code{list()} of \code{teal_card}
 }
 }
 \if{html}{\out{<hr>}}

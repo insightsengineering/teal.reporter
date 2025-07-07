@@ -58,7 +58,7 @@ to_rmd.default <- function(block, output_dir, ...) {
                              rmd_yaml_args,
                              ...) {
   checkmate::assert_list(rmd_yaml_args, names = "named")
-  tc <- as.teal_card(block$get_blocks())
+  tc <- block$get_blocks()
   metadata(tc) <- rmd_yaml_args
   to_rmd(tc, output_dir = output_dir, ...)
 }
@@ -215,11 +215,3 @@ to_rmd.default <- function(block, output_dir, ...) {
 #' @method .to_rmd data.frame
 #' @keywords internal
 .to_rmd.data.frame <- .to_rmd.rtables
-
-#' @method .to_rmd shiny.tag
-#' @keywords internal
-.to_rmd.shiny.tag <- tools::toHTML
-
-#' @method .to_rmd shiny.tag.list
-#' @keywords internal
-.to_rmd.shiny.tag.list <- tools::toHTML

@@ -356,7 +356,7 @@ Get all content blocks from this \code{ReportCard}.
 }
 
 \subsection{Returns}{
-\code{list()} list of raw \code{teal_card} content.
+\code{teal_card()} containing appended elements.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

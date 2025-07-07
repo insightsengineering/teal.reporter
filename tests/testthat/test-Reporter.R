@@ -17,7 +17,9 @@ testthat::test_that("set_id sets the reporter id and returns reporter", {
 })
 
 testthat::describe("Reporter with ReportCard", {
-  reporter <- test_reporter.ReportCard(card1 <- test_card1.ReportCard(), card2 <- test_card2.ReportCard())
+  card1 <- test_card1.ReportCard()
+  card2 <- test_card2.ReportCard()
+  reporter <- test_reporter.ReportCard(card1, card2)
   it("get_cards returns the same cards which was added to reporter", {
     testthat::expect_equal(unname(reporter$get_cards()), list(card1, card2))
   })
@@ -26,8 +28,8 @@ testthat::describe("Reporter with ReportCard", {
     testthat::expect_equal(
       reporter$get_blocks(sep = NULL),
       c(
-        teal_card("# _Unnamed Card (1)_"), 
-        card1$get_content(), 
+        teal_card("# _Unnamed Card (1)_"),
+        card1$get_content(),
         "# _Unnamed Card (2)_",
         card2$get_content()
       ),
@@ -41,7 +43,7 @@ testthat::describe("Reporter with ReportCard", {
     reporter_blocks2 <- c(teal_card("# _Unnamed Card (1)_"), reporter$get_cards()[[1]]$get_content(), "\\newpage")
     reporter_blocks2 <- c(reporter_blocks2, "# _Unnamed Card (2)_", reporter$get_cards()[[2]]$get_content())
     testthat::expect_equal(
-      reporter$get_blocks(), 
+      reporter$get_blocks(),
       reporter_blocks2,
       ignore_attr = TRUE
     )
@@ -49,10 +51,9 @@ testthat::describe("Reporter with ReportCard", {
 
   it("get_blocks returns the same blocks which was added to reporter, sep = NULL", {
     reporter <- test_reporter.ReportCard(card1 <- test_card1.ReportCard(), card2 <- test_card2.ReportCard())
-    testthat::expect_identical(
-      reporter$get_blocks(sep = NULL), 
-      c(teal_card("# _Unnamed Card (1)_"), card1$get_content(), "# _Unnamed Card (2)_", card2$get_content()),
-      ignore_attr = TRUE
+    testthat::expect_equal(
+      unname(reporter$get_blocks(sep = NULL)),
+      unname(c(teal_card("# _Unnamed Card (1)_"), card1$get_content(), "# _Unnamed Card (2)_", card2$get_content()))
     )
   })
 })
@@ -88,9 +89,9 @@ testthat::test_that("get_blocks by default adds 'newpage' between cards", {
   testthat::expect_equal(reporter$get_blocks(), reporter_blocks2, ignore_attr = TRUE)
 })
 
-testthat::test_that("get_blocks and get_cards return empty list by default", {
+testthat::test_that("get_blocks and get_cards return empty teal_card by default", {
   reporter <- Reporter$new()
-  testthat::expect_identical(reporter$get_blocks(), list())
+  testthat::expect_identical(reporter$get_blocks(), teal_card())
   testthat::expect_identical(reporter$get_cards(), structure(list(), names = character(0L)))
 })
 

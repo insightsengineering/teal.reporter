@@ -42,7 +42,7 @@ testthat::describe("render() by default", {
     testthat::expect_identical(
       lines,
       c(
-        "```{r, include=FALSE}",
+        "```{R, include=FALSE}",
         "knitr::opts_chunk$set(list(tidy.opts = list(width.cutoff = 60), tidy = TRUE))",
         "```"
       )
@@ -98,7 +98,7 @@ testthat::describe("render() outputs report.Rmd with", {
     testthat::expect_identical(
       lines,
       c(
-        "```{r, include=FALSE}",
+        "```{R, include=FALSE}",
         "knitr::opts_chunk$set(list(eval = TRUE, echo = FALSE))",
         "```",
         "",
@@ -116,7 +116,7 @@ testthat::describe("render() outputs report.Rmd with", {
     testthat::expect_identical(
       lines,
       c(
-        "```{r, include=FALSE}",
+        "```{R, include=FALSE}",
         "knitr::opts_chunk$set(list(echo = TRUE, eval = TRUE))",
         "```",
         "",
@@ -136,7 +136,7 @@ testthat::describe("render() outputs report.Rmd with", {
       c(
         "# test heading",
         "",
-        "```{r, eval=FALSE, echo=FALSE}",
+        "```{R, eval=FALSE, echo=FALSE}",
         "a <- 1L",
         "```"
       )
@@ -152,7 +152,7 @@ testthat::describe("render() outputs report.Rmd with", {
     testthat::expect_identical(
       lines,
       c(
-        "```{r}",
+        "```{R}",
         "plot(1:10)",
         "```"
       )

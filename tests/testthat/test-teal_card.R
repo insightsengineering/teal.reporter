@@ -1,25 +1,46 @@
-testthat::describe("teal_card contructor creates", {
-  testthat::it("empty teal_card", {
+testthat::describe("teal_card", {
+  testthat::it("creates empty teal_card when no arguments set", {
     doc <- teal_card()
     testthat::expect_identical(doc, structure(list(), class = "teal_card"))
   })
 
-  testthat::it("teal_card appends arguments and sets them random unique names", {
-    doc <- teal_card("a", "b", "c", "d", "e", "f", "g", "h")
+  it("returns the same object for if teal_card is passed", {
+    doc <- teal_card("a", "b")
+    testthat::expect_identical(teal_card(doc), doc)
+  })
+
+  it("extracts teal_card object from teal_report if teal_report is passed", {
+    tr <- within(teal_report(), a <- 1)
+    testthat::expect_identical(teal_card(tr), tr@teal_card)
+  })
+
+  it("converts qenv@code elements into teal_card and returns teal_card if qenv is passed", {
+    q <- within(teal.code::qenv(), a <- 1)
+    testthat::expect_identical(
+      unname(teal_card(q)),
+      unname(teal_card(code_chunk("a <- 1")))
+    )
+  })
+})
+
+testthat::describe("teal_card with multiple arguments", {
+  testthat::it("combines arguments in teal_card and sets them random unique names", {
+    doc <- teal_card("a", "b", "c", "d")
+    testthat::expect_identical(unname(doc), structure(list("a", "b", "c", "d"), class = "teal_card"))
     testthat::expect_true(all(!duplicated(names(doc))))
   })
 
-  testthat::it("teal_card doesn't ignore NULL", {
-    doc <- unname(teal_card(NULL))
-    testthat::expect_identical(doc, structure(list(NULL), class = "teal_card"))
+  testthat::it("doesn't ignore NULL and adds it to teal_card", {
+    doc <- unname(teal_card("a", NULL))
+    testthat::expect_identical(doc, structure(list("a", NULL), class = "teal_card"))
   })
 
-  testthat::it("teal_card keeps conditions", {
+  testthat::it("keeps conditions", {
     doc <- unname(teal_card(simpleCondition("test")))
     testthat::expect_identical(doc, structure(list(simpleCondition("test")), class = "teal_card"))
   })
 
-  testthat::it("teal_card appends each element asis (no list unwrapping)", {
+  testthat::it("appends each element asis (no list unwrapping)", {
     doc <- unname(teal_card("a", list(1, list(2)), code_chunk("print('hi')")))
     testthat::expect_identical(
       doc,
@@ -28,6 +49,21 @@ testthat::describe("teal_card contructor creates", {
         class = "teal_card"
       )
     )
+  })
+
+  it("appends each argument to teal_card and keep original names if teal_card is a first argument", {
+    tc <- teal_card("a", "b")
+    out <- teal_card(tc, "c", "d")
+    testthat::expect_equal(unname(out), unname(teal_card("a", "b", "c", "d")))
+    testthat::expect_identical(names(out)[1:2], names(tc))
+  })
+
+  it("appends each argument to real_report@teal_card and keep original names if teal_card is a first argument", {
+    tr <- teal_report()
+    teal_card(tr) <- teal_card("a", "b")
+    out <- teal_card(tr, "c", "d")
+    testthat::expect_equal(unname(out), unname(teal_card("a", "b", "c", "d")))
+    testthat::expect_identical(names(out)[1:2], names(tr@teal_card))
   })
 })
 

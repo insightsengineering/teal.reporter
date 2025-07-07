@@ -177,7 +177,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' and `teal_card` objects in the `Reporter`.
     #' @param sep An optional separator to insert between each content block.
     #' Default is a `\n\\newpage\n` markdown.
-    #' @return `list()` list of raw `teal_card` content
+    #' @return `list()` of `teal_card`
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
     #' library(rtables)
@@ -204,21 +204,21 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     get_blocks = function(sep = "\\newpage") {
       cards <- self$get_cards()
-      blocks <- list()
+      blocks <- teal_card()
       for (idx in seq_along(cards)) {
         card <- cards[[idx]]
         if (inherits(card, "ReportCard")) {
           card <- card$get_content()
         }
         title <- trimws(metadata(card, "title"))
+        metadata(card)$title <- NULL
         card_title <- if (length(title) > 0 && nzchar(title)) {
-          teal_card(sprintf("# %s", title))
+          sprintf("# %s", title)
         } else {
-          teal_card(sprintf("# _Unnamed Card (%d)_", idx))
+          sprintf("# _Unnamed Card (%d)_", idx)
         }
-        card_with_title <- c(card_title, card)
-        blocks <- append(blocks, unclass(card_with_title))
-        if (idx != length(cards)) blocks <- append(blocks, trimws(sep))
+        blocks <- c(blocks, as.teal_card(card_title), card)
+        if (idx != length(cards) && length(sep)) blocks <- c(blocks, trimws(sep))
       }
       blocks
     },

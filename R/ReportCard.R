@@ -96,7 +96,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Get all content blocks from this `ReportCard`.
     #'
-    #' @return `list()` list of raw `teal_card` content.
+    #' @return `teal_card()` containing appended elements.
     #' @examples
     #' card <- ReportCard$new()$append_text("Some text")$append_metadata("rc", "a <- 2 + 2")
     #'
