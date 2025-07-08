@@ -166,7 +166,7 @@ report_render_and_compress <- function(reporter, rmd_yaml_args, global_knitr, fi
   tmp_dir <- file.path(tempdir(), .report_identifier(reporter))
 
   cards_combined <- reporter$get_blocks()
-  metadata(cards) <- utils::modifyList(metadata(cards), rmd_yaml_args)
+  metadata(cards_combined) <- utils::modifyList(metadata(cards_combined), rmd_yaml_args)
 
   tryCatch(
     render(
