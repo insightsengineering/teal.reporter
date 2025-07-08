@@ -43,7 +43,7 @@ reporter_previewer_ui <- function(id) {
       sortable::sortable_js(
         css_id = ns("cards-reporter_cards"),
         options = sortable::sortable_options(
-          draggable = ".accordion-header",
+          handle = ".accordion-item > .accordion-header",
           onSort = sortable::sortable_js_capture_input(ns("reporter_cards_order"))
         )
       ),
