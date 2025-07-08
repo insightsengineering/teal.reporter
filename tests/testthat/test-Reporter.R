@@ -298,3 +298,45 @@ testthat::describe("reorder_cards", {
     testthat::expect_equal(names_after, c(rev(names_before), setdiff(names_after, names_before)))
   })
 })
+
+testthat::describe("Reporter with custom template function", {
+  it("modifies teal_cards on append", {
+    card <- teal_card("## A Header", "A paragraph")
+    reporter <- Reporter$new()
+
+    template_fun <- function(card) c(teal_card("Here comes disclaimer text"), card)
+
+    reporter$set_template(template_fun)
+    reporter$append_cards(tc)
+
+    testthat::expect_equal(reporter$get_cards()[[1]][[1]], "Here comes disclaimer text")
+  })
+
+  it("removes chunk_outputs and code_chunk", {
+    tr <- within(teal_report(), 1 + 1)
+    teal_card(tr) <- c(teal_card(tr), "A separator")
+    tr <- within(tr, iris <- iris)
+    teal_card(tr) <- c(teal_card(tr), "A footer")
+
+    reporter <- Reporter$new()
+
+    template_fun <- function(card) {
+      Filter(
+        f = function(x) !(inherits(x, "chunk_output") || inherits(x, "code_chunk")),
+        x = card
+      )
+    }
+
+    reporter$set_template(template_fun)
+    reporter$append_cards(teal_card(tr))
+
+    expected <- teal_card("A separator", "A footer")
+    metadata(expected) <- list()
+
+    testthat::expect_equal(
+      unname(reporter$get_cards()[[1]]),
+      unname(expected),
+      ignore_attr = TRUE
+    )
+  })
+})
