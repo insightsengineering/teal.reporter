@@ -39,8 +39,8 @@ testthat::test_that("simple_reporter_srv - add a Card (ReportCard) to Reporter",
       session$setInputs(`add_report_card_simple-add_report_card_button` = 0)
       session$setInputs(`add_report_card_simple-comment` = "Comment Body")
       session$setInputs(`add_report_card_simple-add_card_ok` = 0)
-
-      testthat::expect_identical(length(reporter$get_blocks()), length(card_fun()) + 2L)
+      # get_blocks() adds title, comment and comment body
+      testthat::expect_identical(length(reporter$get_blocks()), length(card_fun()) + 3L)
     }
   )
 })
@@ -53,7 +53,7 @@ testthat::test_that("simple_reporter_srv - add a Card (teal_card) to Reporter", 
       session$setInputs(`add_report_card_simple-add_report_card_button` = 0)
       session$setInputs(`add_report_card_simple-comment` = "Comment Body")
       session$setInputs(`add_report_card_simple-add_card_ok` = 0)
-
+      # get_blocks() adds title, comment and comment body
       testthat::expect_identical(length(reporter$get_blocks()), length(card_fun()) + 3L)
     }
   )

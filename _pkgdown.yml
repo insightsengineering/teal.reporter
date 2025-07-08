@@ -58,13 +58,14 @@ reference:
       - Reporter
   - title: "Utility functions for `teal_card` object"
     contents:
-      - teal_card
-      - "teal_card<-"
       - as.teal_card
+      - code_chunk
       - metadata
       - "metadata<-"
-      - code_chunk
+      - render
+      - teal_card
+      - "teal_card<-"
   - title: "Utility functions for `teal_report` object"
     contents:
-      - eval_code,teal_report-method
       - c.teal_report
+      - eval_code,teal_report-method

@@ -166,3 +166,19 @@ global_knitr_details <- function() {
     collapse = "\n"
   )
 }
+
+#' @export
+#' @keywords internal
+format.code_chunk <- function(x, ...) {
+  language <- attr(x, "lang", exact = TRUE)
+  params <- attr(x, "params", exact = TRUE)
+  if (language %in% names(knitr::knit_engines$get())) {
+    sprintf(
+      "```{%s}\n%s\n```",
+      toString(c(language, paste(names(params), params, sep = "="))),
+      NextMethod()
+    )
+  } else {
+    sprintf("```%s\n%s\n```", language, NextMethod())
+  }
+}

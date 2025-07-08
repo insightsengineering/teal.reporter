@@ -14,10 +14,7 @@ testthat::test_that("add_card_button_srv - add a Card to the Reporter", {
       session$setInputs(comment = "Comment Body")
       session$setInputs(`add_card_ok` = 0)
 
-      testthat::expect_identical(
-        length(reporter$get_blocks()),
-        card_len
-      )
+      testthat::expect_length(reporter$get_blocks(), card_len + 1) # + 1 due to title
     }
   )
 })
@@ -46,10 +43,7 @@ testthat::test_that("add_card_button_srv supports custom ReportCard classes", {
       session$setInputs(`add_report_card_button` = 0)
       session$setInputs(`add_card_ok` = 0)
 
-      testthat::expect_identical(
-        length(reporter$get_blocks()),
-        card_len
-      )
+      testthat::expect_length(reporter$get_blocks(), card_len + 1) # + 1 due to title
     }
   )
 })
@@ -68,10 +62,7 @@ testthat::test_that("add_card_button_srv supports passing no default object to t
       session$setInputs(`add_report_card_button` = 0)
       session$setInputs(`add_card_ok` = 0)
 
-      testthat::expect_identical(
-        length(reporter$get_blocks()),
-        card_len
-      )
+      testthat::expect_length(reporter$get_blocks(), card_len + 1) # + 1 due to title
     }
   )
 })
@@ -120,10 +111,7 @@ testthat::test_that("add_card_button_srv supports passing card_fun with any of t
       session$setInputs(`add_report_card_button` = 0)
       session$setInputs(`add_card_ok` = 0)
 
-      testthat::expect_identical(
-        length(reporter$get_blocks()),
-        card_len
-      )
+      testthat::expect_length(reporter$get_blocks(), card_len + 1) # + 1 due to title
     }
   )
 
@@ -141,10 +129,7 @@ testthat::test_that("add_card_button_srv supports passing card_fun with any of t
       session$setInputs(`add_report_card_button` = 0)
       session$setInputs(`add_card_ok` = 0)
 
-      testthat::expect_identical(
-        length(reporter$get_blocks()),
-        card_len
-      )
+      testthat::expect_length(reporter$get_blocks(), card_len + 1) # + 1 due to title
     }
   )
 
@@ -162,10 +147,7 @@ testthat::test_that("add_card_button_srv supports passing card_fun with any of t
       session$setInputs(`add_report_card_button` = 0)
       session$setInputs(`add_card_ok` = 0)
 
-      testthat::expect_identical(
-        length(reporter$get_blocks()),
-        card_len
-      )
+      testthat::expect_length(reporter$get_blocks(), card_len + 1) # + 1 due to title
     }
   )
 
@@ -183,10 +165,7 @@ testthat::test_that("add_card_button_srv supports passing card_fun with any of t
       session$setInputs(`add_report_card_button` = 0)
       session$setInputs(`add_card_ok` = 0)
 
-      testthat::expect_identical(
-        length(reporter$get_blocks()),
-        card_len
-      )
+      testthat::expect_length(reporter$get_blocks(), card_len + 1) # + 1 due to title
     }
   )
 })

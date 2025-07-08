@@ -17,38 +17,44 @@ testthat::test_that("set_id sets the reporter id and returns reporter", {
 })
 
 testthat::describe("Reporter with ReportCard", {
-  reporter <- test_reporter.ReportCard(card1 <- test_card1.ReportCard(), card2 <- test_card2.ReportCard())
+  card1 <- test_card1.ReportCard()
+  card2 <- test_card2.ReportCard()
+  reporter <- test_reporter.ReportCard(card1, card2)
   it("get_cards returns the same cards which was added to reporter", {
     testthat::expect_equal(unname(reporter$get_cards()), list(card1, card2))
   })
 
   it("get_blocks returns the same blocks which was added to reporter, sep = NULL", {
-    testthat::expect_identical(reporter$get_blocks(sep = NULL), append(card1$get_content(), card2$get_content()))
+    testthat::expect_equal(
+      reporter$get_blocks(sep = NULL),
+      c(
+        teal_card("# _Unnamed Card (1)_"),
+        card1$get_content(),
+        "# _Unnamed Card (2)_",
+        card2$get_content()
+      ),
+      ignore_attr = TRUE
+    )
   })
 
-  it("get_blocks by default adds NewpageBlock$new() between cards", {
+  it("get_blocks by default adds 'newpage' between cards", {
     reporter <- test_reporter.ReportCard(card1 <- test_card1.ReportCard(), card2 <- test_card2.ReportCard())
     reporter_blocks <- reporter$get_blocks()
-    reporter_blocks2 <- append(reporter_blocks[1:3], "\\newpage")
-    reporter_blocks2 <- append(reporter_blocks2, reporter_blocks[5:8])
-    testthat::expect_equal(reporter$get_blocks(), reporter_blocks2)
-  })
-
-  it("The deep copy constructor copies the content files to new files", {
-    testthat::skip_if_not_installed("ggplot2")
-    card <- ReportCard$new()$append_plot(ggplot2::ggplot(iris))
-    # needs prefix otherwise it conflicts with testthat::Reporter
-    reporter <- teal.reporter::Reporter$new()$append_cards(list(card))
-    reporter_copy <- reporter$clone(deep = TRUE)
-    original_content_file <- reporter$get_blocks()[[1]]$get_content()
-    copied_content_file <- reporter_copy$get_blocks()[[1]]$get_content()
-
-    testthat::expect_false(original_content_file == copied_content_file)
+    reporter_blocks2 <- c(teal_card("# _Unnamed Card (1)_"), reporter$get_cards()[[1]]$get_content(), "\\newpage")
+    reporter_blocks2 <- c(reporter_blocks2, "# _Unnamed Card (2)_", reporter$get_cards()[[2]]$get_content())
+    testthat::expect_equal(
+      reporter$get_blocks(),
+      reporter_blocks2,
+      ignore_attr = TRUE
+    )
   })
 
   it("get_blocks returns the same blocks which was added to reporter, sep = NULL", {
     reporter <- test_reporter.ReportCard(card1 <- test_card1.ReportCard(), card2 <- test_card2.ReportCard())
-    testthat::expect_identical(reporter$get_blocks(sep = NULL), append(card1$get_content(), card2$get_content()))
+    testthat::expect_equal(
+      unname(reporter$get_blocks(sep = NULL)),
+      unname(c(teal_card("# _Unnamed Card (1)_"), card1$get_content(), "# _Unnamed Card (2)_", card2$get_content()))
+    )
   })
 })
 
@@ -69,7 +75,7 @@ testthat::test_that("get_blocks returns the same blocks which was added to repor
   )
 })
 
-testthat::test_that("get_blocks by default adds NewpageBlock$new() between cards", {
+testthat::test_that("get_blocks by default adds 'newpage' between cards", {
   card1 <- test_card1("A title")
   card2 <- test_card2("Another title")
   reporter <- test_reporter(card1, card2)
@@ -83,9 +89,9 @@ testthat::test_that("get_blocks by default adds NewpageBlock$new() between cards
   testthat::expect_equal(reporter$get_blocks(), reporter_blocks2, ignore_attr = TRUE)
 })
 
-testthat::test_that("get_blocks and get_cards return empty list by default", {
+testthat::test_that("get_blocks and get_cards return empty teal_card by default", {
   reporter <- Reporter$new()
-  testthat::expect_identical(reporter$get_blocks(), list())
+  testthat::expect_identical(reporter$get_blocks(), teal_card())
   testthat::expect_identical(reporter$get_cards(), structure(list(), names = character(0L)))
 })
 

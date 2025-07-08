@@ -1,7 +1,6 @@
 .onLoad <- function(libname, pkgname) {
   op <- options()
   default_global_knitr <- list(teal.reporter.global_knitr = list(
-    echo = TRUE,
     tidy.opts = list(width.cutoff = 60),
     tidy = requireNamespace("formatR", quietly = TRUE)
   ))

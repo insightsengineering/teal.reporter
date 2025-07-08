@@ -6,12 +6,11 @@
 #' It enables users to create, manipulate, and serialize report-related data efficiently.
 #'
 #' The `teal_card()` function serves two purposes:
-#' 1. When called with a `teal_report` object, it acts as a getter and returns the card slot
-#' 2. When called with other arguments, it creates a new `teal_card` object from those arguments
+#' 1. When called with a `teal_report` object, it acts as a getter and returns the card slot.
+#' 2. When called with other arguments, it creates a new `teal_card` object from those arguments.
 #'
 #' @return An `S3` `list` of class `teal_card`.
-#' @param x A `teal_report` object to extract card from, or any other object to include in a new `teal_card`
-#' @param ... Additional elements to include when creating a new `teal_card`
+#' @param ... Elements from which `teal_card` will be combined.
 #'
 #' @details The `teal_card` class supports `c()` and `x[i]` methods for combining and subsetting elements.
 #' However, these methods only function correctly when the first element is a `teal_card`.
@@ -44,23 +43,47 @@
 #' @name teal_card
 #'
 #' @export
-teal_card <- function(x, ...) {
-  if (missing(x)) {
-    structure(list(), class = "teal_card")
-  } else if (inherits(x, "teal_report")) {
-    x@teal_card
-  } else if (inherits(x, "qenv")) {
-    .code_to_card(x@code)
-  } else {
-    objects <- list(x, ...)
-    names(objects) <- vapply(
-      sample.int(.Machine$integer.max, size = length(objects)),
-      function(x) substr(rlang::hash(list(Sys.time(), x)), 1, 8),
+teal_card <- function(...) {
+  UseMethod("teal_card")
+}
+
+#' @export
+#' @keywords internal
+teal_card.default <- function(...) {
+  x <- list(...)
+  if (length(x) > 0) {
+    names(x) <- vapply(
+      sample.int(.Machine$integer.max, size = length(x)),
+      function(block) substr(rlang::hash(list(Sys.time(), block)), 1, 8),
       character(1)
     )
-    structure(objects, class = "teal_card")
   }
+  structure(x, class = "teal_card")
 }
+
+#' @export
+#' @keywords internal
+teal_card.teal_card <- function(...) {
+  dots <- list(...)
+  c(dots[[1]], dots[-1])
+}
+
+#' @export
+#' @keywords internal
+teal_card.teal_report <- function(...) {
+  dots <- list(...)
+  dots[[1]] <- dots[[1]]@teal_card
+  do.call(teal_card, args = dots)
+}
+
+#' @export
+#' @keywords internal
+teal_card.qenv <- function(...) {
+  dots <- list(...)
+  dots[[1]] <- .code_to_card(dots[[1]]@code)
+  do.call(teal_card, args = dots)
+}
+
 
 #' @rdname teal_card
 #' @param value (`teal_card`) object to set in the `teal_report`.
@@ -86,7 +109,7 @@ as.teal_card <- function(x) { # nolint: object_name.
     return(x)
   }
   if (identical(class(x), "list")) {
-    return(do.call(teal_card, x))
+    return(do.call(teal_card, unname(x)))
   }
   teal_card(x)
 }
@@ -228,6 +251,7 @@ metadata.ReportCard <- function(object, which = NULL) {
 #'
 #' @param code A character string containing the R code.
 #' @param ... Additional named parameters to be included as chunk options (e.g., `echo = TRUE`).
+#' @param lang (`character(1)`) See [`knitr::knit_engines`].
 #'
 #' @return An object of class `code_chunk`.
 #' @examples
@@ -235,12 +259,13 @@ metadata.ReportCard <- function(object, which = NULL) {
 #' class(my_chunk)
 #' attributes(my_chunk)$param
 #' @export
-code_chunk <- function(code, ...) {
+code_chunk <- function(code, ..., lang = "R") {
   checkmate::assert_character(code)
   params <- list(...)
   structure(
     paste(code, collapse = "\n"),
     params = params,
+    lang = lang,
     class = "code_chunk"
   )
 }

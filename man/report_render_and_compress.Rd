@@ -6,20 +6,20 @@
 \usage{
 report_render_and_compress(
   reporter,
-  yaml_header,
+  rmd_yaml_args,
   global_knitr,
-  file = tempdir()
+  file = tempfile()
 )
 }
 \arguments{
 \item{reporter}{(\code{Reporter}) instance.}
 
-\item{yaml_header}{(\verb{named list}) with \code{Rmd} \code{yaml} header fields and their values.}
+\item{rmd_yaml_args}{(\verb{named list}) with \code{Rmd} \code{yaml} header fields and their values.}
 
 \item{global_knitr}{(\code{list}) a global \code{knitr} parameters, like echo.
 But if local parameter is set it will have priority.}
 
-\item{file}{(\code{character(1)}) where to copy the returned directory.}
+\item{file}{(\code{character(1)}) where to copy created zip file.}
 }
 \value{
 \code{file} argument, invisibly.

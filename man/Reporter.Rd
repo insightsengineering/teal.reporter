@@ -371,8 +371,7 @@ Default is a \verb{\\n\\\\newpage\\n} markdown.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{list()} list of \code{TableBlock}, \code{TextBlock}, \code{PictureBlock},
-\code{NewpageBlock}, and raw \code{teal_card} content
+\code{list()} of \code{teal_card}
 }
 }
 \if{html}{\out{<hr>}}

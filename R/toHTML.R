@@ -19,12 +19,6 @@ toHTML.default <- function(x, ...) {
   shiny::HTML(commonmark::markdown_html(x, extensions = TRUE))
 }
 
-#' @method .toHTML ContentBlock
-#' @keywords internal
-.toHTML.ContentBlock <- function(x, ...) {
-  UseMethod("toHTML", x$get_content()) # Further dispatch for subclasses
-}
-
 #' @method .toHTML ReportCard
 #' @keywords internal
 .toHTML.ReportCard <- function(x, ...) {
@@ -43,55 +37,16 @@ toHTML.default <- function(x, ...) {
   toHTML(teal_card(x), ...)
 }
 
-#' @method .toHTML TextBlock
-#' @keywords internal
-.toHTML.TextBlock <- function(x, ...) {
-  b_content <- x$get_content()
-  switch(x$get_style(),
-    header1 = shiny::tags$h1(b_content),
-    header2 = shiny::tags$h2(b_content),
-    header3 = shiny::tags$h3(b_content),
-    header4 = shiny::tags$h4(b_content),
-    verbatim = shiny::tags$pre(b_content),
-    shiny::tags$pre(b_content)
-  )
-}
-
-#' @method .toHTML RcodeBlock
-#' @keywords internal
-.toHTML.RcodeBlock <- function(x, ...) {
-  panel_item("R Code", shiny::tags$pre(x$get_content()))
-}
-
-#' @method .toHTML PictureBlock
-#' @keywords internal
-.toHTML.PictureBlock <- function(x, ...) {
-  shiny::tags$img(src = knitr::image_uri(x$get_content()))
-}
-
-#' @method .toHTML TableBlock
-#' @keywords internal
-.toHTML.TableBlock <- function(x, ...) {
-  b_table <- readRDS(x$get_content())
-  shiny::tags$pre(flextable::htmltools_value(b_table))
-}
-
-#' @method .toHTML NewpageBlock
-#' @keywords internal
-.toHTML.NewpageBlock <- function(x, ...) {
-  shiny::tags$br()
-}
-
-#' @method .toHTML HTMLBlock
-#' @keywords internal
-.toHTML.HTMLBlock <- function(x, ...) {
-  x$get_content()
-}
-
 #' @method .toHTML rtables
 #' @keywords internal
 .toHTML.rtables <- function(x, ...) {
   shiny::tags$pre(flextable::htmltools_value(to_flextable(x)))
+}
+
+#' @method .toHTML condition
+#' @keywords internal
+.toHTML.condition <- function(x, ...) {
+  conditionMessage(x)
 }
 
 .plot2html <- function(x, ...) {
@@ -138,7 +93,15 @@ toHTML.default <- function(x, ...) {
 #' @method .toHTML code_chunk
 #' @keywords internal
 .toHTML.code_chunk <- function(x, ...) {
-  shiny::tags$pre(x)
+  shiny::tags$pre(
+    shiny::tags$code(x, class = sprintf("language-%s", attr(x, "lang")))
+  )
+}
+
+#' @method .toHTML chunk_output
+#' @keywords internal
+.toHTML.chunk_output <- function(x, ...) {
+  toHTML(x[[1]], ...)
 }
 
 #' @method .toHTML code_chunk

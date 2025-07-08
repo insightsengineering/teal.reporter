@@ -22,7 +22,7 @@ testthat::test_that("simple_reporter_srv - reset a reporter", {
       testthat::expect_identical(unname(reporter$get_cards()), list(card1))
       session$setInputs(`reset_button_simple-reset_reporter` = 0)
       session$setInputs(`reset_button_simple-reset_reporter_ok` = 0)
-      testthat::expect_identical(reporter$get_blocks(), list())
+      testthat::expect_identical(reporter$get_blocks(), teal_card())
     }
   )
 })

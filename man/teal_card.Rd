@@ -8,7 +8,7 @@
 \alias{[.teal_card}
 \title{\code{teal_card}: An \code{S3} class for managing \code{teal} reports}
 \usage{
-teal_card(x, ...)
+teal_card(...)
 
 teal_card(x) <- value
 
@@ -19,9 +19,9 @@ as.teal_card(x)
 \method{[}{teal_card}(x, i)
 }
 \arguments{
-\item{x}{Object to convert to teal_card}
+\item{...}{Elements from which \code{teal_card} will be combined.}
 
-\item{...}{Additional elements to include when creating a new \code{teal_card}}
+\item{x}{Object to convert to teal_card}
 
 \item{value}{(\code{teal_card}) object to set in the \code{teal_report}.}
 
@@ -40,8 +40,8 @@ It enables users to create, manipulate, and serialize report-related data effici
 
 The \code{teal_card()} function serves two purposes:
 \enumerate{
-\item When called with a \code{teal_report} object, it acts as a getter and returns the card slot
-\item When called with other arguments, it creates a new \code{teal_card} object from those arguments
+\item When called with a \code{teal_report} object, it acts as a getter and returns the card slot.
+\item When called with other arguments, it creates a new \code{teal_card} object from those arguments.
 }
 
 This function ensures that input is converted to a teal_card object.
