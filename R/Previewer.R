@@ -109,7 +109,9 @@ reporter_previewer_srv <- function(id,
       reporter$to_jsondir(reporterdir)
     })
     session$onRestored(function(state) {
-      if (is.null(state$dir)) return(NULL)
+      if (is.null(state$dir)) {
+        return(NULL)
+      }
       reporterdir <- file.path(state$dir, "reporter")
       reporter$from_jsondir(reporterdir)
     })
