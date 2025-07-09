@@ -21,6 +21,11 @@ testthat::describe("teal_card", {
       unname(teal_card(code_chunk("a <- 1")))
     )
   })
+
+  it("keeps list if given as argument", {
+    card <- teal_card(list(1, 2))
+    testthat::expect_equal(card, structure(list(list(1, 2)), class = "teal_card"), ignore_attr = "names")
+  })
 })
 
 testthat::describe("teal_card with multiple arguments", {
@@ -268,7 +273,7 @@ testthat::describe("metadata", {
 testthat::test_that("teal_card index assignment converts to unique identifier", {
   card <- teal_card("# Header", "A paragraph")
   card[[2]] <- "Override"
-  
+
   testthat::expect_equal(card[[2]], "Override")
   checkmate::expect_names(names(card), type = "unique")
 })
