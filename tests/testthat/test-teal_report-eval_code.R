@@ -8,7 +8,7 @@ testthat::describe("eval_code appends code_chunks to the teal_card", {
         code_chunk("b <- 2L"),
         code_chunk("c <- 3L")
       ),
-      ignore_attr = TRUE
+      ignore_attr = "names"
     )
   })
 
@@ -22,7 +22,7 @@ testthat::describe("eval_code appends code_chunks to the teal_card", {
         code_chunk("a"),
         structure(list(1L), class = c("chunk_output"))
       ),
-      ignore_attr = TRUE
+      ignore_attr = "names"
     )
   })
 
@@ -31,7 +31,7 @@ testthat::describe("eval_code appends code_chunks to the teal_card", {
     testthat::expect_equal(
       teal_card(q),
       c(teal_card(), code_chunk("warning('test')")),
-      ignore_attr = TRUE
+      ignore_attr = "names"
     )
   })
 })
@@ -51,7 +51,7 @@ testthat::describe("within appends to teal_card", {
         code_chunk("b <- 2L"),
         code_chunk("c <- 3L")
       ),
-      ignore_attr = TRUE
+      ignore_attr = "names"
     )
   })
 })
