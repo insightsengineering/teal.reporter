@@ -252,17 +252,14 @@ any_rcode_block <- function(reporter) {
   cards <- reporter$get_cards()
 
   # todo: make sure code_chunk is also noticed
-  if (all(vapply(cards, inherits, logical(1), "ReportCard"))) {
-    any(
-      vapply(
-        reporter$get_blocks(),
-        function(e) inherits(e, "code_chunk"),
-        logical(1)
-      )
+  any(
+    vapply(
+      reporter$get_blocks(),
+      inherits,
+      logical(1),
+      what = "code_chunk"
     )
-  } else {
-    FALSE
-  }
+  )
 }
 
 .report_identifier <- function(reporter) {
