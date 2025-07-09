@@ -95,6 +95,17 @@ teal_card.qenv <- function(...) {
   x
 }
 
+#' @export
+`[[<-.teal_card` <- function(x, index, value) {
+  new_card <- as.teal_card(value)
+  value <- new_card[[1]]
+  new_x <- NextMethod()
+  if (checkmate::test_integerish(index)) {
+    names(new_x)[[index]] <- names(new_card)[[1]]
+  }
+  new_x
+}
+
 #' Create or coerce to a teal_card
 #'
 #' This function ensures that input is converted to a teal_card object.

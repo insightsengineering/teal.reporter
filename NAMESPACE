@@ -2,6 +2,7 @@
 
 S3method("[",teal_card)
 S3method("[",teal_report)
+S3method("[[<-",teal_card)
 S3method("metadata<-",ReportCard)
 S3method("metadata<-",teal_card)
 S3method(c,teal_card)

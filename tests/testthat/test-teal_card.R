@@ -264,3 +264,11 @@ testthat::describe("metadata", {
     )
   })
 })
+
+testthat::test_that("teal_card index assignment converts to unique identifier", {
+  card <- teal_card("# Header", "A paragraph")
+  card[[2]] <- "Override"
+  
+  testthat::expect_equal(card[[2]], "Override")
+  checkmate::expect_names(names(card), type = "unique")
+})
