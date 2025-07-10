@@ -9,7 +9,7 @@
 
 This \code{R6} class is designed to store and manage reports,
 facilitating the creation, manipulation, and serialization of report-related data.
-It supports both \code{ReportCard} (\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}) and \code{teal_card} objects, allowing flexibility
+It supports both \code{ReportCard} and \code{teal_card} objects, allowing flexibility
 in the types of reports that can be stored and managed.
 }
 \note{
@@ -48,14 +48,14 @@ card1$append_plot(
 )
 card1$set_name('Card1')
 
-card2 <- ReportCard$new()
-
-card2$append_text("Header 2 text", "header2")
-card2$append_text("A paragraph of default text")
 lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
 table_res2 <- build_table(lyt, airquality)
-card2$append_table(table_res2)
-card2$set_name('Card2')
+card2 <- teal_card(
+  "## Header 2 text",
+  "A paragraph of default text",
+  table_res2
+)
+metadata(card2, "title") <- "Card2"
 
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
@@ -80,14 +80,14 @@ card1$set_name('Card1')
 reporter <- Reporter$new()
 reporter$append_cards(list(card1))
 
-card2 <- ReportCard$new()
-
-card2$append_text("Header 2 text", "header2")
-card2$append_text("A paragraph of default text")
 lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
-table_res2 <- build_table(lyt, within(airquality, Day <- factor(Day)))
-card2$append_table(table_res2)
-card2$set_name('Card2')
+table_res2 <- build_table(lyt, airquality)
+card2 <- teal_card(
+  "## Header 2 text",
+  "A paragraph of default text",
+  table_res2
+)
+metadata(card2, "title") <- "Card2"
 
 reporter$replace_card(card2, "Card1")
 reporter$get_cards()[[1]]$get_name()
@@ -104,13 +104,13 @@ card1$append_plot(
  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )
 
-card2 <- ReportCard$new()
-
-card2$append_text("Header 2 text", "header2")
-card2$append_text("A paragraph of default text")
 lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
 table_res2 <- build_table(lyt, airquality)
-card2$append_table(table_res2)
+card2 <- teal_card(
+  "## Header 2 text",
+  "A paragraph of default text",
+  table_res2
+)
 
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
@@ -128,13 +128,13 @@ card1$append_plot(
  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )
 
-card2 <- ReportCard$new()
-
-card2$append_text("Header 2 text", "header2")
-card2$append_text("A paragraph of default text")
 lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
 table_res2 <- build_table(lyt, airquality)
-card2$append_table(table_res2)
+card2 <- teal_card(
+  "## Header 2 text",
+  "A paragraph of default text",
+  table_res2
+)
 
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
@@ -297,10 +297,10 @@ Append one or more \code{ReportCard} or \code{teal_card} objects to the \code{Re
 \if{html}{\out{<a id="method-Reporter-reorder_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-reorder_cards}{}}}
 \subsection{Method \code{reorder_cards()}}{
-Reorders \code{ReportCard} or \code{teal_card} objects in \code{Reporter}.
+Reorders \code{teal_card} objects in \code{Reporter}.
 
 
-Reorders \code{ReportCard} or \code{teal_card} objects in \code{Reporter}.
+Reorders \code{teal_card} objects in \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$reorder_cards(new_order)}\if{html}{\out{</div>}}
 }
@@ -308,8 +308,8 @@ Reorders \code{ReportCard} or \code{teal_card} objects in \code{Reporter}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{new_order}}{\code{character} vector with names of \code{ReportCard} or \code{teal_card}
-objects to be set in this order.}
+\item{\code{new_order}}{\code{character} vector with names of \code{teal_card} objects to
+be set in this order.}
 }
 \if{html}{\out{</div>}}
 }
@@ -343,21 +343,21 @@ Sets \code{ReportCard} or \code{teal_card} content.
 \if{html}{\out{<a id="method-Reporter-get_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_cards}{}}}
 \subsection{Method \code{get_cards()}}{
-Retrieves all \code{ReportCard} and \code{teal_card} objects contained in \code{Reporter}.
+Retrieves all \code{teal_card} objects contained in \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$get_cards()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-A (\code{list}) of \code{\link{ReportCard}} and \code{\link{teal_card}} objects.
+A (\code{list}) of \code{\link{teal_card}} objects.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-get_blocks"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_blocks}{}}}
 \subsection{Method \code{get_blocks()}}{
-Compiles and returns all content blocks from the \code{ReportCard}
-and \code{teal_card} objects in the \code{Reporter}.
+Compiles and returns all content blocks from the \code{teal_card}
+objects in the \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$get_blocks(sep = "\\\\newpage")}\if{html}{\out{</div>}}
 }
@@ -378,7 +378,7 @@ Default is a \verb{\\n\\\\newpage\\n} markdown.}
 \if{html}{\out{<a id="method-Reporter-reset"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-reset}{}}}
 \subsection{Method \code{reset()}}{
-Resets the \code{Reporter}, removing all \code{ReportCard} and \code{teal_card} objects and metadata.
+Resets the \code{Reporter}, removing all \code{teal_card} objects and metadata.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$reset()}\if{html}{\out{</div>}}
 }
@@ -391,7 +391,7 @@ Resets the \code{Reporter}, removing all \code{ReportCard} and \code{teal_card} 
 \if{html}{\out{<a id="method-Reporter-remove_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-remove_cards}{}}}
 \subsection{Method \code{remove_cards()}}{
-Removes specific \code{ReportCard} or \code{teal_card} objects from the \code{Reporter} by their indices.
+Removes specific \code{teal_card} objects from the \code{Reporter} by their indices.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$remove_cards(ids = NULL)}\if{html}{\out{</div>}}
 }
