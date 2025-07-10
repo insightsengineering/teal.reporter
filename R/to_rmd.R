@@ -202,3 +202,9 @@ to_rmd.default <- function(block, output_dir, ...) {
 #' @method .to_rmd data.frame
 #' @keywords internal
 .to_rmd.data.frame <- .to_rmd.rtables
+
+#' @method .to_rmd .toHTML gtsummary
+#' @keywords internal
+.to_rmd.gtsummary <- function(block, output_dir, include_results, ...) {
+  .content_to_rmd(gtsummary::as_flex_table(block), output_dir = output_dir, include_results = TRUE, ...)
+}

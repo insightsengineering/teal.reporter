@@ -22,13 +22,13 @@ toHTML.default <- function(x, ...) {
 #' @method .toHTML ReportCard
 #' @keywords internal
 .toHTML.ReportCard <- function(x, ...) {
-  htmltools::tagList(lapply(x$get_content(), tools::toHTML))
+  shiny::tagList(lapply(x$get_content(), tools::toHTML))
 }
 
 #' @method .toHTML teal_card
 #' @keywords internal
 .toHTML.teal_card <- function(x, ...) {
-  htmltools::tagList(lapply(x, tools::toHTML, ...))
+  shiny::tagList(lapply(x, tools::toHTML, ...))
 }
 
 #' @method .toHTML teal_report
@@ -102,7 +102,7 @@ toHTML.default <- function(x, ...) {
 #' @method .toHTML chunk_output
 #' @keywords internal
 .toHTML.chunk_output <- function(x, ...) {
-  toHTML(x[[1]], ...)
+  tools::toHTML(x[[1]], ...)
 }
 
 #' @method .toHTML code_chunk
@@ -137,5 +137,11 @@ toHTML.default <- function(x, ...) {
 #' @method .toHTML datatables
 #' @keywords internal
 .toHTML.datatables <- function(x, ...) {
-  htmltools::as.tags(x)
+  x
+}
+
+#' @method .toHTML gtsummary
+#' @keywords internal
+.toHTML.gtsummary <- function(x, ...) {
+  flextable::htmltools_value(gtsummary::as_flex_table(x))
 }
