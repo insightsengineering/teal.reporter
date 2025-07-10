@@ -299,7 +299,7 @@ testthat::describe("teal_card converts", {
     testthat::skip_if_not_installed("ggplot2")
     sample_plot <- ggplot2::ggplot(iris) + ggplot2::geom_histogram(ggplot2::aes(x = Sepal.Length), binwidth = .1)
 
-    card <- c(teal_card("A header"))
+    card <- teal_card("A header")
     card[[1]] <- sample_plot
     testthat::expect_s3_class(card[[1]], "recordedplot")
   })
@@ -308,7 +308,7 @@ testthat::describe("teal_card converts", {
     testthat::skip_if_not_installed("ggplot2")
     sample_plot <- ggplot2::ggplot(iris) + ggplot2::geom_histogram(ggplot2::aes(x = Sepal.Length), binwidth = .1)
 
-    card <- c(teal_card("A header"))
+    card <- teal_card("A header")
     card[["a new name"]] <- sample_plot
     testthat::expect_s3_class(card[["a new name"]], "recordedplot")
   })
