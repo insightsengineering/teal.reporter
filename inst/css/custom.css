@@ -100,3 +100,7 @@
   display: flex;
   gap: .5rem;
 }
+
+pre > code {
+  padding-left: 0;
+}
