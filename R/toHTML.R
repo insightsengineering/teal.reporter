@@ -94,7 +94,8 @@ toHTML.default <- function(x, ...) {
 #' @keywords internal
 .toHTML.code_chunk <- function(x, ...) {
   shiny::tags$pre(
-    shiny::tags$code(x, class = sprintf("language-%s", attr(x, "lang")))
+    shiny::tags$code(x, class = sprintf("language-%s", attr(x, "lang"))),
+    .noWS = "inside"
   )
 }
 
