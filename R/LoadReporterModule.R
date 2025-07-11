@@ -13,13 +13,16 @@ report_load_ui <- function(id) {
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
-    shiny::actionButton(
-      ns("reporter_load"),
-      class = "teal-reporter simple_report_button btn-primary",
-      title = "Load",
-      shiny::tags$span(
-        shiny::icon("upload")
-      )
+    # shiny::actionButton(
+    #   ns("reporter_load"),
+    #   class = "teal-reporter simple_report_button btn-primary",
+    #   label = "Load Report",
+    #   icon = shiny::icon("upload")
+    # )
+    shiny::fileInput(
+      ns("archiver_zip"), "Choose file (.zip)",
+      multiple = FALSE,
+      accept = c(".zip")
     )
   )
 }
@@ -44,44 +47,7 @@ report_load_srv <- function(id, reporter) {
       shiny::setBookmarkExclude(c("reporter_load_main", "reporter_load"))
       ns <- session$ns
 
-      archiver_modal <- function() {
-        nr_cards <- length(reporter$get_cards())
-        shiny::div(
-          class = "teal-widgets reporter-modal",
-          shiny::modalDialog(
-            easyClose = TRUE,
-            shiny::tags$h3("Load the Report"),
-            shiny::tags$hr(),
-            shiny::fileInput(ns("archiver_zip"), "Choose saved Reporter file to Load (a zip file)",
-              multiple = FALSE,
-              accept = c(".zip")
-            ),
-            footer = shiny::div(
-              shiny::tags$button(
-                type = "button",
-                class = "btn btn-danger",
-                `data-dismiss` = "modal",
-                `data-bs-dismiss` = "modal",
-                NULL,
-                "Cancel"
-              ),
-              shiny::tags$button(
-                id = ns("reporter_load_main"),
-                type = "button",
-                class = "btn btn-primary action-button",
-                NULL,
-                "Load"
-              )
-            )
-          )
-        )
-      }
-
-      shiny::observeEvent(input$reporter_load, {
-        shiny::showModal(archiver_modal())
-      })
-
-      shiny::observeEvent(input$reporter_load_main, {
+      shiny::observeEvent(input$archiver_zip, {
         load_json_report(reporter, input$archiver_zip[["datapath"]], input$archiver_zip[["name"]])
         shiny::removeModal()
       })

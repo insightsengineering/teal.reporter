@@ -47,10 +47,7 @@ simple_reporter_ui <- function(id) {
       shiny::tags$label(class = "text-primary block -ml-1", shiny::tags$strong("Reporter")),
       shiny::tags$div(
         class = "simple_reporter_container",
-        add_card_button_ui(ns("add_report_card_simple")),
-        download_report_button_ui(ns("download_button_simple")),
-        report_load_ui(ns("archive_load_simple")),
-        reset_report_button_ui(ns("reset_button_simple"))
+        add_card_button_ui(ns("add_report_card_simple"))
       )
     )
   )

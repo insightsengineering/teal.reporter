@@ -29,12 +29,10 @@ download_report_button_ui <- function(id) {
     ),
     shiny::actionButton(
       ns("download_button"),
-      class = "teal-reporter simple_report_button btn-primary",
-      title = "Download",
+      class = "btn-primary",
+      label = "Download Report",
       `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
-      shiny::tags$span(
-        shiny::icon("download")
-      )
+      icon = shiny::icon("download")
     )
   )
 }
@@ -78,9 +76,9 @@ download_report_button_srv <- function(id,
 
     download_modal <- function() {
       nr_cards <- length(reporter$get_cards())
-      downb <- shiny::tags$a(
+      downb <- shiny::tags$button(
         id = ns("download_data"),
-        class = paste("btn btn-primary shiny-download-link", if (nr_cards) NULL else "disabled"),
+        class = paste("btn btn-primary shiny-download-link", if (nr_cards > 0) "" else "disabled"),
         style = if (nr_cards) NULL else "pointer-events: none;",
         href = "",
         target = "_blank",
