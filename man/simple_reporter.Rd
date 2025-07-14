@@ -25,7 +25,7 @@ simple_reporter_srv(
 \item{reporter}{(\code{Reporter}) instance.}
 
 \item{card_fun}{(\code{function}) which returns a \code{\link{ReportCard}} instance,
-the function has a \code{card} argument and an optional \code{comment} argument.}
+the function has a \code{teal_card} argument and an optional \code{comment} argument.}
 
 \item{global_knitr}{(\code{list}) a global \code{knitr} parameters for customizing the rendering process.}
 

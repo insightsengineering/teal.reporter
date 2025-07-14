@@ -15,7 +15,7 @@
 #' @param id (`character(1)`) `shiny` module instance id.
 #' @param reporter (`Reporter`) instance.
 #' @param card_fun (`function`) which returns a [`ReportCard`] instance,
-#' the function has a `card` argument and an optional `comment` argument.
+#' the function has a `teal_card` argument and an optional `comment` argument.
 #' @param global_knitr (`list`) a global `knitr` parameters for customizing the rendering process.
 #' @inheritParams reporter_download_inputs
 #'
@@ -38,20 +38,15 @@ NULL
 #' @export
 simple_reporter_ui <- function(id) {
   ns <- shiny::NS(id)
-  shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-    ),
+  shiny::tags$div(
+    class = "block mb-4 p-1",
+    shiny::tags$label(class = "text-primary block -ml-1", shiny::tags$strong("Reporter")),
     shiny::tags$div(
-      class = "block mb-4 p-1",
-      shiny::tags$label(class = "text-primary block -ml-1", shiny::tags$strong("Reporter")),
-      shiny::tags$div(
-        class = "simple_reporter_container",
-        add_card_button_ui(ns("add_report_card_simple")),
-        download_report_button_ui(ns("download_button_simple")),
-        report_load_ui(ns("archive_load_simple")),
-        reset_report_button_ui(ns("reset_button_simple"))
-      )
+      class = "simple_reporter_container",
+      add_card_button_ui(ns("add_report_card_simple")),
+      download_report_button_ui(ns("download_button_simple")),
+      report_load_ui(ns("archive_load_simple")),
+      reset_report_button_ui(ns("reset_button_simple"))
     )
   )
 }

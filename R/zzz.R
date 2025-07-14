@@ -1,13 +1,17 @@
 .onLoad <- function(libname, pkgname) {
   op <- options()
   default_global_knitr <- list(teal.reporter.global_knitr = list(
-    echo = TRUE,
     tidy.opts = list(width.cutoff = 60),
     tidy = requireNamespace("formatR", quietly = TRUE)
   ))
 
   if (!("teal.reporter.global_knitr" %in% names(op))) {
     options(default_global_knitr)
+  }
+
+  # Manual import instead of using backports and adding 1 more dependency
+  if (getRversion() < "4.4") {
+    assign("%||%", rlang::`%||%`, envir = getNamespace(pkgname))
   }
 
   invisible()

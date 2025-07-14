@@ -8,17 +8,17 @@
 #'
 #' @details
 #' The `card_fun` function is designed to create a new `ReportCard` instance and optionally customize it:
-#' - The `card` parameter allows for specifying a custom or default `ReportCard` instance.
+#' - The `teal_card` parameter allows for specifying a custom or default `ReportCard` instance.
 #' - Use the `comment` parameter to add a comment to the card via `card$append_text()` - if `card_fun` does not
 #' have the `comment` parameter, then `comment` from `Add Card UI` module will be added at the end of the content of the
 #' card.
 #' - The `label` parameter enables customization of the card's name and its content through `card$append_text()`-
 #' if `card_fun` does not have the `label` parameter, then card name will be set to the name passed in
-#' `Add Card UI` module, but no text will be added to the content of the `card`.
+#' `Add Card UI` module, but no text will be added to the content of the `teal_card`.
 #'
 #' This module supports using a subclass of [`ReportCard`] for added flexibility.
 #' A subclass instance should be passed as the default value of
-#' the `card` argument in the `card_fun` function.
+#' the `teal_card` argument in the `card_fun` function.
 #' See below:
 #' ```{r}
 #' CustomReportCard <- R6::R6Class(
@@ -48,9 +48,6 @@ add_card_button_ui <- function(id) {
   # js code to disable the add card button when clicked to prevent multi-clicks
   shiny::tagList(
     shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-    ),
-    shiny::singleton(
       shiny::tags$head(
         shiny::tags$script(
           shiny::HTML(
@@ -69,12 +66,8 @@ add_card_button_ui <- function(id) {
     ),
     shiny::actionButton(
       ns("add_report_card_button"),
-      title = "Add Card",
-      class = "teal-reporter simple_report_button btn-primary",
-      `data-val` = shiny::restoreInput(id = ns("add_report_card_button"), default = NULL),
-      shiny::tags$span(
-        shiny::icon("plus")
-      )
+      "Add to Reporter",
+      `data-val` = shiny::restoreInput(id = ns("add_report_card_button"), default = NULL)
     )
   )
 }
@@ -118,14 +111,8 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           ),
           shiny::tags$script(
             shiny::HTML(
-              sprintf(
-                "
-                $('#shiny-modal').on('shown.bs.modal', () => {
-                  $('#%s').focus()
-                })
-                ",
-                ns("label")
-              )
+              sprintf("shinyjs.autoFocusModal('%s');", ns("label")), # See extendShinyJs.js
+              sprintf("shinyjs.enterToSubmit('%s', '%s');", ns("label"), ns("add_card_ok")) # See extendShinyJs.js
             )
           ),
           footer = shiny::div(
@@ -198,14 +185,23 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           type = "error"
         )
       } else {
-        checkmate::assert_class(card, "ReportCard")
-        if (!has_comment_arg && length(input$comment) > 0 && input$comment != "") {
-          card$append_text("Comment", "header3")
-          card$append_text(input$comment)
-        }
+        checkmate::assert_multi_class(card, c("ReportCard", "teal_card"))
+        if (inherits(card, "ReportCard")) {
+          if (!has_comment_arg && length(input$comment) > 0 && input$comment != "") {
+            card$append_text("Comment", "header3")
+            card$append_text(input$comment)
+          }
 
-        if (!has_label_arg && length(input$label) == 1 && input$label != "") {
-          card$set_name(input$label)
+          if (!has_label_arg && length(input$label) == 1 && input$label != "") {
+            card$set_name(input$label)
+          }
+        } else if (inherits(card, "teal_card")) {
+          if (!has_comment_arg && length(input$comment) > 0 && input$comment != "") {
+            card <- c(card, "### Comment", input$comment)
+          }
+          if (!has_label_arg && length(input$label) == 1 && input$label != "") {
+            metadata(card, "title") <- input$label
+          }
         }
 
         reporter$append_cards(list(card))

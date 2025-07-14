@@ -1,15 +1,3 @@
-#' Get bootstrap current version
-#' @note will work properly mainly inside a tag `.renderHook`
-#' @keywords internal
-get_bs_version <- function() {
-  theme <- bslib::bs_current_theme()
-  if (bslib::is_bs_theme(theme)) {
-    bslib::theme_version(theme)
-  } else {
-    "3"
-  }
-}
-
 #' Panel group widget
 #'
 #' `r lifecycle::badge("experimental")`
@@ -35,78 +23,38 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
 
 
   shiny::tags$div(.renderHook = function(res_tag) {
-    bs_version <- get_bs_version()
-
-    # alter tag structure
-    if (bs_version == "3") {
-      res_tag$children <- list(
+    res_tag$children <- list(
+      shiny::tags$div(
+        class = "card my-2",
         shiny::tags$div(
-          class = "panel panel-default",
+          class = "card-header",
           shiny::tags$div(
-            id = div_id,
-            class = paste("panel-heading", ifelse(collapsed, "collapsed", "")),
+            class = ifelse(collapsed, "collapsed", ""),
+            # bs4
             `data-toggle` = "collapse",
+            # bs5
+            `data-bs-toggle` = "collapse",
             href = paste0("#", panel_id),
             `aria-expanded` = ifelse(collapsed, "false", "true"),
             shiny::icon("angle-down", class = "dropdown-icon"),
             shiny::tags$label(
-              class = "panel-title inline",
+              class = "card-title inline",
               title,
             )
-          ),
-          shiny::tags$div(
-            class = paste("panel-collapse collapse", ifelse(collapsed, "", "in")),
-            id = panel_id,
-            shiny::tags$div(
-              class = "panel-body",
-              ...
-            )
           )
-        )
-      )
-    } else if (bs_version %in% c("4", "5")) {
-      res_tag$children <- list(
+        ),
         shiny::tags$div(
-          class = "card my-2",
+          id = panel_id,
+          class = paste("collapse", ifelse(collapsed, "", "show")),
           shiny::tags$div(
-            class = "card-header",
-            shiny::tags$div(
-              class = ifelse(collapsed, "collapsed", ""),
-              # bs4
-              `data-toggle` = "collapse",
-              # bs5
-              `data-bs-toggle` = "collapse",
-              href = paste0("#", panel_id),
-              `aria-expanded` = ifelse(collapsed, "false", "true"),
-              shiny::icon("angle-down", class = "dropdown-icon"),
-              shiny::tags$label(
-                class = "card-title inline",
-                title,
-              )
-            )
-          ),
-          shiny::tags$div(
-            id = panel_id,
-            class = paste("collapse", ifelse(collapsed, "", "show")),
-            shiny::tags$div(
-              class = "card-body",
-              ...
-            )
+            class = "card-body",
+            ...
           )
         )
       )
-    } else {
-      stop("Bootstrap 3, 4, and 5 are supported.")
-    }
-
-    shiny::tagList(
-      shiny::singleton(
-        shiny::tags$head(
-          shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter"))
-        )
-      ),
-      res_tag
     )
+
+    res_tag
   })
 }
 
@@ -142,9 +90,13 @@ to_flextable <- function(content) {
     rtables::header_section_div(ft) <- mf$header_section_div
     ft <- rtables.officer::tt_to_flextable(ft, total_width = c(grDevices::pdf.options()$width - 1))
   } else if (inherits(content, "data.frame")) {
-    ft <- rtables.officer::tt_to_flextable(
-      rtables::df_to_tt(content)
-    )
+    ft <- if (nrow(content) == 0) {
+      flextable::flextable(content)
+    } else {
+      rtables.officer::tt_to_flextable(
+        rtables::df_to_tt(content)
+      )
+    }
   } else {
     stop(paste0("Unsupported class `(", format(class(content)), ")` when exporting table"))
   }
@@ -166,7 +118,7 @@ get_merge_index_single <- function(span) {
     }
     j <- j + span[j]
   }
-  return(ret)
+  ret
 }
 
 #' Divide text block into smaller blocks
@@ -213,4 +165,20 @@ global_knitr_details <- function() {
     ),
     collapse = "\n"
   )
+}
+
+#' @export
+#' @keywords internal
+format.code_chunk <- function(x, ...) {
+  language <- attr(x, "lang", exact = TRUE)
+  params <- attr(x, "params", exact = TRUE)
+  if (language %in% names(knitr::knit_engines$get())) {
+    sprintf(
+      "```{%s}\n%s\n```",
+      toString(c(language, paste(names(params), params, sep = "="))),
+      NextMethod()
+    )
+  } else {
+    sprintf("```%s\n%s\n```", language, NextMethod())
+  }
 }

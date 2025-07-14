@@ -30,22 +30,33 @@ NULL
 #' @export
 reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
-
-  shiny::fluidRow(
-    add_previewer_js(ns),
-    add_previewer_css(),
+  bslib::page_fluid(
     shiny::tagList(
-      shiny::tags$div(
-        class = "col-md-3",
-        shiny::tags$div(class = "well", shiny::uiOutput(ns("encoding")))
+      shiny::singleton(
+        shiny::tags$head(
+          shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")),
+          shiny::includeScript(system.file("js/extendShinyJs.js", package = "teal.reporter"))
+        )
+      ),
+      # Extend shinyjs::js to include function defined in extendShinyJs.js
+      shinyjs::extendShinyjs(text = "", functions = c("jumpToFocus", "enterToSubmit", "autoFocusModal")),
+      sortable::sortable_js(
+        css_id = ns("cards-reporter_cards"),
+        options = sortable::sortable_options(
+          handle = ".accordion-item > .accordion-header",
+          onSort = sortable::sortable_js_capture_input(ns("reporter_cards_order"))
+        )
       ),
       shiny::tags$div(
-        class = "col-md-9",
+        class = "block mb-4 p-1",
         shiny::tags$div(
-          id = "reporter_previewer",
-          shiny::uiOutput(ns("pcards"))
+          class = "simple_reporter_container",
+          download_report_button_ui(ns("download"), label = "Download Report"),
+          report_load_ui(ns("load"), label = "Load Report"),
+          reset_report_button_ui(ns("reset"), label = "Reset Report")
         )
-      )
+      ),
+      reporter_previewer_cards_ui(ns("cards"))
     )
   )
 }
@@ -88,7 +99,7 @@ reporter_previewer_srv <- function(id,
 
   shiny::moduleServer(id, function(input, output, session) {
     shiny::setBookmarkExclude(c(
-      "card_remove_id", "card_down_id", "card_up_id", "remove_card_ok", "showrcode", "download_data_prev",
+      "showrcode", "download_data_prev",
       "load_reporter_previewer", "load_reporter"
     ))
 
@@ -98,384 +109,131 @@ reporter_previewer_srv <- function(id,
       reporter$to_jsondir(reporterdir)
     })
     session$onRestored(function(state) {
+      if (is.null(state$dir)) {
+        return(NULL)
+      }
       reporterdir <- file.path(state$dir, "reporter")
       reporter$from_jsondir(reporterdir)
     })
 
     ns <- session$ns
 
-    reset_report_button_srv("resetButtonPreviewer", reporter)
-
-    output$encoding <- shiny::renderUI({
-      reporter$get_reactive_add_card()
-      nr_cards <- length(reporter$get_cards())
-
-      previewer_buttons_list <- list(
-        download = htmltools::tagAppendAttributes(
-          shiny::actionButton(
-            ns("download_data_prev"),
-            class = "teal-reporter simple_report_button",
-            shiny::tags$span("Download Report", shiny::icon("download"))
-          ),
-          class = if (nr_cards) "" else "disabled"
-        ),
-        load = shiny::actionButton(
-          ns("load_reporter_previewer"),
-          class = "teal-reporter simple_report_button",
-          `data-val` = shiny::restoreInput(id = ns("load_reporter_previewer"), default = NULL),
-          shiny::tags$span(
-            "Load Report", shiny::icon("upload")
-          )
-        ),
-        reset = reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
-      )
-
-      shiny::tags$div(
-        id = "previewer_reporter_encoding",
-        shiny::tags$h3("Download the Report"),
-        shiny::tags$hr(),
-        reporter_download_inputs(
-          rmd_yaml_args = rmd_yaml_args,
-          rmd_output = rmd_output,
-          showrcode = any_rcode_block(reporter),
-          session = session
-        ),
-        shiny::tags$div(
-          id = "previewer_reporter_buttons",
-          class = "previewer_buttons_line",
-          lapply(previewer_buttons_list[previewer_buttons], shiny::tags$div)
-        )
-      )
-    })
-
-    output$pcards <- shiny::renderUI({
-      reporter$get_reactive_add_card()
-      input$card_remove_id
-      input$card_down_id
-      input$card_up_id
-
-      cards <- reporter$get_cards()
-
-      if (length(cards)) {
-        shiny::tags$div(
-          class = "panel-group accordion",
-          id = "reporter_previewer_panel",
-          lapply(seq_along(cards), function(ic) {
-            previewer_collapse_item(ic, cards[[ic]]$get_name(), cards[[ic]]$get_content())
-          })
-        )
-      } else {
-        shiny::tags$div(
-          id = "reporter_previewer_panel_no_cards",
-          shiny::tags$p(
-            class = "text-danger mt-4",
-            shiny::tags$strong("No Cards added")
-          )
-        )
-      }
-    })
-
-    shiny::observeEvent(input$load_reporter_previewer, {
-      nr_cards <- length(reporter$get_cards())
-      shiny::showModal(
-        shiny::modalDialog(
-          easyClose = TRUE,
-          shiny::tags$h3("Load the Reporter"),
-          shiny::tags$hr(),
-          shiny::fileInput(ns("archiver_zip"), "Choose Reporter File to Load (a zip file)",
-            multiple = FALSE,
-            accept = c(".zip")
-          ),
-          footer = shiny::div(
-            shiny::tags$button(
-              type = "button",
-              class = "btn btn-danger",
-              `data-dismiss` = "modal",
-              `data-bs-dismiss` = "modal",
-              NULL,
-              "Cancel"
-            ),
-            shiny::tags$button(
-              id = ns("load_reporter"),
-              type = "button",
-              class = "btn btn-primary action-button",
-              `data-val` = shiny::restoreInput(id = ns("load_reporter"), default = NULL),
-              NULL,
-              "Load"
-            )
-          )
-        )
-      )
-    })
-
-    shiny::observeEvent(input$load_reporter, {
-      switch("JSON",
-        JSON = load_json_report(reporter, input$archiver_zip[["datapath"]], input$archiver_zip[["name"]]),
-        stop("The provided Reporter file format is not supported")
-      )
-
-      shiny::removeModal()
-    })
-
-    shiny::observeEvent(input$card_remove_id, {
-      shiny::showModal(
-        shiny::modalDialog(
-          title = "Remove the Report Card",
-          shiny::tags$p(
-            shiny::HTML(
-              sprintf(
-                "Do you really want to remove <strong>the card %s</strong> from the Report?",
-                input$card_remove_id
-              )
-            )
-          ),
-          footer = shiny::tagList(
-            shiny::tags$button(
-              type = "button",
-              class = "btn btn-secondary",
-              `data-dismiss` = "modal",
-              `data-bs-dismiss` = "modal",
-              NULL,
-              "Cancel"
-            ),
-            shiny::actionButton(ns("remove_card_ok"), "OK", class = "btn-danger")
-          )
-        )
-      )
-    })
-
-    shiny::observeEvent(input$remove_card_ok, {
-      reporter$remove_cards(input$card_remove_id)
-      shiny::removeModal()
-    })
-
-    shiny::observeEvent(input$card_up_id, {
-      if (input$card_up_id > 1) {
-        reporter$swap_cards(
-          as.integer(input$card_up_id),
-          as.integer(input$card_up_id - 1)
-        )
-      }
-    })
-
-    shiny::observeEvent(input$card_down_id, {
-      if (input$card_down_id < length(reporter$get_cards())) {
-        reporter$swap_cards(
-          as.integer(input$card_down_id),
-          as.integer(input$card_down_id + 1)
-        )
-      }
-    })
-
-    output$download_data_prev <- shiny::downloadHandler(
-      filename = function() {
-        paste0(
-          "report_",
-          if (reporter$get_id() == "") NULL else paste0(reporter$get_id(), "_"),
-          format(Sys.time(), "%y%m%d%H%M%S"),
-          ".zip"
-        )
-      },
-      content = function(file) {
-        shiny::showNotification("Rendering and Downloading the document.")
-        shinybusy::block(id = ns("download_data_prev"), text = "", type = "dots")
-        input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
-        names(input_list) <- names(rmd_yaml_args)
-        if (is.logical(input$showrcode)) global_knitr[["echo"]] <- input$showrcode
-        report_render_and_compress(reporter, input_list, global_knitr, file)
-        shinybusy::unblock(id = ns("download_data_prev"))
-      },
-      contentType = "application/zip"
+    shiny::exportTestValues(
+      cards = reporter$get_cards()
     )
+
+    download_report_button_srv(
+      "download",
+      reporter = reporter,
+      global_knitr = global_knitr,
+      rmd_output = rmd_output,
+      rmd_yaml_args = rmd_yaml_args
+    )
+    report_load_srv("load", reporter = reporter)
+    reset_report_button_srv("reset", reporter = reporter)
+    reporter_previewer_cards_srv("cards", reporter)
+
+    shiny::observeEvent(input$reporter_cards_order, {
+      reporter$reorder_cards(setdiff(input$reporter_cards_order, ""))
+    })
   })
 }
 
-#' @noRd
-#' @keywords internal
-block_to_html <- function(b) {
-  b_content <- b$get_content()
-  if (inherits(b, "TextBlock")) {
-    switch(b$get_style(),
-      header1 = shiny::tags$h1(b_content),
-      header2 = shiny::tags$h2(b_content),
-      header3 = shiny::tags$h3(b_content),
-      header4 = shiny::tags$h4(b_content),
-      verbatim = shiny::tags$pre(b_content),
-      shiny::tags$pre(b_content)
-    )
-  } else if (inherits(b, "RcodeBlock")) {
-    panel_item("R Code", shiny::tags$pre(b_content))
-  } else if (inherits(b, "PictureBlock")) {
-    shiny::tags$img(src = knitr::image_uri(b_content))
-  } else if (inherits(b, "TableBlock")) {
-    b_table <- readRDS(b_content)
-    shiny::tags$pre(
-      flextable::htmltools_value(b_table)
-    )
-  } else if (inherits(b, "NewpageBlock")) {
-    shiny::tags$br()
-  } else if (inherits(b, "HTMLBlock")) {
-    b_content
-  } else {
-    stop("Unknown block class")
-  }
-}
-
-#' @noRd
-#' @keywords internal
-add_previewer_css <- function() {
-  shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/Previewer.css", package = "teal.reporter")))
+reporter_previewer_cards_ui <- function(id) {
+  ns <- shiny::NS(id)
+  shiny::tags$div(
+    id = "reporter_previewer",
+    shiny::tags$div(
+      id = ns("empty_reporters"),
+      shiny::tags$h4(
+        class = "text-muted",
+        shiny::icon("circle-info"),
+        "No reports have been added yet."
+      )
     ),
-    shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-    )
+    bslib::accordion(id = ns("reporter_cards"), open = FALSE)
   )
 }
 
-#' @noRd
-#' @keywords internal
-add_previewer_js <- function(ns) {
-  shiny::singleton(
-    shiny::tags$head(shiny::tags$script(
-      shiny::HTML(sprintf('
-          $(document).ready(function(event) {
-            $("body").on("click", "span.card_remove_id", function() {
-              let val = $(this).data("cardid");
-              Shiny.setInputValue("%s", val, {priority: "event"});
-            });
+reporter_previewer_cards_srv <- function(id, reporter) {
+  shiny::moduleServer(id, function(input, output, session) {
+    current_ids_rv <- shiny::reactiveVal()
+    queues_rv <- list(insert = shiny::reactiveVal(), remove = shiny::reactiveVal())
 
-            $("body").on("click", "span.card_up_id", function() {
-              let val = $(this).data("cardid");
-              Shiny.setInputValue("%s", val, {priority: "event"});
-            });
+    shiny::observeEvent(reporter$get_cards(), {
+      all_cards <- reporter$get_cards()
+      reporter_ids <- names(all_cards)
+      current_ids <- current_ids_rv()
 
-             $("body").on("click", "span.card_down_id", function() {
-              let val = $(this).data("cardid");
-              Shiny.setInputValue("%s", val, {priority: "event"});
-             });
-          });
-         ', ns("card_remove_id"), ns("card_up_id"), ns("card_down_id")))
-    ))
-  )
-}
+      to_add <- !reporter_ids %in% current_ids
+      to_remove <- !current_ids %in% reporter_ids
+      if (any(to_add)) queues_rv$insert(reporter_ids[to_add])
+      if (any(to_remove)) queues_rv$remove(current_ids[to_remove])
 
-#' @noRd
-#' @keywords internal
-nav_previewer_icon <- function(name, icon_name, idx, size = 1L) {
-  checkmate::assert_string(name)
-  checkmate::assert_string(icon_name)
-  checkmate::assert_int(size)
+      shinyjs::toggle("empty_reporters", condition = length(all_cards) == 0L)
+    })
 
-  shiny::tags$span(
-    class = paste(name, "icon_previewer"),
-    # data field needed to record clicked card on the js side
-    `data-cardid` = idx,
-    shiny::icon(icon_name, sprintf("fa-%sx", size))
-  )
-}
-
-#' @noRd
-#' @keywords internal
-nav_previewer_icons <- function(idx, size = 1L) {
-  shiny::tags$span(
-    class = "preview_card_control",
-    nav_previewer_icon(name = "card_remove_id", icon_name = "xmark", idx = idx, size = size),
-    nav_previewer_icon(name = "card_up_id", icon_name = "arrow-up", idx = idx, size = size),
-    nav_previewer_icon(name = "card_down_id", icon_name = "arrow-down", idx = idx, size = size)
-  )
-}
-
-#' @noRd
-#' @keywords internal
-previewer_collapse_item <- function(idx, card_name, card_blocks) {
-  shiny::tags$div(.renderHook = function(x) {
-    # get bs version
-    version <- get_bs_version()
-
-    if (version == "3") {
-      shiny::tags$div(
-        id = paste0("panel_card_", idx),
-        class = "panel panel-default",
-        shiny::tags$div(
-          class = "panel-heading overflow-auto",
-          shiny::tags$div(
-            class = "panel-title",
-            shiny::tags$span(
-              nav_previewer_icons(idx = idx),
-              shiny::tags$a(
-                class = "accordion-toggle block py-3 px-4 -my-3 -mx-4",
-                `data-toggle` = "collapse",
-                `data-parent` = "#reporter_previewer_panel",
-                href = paste0("#collapse", idx),
-                shiny::tags$h4(paste0("Card ", idx, ": ", card_name), shiny::icon("caret-down"))
-              )
-            )
-          )
-        ),
-        shiny::tags$div(
-          id = paste0("collapse", idx), class = "collapse out",
-          shiny::tags$div(
-            class = "panel-body",
-            shiny::tags$div(
-              id = paste0("card", idx),
-              lapply(
-                card_blocks,
-                function(b) {
-                  block_to_html(b)
-                }
-              )
-            )
-          )
+    shiny::observeEvent(queues_rv$insert(), {
+      lapply(queues_rv$insert(), function(card_id) {
+        bslib::accordion_panel_insert(
+          id = "reporter_cards",
+          reporter_previewer_card_ui(id = session$ns(card_id), card_id = card_id)
         )
-      )
-    } else {
-      shiny::tags$div(
-        id = paste0("panel_card_", idx),
-        class = "card",
-        shiny::tags$div(
-          class = "overflow-auto",
-          shiny::tags$div(
-            class = "card-header",
-            shiny::tags$span(
-              nav_previewer_icons(idx = idx),
-              shiny::tags$a(
-                class = "accordion-toggle block py-3 px-4 -my-3 -mx-4",
-                # bs4
-                `data-toggle` = "collapse",
-                # bs5
-                `data-bs-toggle` = "collapse",
-                href = paste0("#collapse", idx),
-                shiny::tags$h4(
-                  paste0("Card ", idx, ": ", card_name),
-                  shiny::icon("caret-down")
-                )
-              )
-            )
-          )
-        ),
-        shiny::tags$div(
-          id = paste0("collapse", idx),
-          class = "collapse out",
-          # bs4
-          `data-parent` = "#reporter_previewer_panel",
-          # bs5
-          `data-bs-parent` = "#reporter_previewer_panel",
-          shiny::tags$div(
-            class = "card-body",
-            shiny::tags$div(
-              id = paste0("card", idx),
-              lapply(
-                card_blocks,
-                function(b) {
-                  block_to_html(b)
-                }
-              )
-            )
-          )
+        current_ids_rv(c(current_ids_rv(), card_id))
+        reporter_previewer_card_srv(
+          id = card_id,
+          card_r = shiny::reactive(reporter$get_cards()[[card_id]]),
+          card_id = card_id,
+          reporter = reporter
         )
-      )
-    }
+      })
+    })
+
+    shiny::observeEvent(queues_rv$remove(), {
+      lapply(queues_rv$remove(), bslib::accordion_panel_remove, id = "reporter_cards")
+    })
+  })
+}
+
+reporter_previewer_card_ui <- function(id, card_id) {
+  ns <- shiny::NS(id)
+  accordion_item <- bslib::accordion_panel(
+    value = card_id,
+    title = shiny::tags$label(shiny::uiOutput(ns("title"))),
+    shiny::tags$h6(id = ns("loading_placeholder"), class = "text-muted", "Loading the report..."),
+    shiny::uiOutput(ns("card_content"))
+  )
+  accordion_item <- shiny::tagAppendAttributes(accordion_item, "data-rank-id" = card_id)
+
+  accordion_item <- shiny::tagAppendAttributes(
+    tag = accordion_item,
+    .cssSelector = ".accordion-header",
+    class = "d-flex",
+  )
+  accordion_item <- shiny::tagAppendChildren(
+    tag = accordion_item,
+    .cssSelector = ".accordion-header",
+    ui_previewer_card_actions(ns("actions"))
+  )
+}
+
+# @param id (`character(1)`) card name
+reporter_previewer_card_srv <- function(id, card_r, card_id, reporter) {
+  # todo: card_name should be only on the server side
+  shiny::moduleServer(id, function(input, output, session) {
+    output$title <- shiny::renderUI({
+      title <- metadata(shiny::req(card_r()), "title")
+      if (is.null(title) || isFALSE(nzchar(title))) {
+        title <- shiny::tags$span("(Empty title)", class = "text-muted")
+      }
+      title
+    })
+    output$card_content <- shiny::renderUI({
+      result <- tools::toHTML(shiny::req(card_r()))
+      shiny::removeUI(sprintf("#%s", session$ns("loading_placeholder")))
+      result
+    })
+
+    srv_previewer_card_actions("actions", card_r, card_id, reporter)
   })
 }

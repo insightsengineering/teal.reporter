@@ -4,23 +4,17 @@
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
+#' @param label (`character(1)`) label before the icon. By default `NULL`.
 #' @return `shiny::tagList`
 #' @export
-report_load_ui <- function(id) {
+report_load_ui <- function(id, label = NULL) {
   ns <- shiny::NS(id)
-
-  shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-    ),
-    shiny::actionButton(
-      ns("reporter_load"),
-      class = "teal-reporter simple_report_button btn-primary",
-      title = "Load",
-      shiny::tags$span(
-        shiny::icon("upload")
-      )
-    )
+  shiny::actionButton(
+    ns("reporter_load"),
+    class = "teal-reporter simple_report_button btn-primary",
+    title = "Load",
+    label = label,
+    icon = shiny::icon("upload")
   )
 }
 
@@ -94,7 +88,7 @@ load_json_report <- function(reporter, zip_path, filename) {
   tmp_dir <- tempdir()
   output_dir <- file.path(tmp_dir, sprintf("report_load_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
   dir.create(path = output_dir)
-  if (!is.null(zip_path) && grepl("report_", filename)) {
+  if (!is.null(zip_path) && grepl("report(er)?_", filename)) {
     tryCatch(
       expr = zip::unzip(zip_path, exdir = output_dir, junkpaths = TRUE),
       warning = function(cond) {
