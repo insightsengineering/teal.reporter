@@ -183,8 +183,12 @@ to_rmd.default <- function(block, output_dir, ...) {
 .to_rmd.rtables <- function(block, output_dir, ...) {
   flextable_block <- to_flextable(block)
   attr(flextable_block, "keep") <- attr(block, "keep")
-  .content_to_rmd(flextable_block, output_dir)
+  to_rmd(flextable_block, output_dir, ...)
 }
+
+#' @method .to_rmd flextable
+#' @keywords internal
+.to_rmd.flextable <- .content_to_rmd
 
 #' @method .to_rmd TableTree
 #' @keywords internal
@@ -203,8 +207,8 @@ to_rmd.default <- function(block, output_dir, ...) {
 #' @keywords internal
 .to_rmd.data.frame <- .to_rmd.rtables
 
-#' @method .to_rmd .toHTML gtsummary
+#' @method .to_rmd gtsummary
 #' @keywords internal
-.to_rmd.gtsummary <- function(block, output_dir, include_results, ...) {
-  .content_to_rmd(gtsummary::as_flex_table(block), output_dir = output_dir, include_results = TRUE, ...)
+.to_rmd.gtsummary <- function(block, output_dir, ...) {
+  to_rmd(gtsummary::as_flex_table(block), output_dir = output_dir, ...)
 }

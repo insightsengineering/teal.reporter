@@ -34,13 +34,19 @@ toHTML.default <- function(x, ...) {
 #' @method .toHTML teal_report
 #' @keywords internal
 .toHTML.teal_report <- function(x, ...) {
-  toHTML(teal_card(x), ...)
+  tools::toHTML(teal_card(x), ...)
 }
 
 #' @method .toHTML rtables
 #' @keywords internal
 .toHTML.rtables <- function(x, ...) {
-  shiny::tags$pre(flextable::htmltools_value(to_flextable(x)))
+  shiny::tags$pre(tools::toHTML(to_flextable(x)))
+}
+
+#' @method .toHTML flextable
+#' @keywords internal
+.toHTML.flextable <- function(x, ...) {
+  flextable::htmltools_value(x)
 }
 
 #' @method .toHTML condition
@@ -105,13 +111,6 @@ toHTML.default <- function(x, ...) {
   tools::toHTML(x[[1]], ...)
 }
 
-#' @method .toHTML code_chunk
-#' @keywords internal
-.toHTML.chunk_output <- function(x, ...) {
-  tools::toHTML(x[[1]])
-}
-
-
 #' @method .toHTML summary.lm
 #' @keywords internal
 .toHTML.summary.lm <- function(x, ...) {
@@ -143,5 +142,5 @@ toHTML.default <- function(x, ...) {
 #' @method .toHTML gtsummary
 #' @keywords internal
 .toHTML.gtsummary <- function(x, ...) {
-  flextable::htmltools_value(gtsummary::as_flex_table(x))
+  tools::toHTML(gtsummary::as_flex_table(x))
 }

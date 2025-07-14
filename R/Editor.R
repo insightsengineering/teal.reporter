@@ -75,7 +75,7 @@ srv_editor_block.default <- function(id, value) {
       ),
       "Non-editable block"
     ),
-    toHTML(value)
+    tools::toHTML(value)
   )
 }
 
