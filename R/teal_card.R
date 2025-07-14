@@ -348,7 +348,7 @@ code_chunk <- function(code, ..., lang = "R") {
   if (requireNamespace("ragg", quietly = TRUE) && exists("agg_record", getNamespace("ragg"))) {
     ragg::agg_record()
   } else {
-    pdf(file = NULL)
+    grDevices::pdf(file = NULL)
   }
   grDevices::dev.control(displaylist = "enable")
   dev <- grDevices::dev.cur()
