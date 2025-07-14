@@ -31,6 +31,7 @@ Imports:
     knitr (>= 1.42),
     methods,
     R6,
+    ragg (>= 1.4.0),
     rlang (>= 1.0.0),
     rlistings (>= 0.2.10),
     rmarkdown (>= 2.23),
@@ -69,7 +70,7 @@ Remotes:
     insightsengineering/teal.data@main
 Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate,
     davidgohel/flextable, yihui/knitr, r-lib/lifecycle,
-    r-lib/R6, r-lib/rlang, insightsengineering/rlistings, rstudio/rmarkdown,
+    r-lib/R6, r-lib/ragg, r-lib/rlang, insightsengineering/rlistings, rstudio/rmarkdown,
     insightsengineering/rtables, insightsengineering/rtables.officer,
     rstudio/shiny, dreamRs/shinybusy, daattali/shinyjs, dreamRs/shinyWidgets,
     rstudio/sortable, insightsengineering/teal.code, insightsengineering/teal.data,

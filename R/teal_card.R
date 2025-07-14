@@ -336,9 +336,23 @@ code_chunk <- function(code, ..., lang = "R") {
   if (inherits(x, "chunk_output")) {
     structure(list(.convert_teal_card_input(x[[1]])), class = c("chunk_output"))
   } else  if (inherits(x, "ggplot")) {
-    code <- deparse1(quote(print(x)))
-    evaluate::evaluate(code)[[2]]
+    .ggplot_to_recordedplot(x)
   } else {
     x
   }
+}
+
+#' @noRd
+.ggplot_to_recordedplot <- function(x) {
+  checkmate::assert_class(x, "ggplot")
+  if (requireNamespace("ragg", quietly = TRUE) && exists("agg_record", getNamespace("ragg"))) {
+    ragg::agg_record()
+  } else {
+    pdf(file = NULL)
+  }
+  grDevices::dev.control(displaylist = "enable")
+  dev <- grDevices::dev.cur()
+  on.exit(grDevices::dev.off(dev))
+  print(x)
+  grDevices::recordPlot()
 }
