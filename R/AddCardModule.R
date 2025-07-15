@@ -67,13 +67,14 @@ add_card_button_ui <- function(id) {
         )
       )
     ),
-    shiny::actionButton(
-      ns("add_report_card_button"),
-      title = "Add Card",
-      class = "teal-reporter simple_report_button btn-primary",
-      `data-val` = shiny::restoreInput(id = ns("add_report_card_button"), default = NULL),
-      shiny::tags$span(
-        shiny::icon("plus")
+    tags$div(
+      style = "margin: 10px;",
+      .outline_button(
+        ns("add_report_card_button"),
+        label = shiny::tags$span(
+          shiny::icon("plus"),
+          "Add Card to Report"
+        )
       )
     )
   )
@@ -97,7 +98,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
 
     add_modal <- function() {
       shiny::div(
-        class = "teal-widgets reporter-modal",
+        class = "teal-reporter reporter-modal",
         shiny::modalDialog(
           easyClose = TRUE,
           shiny::tags$h3("Add a Card to the Report"),

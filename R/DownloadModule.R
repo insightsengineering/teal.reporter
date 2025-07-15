@@ -23,15 +23,17 @@ NULL
 #' @export
 download_report_button_ui <- function(id) {
   ns <- shiny::NS(id)
-  shiny::tagList(
+  tagList(
+    shinyjs::useShinyjs(),
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
-    shiny::actionButton(
-      ns("download_button"),
-      class = "btn-primary",
-      label = "Download Report",
-      icon = shiny::icon("download")
+    shinyjs::disabled(
+      .outline_button(
+        ns("download_button"),
+        label = "Download Report",
+        icon = "download"
+      )
     )
   )
 }
@@ -77,7 +79,7 @@ download_report_button_srv <- function(id,
       nr_cards <- length(reporter$get_cards())
       downb <- shiny::tags$button(
         id = ns("download_data"),
-        class = paste("btn btn-primary shiny-download-link", if (nr_cards > 0) "" else "disabled"),
+        class = paste("btn btn-outline-primary shiny-download-link", if (nr_cards > 0) "" else "disabled"),
         style = if (nr_cards) NULL else "pointer-events: none;",
         href = "",
         target = "_blank",
@@ -86,7 +88,7 @@ download_report_button_srv <- function(id,
         "Download"
       )
       shiny::tags$div(
-        class = "teal-widgets reporter-modal",
+        class = "teal-reporter reporter-modal",
         shiny::modalDialog(
           easyClose = TRUE,
           shiny::tags$h3("Download the Report"),
@@ -117,7 +119,7 @@ download_report_button_srv <- function(id,
           footer = shiny::tagList(
             shiny::tags$button(
               type = "button",
-              class = "btn btn-secondary",
+              class = "btn btn-outline-secondary",
               `data-dismiss` = "modal",
               `data-bs-dismiss` = "modal",
               NULL,
@@ -131,6 +133,14 @@ download_report_button_srv <- function(id,
 
     shiny::observeEvent(input$download_button, {
       shiny::showModal(download_modal())
+    })
+
+    observeEvent(reporter$get_reactive_add_card(), {
+      if (reporter$get_reactive_add_card() > 0) {
+        shinyjs::enable(id = "download_button")
+      } else {
+        shinyjs::disable(id = "download_button")
+      }
     })
 
     output$download_data <- shiny::downloadHandler(

@@ -31,21 +31,12 @@ NULL
 reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
 
-  shiny::fluidRow(
+  bslib::page_fluid(
     add_previewer_js(ns),
     add_previewer_css(),
-    shiny::tagList(
-      shiny::tags$div(
-        class = "col-md-3",
-        shiny::tags$div(class = "well", shiny::uiOutput(ns("encoding")))
-      ),
-      shiny::tags$div(
-        class = "col-md-9",
-        shiny::tags$div(
-          id = "reporter_previewer",
-          shiny::uiOutput(ns("pcards"))
-        )
-      )
+    shiny::tags$div(
+      id = "reporter_previewer",
+      shiny::uiOutput(ns("pcards"))
     )
   )
 }
@@ -103,50 +94,6 @@ reporter_previewer_srv <- function(id,
     })
 
     ns <- session$ns
-
-    reset_report_button_srv("resetButtonPreviewer", reporter)
-
-    output$encoding <- shiny::renderUI({
-      reporter$get_reactive_add_card()
-      nr_cards <- length(reporter$get_cards())
-
-      previewer_buttons_list <- list(
-        download = htmltools::tagAppendAttributes(
-          shiny::actionButton(
-            ns("download_data_prev"),
-            class = "teal-reporter simple_report_button",
-            shiny::tags$span("Download Report", shiny::icon("download"))
-          ),
-          class = if (nr_cards) "" else "disabled"
-        ),
-        load = shiny::actionButton(
-          ns("load_reporter_previewer"),
-          class = "teal-reporter simple_report_button",
-          `data-val` = shiny::restoreInput(id = ns("load_reporter_previewer"), default = NULL),
-          shiny::tags$span(
-            "Load Report", shiny::icon("upload")
-          )
-        ),
-        reset = reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
-      )
-
-      shiny::tags$div(
-        id = "previewer_reporter_encoding",
-        shiny::tags$h3("Download the Report"),
-        shiny::tags$hr(),
-        reporter_download_inputs(
-          rmd_yaml_args = rmd_yaml_args,
-          rmd_output = rmd_output,
-          showrcode = any_rcode_block(reporter),
-          session = session
-        ),
-        shiny::tags$div(
-          id = "previewer_reporter_buttons",
-          class = "previewer_buttons_line",
-          lapply(previewer_buttons_list[previewer_buttons], shiny::tags$div)
-        )
-      )
-    })
 
     output$pcards <- shiny::renderUI({
       reporter$get_reactive_add_card()

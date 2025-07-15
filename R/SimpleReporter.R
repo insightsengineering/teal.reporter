@@ -38,19 +38,7 @@ NULL
 #' @export
 simple_reporter_ui <- function(id) {
   ns <- shiny::NS(id)
-  shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-    ),
-    shiny::tags$div(
-      class = "block mb-4 p-1",
-      shiny::tags$label(class = "text-primary block -ml-1", shiny::tags$strong("Reporter")),
-      shiny::tags$div(
-        class = "simple_reporter_container",
-        add_card_button_ui(ns("add_report_card_simple"))
-      )
-    )
-  )
+  add_card_button_ui(ns("add_report_card_simple"))
 }
 
 #' @rdname simple_reporter

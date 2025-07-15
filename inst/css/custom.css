@@ -82,14 +82,49 @@
 }
 
 .teal-reporter.simple_report_button.disabled {
-  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
 }
 
-.teal-widgets.reporter-modal .modal-body,
+.teal-reporter.reporter-modal .modal-body,
 .modal-footer {
   padding: 1rem;
 }
 
-.teal-widgets.reporter-modal .modal-footer {
+.teal-reporter.reporter-modal .modal-footer {
   padding-top: 0;
+}
+
+.teal-reporter.primary-button {
+  color: var(--bs-primary);
+  border: solid 1px var(--bs-primary);
+  padding: 0.3em;
+  border-radius: 5px;
+}
+
+.teal-reporter.primary-button:hover {
+  background: var(--bs-primary-bg-subtle);
+}
+
+.teal-reporter.primary-button.disabled {
+  color: var(--bs-primary);
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+.teal-reporter.warning-button {
+  color: var(--bs-warning);
+  border: solid 1px var(--bs-warning);
+  padding: 0.3em;
+  border-radius: 5px;
+}
+
+.teal-reporter.warning-button.disabled {
+  color: var(--bs-warning);
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+.teal-reporter.warning-button:hover {
+  background: var(--bs-warning-bg-subtle);
 }
