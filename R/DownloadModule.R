@@ -120,7 +120,6 @@ download_report_button_srv <- function(id,
             shiny::tags$button(
               type = "button",
               class = "btn btn-outline-secondary",
-              `data-dismiss` = "modal",
               `data-bs-dismiss` = "modal",
               NULL,
               "Cancel"

@@ -137,7 +137,6 @@ reporter_previewer_srv <- function(id,
             shiny::tags$button(
               type = "button",
               class = "btn btn-danger",
-              `data-dismiss` = "modal",
               `data-bs-dismiss` = "modal",
               NULL,
               "Cancel"
@@ -146,7 +145,6 @@ reporter_previewer_srv <- function(id,
               id = ns("load_reporter"),
               type = "button",
               class = "btn btn-primary action-button",
-              `data-val` = shiny::restoreInput(id = ns("load_reporter"), default = NULL),
               NULL,
               "Load"
             )
@@ -180,7 +178,6 @@ reporter_previewer_srv <- function(id,
             shiny::tags$button(
               type = "button",
               class = "btn btn-secondary",
-              `data-dismiss` = "modal",
               `data-bs-dismiss` = "modal",
               NULL,
               "Cancel"

@@ -133,7 +133,6 @@ add_card_button_srv <- function(id, reporter, card_fun) {
             shiny::tags$button(
               type = "button",
               class = "btn btn-outline-secondary",
-              `data-dismiss` = "modal",
               `data-bs-dismiss` = "modal",
               NULL,
               "Cancel"
@@ -142,7 +141,6 @@ add_card_button_srv <- function(id, reporter, card_fun) {
               id = ns("add_card_ok"),
               type = "button",
               class = "btn btn-outline-primary action-button",
-              `data-val` = shiny::restoreInput(id = ns("add_card_ok"), default = NULL),
               NULL,
               "Add Card"
             )

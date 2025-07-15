@@ -56,7 +56,6 @@ report_load_srv <- function(id, reporter) {
               shiny::tags$button(
                 type = "button",
                 class = "btn btn-outline-secondary",
-                `data-dismiss` = "modal",
                 `data-bs-dismiss` = "modal",
                 NULL,
                 "Cancel"
