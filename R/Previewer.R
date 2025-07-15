@@ -111,21 +111,12 @@ reporter_previewer_srv <- function(id,
       nr_cards <- length(reporter$get_cards())
 
       previewer_buttons_list <- list(
-        download = htmltools::tagAppendAttributes(
-          shiny::actionButton(
-            ns("download_data_prev"),
-            class = "teal-reporter simple_report_button",
-            shiny::tags$span("Download Report", shiny::icon("download"))
-          ),
-          class = if (nr_cards) "" else "disabled"
-        ),
+        download = download_report_button_ui(ns("download"), label = "Download Report"),
         load = shiny::actionButton(
           ns("load_reporter_previewer"),
           class = "teal-reporter simple_report_button",
           `data-val` = shiny::restoreInput(id = ns("load_reporter_previewer"), default = NULL),
-          shiny::tags$span(
-            "Load Report", shiny::icon("upload")
-          )
+          shiny::tags$span("Load Report", shiny::icon("upload"))
         ),
         reset = reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
       )
@@ -267,25 +258,12 @@ reporter_previewer_srv <- function(id,
       }
     })
 
-    output$download_data_prev <- shiny::downloadHandler(
-      filename = function() {
-        paste0(
-          "report_",
-          if (reporter$get_id() == "") NULL else paste0(reporter$get_id(), "_"),
-          format(Sys.time(), "%y%m%d%H%M%S"),
-          ".zip"
-        )
-      },
-      content = function(file) {
-        shiny::showNotification("Rendering and Downloading the document.")
-        shinybusy::block(id = ns("download_data_prev"), text = "", type = "dots")
-        input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
-        names(input_list) <- names(rmd_yaml_args)
-        if (is.logical(input$showrcode)) global_knitr[["echo"]] <- input$showrcode
-        report_render_and_compress(reporter, input_list, global_knitr, file)
-        shinybusy::unblock(id = ns("download_data_prev"))
-      },
-      contentType = "application/zip"
+    download_report_button_srv(
+      "download",
+      reporter = reporter,
+      global_knitr = global_knitr,
+      rmd_output = rmd_output,
+      rmd_yaml_args = rmd_yaml_args
     )
   })
 }

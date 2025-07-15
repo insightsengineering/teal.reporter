@@ -11,6 +11,8 @@
 #' @name download_report_button
 #'
 #' @param id (`character(1)`) this `shiny` module's id.
+#' @param label (`character(1)`) label before the icon.
+#' By default `NULL`.
 #' @param reporter (`Reporter`) instance.
 #' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
 #'  for customizing the rendering process.
@@ -21,7 +23,8 @@ NULL
 
 #' @rdname download_report_button
 #' @export
-download_report_button_ui <- function(id) {
+download_report_button_ui <- function(id, label = NULL) {
+  checkmate::assert_string(label, null.ok = TRUE)
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::singleton(
@@ -32,9 +35,7 @@ download_report_button_ui <- function(id) {
       class = "teal-reporter simple_report_button btn-primary",
       title = "Download",
       `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
-      shiny::tags$span(
-        shiny::icon("download")
-      )
+      shiny::tags$span(label, shiny::icon("download"))
     )
   )
 }
