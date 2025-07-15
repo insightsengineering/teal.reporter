@@ -79,8 +79,7 @@ reporter_previewer_srv <- function(id,
 
   shiny::moduleServer(id, function(input, output, session) {
     shiny::setBookmarkExclude(c(
-      "card_remove_id", "card_down_id", "card_up_id", "remove_card_ok", "showrcode", "download_data_prev",
-      "load_reporter_previewer", "load_reporter"
+      "card_remove_id", "card_down_id", "card_up_id", "remove_card_ok", "showrcode"
     ))
 
     session$onBookmark(function(state) {
@@ -120,46 +119,6 @@ reporter_previewer_srv <- function(id,
           )
         )
       }
-    })
-
-    shiny::observeEvent(input$load_reporter_previewer, {
-      nr_cards <- length(reporter$get_cards())
-      shiny::showModal(
-        shiny::modalDialog(
-          easyClose = TRUE,
-          shiny::tags$h3("Load the Reporter"),
-          shiny::tags$hr(),
-          shiny::fileInput(ns("archiver_zip"), "Choose Reporter File to Load (a zip file)",
-            multiple = FALSE,
-            accept = c(".zip")
-          ),
-          footer = shiny::div(
-            shiny::tags$button(
-              type = "button",
-              class = "btn btn-danger",
-              `data-bs-dismiss` = "modal",
-              NULL,
-              "Cancel"
-            ),
-            shiny::tags$button(
-              id = ns("load_reporter"),
-              type = "button",
-              class = "btn btn-primary action-button",
-              NULL,
-              "Load"
-            )
-          )
-        )
-      )
-    })
-
-    shiny::observeEvent(input$load_reporter, {
-      switch("JSON",
-        JSON = load_json_report(reporter, input$archiver_zip[["datapath"]], input$archiver_zip[["name"]]),
-        stop("The provided Reporter file format is not supported")
-      )
-
-      shiny::removeModal()
     })
 
     shiny::observeEvent(input$card_remove_id, {
@@ -210,27 +169,6 @@ reporter_previewer_srv <- function(id,
         )
       }
     })
-
-    output$download_data_prev <- shiny::downloadHandler(
-      filename = function() {
-        paste0(
-          "report_",
-          if (reporter$get_id() == "") NULL else paste0(reporter$get_id(), "_"),
-          format(Sys.time(), "%y%m%d%H%M%S"),
-          ".zip"
-        )
-      },
-      content = function(file) {
-        shiny::showNotification("Rendering and Downloading the document.")
-        shinybusy::block(id = ns("download_data_prev"), text = "", type = "dots")
-        input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
-        names(input_list) <- names(rmd_yaml_args)
-        if (is.logical(input$showrcode)) global_knitr[["echo"]] <- input$showrcode
-        report_render_and_compress(reporter, input_list, global_knitr, file)
-        shinybusy::unblock(id = ns("download_data_prev"))
-      },
-      contentType = "application/zip"
-    )
   })
 }
 
