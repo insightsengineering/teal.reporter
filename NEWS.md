@@ -7,6 +7,7 @@
 * Reports can now be reloaded. A zip file containing the report can be uploaded to restore the state of the Previewer.
 * Report cards are now included in bookmarks. When using the `shiny` bookmarking mechanism, existing report cards will be available in the restored application.
 * HTML content can now be added to the report.
+* The UI for the created by the `download_report_button_ui`, `report_load_ui`, and `simple_reporter_ui` have been changed to reduce the user interaction to perform the same task.
 
 # teal.reporter 0.3.1
 
