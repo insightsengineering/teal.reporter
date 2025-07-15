@@ -31,7 +31,6 @@ download_report_button_ui <- function(id) {
       ns("download_button"),
       class = "btn-primary",
       label = "Download Report",
-      `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
       icon = shiny::icon("download")
     )
   )

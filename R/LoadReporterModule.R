@@ -13,12 +13,6 @@ report_load_ui <- function(id) {
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
-    # shiny::actionButton(
-    #   ns("reporter_load"),
-    #   class = "teal-reporter simple_report_button btn-primary",
-    #   label = "Load Report",
-    #   icon = shiny::icon("upload")
-    # )
     shiny::fileInput(
       ns("archiver_zip"), "Choose file (.zip)",
       multiple = FALSE,
