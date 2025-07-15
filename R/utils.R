@@ -220,7 +220,7 @@ global_knitr_details <- function() {
 .outline_button <- function(id, label, icon = NULL, class = "primary") {
   tags$a(
     id = id,
-    class = sprintf("teal-reporter action-button %s-button", class),
+    class = sprintf("teal-reporter action-button outline-button %s", class),
     role = "button",
     style = "text-decoration: none;",
     if (!is.null(icon)) {
