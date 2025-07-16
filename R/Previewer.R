@@ -37,7 +37,7 @@ preview_report_button_ui <- function(id, label = NULL) {
     shinyjs::disabled(
       .outline_button(
         ns("preview_button"),
-        label = "Preview",
+        label = uiOutput(ns("preview_button_label")),
         icon = "file-earmark-text"
       )
     )
@@ -58,6 +58,17 @@ preview_report_button_srv <- function(id, reporter) {
       } else {
         shinyjs::disable(id = "preview_button")
       }
+    })
+
+    output$preview_button_label <- renderUI({
+      tags$span(
+        "Preview",
+        tags$span(
+          class = "position-absolute badge rounded-pill bg-primary",
+          style = "top: 5px; right: 5px;",
+          reporter$get_reactive_add_card()
+        )
+      )
     })
 
     preview_modal <- function() {

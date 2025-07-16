@@ -68,14 +68,6 @@ download_report_button_srv <- function(id,
 
     ns <- session$ns
 
-    observeEvent(reporter$get_reactive_add_card(), {
-      if (reporter$get_reactive_add_card() > 0) {
-        shinyjs::enable(id = "download_button")
-      } else {
-        shinyjs::disable(id = "download_button")
-      }
-    })
-
     download_modal <- function() {
       nr_cards <- length(reporter$get_cards())
       downb <- shiny::tags$button(
