@@ -35,12 +35,10 @@ preview_report_button_ui <- function(id, label = NULL) {
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
     shinyjs::disabled(
-      shiny::actionButton(
+      .outline_button(
         ns("preview_button"),
-        class = "teal-reporter simple_report_button btn-primary",
-        title = "Preview",
-        `data-val` = shiny::restoreInput(id = ns("preview_button"), default = NULL),
-        shiny::tags$span(label, shiny::icon("eye"))
+        label = "Preview",
+        icon = "file-earmark-text"
       )
     )
   )
