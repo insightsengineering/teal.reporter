@@ -2,10 +2,16 @@
 % Please edit documentation in R/Previewer.R
 \name{reporter_previewer}
 \alias{reporter_previewer}
+\alias{preview_report_button_ui}
+\alias{preview_report_button_srv}
 \alias{reporter_previewer_ui}
 \alias{reporter_previewer_srv}
 \title{Report previewer module}
 \usage{
+preview_report_button_ui(id, label = NULL)
+
+preview_report_button_srv(id, reporter)
+
 reporter_previewer_ui(id)
 
 reporter_previewer_srv(

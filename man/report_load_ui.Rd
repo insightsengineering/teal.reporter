@@ -4,7 +4,7 @@
 \alias{report_load_ui}
 \title{User Interface to Load \code{Reporter}}
 \usage{
-report_load_ui(id)
+report_load_ui(id, label = NULL)
 }
 \arguments{
 \item{id}{\code{character(1)} this \code{shiny} module's id.}

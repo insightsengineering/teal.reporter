@@ -25,14 +25,13 @@ reset_report_button_ui <- function(id, label = NULL) {
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
-    shiny::actionButton(
-      ns("reset_reporter"),
-      class = "teal-reporter simple_report_button clear-report btn-warning",
-      title = "Reset",
-      `data-val` = shiny::restoreInput(id = ns("reset_reporter"), default = NULL),
-      shiny::tags$span(
-        if (!is.null(label)) label,
-        shiny::icon("xmark")
+    shinyjs::disabled(
+      shiny::actionButton(
+        ns("reset_reporter"),
+        class = "teal-reporter simple_report_button clear-report btn-warning",
+        title = "Reset",
+        `data-val` = shiny::restoreInput(id = ns("reset_reporter"), default = NULL),
+        shiny::tags$span(label, shiny::icon("xmark"))
       )
     )
   )
@@ -49,6 +48,11 @@ reset_report_button_srv <- function(id, reporter) {
     ns <- session$ns
     nr_cards <- length(reporter$get_cards())
 
+    observeEvent(reporter$get_reactive_add_card(), {
+      shinyjs::toggleClass(
+        id = "reset_reporter", condition = reporter$get_reactive_add_card() == 0, class = "disabled"
+      )
+    })
 
     shiny::observeEvent(input$reset_reporter, {
       shiny::tags$div(

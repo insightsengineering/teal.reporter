@@ -1,14 +1,25 @@
 .onLoad <- function(libname, pkgname) {
   op <- options()
-  default_global_knitr <- list(teal.reporter.global_knitr = list(
-    echo = TRUE,
-    tidy.opts = list(width.cutoff = 60),
-    tidy = requireNamespace("formatR", quietly = TRUE)
-  ))
+  teal_reporter_default_options <- list(
+    teal.reporter.global_knitr = list(
+      echo = TRUE,
+      tidy.opts = list(width.cutoff = 60),
+      tidy = requireNamespace("formatR", quietly = TRUE)
+    ),
+    teal.reporter.rmd_output = c(
+      "html" = "html_document", "pdf" = "pdf_document",
+      "powerpoint" = "powerpoint_presentation",
+      "word" = "word_document"
+    ),
+    teal.reporter.rmd_yaml_args = list(
+      author = "NEST", title = "Report",
+      date = as.character(Sys.Date()), output = "html_document",
+      toc = FALSE
+    )
+  )
 
-  if (!("teal.reporter.global_knitr" %in% names(op))) {
-    options(default_global_knitr)
-  }
+  toset <- !(names(teal_reporter_default_options) %in% names(op))
+  if (any(toset)) options(teal_reporter_default_options[toset])
 
   invisible()
 }

@@ -21,19 +21,19 @@ NULL
 
 #' @rdname download_report_button
 #' @export
-download_report_button_ui <- function(id) {
+download_report_button_ui <- function(id, label = NULL) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
-    shiny::actionButton(
-      ns("download_button"),
-      class = "teal-reporter simple_report_button btn-primary",
-      title = "Download",
-      `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
-      shiny::tags$span(
-        shiny::icon("download")
+    shinyjs::disabled(
+      shiny::actionButton(
+        ns("download_button"),
+        class = "teal-reporter simple_report_button btn-primary",
+        title = "Download",
+        `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
+        shiny::tags$span(label, shiny::icon("download"))
       )
     )
   )
@@ -44,15 +44,8 @@ download_report_button_ui <- function(id) {
 download_report_button_srv <- function(id,
                                        reporter,
                                        global_knitr = getOption("teal.reporter.global_knitr"),
-                                       rmd_output = c(
-                                         "html" = "html_document", "pdf" = "pdf_document",
-                                         "powerpoint" = "powerpoint_presentation", "word" = "word_document"
-                                       ),
-                                       rmd_yaml_args = list(
-                                         author = "NEST", title = "Report",
-                                         date = as.character(Sys.Date()), output = "html_document",
-                                         toc = FALSE
-                                       )) {
+                                       rmd_output = getOption("teal.reporter.rmd_output"),
+                                       rmd_yaml_args = getOption("teal.reporter.rmd_yaml_args")) {
   checkmate::assert_class(reporter, "Reporter")
   checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
   checkmate::assert_subset(
@@ -75,6 +68,14 @@ download_report_button_srv <- function(id,
     shiny::setBookmarkExclude(c("download_button"))
 
     ns <- session$ns
+
+    observeEvent(reporter$get_reactive_add_card(), {
+      if (reporter$get_reactive_add_card() > 0) {
+        shinyjs::enable(id = "download_button")
+      } else {
+        shinyjs::disable(id = "download_button")
+      }
+    })
 
     download_modal <- function() {
       nr_cards <- length(reporter$get_cards())
