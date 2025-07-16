@@ -26,12 +26,11 @@ reset_report_button_ui <- function(id, label = NULL) {
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
     shinyjs::disabled(
-      shiny::actionButton(
+      .outline_button(
         ns("reset_reporter"),
-        class = "teal-reporter simple_report_button clear-report btn-warning",
-        title = "Reset",
-        `data-val` = shiny::restoreInput(id = ns("reset_reporter"), default = NULL),
-        shiny::tags$span(label, shiny::icon("xmark"))
+        label = "Reset Report",
+        icon = "x",
+        class = "warning"
       )
     )
   )
@@ -56,7 +55,7 @@ reset_report_button_srv <- function(id, reporter) {
 
     shiny::observeEvent(input$reset_reporter, {
       shiny::tags$div(
-        class = "teal-widgets reporter-modal",
+        class = "teal-reporter reporter-modal",
         shiny::showModal(
           shiny::modalDialog(
             shiny::tags$h3("Reset the Report"),
@@ -69,17 +68,24 @@ reset_report_button_srv <- function(id, reporter) {
             footer = shiny::tagList(
               shiny::tags$button(
                 type = "button",
-                class = "btn btn-secondary",
-                `data-dismiss` = "modal",
+                class = "btn btn-outline-secondary",
                 `data-bs-dismiss` = "modal",
                 NULL,
                 "Cancel"
               ),
-              shiny::actionButton(ns("reset_reporter_ok"), "Reset", class = "btn-danger")
+              shiny::actionButton(ns("reset_reporter_ok"), "Reset", class = "btn btn-outline-primary")
             )
           )
         )
       )
+    })
+
+    observeEvent(reporter$get_reactive_add_card(), {
+      if (reporter$get_reactive_add_card() > 0) {
+        shinyjs::enable(id = "reset_reporter")
+      } else {
+        shinyjs::disable(id = "reset_reporter")
+      }
     })
 
     shiny::observeEvent(input$reset_reporter_ok, {

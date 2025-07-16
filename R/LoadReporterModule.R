@@ -8,16 +8,14 @@
 #' @export
 report_load_ui <- function(id, label = NULL) {
   ns <- shiny::NS(id)
-
   shiny::tagList(
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
-    shiny::actionButton(
+    .outline_button(
       ns("reporter_load"),
-      class = "teal-reporter simple_report_button btn-primary",
-      title = "Load",
-      shiny::tags$span(label, shiny::icon("upload"))
+      label = "Load",
+      icon = "upload"
     )
   )
 }
@@ -45,7 +43,7 @@ report_load_srv <- function(id, reporter) {
       archiver_modal <- function() {
         nr_cards <- length(reporter$get_cards())
         shiny::div(
-          class = "teal-widgets reporter-modal",
+          class = "teal-reporter reporter-modal",
           shiny::modalDialog(
             easyClose = TRUE,
             shiny::tags$h3("Load the Report"),
@@ -57,8 +55,7 @@ report_load_srv <- function(id, reporter) {
             footer = shiny::div(
               shiny::tags$button(
                 type = "button",
-                class = "btn btn-danger",
-                `data-dismiss` = "modal",
+                class = "btn btn-outline-secondary",
                 `data-bs-dismiss` = "modal",
                 NULL,
                 "Cancel"
@@ -66,7 +63,7 @@ report_load_srv <- function(id, reporter) {
               shiny::tags$button(
                 id = ns("reporter_load_main"),
                 type = "button",
-                class = "btn btn-primary action-button",
+                class = "btn btn-outline-primary action-button",
                 NULL,
                 "Load"
               )

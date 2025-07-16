@@ -82,14 +82,47 @@
 }
 
 .teal-reporter.simple_report_button.disabled {
-  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
 }
 
-.teal-widgets.reporter-modal .modal-body,
+.teal-reporter.reporter-modal .modal-body,
 .modal-footer {
   padding: 1rem;
 }
 
-.teal-widgets.reporter-modal .modal-footer {
+.teal-reporter.reporter-modal .modal-footer {
   padding-top: 0;
+}
+
+.teal-reporter.outline-button {
+  color: var(--bs-primary);
+  border: solid 1px var(--bs-primary);
+  padding: 0.3em;
+  border-radius: 5px;
+}
+
+.teal-reporter.outline-button.disabled {
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+.teal-reporter.outline-button.primary,
+.teal-reporter.outline-button.primary.disabled {
+  color: var(--bs-primary);
+  border: solid 1px var(--bs-primary);
+}
+
+.teal-reporter.outline-button.primary:hover {
+  background: var(--bs-primary-bg-subtle);
+}
+
+.teal-reporter.outline-button.warning,
+.teal-reporter.outline-button.warning.disabled {
+  color: var(--bs-warning);
+  border: solid 1px var(--bs-warning);
+}
+
+.teal-reporter.outline-button.warning:hover {
+  background: var(--bs-warning-bg-subtle);
 }

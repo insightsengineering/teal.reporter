@@ -94,8 +94,9 @@ preview_report_button_srv <- function(id, reporter) {
 #' @export
 reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
+# lifecycle::deprecate_soft() todo:
   # lifecycle::deprecate_soft() todo:
-  shiny::fluidRow(
+  bslib::page_fluid(
     add_previewer_js(ns),
     add_previewer_css(),
     shiny::tagList(
@@ -150,8 +151,7 @@ reporter_previewer_srv <- function(id,
 
   shiny::moduleServer(id, function(input, output, session) {
     shiny::setBookmarkExclude(c(
-      "card_remove_id", "card_down_id", "card_up_id", "remove_card_ok", "showrcode", "download_data_prev",
-      "load_reporter_previewer", "load_reporter"
+      "card_remove_id", "card_down_id", "card_up_id", "remove_card_ok", "showrcode"
     ))
 
     session$onBookmark(function(state) {
@@ -327,7 +327,6 @@ reporter_previewer_srv2 <- function(id, reporter) {
             shiny::tags$button(
               type = "button",
               class = "btn btn-secondary",
-              `data-dismiss` = "modal",
               `data-bs-dismiss` = "modal",
               NULL,
               "Cancel"

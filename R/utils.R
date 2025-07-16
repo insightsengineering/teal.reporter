@@ -166,7 +166,7 @@ get_merge_index_single <- function(span) {
     }
     j <- j + span[j]
   }
-  return(ret)
+  ret
 }
 
 #' Divide text block into smaller blocks
@@ -212,5 +212,20 @@ global_knitr_details <- function() {
       " - `tidy = TRUE`  if `formatR` package is installed, `FALSE` otherwise"
     ),
     collapse = "\n"
+  )
+}
+
+
+#' @keywords internal
+.outline_button <- function(id, label, icon = NULL, class = "primary") {
+  tags$a(
+    id = id,
+    class = sprintf("teal-reporter action-button outline-button %s", class),
+    role = "button",
+    style = "text-decoration: none;",
+    if (!is.null(icon)) {
+      bsicons::bs_icon(icon, class = sprintf("text-%s", class))
+    },
+    label
   )
 }

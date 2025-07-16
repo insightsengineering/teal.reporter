@@ -168,6 +168,6 @@ testthat::test_that("reporter_previewer_srv - card up", {
 
 testthat::test_that("reporter_previewer_ui - returns a tagList", {
   testthat::expect_true(
-    inherits(reporter_previewer_ui("sth"), c("shiny.tag"))
+    inherits(reporter_previewer_ui("sth"), c("shiny.tag.list"))
   )
 })
