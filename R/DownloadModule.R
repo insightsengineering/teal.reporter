@@ -70,15 +70,11 @@ download_report_button_srv <- function(id,
 
     download_modal <- function() {
       nr_cards <- length(reporter$get_cards())
-      downb <- shiny::tags$button(
-        id = ns("download_data"),
-        class = paste("btn btn-outline-primary shiny-download-link", if (nr_cards > 0) "" else "disabled"),
-        style = if (nr_cards) NULL else "pointer-events: none;",
-        href = "",
-        target = "_blank",
-        download = NA,
-        shiny::icon("download"),
-        "Download"
+      downb <- shiny::downloadButton(
+        outputId = ns("download_data"),
+        label = "Download",
+        class = c("btn", "btn-outline-primary", "shiny-download-link", if (nr_cards == 0) "disabled"),
+        icon = shiny::icon("download")
       )
       shiny::tags$div(
         class = "teal-reporter reporter-modal",
