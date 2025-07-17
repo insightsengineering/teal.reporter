@@ -103,7 +103,7 @@ preview_report_button_srv <- function(id, reporter) {
 #' @export
 reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
-# lifecycle::deprecate_soft() todo:
+  # lifecycle::deprecate_soft() todo:
   # lifecycle::deprecate_soft() todo:
   bslib::page_fluid(
     add_previewer_js(ns),
