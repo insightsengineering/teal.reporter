@@ -77,7 +77,7 @@ preview_report_button_srv <- function(id, reporter) {
         shiny::modalDialog(
           easyClose = TRUE,
           size = "xl",
-          reporter_previewer_ui2(session$ns("preview_content")),
+          reporter_previewer_only_ui(session$ns("preview_content")),
           footer = shiny::tagList(
             shiny::tags$button(
               type = "button",
@@ -95,7 +95,7 @@ preview_report_button_srv <- function(id, reporter) {
     shiny::observeEvent(input$preview_button, {
       shiny::showModal(preview_modal())
     })
-    reporter_previewer_srv2(id = "preview_content", reporter = reporter) # todo: change the name but keep private
+    reporter_previewer_only_srv(id = "preview_content", reporter = reporter) # todo: change the name but keep private
   })
 }
 
@@ -111,11 +111,16 @@ reporter_previewer_ui <- function(id) {
     shiny::tagList(
       shiny::tags$div(
         class = "col-md-3",
-        shiny::tags$div(class = "well", shiny::uiOutput(ns("encoding")))
+        shiny::tags$div(
+          class = "well",
+          report_load_ui(ns("load")),
+          download_report_button_ui(ns("download")),
+          reset_report_button_ui(ns("reset"))
+        )
       ),
       shiny::tags$div(
         class = "col-md-9",
-        reporter_previewer_ui2(ns("previewer"))
+        reporter_previewer_only_ui(ns("previewer"))
       )
     )
   )
@@ -126,16 +131,8 @@ reporter_previewer_ui <- function(id) {
 reporter_previewer_srv <- function(id,
                                    reporter,
                                    global_knitr = getOption("teal.reporter.global_knitr"),
-                                   rmd_output = c(
-                                     "html" = "html_document", "pdf" = "pdf_document",
-                                     "powerpoint" = "powerpoint_presentation",
-                                     "word" = "word_document"
-                                   ),
-                                   rmd_yaml_args = list(
-                                     author = "NEST", title = "Report",
-                                     date = as.character(Sys.Date()), output = "html_document",
-                                     toc = FALSE
-                                   ),
+                                   rmd_output = getOption("teal.reporter.rmd_output"),
+                                   rmd_yaml_args = getOption("teal.reporter.rmd_yaml_args"),
                                    previewer_buttons = c("download", "load", "reset")) {
   # lifecycle::deprecate_soft() # todo:
   checkmate::assert_subset(previewer_buttons, c("download", "load", "reset"), empty.ok = FALSE)
@@ -144,10 +141,7 @@ reporter_previewer_srv <- function(id,
   checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
   checkmate::assert_subset(
     rmd_output,
-    c(
-      "html_document", "pdf_document",
-      "powerpoint_presentation", "word_document"
-    ),
+    c("html_document", "pdf_document", "powerpoint_presentation", "word_document"),
     empty.ok = FALSE
   )
   checkmate::assert_list(rmd_yaml_args, names = "named")
@@ -159,146 +153,30 @@ reporter_previewer_srv <- function(id,
   checkmate::assert_true(rmd_yaml_args[["output"]] %in% rmd_output)
 
   shiny::moduleServer(id, function(input, output, session) {
-    shiny::setBookmarkExclude(c(
-      "card_remove_id", "card_down_id", "card_up_id", "remove_card_ok", "showrcode"
-    ))
-
-    session$onBookmark(function(state) {
-      reporterdir <- file.path(state$dir, "reporter")
-      dir.create(reporterdir)
-      reporter$to_jsondir(reporterdir)
-    })
-    session$onRestored(function(state) {
-      reporterdir <- file.path(state$dir, "reporter")
-      reporter$from_jsondir(reporterdir)
-    })
-
-    ns <- session$ns
-
-    reset_report_button_srv("resetButtonPreviewer", reporter)
-
-    output$encoding <- shiny::renderUI({
-      reporter$get_reactive_add_card()
-      nr_cards <- length(reporter$get_cards())
-
-      previewer_buttons_list <- list(
-        download = htmltools::tagAppendAttributes(
-          shiny::actionButton(
-            ns("download_data_prev"),
-            class = "teal-reporter simple_report_button",
-            shiny::tags$span("Download Report", shiny::icon("download"))
-          ),
-          class = if (nr_cards) "" else "disabled"
-        ),
-        load = shiny::actionButton(
-          ns("load_reporter_previewer"),
-          class = "teal-reporter simple_report_button",
-          `data-val` = shiny::restoreInput(id = ns("load_reporter_previewer"), default = NULL),
-          shiny::tags$span(
-            "Load Report", shiny::icon("upload")
-          )
-        ),
-        reset = reset_report_button_ui(ns("resetButtonPreviewer"), label = "Reset Report")
-      )
-
-      shiny::tags$div(
-        id = "previewer_reporter_encoding",
-        shiny::tags$h3("Download the Report"),
-        shiny::tags$hr(),
-        reporter_download_inputs(
-          rmd_yaml_args = rmd_yaml_args,
-          rmd_output = rmd_output,
-          showrcode = any_rcode_block(reporter),
-          session = session
-        ),
-        shiny::tags$div(
-          id = "previewer_reporter_buttons",
-          class = "previewer_buttons_line",
-          lapply(previewer_buttons_list[previewer_buttons], shiny::tags$div)
-        )
-      )
-    })
-
-    reporter_previewer_srv2("previewer", reporter)
-
-    shiny::observeEvent(input$load_reporter_previewer, {
-      nr_cards <- length(reporter$get_cards())
-      shiny::showModal(
-        shiny::modalDialog(
-          easyClose = TRUE,
-          shiny::tags$h3("Load the Reporter"),
-          shiny::tags$hr(),
-          shiny::fileInput(ns("archiver_zip"), "Choose Reporter File to Load (a zip file)",
-            multiple = FALSE,
-            accept = c(".zip")
-          ),
-          footer = shiny::div(
-            shiny::tags$button(
-              type = "button",
-              class = "btn btn-danger",
-              `data-dismiss` = "modal",
-              `data-bs-dismiss` = "modal",
-              NULL,
-              "Cancel"
-            ),
-            shiny::tags$button(
-              id = ns("load_reporter"),
-              type = "button",
-              class = "btn btn-primary action-button",
-              `data-val` = shiny::restoreInput(id = ns("load_reporter"), default = NULL),
-              NULL,
-              "Load"
-            )
-          )
-        )
-      )
-    })
-
-    shiny::observeEvent(input$load_reporter, {
-      switch("JSON",
-        JSON = load_json_report(reporter, input$archiver_zip[["datapath"]], input$archiver_zip[["name"]]),
-        stop("The provided Reporter file format is not supported")
-      )
-
-      shiny::removeModal()
-    })
-
-    output$download_data_prev <- shiny::downloadHandler(
-      filename = function() {
-        paste0(
-          "report_",
-          if (reporter$get_id() == "") NULL else paste0(reporter$get_id(), "_"),
-          format(Sys.time(), "%y%m%d%H%M%S"),
-          ".zip"
-        )
-      },
-      content = function(file) {
-        shiny::showNotification("Rendering and Downloading the document.")
-        shinybusy::block(id = ns("download_data_prev"), text = "", type = "dots")
-        input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
-        names(input_list) <- names(rmd_yaml_args)
-        if (is.logical(input$showrcode)) global_knitr[["echo"]] <- input$showrcode
-        report_render_and_compress(reporter, input_list, global_knitr, file)
-        shinybusy::unblock(id = ns("download_data_prev"))
-      },
-      contentType = "application/zip"
+    # todo: utilize previewer_buttons to show/hide buttons
+    report_load_srv("load", reporter = reporter)
+    download_report_button_srv(
+      "download",
+      reporter = reporter,
+      global_knitr = global_knitr,
+      rmd_output = rmd_output,
+      rmd_yaml_args = rmd_yaml_args
     )
+    reset_report_button_srv("reset", reporter = reporter)
+    reporter_previewer_only_srv("previewer", reporter = reporter)
   })
 }
 
-reporter_previewer_ui2 <- function(id) {
+reporter_previewer_only_ui <- function(id) {
   shiny::uiOutput(shiny::NS(id, "pcards"))
 }
 
-reporter_previewer_srv2 <- function(id, reporter) {
+reporter_previewer_only_srv <- function(id, reporter) {
   moduleServer(id, function(input, output, session) {
-    shiny::setBookmarkExclude(c("card_up_id", "card_down_id", "card_remove_id", "remove_card_ok"))
+    shiny::setBookmarkExclude(c("card_remove_id", "card_down_id", "card_up_id", "remove_card_ok"))
+    # todo: buttons looks bad and don't work
     output$pcards <- shiny::renderUI({
       reporter$get_reactive_add_card()
-      input$card_remove_id
-      input$card_down_id
-      input$card_up_id
-
       cards <- reporter$get_cards()
 
       if (length(cards)) {
@@ -319,58 +197,8 @@ reporter_previewer_srv2 <- function(id, reporter) {
         )
       }
     })
-
-    shiny::observeEvent(input$card_remove_id, {
-      shiny::showModal(
-        shiny::modalDialog(
-          title = "Remove the Report Card",
-          shiny::tags$p(
-            shiny::HTML(
-              sprintf(
-                "Do you really want to remove <strong>the card %s</strong> from the Report?",
-                input$card_remove_id
-              )
-            )
-          ),
-          footer = shiny::tagList(
-            shiny::tags$button(
-              type = "button",
-              class = "btn btn-secondary",
-              `data-bs-dismiss` = "modal",
-              NULL,
-              "Cancel"
-            ),
-            shiny::actionButton(ns("remove_card_ok"), "OK", class = "btn-danger")
-          )
-        )
-      )
-    })
-
-    shiny::observeEvent(input$remove_card_ok, {
-      reporter$remove_cards(input$card_remove_id)
-      shiny::removeModal()
-    })
-
-    shiny::observeEvent(input$card_up_id, {
-      if (input$card_up_id > 1) {
-        reporter$swap_cards(
-          as.integer(input$card_up_id),
-          as.integer(input$card_up_id - 1)
-        )
-      }
-    })
-
-    shiny::observeEvent(input$card_down_id, {
-      if (input$card_down_id < length(reporter$get_cards())) {
-        reporter$swap_cards(
-          as.integer(input$card_down_id),
-          as.integer(input$card_down_id + 1)
-        )
-      }
-    })
   })
 }
-
 
 #' @noRd
 #' @keywords internal
@@ -402,6 +230,7 @@ block_to_html <- function(b) {
     stop("Unknown block class")
   }
 }
+
 
 #' @noRd
 #' @keywords internal

@@ -80,6 +80,7 @@ testthat::test_that("reporter_previewer_srv - subset of rmd_yaml_args", {
   }
 })
 
+
 reporter <- Reporter$new()
 reporter$append_cards(list(card1))
 testthat::test_that("reporter_previewer_srv - remove a card", {
