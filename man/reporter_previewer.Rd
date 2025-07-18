@@ -18,10 +18,8 @@ reporter_previewer_srv(
   id,
   reporter,
   global_knitr = getOption("teal.reporter.global_knitr"),
-  rmd_output = c(html = "html_document", pdf = "pdf_document", powerpoint =
-    "powerpoint_presentation", word = "word_document"),
-  rmd_yaml_args = list(author = "NEST", title = "Report", date =
-    as.character(Sys.Date()), output = "html_document", toc = FALSE),
+  rmd_output = getOption("teal.reporter.rmd_output"),
+  rmd_yaml_args = getOption("teal.reporter.rmd_yaml_args"),
   previewer_buttons = c("download", "load", "reset")
 )
 }
