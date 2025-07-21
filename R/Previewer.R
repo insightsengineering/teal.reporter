@@ -106,7 +106,6 @@ reporter_previewer_ui <- function(id) {
   # lifecycle::deprecate_soft() todo:
   # lifecycle::deprecate_soft() todo:
   bslib::page_fluid(
-    add_previewer_js(ns),
     add_previewer_css(),
     shiny::tagList(
       shiny::tags$div(
@@ -168,34 +167,94 @@ reporter_previewer_srv <- function(id,
 }
 
 reporter_previewer_only_ui <- function(id) {
-  shiny::uiOutput(shiny::NS(id, "pcards"))
+  tags$div(
+    htmltools::htmlDependency(
+      name = "previewer",
+      version = utils::packageVersion("teal.reporter"),
+      package = "teal.reporter",
+      src = "css",
+      stylesheet = "Previewer.css"
+    ),
+    shiny::uiOutput(shiny::NS(id, "pcards"))
+  )
 }
 
 reporter_previewer_only_srv <- function(id, reporter) {
   moduleServer(id, function(input, output, session) {
     shiny::setBookmarkExclude(c("card_remove_id", "card_down_id", "card_up_id", "remove_card_ok"))
-    # todo: buttons looks bad and don't work
+    report_cards <- reactive({
+      req(reporter$get_reactive_add_card())
+      input$reporter_cards_order
+      reporter$get_cards()
+    })
     output$pcards <- shiny::renderUI({
-      reporter$get_reactive_add_card()
-      cards <- reporter$get_cards()
+      cards <- report_cards()
 
       if (length(cards)) {
-        shiny::tags$div(
-          class = "panel-group accordion",
-          id = "reporter_previewer_panel",
-          lapply(seq_along(cards), function(ic) {
-            previewer_collapse_item(ic, cards[[ic]]$get_name(), cards[[ic]]$get_content())
-          })
+        tags$div(
+          bslib::accordion(
+            id = session$ns("reporter_cards"),
+            class = "teal-reporter report-previewer-accordion",
+            lapply(names(cards), function(card_id) {
+              htmltools::tagAppendChildren(
+                tag = tags$div(
+                  id = card_id,
+                  `data-rank-id` = card_id,
+                  bslib::accordion_panel(
+                    title = cards[[card_id]]$get_name(),
+                    shiny::tags$div(
+                      id = paste0("card", card_id),
+                      lapply(
+                        cards[[card_id]]$get_content(),
+                        function(b) {
+                          block_to_html(b)
+                        }
+                      )
+                    )
+                  )
+                ),
+                .cssSelector = ".accordion-header",
+                tags$a(
+                  class = "action-button",
+                  role = "button",
+                  style = "text-decoration: none;",
+                  onclick = sprintf(
+                    "Shiny.setInputValue('%s', '%s', {priority: 'event'});",
+                    session$ns("card_remove_id"),
+                    card_id
+                  ),
+                  bsicons::bs_icon("x-circle", class = "text-danger")
+                ) |>
+                  bslib::tooltip(
+                    "Remove card"
+                  )
+              )
+            })
+          ),
+          sortable::sortable_js(
+            css_id = session$ns("reporter_cards"),
+            options = sortable::sortable_options(
+              onSort = sortable::sortable_js_capture_input(session$ns("reporter_cards_order"))
+            )
+          )
         )
       } else {
         shiny::tags$div(
-          id = "reporter_previewer_panel_no_cards",
           shiny::tags$p(
             class = "text-danger mt-4",
             shiny::tags$strong("No Cards added")
           )
         )
       }
+    })
+
+    observeEvent(input$card_remove_id, {
+      reporter$remove_cards(ids = input$card_remove_id)
+      shiny::removeUI(selector = paste0("#", input$card_remove_id), immediate = TRUE)
+    })
+
+    observeEvent(input$reporter_cards_order, {
+      reporter$reorder_cards(input$reporter_cards_order)
     })
   })
 }
@@ -247,146 +306,26 @@ add_previewer_css <- function() {
 
 #' @noRd
 #' @keywords internal
-add_previewer_js <- function(ns) {
-  shiny::singleton(
-    shiny::tags$head(shiny::tags$script(
-      shiny::HTML(sprintf('
-          $(document).ready(function(event) {
-            $("body").on("click", "span.card_remove_id", function() {
-              let val = $(this).data("cardid");
-              Shiny.setInputValue("%s", val, {priority: "event"});
-            });
-
-            $("body").on("click", "span.card_up_id", function() {
-              let val = $(this).data("cardid");
-              Shiny.setInputValue("%s", val, {priority: "event"});
-            });
-
-             $("body").on("click", "span.card_down_id", function() {
-              let val = $(this).data("cardid");
-              Shiny.setInputValue("%s", val, {priority: "event"});
-             });
-          });
-         ', ns("card_remove_id"), ns("card_up_id"), ns("card_down_id")))
-    ))
-  )
-}
-
-#' @noRd
-#' @keywords internal
-nav_previewer_icon <- function(name, icon_name, idx, size = 1L) {
-  checkmate::assert_string(name)
-  checkmate::assert_string(icon_name)
-  checkmate::assert_int(size)
-
-  shiny::tags$span(
-    class = paste(name, "icon_previewer"),
-    # data field needed to record clicked card on the js side
-    `data-cardid` = idx,
-    shiny::icon(icon_name, sprintf("fa-%sx", size))
-  )
-}
-
-#' @noRd
-#' @keywords internal
-nav_previewer_icons <- function(idx, size = 1L) {
-  shiny::tags$span(
-    class = "preview_card_control",
-    nav_previewer_icon(name = "card_remove_id", icon_name = "xmark", idx = idx, size = size),
-    nav_previewer_icon(name = "card_up_id", icon_name = "arrow-up", idx = idx, size = size),
-    nav_previewer_icon(name = "card_down_id", icon_name = "arrow-down", idx = idx, size = size)
-  )
-}
-
-#' @noRd
-#' @keywords internal
 previewer_collapse_item <- function(idx, card_name, card_blocks) {
-  shiny::tags$div(.renderHook = function(x) {
-    # get bs version
-    version <- get_bs_version()
-
-    if (version == "3") {
+  htmltools::tagAppendChildren(
+    tag = bslib::accordion_panel(
+      title = paste0("Card ", idx, ": ", card_name),
       shiny::tags$div(
-        id = paste0("panel_card_", idx),
-        class = "panel panel-default",
-        shiny::tags$div(
-          class = "panel-heading overflow-auto",
-          shiny::tags$div(
-            class = "panel-title",
-            shiny::tags$span(
-              nav_previewer_icons(idx = idx),
-              shiny::tags$a(
-                class = "accordion-toggle block py-3 px-4 -my-3 -mx-4",
-                `data-toggle` = "collapse",
-                `data-parent` = "#reporter_previewer_panel",
-                href = paste0("#collapse", idx),
-                shiny::tags$h4(paste0("Card ", idx, ": ", card_name), shiny::icon("caret-down"))
-              )
-            )
-          )
-        ),
-        shiny::tags$div(
-          id = paste0("collapse", idx), class = "collapse out",
-          shiny::tags$div(
-            class = "panel-body",
-            shiny::tags$div(
-              id = paste0("card", idx),
-              lapply(
-                card_blocks,
-                function(b) {
-                  block_to_html(b)
-                }
-              )
-            )
-          )
+        id = paste0("card", idx),
+        lapply(
+          card_blocks,
+          function(b) {
+            block_to_html(b)
+          }
         )
       )
-    } else {
-      shiny::tags$div(
-        id = paste0("panel_card_", idx),
-        class = "card",
-        shiny::tags$div(
-          class = "overflow-auto",
-          shiny::tags$div(
-            class = "card-header",
-            shiny::tags$span(
-              nav_previewer_icons(idx = idx),
-              shiny::tags$a(
-                class = "accordion-toggle block py-3 px-4 -my-3 -mx-4",
-                # bs4
-                `data-toggle` = "collapse",
-                # bs5
-                `data-bs-toggle` = "collapse",
-                href = paste0("#collapse", idx),
-                shiny::tags$h4(
-                  paste0("Card ", idx, ": ", card_name),
-                  shiny::icon("caret-down")
-                )
-              )
-            )
-          )
-        ),
-        shiny::tags$div(
-          id = paste0("collapse", idx),
-          class = "collapse out",
-          # bs4
-          `data-parent` = "#reporter_previewer_panel",
-          # bs5
-          `data-bs-parent` = "#reporter_previewer_panel",
-          shiny::tags$div(
-            class = "card-body",
-            shiny::tags$div(
-              id = paste0("card", idx),
-              lapply(
-                card_blocks,
-                function(b) {
-                  block_to_html(b)
-                }
-              )
-            )
-          )
-        )
-      )
-    }
-  })
+    ),
+    .cssSelector = ".accordion-header",
+    actionButton(
+      inputId = paste0("card_remove_id_", idx),
+      label = "Remove card",
+      class = "card_remove_id",
+      `data-cardid` = idx
+    )
+  )
 }

@@ -1,41 +1,8 @@
-/* teal.reporter Previewer css */
-
-/* highlight the icon when hover */
-span.preview_card_control i:hover {
-  color: blue;
-}
-
-.previewer_buttons_line {
+.teal-reporter.report-previewer-accordion .accordion-header {
   display: flex;
-  flex-wrap: wrap;
-  margin-right: 10px;
+  align-items: center;
 }
 
-/* Disable any anchor with disabled class */
-a.disabled {
-  color: grey;
-  cursor: not-allowed;
-  pointer-events: none;
-  text-decoration: none;
-}
-
-a[id$="download_data"].disabled,
-a[id$="download_data_prev"].disabled {
-  border: 0;
-  color: white;
-  background-color: darkgrey;
-}
-
-/* icons in the previewer */
-.icon_previewer {
-  float: right;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 10px;
-  color: #337ab7;
-}
-
-/* prevents oversizing elements covered by shinybusy::block */
-.nx-block-temporary-position {
-  min-height: 0 !important;
+.teal-reporter.report-previewer-accordion .accordion-button {
+  background: var(--bs-primary-bg-subtle);
 }
