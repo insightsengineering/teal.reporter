@@ -31,7 +31,6 @@ Imports:
     knitr (>= 1.42),
     methods,
     R6,
-    ragg (>= 1.4.0),
     rlang (>= 1.0.0),
     rlistings (>= 0.2.10),
     rmarkdown (>= 2.23),

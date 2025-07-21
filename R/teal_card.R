@@ -345,11 +345,7 @@ code_chunk <- function(code, ..., lang = "R") {
 #' @noRd
 .ggplot_to_recordedplot <- function(x) {
   checkmate::assert_class(x, "ggplot")
-  if (requireNamespace("ragg", quietly = TRUE) && exists("agg_record", getNamespace("ragg"))) {
-    ragg::agg_record()
-  } else {
-    grDevices::pdf(file = NULL)
-  }
+  grDevices::pdf(file = NULL)
   grDevices::dev.control(displaylist = "enable")
   dev <- grDevices::dev.cur()
   on.exit(grDevices::dev.off(dev))
