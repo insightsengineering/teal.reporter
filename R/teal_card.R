@@ -50,7 +50,7 @@ teal_card <- function(...) {
 #' @export
 #' @keywords internal
 teal_card.default <- function(...) {
-  x <- sapply(list(...), .convert_teal_card_input, simplify = FALSE, USE.NAMES = TRUE)
+  x <- lapply(list(...), .convert_teal_card_input)
 
   if (length(x) > 0) {
     names(x) <- vapply(
