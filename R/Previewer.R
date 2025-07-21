@@ -229,7 +229,7 @@ reporter_previewer_card_srv <- function(id, card_r, card_id, reporter) {
       title
     })
     output$card_content <- shiny::renderUI({
-      result <- toHTML(shiny::req(card_r()))
+      result <- tools::toHTML(shiny::req(card_r()))
       shiny::removeUI(sprintf("#%s", session$ns("loading_placeholder")))
       result
     })

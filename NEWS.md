@@ -1,5 +1,9 @@
 # teal.reporter 0.4.0.9004
 
+### Enhancements
+
+* Supports `flextable` and `gtsummary` objects.
+
 # teal.reporter 0.4.0
 
 ### Enhancements
