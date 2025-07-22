@@ -25,13 +25,11 @@ reset_report_button_ui <- function(id, label = NULL) {
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
-    shinyjs::disabled(
-      .outline_button(
-        ns("reset_reporter"),
-        label = "Reset Report",
-        icon = "x",
-        class = "warning"
-      )
+    .outline_button(
+      ns("reset_reporter"),
+      label = "Reset Report",
+      icon = "x",
+      class = "warning"
     )
   )
 }
@@ -78,14 +76,6 @@ reset_report_button_srv <- function(id, reporter) {
           )
         )
       )
-    })
-
-    observeEvent(reporter$get_reactive_add_card(), {
-      if (reporter$get_reactive_add_card() > 0) {
-        shinyjs::enable(id = "reset_reporter")
-      } else {
-        shinyjs::disable(id = "reset_reporter")
-      }
     })
 
     shiny::observeEvent(input$reset_reporter_ok, {

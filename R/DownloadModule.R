@@ -28,12 +28,10 @@ download_report_button_ui <- function(id, label = NULL) {
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
-    shinyjs::disabled(
-      .outline_button(
-        ns("download_button"),
-        label = "Download Report",
-        icon = "download"
-      )
+    .outline_button(
+      ns("download_button"),
+      label = "Download Report",
+      icon = "download"
     )
   )
 }
@@ -124,11 +122,9 @@ download_report_button_srv <- function(id,
     })
 
     observeEvent(reporter$get_reactive_add_card(), {
-      if (reporter$get_reactive_add_card() > 0) {
-        shinyjs::enable(id = "download_button")
-      } else {
-        shinyjs::disable(id = "download_button")
-      }
+      shinyjs::toggleClass(
+        id = "download_button", condition = reporter$get_reactive_add_card() == 0, class = "disabled"
+      )
     })
 
     output$download_data <- shiny::downloadHandler(

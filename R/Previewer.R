@@ -34,12 +34,10 @@ preview_report_button_ui <- function(id, label = NULL) {
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
     ),
-    shinyjs::disabled(
-      .outline_button(
-        ns("preview_button"),
-        label = uiOutput(ns("preview_button_label")),
-        icon = "file-earmark-text"
-      )
+    .outline_button(
+      ns("preview_button"),
+      label = uiOutput(ns("preview_button_label")),
+      icon = "file-earmark-text"
     )
   )
 }
@@ -53,11 +51,9 @@ preview_report_button_srv <- function(id, reporter) {
     shiny::setBookmarkExclude(c("preview_button"))
 
     observeEvent(reporter$get_reactive_add_card(), {
-      if (reporter$get_reactive_add_card() > 0) {
-        shinyjs::enable(id = "preview_button")
-      } else {
-        shinyjs::disable(id = "preview_button")
-      }
+      shinyjs::toggleClass(
+        id = "preview_button", condition = reporter$get_reactive_add_card() == 0, class = "disabled"
+      )
     })
 
     output$preview_button_label <- renderUI({
@@ -254,7 +250,6 @@ reporter_previewer_only_srv <- function(id, reporter) {
 
     observeEvent(input$card_remove_id, {
       reporter$remove_cards(ids = input$card_remove_id)
-      shiny::removeUI(selector = paste0("#", input$card_remove_id), immediate = TRUE)
     })
 
     observeEvent(input$reporter_cards_order, {
