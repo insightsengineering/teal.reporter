@@ -42,9 +42,8 @@ library(bslib)
 A basic `shiny` app with the previewer module:
 
 ```{r, eval=requireNamespace("ggplot2")}
-ui <- fluidPage(
+ui <- bslib::page_fluid(
   # please, specify specific bootstrap version and theme
-  theme = bs_theme(version = "4"),
   titlePanel(""),
   tabsetPanel(
     tabPanel(
@@ -77,7 +76,7 @@ server <- function(input, output, session) {
   output$encoding <- renderUI({
     tagList(
       ### REPORTER
-      teal.reporter::simple_reporter_ui("simple_reporter"),
+      teal.reporter::add_card_button_ui("add_reporter"),
       ###
       if (input$tabs == "Plot") {
         sliderInput(
@@ -193,7 +192,7 @@ server <- function(input, output, session) {
     }
     card
   }
-  teal.reporter::simple_reporter_srv("simple_reporter", reporter = reporter, card_fun = card_fun)
+  teal.reporter::add_card_button_srv("add_reporter", reporter = reporter, card_fun = card_fun)
   teal.reporter::reporter_previewer_srv("prev", reporter)
   ###
 }
