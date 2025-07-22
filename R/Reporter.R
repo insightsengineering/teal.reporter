@@ -29,20 +29,16 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @return `self`, invisibly.
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
-    #' library(rtables)
     #'
-    #' card1 <- ReportCard$new()
-    #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text")
-    #' card1$append_plot(
-    #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-    #' )
+    #' card1 <- teal_card("## Header 2 text", "A paragraph of default text")
+    #' card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
+    #' metadata(card1, "title") <- "Card1"
     #'
-    #' doc1 <- ReportCard$new()
-    #' doc1$append_text("Document introduction")
+    #' card2 <- teal_card("Document introduction")
+    #' metadata(card2, "title") <- "Card2"
     #'
     #' reporter <- Reporter$new()
-    #' reporter$append_cards(list(card1, doc1))
+    #' reporter$append_cards(list(card1, card2))
     append_cards = function(cards) {
       if (checkmate::test_multi_class(cards, classes = c("teal_card", "ReportCard"))) {
         cards <- list(cards)
@@ -74,14 +70,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' library(ggplot2)
     #' library(rtables)
     #'
-    #' card1 <- ReportCard$new()
-    #'
-    #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text")
-    #' card1$append_plot(
-    #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-    #' )
-    #' card1$set_name('Card1')
+    #' card1 <- teal_card("## Header 2 text", "A paragraph of default text")
+    #' card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
+    #' metadata(card1, "title") <- "Card1"
     #'
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
@@ -110,14 +101,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' library(ggplot2)
     #' library(rtables)
     #'
-    #' card1 <- ReportCard$new()
-    #'
-    #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text")
-    #' card1$append_plot(
-    #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram(binwidth = 0.2)
-    #' )
-    #' card1$set_name('Card1')
+    #' card1 <- teal_card("## Header 2 text", "A paragraph of default text")
+    #' card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
+    #' metadata(card1, "title") <- "Card1"
     #'
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1))
@@ -146,13 +132,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' library(ggplot2)
     #' library(rtables)
     #'
-    #' card1 <- ReportCard$new()
-    #'
-    #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text")
-    #' card1$append_plot(
-    #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-    #' )
+    #' card1 <- teal_card("## Header 2 text", "A paragraph of default text")
+    #' card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
     #'
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
@@ -184,13 +165,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' library(ggplot2)
     #' library(rtables)
     #'
-    #' card1 <- ReportCard$new()
-    #'
-    #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text")
-    #' card1$append_plot(
-    #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-    #' )
+    #' card1 <- teal_card("## Header 2 text", "A paragraph of default text")
+    #' card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
     #'
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
