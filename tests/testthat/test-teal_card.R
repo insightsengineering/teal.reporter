@@ -21,6 +21,11 @@ testthat::describe("teal_card", {
       unname(teal_card(code_chunk("a <- 1")))
     )
   })
+
+  it("keeps list if given as argument", {
+    card <- teal_card(list(1, 2))
+    testthat::expect_equal(card, structure(list(list(1, 2)), class = "teal_card"), ignore_attr = "names")
+  })
 })
 
 testthat::describe("teal_card with multiple arguments", {

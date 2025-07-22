@@ -4,7 +4,7 @@
 #'
 #' This `R6` class is designed to store and manage reports,
 #' facilitating the creation, manipulation, and serialization of report-related data.
-#' It supports both `ReportCard` (`r lifecycle::badge("deprecated")`) and `teal_card` objects, allowing flexibility
+#' It supports both `ReportCard` and `teal_card` objects, allowing flexibility
 #' in the types of reports that can be stored and managed.
 #'
 #' @export
@@ -29,31 +29,26 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @return `self`, invisibly.
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
-    #' library(rtables)
     #'
-    #' card1 <- ReportCard$new()
-    #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text")
-    #' card1$append_plot(
-    #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-    #' )
+    #' card1 <- teal_card("## Header 2 text", "A paragraph of default text")
+    #' card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
+    #' metadata(card1, "title") <- "Card1"
     #'
-    #' doc1 <- ReportCard$new()
-    #' doc1$append_text("Document introduction")
+    #' card2 <- teal_card("Document introduction")
+    #' metadata(card2, "title") <- "Card2"
     #'
     #' reporter <- Reporter$new()
-    #' reporter$append_cards(list(card1, doc1))
+    #' reporter$append_cards(list(card1, card2))
     append_cards = function(cards) {
       if (checkmate::test_multi_class(cards, classes = c("teal_card", "ReportCard"))) {
         cards <- list(cards)
       }
 
       checkmate::assert_list(cards, types = c("ReportCard", "teal_card"))
-      new_cards <- cards
+      new_cards <- lapply(cards, function(x) if (inherits(x, "teal_card")) x else x$get_content())
 
-      rds <- vapply(new_cards, inherits, logical(1L), "teal_card")
       if (!is.null(self$get_template())) {
-        new_cards[rds] <- lapply(new_cards[rds], self$get_template())
+        new_cards <- lapply(new_cards, self$get_template())
       }
 
       # Set up unique id for each card
@@ -66,32 +61,27 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
       invisible(self)
     },
-    #' @description Reorders `ReportCard` or `teal_card` objects in `Reporter`.
-    #' @param new_order `character` vector with names of `ReportCard` or `teal_card`
-    #' objects to be set in this order.
-    #' @description Reorders `ReportCard` or `teal_card` objects in `Reporter`.
+    #' @description Reorders `teal_card` objects in `Reporter`.
+    #' @param new_order `character` vector with names of `teal_card` objects to
+    #' be set in this order.
+    #' @description Reorders `teal_card` objects in `Reporter`.
     #' @return `self`, invisibly.
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
     #' library(rtables)
     #'
-    #' card1 <- ReportCard$new()
+    #' card1 <- teal_card("## Header 2 text", "A paragraph of default text")
+    #' card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
+    #' metadata(card1, "title") <- "Card1"
     #'
-    #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text")
-    #' card1$append_plot(
-    #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-    #' )
-    #' card1$set_name('Card1')
-    #'
-    #' card2 <- ReportCard$new()
-    #'
-    #' card2$append_text("Header 2 text", "header2")
-    #' card2$append_text("A paragraph of default text")
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
-    #' card2$append_table(table_res2)
-    #' card2$set_name('Card2')
+    #' card2 <- teal_card(
+    #'   "## Header 2 text",
+    #'   "A paragraph of default text",
+    #'   table_res2
+    #' )
+    #' metadata(card2, "title") <- "Card2"
     #'
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
@@ -111,54 +101,47 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' library(ggplot2)
     #' library(rtables)
     #'
-    #' card1 <- ReportCard$new()
-    #'
-    #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text")
-    #' card1$append_plot(
-    #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram(binwidth = 0.2)
-    #' )
-    #' card1$set_name('Card1')
+    #' card1 <- teal_card("## Header 2 text", "A paragraph of default text")
+    #' card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
+    #' metadata(card1, "title") <- "Card1"
     #'
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1))
     #'
-    #' card2 <- ReportCard$new()
-    #'
-    #' card2$append_text("Header 2 text", "header2")
-    #' card2$append_text("A paragraph of default text")
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
-    #' table_res2 <- build_table(lyt, within(airquality, Day <- factor(Day)))
-    #' card2$append_table(table_res2)
-    #' card2$set_name('Card2')
+    #' table_res2 <- build_table(lyt, airquality)
+    #' card2 <- teal_card(
+    #'   "## Header 2 text",
+    #'   "A paragraph of default text",
+    #'   table_res2
+    #' )
+    #' metadata(card2, "title") <- "Card2"
     #'
     #' reporter$replace_card(card2, "Card1")
     #' reporter$get_cards()[[1]]$get_name()
     replace_card = function(card, card_id) {
+      if (inherits(card, "ReportCard")) {
+        card <- card$get_content()
+      }
       private$cards[[card_id]] <- card
       invisible(self)
     },
-    #' @description Retrieves all `ReportCard` and `teal_card` objects contained in `Reporter`.
-    #' @return A (`list`) of [`ReportCard`] and [`teal_card`] objects.
+    #' @description Retrieves all `teal_card` objects contained in `Reporter`.
+    #' @return A (`list`) of [`teal_card`] objects.
     #' @examplesIf require("ggplot2")
     #' library(ggplot2)
     #' library(rtables)
     #'
-    #' card1 <- ReportCard$new()
+    #' card1 <- teal_card("## Header 2 text", "A paragraph of default text")
+    #' card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
     #'
-    #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text")
-    #' card1$append_plot(
-    #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-    #' )
-    #'
-    #' card2 <- ReportCard$new()
-    #'
-    #' card2$append_text("Header 2 text", "header2")
-    #' card2$append_text("A paragraph of default text")
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
-    #' card2$append_table(table_res2)
+    #' card2 <- teal_card(
+    #'   "## Header 2 text",
+    #'   "A paragraph of default text",
+    #'   table_res2
+    #' )
     #'
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
@@ -173,8 +156,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       # Ensure that cards added after reorder are returned (as well as reordered ones that were removed are excluded)
       result[union(intersect(private$override_order, names(result)), names(result))]
     },
-    #' @description Compiles and returns all content blocks from the `ReportCard`
-    #' and `teal_card` objects in the `Reporter`.
+    #' @description Compiles and returns all content blocks from the `teal_card`
+    #'  objects in the `Reporter`.
     #' @param sep An optional separator to insert between each content block.
     #' Default is a `\n\\newpage\n` markdown.
     #' @return `list()` of `teal_card`
@@ -182,34 +165,25 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' library(ggplot2)
     #' library(rtables)
     #'
-    #' card1 <- ReportCard$new()
+    #' card1 <- teal_card("## Header 2 text", "A paragraph of default text")
+    #' card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
     #'
-    #' card1$append_text("Header 2 text", "header2")
-    #' card1$append_text("A paragraph of default text")
-    #' card1$append_plot(
-    #'  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-    #' )
-    #'
-    #' card2 <- ReportCard$new()
-    #'
-    #' card2$append_text("Header 2 text", "header2")
-    #' card2$append_text("A paragraph of default text")
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
-    #' card2$append_table(table_res2)
+    #' card2 <- teal_card(
+    #'   "## Header 2 text",
+    #'   "A paragraph of default text",
+    #'   table_res2
+    #' )
     #'
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
     #' reporter$get_blocks()
-    #'
     get_blocks = function(sep = "\\newpage") {
       cards <- self$get_cards()
       blocks <- teal_card()
       for (idx in seq_along(cards)) {
         card <- cards[[idx]]
-        if (inherits(card, "ReportCard")) {
-          card <- card$get_content()
-        }
         title <- trimws(metadata(card, "title"))
         metadata(card)$title <- NULL
         card_title <- if (length(title) > 0 && nzchar(title)) {
@@ -222,7 +196,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
       blocks
     },
-    #' @description Resets the `Reporter`, removing all `ReportCard` and `teal_card` objects and metadata.
+    #' @description Resets the `Reporter`, removing all `teal_card` objects and metadata.
     #'
     #' @return `self`, invisibly.
     #'
@@ -236,7 +210,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$metadata <- list()
       invisible(self)
     },
-    #' @description Removes specific `ReportCard` or `teal_card` objects from the `Reporter` by their indices.
+    #' @description Removes specific `teal_card` objects from the `Reporter` by their indices.
     #'
     #' @param ids (`integer`, `character`) the indexes of cards (either name)
     #' @return `self`, invisibly.
@@ -304,9 +278,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       for (i in seq_along(cards)) {
         # we want to have list names being a class names to indicate the class for $from_list
         card <- cards[[i]]
-        if (inherits(card, "ReportCard")) {
-          card <- card$get_content()
-        }
         card_class <- class(card)[1]
         u_card <- list()
         tmp <- tempfile(fileext = ".rds")

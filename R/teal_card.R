@@ -146,7 +146,8 @@ c.teal_card <- function(...) {
         } else {
           attrs <- utils::modifyList(attributes(u) %||% list(), attributes(v))
           attrs$names <- union(names(u), names(v))
-          result <- utils::modifyList(u, v)
+          attrs$metadata <- utils::modifyList(attr(u, "metadata", exact = TRUE) %||% list(), metadata(v))
+          result <- utils::modifyList(unclass(u), v) # See test failure when removing unclass
           attributes(result) <- attrs
           result
         }

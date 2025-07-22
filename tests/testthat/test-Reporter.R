@@ -21,7 +21,7 @@ testthat::describe("Reporter with ReportCard", {
   card2 <- test_card2.ReportCard()
   reporter <- test_reporter.ReportCard(card1, card2)
   it("get_cards returns the same cards which was added to reporter", {
-    testthat::expect_equal(unname(reporter$get_cards()), list(card1, card2))
+    testthat::expect_equal(unname(reporter$get_cards()), list(test_card1(), test_card2()), ignore_attr = "names")
   })
 
   it("get_blocks returns the same blocks which was added to reporter, sep = NULL", {
@@ -33,19 +33,19 @@ testthat::describe("Reporter with ReportCard", {
         "# _Unnamed Card (2)_",
         card2$get_content()
       ),
-      ignore_attr = TRUE
+      ignore_attr = "names"
     )
   })
 
   it("get_blocks by default adds 'newpage' between cards", {
     reporter <- test_reporter.ReportCard(card1 <- test_card1.ReportCard(), card2 <- test_card2.ReportCard())
     reporter_blocks <- reporter$get_blocks()
-    reporter_blocks2 <- c(teal_card("# _Unnamed Card (1)_"), reporter$get_cards()[[1]]$get_content(), "\\newpage")
-    reporter_blocks2 <- c(reporter_blocks2, "# _Unnamed Card (2)_", reporter$get_cards()[[2]]$get_content())
+    reporter_blocks2 <- c(teal_card("# _Unnamed Card (1)_"), reporter$get_cards()[[1]], "\\newpage")
+    reporter_blocks2 <- c(reporter_blocks2, "# _Unnamed Card (2)_", reporter$get_cards()[[2]])
     testthat::expect_equal(
       reporter$get_blocks(),
       reporter_blocks2,
-      ignore_attr = TRUE
+      ignore_attr = "names"
     )
   })
 
@@ -67,11 +67,13 @@ testthat::test_that("get_blocks returns the same blocks which was added to repor
   reporter <- test_reporter(card1 <- test_card1("A title"), card2 <- test_card2("Another title"))
   testthat::expect_equal(
     reporter$get_blocks(sep = NULL),
-    append(
-      c(sprintf("# %s", metadata(card1, "title")), card1),
-      c(sprintf("# %s", metadata(card2, "title")), card2)
+    as.teal_card(
+      append(
+        c(sprintf("# %s", metadata(card1, "title")), card1),
+        c(sprintf("# %s", metadata(card2, "title")), card2)
+      )
     ),
-    ignore_attr = TRUE
+    ignore_attr = "names"
   )
 })
 
@@ -86,7 +88,7 @@ testthat::test_that("get_blocks by default adds 'newpage' between cards", {
   reporter_blocks <- reporter$get_blocks()
   reporter_blocks2 <- append(reporter_1$get_blocks(), "\\newpage")
   reporter_blocks2 <- append(reporter_blocks2, reporter_2$get_blocks())
-  testthat::expect_equal(reporter$get_blocks(), reporter_blocks2, ignore_attr = TRUE)
+  testthat::expect_equal(reporter$get_blocks(), reporter_blocks2, ignore_attr = "names")
 })
 
 testthat::test_that("get_blocks and get_cards return empty teal_card by default", {
@@ -106,7 +108,7 @@ testthat::test_that("The deep copy constructor copies the content files to new f
   testthat::expect_failure(
     testthat::expect_equal(rlang::obj_address(original_content_file), rlang::obj_address(copied_content_file))
   )
-  testthat::expect_equal(original_content_file, copied_content_file, ignore_attr = TRUE)
+  testthat::expect_equal(original_content_file, copied_content_file, ignore_attr = "names")
 })
 
 testthat::describe("metadata", {
@@ -217,7 +219,7 @@ testthat::describe("from_reporter", {
     testthat::expect_equal(
       reporter1$get_cards(),
       reporter2$from_reporter(reporter1)$get_cards(),
-      ignore_attr = TRUE
+      ignore_attr = "names"
     )
   })
 })
@@ -307,7 +309,7 @@ testthat::describe("Reporter with custom template function", {
     template_fun <- function(card) c(teal_card("Here comes disclaimer text"), card)
 
     reporter$set_template(template_fun)
-    reporter$append_cards(tc)
+    reporter$append_cards(card)
 
     testthat::expect_equal(reporter$get_cards()[[1]][[1]], "Here comes disclaimer text")
   })
