@@ -6,14 +6,14 @@
 \alias{reset_report_button_srv}
 \title{Reset report button module}
 \usage{
-reset_report_button_ui(id, label = "Reset Report")
+reset_report_button_ui(id, label = NULL)
 
 reset_report_button_srv(id, reporter)
 }
 \arguments{
 \item{id}{(\code{character(1)}) \code{shiny} module instance id.}
 
-\item{label}{(\code{character(1)}) label of the button. By default \verb{Reset Report}.}
+\item{label}{(\code{character(1)}) label of the button. By default it is empty.}
 
 \item{reporter}{(\code{Reporter}) instance.}
 }

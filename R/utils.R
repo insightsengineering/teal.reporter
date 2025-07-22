@@ -179,7 +179,10 @@ global_knitr_details <- function() {
     role = "button",
     style = "text-decoration: none;",
     if (!is.null(icon)) {
-      bsicons::bs_icon(icon, class = sprintf("text-%s", class))
+      tags$span(
+        style = "margin: 0 10px 0 10px;",
+        bsicons::bs_icon(icon, class = sprintf("text-%s", class))
+      )
     },
     label
   )

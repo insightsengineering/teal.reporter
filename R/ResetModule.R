@@ -9,14 +9,14 @@
 #' @name reset_report_button
 #'
 #' @param id (`character(1)`) `shiny` module instance id.
-#' @param label (`character(1)`) label of the button. By default `Reset Report`.
+#' @param label (`character(1)`) label of the button. By default it is empty.
 #' @param reporter (`Reporter`) instance.
 #' @return `NULL`.
 NULL
 
 #' @rdname reset_report_button
 #' @export
-reset_report_button_ui <- function(id, label = "Reset Report") {
+reset_report_button_ui <- function(id, label = NULL) {
   checkmate::assert_string(label, null.ok = TRUE)
 
   ns <- shiny::NS(id)

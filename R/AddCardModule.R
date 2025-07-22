@@ -34,6 +34,7 @@
 #'
 #' @param id (`character(1)`) this `shiny` module's id.
 #' @param reporter (`Reporter`) instance.
+#' @param label (`character(1)`) label of the button. By default it is empty.
 #' @param card_fun (`function`) which returns a [`ReportCard`] instance. See `Details`.
 #'
 #' @return `NULL`.
@@ -41,7 +42,7 @@ NULL
 
 #' @rdname add_card_button
 #' @export
-add_card_button_ui <- function(id) {
+add_card_button_ui <- function(id, label = NULL) {
   ns <- shiny::NS(id)
 
   # Buttons with custom css and
@@ -69,10 +70,8 @@ add_card_button_ui <- function(id) {
     ),
     .outline_button(
       ns("add_report_card_button"),
-      label = shiny::tags$span(
-        shiny::icon("plus"),
-        "Add Card to Report"
-      )
+      icon = "plus-lg",
+      label = label
     )
   )
 }

@@ -15,6 +15,7 @@
 #' @name reporter_previewer
 #'
 #' @param id (`character(1)`) `shiny` module instance id.
+#' @param label (`character(1)`) label of the button. By default it is "Preview Report".
 #' @param reporter (`Reporter`) instance.
 #' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
 #'  for customizing the rendering process.
@@ -28,7 +29,7 @@ NULL
 
 #' @rdname reporter_previewer
 #' @export
-preview_report_button_ui <- function(id) {
+preview_report_button_ui <- function(id, label = "Preview Report") {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::singleton(
@@ -36,7 +37,10 @@ preview_report_button_ui <- function(id) {
     ),
     .outline_button(
       ns("preview_button"),
-      label = shiny::uiOutput(ns("preview_button_label")),
+      label = tags$span(
+        label,
+        shiny::uiOutput(ns("preview_button_counter"))
+      ),
       icon = "file-earmark-text"
     )
   )
@@ -56,14 +60,11 @@ preview_report_button_srv <- function(id, reporter) {
       )
     })
 
-    output$preview_button_label <- shiny::renderUI({
+    output$preview_button_counter <- shiny::renderUI({
       shiny::tags$span(
-        "Preview Report",
-        shiny::tags$span(
-          class = "position-absolute badge rounded-pill bg-primary",
-          style = "top: 5px; right: 5px;",
-          reporter$get_reactive_add_card()
-        )
+        class = "position-absolute badge rounded-pill bg-primary",
+        style = "top: 5px; right: 5px;",
+        reporter$get_reactive_add_card()
       )
     })
 

@@ -8,7 +8,7 @@
 \alias{reporter_previewer_srv}
 \title{Report previewer module}
 \usage{
-preview_report_button_ui(id)
+preview_report_button_ui(id, label = "Preview Report")
 
 preview_report_button_srv(id, reporter)
 
@@ -25,6 +25,8 @@ reporter_previewer_srv(
 }
 \arguments{
 \item{id}{(\code{character(1)}) \code{shiny} module instance id.}
+
+\item{label}{(\code{character(1)}) label of the button. By default it is "Preview Report".}
 
 \item{reporter}{(\code{Reporter}) instance.}
 
