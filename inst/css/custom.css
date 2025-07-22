@@ -6,6 +6,10 @@
   display: inline;
 }
 
+.teal-reporter.download-ok.nx-block-temporary-position {
+  min-height: 10px !important;
+}
+
 .simple_reporter_container {
   display: flex;
   justify-content: flex-start;

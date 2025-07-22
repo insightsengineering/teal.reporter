@@ -72,7 +72,10 @@ download_report_button_srv <- function(id,
       downb <- shiny::downloadButton(
         outputId = ns("download_data"),
         label = "Download",
-        class = c("btn", "btn-outline-primary", "shiny-download-link", if (nr_cards == 0) "disabled"),
+        class = c(
+          "btn", "teal-reporter", "download-ok", "btn-outline-primary", "shiny-download-link",
+          if (nr_cards == 0) "disabled"
+        ),
         icon = shiny::icon("download")
       )
       shiny::tags$div(
