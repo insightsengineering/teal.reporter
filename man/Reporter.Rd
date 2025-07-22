@@ -291,7 +291,7 @@ Removes specific \code{ReportCard} objects from the \code{Reporter} by their ind
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{ids}}{(\code{character}) the named id of cards}
+\item{\code{ids}}{(\code{character}) the ids of the cards to be removed.}
 }
 \if{html}{\out{</div>}}
 }
@@ -311,8 +311,7 @@ Reorders \code{ReportCard} or \code{ReportDocument} objects in \code{Reporter}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{new_order}}{\code{character} vector with names of \code{ReportCard} or \code{ReportDocument}
-objects to be set in this order.}
+\item{\code{new_order}}{\code{character} vector with card ids in the desired order.}
 }
 \if{html}{\out{</div>}}
 }
