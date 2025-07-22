@@ -16,5 +16,6 @@
 }
 
 .teal-reporter.report-previewer-accordion .accordion-button a.action-button {
-  margin-left: 90%;
+  margin-left: 8px;
+  order: 1;
 }
