@@ -73,7 +73,7 @@ preview_report_button_srv <- function(id, reporter) {
 
     preview_modal <- function() {
       shiny::tags$div(
-        class = "teal-widgets reporter-modal",
+        class = "teal-reporter reporter-previewer-modal",
         shiny::modalDialog(
           easyClose = TRUE,
           size = "xl",
@@ -181,7 +181,7 @@ reporter_previewer_only_ui <- function(id) {
 
 reporter_previewer_only_srv <- function(id, reporter) {
   moduleServer(id, function(input, output, session) {
-    shiny::setBookmarkExclude(c("card_remove_id", "card_down_id", "card_up_id", "remove_card_ok"))
+    shiny::setBookmarkExclude("card_remove_id")
     report_cards <- reactive({
       req(reporter$get_reactive_add_card())
       input$reporter_cards_order

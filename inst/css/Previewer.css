@@ -19,3 +19,13 @@
   margin-left: 8px;
   order: 1;
 }
+
+.teal-reporter.reporter-previewer-modal .modal-content {
+  overflow: auto;
+  max-height: 90vh;
+  height: 90vh;
+}
+
+.teal-reporter.reporter-previewer-modal .modal-dialog {
+  --bs-modal-margin: 20px;
+}
