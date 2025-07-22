@@ -28,7 +28,7 @@ reset_report_button_ui <- function(id, label = NULL) {
       ns("reset_reporter"),
       label = label,
       icon = "x-lg",
-      class = "warning"
+      class = "danger"
     )
   )
 }
@@ -55,6 +55,7 @@ reset_report_button_srv <- function(id, reporter) {
         class = "teal-reporter reporter-modal",
         shiny::showModal(
           shiny::modalDialog(
+            easyClose = TRUE,
             shiny::tags$h3("Reset the Report"),
             shiny::tags$hr(),
             shiny::tags$strong(
@@ -68,9 +69,9 @@ reset_report_button_srv <- function(id, reporter) {
                 class = "btn btn-outline-secondary",
                 `data-bs-dismiss` = "modal",
                 NULL,
-                "Cancel"
+                "Dismiss"
               ),
-              shiny::actionButton(ns("reset_reporter_ok"), "Reset", class = "btn btn-outline-primary")
+              shiny::actionButton(ns("reset_reporter_ok"), "Reset", class = "btn btn-primary")
             )
           )
         )

@@ -73,7 +73,7 @@ download_report_button_srv <- function(id,
         outputId = ns("download_data"),
         label = "Download",
         class = c(
-          "btn", "teal-reporter", "download-ok", "btn-outline-primary", "shiny-download-link",
+          "btn", "teal-reporter", "download-ok", "btn-primary", "shiny-download-link",
           if (nr_cards == 0) "disabled"
         ),
         icon = shiny::icon("download")
@@ -113,7 +113,7 @@ download_report_button_srv <- function(id,
               class = "btn btn-outline-secondary",
               `data-bs-dismiss` = "modal",
               NULL,
-              "Cancel"
+              "Dismiss"
             ),
             downb
           )

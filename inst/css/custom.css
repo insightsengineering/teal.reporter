@@ -27,8 +27,6 @@
 }
 
 .teal-reporter.outline-button {
-  color: var(--bs-primary);
-  border: solid 1px var(--bs-primary);
   padding: 0.3em;
   border-radius: 5px;
 }
@@ -38,8 +36,7 @@
   opacity: 0.65;
 }
 
-.teal-reporter.outline-button.primary,
-.teal-reporter.outline-button.primary.disabled {
+.teal-reporter.outline-button.primary {
   color: var(--bs-primary);
   border: solid 1px var(--bs-primary);
 }
@@ -48,12 +45,11 @@
   background: var(--bs-primary-bg-subtle);
 }
 
-.teal-reporter.outline-button.warning,
-.teal-reporter.outline-button.warning.disabled {
-  color: var(--bs-warning);
-  border: solid 1px var(--bs-warning);
+.teal-reporter.outline-button.danger {
+  color: var(--bs-danger);
+  border: solid 1px var(--bs-danger);
 }
 
-.teal-reporter.outline-button.warning:hover {
-  background: var(--bs-warning-bg-subtle);
+.teal-reporter.outline-button.danger:hover {
+  background: var(--bs-danger-bg-subtle);
 }

@@ -81,7 +81,7 @@ preview_report_button_srv <- function(id, reporter) {
               class = "btn btn-outline-secondary",
               `data-bs-dismiss` = "modal",
               NULL,
-              "Cancel"
+              "Dismiss"
             )
           )
         )

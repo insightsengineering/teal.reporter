@@ -59,19 +59,25 @@ report_load_srv <- function(id, reporter) {
                 class = "btn btn-outline-secondary",
                 `data-bs-dismiss` = "modal",
                 NULL,
-                "Cancel"
+                "Dismiss"
               ),
-              shiny::tags$button(
-                id = ns("reporter_load_main"),
-                type = "button",
-                class = "btn btn-outline-primary action-button",
-                NULL,
-                "Load"
+              shinyjs::disabled(
+                shiny::tags$button(
+                  id = ns("reporter_load_main"),
+                  type = "button",
+                  class = "btn btn-primary action-button",
+                  NULL,
+                  "Load"
+                )
               )
             )
           )
         )
       }
+
+      shiny::observeEvent(input$archiver_zip, {
+        shinyjs::enable(id = "reporter_load_main")
+      })
 
       shiny::observeEvent(input$reporter_load, {
         shiny::showModal(archiver_modal())

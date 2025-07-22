@@ -131,12 +131,12 @@ add_card_button_srv <- function(id, reporter, card_fun) {
               class = "btn btn-outline-secondary",
               `data-bs-dismiss` = "modal",
               NULL,
-              "Cancel"
+              "Dismiss"
             ),
             shiny::tags$button(
               id = ns("add_card_ok"),
               type = "button",
-              class = "btn btn-outline-primary action-button",
+              class = "btn btn-primary action-button",
               NULL,
               "Add Card"
             )
