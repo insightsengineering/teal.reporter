@@ -6,3 +6,15 @@
 .teal-reporter.report-previewer-accordion .accordion-button {
   background: var(--bs-primary-bg-subtle);
 }
+
+.teal-reporter.report-previewer-accordion .accordion-icon {
+  cursor: grab;
+}
+
+.teal-reporter.report-previewer-accordion .accordion-icon:active {
+  cursor: grabbing;
+}
+
+.teal-reporter.report-previewer-accordion .accordion-button a.action-button {
+  margin-left: 90%;
+}

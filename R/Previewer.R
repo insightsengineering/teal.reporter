@@ -202,6 +202,10 @@ reporter_previewer_only_srv <- function(id, reporter) {
                   `data-rank-id` = card_id,
                   bslib::accordion_panel(
                     title = cards[[card_id]]$get_name(),
+                    icon = bsicons::bs_icon("arrows-move") |>
+                      bslib::tooltip(
+                        "Move card"
+                      ),
                     shiny::tags$div(
                       id = paste0("card", card_id),
                       lapply(
@@ -213,7 +217,7 @@ reporter_previewer_only_srv <- function(id, reporter) {
                     )
                   )
                 ),
-                .cssSelector = ".accordion-header",
+                .cssSelector = ".accordion-button",
                 tags$a(
                   class = "action-button",
                   role = "button",
@@ -225,16 +229,15 @@ reporter_previewer_only_srv <- function(id, reporter) {
                   ),
                   bsicons::bs_icon("x-circle", class = "text-danger")
                 ) |>
-                  bslib::tooltip(
-                    "Remove card"
-                  )
+                  bslib::tooltip("Remove card")
               )
             })
           ),
           sortable::sortable_js(
             css_id = session$ns("reporter_cards"),
             options = sortable::sortable_options(
-              onSort = sortable::sortable_js_capture_input(session$ns("reporter_cards_order"))
+              onSort = sortable::sortable_js_capture_input(session$ns("reporter_cards_order")),
+              handle = ".accordion-icon"
             )
           )
         )

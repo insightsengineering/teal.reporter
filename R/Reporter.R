@@ -142,7 +142,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Removes specific `ReportCard` objects from the `Reporter` by their indices.
     #'
-    #' @param ids (`character`) the named id of cards
+    #' @param ids (`character`) the ids of the cards to be removed.
     #' @return `self`, invisibly.
     remove_cards = function(ids) {
       if (!is.null(ids)) {
@@ -153,8 +153,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       invisible(self)
     },
     #' @description Reorders `ReportCard` or `ReportDocument` objects in `Reporter`.
-    #' @param new_order `character` vector with names of `ReportCard` or `ReportDocument`
-    #' objects to be set in this order.
+    #' @param new_order `character` vector with card ids in the desired order.
     #' @return `self`, invisibly.
     reorder_cards = function(new_order) {
       private$cards_order <- new_order
