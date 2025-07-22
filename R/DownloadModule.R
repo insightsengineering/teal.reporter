@@ -12,6 +12,7 @@
 #'
 #' @param id (`character(1)`) this `shiny` module's id.
 #' @param reporter (`Reporter`) instance.
+#' @param label (`character(1)`) label of the button. By default `Download Report`.
 #' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
 #'  for customizing the rendering process.
 #' @inheritParams reporter_download_inputs
@@ -21,7 +22,7 @@ NULL
 
 #' @rdname download_report_button
 #' @export
-download_report_button_ui <- function(id, label = NULL) {
+download_report_button_ui <- function(id, label = "Download Report") {
   ns <- shiny::NS(id)
   shiny::tagList(
     shinyjs::useShinyjs(),
@@ -30,7 +31,7 @@ download_report_button_ui <- function(id, label = NULL) {
     ),
     .outline_button(
       ns("download_button"),
-      label = "Download Report",
+      label = label,
       icon = "download"
     )
   )

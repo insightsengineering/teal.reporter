@@ -4,9 +4,10 @@
 #'
 #' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
 #' @param id `character(1)` this `shiny` module's id.
+#' @param label (`character(1)`) label of the button. By default `Load Report`.
 #' @return `shiny::tagList`
 #' @export
-report_load_ui <- function(id, label = NULL) {
+report_load_ui <- function(id, label = "Load Report") {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::singleton(
@@ -14,7 +15,7 @@ report_load_ui <- function(id, label = NULL) {
     ),
     .outline_button(
       ns("reporter_load"),
-      label = "Load",
+      label = label,
       icon = "upload"
     )
   )

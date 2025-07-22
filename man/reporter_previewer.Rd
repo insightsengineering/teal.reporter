@@ -8,7 +8,7 @@
 \alias{reporter_previewer_srv}
 \title{Report previewer module}
 \usage{
-preview_report_button_ui(id, label = NULL)
+preview_report_button_ui(id)
 
 preview_report_button_srv(id, reporter)
 

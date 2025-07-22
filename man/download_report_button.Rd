@@ -6,7 +6,7 @@
 \alias{download_report_button_srv}
 \title{Download report button module}
 \usage{
-download_report_button_ui(id, label = NULL)
+download_report_button_ui(id, label = "Download Report")
 
 download_report_button_srv(
   id,
@@ -18,6 +18,8 @@ download_report_button_srv(
 }
 \arguments{
 \item{id}{(\code{character(1)}) this \code{shiny} module's id.}
+
+\item{label}{(\code{character(1)}) label of the button. By default \verb{Download Report}.}
 
 \item{reporter}{(\code{Reporter}) instance.}
 

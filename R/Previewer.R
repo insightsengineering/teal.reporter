@@ -28,7 +28,7 @@ NULL
 
 #' @rdname reporter_previewer
 #' @export
-preview_report_button_ui <- function(id, label = NULL) {
+preview_report_button_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::singleton(
@@ -58,7 +58,7 @@ preview_report_button_srv <- function(id, reporter) {
 
     output$preview_button_label <- shiny::renderUI({
       shiny::tags$span(
-        "Preview",
+        "Preview Report",
         shiny::tags$span(
           class = "position-absolute badge rounded-pill bg-primary",
           style = "top: 5px; right: 5px;",
