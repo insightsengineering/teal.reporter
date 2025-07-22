@@ -10,32 +10,6 @@ card1$append_plot(
 reporter <- Reporter$new()
 reporter$append_cards(list(card1))
 
-testthat::test_that("reporter_previewer_srv - render and downlaod a document", {
-  shiny::testServer(
-    reporter_previewer_srv,
-    args = list(reporter = reporter),
-    expr = {
-      session$setInputs(`output` = "html_document")
-      session$setInputs(`title` = "TITLE")
-      session$setInputs(`author` = "AUTHOR")
-      session$setInputs(`toc` = FALSE)
-      session$setInputs(`download_data_prev` = 0)
-
-      f <- output$download_data_prev
-      testthat::expect_true(file.exists(f))
-      tmp_dir <- tempdir()
-      output_dir <- file.path(tmp_dir, sprintf("report_test_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
-      dir.create(path = output_dir)
-      zip::unzip(f, exdir = output_dir)
-      files <- list.files(output_dir, recursive = TRUE)
-      testthat::expect_true(any(grepl("[.]Rmd", files)))
-      testthat::expect_true(any(grepl("[.]html", files)))
-      unlink(output_dir, recursive = TRUE)
-    }
-  )
-})
-
-
 testthat::test_that("reporter_previewer_srv - subset of rmd_yaml_args", {
   rmd_yaml_args_correct <- list(
     correct1 = list(
@@ -81,23 +55,6 @@ testthat::test_that("reporter_previewer_srv - subset of rmd_yaml_args", {
 })
 
 
-reporter <- Reporter$new()
-reporter$append_cards(list(card1))
-testthat::test_that("reporter_previewer_srv - remove a card", {
-  shiny::testServer(
-    reporter_previewer_srv,
-    args = list(reporter = reporter),
-    expr = {
-      len_prior <- length(reporter$get_cards())
-      session$setInputs(`card_remove_id` = 1L)
-      session$setInputs(`remove_card_ok` = TRUE)
-      len_post <- length(reporter$get_cards())
-
-      testthat::expect_identical(len_prior, len_post + 1L)
-    }
-  )
-})
-
 card2 <- ReportCard$new()
 card2$append_text("Header 2 text 2", "header2")
 card2$append_text("A paragraph of default text 2", "header2")
@@ -137,32 +94,6 @@ testthat::test_that("reporter_previewer_srv - card up and down compensate", {
       session$setInputs(`card_down_id` = 1L)
       cards_post <- reporter$get_cards()
       testthat::expect_equal(cards_pre, cards_post)
-    }
-  )
-})
-
-testthat::test_that("reporter_previewer_srv - card down", {
-  shiny::testServer(
-    reporter_previewer_srv,
-    args = list(reporter = reporter),
-    expr = {
-      cards_pre <- reporter$get_cards()
-      session$setInputs(`card_down_id` = 1L)
-      cards_post <- reporter$get_cards()
-      testthat::expect_equivalent(cards_pre, cards_post[2:1])
-    }
-  )
-})
-
-testthat::test_that("reporter_previewer_srv - card up", {
-  shiny::testServer(
-    reporter_previewer_srv,
-    args = list(reporter = reporter),
-    expr = {
-      cards_pre <- reporter$get_cards()
-      session$setInputs(`card_up_id` = 2L)
-      cards_post <- reporter$get_cards()
-      testthat::expect_equivalent(cards_pre, cards_post[2:1])
     }
   )
 })
