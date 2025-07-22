@@ -74,6 +74,7 @@
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 .simple_report_button {

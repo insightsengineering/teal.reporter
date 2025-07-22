@@ -104,16 +104,13 @@ reporter_previewer_ui <- function(id) {
     add_previewer_css(),
     shiny::tagList(
       shiny::tags$div(
-        class = "col-md-3",
-        shiny::tags$div(
-          class = "well",
-          report_load_ui(ns("load")),
-          download_report_button_ui(ns("download")),
-          reset_report_button_ui(ns("reset"))
-        )
+        class = "well",
+        style = "display: inline-flex; flex-direction: row; gap: 10px;",
+        report_load_ui(ns("load")),
+        download_report_button_ui(ns("download")),
+        reset_report_button_ui(ns("reset"))
       ),
       shiny::tags$div(
-        class = "col-md-9",
         reporter_previewer_only_ui(ns("previewer"))
       )
     )

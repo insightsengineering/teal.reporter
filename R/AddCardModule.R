@@ -67,14 +67,11 @@ add_card_button_ui <- function(id) {
         )
       )
     ),
-    tags$div(
-      style = "margin: 10px;",
-      .outline_button(
-        ns("add_report_card_button"),
-        label = shiny::tags$span(
-          shiny::icon("plus"),
-          "Add Card to Report"
-        )
+    .outline_button(
+      ns("add_report_card_button"),
+      label = shiny::tags$span(
+        shiny::icon("plus"),
+        "Add Card to Report"
       )
     )
   )
