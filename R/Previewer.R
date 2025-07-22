@@ -81,8 +81,7 @@ preview_report_button_srv <- function(id, reporter) {
           footer = shiny::tagList(
             shiny::tags$button(
               type = "button",
-              class = "btn btn-secondary",
-              `data-dismiss` = "modal",
+              class = "btn btn-outline-secondary",
               `data-bs-dismiss` = "modal",
               NULL,
               "Cancel"
@@ -202,10 +201,10 @@ reporter_previewer_only_srv <- function(id, reporter) {
                   `data-rank-id` = card_id,
                   bslib::accordion_panel(
                     title = cards[[card_id]]$get_name(),
-                    icon = bsicons::bs_icon("arrows-move") |>
-                      bslib::tooltip(
-                        "Move card"
-                      ),
+                    icon = bslib::tooltip(
+                      bsicons::bs_icon("arrows-move"),
+                      "Move card"
+                    ),
                     shiny::tags$div(
                       id = paste0("card", card_id),
                       lapply(
@@ -218,18 +217,20 @@ reporter_previewer_only_srv <- function(id, reporter) {
                   )
                 ),
                 .cssSelector = ".accordion-button",
-                tags$a(
-                  class = "action-button",
-                  role = "button",
-                  style = "text-decoration: none;",
-                  onclick = sprintf(
-                    "Shiny.setInputValue('%s', '%s', {priority: 'event'});",
-                    session$ns("card_remove_id"),
-                    card_id
+                bslib::tooltip(
+                  tags$a(
+                    class = "action-button",
+                    role = "button",
+                    style = "text-decoration: none;",
+                    onclick = sprintf(
+                      "Shiny.setInputValue('%s', '%s', {priority: 'event'});",
+                      session$ns("card_remove_id"),
+                      card_id
+                    ),
+                    bsicons::bs_icon("x-circle", class = "text-danger")
                   ),
-                  bsicons::bs_icon("x-circle", class = "text-danger")
-                ) |>
-                  bslib::tooltip("Remove card")
+                  "Remove card"
+                )
               )
             })
           ),
