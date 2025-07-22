@@ -36,7 +36,7 @@ preview_report_button_ui <- function(id, label = NULL) {
     ),
     .outline_button(
       ns("preview_button"),
-      label = uiOutput(ns("preview_button_label")),
+      label = shiny::uiOutput(ns("preview_button_label")),
       icon = "file-earmark-text"
     )
   )
@@ -50,16 +50,16 @@ preview_report_button_srv <- function(id, reporter) {
   shiny::moduleServer(id, function(input, output, session) {
     shiny::setBookmarkExclude(c("preview_button"))
 
-    observeEvent(reporter$get_reactive_add_card(), {
+    shiny::observeEvent(reporter$get_reactive_add_card(), {
       shinyjs::toggleClass(
         id = "preview_button", condition = reporter$get_reactive_add_card() == 0, class = "disabled"
       )
     })
 
-    output$preview_button_label <- renderUI({
-      tags$span(
+    output$preview_button_label <- shiny::renderUI({
+      shiny::tags$span(
         "Preview",
-        tags$span(
+        shiny::tags$span(
           class = "position-absolute badge rounded-pill bg-primary",
           style = "top: 5px; right: 5px;",
           reporter$get_reactive_add_card()
@@ -159,7 +159,7 @@ reporter_previewer_srv <- function(id,
 }
 
 reporter_previewer_only_ui <- function(id) {
-  tags$div(
+  shiny::tags$div(
     htmltools::htmlDependency(
       name = "previewer",
       version = utils::packageVersion("teal.reporter"),
@@ -172,10 +172,10 @@ reporter_previewer_only_ui <- function(id) {
 }
 
 reporter_previewer_only_srv <- function(id, reporter) {
-  moduleServer(id, function(input, output, session) {
+  shiny::moduleServer(id, function(input, output, session) {
     shiny::setBookmarkExclude("card_remove_id")
-    report_cards <- reactive({
-      req(reporter$get_reactive_add_card())
+    report_cards <- shiny::reactive({
+      shiny::req(reporter$get_reactive_add_card())
       input$reporter_cards_order
       reporter$get_cards()
     })
@@ -183,13 +183,13 @@ reporter_previewer_only_srv <- function(id, reporter) {
       cards <- report_cards()
 
       if (length(cards)) {
-        tags$div(
+        shiny::tags$div(
           bslib::accordion(
             id = session$ns("reporter_cards"),
             class = "teal-reporter report-previewer-accordion",
             lapply(names(cards), function(card_id) {
               htmltools::tagAppendChildren(
-                tag = tags$div(
+                tag = shiny::tags$div(
                   id = card_id,
                   `data-rank-id` = card_id,
                   bslib::accordion_panel(
@@ -211,7 +211,7 @@ reporter_previewer_only_srv <- function(id, reporter) {
                 ),
                 .cssSelector = ".accordion-button",
                 bslib::tooltip(
-                  tags$a(
+                  shiny::tags$a(
                     class = "action-button",
                     role = "button",
                     style = "text-decoration: none;",
@@ -245,11 +245,11 @@ reporter_previewer_only_srv <- function(id, reporter) {
       }
     })
 
-    observeEvent(input$card_remove_id, {
+    shiny::observeEvent(input$card_remove_id, {
       reporter$remove_cards(ids = input$card_remove_id)
     })
 
-    observeEvent(input$reporter_cards_order, {
+    shiny::observeEvent(input$reporter_cards_order, {
       reporter$reorder_cards(input$reporter_cards_order)
     })
   })
@@ -317,7 +317,7 @@ previewer_collapse_item <- function(idx, card_name, card_blocks) {
       )
     ),
     .cssSelector = ".accordion-header",
-    actionButton(
+    shiny::actionButton(
       inputId = paste0("card_remove_id_", idx),
       label = "Remove card",
       class = "card_remove_id",

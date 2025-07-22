@@ -45,7 +45,7 @@ reset_report_button_srv <- function(id, reporter) {
     ns <- session$ns
     nr_cards <- length(reporter$get_cards())
 
-    observeEvent(reporter$get_reactive_add_card(), {
+    shiny::observeEvent(reporter$get_reactive_add_card(), {
       shinyjs::toggleClass(
         id = "reset_reporter", condition = reporter$get_reactive_add_card() == 0, class = "disabled"
       )

@@ -173,7 +173,7 @@ global_knitr_details <- function() {
 
 #' @keywords internal
 .outline_button <- function(id, label, icon = NULL, class = "primary") {
-  tags$a(
+  shiny::tags$a(
     id = id,
     class = sprintf("teal-reporter action-button outline-button %s", class),
     role = "button",

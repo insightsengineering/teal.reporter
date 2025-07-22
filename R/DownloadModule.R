@@ -23,7 +23,7 @@ NULL
 #' @export
 download_report_button_ui <- function(id, label = NULL) {
   ns <- shiny::NS(id)
-  tagList(
+  shiny::tagList(
     shinyjs::useShinyjs(),
     shiny::singleton(
       shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
@@ -121,7 +121,7 @@ download_report_button_srv <- function(id,
       shiny::showModal(download_modal())
     })
 
-    observeEvent(reporter$get_reactive_add_card(), {
+    shiny::observeEvent(reporter$get_reactive_add_card(), {
       shinyjs::toggleClass(
         id = "download_button", condition = reporter$get_reactive_add_card() == 0, class = "disabled"
       )
