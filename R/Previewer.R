@@ -37,7 +37,7 @@ preview_report_button_ui <- function(id, label = "Preview Report") {
     ),
     .outline_button(
       ns("preview_button"),
-      label = tags$span(
+      label = shiny::tags$span(
         label,
         shiny::uiOutput(ns("preview_button_counter"))
       ),
@@ -238,8 +238,9 @@ reporter_previewer_only_srv <- function(id, reporter) {
         )
       } else {
         shiny::tags$div(
+          shiny::tags$br(),
           shiny::tags$p(
-            class = "text-danger mt-4",
+            class = "text-danger",
             shiny::tags$strong("No Cards added")
           )
         )

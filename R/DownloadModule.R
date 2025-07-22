@@ -83,19 +83,19 @@ download_report_button_srv <- function(id,
           shiny::tags$hr(),
           if (length(reporter$get_cards()) == 0) {
             shiny::tags$div(
-              class = "mb-4",
               shiny::tags$p(
                 class = "text-danger",
                 shiny::tags$strong("No Cards Added")
-              )
+              ),
+              shiny::tags$br()
             )
           } else {
             shiny::tags$div(
-              class = "mb-4",
               shiny::tags$p(
                 class = "text-success",
                 shiny::tags$strong(paste("Number of cards: ", nr_cards))
               ),
+              shiny::tags$br()
             )
           },
           reporter_download_inputs(

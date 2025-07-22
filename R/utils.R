@@ -25,7 +25,8 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
   shiny::tags$div(.renderHook = function(res_tag) {
     res_tag$children <- list(
       shiny::tags$div(
-        class = "card my-2",
+        class = "card",
+        style = "margin: 0.5rem 0;",
         shiny::tags$div(
           class = "card-header",
           shiny::tags$div(
@@ -179,7 +180,7 @@ global_knitr_details <- function() {
     role = "button",
     style = "text-decoration: none;",
     if (!is.null(icon)) {
-      tags$span(
+      shiny::tags$span(
         style = "margin: 0 10px 0 10px;",
         bsicons::bs_icon(icon, class = sprintf("text-%s", class))
       )

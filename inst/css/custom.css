@@ -1,9 +1,3 @@
-/* teal.reporter custom css */
-
-.overflow-auto {
-  overflow: auto;
-}
-
 .block {
   display: block;
 }
@@ -12,79 +6,11 @@
   display: inline;
 }
 
-.flex {
-  display: flex;
-}
-
-.float-right {
-  float: right;
-}
-
-.justify-start {
-  justify-content: flex-start;
-}
-
-.-ml-1 {
-  margin-left: -0.25rem;
-}
-
-.-mx-4 {
-  margin-left: -1rem;
-  margin-right: -1rem;
-}
-
-.-my-3 {
-  margin-top: -0.75rem;
-  margin-bottom: -0.75rem;
-}
-
-.mb-4 {
-  margin-bottom: 1rem;
-}
-
-.mt-4 {
-  margin-top: 1rem;
-}
-
-.my-4 {
-  margin: 1rem 0;
-}
-
-.my-2 {
-  margin: 0.5rem 0;
-}
-
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-.py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
-
-.p-1 {
-  padding: 0.25rem;
-}
-
-/* dynamic labels after icons */
-
 .simple_reporter_container {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
   gap: 10px;
-}
-
-.simple_report_button {
-  min-width: 55px;
-  margin: 1px 1px;
-}
-
-.teal-reporter.simple_report_button.disabled {
-  pointer-events: none;
-  opacity: 0.65;
 }
 
 .teal-reporter.reporter-modal .modal-body,

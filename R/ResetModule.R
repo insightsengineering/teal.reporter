@@ -27,7 +27,7 @@ reset_report_button_ui <- function(id, label = NULL) {
     .outline_button(
       ns("reset_reporter"),
       label = label,
-      icon = "x",
+      icon = "x-lg",
       class = "warning"
     )
   )
