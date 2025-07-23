@@ -71,7 +71,7 @@ preview_report_button_srv <- function(id, reporter) {
         shiny::modalDialog(
           easyClose = TRUE,
           size = "xl",
-          reporter_previewer_only_ui(session$ns("preview_content")),
+          reporter_previewer_content_ui(session$ns("preview_content")),
           footer = shiny::tagList(
             shiny::tags$button(
               type = "button",
@@ -88,7 +88,7 @@ preview_report_button_srv <- function(id, reporter) {
     shiny::observeEvent(input$preview_button, {
       shiny::showModal(preview_modal())
     })
-    reporter_previewer_only_srv(id = "preview_content", reporter = reporter) # todo: change the name but keep private
+    reporter_previewer_content_srv(id = "preview_content", reporter = reporter)
   })
 }
 
@@ -117,7 +117,7 @@ reporter_previewer_ui <- function(id) {
         tags$span(id = ns("reset_span"), reset_report_button_ui(ns("reset"), label = "Reset Report"))
       ),
       shiny::tags$div(
-        reporter_previewer_only_ui(ns("previewer"))
+        reporter_previewer_content_ui(ns("previewer"))
       )
     )
   )
@@ -177,17 +177,17 @@ reporter_previewer_srv <- function(id,
       rmd_yaml_args = rmd_yaml_args
     )
     reset_report_button_srv("reset", reporter = reporter)
-    reporter_previewer_only_srv("previewer", reporter = reporter)
+    reporter_previewer_content_srv("previewer", reporter = reporter)
   })
 }
 
 #' @keywords internal
-reporter_previewer_only_ui <- function(id) {
+reporter_previewer_content_ui <- function(id) {
   shiny::uiOutput(shiny::NS(id, "pcards"))
 }
 
 #' @keywords internal
-reporter_previewer_only_srv <- function(id, reporter) {
+reporter_previewer_content_srv <- function(id, reporter) {
   shiny::moduleServer(id, function(input, output, session) {
     shiny::setBookmarkExclude("card_remove_id")
     report_cards <- shiny::reactive({
