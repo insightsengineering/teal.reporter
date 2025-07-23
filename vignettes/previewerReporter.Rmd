@@ -74,7 +74,7 @@ ui <- bslib::page_fluid(
 )
 server <- function(input, output, session) {
   output$encoding <- renderUI({
-    tagList(
+    shiny::tagList(
       ### REPORTER
       teal.reporter::add_card_button_ui("add_reporter", label = "Add Report Card"),
       ###

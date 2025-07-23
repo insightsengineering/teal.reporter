@@ -164,7 +164,7 @@ global_knitr_details <- function() {
 
 #' @keywords internal
 .outline_button <- function(id, label, icon = NULL, class = "primary") {
-  tagList(
+  shiny::tagList(
     shinyjs::useShinyjs(),
     .custom_css_dependency(),
     shiny::tags$a(
