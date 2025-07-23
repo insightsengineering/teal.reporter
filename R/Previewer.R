@@ -112,9 +112,11 @@ reporter_previewer_ui <- function(id) {
       shiny::tags$div(
         class = "well",
         style = "display: inline-flex; flex-direction: row; gap: 10px;",
-        tags$span(id = ns("load_span"), report_load_ui(ns("load"), label = "Load Report")),
-        tags$span(id = ns("download_span"), download_report_button_ui(ns("download"), label = "Download Report")),
-        tags$span(id = ns("reset_span"), reset_report_button_ui(ns("reset"), label = "Reset Report"))
+        shiny::tags$span(id = ns("load_span"), report_load_ui(ns("load"), label = "Load Report")),
+        shiny::tags$span(
+          id = ns("download_span"), download_report_button_ui(ns("download"), label = "Download Report")
+        ),
+        shiny::tags$span(id = ns("reset_span"), reset_report_button_ui(ns("reset"), label = "Reset Report"))
       ),
       shiny::tags$div(
         reporter_previewer_content_ui(ns("previewer"))
