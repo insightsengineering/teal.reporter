@@ -108,12 +108,13 @@ reporter_previewer_ui <- function(id) {
   )
   bslib::page_fluid(
     shiny::tagList(
+      shinyjs::useShinyjs(),
       shiny::tags$div(
         class = "well",
         style = "display: inline-flex; flex-direction: row; gap: 10px;",
-        report_load_ui(ns("load"), label = "Load Report"),
-        download_report_button_ui(ns("download"), label = "Download Report"),
-        reset_report_button_ui(ns("reset"), label = "Reset Report")
+        tags$span(id = ns("load_span"), report_load_ui(ns("load"), label = "Load Report")),
+        tags$span(id = ns("download_span"), download_report_button_ui(ns("download"), label = "Download Report")),
+        tags$span(id = ns("reset_span"), reset_report_button_ui(ns("reset"), label = "Reset Report"))
       ),
       shiny::tags$div(
         reporter_previewer_only_ui(ns("previewer"))
@@ -158,7 +159,15 @@ reporter_previewer_srv <- function(id,
   checkmate::assert_true(rmd_yaml_args[["output"]] %in% rmd_output)
 
   shiny::moduleServer(id, function(input, output, session) {
-    # todo: utilize previewer_buttons to show/hide buttons
+    if (!"load" %in% previewer_buttons) {
+      shinyjs::hide(id = "load_span")
+    }
+    if (!"download" %in% previewer_buttons) {
+      shinyjs::hide(id = "download_span")
+    }
+    if (!"reset" %in% previewer_buttons) {
+      shinyjs::hide(id = "reset_span")
+    }
     report_load_srv("load", reporter = reporter)
     download_report_button_srv(
       "download",
