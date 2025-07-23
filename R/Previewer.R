@@ -30,19 +30,15 @@ NULL
 #' @rdname reporter_previewer
 #' @export
 preview_report_button_ui <- function(id, label = "Preview Report") {
+  checkmate::assert_string(label, null.ok = TRUE)
   ns <- shiny::NS(id)
-  shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
+  .outline_button(
+    ns("preview_button"),
+    label = shiny::tags$span(
+      label,
+      shiny::uiOutput(ns("preview_button_counter"))
     ),
-    .outline_button(
-      ns("preview_button"),
-      label = shiny::tags$span(
-        label,
-        shiny::uiOutput(ns("preview_button_counter"))
-      ),
-      icon = "file-earmark-text"
-    )
+    icon = "file-earmark-text"
   )
 }
 
@@ -71,6 +67,7 @@ preview_report_button_srv <- function(id, reporter) {
     preview_modal <- function() {
       shiny::tags$div(
         class = "teal-reporter reporter-previewer-modal",
+        .custom_css_dependency(),
         shiny::modalDialog(
           easyClose = TRUE,
           size = "xl",
@@ -99,10 +96,12 @@ preview_report_button_srv <- function(id, reporter) {
 #' @export
 reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
-  # lifecycle::deprecate_soft() todo:
-  # lifecycle::deprecate_soft() todo:
+  lifecycle::deprecate_soft(
+    when = "",
+    what = "reporter_previewer_ui()",
+    details = ""
+  )
   bslib::page_fluid(
-    add_previewer_css(),
     shiny::tagList(
       shiny::tags$div(
         class = "well",
@@ -126,7 +125,11 @@ reporter_previewer_srv <- function(id,
                                    rmd_output = getOption("teal.reporter.rmd_output"),
                                    rmd_yaml_args = getOption("teal.reporter.rmd_yaml_args"),
                                    previewer_buttons = c("download", "load", "reset")) {
-  # lifecycle::deprecate_soft() # todo:
+  lifecycle::deprecate_soft(
+    when = "",
+    what = "reporter_previewer_srv()",
+    details = "`"
+  )
   checkmate::assert_subset(previewer_buttons, c("download", "load", "reset"), empty.ok = FALSE)
   checkmate::assert_true("download" %in% previewer_buttons)
   checkmate::assert_class(reporter, "Reporter")
@@ -159,19 +162,12 @@ reporter_previewer_srv <- function(id,
   })
 }
 
+#' @keywords internal
 reporter_previewer_only_ui <- function(id) {
-  shiny::tags$div(
-    htmltools::htmlDependency(
-      name = "previewer",
-      version = utils::packageVersion("teal.reporter"),
-      package = "teal.reporter",
-      src = "css",
-      stylesheet = "Previewer.css"
-    ),
-    shiny::uiOutput(shiny::NS(id, "pcards"))
-  )
+  shiny::uiOutput(shiny::NS(id, "pcards"))
 }
 
+#' @keywords internal
 reporter_previewer_only_srv <- function(id, reporter) {
   shiny::moduleServer(id, function(input, output, session) {
     shiny::setBookmarkExclude("card_remove_id")
@@ -185,6 +181,7 @@ reporter_previewer_only_srv <- function(id, reporter) {
 
       if (length(cards)) {
         shiny::tags$div(
+          .custom_css_dependency(),
           bslib::accordion(
             id = session$ns("reporter_cards"),
             class = "teal-reporter report-previewer-accordion",
@@ -286,20 +283,6 @@ block_to_html <- function(b) {
   } else {
     stop("Unknown block class")
   }
-}
-
-
-#' @noRd
-#' @keywords internal
-add_previewer_css <- function() {
-  shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/Previewer.css", package = "teal.reporter")))
-    ),
-    shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-    )
-  )
 }
 
 #' @noRd

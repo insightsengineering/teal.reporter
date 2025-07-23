@@ -1,11 +1,4 @@
-.block {
-  display: block;
-}
-
-.inline {
-  display: inline;
-}
-
+/* To make sure the shinybusy::block() element does not take too much height */
 .teal-reporter.download-ok.nx-block-temporary-position {
   min-height: 10px !important;
 }
@@ -52,4 +45,36 @@
 
 .teal-reporter.outline-button.danger:hover {
   background: var(--bs-danger-bg-subtle);
+}
+
+.teal-reporter.report-previewer-accordion .accordion-header {
+  display: flex;
+  align-items: center;
+}
+
+.teal-reporter.report-previewer-accordion .accordion-button {
+  background: var(--bs-primary-bg-subtle);
+}
+
+.teal-reporter.report-previewer-accordion .accordion-icon {
+  cursor: grab;
+}
+
+.teal-reporter.report-previewer-accordion .accordion-icon:active {
+  cursor: grabbing;
+}
+
+.teal-reporter.report-previewer-accordion .accordion-button a.action-button {
+  margin-left: 8px;
+  order: 1;
+}
+
+.teal-reporter.reporter-previewer-modal .modal-content {
+  overflow: auto;
+  max-height: 90vh;
+  height: 90vh;
+}
+
+.teal-reporter.reporter-previewer-modal .modal-dialog {
+  --bs-modal-margin: 20px;
 }

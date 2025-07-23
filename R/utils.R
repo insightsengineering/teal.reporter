@@ -31,15 +31,12 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
           class = "card-header",
           shiny::tags$div(
             class = ifelse(collapsed, "collapsed", ""),
-            # bs4
-            `data-toggle` = "collapse",
-            # bs5
             `data-bs-toggle` = "collapse",
             href = paste0("#", panel_id),
             `aria-expanded` = ifelse(collapsed, "false", "true"),
             shiny::icon("angle-down", class = "dropdown-icon"),
             shiny::tags$label(
-              class = "card-title inline",
+              style = "display: inline;",
               title,
             )
           )
@@ -55,14 +52,7 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
       )
     )
 
-    shiny::tagList(
-      shiny::singleton(
-        shiny::tags$head(
-          shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter"))
-        )
-      ),
-      res_tag
-    )
+    res_tag
   })
 }
 
@@ -174,17 +164,32 @@ global_knitr_details <- function() {
 
 #' @keywords internal
 .outline_button <- function(id, label, icon = NULL, class = "primary") {
-  shiny::tags$a(
-    id = id,
-    class = sprintf("teal-reporter action-button outline-button %s", class),
-    role = "button",
-    style = "text-decoration: none;",
-    if (!is.null(icon)) {
-      shiny::tags$span(
-        style = "margin: 0 10px 0 10px;",
-        bsicons::bs_icon(icon, class = sprintf("text-%s", class))
-      )
-    },
-    label
+  tagList(
+    shinyjs::useShinyjs(),
+    .custom_css_dependency(),
+    shiny::tags$a(
+      id = id,
+      class = sprintf("teal-reporter action-button outline-button %s", class),
+      role = "button",
+      style = "text-decoration: none;",
+      if (!is.null(icon)) {
+        shiny::tags$span(
+          style = "margin: 0 10px 0 10px;",
+          bsicons::bs_icon(icon, class = sprintf("text-%s", class))
+        )
+      },
+      label
+    )
+  )
+}
+
+#' @keywords internal
+.custom_css_dependency <- function() {
+  htmltools::htmlDependency(
+    name = "teal-reporter",
+    version = utils::packageVersion("teal.reporter"),
+    package = "teal.reporter",
+    src = "css",
+    stylesheet = "custom.css"
   )
 }

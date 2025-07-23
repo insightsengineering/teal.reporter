@@ -39,9 +39,7 @@ NULL
 simple_reporter_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-    ),
+    .custom_css_dependency(),
     shiny::tags$div(
       shiny::tags$label(class = "text-primary", shiny::tags$strong("Reporter")),
       shiny::tags$div(

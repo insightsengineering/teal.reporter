@@ -43,36 +43,11 @@ NULL
 #' @rdname add_card_button
 #' @export
 add_card_button_ui <- function(id, label = NULL) {
-  ns <- shiny::NS(id)
-
-  # Buttons with custom css and
-  # js code to disable the add card button when clicked to prevent multi-clicks
-  shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-    ),
-    shiny::singleton(
-      shiny::tags$head(
-        shiny::tags$script(
-          shiny::HTML(
-            sprintf(
-              '
-              $(document).ready(function(event) {
-                $("body").on("click", "#%s", function() {
-                  $(this).addClass("disabled");
-                })
-              })',
-              ns("add_card_ok")
-            )
-          )
-        )
-      )
-    ),
-    .outline_button(
-      ns("add_report_card_button"),
-      icon = "plus-lg",
-      label = label
-    )
+  checkmate::assert_string(label, null.ok = TRUE)
+  .outline_button(
+    shiny::NS(id, "add_report_card_button"),
+    icon = "plus-lg",
+    label = label
   )
 }
 
@@ -95,6 +70,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
     add_modal <- function() {
       shiny::div(
         class = "teal-reporter reporter-modal",
+        .custom_css_dependency(),
         shiny::modalDialog(
           easyClose = TRUE,
           shiny::tags$h3("Add a Card to the Report"),

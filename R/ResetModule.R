@@ -19,17 +19,11 @@ NULL
 reset_report_button_ui <- function(id, label = NULL) {
   checkmate::assert_string(label, null.ok = TRUE)
 
-  ns <- shiny::NS(id)
-  shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-    ),
-    .outline_button(
-      ns("reset_reporter"),
-      label = label,
-      icon = "x-lg",
-      class = "danger"
-    )
+  .outline_button(
+    shiny::NS(id, "reset_reporter"),
+    label = label,
+    icon = "x-lg",
+    class = "danger"
   )
 }
 
@@ -53,6 +47,7 @@ reset_report_button_srv <- function(id, reporter) {
     shiny::observeEvent(input$reset_reporter, {
       shiny::tags$div(
         class = "teal-reporter reporter-modal",
+        .custom_css_dependency(),
         shiny::showModal(
           shiny::modalDialog(
             easyClose = TRUE,

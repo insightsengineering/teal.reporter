@@ -8,16 +8,11 @@
 #' @return `shiny::tagList`
 #' @export
 report_load_ui <- function(id, label = NULL) {
-  ns <- shiny::NS(id)
-  shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-    ),
-    .outline_button(
-      ns("reporter_load"),
-      label = label,
-      icon = "upload"
-    )
+  checkmate::assert_string(label, null.ok = TRUE)
+  .outline_button(
+    shiny::NS(id, "reporter_load"),
+    label = label,
+    icon = "upload"
   )
 }
 
@@ -45,6 +40,7 @@ report_load_srv <- function(id, reporter) {
         nr_cards <- length(reporter$get_cards())
         shiny::div(
           class = "teal-reporter reporter-modal",
+          .custom_css_dependency(),
           shiny::modalDialog(
             easyClose = TRUE,
             shiny::tags$h3("Load the Report"),

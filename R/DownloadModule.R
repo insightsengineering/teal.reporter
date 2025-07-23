@@ -23,17 +23,11 @@ NULL
 #' @rdname download_report_button
 #' @export
 download_report_button_ui <- function(id, label = NULL) {
-  ns <- shiny::NS(id)
-  shiny::tagList(
-    shinyjs::useShinyjs(),
-    shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-    ),
-    .outline_button(
-      ns("download_button"),
-      label = label,
-      icon = "download"
-    )
+  checkmate::assert_string(label, null.ok = TRUE)
+  .outline_button(
+    shiny::NS(id, "download_button"),
+    label = label,
+    icon = "download"
   )
 }
 
@@ -80,6 +74,7 @@ download_report_button_srv <- function(id,
       )
       shiny::tags$div(
         class = "teal-reporter reporter-modal",
+        .custom_css_dependency(),
         shiny::modalDialog(
           easyClose = TRUE,
           shiny::tags$h3("Download the Report"),
