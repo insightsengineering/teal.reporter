@@ -106,9 +106,9 @@ reporter_previewer_ui <- function(id) {
       shiny::tags$div(
         class = "well",
         style = "display: inline-flex; flex-direction: row; gap: 10px;",
-        report_load_ui(ns("load")),
-        download_report_button_ui(ns("download")),
-        reset_report_button_ui(ns("reset"))
+        report_load_ui(ns("load"), label = "Load Report"),
+        download_report_button_ui(ns("download"), label = "Download Report"),
+        reset_report_button_ui(ns("reset"), label = "Reset Report")
       ),
       shiny::tags$div(
         reporter_previewer_only_ui(ns("previewer"))

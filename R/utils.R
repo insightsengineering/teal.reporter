@@ -173,8 +173,9 @@ global_knitr_details <- function() {
       role = "button",
       style = "text-decoration: none;",
       if (!is.null(icon)) {
+        margin_style <- ifelse(is.null(label), "margin: 0 10px 0 10px;", "")
         shiny::tags$span(
-          style = "margin: 0 10px 0 10px;",
+          style = margin_style,
           bsicons::bs_icon(icon, class = sprintf("text-%s", class))
         )
       },

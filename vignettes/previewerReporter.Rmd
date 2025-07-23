@@ -76,7 +76,7 @@ server <- function(input, output, session) {
   output$encoding <- renderUI({
     tagList(
       ### REPORTER
-      teal.reporter::add_card_button_ui("add_reporter"),
+      teal.reporter::add_card_button_ui("add_reporter", label = "Add Report Card"),
       ###
       if (input$tabs == "Plot") {
         sliderInput(
