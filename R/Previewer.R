@@ -93,13 +93,18 @@ preview_report_button_srv <- function(id, reporter) {
 }
 
 #' @rdname reporter_previewer
+#' @description `r lifecycle::badge("deprecated")`
 #' @export
 reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
   lifecycle::deprecate_soft(
     when = "",
     what = "reporter_previewer_ui()",
-    details = ""
+    details = paste(
+      "Calling `reporter_previewer_ui()` is deprecated and will be removed in the next release.\n",
+      "Please use `report_load_ui()`, `download_report_button_ui()`, `reset_report_button_ui()`,",
+      "and `preview_report_button_ui()` instead."
+    )
   )
   bslib::page_fluid(
     shiny::tagList(
@@ -118,6 +123,7 @@ reporter_previewer_ui <- function(id) {
 }
 
 #' @rdname reporter_previewer
+#' @description `r lifecycle::badge("deprecated")`
 #' @export
 reporter_previewer_srv <- function(id,
                                    reporter,
@@ -128,7 +134,11 @@ reporter_previewer_srv <- function(id,
   lifecycle::deprecate_soft(
     when = "",
     what = "reporter_previewer_srv()",
-    details = "`"
+    details = paste(
+      "Calling `reporter_previewer_srv()` is deprecated and will be removed in the next release.\n",
+      "Please use `report_load_srv()`, `download_report_button_srv()`, `reset_report_button_srv()`,",
+      "and `preview_report_button_srv()` instead."
+    )
   )
   checkmate::assert_subset(previewer_buttons, c("download", "load", "reset"), empty.ok = FALSE)
   checkmate::assert_true("download" %in% previewer_buttons)

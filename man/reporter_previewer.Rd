@@ -60,6 +60,10 @@ It includes a previewer interface to see the cards and options to modify the rep
 Cards are saved by the \code{shiny} bookmarking mechanism.
 
 For more details see the vignette: \code{vignette("previewerReporter", "teal.reporter")}.
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 }
 \details{
 To access the default values for the \code{global_knitr} parameter,
