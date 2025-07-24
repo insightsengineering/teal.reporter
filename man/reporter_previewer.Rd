@@ -4,24 +4,11 @@
 \alias{reporter_previewer}
 \alias{preview_report_button_ui}
 \alias{preview_report_button_srv}
-\alias{reporter_previewer_ui}
-\alias{reporter_previewer_srv}
 \title{Report previewer module}
 \usage{
 preview_report_button_ui(id, label = "Preview Report")
 
 preview_report_button_srv(id, reporter)
-
-reporter_previewer_ui(id)
-
-reporter_previewer_srv(
-  id,
-  reporter,
-  global_knitr = getOption("teal.reporter.global_knitr"),
-  rmd_output = getOption("teal.reporter.rmd_output"),
-  rmd_yaml_args = getOption("teal.reporter.rmd_yaml_args"),
-  previewer_buttons = c("download", "load", "reset")
-)
 }
 \arguments{
 \item{id}{(\code{character(1)}) \code{shiny} module instance id.}
@@ -29,23 +16,6 @@ reporter_previewer_srv(
 \item{label}{(\code{character(1)}) label of the button. By default it is "Preview Report".}
 
 \item{reporter}{(\code{Reporter}) instance.}
-
-\item{global_knitr}{(\code{list}) of \code{knitr} parameters (passed to \code{knitr::opts_chunk$set})
-for customizing the rendering process.}
-
-\item{rmd_output}{(\code{character}) vector with \code{rmarkdown} output types,
-by default all possible \code{pdf_document}, \code{html_document}, \code{powerpoint_presentation}, and \code{word_document}.
-If vector is named then those names will appear in the \code{UI}.}
-
-\item{rmd_yaml_args}{(\verb{named list}) with \code{Rmd} \code{yaml} header fields and their default values.
-This \code{list} will result in the custom subset of UI inputs for the download reporter functionality.
-Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)}.
-The \code{list} must include at least \code{"output"} field.
-The default value for \code{"output"} has to be in the \code{rmd_output} argument.}
-
-\item{previewer_buttons}{(\code{character}) set of modules to include with \code{c("download", "load", "reset")} possible
-values and \code{"download"} is required.
-Default \code{c("download", "load", "reset")}}
 }
 \value{
 \code{NULL}.
@@ -60,10 +30,6 @@ It includes a previewer interface to see the cards and options to modify the rep
 Cards are saved by the \code{shiny} bookmarking mechanism.
 
 For more details see the vignette: \code{vignette("previewerReporter", "teal.reporter")}.
-
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 }
 \details{
 To access the default values for the \code{global_knitr} parameter,

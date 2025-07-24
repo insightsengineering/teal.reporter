@@ -17,6 +17,29 @@
 #' @param id (`character(1)`) `shiny` module instance id.
 #' @param label (`character(1)`) label of the button. By default it is "Preview Report".
 #' @param reporter (`Reporter`) instance.
+#'
+#' @return `NULL`.
+NULL
+
+#' Report previewer module
+#'
+#' @description `r lifecycle::badge("deprecated")`
+#'
+#' Module offers functionalities to visualize, manipulate,
+#' and interact with report cards that have been added to a report.
+#' It includes a previewer interface to see the cards and options to modify the report before downloading.
+#'
+#' Cards are saved by the `shiny` bookmarking mechanism.
+#'
+#' For more details see the vignette: `vignette("previewerReporter", "teal.reporter")`.
+#'
+#' @details `r global_knitr_details()`
+#'
+#' @name reporter_previewer_deprecated
+#'
+#' @param id (`character(1)`) `shiny` module instance id.
+#' @param label (`character(1)`) label of the button. By default it is "Preview Report".
+#' @param reporter (`Reporter`) instance.
 #' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
 #'  for customizing the rendering process.
 #' @param previewer_buttons (`character`) set of modules to include with `c("download", "load", "reset")` possible
@@ -59,7 +82,6 @@ preview_report_button_srv <- function(id, reporter) {
     output$preview_button_counter <- shiny::renderUI({
       shiny::tags$span(
         class = "position-absolute badge rounded-pill bg-primary",
-        style = "top: 5px; right: 5px;",
         reporter$get_reactive_add_card()
       )
     })
@@ -92,8 +114,7 @@ preview_report_button_srv <- function(id, reporter) {
   })
 }
 
-#' @rdname reporter_previewer
-#' @description `r lifecycle::badge("deprecated")`
+#' @rdname reporter_previewer_deprecated
 #' @export
 reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
@@ -125,8 +146,7 @@ reporter_previewer_ui <- function(id) {
   )
 }
 
-#' @rdname reporter_previewer
-#' @description `r lifecycle::badge("deprecated")`
+#' @rdname reporter_previewer_deprecated
 #' @export
 reporter_previewer_srv <- function(id,
                                    reporter,
