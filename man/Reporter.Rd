@@ -176,7 +176,7 @@ reporter$from_jsondir(tmp_dir)
 \item \href{#method-Reporter-get_blocks}{\code{Reporter$get_blocks()}}
 \item \href{#method-Reporter-reset}{\code{Reporter$reset()}}
 \item \href{#method-Reporter-remove_cards}{\code{Reporter$remove_cards()}}
-\item \href{#method-Reporter-swap_cards}{\code{Reporter$swap_cards()}}
+\item \href{#method-Reporter-reorder_cards}{\code{Reporter$reorder_cards()}}
 \item \href{#method-Reporter-get_reactive_add_card}{\code{Reporter$get_reactive_add_card()}}
 \item \href{#method-Reporter-get_metadata}{\code{Reporter$get_metadata()}}
 \item \href{#method-Reporter-append_metadata}{\code{Reporter$append_metadata()}}
@@ -285,13 +285,13 @@ Resets the \code{Reporter}, removing all \code{\link{ReportCard}} objects and me
 \subsection{Method \code{remove_cards()}}{
 Removes specific \code{ReportCard} objects from the \code{Reporter} by their indices.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$remove_cards(ids = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$remove_cards(ids)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{ids}}{(\code{integer(id)}) the indexes of cards}
+\item{\code{ids}}{(\code{character}) the ids of the cards to be removed.}
 }
 \if{html}{\out{</div>}}
 }
@@ -300,20 +300,18 @@ Removes specific \code{ReportCard} objects from the \code{Reporter} by their ind
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Reporter-swap_cards"></a>}}
-\if{latex}{\out{\hypertarget{method-Reporter-swap_cards}{}}}
-\subsection{Method \code{swap_cards()}}{
-Swaps the positions of two \code{ReportCard} objects within the \code{Reporter}.
+\if{html}{\out{<a id="method-Reporter-reorder_cards"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-reorder_cards}{}}}
+\subsection{Method \code{reorder_cards()}}{
+Reorders \code{ReportCard} or \code{ReportDocument} objects in \code{Reporter}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$swap_cards(start, end)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$reorder_cards(new_order)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{start}}{(\code{integer}) the index of the first card}
-
-\item{\code{end}}{(\code{integer}) the index of the second card}
+\item{\code{new_order}}{\code{character} vector with card ids in the desired order.}
 }
 \if{html}{\out{</div>}}
 }

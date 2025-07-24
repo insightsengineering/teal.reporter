@@ -10,10 +10,11 @@ vignette: >
 The Report previewer is an advanced shiny module designed for visualization, editing, and downloading of report cards.
 It extended the base modules introduced in the `simpleReporter` vignette, enhancing interactivity and user engagement with report content.
 
+The report previewer is now implemented as a modal dialog that opens when a preview button is clicked, providing a streamlined user experience without requiring separate tabs.
 
 The five essential steps for implementing the report previewer include integrating it within a shiny application. Key code segments are highlighted in `### REPORTER` code blocks.
 
-1. Create a `tabsetPanel` within main app with the previewer.
+1. Add the preview button UI component to your app's interface.
 2. Integrate the UI components of the modules into the app's UI.
 3. Initialize reporter instance.
 4. Create the report card function with two optional arguments: `card` and `comment`.
@@ -42,42 +43,36 @@ library(bslib)
 A basic `shiny` app with the previewer module:
 
 ```{r, eval=requireNamespace("ggplot2")}
-ui <- fluidPage(
+ui <- bslib::page_fluid(
   # please, specify specific bootstrap version and theme
-  theme = bs_theme(version = "4"),
-  titlePanel(""),
-  tabsetPanel(
-    tabPanel(
-      "main App",
-      tags$br(),
-      sidebarLayout(
-        sidebarPanel(
-          uiOutput("encoding")
-        ),
-        mainPanel(
-          tabsetPanel(
-            id = "tabs",
-            tabPanel("Plot", plotOutput("dist_plot")),
-            tabPanel("Table", verbatimTextOutput("table")),
-            tabPanel("Table DataFrame", verbatimTextOutput("table2")),
-            tabPanel("Table DataTable", dataTableOutput("table3"))
-          )
-        )
-      )
-    ),
+  tags$br(),
+  tags$span(
     ### REPORTER
-    tabPanel(
-      "Previewer",
-      reporter_previewer_ui("prev")
-    )
+    teal.reporter::preview_report_button_ui("previewer")
     ###
+  ),
+  tags$br(),
+  tags$br(),
+  sidebarLayout(
+    sidebarPanel(
+      uiOutput("encoding")
+    ),
+    mainPanel(
+      tabsetPanel(
+        id = "tabs",
+        tabPanel("Plot", plotOutput("dist_plot")),
+        tabPanel("Table", verbatimTextOutput("table")),
+        tabPanel("Table DataFrame", verbatimTextOutput("table2")),
+        tabPanel("Table DataTable", dataTableOutput("table3"))
+      )
+    )
   )
 )
 server <- function(input, output, session) {
   output$encoding <- renderUI({
-    tagList(
+    shiny::tagList(
       ### REPORTER
-      teal.reporter::simple_reporter_ui("simple_reporter"),
+      teal.reporter::add_card_button_ui("add_reporter", label = "Add Report Card"),
       ###
       if (input$tabs == "Plot") {
         sliderInput(
@@ -193,8 +188,8 @@ server <- function(input, output, session) {
     }
     card
   }
-  teal.reporter::simple_reporter_srv("simple_reporter", reporter = reporter, card_fun = card_fun)
-  teal.reporter::reporter_previewer_srv("prev", reporter)
+  teal.reporter::add_card_button_srv("add_reporter", reporter = reporter, card_fun = card_fun)
+  teal.reporter::preview_report_button_srv("previewer", reporter)
   ###
 }
 

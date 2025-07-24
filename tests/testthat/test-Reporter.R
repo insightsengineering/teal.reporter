@@ -45,7 +45,7 @@ testthat::test_that("set_id sets the reporter id and returns reporter", {
 })
 
 testthat::test_that("get_cards returns the same cards which was added to reporter", {
-  testthat::expect_identical(reporter$get_cards(), list(card1, card2))
+  testthat::expect_identical(unname(reporter$get_cards()), list(card1, card2))
 })
 
 testthat::test_that("get_blocks returns the same blocks which was added to reporter, sep = NULL", {
@@ -77,12 +77,6 @@ testthat::test_that("The deep copy constructor copies the content files to new f
   testthat::expect_false(original_content_file == copied_content_file)
 })
 
-
-testthat::test_that("swap_cards", {
-  reporter1a <- reporter$clone()
-  reporter1b <- reporter$clone()
-  testthat::expect_equal(reporter1a$swap_cards(1L, 2L), reporter1b$swap_cards(2L, 1L))
-})
 
 testthat::test_that("reactive_add_card", {
   reporter <- Reporter$new()
@@ -125,7 +119,7 @@ testthat::test_that("from_reporter does not return identical/equal object form o
 })
 
 testthat::test_that("from_reporter persists the cards structure", {
-  testthat::expect_identical(reporter1$get_cards(), reporter2$from_reporter(reporter1)$get_cards())
+  testthat::expect_identical(unname(reporter1$get_cards()), unname(reporter2$from_reporter(reporter1)$get_cards()))
 })
 
 testthat::test_that("from_reporter persists the reactive_add_card count", {
@@ -176,7 +170,7 @@ testthat::test_that("from_reporter does not return identical/equal object form o
 })
 
 testthat::test_that("from_reporter persists the cards structure", {
-  testthat::expect_identical(reporter1$get_cards(), reporter2$from_reporter(reporter1)$get_cards())
+  testthat::expect_identical(unname(reporter1$get_cards()), unname(reporter2$from_reporter(reporter1)$get_cards()))
 })
 
 testthat::test_that("from_reporter persists the reactive_add_card count", {

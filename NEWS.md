@@ -2,11 +2,18 @@
 
 # teal.reporter 0.4.0
 
+### Breaking changes
+
+* The functions `reporter_previewer_ui()` and `reporter_previewer_srv()` are deprecated and will be removed in a future release. Please migrate to using the underlying shiny modules independently:
+  - **UI**: `report_load_ui()`, `download_report_button_ui()`, `reset_report_button_ui()`, and `preview_report_button_ui()`
+  - **Server**: `report_load_srv()`, `download_report_button_srv()`, `reset_report_button_srv()`, and `preview_report_button_srv()`
+
 ### Enhancements
 
 * Reports can now be reloaded. A zip file containing the report can be uploaded to restore the state of the Previewer.
 * Report cards are now included in bookmarks. When using the `shiny` bookmarking mechanism, existing report cards will be available in the restored application.
 * HTML content can now be added to the report.
+* Added `preview_report_button_ui` and `preview_report_button_srv` to create a shiny module that creates a button to open the report previewer in a modal.
 
 # teal.reporter 0.3.1
 

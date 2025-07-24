@@ -6,12 +6,14 @@
 \alias{add_card_button_srv}
 \title{Add card button module}
 \usage{
-add_card_button_ui(id)
+add_card_button_ui(id, label = NULL)
 
 add_card_button_srv(id, reporter, card_fun)
 }
 \arguments{
 \item{id}{(\code{character(1)}) this \code{shiny} module's id.}
+
+\item{label}{(\code{character(1)}) label of the button. By default it is empty.}
 
 \item{reporter}{(\code{Reporter}) instance.}
 

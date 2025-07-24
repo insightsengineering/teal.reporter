@@ -12,6 +12,7 @@
 #'
 #' @param id (`character(1)`) this `shiny` module's id.
 #' @param reporter (`Reporter`) instance.
+#' @param label (`character(1)`) label of the button. By default it is empty.
 #' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
 #'  for customizing the rendering process.
 #' @inheritParams reporter_download_inputs
@@ -21,21 +22,12 @@ NULL
 
 #' @rdname download_report_button
 #' @export
-download_report_button_ui <- function(id) {
-  ns <- shiny::NS(id)
-  shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-    ),
-    shiny::actionButton(
-      ns("download_button"),
-      class = "teal-reporter simple_report_button btn-primary",
-      title = "Download",
-      `data-val` = shiny::restoreInput(id = ns("download_button"), default = NULL),
-      shiny::tags$span(
-        shiny::icon("download")
-      )
-    )
+download_report_button_ui <- function(id, label = NULL) {
+  checkmate::assert_string(label, null.ok = TRUE)
+  .outline_button(
+    shiny::NS(id, "download_button"),
+    label = label,
+    icon = "download"
   )
 }
 
@@ -44,15 +36,8 @@ download_report_button_ui <- function(id) {
 download_report_button_srv <- function(id,
                                        reporter,
                                        global_knitr = getOption("teal.reporter.global_knitr"),
-                                       rmd_output = c(
-                                         "html" = "html_document", "pdf" = "pdf_document",
-                                         "powerpoint" = "powerpoint_presentation", "word" = "word_document"
-                                       ),
-                                       rmd_yaml_args = list(
-                                         author = "NEST", title = "Report",
-                                         date = as.character(Sys.Date()), output = "html_document",
-                                         toc = FALSE
-                                       )) {
+                                       rmd_output = getOption("teal.reporter.rmd_output"),
+                                       rmd_yaml_args = getOption("teal.reporter.rmd_yaml_args")) {
   checkmate::assert_class(reporter, "Reporter")
   checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
   checkmate::assert_subset(
@@ -78,37 +63,37 @@ download_report_button_srv <- function(id,
 
     download_modal <- function() {
       nr_cards <- length(reporter$get_cards())
-      downb <- shiny::tags$a(
-        id = ns("download_data"),
-        class = paste("btn btn-primary shiny-download-link", if (nr_cards) NULL else "disabled"),
-        style = if (nr_cards) NULL else "pointer-events: none;",
-        href = "",
-        target = "_blank",
-        download = NA,
-        shiny::icon("download"),
-        "Download"
+      downb <- shiny::downloadButton(
+        outputId = ns("download_data"),
+        label = "Download",
+        class = c(
+          "btn", "teal-reporter", "download-ok", "btn-primary", "shiny-download-link",
+          if (nr_cards == 0) "disabled"
+        ),
+        icon = shiny::icon("download")
       )
       shiny::tags$div(
-        class = "teal-widgets reporter-modal",
+        class = "teal-reporter reporter-modal",
+        .custom_css_dependency(),
         shiny::modalDialog(
           easyClose = TRUE,
           shiny::tags$h3("Download the Report"),
           shiny::tags$hr(),
           if (length(reporter$get_cards()) == 0) {
             shiny::tags$div(
-              class = "mb-4",
               shiny::tags$p(
                 class = "text-danger",
                 shiny::tags$strong("No Cards Added")
-              )
+              ),
+              shiny::tags$br()
             )
           } else {
             shiny::tags$div(
-              class = "mb-4",
               shiny::tags$p(
                 class = "text-success",
                 shiny::tags$strong(paste("Number of cards: ", nr_cards))
               ),
+              shiny::tags$br()
             )
           },
           reporter_download_inputs(
@@ -120,11 +105,10 @@ download_report_button_srv <- function(id,
           footer = shiny::tagList(
             shiny::tags$button(
               type = "button",
-              class = "btn btn-secondary",
-              `data-dismiss` = "modal",
+              class = "btn btn-outline-secondary",
               `data-bs-dismiss` = "modal",
               NULL,
-              "Cancel"
+              "Dismiss"
             ),
             downb
           )
@@ -134,6 +118,12 @@ download_report_button_srv <- function(id,
 
     shiny::observeEvent(input$download_button, {
       shiny::showModal(download_modal())
+    })
+
+    shiny::observeEvent(reporter$get_reactive_add_card(), {
+      shinyjs::toggleClass(
+        id = "download_button", condition = reporter$get_reactive_add_card() == 0, class = "disabled"
+      )
     })
 
     output$download_data <- shiny::downloadHandler(

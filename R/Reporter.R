@@ -49,7 +49,15 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter$append_cards(list(card1, card2))
     append_cards = function(cards) {
       checkmate::assert_list(cards, "ReportCard")
-      private$cards <- append(private$cards, cards)
+      # Set up unique id for each card
+      names(cards) <- vapply(cards, function(card) {
+        sprintf("card_%s", substr(rlang::hash(list(deparse1(card), Sys.time())), 1, 8))
+      }, character(1L))
+
+      for (card_id in names(cards)) {
+        private$cards[[card_id]] <- cards[[card_id]]
+        private$cards_order <- c(private$cards_order, card_id)
+      }
       private$reactive_add_card(length(private$cards))
       invisible(self)
     },
@@ -80,7 +88,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter$append_cards(list(card1, card2))
     #' reporter$get_cards()
     get_cards = function() {
-      private$cards
+      private$cards[private$cards_order]
     },
     #' @description Compiles and returns all content blocks from the [`ReportCard`] in the `Reporter`.
     #'
@@ -129,42 +137,26 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$cards <- list()
       private$metadata <- list()
       private$reactive_add_card(0)
+      private$cards_order <- c()
       invisible(self)
     },
     #' @description Removes specific `ReportCard` objects from the `Reporter` by their indices.
     #'
-    #' @param ids (`integer(id)`) the indexes of cards
+    #' @param ids (`character`) the ids of the cards to be removed.
     #' @return `self`, invisibly.
-    remove_cards = function(ids = NULL) {
-      checkmate::assert(
-        checkmate::check_null(ids),
-        checkmate::check_integer(ids, min.len = 1, max.len = length(private$cards))
-      )
+    remove_cards = function(ids) {
       if (!is.null(ids)) {
-        private$cards <- private$cards[-ids]
+        private$cards <- private$cards[!names(private$cards) %in% ids]
+        private$cards_order <- private$cards_order[!private$cards_order %in% ids]
       }
       private$reactive_add_card(length(private$cards))
       invisible(self)
     },
-    #' @description Swaps the positions of two `ReportCard` objects within the `Reporter`.
-    #'
-    #' @param start (`integer`) the index of the first card
-    #' @param end (`integer`) the index of the second card
+    #' @description Reorders `ReportCard` or `ReportDocument` objects in `Reporter`.
+    #' @param new_order `character` vector with card ids in the desired order.
     #' @return `self`, invisibly.
-    swap_cards = function(start, end) {
-      checkmate::assert(
-        checkmate::check_integer(start,
-          min.len = 1, max.len = 1, lower = 1, upper = length(private$cards)
-        ),
-        checkmate::check_integer(end,
-          min.len = 1, max.len = 1, lower = 1, upper = length(private$cards)
-        ),
-        combine = "and"
-      )
-      start_val <- private$cards[[start]]$clone()
-      end_val <- private$cards[[end]]$clone()
-      private$cards[[start]] <- end_val
-      private$cards[[end]] <- start_val
+    reorder_cards = function(new_order) {
+      private$cards_order <- new_order
       invisible(self)
     },
     #' @description Gets the current value of the reactive variable for adding cards.
@@ -338,6 +330,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     cards = list(),
     metadata = list(),
     reactive_add_card = NULL,
+    cards_order = c(),
     # @description The copy constructor.
     #
     # @param name the name of the field

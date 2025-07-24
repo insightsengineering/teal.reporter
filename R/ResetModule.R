@@ -9,8 +9,7 @@
 #' @name reset_report_button
 #'
 #' @param id (`character(1)`) `shiny` module instance id.
-#' @param label (`character(1)`) label before the icon.
-#' By default `NULL`.
+#' @param label (`character(1)`) label of the button. By default it is empty.
 #' @param reporter (`Reporter`) instance.
 #' @return `NULL`.
 NULL
@@ -20,21 +19,11 @@ NULL
 reset_report_button_ui <- function(id, label = NULL) {
   checkmate::assert_string(label, null.ok = TRUE)
 
-  ns <- shiny::NS(id)
-  shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-    ),
-    shiny::actionButton(
-      ns("reset_reporter"),
-      class = "teal-reporter simple_report_button clear-report btn-warning",
-      title = "Reset",
-      `data-val` = shiny::restoreInput(id = ns("reset_reporter"), default = NULL),
-      shiny::tags$span(
-        if (!is.null(label)) label,
-        shiny::icon("xmark")
-      )
-    )
+  .outline_button(
+    shiny::NS(id, "reset_reporter"),
+    label = label,
+    icon = "x-lg",
+    class = "danger"
   )
 }
 
@@ -49,12 +38,19 @@ reset_report_button_srv <- function(id, reporter) {
     ns <- session$ns
     nr_cards <- length(reporter$get_cards())
 
+    shiny::observeEvent(reporter$get_reactive_add_card(), {
+      shinyjs::toggleClass(
+        id = "reset_reporter", condition = reporter$get_reactive_add_card() == 0, class = "disabled"
+      )
+    })
 
     shiny::observeEvent(input$reset_reporter, {
       shiny::tags$div(
-        class = "teal-widgets reporter-modal",
+        class = "teal-reporter reporter-modal",
+        .custom_css_dependency(),
         shiny::showModal(
           shiny::modalDialog(
+            easyClose = TRUE,
             shiny::tags$h3("Reset the Report"),
             shiny::tags$hr(),
             shiny::tags$strong(
@@ -65,13 +61,12 @@ reset_report_button_srv <- function(id, reporter) {
             footer = shiny::tagList(
               shiny::tags$button(
                 type = "button",
-                class = "btn btn-secondary",
-                `data-dismiss` = "modal",
+                class = "btn btn-outline-secondary",
                 `data-bs-dismiss` = "modal",
                 NULL,
-                "Cancel"
+                "Dismiss"
               ),
-              shiny::actionButton(ns("reset_reporter_ok"), "Reset", class = "btn-danger")
+              shiny::actionButton(ns("reset_reporter_ok"), "Reset", class = "btn btn-primary")
             )
           )
         )

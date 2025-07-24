@@ -1,95 +1,85 @@
-/* teal.reporter custom css */
-
-.overflow-auto {
-  overflow: auto;
+/* To make sure the shinybusy::block() element does not take too much height */
+.teal-reporter.download-ok.nx-block-temporary-position {
+  min-height: 10px !important;
 }
-
-.block {
-  display: block;
-}
-
-.inline {
-  display: inline;
-}
-
-.flex {
-  display: flex;
-}
-
-.float-right {
-  float: right;
-}
-
-.justify-start {
-  justify-content: flex-start;
-}
-
-.-ml-1 {
-  margin-left: -0.25rem;
-}
-
-.-mx-4 {
-  margin-left: -1rem;
-  margin-right: -1rem;
-}
-
-.-my-3 {
-  margin-top: -0.75rem;
-  margin-bottom: -0.75rem;
-}
-
-.mb-4 {
-  margin-bottom: 1rem;
-}
-
-.mt-4 {
-  margin-top: 1rem;
-}
-
-.my-4 {
-  margin: 1rem 0;
-}
-
-.my-2 {
-  margin: 0.5rem 0;
-}
-
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-.py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
-
-.p-1 {
-  padding: 0.25rem;
-}
-
-/* dynamic labels after icons */
 
 .simple_reporter_container {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
-.simple_report_button {
-  min-width: 55px;
-  margin: 1px 1px;
-}
-
-.teal-reporter.simple_report_button.disabled {
-  cursor: not-allowed;
-}
-
-.teal-widgets.reporter-modal .modal-body,
+.teal-reporter.reporter-modal .modal-body,
 .modal-footer {
   padding: 1rem;
 }
 
-.teal-widgets.reporter-modal .modal-footer {
+.teal-reporter.reporter-modal .modal-footer {
   padding-top: 0;
+}
+
+.teal-reporter.outline-button {
+  padding: 0.3em;
+  border-radius: 5px;
+}
+
+.teal-reporter.outline-button.disabled {
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+.teal-reporter.outline-button.primary {
+  color: var(--bs-primary);
+  border: solid 1px var(--bs-primary);
+}
+
+.teal-reporter.outline-button.primary:hover {
+  background: var(--bs-primary-bg-subtle);
+}
+
+.teal-reporter.outline-button.danger {
+  color: var(--bs-danger);
+  border: solid 1px var(--bs-danger);
+}
+
+.teal-reporter.outline-button.danger:hover {
+  background: var(--bs-danger-bg-subtle);
+}
+
+.teal-reporter.outline-button .badge {
+  margin-top: -1em;
+  margin-left: -0.3em;
+}
+
+.teal-reporter.report-previewer-accordion .accordion-header {
+  display: flex;
+  align-items: center;
+}
+
+.teal-reporter.report-previewer-accordion .accordion-button {
+  background: var(--bs-primary-bg-subtle);
+}
+
+.teal-reporter.report-previewer-accordion .accordion-icon {
+  cursor: grab;
+}
+
+.teal-reporter.report-previewer-accordion .accordion-icon:active {
+  cursor: grabbing;
+}
+
+.teal-reporter.report-previewer-accordion .accordion-button a.action-button {
+  margin-left: 8px;
+  order: 1;
+}
+
+.teal-reporter.reporter-previewer-modal .modal-content {
+  overflow: auto;
+  max-height: 90vh;
+  height: 90vh;
+}
+
+.teal-reporter.reporter-previewer-modal .modal-dialog {
+  --bs-modal-margin: 20px;
 }

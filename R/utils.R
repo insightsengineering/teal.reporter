@@ -1,15 +1,3 @@
-#' Get bootstrap current version
-#' @note will work properly mainly inside a tag `.renderHook`
-#' @keywords internal
-get_bs_version <- function() {
-  theme <- bslib::bs_current_theme()
-  if (bslib::is_bs_theme(theme)) {
-    bslib::theme_version(theme)
-  } else {
-    "3"
-  }
-}
-
 #' Panel group widget
 #'
 #' `r lifecycle::badge("experimental")`
@@ -35,78 +23,36 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
 
 
   shiny::tags$div(.renderHook = function(res_tag) {
-    bs_version <- get_bs_version()
-
-    # alter tag structure
-    if (bs_version == "3") {
-      res_tag$children <- list(
+    res_tag$children <- list(
+      shiny::tags$div(
+        class = "card",
+        style = "margin: 0.5rem 0;",
         shiny::tags$div(
-          class = "panel panel-default",
+          class = "card-header",
           shiny::tags$div(
-            id = div_id,
-            class = paste("panel-heading", ifelse(collapsed, "collapsed", "")),
-            `data-toggle` = "collapse",
+            class = ifelse(collapsed, "collapsed", ""),
+            `data-bs-toggle` = "collapse",
             href = paste0("#", panel_id),
             `aria-expanded` = ifelse(collapsed, "false", "true"),
             shiny::icon("angle-down", class = "dropdown-icon"),
             shiny::tags$label(
-              class = "panel-title inline",
+              style = "display: inline;",
               title,
             )
-          ),
-          shiny::tags$div(
-            class = paste("panel-collapse collapse", ifelse(collapsed, "", "in")),
-            id = panel_id,
-            shiny::tags$div(
-              class = "panel-body",
-              ...
-            )
           )
-        )
-      )
-    } else if (bs_version %in% c("4", "5")) {
-      res_tag$children <- list(
+        ),
         shiny::tags$div(
-          class = "card my-2",
+          id = panel_id,
+          class = paste("collapse", ifelse(collapsed, "", "show")),
           shiny::tags$div(
-            class = "card-header",
-            shiny::tags$div(
-              class = ifelse(collapsed, "collapsed", ""),
-              # bs4
-              `data-toggle` = "collapse",
-              # bs5
-              `data-bs-toggle` = "collapse",
-              href = paste0("#", panel_id),
-              `aria-expanded` = ifelse(collapsed, "false", "true"),
-              shiny::icon("angle-down", class = "dropdown-icon"),
-              shiny::tags$label(
-                class = "card-title inline",
-                title,
-              )
-            )
-          ),
-          shiny::tags$div(
-            id = panel_id,
-            class = paste("collapse", ifelse(collapsed, "", "show")),
-            shiny::tags$div(
-              class = "card-body",
-              ...
-            )
+            class = "card-body",
+            ...
           )
         )
       )
-    } else {
-      stop("Bootstrap 3, 4, and 5 are supported.")
-    }
-
-    shiny::tagList(
-      shiny::singleton(
-        shiny::tags$head(
-          shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter"))
-        )
-      ),
-      res_tag
     )
+
+    res_tag
   })
 }
 
@@ -166,7 +112,7 @@ get_merge_index_single <- function(span) {
     }
     j <- j + span[j]
   }
-  return(ret)
+  ret
 }
 
 #' Divide text block into smaller blocks
@@ -212,5 +158,39 @@ global_knitr_details <- function() {
       " - `tidy = TRUE`  if `formatR` package is installed, `FALSE` otherwise"
     ),
     collapse = "\n"
+  )
+}
+
+
+#' @keywords internal
+.outline_button <- function(id, label, icon = NULL, class = "primary") {
+  shiny::tagList(
+    shinyjs::useShinyjs(),
+    .custom_css_dependency(),
+    shiny::tags$a(
+      id = id,
+      class = sprintf("teal-reporter action-button outline-button %s", class),
+      role = "button",
+      style = "text-decoration: none;",
+      if (!is.null(icon)) {
+        margin_style <- ifelse(is.null(label), "margin: 0 10px 0 10px;", "")
+        shiny::tags$span(
+          style = margin_style,
+          bsicons::bs_icon(icon, class = sprintf("text-%s", class))
+        )
+      },
+      label
+    )
+  )
+}
+
+#' @keywords internal
+.custom_css_dependency <- function() {
+  htmltools::htmlDependency(
+    name = "teal-reporter",
+    version = utils::packageVersion("teal.reporter"),
+    package = "teal.reporter",
+    src = "css",
+    stylesheet = "custom.css"
   )
 }

@@ -34,6 +34,7 @@
 #'
 #' @param id (`character(1)`) this `shiny` module's id.
 #' @param reporter (`Reporter`) instance.
+#' @param label (`character(1)`) label of the button. By default it is empty.
 #' @param card_fun (`function`) which returns a [`ReportCard`] instance. See `Details`.
 #'
 #' @return `NULL`.
@@ -41,41 +42,12 @@ NULL
 
 #' @rdname add_card_button
 #' @export
-add_card_button_ui <- function(id) {
-  ns <- shiny::NS(id)
-
-  # Buttons with custom css and
-  # js code to disable the add card button when clicked to prevent multi-clicks
-  shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")))
-    ),
-    shiny::singleton(
-      shiny::tags$head(
-        shiny::tags$script(
-          shiny::HTML(
-            sprintf(
-              '
-              $(document).ready(function(event) {
-                $("body").on("click", "#%s", function() {
-                  $(this).addClass("disabled");
-                })
-              })',
-              ns("add_card_ok")
-            )
-          )
-        )
-      )
-    ),
-    shiny::actionButton(
-      ns("add_report_card_button"),
-      title = "Add Card",
-      class = "teal-reporter simple_report_button btn-primary",
-      `data-val` = shiny::restoreInput(id = ns("add_report_card_button"), default = NULL),
-      shiny::tags$span(
-        shiny::icon("plus")
-      )
-    )
+add_card_button_ui <- function(id, label = NULL) {
+  checkmate::assert_string(label, null.ok = TRUE)
+  .outline_button(
+    shiny::NS(id, "add_report_card_button"),
+    icon = "plus-lg",
+    label = label
   )
 }
 
@@ -97,7 +69,8 @@ add_card_button_srv <- function(id, reporter, card_fun) {
 
     add_modal <- function() {
       shiny::div(
-        class = "teal-widgets reporter-modal",
+        class = "teal-reporter reporter-modal",
+        .custom_css_dependency(),
         shiny::modalDialog(
           easyClose = TRUE,
           shiny::tags$h3("Add a Card to the Report"),
@@ -131,17 +104,15 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           footer = shiny::div(
             shiny::tags$button(
               type = "button",
-              class = "btn btn-secondary",
-              `data-dismiss` = "modal",
+              class = "btn btn-outline-secondary",
               `data-bs-dismiss` = "modal",
               NULL,
-              "Cancel"
+              "Dismiss"
             ),
             shiny::tags$button(
               id = ns("add_card_ok"),
               type = "button",
               class = "btn btn-primary action-button",
-              `data-val` = shiny::restoreInput(id = ns("add_card_ok"), default = NULL),
               NULL,
               "Add Card"
             )
