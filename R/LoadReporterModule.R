@@ -1,10 +1,19 @@
-#' User Interface to Load `Reporter`
-#' @description `r lifecycle::badge("experimental")`
-#' Button to upload `ReporterCard`(s) to the `Reporter`.
+#' Load `Reporter` button module
 #'
-#' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' Provides a button to upload `ReporterCard`(s) to the `Reporter`.
+#'
+#' For more information, refer to the vignette: `vignette("simpleReporter", "teal.reporter")`.
+#'
+#' @name load_report_button
+#'
 #' @param id `character(1)` this `shiny` module's id.
 #' @param label (`character(1)`) label of the button. By default it is empty.
+#' @param reporter [`Reporter`] instance.
+NULL
+
+#' @rdname load_report_button
 #' @return `shiny::tagList`
 #' @export
 report_load_ui <- function(id, label = NULL) {
@@ -16,15 +25,8 @@ report_load_ui <- function(id, label = NULL) {
   )
 }
 
-#' Server to Load `Reporter`
-#' @description `r lifecycle::badge("experimental")`
-#' Server to load `ReporterCard`(s) to the `Reporter`
-#'
-#' For more details see the vignette: `vignette("simpleReporter", "teal.reporter")`.
-#'
-#' @param id `character(1)` this `shiny` module's id.
-#' @param reporter [`Reporter`] instance.
-#'
+
+#' @rdname load_report_button
 #' @return `shiny::moduleServer`
 #' @export
 report_load_srv <- function(id, reporter) {

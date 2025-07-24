@@ -1,16 +1,10 @@
-#' Report previewer module
+#' Show report previewer button module
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' Module offers functionalities to visualize, manipulate,
-#' and interact with report cards that have been added to a report.
-#' It includes a previewer interface to see the cards and options to modify the report before downloading.
-#'
-#' Cards are saved by the `shiny` bookmarking mechanism.
+#' Provides a button that triggers showing the report preview in a modal.
 #'
 #' For more details see the vignette: `vignette("previewerReporter", "teal.reporter")`.
-#'
-#' @details `r global_knitr_details()`
 #'
 #' @name reporter_previewer
 #'
@@ -33,12 +27,15 @@ NULL
 #'
 #' For more details see the vignette: `vignette("previewerReporter", "teal.reporter")`.
 #'
+#' This function is deprecated and will be removed in the next release.
+#' Please use `preview_report_button_ui()` and `preview_report_button_srv()`
+#' to create a preview button that opens a modal with the report preview.
+#'
 #' @details `r global_knitr_details()`
 #'
 #' @name reporter_previewer_deprecated
 #'
 #' @param id (`character(1)`) `shiny` module instance id.
-#' @param label (`character(1)`) label of the button. By default it is "Preview Report".
 #' @param reporter (`Reporter`) instance.
 #' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
 #'  for customizing the rendering process.

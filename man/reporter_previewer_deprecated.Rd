@@ -38,8 +38,6 @@ The default value for \code{"output"} has to be in the \code{rmd_output} argumen
 \item{previewer_buttons}{(\code{character}) set of modules to include with \code{c("download", "load", "reset")} possible
 values and \code{"download"} is required.
 Default \code{c("download", "load", "reset")}}
-
-\item{label}{(\code{character(1)}) label of the button. By default it is "Preview Report".}
 }
 \value{
 \code{NULL}.
@@ -54,6 +52,10 @@ It includes a previewer interface to see the cards and options to modify the rep
 Cards are saved by the \code{shiny} bookmarking mechanism.
 
 For more details see the vignette: \code{vignette("previewerReporter", "teal.reporter")}.
+
+This function is deprecated and will be removed in the next release.
+Please use \code{preview_report_button_ui()} and \code{preview_report_button_srv()}
+to create a preview button that opens a modal with the report preview.
 }
 \details{
 To access the default values for the \code{global_knitr} parameter,

@@ -4,7 +4,7 @@
 \alias{reporter_previewer}
 \alias{preview_report_button_ui}
 \alias{preview_report_button_srv}
-\title{Report previewer module}
+\title{Show report previewer button module}
 \usage{
 preview_report_button_ui(id, label = "Preview Report")
 
@@ -23,20 +23,7 @@ preview_report_button_srv(id, reporter)
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Module offers functionalities to visualize, manipulate,
-and interact with report cards that have been added to a report.
-It includes a previewer interface to see the cards and options to modify the report before downloading.
-
-Cards are saved by the \code{shiny} bookmarking mechanism.
+Provides a button that triggers showing the report preview in a modal.
 
 For more details see the vignette: \code{vignette("previewerReporter", "teal.reporter")}.
-}
-\details{
-To access the default values for the \code{global_knitr} parameter,
-use \code{getOption('teal.reporter.global_knitr')}. These defaults include:
-\itemize{
-\item \code{echo = TRUE}
-\item \code{tidy.opts = list(width.cutoff = 60)}
-\item \code{tidy = TRUE}  if \code{formatR} package is installed, \code{FALSE} otherwise
-}
 }
