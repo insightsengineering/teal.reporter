@@ -20,33 +20,24 @@ if Report has an id when converting to JSON then It will be compared to the curr
 \examples{
 \dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(ggplot2)
-library(rtables)
 
-card1 <- ReportCard$new()
-card1$append_text("Header 2 text", "header2")
-card1$append_text("A paragraph of default text")
-card1$append_plot(
-  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-)
+card1 <- teal_card("## Header 2 text", "A paragraph of default text")
+card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
+metadata(card1, "title") <- "Card1"
 
-doc1 <- ReportCard$new()
-doc1$append_text("Document introduction")
+card2 <- teal_card("Document introduction")
+metadata(card2, "title") <- "Card2"
 
 reporter <- Reporter$new()
-reporter$append_cards(list(card1, doc1))
+reporter$append_cards(list(card1, card2))
 \dontshow{\}) # examplesIf}
 \dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(ggplot2)
 library(rtables)
 
-card1 <- ReportCard$new()
-
-card1$append_text("Header 2 text", "header2")
-card1$append_text("A paragraph of default text")
-card1$append_plot(
-  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-)
-card1$set_name('Card1')
+card1 <- teal_card("## Header 2 text", "A paragraph of default text")
+card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
+metadata(card1, "title") <- "Card1"
 
 lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
 table_res2 <- build_table(lyt, airquality)
@@ -68,14 +59,9 @@ names(reporter$get_cards())
 library(ggplot2)
 library(rtables)
 
-card1 <- ReportCard$new()
-
-card1$append_text("Header 2 text", "header2")
-card1$append_text("A paragraph of default text")
-card1$append_plot(
-  ggplot(iris, aes(x = Petal.Length)) + geom_histogram(binwidth = 0.2)
-)
-card1$set_name('Card1')
+card1 <- teal_card("## Header 2 text", "A paragraph of default text")
+card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
+metadata(card1, "title") <- "Card1"
 
 reporter <- Reporter$new()
 reporter$append_cards(list(card1))
@@ -96,13 +82,8 @@ reporter$get_cards()[[1]]$get_name()
 library(ggplot2)
 library(rtables)
 
-card1 <- ReportCard$new()
-
-card1$append_text("Header 2 text", "header2")
-card1$append_text("A paragraph of default text")
-card1$append_plot(
- ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-)
+card1 <- teal_card("## Header 2 text", "A paragraph of default text")
+card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
 
 lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
 table_res2 <- build_table(lyt, airquality)
@@ -120,13 +101,8 @@ reporter$get_cards()
 library(ggplot2)
 library(rtables)
 
-card1 <- ReportCard$new()
-
-card1$append_text("Header 2 text", "header2")
-card1$append_text("A paragraph of default text")
-card1$append_plot(
- ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
-)
+card1 <- teal_card("## Header 2 text", "A paragraph of default text")
+card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
 
 lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
 table_res2 <- build_table(lyt, airquality)
