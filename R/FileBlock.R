@@ -58,7 +58,7 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
     # @details Removes the temporary file created in the constructor.
     finalize = function() {
       try(unlink(super$get_content()))
-    } 
+    }
   ),
   lock_objects = TRUE,
   lock_class = TRUE
