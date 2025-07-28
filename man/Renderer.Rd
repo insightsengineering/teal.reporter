@@ -109,7 +109,6 @@ Renderer$get_output_dir()
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Renderer-new}{\code{Renderer$new()}}
-\item \href{#method-Renderer-finalize}{\code{Renderer$finalize()}}
 \item \href{#method-Renderer-renderRmd}{\code{Renderer$renderRmd()}}
 \item \href{#method-Renderer-render}{\code{Renderer$render()}}
 \item \href{#method-Renderer-get_output_dir}{\code{Renderer$get_output_dir()}}
@@ -141,16 +140,6 @@ Renderer$new()
 }
 \if{html}{\out{</div>}}
 
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Renderer-finalize"></a>}}
-\if{latex}{\out{\hypertarget{method-Renderer-finalize}{}}}
-\subsection{Method \code{finalize()}}{
-Finalizes a \code{Renderer} object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Renderer$finalize()}\if{html}{\out{</div>}}
 }
 
 }

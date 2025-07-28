@@ -25,10 +25,6 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       private$output_dir <- output_dir
       invisible(self)
     },
-    #' @description Finalizes a `Renderer` object.
-    finalize = function() {
-      unlink(private$output_dir, recursive = TRUE)
-    },
     #' @description Getting the `Rmd` text which could be easily rendered later.
     #'
     #' @param blocks (`list`) of `TextBlock`, `PictureBlock` and `NewpageBlock` objects.
@@ -281,6 +277,11 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       basename <- basename(tempfile(fileext = ".rds"))
       suppressWarnings(saveRDS(block$get_content(), file = file.path(private$output_dir, basename)))
       sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename)
+    },
+
+    # @description Finalizes a `Renderer` object.
+    finalize = function() {
+      unlink(private$output_dir, recursive = TRUE)
     }
   ),
   lock_objects = TRUE,

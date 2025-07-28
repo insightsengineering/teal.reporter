@@ -36,7 +36,6 @@ block$set_content(iris)
 <details open><summary>Inherited methods</summary>
 <ul>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="ContentBlock" data-id="get_content"><a href='../../teal.reporter/html/ContentBlock.html#method-ContentBlock-get_content'><code>teal.reporter::ContentBlock$get_content()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileBlock" data-id="finalize"><a href='../../teal.reporter/html/FileBlock.html#method-FileBlock-finalize'><code>teal.reporter::FileBlock$finalize()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileBlock" data-id="from_list"><a href='../../teal.reporter/html/FileBlock.html#method-FileBlock-from_list'><code>teal.reporter::FileBlock$from_list()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="teal.reporter" data-topic="FileBlock" data-id="to_list"><a href='../../teal.reporter/html/FileBlock.html#method-FileBlock-to_list'><code>teal.reporter::FileBlock$to_list()</code></a></span></li>
 </ul>

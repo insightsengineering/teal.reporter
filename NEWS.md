@@ -1,5 +1,9 @@
 # teal.reporter 0.4.0.9005
 
+### Miscellaneous
+
+* Moves `finalize()` methods to private in R6 classes.
+
 # teal.reporter 0.4.0
 
 ### Breaking changes
