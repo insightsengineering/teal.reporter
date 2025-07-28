@@ -51,7 +51,7 @@ FileBlock <- R6::R6Class( # nolint: object_name_linter.
     }
   ),
   private = list(
-    content = character(0),
+    content = character(0L),
 
     # @description Finalize the `FileBlock`.
     #
