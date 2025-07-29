@@ -5,7 +5,7 @@
 \alias{eval_code,teal_report-method}
 \title{Evaluate code in \code{qenv}}
 \usage{
-\S4method{eval_code}{teal_report}(object, code, code_block_opts = list(), ...)
+\S4method{eval_code}{teal_report,ANY}(object, code, code_block_opts = list(), ...)
 }
 \arguments{
 \item{object}{(\code{teal_report})}

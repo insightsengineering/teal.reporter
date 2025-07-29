@@ -17,4 +17,14 @@ if (requireNamespace("waldo", quietly = TRUE)) {
     },
     envir = asNamespace("waldo")
   )
+
+  registerS3method(
+    "compare_proxy",
+    "teal_card",
+    function(x, path = "x") {
+      metadata(x) <- metadata(x) # ensure verbose output
+      list(object = x, path = path)
+    },
+    envir = asNamespace("waldo")
+  )
 }
