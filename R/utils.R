@@ -167,9 +167,16 @@ global_knitr_details <- function() {
   shiny::tagList(
     shinyjs::useShinyjs(),
     .custom_css_dependency(),
-    shiny::tags$a(
+    htmltools::htmlDependency(
+      name = "teal-reporter-busy-disable",
+      version = utils::packageVersion("teal.reporter"),
+      package = "teal.reporter",
+      src = "js",
+      script = "busy-disable.js"
+    ),
+    shiny::tags$button(
       id = id,
-      class = sprintf("teal-reporter action-button outline-button %s", class),
+      class = sprintf("teal-reporter action-button teal-reporter-busy-disable outline-button %s", class),
       role = "button",
       style = "text-decoration: none;",
       if (!is.null(icon)) {

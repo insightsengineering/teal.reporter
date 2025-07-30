@@ -44,15 +44,6 @@ A basic `shiny` app with the previewer module:
 
 ```{r, eval=requireNamespace("ggplot2")}
 ui <- bslib::page_fluid(
-  # please, specify specific bootstrap version and theme
-  tags$br(),
-  tags$span(
-    ### REPORTER
-    teal.reporter::preview_report_button_ui("previewer")
-    ###
-  ),
-  tags$br(),
-  tags$br(),
   sidebarLayout(
     sidebarPanel(
       uiOutput("encoding")
@@ -73,6 +64,7 @@ server <- function(input, output, session) {
     shiny::tagList(
       ### REPORTER
       teal.reporter::add_card_button_ui("add_reporter", label = "Add Report Card"),
+      teal.reporter::preview_report_button_ui("previewer"),
       ###
       if (input$tabs == "Plot") {
         sliderInput(
