@@ -51,7 +51,7 @@ library(rtables)
 
 Simple reporter `shiny` app with separate modules for each button:
 
-```{r, eval=requireNamespace("ggplot2")}
+```{r, eval=requireNamespace("ggplot2") && interactive()}
 ui <- bslib::page_fluid(
   titlePanel(""),
   sidebarLayout(
@@ -143,12 +143,12 @@ server <- function(input, output, session) {
   ###
 }
 
-if (interactive()) shinyApp(ui = ui, server = server)
+shinyApp(ui = ui, server = server)
 ```
 
 Simple reporter `shiny` app with combined buttons modules:
 
-```{r, eval=requireNamespace("ggplot2")}
+```{r, eval=requireNamespace("ggplot2") && interactive()}
 ui <- bslib::page_fluid(
   titlePanel(""),
   sidebarLayout(
@@ -238,5 +238,5 @@ server <- function(input, output, session) {
   ###
 }
 
-if (interactive()) shinyApp(ui = ui, server = server)
+shinyApp(ui = ui, server = server)
 ```

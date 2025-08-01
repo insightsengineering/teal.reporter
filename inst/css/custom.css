@@ -22,9 +22,11 @@
 .teal-reporter.outline-button {
   padding: 0.3em;
   border-radius: 5px;
+  background: transparent;
 }
 
-.teal-reporter.outline-button.disabled {
+.teal-reporter.outline-button.disabled,
+.teal-reporter.outline-button:disabled {
   pointer-events: none;
   opacity: 0.65;
 }
@@ -34,7 +36,7 @@
   border: solid 1px var(--bs-primary);
 }
 
-.teal-reporter.outline-button.primary:hover {
+.teal-reporter.outline-button.primary:hover:not(:disabled) {
   background: var(--bs-primary-bg-subtle);
 }
 
@@ -43,13 +45,12 @@
   border: solid 1px var(--bs-danger);
 }
 
-.teal-reporter.outline-button.danger:hover {
+.teal-reporter.outline-button.danger:hover:not(:disabled) {
   background: var(--bs-danger-bg-subtle);
 }
 
 .teal-reporter.outline-button .badge {
   margin-top: -1em;
-  margin-left: -0.3em;
 }
 
 .teal-reporter.report-previewer-accordion .accordion-header {
