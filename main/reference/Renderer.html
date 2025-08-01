@@ -9,7 +9,7 @@ It supports TextBlock, PictureBlock, RcodeBlock, NewpageBlock, and TableBlock.">
 
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0.9004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0.9006</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,6 @@ It supports <code>TextBlock</code>, <code>PictureBlock</code>, <code>RcodeBlock<
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
 
 <ul><li><p><a href="#method-Renderer-new"><code>Renderer$new()</code></a></p></li>
-<li><p><a href="#method-Renderer-finalize"><code>Renderer$finalize()</code></a></p></li>
 <li><p><a href="#method-Renderer-renderRmd"><code>Renderer$renderRmd()</code></a></p></li>
 <li><p><a href="#method-Renderer-render"><code>Renderer$render()</code></a></p></li>
 <li><p><a href="#method-Renderer-get_output_dir"><code>Renderer$get_output_dir()</code></a></p></li>
@@ -91,18 +90,10 @@ with a temporary directory for storing report files.</p>
 </div>
 
 
-</div><p></p><hr><a id="method-Renderer-finalize"></a><div class="section">
-<h3 id="method-finalize-">Method <code>finalize()</code><a class="anchor" aria-label="anchor" href="#method-finalize-"></a></h3>
-<p>Finalizes a <code>Renderer</code> object.</p><div class="section">
-<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Renderer</span><span class="op">$</span><span class="fu">finalize</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-
 </div><p></p><hr><a id="method-Renderer-renderRmd"></a><div class="section">
 <h3 id="method-renderrmd-">Method <code>renderRmd()</code><a class="anchor" aria-label="anchor" href="#method-renderrmd-"></a></h3>
 <p>Getting the <code>Rmd</code> text which could be easily rendered later.</p><div class="section">
-<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
+<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Renderer</span><span class="op">$</span><span class="fu">renderRmd</span><span class="op">(</span></span>
 <span>  <span class="va">blocks</span>,</span>
 <span>  <span class="va">yaml_header</span>,</span>
@@ -143,7 +134,7 @@ use <code>getOption('teal.reporter.global_knitr')</code>. These defaults include
 </div><p></p><hr><a id="method-Renderer-render"></a><div class="section">
 <h3 id="method-render-">Method <code>render()</code><a class="anchor" aria-label="anchor" href="#method-render-"></a></h3>
 <p>Renders the <code>Report</code> to the desired output format by compiling the <code>rmarkdown</code> file.</p><div class="section">
-<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
+<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Renderer</span><span class="op">$</span><span class="fu">render</span><span class="op">(</span></span>
 <span>  <span class="va">blocks</span>,</span>
 <span>  <span class="va">yaml_header</span>,</span>
@@ -189,7 +180,7 @@ use <code>getOption('teal.reporter.global_knitr')</code>. These defaults include
 </div><p></p><hr><a id="method-Renderer-get_output_dir"></a><div class="section">
 <h3 id="method-get-output-dir-">Method <code>get_output_dir()</code><a class="anchor" aria-label="anchor" href="#method-get-output-dir-"></a></h3>
 <p>Get <code>output_dir</code> field.</p><div class="section">
-<h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
+<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Renderer</span><span class="op">$</span><span class="fu">get_output_dir</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -208,7 +199,7 @@ use <code>getOption('teal.reporter.global_knitr')</code>. These defaults include
 </div><p></p><hr><a id="method-Renderer-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
+<h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Renderer</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -332,15 +323,15 @@ use <code>getOption('teal.reporter.global_knitr')</code>. These defaults include
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;Renderer&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     finalize: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_output_dir: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     render: function (blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr"), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     renderRmd: function (blocks, yaml_header, global_knitr = getOption("teal.reporter.global_knitr")) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     block2md: function (block) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     finalize: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     htmlBlock2md: function (block) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     output_dir: /tmp/RtmpV6AeRs/report_202507240638403638</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     output_dir: /tmp/Rtmpe93zfW/report_202508011057345980</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     pictureBlock2md: function (block) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     rcodeBlock2md: function (block) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     report_type: NULL</span>
@@ -354,7 +345,7 @@ use <code>getOption('teal.reporter.global_knitr')</code>. These defaults include
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">Renderer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"Renderer"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">Renderer</span><span class="op">$</span><span class="fu">get_output_dir</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpV6AeRs/report_202507240638403658"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/Rtmpe93zfW/report_202508011057346000"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
