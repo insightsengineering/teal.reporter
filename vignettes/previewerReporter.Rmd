@@ -42,7 +42,7 @@ library(bslib)
 
 A basic `shiny` app with the previewer module:
 
-```{r, eval=requireNamespace("ggplot2")}
+```{r, eval=requireNamespace("ggplot2") && interactive()}
 ui <- bslib::page_fluid(
   sidebarLayout(
     sidebarPanel(
@@ -185,5 +185,5 @@ server <- function(input, output, session) {
   ###
 }
 
-if (interactive()) shinyApp(ui = ui, server = server)
+shinyApp(ui = ui, server = server)
 ```
