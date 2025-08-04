@@ -35,7 +35,7 @@ Imports:
     rmarkdown (>= 2.23),
     rtables (>= 0.6.11),
     rtables.officer (>= 0.0.2),
-    shiny (>= 1.6.0),
+    shiny (>= 1.8.1),
     shinybusy (>= 0.3.2),
     shinyjs,
     shinyWidgets (>= 0.5.1),
