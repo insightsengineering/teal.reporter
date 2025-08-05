@@ -70,32 +70,35 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
 #'
 #' @keywords internal
 to_flextable <- function(content) {
-  if (inherits(content, c("rtables", "TableTree", "ElementaryTable"))) {
-    ft <- rtables.officer::tt_to_flextable(content)
-  } else if (inherits(content, "listing_df")) {
-    mf <- rlistings::matrix_form(content)
-    nr_header <- attr(mf, "nrow_header")
-    df <- as.data.frame(mf$strings[seq(nr_header + 1, nrow(mf$strings)), , drop = FALSE])
-    header_df <- as.data.frame(mf$strings[seq_len(nr_header), , drop = FALSE])
+  # Suppress flextable font warnings to prevent them from appearing in rendered reports
+  suppressWarnings({
+    if (inherits(content, c("rtables", "TableTree", "ElementaryTable"))) {
+      ft <- rtables.officer::tt_to_flextable(content)
+    } else if (inherits(content, "listing_df")) {
+      mf <- rlistings::matrix_form(content)
+      nr_header <- attr(mf, "nrow_header")
+      df <- as.data.frame(mf$strings[seq(nr_header + 1, nrow(mf$strings)), , drop = FALSE])
+      header_df <- as.data.frame(mf$strings[seq_len(nr_header), , drop = FALSE])
 
-    ft <- rtables::df_to_tt(df)
-    if (length(mf$main_title) != 0) {
-      rtables::main_title(ft) <- mf$main_title
+      ft <- rtables::df_to_tt(df)
+      if (length(mf$main_title) != 0) {
+        rtables::main_title(ft) <- mf$main_title
+      }
+      rtables::subtitles(ft) <- mf$subtitles
+      rtables::main_footer(ft) <- mf$main_footer
+      rtables::prov_footer(ft) <- mf$prov_footer
+      rtables::header_section_div(ft) <- mf$header_section_div
+      ft <- rtables.officer::tt_to_flextable(ft, total_width = c(grDevices::pdf.options()$width - 1))
+    } else if (inherits(content, "data.frame")) {
+      ft <- rtables.officer::tt_to_flextable(
+        rtables::df_to_tt(content)
+      )
+    } else {
+      stop(paste0("Unsupported class `(", format(class(content)), ")` when exporting table"))
     }
-    rtables::subtitles(ft) <- mf$subtitles
-    rtables::main_footer(ft) <- mf$main_footer
-    rtables::prov_footer(ft) <- mf$prov_footer
-    rtables::header_section_div(ft) <- mf$header_section_div
-    ft <- rtables.officer::tt_to_flextable(ft, total_width = c(grDevices::pdf.options()$width - 1))
-  } else if (inherits(content, "data.frame")) {
-    ft <- rtables.officer::tt_to_flextable(
-      rtables::df_to_tt(content)
-    )
-  } else {
-    stop(paste0("Unsupported class `(", format(class(content)), ")` when exporting table"))
-  }
 
-  ft
+    ft
+  })
 }
 
 #' Get the merge index for a single span.
