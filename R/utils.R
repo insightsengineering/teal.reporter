@@ -98,6 +98,31 @@ to_flextable <- function(content) {
   ft
 }
 
+#' Check if a flextable is too wide for portrait PDF layout
+#'
+#' Determines if a flextable exceeds the width constraints of a portrait-oriented PDF page
+#' and would benefit from landscape orientation.
+#'
+#' @param ft (`flextable`) a flextable object to check
+#' @param portrait_width (`numeric`) maximum width for portrait orientation in inches.
+#'   Defaults to 6.5 inches (standard 8.5" page width minus margins)
+#'
+#' @return `logical` indicating if the table should be rendered in landscape orientation
+#'
+#' @keywords internal
+is_table_too_wide <- function(ft, portrait_width = 6.5) {
+  if (!inherits(ft, "flextable")) {
+    return(FALSE)
+  }
+  
+  # Get table dimensions
+  table_dims <- flextable::flextable_dim(ft)
+  table_width <- sum(table_dims$widths)
+  
+  # Check if table width exceeds portrait page width
+  table_width > portrait_width
+}
+
 #' Get the merge index for a single span.
 #' This function retrieves the merge index for a single span,
 #' which is used in merging cells.
