@@ -95,3 +95,34 @@ testthat::test_that("set_content supports rtables object", {
     testthat::expect_no_error(block$set_content(rtables::build_table(l, iris)))
   )
 })
+
+testthat::test_that("get_landscape_mode returns FALSE by default", {
+  block <- TableBlock$new()
+  testthat::expect_false(block$get_landscape_mode())
+})
+
+testthat::test_that("landscape mode flag is preserved in to_list/from_list", {
+  # Create a block with a table
+  block <- TableBlock$new()
+  # https://github.com/davidgohel/flextable/issues/600
+  withr::with_options(
+    opts_partial_match_old,
+    block$set_content(iris)
+  )
+  
+  # Get the landscape mode (should be FALSE for iris)
+  original_landscape <- block$get_landscape_mode()
+  
+  # Test serialization round-trip
+  temp_dir <- tempdir()
+  list_repr <- block$to_list(temp_dir)
+  
+  # Check that landscape_mode is included in the list
+  testthat::expect_true("landscape_mode" %in% names(list_repr))
+  testthat::expect_equal(list_repr$landscape_mode, original_landscape)
+  
+  # Test deserialization
+  new_block <- TableBlock$new()
+  new_block$from_list(list_repr, temp_dir)
+  testthat::expect_equal(new_block$get_landscape_mode(), original_landscape)
+})
