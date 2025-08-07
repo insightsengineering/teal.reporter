@@ -137,7 +137,7 @@ load_json_report <- function(reporter, zip_path, filename) {
     shiny::showNotification(
       paste(
         "Failed to load the Reporter file.",
-        "Please make sure that the filename starts with `reporter_`."
+        "Please make sure that the filename starts with `report_`."
       ),
       type = "error"
     )
