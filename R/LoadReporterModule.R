@@ -138,7 +138,7 @@ load_json_report <- function(reporter, zip_path, filename) {
       paste(
         "Failed to load the Reporter file.",
         "Please make sure that the filename starts with `reporter_`."
-      ), 
+      ),
       type = "error"
     )
   }
