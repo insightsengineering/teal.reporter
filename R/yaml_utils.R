@@ -274,8 +274,6 @@ as_yaml_auto <- function(input_list,
 
 #' Print method for the `yaml_header` class
 #'
-#' `r lifecycle::badge("experimental")`
-#'
 #' @param x (`rmd_yaml_header`) class object.
 #' @param ... optional text.
 #' @return `NULL`.
