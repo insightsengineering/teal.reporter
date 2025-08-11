@@ -85,7 +85,7 @@ conv_str_logi <- function(input,
 
 #' Get document output types from the `rmarkdown` package
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' Retrieves vector of available document output types from the `rmarkdown` package,
 #' such as `pdf_document`, `html_document`, etc.
@@ -101,7 +101,7 @@ rmd_outputs <- function() {
 
 #' Get document output arguments from the `rmarkdown` package
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' Retrieves the arguments for a specified document output type from the `rmarkdown` package.
 #'
@@ -125,7 +125,7 @@ rmd_output_arguments <- function(output_name, default_values = FALSE) {
 
 #' Parse a named list to `yaml` header for an `Rmd` file
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' Converts a named list into a `yaml` header for `Rmd`, handling output types and arguments
 #' as defined in the `rmarkdown` package. This function simplifies the process of generating `yaml` headers.

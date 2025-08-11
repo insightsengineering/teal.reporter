@@ -1,6 +1,6 @@
 #' Add card button module
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' Provides a button to add views/cards to a report.
 #'

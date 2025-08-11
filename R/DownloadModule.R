@@ -1,6 +1,6 @@
 #' Download report button module
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' Provides a button that triggers downloading a report.
 #'

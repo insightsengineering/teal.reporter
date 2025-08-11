@@ -1,6 +1,6 @@
 #' Simple reporter module
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' Module provides compact UI and server functions for managing a report in a `shiny` app.
 #' This module combines functionalities for [adding cards to a report][add_card_button],
