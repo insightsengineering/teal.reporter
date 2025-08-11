@@ -62,18 +62,24 @@ simple_reporter_srv <- function(
     card_fun,
     global_knitr = getOption("teal.reporter.global_knitr"),
     rmd_output = c(
-      "html" = "html_document", "pdf" = "pdf_document",
-      "powerpoint" = "powerpoint_presentation", "word" = "word_document"
+      "html" = "html_document",
+      "pdf" = "pdf_document",
+      "powerpoint" = "powerpoint_presentation",
+      "word" = "word_document"
     ),
     rmd_yaml_args = list(
-      author = "NEST", title = "Report",
-      date = as.character(Sys.Date()), output = "html_document",
+      author = "NEST",
+      title = "Report",
+      date = as.character(Sys.Date()),
+      output = "html_document",
       toc = FALSE
-    )) {
+    ),
+    env
+) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
-      add_card_button_srv("add_report_card_simple", reporter = reporter, card_fun = card_fun)
+      add_card_button_srv("add_report_card_simple", reporter = reporter, card_fun = card_fun, env = env)
       download_report_button_srv(
         "download_button_simple",
         reporter = reporter,
