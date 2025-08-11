@@ -5,8 +5,6 @@
 \alias{Reporter}
 \title{\code{Reporter}: An \code{R6} class for managing report cards}
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This \code{R6} class is designed to store and manage report cards,
 facilitating the creation, manipulation, and serialization of report-related data.
 }

@@ -23,8 +23,6 @@ report_load_srv(id, reporter)
 \code{shiny::moduleServer}
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 Provides a button to upload \code{ReporterCard}(s) to the \code{Reporter}.
 
 For more information, refer to the vignette: \code{vignette("simpleReporter", "teal.reporter")}.
