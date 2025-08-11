@@ -1,6 +1,6 @@
 #' Load `Reporter` button module
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' Provides a button to upload `ReporterCard`(s) to the `Reporter`.
 #'
