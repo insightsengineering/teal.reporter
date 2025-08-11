@@ -29,8 +29,6 @@ if they are recognized as quoted \code{yaml} logical values , default \code{TRUE
 result of \code{\link[yaml:as.yaml]{yaml::as.yaml}}, optionally wrapped with internal \code{md_header()}.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 Converts a named list into a \code{yaml} header for \code{Rmd}, handling output types and arguments
 as defined in the \code{rmarkdown} package. This function simplifies the process of generating \code{yaml} headers.
 }

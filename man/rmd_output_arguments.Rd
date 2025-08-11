@@ -12,8 +12,6 @@ rmd_output_arguments(output_name, default_values = FALSE)
 \item{default_values}{(\code{logical(1)}) if to return a default values for each argument.}
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 Retrieves the arguments for a specified document output type from the \code{rmarkdown} package.
 }
 \examples{
