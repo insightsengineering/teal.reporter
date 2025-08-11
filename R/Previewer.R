@@ -1,7 +1,5 @@
 #' Show report previewer button module
 #'
-#' @description `r lifecycle::badge("experimental")`
-#'
 #' Provides a button that triggers showing the report preview in a modal.
 #'
 #' For more details see the vignette: `vignette("previewerReporter", "teal.reporter")`.
