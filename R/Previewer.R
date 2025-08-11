@@ -113,7 +113,7 @@ preview_report_button_srv <- function(id, reporter) {
 #' @export
 reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
-  lifecycle::deprecate_soft(
+  lifecycle::deprecate_stop(
     when = "",
     what = "reporter_previewer_ui()",
     details = paste(
