@@ -85,6 +85,9 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
       }
 
       private$report_type <- get_yaml_field(yaml_header, "output")
+      
+      # Check if we need landscape support for wide tables in PDF
+      yaml_header <- private$add_landscape_support_if_needed(blocks, yaml_header)
 
       parsed_global_knitr <- sprintf(
         "\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(%s)\n%s\n```\n",
@@ -271,12 +274,58 @@ Renderer <- R6::R6Class( # nolint: object_name_linter.
     tableBlock2md = function(block) {
       basename_table <- basename(block$get_content())
       file.copy(block$get_content(), file.path(private$output_dir, basename_table))
-      sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename_table)
+      
+      # Check if this is a PDF document and the table needs landscape orientation
+      table_code <- sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename_table)
+      
+      if (identical(private$report_type, "pdf_document") && block$get_landscape_mode()) {
+        # Wrap wide tables with landscape LaTeX commands
+        paste0(
+          "\\newpage\n",
+          "\\begin{landscape}\n\n",
+          table_code,
+          "\n\n\\end{landscape}\n"
+        )
+      } else {
+        table_code
+      }
     },
     htmlBlock2md = function(block) {
       basename <- basename(tempfile(fileext = ".rds"))
       suppressWarnings(saveRDS(block$get_content(), file = file.path(private$output_dir, basename)))
       sprintf("```{r echo = FALSE}\nreadRDS('%s')\n```", basename)
+    },
+
+    # Helper method to add landscape support to YAML header if needed
+    add_landscape_support_if_needed = function(blocks, yaml_header) {
+      # Check if we have any wide tables that need landscape mode
+      has_wide_tables <- any(
+        vapply(blocks, function(block) {
+          inherits(block, "TableBlock") && block$get_landscape_mode()
+        }, logical(1))
+      )
+      
+      # Only modify PDF documents with wide tables
+      if (identical(private$report_type, "pdf_document") && has_wide_tables) {
+        # Parse the existing YAML
+        yaml_obj <- yaml::yaml.load(yaml_header)
+        
+        # Ensure we have the required LaTeX packages for landscape mode
+        if (is.null(yaml_obj$header_includes)) {
+          yaml_obj$header_includes <- character(0)
+        }
+        
+        # Add pdflscape package if not already present
+        pdflscape_include <- "\\usepackage{pdflscape}"
+        if (!any(grepl("pdflscape", yaml_obj$header_includes, fixed = TRUE))) {
+          yaml_obj$header_includes <- c(yaml_obj$header_includes, pdflscape_include)
+        }
+        
+        # Convert back to YAML header format
+        yaml_header <- md_header(yaml::as.yaml(yaml_obj))
+      }
+      
+      yaml_header
     },
 
     # @description Finalizes a `Renderer` object.

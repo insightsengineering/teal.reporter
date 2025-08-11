@@ -39,3 +39,25 @@ testthat::test_that("split_text_block - splits text block into blocks no longer 
   result <- split_text_block(block_text, n)
   testthat::expect_equal(result, list(block_text))
 })
+
+testthat::test_that("is_table_too_wide: detects when flextable exceeds portrait width", {
+  # Create a simple data frame
+  data_frame <- data.frame(A = 1:3, B = 4:6)
+  ft <- to_flextable(data_frame)
+  
+  # Test with a very small portrait width - should be too wide
+  testthat::expect_true(is_table_too_wide(ft, portrait_width = 0.1))
+  
+  # Test with a very large portrait width - should not be too wide
+  testthat::expect_false(is_table_too_wide(ft, portrait_width = 20))
+  
+  # Test with default width
+  result <- is_table_too_wide(ft)
+  testthat::expect_type(result, "logical")
+})
+
+testthat::test_that("is_table_too_wide: returns FALSE for non-flextable objects", {
+  testthat::expect_false(is_table_too_wide("not a table"))
+  testthat::expect_false(is_table_too_wide(data.frame(a = 1)))
+  testthat::expect_false(is_table_too_wide(list(a = 1)))
+})

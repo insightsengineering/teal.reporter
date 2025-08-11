@@ -1,5 +1,9 @@
 # teal.reporter 0.4.0.9008
 
+### Enhancements
+
+* Wide tables in PDF reports now automatically use landscape orientation to ensure proper page fitting and readability.
+
 ### Miscellaneous
 
 * Moves `finalize()` methods to private in R6 classes.
