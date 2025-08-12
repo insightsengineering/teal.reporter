@@ -1,5 +1,6 @@
 #' Show report previewer button module
 #'
+#' @description `r lifecycle::badge("experimental")`
 #' Provides a button that triggers showing the report preview in a modal.
 #'
 #' For more details see the vignette: `vignette("previewerReporter", "teal.reporter")`.
@@ -113,7 +114,7 @@ preview_report_button_srv <- function(id, reporter) {
 #' @export
 reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
-  lifecycle::deprecate_stop(
+  lifecycle::deprecate_soft(
     when = "",
     what = "reporter_previewer_ui()",
     details = paste(
