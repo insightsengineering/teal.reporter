@@ -328,4 +328,3 @@ block_to_html <- function(b) {
     stop("Unknown block class")
   }
 }
-
