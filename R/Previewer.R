@@ -14,38 +14,6 @@
 #' @return `NULL`.
 NULL
 
-#' Report previewer module
-#'
-#' @description `r lifecycle::badge("deprecated")`
-#'
-#' Module offers functionalities to visualize, manipulate,
-#' and interact with report cards that have been added to a report.
-#' It includes a previewer interface to see the cards and options to modify the report before downloading.
-#'
-#' Cards are saved by the `shiny` bookmarking mechanism.
-#'
-#' For more details see the vignette: `vignette("previewerReporter", "teal.reporter")`.
-#'
-#' This function is deprecated and will be removed in the next release.
-#' Please use `preview_report_button_ui()` and `preview_report_button_srv()`
-#' to create a preview button that opens a modal with the report preview.
-#'
-#' @details `r global_knitr_details()`
-#'
-#' @name reporter_previewer_deprecated
-#'
-#' @param id (`character(1)`) `shiny` module instance id.
-#' @param reporter (`Reporter`) instance.
-#' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
-#'  for customizing the rendering process.
-#' @param previewer_buttons (`character`) set of modules to include with `c("download", "load", "reset")` possible
-#' values and `"download"` is required.
-#' Default `c("download", "load", "reset")`
-#' @inheritParams reporter_download_inputs
-#'
-#' @return `NULL`.
-NULL
-
 #' @rdname reporter_previewer
 #' @export
 preview_report_button_ui <- function(id, label = "Preview Report") {
@@ -109,6 +77,42 @@ preview_report_button_srv <- function(id, reporter) {
     reporter_previewer_content_srv(id = "preview_content", reporter = reporter)
   })
 }
+
+
+# deprecated ------------------------------------------------------------------------------------------------------
+
+
+#' Report previewer module
+#'
+#' @description `r lifecycle::badge("deprecated")`
+#'
+#' Module offers functionalities to visualize, manipulate,
+#' and interact with report cards that have been added to a report.
+#' It includes a previewer interface to see the cards and options to modify the report before downloading.
+#'
+#' Cards are saved by the `shiny` bookmarking mechanism.
+#'
+#' For more details see the vignette: `vignette("previewerReporter", "teal.reporter")`.
+#'
+#' This function is deprecated and will be removed in the next release.
+#' Please use `preview_report_button_ui()` and `preview_report_button_srv()`
+#' to create a preview button that opens a modal with the report preview.
+#'
+#' @details `r global_knitr_details()`
+#'
+#' @name reporter_previewer_deprecated
+#'
+#' @param id (`character(1)`) `shiny` module instance id.
+#' @param reporter (`Reporter`) instance.
+#' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
+#'  for customizing the rendering process.
+#' @param previewer_buttons (`character`) set of modules to include with `c("download", "load", "reset")` possible
+#' values and `"download"` is required.
+#' Default `c("download", "load", "reset")`
+#' @inheritParams reporter_download_inputs
+#'
+#' @return `NULL`.
+NULL
 
 #' @rdname reporter_previewer_deprecated
 #' @export
@@ -198,6 +202,9 @@ reporter_previewer_srv <- function(id,
     reporter_previewer_content_srv("previewer", reporter = reporter)
   })
 }
+
+
+# reporter_previewer_content --------------------------------------------------------------------------------------
 
 #' @keywords internal
 reporter_previewer_content_ui <- function(id) {
@@ -322,28 +329,3 @@ block_to_html <- function(b) {
   }
 }
 
-#' @noRd
-#' @keywords internal
-previewer_collapse_item <- function(idx, card_name, card_blocks) {
-  htmltools::tagAppendChildren(
-    tag = bslib::accordion_panel(
-      title = paste0("Card ", idx, ": ", card_name),
-      shiny::tags$div(
-        id = paste0("card", idx),
-        lapply(
-          card_blocks,
-          function(b) {
-            block_to_html(b)
-          }
-        )
-      )
-    ),
-    .cssSelector = ".accordion-header",
-    shiny::actionButton(
-      inputId = paste0("card_remove_id_", idx),
-      label = "Remove card",
-      class = "card_remove_id",
-      `data-cardid` = idx
-    )
-  )
-}
