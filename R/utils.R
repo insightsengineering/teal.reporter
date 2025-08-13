@@ -1,6 +1,5 @@
 #' Panel group widget
 #'
-#' `r lifecycle::badge("experimental")`
 #'
 #' @param title (`character`) title of panel
 #' @param ... content of panel

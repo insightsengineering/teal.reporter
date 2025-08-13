@@ -22,7 +22,6 @@ preview_report_button_srv(id, reporter)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 Provides a button that triggers showing the report preview in a modal.
 
 For more details see the vignette: \code{vignette("previewerReporter", "teal.reporter")}.

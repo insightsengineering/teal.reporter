@@ -40,8 +40,6 @@ The default value for \code{"output"} has to be in the \code{rmd_output} argumen
 \code{NULL}.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 Provides a button that triggers downloading a report.
 
 For more information, refer to the vignette: \code{vignette("simpleReporter", "teal.reporter")}.

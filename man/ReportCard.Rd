@@ -5,8 +5,6 @@
 \alias{ReportCard}
 \title{\code{ReportCard}: An \code{R6} class for building report elements}
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This \code{R6} class that supports creating a report card containing text, plot, table and
 metadata blocks that can be appended and rendered to form a report output from a \code{shiny} app.
 
