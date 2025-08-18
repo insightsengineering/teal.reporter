@@ -1,10 +1,4 @@
-# teal.reporter 0.4.0.9009
-
-### Miscellaneous
-
-* Moves `finalize()` methods to private in R6 classes.
-
-# teal.reporter 0.4.0
+# teal.reporter 0.5.0
 
 ### Breaking changes
 
@@ -14,10 +8,18 @@
 
 ### Enhancements
 
+* Moves `finalize()` methods to private in R6 classes.
+* Improved the layout and appearance of the reporter with new UI design.
+* Added `preview_report_button_ui` and `preview_report_button_srv` to create a shiny module that creates a button to open the report previewer in a modal.
+* Improve error message when reporter zip file is not named correctly (#365)
+
+# teal.reporter 0.4.0
+
+### Enhancements
+
 * Reports can now be reloaded. A zip file containing the report can be uploaded to restore the state of the Previewer.
 * Report cards are now included in bookmarks. When using the `shiny` bookmarking mechanism, existing report cards will be available in the restored application.
 * HTML content can now be added to the report.
-* Added `preview_report_button_ui` and `preview_report_button_srv` to create a shiny module that creates a button to open the report previewer in a modal.
 
 # teal.reporter 0.3.1
 

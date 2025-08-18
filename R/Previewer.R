@@ -119,7 +119,7 @@ NULL
 reporter_previewer_ui <- function(id) {
   ns <- shiny::NS(id)
   lifecycle::deprecate_soft(
-    when = "0.4.1",
+    when = "0.5.0",
     what = "reporter_previewer_ui()",
     details = paste(
       "Calling `reporter_previewer_ui()` is deprecated and will be removed in the next release.\n",
@@ -155,7 +155,7 @@ reporter_previewer_srv <- function(id,
                                    rmd_yaml_args = getOption("teal.reporter.rmd_yaml_args"),
                                    previewer_buttons = c("download", "load", "reset")) {
   lifecycle::deprecate_soft(
-    when = "0.4.1",
+    when = "0.5.0",
     what = "reporter_previewer_srv()",
     details = paste(
       "Calling `reporter_previewer_srv()` is deprecated and will be removed in the next release.\n",
