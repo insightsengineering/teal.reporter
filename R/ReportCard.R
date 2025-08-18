@@ -256,6 +256,21 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       }
       self$set_name(name)
       invisible(self)
+    },
+    #' @description Removes a block from this `ReportCard`.
+    #' @param block_id (`numeric`) the removed block number.
+    #' @return `self`, invisibly.
+    #' @examples
+    #'
+    #' card <- ReportCard$new()$append_text("Some text")
+    #' card$append_text("Another text")
+    #'
+    #' card$remove_block(1)
+    #' card$get_content()
+    remove_block = function(block_id) {
+      checkmate::assert_number(block_id, lower = 1, upper = length(private$content), finite = TRUE)
+      private$content <- private$content[-c(block_id)]
+      invisible(self)
     }
   ),
   private = list(
