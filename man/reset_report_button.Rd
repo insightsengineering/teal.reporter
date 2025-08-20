@@ -13,7 +13,7 @@ reset_report_button_srv(id, reporter)
 \arguments{
 \item{id}{(\code{character(1)}) \code{shiny} module instance id.}
 
-\item{label}{(\code{character(1)}) label before the icon. By default \code{NULL}.}
+\item{label}{(\code{character(1)}) label of the button. By default it is empty.}
 
 \item{reporter}{(\code{Reporter}) instance.}
 }
@@ -21,8 +21,6 @@ reset_report_button_srv(id, reporter)
 \code{NULL}.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 Provides a button that triggers resetting the report content.
 
 For more information, refer to the vignette: \code{vignette("simpleReporter", "teal.reporter")}.

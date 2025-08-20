@@ -1,6 +1,6 @@
 #' @title `Reporter`: An `R6` class for managing reports
 #' @docType class
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This `R6` class is designed to store and manage reports,
 #' facilitating the creation, manipulation, and serialization of report-related data.

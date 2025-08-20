@@ -1,7 +1,7 @@
 Package: teal.reporter
 Title: Reporting Tools for 'shiny' Modules
-Version: 0.4.0.9004
-Date: 2025-03-11
+Version: 0.5.0.9000
+Date: 2025-08-18
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-9533-457X")),
@@ -22,6 +22,7 @@ URL: https://github.com/insightsengineering/teal.reporter,
     https://insightsengineering.github.io/teal.reporter/
 BugReports: https://github.com/insightsengineering/teal.reporter/issues
 Imports:
+    bsicons,
     bslib (>= 0.8.0),
     checkmate (>= 2.1.0),
     commonmark (>= 1.9.2),
@@ -36,7 +37,7 @@ Imports:
     rmarkdown (>= 2.23),
     rtables (>= 0.6.11),
     rtables.officer (>= 0.0.2),
-    shiny (>= 1.6.0),
+    shiny (>= 1.8.1),
     shinybusy (>= 0.3.2),
     shinyjs (>= 2.1.0),
     shinyWidgets (>= 0.5.1),
@@ -83,7 +84,7 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Config/testthat/edition: 3
-Collate: 
+Collate:
     'AddCardModule.R'
     'DownloadModule.R'
     'Editor.R'

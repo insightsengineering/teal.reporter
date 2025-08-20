@@ -108,7 +108,59 @@ testthat::test_that("The deep copy constructor copies the content files to new f
   testthat::expect_failure(
     testthat::expect_equal(rlang::obj_address(original_content_file), rlang::obj_address(copied_content_file))
   )
+  )
   testthat::expect_equal(original_content_file, copied_content_file, ignore_attr = "names")
+})
+
+testthat::test_that("reactive_add_card", {
+  reporter <- Reporter$new()
+  testthat::expect_error(reporter$get_reactive_add_card())
+  testthat::expect_identical(shiny::isolate(reporter$get_reactive_add_card()), 0)
+  reporter$append_cards(list(card1))
+  testthat::expect_identical(shiny::isolate(reporter$get_reactive_add_card()), 1L)
+})
+
+testthat::test_that("append_metadata accept only named list", {
+  reporter <- Reporter$new()
+  testthat::expect_no_error(reporter$append_metadata(list(sth = "sth")))
+  testthat::expect_error(reporter$append_metadata("sth"), "'list', not 'character'")
+  testthat::expect_error(reporter$append_metadata(list("sth")), "Must have names")
+})
+
+testthat::test_that("append_metadata accept only unique names which could not be repeated", {
+  reporter <- Reporter$new()
+  testthat::expect_error(reporter$append_metadata(list(sth = "sth", sth = 2)), "but element 2 is duplicated")
+  reporter <- Reporter$new()
+  testthat::expect_no_error(reporter$append_metadata(list(sth = "sth")))
+  testthat::expect_error(reporter$append_metadata(list(sth = "sth")), "failed: Must be TRUE")
+})
+
+testthat::test_that("get_metadata", {
+  reporter <- Reporter$new()
+  testthat::expect_no_error(reporter$append_metadata(list(sth = "sth")))
+  testthat::expect_identical(reporter$get_metadata(), list(sth = "sth"))
+})
+
+testthat::test_that("from_reporter returns identical/equal object from the same reporter", {
+  testthat::expect_identical(reporter, reporter$from_reporter(reporter))
+})
+
+reporter1 <- Reporter$new()
+reporter1$append_cards(list(card1, card2))
+
+testthat::test_that("from_reporter does not return identical/equal object form other reporter", {
+  testthat::expect_false(identical(reporter1, reporter2$from_reporter(reporter1)))
+})
+
+testthat::test_that("from_reporter persists the cards structure", {
+  testthat::expect_identical(unname(reporter1$get_cards()), unname(reporter2$from_reporter(reporter1)$get_cards()))
+})
+
+testthat::test_that("from_reporter persists the reactive_add_card count", {
+  testthat::expect_identical(
+    shiny::isolate(reporter1$get_reactive_add_card()),
+    shiny::isolate(reporter2$from_reporter(reporter1)$get_reactive_add_card())
+  )
 })
 
 testthat::describe("metadata", {
@@ -299,6 +351,10 @@ testthat::describe("reorder_cards", {
     names_after <- names(reporter$get_cards())
     testthat::expect_equal(names_after, c(rev(names_before), setdiff(names_after, names_before)))
   })
+})
+
+testthat::test_that("from_reporter persists the cards structure", {
+  testthat::expect_identical(unname(reporter1$get_cards()), unname(reporter2$from_reporter(reporter1)$get_cards()))
 })
 
 testthat::describe("Reporter with custom template function", {

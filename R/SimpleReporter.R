@@ -1,6 +1,6 @@
 #' Simple reporter module
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' Module provides compact UI and server functions for managing a report in a `shiny` app.
 #' This module combines functionalities for [adding cards to a report][add_card_button],
@@ -38,15 +38,18 @@ NULL
 #' @export
 simple_reporter_ui <- function(id) {
   ns <- shiny::NS(id)
-  shiny::tags$div(
-    class = "block mb-4 p-1",
-    shiny::tags$label(class = "text-primary block -ml-1", shiny::tags$strong("Reporter")),
+  shiny::tagList(
+    .custom_css_dependency(),
     shiny::tags$div(
-      class = "simple_reporter_container",
-      add_card_button_ui(ns("add_report_card_simple")),
-      download_report_button_ui(ns("download_button_simple")),
-      report_load_ui(ns("archive_load_simple")),
-      reset_report_button_ui(ns("reset_button_simple"))
+      shiny::tags$label(class = "text-primary", shiny::tags$strong("Reporter")),
+      shiny::tags$div(
+        class = "simple_reporter_container",
+        add_card_button_ui(ns("add_report_card_simple")),
+        download_report_button_ui(ns("download_button_simple")),
+        report_load_ui(ns("archive_load_simple")),
+        reset_report_button_ui(ns("reset_button_simple"))
+      ),
+      shiny::tags$br()
     )
   )
 }

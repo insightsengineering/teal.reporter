@@ -12,12 +12,12 @@ navbar:
     reports:
       text: Reports
       menu:
-      - text: Coverage report
-        href: coverage-report/
-      - text: Unit test report
-        href: unit-test-report/
-      - text: Non-CRAN unit test report
-        href: unit-test-report-non-cran/
+        - text: Coverage report
+          href: coverage-report/
+        - text: Unit test report
+          href: unit-test-report/
+        - text: Non-CRAN unit test report
+          href: unit-test-report-non-cran/
     github:
       icon: fa-github
       href: https://github.com/insightsengineering/teal.reporter
@@ -30,8 +30,6 @@ reference:
       - add_card_button_ui
   - title: "`shiny` modules for viewing and downloading reports"
     contents:
-      - reporter_previewer_srv
-      - reporter_previewer_ui
       - simple_reporter_srv
       - simple_reporter_ui
   - title: Supporting `shiny` modules
@@ -44,6 +42,11 @@ reference:
       - report_load_ui
       - srv_editor_block
       - ui_editor_block
+      - add_card_button
+      - download_report_button
+      - reset_report_button
+      - load_report_button
+      - reporter_previewer
   - title: "`yaml` and rmd utility functions"
     contents:
       - as_yaml_auto
@@ -69,3 +72,6 @@ reference:
     contents:
       - c.teal_report
       - eval_code,teal_report-method
+  - title: "Deprecated functions"
+    contents:
+      - reporter_previewer_deprecated

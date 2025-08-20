@@ -18,7 +18,7 @@ This eliminates the need for manual copy-pasting or writing in markdown.
 
 And it can be done as easy as adding one of the reporting tools to your module:
 
-```{r}
+```{r eval=interactive()}
 library(teal.reporter)
 library(shiny)
 
@@ -32,7 +32,7 @@ server <- function(input, output, session) {
   simple_reporter_srv("simple", Reporter$new(), create_module_card)
 }
 
-if (interactive()) shinyApp(ui, server)
+shinyApp(ui, server)
 ```
 
 ## Where to next

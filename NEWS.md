@@ -1,4 +1,19 @@
-# teal.reporter 0.4.0.9004
+# teal.reporter 0.5.0.9000
+
+# teal.reporter 0.5.0
+
+### Breaking changes
+
+* The functions `reporter_previewer_ui()` and `reporter_previewer_srv()` are deprecated and will be removed in a future release. Please migrate to using the underlying shiny modules independently:
+  - **UI**: `report_load_ui()`, `download_report_button_ui()`, `reset_report_button_ui()`, and `preview_report_button_ui()`
+  - **Server**: `report_load_srv()`, `download_report_button_srv()`, `reset_report_button_srv()`, and `preview_report_button_srv()`
+
+### Enhancements
+
+* Moves `finalize()` methods to private in R6 classes.
+* Improved the layout and appearance of the reporter with new UI design.
+* Added `preview_report_button_ui` and `preview_report_button_srv` to create a shiny module that creates a button to open the report previewer in a modal.
+* Improve error message when reporter zip file is not named correctly (#365)
 
 ### Enhancements
 

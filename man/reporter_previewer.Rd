@@ -2,65 +2,27 @@
 % Please edit documentation in R/Previewer.R
 \name{reporter_previewer}
 \alias{reporter_previewer}
-\alias{reporter_previewer_ui}
-\alias{reporter_previewer_srv}
-\title{Report previewer module}
+\alias{preview_report_button_ui}
+\alias{preview_report_button_srv}
+\title{Show report previewer button module}
 \usage{
-reporter_previewer_ui(id)
+preview_report_button_ui(id, label = "Preview Report")
 
-reporter_previewer_srv(
-  id,
-  reporter,
-  global_knitr = getOption("teal.reporter.global_knitr"),
-  rmd_output = c(html = "html_document", pdf = "pdf_document", powerpoint =
-    "powerpoint_presentation", word = "word_document"),
-  rmd_yaml_args = list(author = "NEST", title = "Report", date =
-    as.character(Sys.Date()), output = "html_document", toc = FALSE),
-  previewer_buttons = c("download", "load", "reset")
-)
+preview_report_button_srv(id, reporter)
 }
 \arguments{
 \item{id}{(\code{character(1)}) \code{shiny} module instance id.}
 
+\item{label}{(\code{character(1)}) label of the button. By default it is "Preview Report".}
+
 \item{reporter}{(\code{Reporter}) instance.}
-
-\item{global_knitr}{(\code{list}) of \code{knitr} parameters (passed to \code{knitr::opts_chunk$set})
-for customizing the rendering process.}
-
-\item{rmd_output}{(\code{character}) vector with \code{rmarkdown} output types,
-by default all possible \code{pdf_document}, \code{html_document}, \code{powerpoint_presentation}, and \code{word_document}.
-If vector is named then those names will appear in the \code{UI}.}
-
-\item{rmd_yaml_args}{(\verb{named list}) with \code{Rmd} \code{yaml} header fields and their default values.
-This \code{list} will result in the custom subset of UI inputs for the download reporter functionality.
-Default \code{list(author = "NEST", title = "Report", date = Sys.Date(), output = "html_document", toc = FALSE)}.
-The \code{list} must include at least \code{"output"} field.
-The default value for \code{"output"} has to be in the \code{rmd_output} argument.}
-
-\item{previewer_buttons}{(\code{character}) set of modules to include with \code{c("download", "load", "reset")} possible
-values and \code{"download"} is required.
-Default \code{c("download", "load", "reset")}}
 }
 \value{
 \code{NULL}.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
-Module offers functionalities to visualize, manipulate,
-and interact with report cards that have been added to a report.
-It includes a previewer interface to see the cards and options to modify the report before downloading.
-
-Cards are saved by the \code{shiny} bookmarking mechanism.
+Provides a button that triggers showing the report preview in a modal.
 
 For more details see the vignette: \code{vignette("previewerReporter", "teal.reporter")}.
-}
-\details{
-To access the default values for the \code{global_knitr} parameter,
-use \code{getOption('teal.reporter.global_knitr')}. These defaults include:
-\itemize{
-\item \code{echo = TRUE}
-\item \code{tidy.opts = list(width.cutoff = 60)}
-\item \code{tidy = TRUE}  if \code{formatR} package is installed, \code{FALSE} otherwise
-}
 }

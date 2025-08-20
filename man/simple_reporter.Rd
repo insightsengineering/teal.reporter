@@ -25,7 +25,7 @@ simple_reporter_srv(
 \item{reporter}{(\code{Reporter}) instance.}
 
 \item{card_fun}{(\code{function}) which returns a \code{\link{ReportCard}} instance,
-the function has a \code{teal_card} argument and an optional \code{comment} argument.}
+the function has a \code{card} argument and an optional \code{comment} argument.}
 
 \item{global_knitr}{(\code{list}) a global \code{knitr} parameters for customizing the rendering process.}
 
@@ -43,8 +43,6 @@ The default value for \code{"output"} has to be in the \code{rmd_output} argumen
 \code{NULL}.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 Module provides compact UI and server functions for managing a report in a \code{shiny} app.
 This module combines functionalities for \link[=add_card_button]{adding cards to a report},
 \link[=download_report_button]{downloading the report}, and \link[=reset_report_button]{resetting report content}.

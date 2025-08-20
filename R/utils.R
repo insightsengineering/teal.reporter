@@ -1,6 +1,5 @@
 #' Panel group widget
 #'
-#' `r lifecycle::badge("experimental")`
 #'
 #' @param title (`character`) title of panel
 #' @param ... content of panel
@@ -25,31 +24,26 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
   shiny::tags$div(.renderHook = function(res_tag) {
     res_tag$children <- list(
       shiny::tags$div(
-        class = "card my-2",
+        class = "card",
+        style = "margin: 0.5rem 0;",
         shiny::tags$div(
           class = "card-header",
           shiny::tags$div(
             class = ifelse(collapsed, "collapsed", ""),
             # bs4
-            `data-toggle` = "collapse",
+            `data-toggle` = "collapse", # TODO: averissimo (check if can be removed)
             # bs5
             `data-bs-toggle` = "collapse",
             href = paste0("#", panel_id),
             `aria-expanded` = ifelse(collapsed, "false", "true"),
             shiny::icon("angle-down", class = "dropdown-icon"),
-            shiny::tags$label(
-              class = "card-title inline",
-              title,
-            )
+            shiny::tags$label(style = "display: inline;", title)
           )
         ),
         shiny::tags$div(
           id = panel_id,
           class = paste("collapse", ifelse(collapsed, "", "show")),
-          shiny::tags$div(
-            class = "card-body",
-            ...
-          )
+          shiny::tags$div(class = "card-body", ...)
         )
       )
     )
@@ -181,4 +175,44 @@ format.code_chunk <- function(x, ...) {
   } else {
     sprintf("```%s\n%s\n```", language, NextMethod())
   }
+}
+
+#' @keywords internal
+.outline_button <- function(id, label, icon = NULL, class = "primary") {
+  shiny::tagList(
+    shinyjs::useShinyjs(),
+    .custom_css_dependency(),
+    htmltools::htmlDependency(
+      name = "teal-reporter-busy-disable",
+      version = utils::packageVersion("teal.reporter"),
+      package = "teal.reporter",
+      src = "js",
+      script = "busy-disable.js"
+    ),
+    shiny::tags$button(
+      id = id,
+      class = sprintf("teal-reporter action-button teal-reporter-busy-disable outline-button %s", class),
+      role = "button",
+      style = "text-decoration: none;",
+      if (!is.null(icon)) {
+        margin_style <- ifelse(is.null(label), "margin: 0 10px 0 10px;", "")
+        shiny::tags$span(
+          style = margin_style,
+          bsicons::bs_icon(icon, class = sprintf("text-%s", class))
+        )
+      },
+      label
+    )
+  )
+}
+
+#' @keywords internal
+.custom_css_dependency <- function() {
+  htmltools::htmlDependency(
+    name = "teal-reporter",
+    version = utils::packageVersion("teal.reporter"),
+    package = "teal.reporter",
+    src = "css",
+    stylesheet = "custom.css"
+  )
 }

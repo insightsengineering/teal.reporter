@@ -3,16 +3,14 @@
 \docType{class}
 \name{Reporter}
 \alias{Reporter}
-\title{\code{Reporter}: An \code{R6} class for managing reports}
+\title{\code{Reporter}: An \code{R6} class for managing report cards}
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
-This \code{R6} class is designed to store and manage reports,
+This \code{R6} class is designed to store and manage report cards,
 facilitating the creation, manipulation, and serialization of report-related data.
-It supports both \code{ReportCard} and \code{teal_card} objects, allowing flexibility
-in the types of reports that can be stored and managed.
 }
 \note{
+The function has to be used in the shiny reactive context.
+
 if Report has an id when converting to JSON then It will be compared to the currently available one.
 
 if Report has an id when converting to JSON then It will be compared to the currently available one.
@@ -20,13 +18,23 @@ if Report has an id when converting to JSON then It will be compared to the curr
 \examples{
 \dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(ggplot2)
+library(rtables)
 
-card1 <- teal_card("## Header 2 text", "A paragraph of default text")
-card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
-metadata(card1, "title") <- "Card1"
+card1 <- ReportCard$new()
 
-card2 <- teal_card("Document introduction")
-metadata(card2, "title") <- "Card2"
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text")
+card1$append_plot(
+  ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
+)
+
+card2 <- ReportCard$new()
+
+card2$append_text("Header 2 text", "header2")
+card2$append_text("A paragraph of default text")
+lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
+table_res2 <- build_table(lyt, airquality)
+card2$append_table(table_res2)
 
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
@@ -35,63 +43,21 @@ reporter$append_cards(list(card1, card2))
 library(ggplot2)
 library(rtables)
 
-card1 <- teal_card("## Header 2 text", "A paragraph of default text")
-card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
-metadata(card1, "title") <- "Card1"
+card1 <- ReportCard$new()
 
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text")
+card1$append_plot(
+ ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
+)
+
+card2 <- ReportCard$new()
+
+card2$append_text("Header 2 text", "header2")
+card2$append_text("A paragraph of default text")
 lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
 table_res2 <- build_table(lyt, airquality)
-card2 <- teal_card(
-  "## Header 2 text",
-  "A paragraph of default text",
-  table_res2
-)
-metadata(card2, "title") <- "Card2"
-
-reporter <- Reporter$new()
-reporter$append_cards(list(card1, card2))
-
-names(reporter$get_cards())
-reporter$reorder_cards(c("Card2", "Card1"))
-names(reporter$get_cards())
-\dontshow{\}) # examplesIf}
-\dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-library(ggplot2)
-library(rtables)
-
-card1 <- teal_card("## Header 2 text", "A paragraph of default text")
-card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
-metadata(card1, "title") <- "Card1"
-
-reporter <- Reporter$new()
-reporter$append_cards(list(card1))
-
-lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
-table_res2 <- build_table(lyt, airquality)
-card2 <- teal_card(
-  "## Header 2 text",
-  "A paragraph of default text",
-  table_res2
-)
-metadata(card2, "title") <- "Card2"
-
-reporter$replace_card(card2, "Card1")
-reporter$get_cards()[[1]]$get_name()
-\dontshow{\}) # examplesIf}
-\dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-library(ggplot2)
-library(rtables)
-
-card1 <- teal_card("## Header 2 text", "A paragraph of default text")
-card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
-
-lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
-table_res2 <- build_table(lyt, airquality)
-card2 <- teal_card(
-  "## Header 2 text",
-  "A paragraph of default text",
-  table_res2
-)
+card2$append_table(table_res2)
 
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
@@ -101,16 +67,21 @@ reporter$get_cards()
 library(ggplot2)
 library(rtables)
 
-card1 <- teal_card("## Header 2 text", "A paragraph of default text")
-card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
+card1 <- ReportCard$new()
 
+card1$append_text("Header 2 text", "header2")
+card1$append_text("A paragraph of default text")
+card1$append_plot(
+ ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
+)
+
+card2 <- ReportCard$new()
+
+card2$append_text("Header 2 text", "header2")
+card2$append_text("A paragraph of default text")
 lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
 table_res2 <- build_table(lyt, airquality)
-card2 <- teal_card(
-  "## Header 2 text",
-  "A paragraph of default text",
-  table_res2
-)
+card2$append_table(table_res2)
 
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
@@ -123,6 +94,14 @@ reporter$get_blocks()
 
 reporter <- Reporter$new()
 
+
+## ------------------------------------------------
+## Method `Reporter$get_reactive_add_card`
+## ------------------------------------------------
+
+library(shiny)
+
+isolate(Reporter$new()$get_reactive_add_card())
 
 ## ------------------------------------------------
 ## Method `Reporter$get_metadata`
@@ -185,34 +164,18 @@ dir.create(tmp_dir)
 unlink(list.files(tmp_dir, recursive = TRUE))
 reporter$to_jsondir(tmp_dir)
 reporter$from_jsondir(tmp_dir)
-
-## ------------------------------------------------
-## Method `Reporter$set_template`
-## ------------------------------------------------
-
-
-reporter <- teal.reporter::Reporter$new()
-template_fun <- function(document) {
-  disclaimer <- teal.reporter::teal_card("Here comes disclaimer text")
-  c(disclaimer, document)
-}
-reporter$set_template(template_fun)
-doc1 <- teal.reporter::teal_card("## Header 2 text", "Regular text")
-metadata(doc1, "title") <- "Welcome card"
-reporter$append_cards(doc1)
-reporter$get_cards()
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Reporter-new}{\code{Reporter$new()}}
 \item \href{#method-Reporter-append_cards}{\code{Reporter$append_cards()}}
-\item \href{#method-Reporter-reorder_cards}{\code{Reporter$reorder_cards()}}
-\item \href{#method-Reporter-replace_card}{\code{Reporter$replace_card()}}
 \item \href{#method-Reporter-get_cards}{\code{Reporter$get_cards()}}
 \item \href{#method-Reporter-get_blocks}{\code{Reporter$get_blocks()}}
 \item \href{#method-Reporter-reset}{\code{Reporter$reset()}}
 \item \href{#method-Reporter-remove_cards}{\code{Reporter$remove_cards()}}
+\item \href{#method-Reporter-reorder_cards}{\code{Reporter$reorder_cards()}}
+\item \href{#method-Reporter-get_reactive_add_card}{\code{Reporter$get_reactive_add_card()}}
 \item \href{#method-Reporter-get_metadata}{\code{Reporter$get_metadata()}}
 \item \href{#method-Reporter-append_metadata}{\code{Reporter$append_metadata()}}
 \item \href{#method-Reporter-from_reporter}{\code{Reporter$from_reporter()}}
@@ -222,8 +185,6 @@ reporter$get_cards()
 \item \href{#method-Reporter-from_jsondir}{\code{Reporter$from_jsondir()}}
 \item \href{#method-Reporter-set_id}{\code{Reporter$set_id()}}
 \item \href{#method-Reporter-get_id}{\code{Reporter$get_id()}}
-\item \href{#method-Reporter-set_template}{\code{Reporter$set_template()}}
-\item \href{#method-Reporter-get_template}{\code{Reporter$get_template()}}
 \item \href{#method-Reporter-clone}{\code{Reporter$clone()}}
 }
 }
@@ -253,7 +214,7 @@ Object of class \code{Reporter}, invisibly.
 \if{html}{\out{<a id="method-Reporter-append_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-append_cards}{}}}
 \subsection{Method \code{append_cards()}}{
-Append one or more \code{ReportCard} or \code{teal_card} objects to the \code{Reporter}.
+Append one or more \code{ReportCard} objects to the \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$append_cards(cards)}\if{html}{\out{</div>}}
 }
@@ -261,53 +222,7 @@ Append one or more \code{ReportCard} or \code{teal_card} objects to the \code{Re
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{cards}}{(\code{ReportCard} or \code{teal_card}) or a list of such objects}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Reporter-reorder_cards"></a>}}
-\if{latex}{\out{\hypertarget{method-Reporter-reorder_cards}{}}}
-\subsection{Method \code{reorder_cards()}}{
-Reorders \code{teal_card} objects in \code{Reporter}.
-
-
-Reorders \code{teal_card} objects in \code{Reporter}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$reorder_cards(new_order)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{new_order}}{\code{character} vector with names of \code{teal_card} objects to
-be set in this order.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Reporter-replace_card"></a>}}
-\if{latex}{\out{\hypertarget{method-Reporter-replace_card}{}}}
-\subsection{Method \code{replace_card()}}{
-Sets \code{ReportCard} or \code{teal_card} content.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$replace_card(card, card_id)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{card}}{The new object (\code{ReportCard} or \code{teal_card}) to replace the existing one.}
-
-\item{\code{card_id}}{(\code{character(1)}) the unique id of the card to be replaced.}
+\item{\code{cards}}{(\code{ReportCard}) or a list of such objects}
 }
 \if{html}{\out{</div>}}
 }
@@ -319,42 +234,41 @@ Sets \code{ReportCard} or \code{teal_card} content.
 \if{html}{\out{<a id="method-Reporter-get_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_cards}{}}}
 \subsection{Method \code{get_cards()}}{
-Retrieves all \code{teal_card} objects contained in \code{Reporter}.
+Retrieves all \code{ReportCard} objects contained in the \code{Reporter}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$get_cards()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-A (\code{list}) of \code{\link{teal_card}} objects.
+A (\code{list}) of \code{\link{ReportCard}} objects.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-get_blocks"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_blocks}{}}}
 \subsection{Method \code{get_blocks()}}{
-Compiles and returns all content blocks from the \code{teal_card}
-objects in the \code{Reporter}.
+Compiles and returns all content blocks from the \code{\link{ReportCard}} in the \code{Reporter}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_blocks(sep = "\\\\newpage")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_blocks(sep = NewpageBlock$new())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{sep}}{An optional separator to insert between each content block.
-Default is a \verb{\\n\\\\newpage\\n} markdown.}
+Default is a \code{NewpageBlock$new()}object.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{list()} of \code{teal_card}
+\code{list()} list of \code{TableBlock}, \code{TextBlock}, \code{PictureBlock} and \code{NewpageBlock}.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-reset"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-reset}{}}}
 \subsection{Method \code{reset()}}{
-Resets the \code{Reporter}, removing all \code{teal_card} objects and metadata.
+Resets the \code{Reporter}, removing all \code{\link{ReportCard}} objects and metadata.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$reset()}\if{html}{\out{</div>}}
 }
@@ -367,21 +281,64 @@ Resets the \code{Reporter}, removing all \code{teal_card} objects and metadata.
 \if{html}{\out{<a id="method-Reporter-remove_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-remove_cards}{}}}
 \subsection{Method \code{remove_cards()}}{
-Removes specific \code{teal_card} objects from the \code{Reporter} by their indices.
+Removes specific \code{ReportCard} objects from the \code{Reporter} by their indices.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$remove_cards(ids = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$remove_cards(ids)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{ids}}{(\code{integer}, \code{character}) the indexes of cards (either name)}
+\item{\code{ids}}{(\code{character}) the ids of the cards to be removed.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
 \code{self}, invisibly.
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-reorder_cards"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-reorder_cards}{}}}
+\subsection{Method \code{reorder_cards()}}{
+Reorders \code{ReportCard} or \code{ReportDocument} objects in \code{Reporter}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$reorder_cards(new_order)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{new_order}}{\code{character} vector with card ids in the desired order.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{self}, invisibly.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-get_reactive_add_card"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-get_reactive_add_card}{}}}
+\subsection{Method \code{get_reactive_add_card()}}{
+Gets the current value of the reactive variable for adding cards.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_reactive_add_card()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\code{reactive_add_card} current \code{numeric} value of the reactive variable.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{library(shiny)
+
+isolate(Reporter$new()$get_reactive_add_card())
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-get_metadata"></a>}}
@@ -628,58 +585,6 @@ Get the \code{Reporter} id
 
 \subsection{Returns}{
 \code{character(1)} the \code{Reporter} id.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Reporter-set_template"></a>}}
-\if{latex}{\out{\hypertarget{method-Reporter-set_template}{}}}
-\subsection{Method \code{set_template()}}{
-Set template function for \code{teal_card}
-Set a function that is called on every report content (of class \code{teal_card}) added through \verb{$append_cards}
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$set_template(template)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{template}}{(\code{function}) a template function.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{
-reporter <- teal.reporter::Reporter$new()
-template_fun <- function(document) {
-  disclaimer <- teal.reporter::teal_card("Here comes disclaimer text")
-  c(disclaimer, document)
-}
-reporter$set_template(template_fun)
-doc1 <- teal.reporter::teal_card("## Header 2 text", "Regular text")
-metadata(doc1, "title") <- "Welcome card"
-reporter$append_cards(doc1)
-reporter$get_cards()
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Reporter-get_template"></a>}}
-\if{latex}{\out{\hypertarget{method-Reporter-get_template}{}}}
-\subsection{Method \code{get_template()}}{
-Get the \code{Reporter} template
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_template()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-a template \code{function}.
 }
 }
 \if{html}{\out{<hr>}}
