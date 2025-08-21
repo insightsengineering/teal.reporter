@@ -145,3 +145,41 @@ testthat::test_that("get_yaml_field returns the correct result", {
   result <- get_yaml_field(yaml_text, field_name)
   testthat::expect_equal(result, "pdf_document")
 })
+
+testthat::test_that("as_yaml_auto handles Date objects correctly in all scenarios", {
+  # Test case that reproduces the bug: Date object from Shiny dateInput
+  date_obj <- as.Date("2024-08-21")
+  
+  input_list <- list(
+    author = "NEST",
+    title = "Report",
+    date = date_obj,
+    output = "html_document",
+    toc = TRUE
+  )
+  
+  yaml_result <- as_yaml_auto(input_list)
+  yaml_parsed <- yaml::yaml.load(yaml_result)
+  
+  # Date should be properly formatted as character string
+  testthat::expect_type(yaml_parsed$date, "character")
+  testthat::expect_equal(yaml_parsed$date, "2024-08-21")
+  
+  # Should not show numeric representation like "20279"
+  testthat::expect_false(grepl("^[0-9]+$", yaml_parsed$date))
+})
+
+testthat::test_that("as_yaml_auto formats boolean toc correctly", {
+  # Test that logical TRUE gets formatted as YAML "yes", not "true"
+  input_list <- list(
+    author = "NEST",
+    output = "html_document",
+    toc = TRUE
+  )
+  
+  yaml_result <- as_yaml_auto(input_list)
+  
+  # Check that the raw YAML contains "toc: yes" not "toc: true"
+  testthat::expect_match(yaml_result, "toc: yes")
+  testthat::expect_false(grepl("toc: true", yaml_result))
+})

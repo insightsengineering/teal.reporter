@@ -243,19 +243,30 @@ as_yaml_auto <- function(input_list,
           doc_list <- list()
           doc_list[[dtype]] <- list()
           for (e in intersect(input_nams, doc_type_args_nams)) {
-            if (is.logical(doc_type_args[[e]]) && is.character(input_list[[e]])) {
-              pos_logi <- c("TRUE", "true", "True", "yes", "y", "Y", "on")
-              neg_logi <- c("FALSE", "false", "False", "no", "n", "N", "off")
-              all_logi <- c(pos_logi, neg_logi)
-              if (input_list[[e]] %in% all_logi && convert_logi) {
-                input_list[[e]] <- conv_str_logi(input_list[[e]], e,
-                  pos_logi = pos_logi,
-                  neg_logi = neg_logi, silent = silent
-                )
+            # Handle logical values - convert them to proper YAML format
+            if (is.logical(doc_type_args[[e]])) {
+              if (is.logical(input_list[[e]])) {
+                # Direct logical value from input (e.g., checkbox)
+                # Keep as logical for proper YAML formatting
+                doc_list[[dtype]][[e]] <- input_list[[e]]
+              } else if (is.character(input_list[[e]])) {
+                # Character representation of logical
+                pos_logi <- c("TRUE", "true", "True", "yes", "y", "Y", "on")
+                neg_logi <- c("FALSE", "false", "False", "no", "n", "N", "off")
+                all_logi <- c(pos_logi, neg_logi)
+                if (input_list[[e]] %in% all_logi && convert_logi) {
+                  input_list[[e]] <- conv_str_logi(input_list[[e]], e,
+                    pos_logi = pos_logi,
+                    neg_logi = neg_logi, silent = silent
+                  )
+                }
+                doc_list[[dtype]][[e]] <- input_list[[e]]
+              } else {
+                doc_list[[dtype]][[e]] <- input_list[[e]]
               }
+            } else {
+              doc_list[[dtype]][[e]] <- input_list[[e]]
             }
-
-            doc_list[[dtype]][[e]] <- input_list[[e]]
           }
           result[["output"]] <- append(result[["output"]], doc_list)
         } else {
@@ -265,6 +276,15 @@ as_yaml_auto <- function(input_list,
     }
   }
 
+  # Convert Date objects to character strings to prevent numeric conversion
+  result <- rapply(result, function(x) {
+    if (inherits(x, "Date")) {
+      as.character(x)
+    } else {
+      x
+    }
+  }, how = "replace")
+  
   result <- yaml::as.yaml(result)
   if (as_header) {
     result <- md_header(result)
