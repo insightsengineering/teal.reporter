@@ -265,6 +265,14 @@ as_yaml_auto <- function(input_list,
     }
   }
 
+  result <- rapply(result, function(x) {
+    if (inherits(x, "Date")) {
+      as.character(x)
+    } else {
+      x
+    }
+  }, how = "replace")
+
   result <- yaml::as.yaml(result)
   if (as_header) {
     result <- md_header(result)
