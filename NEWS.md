@@ -1,5 +1,9 @@
 # teal.reporter 0.5.0.9000
 
+### New features
+
+* Added "Show R Code" checkbox to the preview modal that controls R code visibility in both preview and download. When unchecked (default), R code blocks are hidden from the preview and excluded from downloaded reports.
+
 # teal.reporter 0.5.0
 
 ### Breaking changes
