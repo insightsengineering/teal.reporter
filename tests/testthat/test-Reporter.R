@@ -114,10 +114,10 @@ testthat::test_that("The deep copy constructor copies the content files to new f
 
 testthat::test_that("reactive_add_card", {
   reporter <- Reporter$new()
-  testthat::expect_error(reporter$get_reactive_add_card())
-  testthat::expect_identical(shiny::isolate(reporter$get_reactive_add_card()), 0)
+  testthat::expect_error(length(reporter))
+  testthat::expect_identical(shiny::isolate(length(reporter)), 0)
   reporter$append_cards(list(card1))
-  testthat::expect_identical(shiny::isolate(reporter$get_reactive_add_card()), 1L)
+  testthat::expect_identical(shiny::isolate(length(reporter)), 1L)
 })
 
 testthat::test_that("append_metadata accept only named list", {

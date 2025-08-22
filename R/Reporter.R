@@ -440,3 +440,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
   lock_objects = TRUE,
   lock_class = TRUE
 )
+
+#' @export
+length.Reporter <- function(x) length(x$get_cards())
