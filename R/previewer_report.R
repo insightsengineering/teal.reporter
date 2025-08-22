@@ -67,7 +67,6 @@ preview_report_button_srv <- function(id, reporter) {
               type = "button",
               class = "btn btn-outline-secondary",
               "data-bs-dismiss" = "modal",
-              NULL,
               "Dismiss"
             )
           )
@@ -76,25 +75,36 @@ preview_report_button_srv <- function(id, reporter) {
     }
 
     reporter_previewer_content_srv(id = "preview_content", reporter = reporter)
-    shiny::observeEvent(input$preview_button, {
-      shiny::showModal(preview_modal())
 
-      panel_ns <- shiny::NS(shiny::NS("preview_content", "reporter_cards"))
-      lapply(
-        names(reporter$get_cards()),
-        function(card_id) {
-          bslib::accordion_panel_insert(
-            id = panel_ns(NULL),
-            previewer_card_ui(id = session$ns(panel_ns(card_id)), card_id = card_id)
-          )
-          previewer_card_srv(
-            id = panel_ns(card_id),
-            card_r = shiny::reactive(reporter$get_cards()[[card_id]]),
-            card_id = card_id,
-            reporter = reporter
-          )
-        }
-      )
-    })
+    srv_list <- shiny::reactiveValues()
+
+    shiny::observeEvent(
+      list(input$preview_button, reporter$reactive_trigger()),
+      ignoreInit = TRUE,
+      {
+        shiny::showModal(preview_modal())
+
+        panel_ns <- shiny::NS(shiny::NS("preview_content", "reporter_cards"))
+        lapply(
+          names(reporter$get_cards()),
+          function(card_id) {
+            bslib::accordion_panel_insert(
+              id = panel_ns(NULL),
+              previewer_card_ui(id = session$ns(panel_ns(card_id)), card_id = card_id)
+            )
+
+            if (is.null(srv_list[[card_id]])) { # Only initialize srv once per card_id
+              previewer_card_srv(
+                id = panel_ns(card_id),
+                card_r = shiny::reactive(reporter$get_cards()[[card_id]]),
+                card_id = card_id,
+                reporter = reporter
+              )
+              srv_list[[card_id]] <- card_id
+            }
+          }
+        )
+      }
+    )
   })
 }

@@ -20,6 +20,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #'
     initialize = function() {
       private$cards <- shiny::reactiveValues()
+      private$cached_html <- shiny::reactiveValues()
+      private$trigger_reactive <- shiny::reactiveVal(NULL)
       invisible(self)
     },
 
@@ -58,6 +60,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
 
       for (card_id in names(new_cards)) {
         private$cards[[card_id]] <- new_cards[[card_id]]
+        private$cached_html[[card_id]] <- tools::toHTML(new_cards[[card_id]])
       }
       invisible(self)
     },
@@ -124,6 +127,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         card <- card$get_content()
       }
       private$cards[[card_id]] <- card
+      private$cached_html[[card_id]] <- tools::toHTML(card)
       invisible(self)
     },
     #' @description Retrieves all `teal_card` objects contained in `Reporter`.
@@ -385,6 +389,20 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$id <- id
       invisible(self)
     },
+    reactive_trigger = function(val) {
+      if (missing(val)) {
+        private$trigger_reactive()
+      } else {
+        private$trigger_reactive(val)
+      }
+    },
+    get_cached_html = function(card_id) {
+      if (shiny::isRunning()) {
+        private$cached_html[[card_id]]
+      } else {
+        shiny::isolate(private$cached_html[[card_id]])
+      }
+    },
     #' @description Get the `Reporter` id
     #' @return `character(1)` the `Reporter` id.
     get_id = function() private$id,
@@ -415,6 +433,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
   private = list(
     id = "",
     cards = NULL, # reactiveValues
+    cached_html = NULL, # reactiveValues
+    trigger_reactive = NULL, # reactiveVal to trigger reactive contexts
     override_order = character(0L), # to sort cards (reactiveValues are not sortable)
     metadata = list(),
     template = NULL,

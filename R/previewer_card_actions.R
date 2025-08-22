@@ -21,7 +21,10 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
   shiny::moduleServer(id, function(input, output, session) {
     new_card_rv <- shiny::reactiveVal()
 
-    shiny::observeEvent(input$edit_action, {
+    shiny::observeEvent(
+      ignoreInit = TRUE,
+      input$edit_action,
+    {
       template_card <- card_r()
       names(template_card) <- make.unique(rep("block", length(template_card)), sep = "_")
       new_card_rv(template_card)
@@ -31,6 +34,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
         title <- shiny::tags$span(class = "text-muted", "(Empty title)")
       }
 
+      print("yada!")
       shiny::showModal(
         shiny::modalDialog(
           title = shiny::tags$span(
@@ -53,7 +57,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
           size = "l",
           easyClose = TRUE,
           shiny::tagList(
-            ui_doc_editor(session$ns("editor"), value = template_card),
+            ui_card_editor(session$ns("editor"), value = template_card, reporter$get_cached_html(card_id)),
             shiny::uiOutput(session$ns("add_text_element_button_ui"))
           ),
           footer = shiny::tagList(
@@ -64,7 +68,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
       )
     })
 
-    block_input_names_rvs <- srv_doc_editor("editor", new_card_rv)
+    block_input_names_rvs <- srv_card_editor("editor", new_card_rv)
 
     shiny::observeEvent(input$edit_title, {
       shinyjs::hide("edit_title")
@@ -75,7 +79,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
 
     # Handle
     shiny::observeEvent(input$edit_save, {
-      new_card <- new_card_rv()
+      new_card <- shiny::req(new_card_rv())
       input_r <- Filter(Negate(is.null), shiny::reactiveValuesToList(block_input_names_rvs))
       for (name in names(input_r)) {
         new_card[[name]] <- shiny::isolate(input_r[[name]]())
@@ -88,7 +92,8 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
           {
             reporter$replace_card(card = new_card, card_id = card_id)
             new_card_rv(NULL)
-            shiny::removeModal()
+            reporter$reactive_trigger(Sys.time())
+            showNotification("Card was successfully updated.", type = "message")
           },
           error = function(err) {
             shiny::showNotification(
@@ -104,21 +109,11 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
         )
       } else {
         new_card_rv(NULL)
-        shiny::removeModal() # Doing nothing
+        reporter$reactive_trigger(Sys.time())
       }
     })
 
     # Handle remove button
     shiny::observeEvent(input$remove_action, reporter$remove_cards(ids = card_id))
-
-    shiny::observeEvent( # Hide button for deprecated objects
-      card_r(),
-      once = TRUE,
-      handlerExpr = {
-        if (!inherits(card_r(), "teal_card")) {
-          shiny::removeUI(sprintf("#%s", session$ns("edit_action")))
-        }
-      }
-    )
   })
 }
