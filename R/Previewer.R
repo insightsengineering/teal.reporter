@@ -90,7 +90,9 @@ preview_report_button_srv <- function(id, reporter) {
     shiny::observeEvent(input$preview_button, {
       shiny::showModal(preview_modal())
     })
-    reporter_previewer_content_srv(id = "preview_content", reporter = reporter, show_rcode = shiny::reactive(input$show_rcode))
+    reporter_previewer_content_srv(id = "preview_content", reporter = reporter, show_rcode = shiny::reactive({
+      if (is.null(input$show_rcode)) FALSE else input$show_rcode
+    }))
     
     # Return the reactive value so other modules can access it
     return(list(show_rcode = show_rcode_state))
@@ -262,11 +264,14 @@ reporter_previewer_content_srv <- function(id, reporter, show_rcode = shiny::rea
                     ),
                     shiny::tags$div(
                       id = paste0("card", card_id),
-                      lapply(
-                        cards[[card_id]]$get_content(),
-                        function(b) {
-                          block_to_html(b, show_rcode = show_r_code)
-                        }
+                      Filter(
+                        Negate(is.null),
+                        lapply(
+                          cards[[card_id]]$get_content(),
+                          function(b) {
+                            block_to_html(b, show_rcode = show_r_code)
+                          }
+                        )
                       )
                     )
                   )

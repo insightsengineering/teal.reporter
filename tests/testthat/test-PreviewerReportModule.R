@@ -103,3 +103,43 @@ testthat::test_that("reporter_previewer_ui - returns a tagList", {
     inherits(reporter_previewer_ui("sth"), c("shiny.tag.list"))
   )
 })
+
+testthat::test_that("block_to_html - show_rcode parameter works correctly", {
+  # Create a mock RcodeBlock
+  rcode_block <- list(
+    get_content = function() "print('test')"
+  )
+  class(rcode_block) <- "RcodeBlock"
+  
+  # Test with show_rcode = TRUE (should return panel_item)
+  result_show <- block_to_html(rcode_block, show_rcode = TRUE)
+  testthat::expect_false(is.null(result_show))
+  
+  # Test with show_rcode = FALSE (should return NULL)
+  result_hide <- block_to_html(rcode_block, show_rcode = FALSE)
+  testthat::expect_true(is.null(result_hide))
+  
+  # Test default behavior (should be TRUE)
+  result_default <- block_to_html(rcode_block)
+  testthat::expect_false(is.null(result_default))
+})
+
+testthat::test_that("block_to_html - non-RcodeBlock unchanged by show_rcode", {
+  # Create a mock TextBlock
+  text_block <- list(
+    get_content = function() "Some text",
+    get_style = function() "verbatim"
+  )
+  class(text_block) <- "TextBlock"
+  
+  # Test with show_rcode = TRUE
+  result_show <- block_to_html(text_block, show_rcode = TRUE)
+  testthat::expect_false(is.null(result_show))
+  
+  # Test with show_rcode = FALSE
+  result_hide <- block_to_html(text_block, show_rcode = FALSE)
+  testthat::expect_false(is.null(result_hide))
+  
+  # Results should be identical regardless of show_rcode for non-RcodeBlocks
+  testthat::expect_identical(result_show, result_hide)
+})
