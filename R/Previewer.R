@@ -36,6 +36,9 @@ preview_report_button_srv <- function(id, reporter) {
 
   shiny::moduleServer(id, function(input, output, session) {
     shiny::setBookmarkExclude(c("preview_button"))
+    
+    # Create reactive value for R code visibility that can be accessed by other modules
+    show_rcode_state <- shiny::reactiveVal(FALSE)
 
     shiny::observeEvent(reporter$get_reactive_add_card(), {
       shinyjs::toggleClass(
@@ -57,6 +60,14 @@ preview_report_button_srv <- function(id, reporter) {
         shiny::modalDialog(
           easyClose = TRUE,
           size = "xl",
+          shiny::tags$div(
+            style = "margin-bottom: 15px;",
+            shiny::checkboxInput(
+              session$ns("show_rcode"),
+              label = "Show R Code",
+              value = show_rcode_state()
+            )
+          ),
           reporter_previewer_content_ui(session$ns("preview_content")),
           footer = shiny::tagList(
             shiny::tags$button(
@@ -71,10 +82,20 @@ preview_report_button_srv <- function(id, reporter) {
       )
     }
 
+    # Update the reactive value when checkbox changes
+    shiny::observeEvent(input$show_rcode, {
+      show_rcode_state(input$show_rcode)
+    })
+
     shiny::observeEvent(input$preview_button, {
       shiny::showModal(preview_modal())
     })
-    reporter_previewer_content_srv(id = "preview_content", reporter = reporter)
+    reporter_previewer_content_srv(id = "preview_content", reporter = reporter, show_rcode = shiny::reactive({
+      if (is.null(input$show_rcode)) FALSE else input$show_rcode
+    }))
+    
+    # Return the reactive value so other modules can access it
+    return(list(show_rcode = show_rcode_state))
   })
 }
 
@@ -212,7 +233,7 @@ reporter_previewer_content_ui <- function(id) {
 }
 
 #' @keywords internal
-reporter_previewer_content_srv <- function(id, reporter) {
+reporter_previewer_content_srv <- function(id, reporter, show_rcode = shiny::reactive(TRUE)) {
   shiny::moduleServer(id, function(input, output, session) {
     shiny::setBookmarkExclude("card_remove_id")
     report_cards <- shiny::reactive({
@@ -222,6 +243,7 @@ reporter_previewer_content_srv <- function(id, reporter) {
     })
     output$pcards <- shiny::renderUI({
       cards <- report_cards()
+      show_r_code <- show_rcode()
 
       if (length(cards)) {
         shiny::tags$div(
@@ -242,11 +264,14 @@ reporter_previewer_content_srv <- function(id, reporter) {
                     ),
                     shiny::tags$div(
                       id = paste0("card", card_id),
-                      lapply(
-                        cards[[card_id]]$get_content(),
-                        function(b) {
-                          block_to_html(b)
-                        }
+                      Filter(
+                        Negate(is.null),
+                        lapply(
+                          cards[[card_id]]$get_content(),
+                          function(b) {
+                            block_to_html(b, show_rcode = show_r_code)
+                          }
+                        )
                       )
                     )
                   )
@@ -300,7 +325,7 @@ reporter_previewer_content_srv <- function(id, reporter) {
 
 #' @noRd
 #' @keywords internal
-block_to_html <- function(b) {
+block_to_html <- function(b, show_rcode = TRUE) {
   b_content <- b$get_content()
   if (inherits(b, "TextBlock")) {
     switch(b$get_style(),
@@ -312,7 +337,11 @@ block_to_html <- function(b) {
       shiny::tags$pre(b_content)
     )
   } else if (inherits(b, "RcodeBlock")) {
-    panel_item("R Code", shiny::tags$pre(b_content))
+    if (show_rcode) {
+      panel_item("R Code", shiny::tags$pre(b_content))
+    } else {
+      NULL  # Don't render R code blocks when show_rcode is FALSE
+    }
   } else if (inherits(b, "PictureBlock")) {
     shiny::tags$img(src = knitr::image_uri(b_content))
   } else if (inherits(b, "TableBlock")) {

@@ -15,6 +15,8 @@
 #' @param label (`character(1)`) label of the button. By default it is empty.
 #' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
 #'  for customizing the rendering process.
+#' @param show_rcode (`reactive`) optional external reactive value for controlling R code inclusion.
+#'  When provided, the download module will use this instead of showing its own checkbox.
 #' @inheritParams reporter_download_inputs
 #'
 #' @return `NULL`.
@@ -37,7 +39,8 @@ download_report_button_srv <- function(id,
                                        reporter,
                                        global_knitr = getOption("teal.reporter.global_knitr"),
                                        rmd_output = getOption("teal.reporter.rmd_output"),
-                                       rmd_yaml_args = getOption("teal.reporter.rmd_yaml_args")) {
+                                       rmd_yaml_args = getOption("teal.reporter.rmd_yaml_args"),
+                                       show_rcode = NULL) {
   checkmate::assert_class(reporter, "Reporter")
   checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
   checkmate::assert_subset(
@@ -99,7 +102,7 @@ download_report_button_srv <- function(id,
           reporter_download_inputs(
             rmd_yaml_args = rmd_yaml_args,
             rmd_output = rmd_output,
-            showrcode = any_rcode_block(reporter),
+            showrcode = if (is.null(show_rcode)) any_rcode_block(reporter) else FALSE,
             session = session
           ),
           footer = shiny::tagList(
@@ -140,7 +143,11 @@ download_report_button_srv <- function(id,
         shinybusy::block(id = ns("download_data"), text = "", type = "dots")
         input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
         names(input_list) <- names(rmd_yaml_args)
-        if (is.logical(input$showrcode)) global_knitr[["echo"]] <- input$showrcode
+        if (!is.null(show_rcode)) {
+          global_knitr[["echo"]] <- show_rcode()
+        } else if (is.logical(input$showrcode)) {
+          global_knitr[["echo"]] <- input$showrcode
+        }
         report_render_and_compress(reporter, input_list, global_knitr, file)
         shinybusy::unblock(id = ns("download_data"))
       },

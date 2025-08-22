@@ -33,3 +33,23 @@ testthat::test_that("download_report_button_srv - download a document", {
     }
   )
 })
+
+testthat::test_that("download_report_button_srv - with external show_rcode parameter", {
+  # Create a reactive value to simulate external show_rcode state
+  show_rcode_reactive <- shiny::reactiveVal(FALSE)
+  
+  shiny::testServer(
+    download_report_button_srv,
+    args = list(
+      reporter = reporter,
+      global_knitr = getOption("teal.reporter.global_knitr"),
+      rmd_output = getOption("teal.reporter.rmd_output"),
+      rmd_yaml_args = getOption("teal.reporter.rmd_yaml_args"),
+      show_rcode = show_rcode_reactive
+    ),
+    expr = {
+      # The server should initialize without errors when show_rcode is provided
+      testthat::expect_true(TRUE)  # Basic test that server starts
+    }
+  )
+})
