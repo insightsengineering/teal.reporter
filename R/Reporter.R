@@ -60,7 +60,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
 
       for (card_id in names(new_cards)) {
         private$cards[[card_id]] <- new_cards[[card_id]]
-        private$cached_html[[card_id]] <- tools::toHTML(new_cards[[card_id]])
+        private$cached_html[[card_id]] <- lapply(new_cards[[card_id]], tools::toHTML)
       }
       invisible(self)
     },
@@ -127,7 +127,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         card <- card$get_content()
       }
       private$cards[[card_id]] <- card
-      private$cached_html[[card_id]] <- tools::toHTML(card)
+      private$cached_html[[card_id]] <- lapply(card, tools::toHTML)
       invisible(self)
     },
     #' @description Retrieves all `teal_card` objects contained in `Reporter`.

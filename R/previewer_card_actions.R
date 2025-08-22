@@ -26,7 +26,6 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
       input$edit_action,
     {
       template_card <- card_r()
-      names(template_card) <- make.unique(rep("block", length(template_card)), sep = "_")
       new_card_rv(template_card)
       title <- metadata(template_card, "title")
 

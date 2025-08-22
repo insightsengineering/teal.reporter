@@ -7,7 +7,7 @@ ui_card_editor <- function(id, value, cached_html) {
         ui_editor_block(
           shiny::NS(ns("blocks"), block_name),
           value = value[[block_name]],
-          cached_html = cached_html
+          cached_html = cached_html[[block_name]]
         )
       })
     ),
