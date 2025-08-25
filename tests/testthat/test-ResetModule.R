@@ -15,56 +15,56 @@ testthat::test_that("simple_reporter_srv - reset a reporter (ReporterCard)", {
   reporter <- Reporter$new()
   reporter$append_cards(list(card1))
 
-# # TODO: averissimo check this test
-# <<<<<<< HEAD
-# =======
-# testthat::test_that("reset_report_button_srv - reset a reporter", {
-# >>>>>>> origin/main
-#   shiny::testServer(
-#     reset_report_button_srv,
-#     args = list(reporter = reporter),
-#     expr = {
-# <<<<<<< HEAD
-#       testthat::expect_identical(unname(reporter$get_cards()), list(card1$get_content()))
-#       session$setInputs(`reset_button_simple-reset_reporter` = 0)
-#       session$setInputs(`reset_button_simple-reset_reporter_ok` = 0)
-#       testthat::expect_identical(reporter$get_blocks(), teal_card())
-#     }
-#   )
-# })
+  # # TODO: averissimo check this test
+  # <<<<<<< HEAD
+  # =======
+  # testthat::test_that("reset_report_button_srv - reset a reporter", {
+  # >>>>>>> origin/main
+  #   shiny::testServer(
+  #     reset_report_button_srv,
+  #     args = list(reporter = reporter),
+  #     expr = {
+  # <<<<<<< HEAD
+  #       testthat::expect_identical(unname(reporter$get_cards()), list(card1$get_content()))
+  #       session$setInputs(`reset_button_simple-reset_reporter` = 0)
+  #       session$setInputs(`reset_button_simple-reset_reporter_ok` = 0)
+  #       testthat::expect_identical(reporter$get_blocks(), teal_card())
+  #     }
+  #   )
+  # })
 
-# testthat::test_that("simple_reporter_srv - reset a reporter", {
-#   testthat::skip_if_not_installed("ggplot2")
+  # testthat::test_that("simple_reporter_srv - reset a reporter", {
+  #   testthat::skip_if_not_installed("ggplot2")
 
-#   card_fun <- function(card = teal_card(), comment = NULL) {
-#     card <- c(card, "## Header 2 text")
-#     card <- c(card, "## A paragraph of default text")
-#     card <- c(
-#       card,
-#       ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
-#         ggplot2::geom_histogram(binwidth = 0.2)
-#     )
-#     card
-#   }
+  #   card_fun <- function(card = teal_card(), comment = NULL) {
+  #     card <- c(card, "## Header 2 text")
+  #     card <- c(card, "## A paragraph of default text")
+  #     card <- c(
+  #       card,
+  #       ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
+  #         ggplot2::geom_histogram(binwidth = 0.2)
+  #     )
+  #     card
+  #   }
 
-#   card1 <- card_fun()
-#   reporter <- Reporter$new()
-#   reporter$append_cards(list(card1))
+  #   card1 <- card_fun()
+  #   reporter <- Reporter$new()
+  #   reporter$append_cards(list(card1))
 
-#   shiny::testServer(
-#     simple_reporter_srv,
-#     args = list(reporter = reporter, card_fun = card_fun),
-#     expr = {
-#       testthat::expect_identical(unname(reporter$get_cards()), list(card1))
-#       session$setInputs(`reset_button_simple-reset_reporter` = 0)
-#       session$setInputs(`reset_button_simple-reset_reporter_ok` = 0)
-#       testthat::expect_identical(reporter$get_blocks(), teal_card())
-# =======
-#       testthat::expect_identical(unname(reporter$get_cards()), list(card1))
-#       session$setInputs(`reset_reporter` = 0)
-#       session$setInputs(`reset_reporter_ok` = 0)
-#       testthat::expect_identical(reporter$get_blocks(), list())
-# >>>>>>> origin/main
-#     }
-#   )
+  #   shiny::testServer(
+  #     simple_reporter_srv,
+  #     args = list(reporter = reporter, card_fun = card_fun),
+  #     expr = {
+  #       testthat::expect_identical(unname(reporter$get_cards()), list(card1))
+  #       session$setInputs(`reset_button_simple-reset_reporter` = 0)
+  #       session$setInputs(`reset_button_simple-reset_reporter_ok` = 0)
+  #       testthat::expect_identical(reporter$get_blocks(), teal_card())
+  # =======
+  #       testthat::expect_identical(unname(reporter$get_cards()), list(card1))
+  #       session$setInputs(`reset_reporter` = 0)
+  #       session$setInputs(`reset_reporter_ok` = 0)
+  #       testthat::expect_identical(reporter$get_blocks(), list())
+  # >>>>>>> origin/main
+  #     }
+  #   )
 })

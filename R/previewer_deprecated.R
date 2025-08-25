@@ -49,7 +49,7 @@ reporter_previewer_ui <- function(id) {
   bslib::page_fluid(
     shiny::tagList(
       shinyjs::useShinyjs(),
-            shiny::singleton(
+      shiny::singleton(
         shiny::tags$head(
           shiny::includeCSS(system.file("css/custom.css", package = "teal.reporter")),
           shiny::includeScript(system.file("js/extendShinyJs.js", package = "teal.reporter"))

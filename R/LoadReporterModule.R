@@ -143,4 +143,4 @@ load_json_report <- function(reporter, zip_path, filename) {
     )
   }
 }
-1+1
+1 + 1

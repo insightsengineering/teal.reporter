@@ -315,16 +315,16 @@ code_chunk <- function(code, ..., lang = "R") {
 #'
 #' Converts input values to a format compatible with `teal_card`.
 #' This function is used internally to handle common inputs, such as `ggplot` objects,
-#' ensuring they are appropriately converted to evaluable output blocks that can 
+#' ensuring they are appropriately converted to evaluable output blocks that can
 #' be saved to `RDS` file efficiently.
 #'
 #' This function performs the following conversions:
 #' - `ggplot` objects are converted to `recordedplot` objects.
-#' 
-#' If the R option `teal.reporter.disable_teal_card_conversion` is set to `TRUE`, 
+#'
+#' If the R option `teal.reporter.disable_teal_card_conversion` is set to `TRUE`,
 #' no conversion is applied.
 #'
-#' @param x (`object`) An object to be converted. 
+#' @param x (`object`) An object to be converted.
 #'
 #' @return The processed object, possibly converted or left unchanged.
 #'
@@ -335,7 +335,7 @@ code_chunk <- function(code, ..., lang = "R") {
   }
   if (inherits(x, "chunk_output")) {
     structure(list(.convert_teal_card_input(x[[1]])), class = c("chunk_output"))
-  } else  if (inherits(x, "ggplot")) {
+  } else if (inherits(x, "ggplot")) {
     .ggplot_to_recordedplot(x)
   } else {
     x

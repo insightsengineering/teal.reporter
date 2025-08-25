@@ -283,13 +283,15 @@ testthat::test_that("teal_card index assignment converts to unique identifier", 
 testthat::describe("teal_card converts", {
   testthat::it("ggplot2 objects to recordedplot", {
     testthat::skip_if_not_installed("ggplot2")
-    sample_plot <- ggplot2::ggplot(iris) + ggplot2::geom_histogram(ggplot2::aes(x = Sepal.Length), binwidth = .1)
+    sample_plot <- ggplot2::ggplot(iris) +
+      ggplot2::geom_histogram(ggplot2::aes(x = Sepal.Length), binwidth = .1)
     testthat::expect_s3_class(teal_card(sample_plot)[[1]], "recordedplot")
   })
 
   testthat::it("ggplot2 objects to recordedplot when using `c()`", {
     testthat::skip_if_not_installed("ggplot2")
-    sample_plot <- ggplot2::ggplot(iris) + ggplot2::geom_histogram(ggplot2::aes(x = Sepal.Length), binwidth = .1)
+    sample_plot <- ggplot2::ggplot(iris) +
+      ggplot2::geom_histogram(ggplot2::aes(x = Sepal.Length), binwidth = .1)
 
     card <- c(teal_card("A header"), sample_plot)
     testthat::expect_s3_class(card[[2]], "recordedplot")
@@ -297,7 +299,8 @@ testthat::describe("teal_card converts", {
 
   testthat::it("ggplot2 objects to recordedplot when using assigning", {
     testthat::skip_if_not_installed("ggplot2")
-    sample_plot <- ggplot2::ggplot(iris) + ggplot2::geom_histogram(ggplot2::aes(x = Sepal.Length), binwidth = .1)
+    sample_plot <- ggplot2::ggplot(iris) +
+      ggplot2::geom_histogram(ggplot2::aes(x = Sepal.Length), binwidth = .1)
 
     card <- teal_card("A header")
     card[[1]] <- sample_plot
@@ -306,7 +309,8 @@ testthat::describe("teal_card converts", {
 
   testthat::it("ggplot2 objects to recordedplot when using assigning with new name", {
     testthat::skip_if_not_installed("ggplot2")
-    sample_plot <- ggplot2::ggplot(iris) + ggplot2::geom_histogram(ggplot2::aes(x = Sepal.Length), binwidth = .1)
+    sample_plot <- ggplot2::ggplot(iris) +
+      ggplot2::geom_histogram(ggplot2::aes(x = Sepal.Length), binwidth = .1)
 
     card <- teal_card("A header")
     card[["a new name"]] <- sample_plot
