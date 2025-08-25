@@ -15,6 +15,10 @@
 * Added `preview_report_button_ui` and `preview_report_button_srv` to create a shiny module that creates a button to open the report previewer in a modal.
 * Improve error message when reporter zip file is not named correctly (#365)
 
+### Enhancements
+
+* Supports `flextable` and `gtsummary` objects.
+
 # teal.reporter 0.4.0
 
 ### Enhancements

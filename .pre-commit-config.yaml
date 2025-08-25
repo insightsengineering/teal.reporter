@@ -16,23 +16,27 @@ repos:
         additional_dependencies:
           - bslib
           - checkmate
-          #- flextable
-          - davidgohel/flextable # Error: package 'flextable' is not available
-          - davidgohel/gdtools # for flextable
+          - commonmark
+          - flextable
           - grid
-          - htmltools
           - knitr
           - lifecycle
           - R6
+          - insightsengineering/rlistings # for rtables
           - rmarkdown
+          - insightsengineering/rtables
+          - insightsengineering/rtables.officer
+          - davidgohel/officer # for rtables.officer
+          - insightsengineering/formatters # for rtables
           - shiny
           - shinybusy
+          - shinyjs
           - shinyWidgets
+          - sortable
+          - insightsengineering/teal.data
+          - insightsengineering/teal.code
           - yaml
           - zip
-          - rlistings
-          - rtables
-          - rtables.officer
       - id: spell-check
         name: Check spelling with `spelling`
         exclude: >

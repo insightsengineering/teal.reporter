@@ -30,23 +30,17 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
           class = "card-header",
           shiny::tags$div(
             class = ifelse(collapsed, "collapsed", ""),
-            `data-bs-toggle` = "collapse",
+            `data-bs-toggle` = "collapse", # bs5
             href = paste0("#", panel_id),
             `aria-expanded` = ifelse(collapsed, "false", "true"),
             shiny::icon("angle-down", class = "dropdown-icon"),
-            shiny::tags$label(
-              style = "display: inline;",
-              title,
-            )
+            shiny::tags$label(style = "display: inline;", title)
           )
         ),
         shiny::tags$div(
           id = panel_id,
           class = paste("collapse", ifelse(collapsed, "", "show")),
-          shiny::tags$div(
-            class = "card-body",
-            ...
-          )
+          shiny::tags$div(class = "card-body", ...)
         )
       )
     )
@@ -87,9 +81,13 @@ to_flextable <- function(content) {
     rtables::header_section_div(ft) <- mf$header_section_div
     ft <- rtables.officer::tt_to_flextable(ft, total_width = c(grDevices::pdf.options()$width - 1))
   } else if (inherits(content, "data.frame")) {
-    ft <- rtables.officer::tt_to_flextable(
-      rtables::df_to_tt(content)
-    )
+    ft <- if (nrow(content) == 0) {
+      flextable::flextable(content)
+    } else {
+      rtables.officer::tt_to_flextable(
+        rtables::df_to_tt(content)
+      )
+    }
   } else {
     stop(paste0("Unsupported class `(", format(class(content)), ")` when exporting table"))
   }
@@ -160,6 +158,21 @@ global_knitr_details <- function() {
   )
 }
 
+#' @export
+#' @keywords internal
+format.code_chunk <- function(x, ...) {
+  language <- attr(x, "lang", exact = TRUE)
+  params <- attr(x, "params", exact = TRUE)
+  if (language %in% names(knitr::knit_engines$get())) {
+    sprintf(
+      "```{%s}\n%s\n```",
+      toString(c(language, paste(names(params), params, sep = "="))),
+      NextMethod()
+    )
+  } else {
+    sprintf("```%s\n%s\n```", language, NextMethod())
+  }
+}
 
 #' @keywords internal
 .outline_button <- function(id, label, icon = NULL, class = "primary") {

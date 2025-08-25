@@ -11,6 +11,7 @@
 #' @name download_report_button
 #'
 #' @param id (`character(1)`) this `shiny` module's id.
+#' @param label (`character(1)`) label before the icon. By default `NULL`.
 #' @param reporter (`Reporter`) instance.
 #' @param label (`character(1)`) label of the button. By default it is empty.
 #' @param global_knitr (`list`) of `knitr` parameters (passed to `knitr::opts_chunk$set`)
@@ -24,11 +25,7 @@ NULL
 #' @export
 download_report_button_ui <- function(id, label = NULL) {
   checkmate::assert_string(label, null.ok = TRUE)
-  .outline_button(
-    shiny::NS(id, "download_button"),
-    label = label,
-    icon = "download"
-  )
+  .outline_button(shiny::NS(id, "download_button"), label = label, icon = "download")
 }
 
 #' @rdname download_report_button
@@ -72,6 +69,7 @@ download_report_button_srv <- function(id,
         ),
         icon = shiny::icon("download")
       )
+
       shiny::tags$div(
         class = "teal-reporter reporter-modal",
         .custom_css_dependency(),
@@ -110,38 +108,40 @@ download_report_button_srv <- function(id,
               NULL,
               "Dismiss"
             ),
-            downb
+            shiny::tags$a(
+              id = ns("download_data"),
+              class = "btn btn-primary shiny-download-link",
+              href = "",
+              target = "_blank",
+              download = NA,
+              shiny::icon("download"),
+              "Download"
+            )
           )
         )
       )
     }
 
-    shiny::observeEvent(input$download_button, {
-      shiny::showModal(download_modal())
+    shiny::observeEvent(reporter$get_cards(), {
+      shinyjs::toggleState(length(reporter$get_cards()) > 0, id = "download_button")
     })
 
-    shiny::observeEvent(reporter$get_reactive_add_card(), {
-      shinyjs::toggleClass(
-        id = "download_button", condition = reporter$get_reactive_add_card() == 0, class = "disabled"
-      )
-    })
+    shiny::observeEvent(input$download_button, shiny::showModal(download_modal()))
 
     output$download_data <- shiny::downloadHandler(
-      filename = function() {
-        paste0(
-          "report_",
-          if (reporter$get_id() == "") NULL else paste0(reporter$get_id(), "_"),
-          format(Sys.time(), "%y%m%d%H%M%S"),
-          ".zip"
-        )
-      },
+      filename = function() paste0(.report_identifier(reporter), ".zip"),
       content = function(file) {
         shiny::showNotification("Rendering and Downloading the document.")
         shinybusy::block(id = ns("download_data"), text = "", type = "dots")
-        input_list <- lapply(names(rmd_yaml_args), function(x) input[[x]])
-        names(input_list) <- names(rmd_yaml_args)
+        rmd_yaml_with_inputs <- lapply(names(rmd_yaml_args), function(x) input[[x]])
+        names(rmd_yaml_with_inputs) <- names(rmd_yaml_args)
         if (is.logical(input$showrcode)) global_knitr[["echo"]] <- input$showrcode
-        report_render_and_compress(reporter, input_list, global_knitr, file)
+        report_render_and_compress(
+          reporter = reporter,
+          rmd_yaml_args = rmd_yaml_with_inputs,
+          global_knitr = global_knitr,
+          file = file
+        )
         shinybusy::unblock(id = ns("download_data"))
       },
       contentType = "application/zip"
@@ -154,118 +154,59 @@ download_report_button_srv <- function(id,
 #' Render the report and zip the created directory.
 #'
 #' @param reporter (`Reporter`) instance.
-#' @param input_list (`list`) like `shiny` input converted to a regular named list.
+#' @param rmd_yaml_args (`named list`) with `Rmd` `yaml` header fields and their values.
 #' @param global_knitr (`list`) a global `knitr` parameters, like echo.
 #' But if local parameter is set it will have priority.
-#' @param file (`character(1)`) where to copy the returned directory.
+#' @param file (`character(1)`) where to copy created zip file.
 #'
 #' @return `file` argument, invisibly.
 #'
 #' @keywords internal
-report_render_and_compress <- function(reporter, input_list, global_knitr, file = tempdir()) {
+report_render_and_compress <- function(reporter, rmd_yaml_args, global_knitr, file = tempfile()) {
   checkmate::assert_class(reporter, "Reporter")
-  checkmate::assert_list(input_list, names = "named")
+  checkmate::assert_list(rmd_yaml_args, names = "named")
   checkmate::assert_string(file)
 
-  if (
-    identical("pdf_document", input_list$output) &&
-      inherits(try(system2("pdflatex", "--version", stdout = TRUE), silent = TRUE), "try-error")
-  ) {
-    shiny::showNotification(
-      ui = "pdflatex is not available so the pdf_document could not be rendered. Please use other output type.",
-      action = "Please contact app developer",
-      type = "error"
-    )
-    stop("pdflatex is not available so the pdf_document could not be rendered.")
-  }
+  tmp_dir <- file.path(tempdir(), .report_identifier(reporter))
 
-  yaml_header <- as_yaml_auto(input_list)
-  renderer <- Renderer$new()
+  cards_combined <- reporter$get_blocks()
+  metadata(cards_combined) <- utils::modifyList(metadata(cards_combined), rmd_yaml_args)
 
   tryCatch(
-    renderer$render(reporter$get_blocks(), yaml_header, global_knitr),
-    warning = function(cond) {
-      print(cond)
-      shiny::showNotification(
-        ui = "Render document warning!",
-        action = "Please contact app developer",
-        type = "warning"
-      )
-    },
+    render(
+      input = cards_combined,
+      output_dir = tmp_dir,
+      global_knitr = global_knitr,
+      quiet = TRUE
+    ),
+    warning = function(cond) message("Render document warning: ", cond),
     error = function(cond) {
-      print(cond)
-      shiny::showNotification(
-        ui = "Render document error!",
-        action = "Please contact app developer",
-        type = "error"
-      )
+      message("Render document error: ", cond)
+      do.call("return", args = list(), envir = parent.frame(2))
     }
   )
 
-  output_dir <- renderer$get_output_dir()
-
   tryCatch(
-    archiver_dir <- reporter$to_jsondir(output_dir),
-    warning = function(cond) {
-      print(cond)
-      shiny::showNotification(
-        ui = "Archive document warning!",
-        action = "Please contact app developer",
-        type = "warning"
-      )
-    },
-    error = function(cond) {
-      print(cond)
-      shiny::showNotification(
-        ui = "Archive document error!",
-        action = "Please contact app developer",
-        type = "error"
-      )
-    }
+    reporter$to_jsondir(tmp_dir),
+    warning = function(cond) message("Archive document warning: ", cond),
+    error = function(cond) message("Archive document error: ", cond)
   )
 
   temp_zip_file <- tempfile(fileext = ".zip")
   tryCatch(
-    expr = zip::zipr(temp_zip_file, output_dir),
-    warning = function(cond) {
-      print(cond)
-      shiny::showNotification(
-        ui = "Zipping folder warning!",
-        action = "Please contact app developer",
-        type = "warning"
-      )
-    },
-    error = function(cond) {
-      print(cond)
-      shiny::showNotification(
-        ui = "Zipping folder error!",
-        action = "Please contact app developer",
-        type = "error"
-      )
-    }
+    zip::zipr(temp_zip_file, tmp_dir),
+    warning = function(cond) message("Zipping folder warning: ", cond),
+    error = function(cond) message("Zipping folder error: ", cond)
   )
 
   tryCatch(
-    expr = file.copy(temp_zip_file, file),
-    warning = function(cond) {
-      print(cond)
-      shiny::showNotification(
-        ui = "Copying file warning!",
-        action = "Please contact app developer",
-        type = "warning"
-      )
+    {
+      file.copy(temp_zip_file, file)
+      unlink(tmp_dir, recursive = TRUE)
     },
-    error = function(cond) {
-      print(cond)
-      shiny::showNotification(
-        ui = "Copying file error!",
-        action = "Please contact app developer",
-        type = "error"
-      )
-    }
+    warning = function(cond) message("Copying file warning: ", cond),
+    error = function(cond) message("Copying file error: ", cond)
   )
-
-  rm(renderer)
   invisible(file)
 }
 
@@ -312,11 +253,21 @@ reporter_download_inputs <- function(rmd_yaml_args, rmd_output, showrcode, sessi
 #' @noRd
 #' @keywords internal
 any_rcode_block <- function(reporter) {
+  cards <- reporter$get_cards()
+
+  # todo: make sure code_chunk is also noticed
   any(
     vapply(
       reporter$get_blocks(),
-      function(e) inherits(e, "RcodeBlock"),
-      logical(1)
+      inherits,
+      logical(1),
+      what = "code_chunk"
     )
   )
+}
+
+.report_identifier <- function(reporter) {
+  id <- paste0("_", reporter$get_id()) %||% ""
+  timestamp <- format(Sys.time(), "_%y%m%d%H%M%S")
+  sprintf("reporter%s%s", id, timestamp)
 }

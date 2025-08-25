@@ -21,6 +21,7 @@ navbar:
     github:
       icon: fa-github
       href: https://github.com/insightsengineering/teal.reporter
+      aria-label: View on Github
 
 reference:
   - title: "`shiny` modules for adding content to reports"
@@ -33,6 +34,14 @@ reference:
       - simple_reporter_ui
   - title: Supporting `shiny` modules
     contents:
+      - download_report_button_srv
+      - download_report_button_ui
+      - reset_report_button_srv
+      - reset_report_button_ui
+      - report_load_srv
+      - report_load_ui
+      - srv_editor_block
+      - ui_editor_block
       - add_card_button
       - download_report_button
       - reset_report_button
@@ -44,10 +53,25 @@ reference:
       - print.rmd_yaml_header
       - rmd_output_arguments
       - rmd_outputs
-  - title: "`R6` classes used inside package"
+  - title: "Classes used inside package"
     contents:
+      - teal_card
+      - teal_report
       - ReportCard
       - Reporter
+  - title: "Utility functions for `teal_card` object"
+    contents:
+      - as.teal_card
+      - code_chunk
+      - metadata
+      - "metadata<-"
+      - render
+      - teal_card
+      - "teal_card<-"
+  - title: "Utility functions for `teal_report` object"
+    contents:
+      - c.teal_report
+      - eval_code,teal_report-method
   - title: "Deprecated functions"
     contents:
       - reporter_previewer_deprecated
