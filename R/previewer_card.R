@@ -36,7 +36,6 @@ previewer_card_srv <- function(id, card_r, card_id, reporter) {
       title
     })
     output$card_content <- shiny::renderUI({
-      # result <- tools::toHTML(shiny::req(card_r()))
       result <- reporter$get_cached_html(card_id)
       shiny::removeUI(sprintf("#%s", session$ns("loading_placeholder")))
       result
