@@ -49,34 +49,6 @@ add_card_button_ui <- function(id, label = NULL) {
     icon = "plus-lg",
     label = label
   )
-  # # TODO: averissimo (check if necessary)
-  # # Buttons with custom css and
-  # # js code to disable the add card button when clicked to prevent multi-clicks
-  # shiny::tagList(
-  #   shiny::singleton(
-  #     shiny::tags$head(
-  #       shiny::tags$script(
-  #         shiny::HTML(
-  #           sprintf(
-  #             '
-  #             $(document).ready(function(event) {
-  #               $("body").on("click", "#%s", function() {
-  #                 $(this).addClass("disabled");
-  #               })
-  #             })',
-  #             ns("add_card_ok")
-  #           )
-  #         )
-  #       )
-  #     )
-  #   ),
-  #   shiny::actionButton(
-  #     ns("add_report_card_button"),
-  #     "Add to Reporter",
-  #     `data-val` = shiny::restoreInput(id = ns("add_report_card_button"), default = NULL)
-  #   )
-  # )
-  # END of TODO
 }
 
 #' @rdname add_card_button

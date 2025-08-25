@@ -30,10 +30,7 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
           class = "card-header",
           shiny::tags$div(
             class = ifelse(collapsed, "collapsed", ""),
-            # bs4
-            `data-toggle` = "collapse", # TODO: averissimo (check if can be removed)
-            # bs5
-            `data-bs-toggle` = "collapse",
+            `data-bs-toggle` = "collapse", # bs5
             href = paste0("#", panel_id),
             `aria-expanded` = ifelse(collapsed, "false", "true"),
             shiny::icon("angle-down", class = "dropdown-icon"),

@@ -3,7 +3,7 @@
 
   teal_reporter_default_options <- list(
     teal.reporter.global_knitr = list(
-      echo = TRUE, # TODO: averissimo check if added echo is correct
+      echo = TRUE,
       tidy.opts = list(width.cutoff = 60),
       tidy = requireNamespace("formatR", quietly = TRUE)
     ),

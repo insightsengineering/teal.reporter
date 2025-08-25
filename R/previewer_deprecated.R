@@ -55,15 +55,6 @@ reporter_previewer_ui <- function(id) {
           shiny::includeScript(system.file("js/extendShinyJs.js", package = "teal.reporter"))
         )
       ),
-      # # TODO: averissimo (implement sortable)
-      # sortable::sortable_js(
-      #   css_id = ns("cards-reporter_cards"),
-      #   options = sortable::sortable_options(
-      #     handle = ".accordion-item > .accordion-header",
-      #     onSort = sortable::sortable_js_capture_input(ns("reporter_cards_order"))
-      #   )
-      # ),
-      # # END of TODO
 
       # Extend shinyjs::js to include function defined in extendShinyJs.js
       shinyjs::extendShinyjs(text = "", functions = c("jumpToFocus", "enterToSubmit", "autoFocusModal")),
@@ -118,12 +109,6 @@ reporter_previewer_srv <- function(id,
   checkmate::assert_true(rmd_yaml_args[["output"]] %in% rmd_output)
 
   shiny::moduleServer(id, function(input, output, session) {
-    # # TODO: averissimo (check if bookmars exclude is needed)
-    # shiny::setBookmarkExclude(c(
-    #   "showrcode", "download_data_prev",
-    #   "load_reporter_previewer", "load_reporter"
-    # ))
-    # # END OF TODO
     if (!"load" %in% previewer_buttons) {
       shinyjs::hide(id = "load_span")
     }

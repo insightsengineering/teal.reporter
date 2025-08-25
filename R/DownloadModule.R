@@ -126,9 +126,7 @@ download_report_button_srv <- function(id,
       shinyjs::toggleState(length(reporter$get_cards()) > 0, id = "download_button")
     })
 
-    # # TODO: averissimo (check if necessary)
     shiny::observeEvent(input$download_button, shiny::showModal(download_modal()))
-    # # END of TODO
 
     output$download_data <- shiny::downloadHandler(
       filename = function() paste0(.report_identifier(reporter), ".zip"),
