@@ -67,9 +67,7 @@ reporter_previewer_ui <- function(id) {
         ),
         shiny::tags$span(id = ns("reset_span"), reset_report_button_ui(ns("reset"), label = "Reset Report"))
       ),
-      shiny::tags$div(
-        reporter_previewer_content_ui(ns("previewer"))
-      )
+      shiny::tags$div(reporter_previewer_content_ui(ns("previewer")))
     )
   )
 }
