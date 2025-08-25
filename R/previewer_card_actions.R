@@ -33,7 +33,6 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
         title <- shiny::tags$span(class = "text-muted", "(Empty title)")
       }
 
-      print("yada!")
       shiny::showModal(
         shiny::modalDialog(
           title = shiny::tags$span(
