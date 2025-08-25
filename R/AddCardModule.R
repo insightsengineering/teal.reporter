@@ -136,6 +136,8 @@ add_card_button_srv <- function(id, reporter, card_fun) {
         arg_list <- c(arg_list, list(label = input$label))
       }
 
+      shinyjs::disable("add_card_ok")
+
       if (has_card_arg) {
         # The default_card is defined here because formals() returns a pairedlist object
         # of formal parameter names and their default values. The values are missing
@@ -162,6 +164,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           msg,
           type = "error"
         )
+        shinyjs::enable("add_card_ok")
       } else {
         checkmate::assert_multi_class(card, c("ReportCard", "teal_card"))
         if (inherits(card, "ReportCard")) {
