@@ -27,8 +27,7 @@ preview_report_button_ui <- function(id, label = "Preview Report") {
         shiny::uiOutput(ns("preview_button_counter"))
       ),
       icon = "file-earmark-text"
-    ),
-    shinyjs::hidden(uiOutput(ns("preview_hidden")))
+    )
   )
 }
 

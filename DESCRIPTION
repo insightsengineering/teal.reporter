@@ -81,23 +81,3 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Config/testthat/edition: 3
-Collate:
-    'AddCardModule.R'
-    'DownloadModule.R'
-    'LoadReporterModule.R'
-    'render.R'
-    'ReportCard.R'
-    'Reporter.R'
-    'ResetModule.R'
-    'SimpleReporter.R'
-    'teal_card.R'
-    'teal.reporter.R'
-    'teal_report-class.R'
-    'teal_report-c.R'
-    'teal_report-eval_code.R'
-    'teal_report-extract.R'
-    'toHTML.R'
-    'to_rmd.R'
-    'utils.R'
-    'yaml_utils.R'
-    'zzz.R'
