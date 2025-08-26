@@ -2,6 +2,39 @@ testthat::test_that("panel_item", {
   testthat::expect_s3_class(panel_item("LABEL", shiny::tags$div()), "shiny.tag")
 })
 
+testthat::test_that("panel_item generates Bootstrap 5 compatible HTML", {
+  result <- panel_item("Test Title", shiny::tags$p("Test content"))
+  html_output <- as.character(result)
+  
+  # Check for Bootstrap 5 specific attributes
+  testthat::expect_true(grepl('data-bs-toggle="collapse"', html_output))
+  testthat::expect_true(grepl('data-bs-target="#', html_output))
+  testthat::expect_true(grepl('aria-controls=', html_output))
+  testthat::expect_true(grepl('aria-expanded=', html_output))
+  
+  # Check for proper button element instead of div
+  testthat::expect_true(grepl('<button', html_output))
+  testthat::expect_true(grepl('type="button"', html_output))
+  
+  # Check for collapse class
+  testthat::expect_true(grepl('class="collapse"', html_output))
+})
+
+testthat::test_that("panel_item collapsed state works correctly", {
+  # Test collapsed = TRUE (default)
+  result_collapsed <- panel_item("Test", shiny::tags$p("content"))
+  html_collapsed <- as.character(result_collapsed)
+  testthat::expect_true(grepl('aria-expanded="false"', html_collapsed))
+  testthat::expect_true(grepl('class="collapse"', html_collapsed))
+  testthat::expect_false(grepl('class="collapse show"', html_collapsed))
+  
+  # Test collapsed = FALSE
+  result_expanded <- panel_item("Test", shiny::tags$p("content"), collapsed = FALSE)
+  html_expanded <- as.character(result_expanded)
+  testthat::expect_true(grepl('aria-expanded="true"', html_expanded))
+  testthat::expect_true(grepl('class="collapse show"', html_expanded))
+})
+
 testthat::test_that("to_flextable: supported class `data.frame`", {
   data_frame <- data.frame(A = 1:3, B = 4:6)
   flextable_output <- to_flextable(data_frame)

@@ -28,15 +28,17 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
         style = "margin: 0.5rem 0;",
         shiny::tags$div(
           class = "card-header",
-          shiny::tags$div(
-            class = ifelse(collapsed, "collapsed", ""),
+          shiny::tags$button(
+            type = "button",
+            class = paste("panel-item-toggle", ifelse(collapsed, "collapsed", "")),
             `data-bs-toggle` = "collapse",
-            href = paste0("#", panel_id),
+            `data-bs-target` = paste0("#", panel_id),
             `aria-expanded` = ifelse(collapsed, "false", "true"),
+            `aria-controls` = panel_id,
             shiny::icon("angle-down", class = "dropdown-icon"),
-            shiny::tags$label(
-              style = "display: inline;",
-              title,
+            shiny::tags$span(
+              style = "margin-left: 0.5rem;",
+              title
             )
           )
         ),
