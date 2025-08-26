@@ -86,7 +86,7 @@
 }
 
 /* Collapsible panel styling for Bootstrap 4/5 compatibility */
-.teal-reporter .panel-item-toggle {
+.panel-item-toggle {
   text-decoration: none !important;
   border: none !important;
   background: none !important;
@@ -96,20 +96,20 @@
   color: inherit;
 }
 
-.teal-reporter .panel-item-toggle:hover,
-.teal-reporter .panel-item-toggle:focus {
+.panel-item-toggle:hover,
+.panel-item-toggle:focus {
   background-color: rgba(0, 0, 0, 0.05) !important;
   text-decoration: none !important;
 }
 
-.teal-reporter .panel-item-toggle .dropdown-icon {
+.panel-item-toggle .dropdown-icon {
   transition: transform 0.2s ease;
 }
 
-.teal-reporter .panel-item-toggle.collapsed .dropdown-icon {
+.panel-item-toggle.collapsed .dropdown-icon {
   transform: rotate(-90deg);
 }
 
-.teal-reporter .panel-item-toggle:not(.collapsed) .dropdown-icon {
+.panel-item-toggle:not(.collapsed) .dropdown-icon {
   transform: rotate(0deg);
 }
