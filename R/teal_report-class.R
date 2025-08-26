@@ -16,7 +16,7 @@ setOldClass("teal_card")
 #'
 #' @slot .xData (`environment`) environment containing data sets and possibly
 #'  auxiliary variables.
-#'  Access variables with [get()], [`$`], [teal.code::get_var()] or [`[[`].
+#'  Access variables with [get()], [`$`]  or [`[[`].
 #'  No setter provided. Evaluate code to add variables into `@.xData`.
 #' @slot code (`list` of `character`) representing code necessary to reproduce the contents of `qenv`.
 #'  Access with [teal.code::get_code()].
@@ -91,18 +91,26 @@ teal_report <- function(...,
   )
 }
 
+setAs(
+  "qenv",
+  "teal_report",
+  function(from, to) {
+    if (inherits(from, "teal_report")) {
+      return(from)
+    }
+    new_x <- teal_report()
+    for (slot_name in methods::slotNames(from)) {
+      methods::slot(new_x, slot_name) <- methods::slot(from, slot_name)
+    }
+    teal_card(new_x) <- .code_to_card(from@code)
+    new_x
+  }
+)
+
 #' @rdname teal_report
 #' @param x (`qenv` or `teal_data`) object to convert to `teal_report`.
 #' @export
 as.teal_report <- function(x) { # nolint: object_name.
   checkmate::assert_class(x, "qenv")
-  if (inherits(x, "teal_report")) {
-    return(x)
-  }
-  new_x <- teal_report()
-  for (slot_name in methods::slotNames(x)) {
-    methods::slot(new_x, slot_name) <- methods::slot(x, slot_name)
-  }
-  teal_card(new_x) <- .code_to_card(x@code)
-  new_x
+  as(x, "teal_report")
 }

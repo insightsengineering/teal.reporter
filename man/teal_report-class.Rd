@@ -20,7 +20,7 @@ If errors are raised, a \code{qenv.error} object is returned.
 \describe{
 \item{\code{.xData}}{(\code{environment}) environment containing data sets and possibly
 auxiliary variables.
-Access variables with \code{\link[=get]{get()}}, \code{\link{$}}, \code{\link[teal.code:get_var]{teal.code::get_var()}} or [\code{[[}].
+Access variables with \code{\link[=get]{get()}}, \code{\link{$}}  or [\code{[[}].
 No setter provided. Evaluate code to add variables into \verb{@.xData}.}
 
 \item{\code{code}}{(\code{list} of \code{character}) representing code necessary to reproduce the contents of \code{qenv}.
