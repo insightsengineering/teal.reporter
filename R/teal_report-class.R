@@ -59,7 +59,6 @@ setMethod(
   }
 )
 
-
 #' Comprehensive data integration function for `teal` applications
 #'
 #' @description
