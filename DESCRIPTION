@@ -65,9 +65,6 @@ Suggests:
 VignetteBuilder:
     knitr,
     rmarkdown
-Remotes:
-    insightsengineering/teal.code@main,
-    insightsengineering/teal.data@main
 Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate,
     davidgohel/flextable, ddsjoberg/gtsummary, yihui/knitr, r-lib/lifecycle,
     r-lib/R6, r-lib/rlang, insightsengineering/rlistings, rstudio/rmarkdown,
@@ -87,9 +84,7 @@ Config/testthat/edition: 3
 Collate:
     'AddCardModule.R'
     'DownloadModule.R'
-    'Editor.R'
     'LoadReporterModule.R'
-    'Previewer.R'
     'render.R'
     'ReportCard.R'
     'Reporter.R'

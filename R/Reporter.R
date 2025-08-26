@@ -389,6 +389,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$id <- id
       invisible(self)
     },
+    ## TODO: averissimo consider alternatives to trigger the re-render of modal
+    #' @description Trigger report rendering of preview modal in shiny context.
+    #' @param  val value to the passed to the reactive trigger.
+    #' @return `reactiveVal` value
     reactive_trigger = function(val) {
       if (missing(val)) {
         private$trigger_reactive()
@@ -396,6 +400,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         private$trigger_reactive(val)
       }
     },
+    #' @description Get cached HTML for a specific `teal_card` by its id.
+    #' @param card_id (`character(1)`) the unique id of the card.
     get_cached_html = function(card_id) {
       if (shiny::isRunning()) {
         private$cached_html[[card_id]]

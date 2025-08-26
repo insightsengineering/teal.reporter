@@ -91,8 +91,7 @@ card <- ReportCard$new()$append_rcode("2+2", echo = FALSE)
 ## Method `ReportCard$append_content`
 ## ------------------------------------------------
 
-NewpageBlock <- getFromNamespace("NewpageBlock", "teal.reporter")
-card <- ReportCard$new()$append_content(NewpageBlock$new())
+card <- ReportCard$new()$append_content(code_chunk("foo <- 2"))
 
 
 ## ------------------------------------------------
@@ -142,6 +141,7 @@ ReportCard$new()$set_name("NAME")$get_name()
 \item \href{#method-ReportCard-append_metadata}{\code{ReportCard$append_metadata()}}
 \item \href{#method-ReportCard-get_name}{\code{ReportCard$get_name()}}
 \item \href{#method-ReportCard-set_name}{\code{ReportCard$set_name()}}
+\item \href{#method-ReportCard-set_content_names}{\code{ReportCard$set_content_names()}}
 \item \href{#method-ReportCard-to_list}{\code{ReportCard$to_list()}}
 \item \href{#method-ReportCard-from_list}{\code{ReportCard$from_list()}}
 \item \href{#method-ReportCard-clone}{\code{ReportCard$clone()}}
@@ -256,7 +256,10 @@ Appends a plot to this \code{ReportCard}.
 \subsection{Method \code{append_text()}}{
 Appends a text paragraph to this \code{ReportCard}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_text(text, style = TextBlock$new()$get_available_styles()[1])}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_text(
+  text,
+  style = c("default", "header2", "header3", "verbatim")
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -264,7 +267,7 @@ Appends a text paragraph to this \code{ReportCard}.
 \describe{
 \item{\code{text}}{(\code{character}) The text content to add.}
 
-\item{\code{style}}{(\code{character(1)}) the style of the paragraph. One of: default, header2, header3, verbatim.}
+\item{\code{style}}{(\code{character(1)}) the style of the paragraph.}
 }
 \if{html}{\out{</div>}}
 }
@@ -316,7 +319,7 @@ Appends an \code{R} code chunk to \code{ReportCard}.
 \if{html}{\out{<a id="method-ReportCard-append_content"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-append_content}{}}}
 \subsection{Method \code{append_content()}}{
-Appends a generic \code{ContentBlock} to this \code{ReportCard}.
+Appends a generic content to this \code{ReportCard}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_content(content)}\if{html}{\out{</div>}}
 }
@@ -324,7 +327,7 @@ Appends a generic \code{ContentBlock} to this \code{ReportCard}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{content}}{(\code{ContentBlock}) object.}
+\item{\code{content}}{(Object.)}
 }
 \if{html}{\out{</div>}}
 }
@@ -333,8 +336,7 @@ Appends a generic \code{ContentBlock} to this \code{ReportCard}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{NewpageBlock <- getFromNamespace("NewpageBlock", "teal.reporter")
-card <- ReportCard$new()$append_content(NewpageBlock$new())
+\preformatted{card <- ReportCard$new()$append_content(code_chunk("foo <- 2"))
 
 }
 \if{html}{\out{</div>}}
@@ -352,7 +354,7 @@ Get all content blocks from this \code{ReportCard}.
 }
 
 \subsection{Returns}{
-\code{list()} list of \code{TableBlock}, \code{TextBlock} and \code{PictureBlock}.
+\code{teal_card()} containing appended elements.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -476,12 +478,29 @@ Set the name of the \code{ReportCard}.
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ReportCard-set_content_names"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-set_content_names}{}}}
+\subsection{Method \code{set_content_names()}}{
+Set content block names for compatibility with newer \code{teal_card}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$set_content_names(new_names)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{new_names}}{(\code{character}) vector of new names.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-to_list}{}}}
 \subsection{Method \code{to_list()}}{
 Convert the \code{ReportCard} to a list, including content and metadata.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$to_list(output_dir)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$to_list(output_dir = lifecycle::deprecated())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -501,7 +520,7 @@ Convert the \code{ReportCard} to a list, including content and metadata.
 \subsection{Method \code{from_list()}}{
 Reconstructs the \code{ReportCard} from a list representation.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$from_list(card, output_dir)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ReportCard$from_list(card, output_dir = lifecycle::deprecated())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
