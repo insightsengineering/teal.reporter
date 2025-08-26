@@ -213,3 +213,8 @@ format.code_chunk <- function(x, ...) {
     stylesheet = "custom.css"
   )
 }
+
+#' @noRd
+dummy <- function() {
+  R6::R6Class # Used to trick R CMD check for avoiding NOTE about R6
+}
