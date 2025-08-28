@@ -343,10 +343,12 @@ testthat::describe("reorder_cards", {
   })
 })
 
+# nolint start: commented_code.
 # TODO: averissimo fix test
 # testthat::test_that("from_reporter persists the cards structure", {
 #   testthat::expect_identical(unname(reporter1$get_cards()), unname(reporter2$from_reporter(reporter1)$get_cards()))
 # })
+# nolint end: commented_code.
 
 testthat::describe("Reporter with custom template function", {
   it("modifies teal_cards on append", {

@@ -15,6 +15,7 @@ testthat::test_that("simple_reporter_srv - reset a reporter (ReporterCard)", {
   reporter <- Reporter$new()
   reporter$append_cards(list(card1))
 
+  # nolint start: commented_code.
   # # TODO: averissimo check this test
   # <<<<<<< HEAD
   # =======
@@ -67,4 +68,5 @@ testthat::test_that("simple_reporter_srv - reset a reporter (ReporterCard)", {
   # >>>>>>> origin/main
   #     }
   #   )
+  # nolint end: commented_code.
 })
