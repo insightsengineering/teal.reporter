@@ -10,7 +10,6 @@ testthat::test_that("yaml_quoted does not modify the value of the object", {
   testthat::expect_equal(object, yaml_quoted_object, ignore_attr = TRUE)
 })
 
-
 testthat::test_that("conv_str_logi - accept only a string", {
   testthat::expect_error(conv_str_logi(2))
   testthat::expect_no_error(conv_str_logi("string"))
@@ -39,7 +38,6 @@ testthat::test_that("conv_str_logi - character FALSE to logical", {
   testthat::expect_true(isFALSE(conv_str_logi("N")))
   testthat::expect_true(isFALSE(conv_str_logi("off")))
 })
-
 
 testthat::test_that("rmd_outputs - all returned out in the rmarkdown namespace", {
   testthat::expect_true(all(rmd_outputs() %in% ls(asNamespace("rmarkdown"))))
@@ -121,7 +119,6 @@ testthat::test_that("as_yaml_auto - convert character logical to logical", {
     )
   )
 })
-
 
 testthat::test_that("as_yaml_auto - do not accept multi outputs without the multi_output argument", {
   testthat::expect_error(

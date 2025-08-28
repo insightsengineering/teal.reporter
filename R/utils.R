@@ -20,7 +20,6 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
   div_id <- paste0(input_id, "_div")
   panel_id <- paste0(input_id, "_panel_body_", sample(1:10000, 1))
 
-
   shiny::tags$div(.renderHook = function(res_tag) {
     res_tag$children <- list(
       shiny::tags$div(

@@ -1,6 +1,5 @@
 # deprecated ------------------------------------------------------------------------------------------------------
 
-
 #' Report previewer module
 #'
 #' @description `r lifecycle::badge("deprecated")`

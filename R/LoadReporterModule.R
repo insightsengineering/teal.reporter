@@ -25,7 +25,6 @@ report_load_ui <- function(id, label = NULL) {
   )
 }
 
-
 #' @rdname load_report_button
 #' @return `shiny::moduleServer`
 #' @export

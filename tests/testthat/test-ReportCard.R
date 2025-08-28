@@ -62,7 +62,6 @@ testthat::test_that("append_rcode accepts a character", {
   )
 })
 
-
 testthat::test_that("append_rcode returns self", {
   testthat::expect_no_error(
     ReportCard$new()$append_rcode("x <- 2")
