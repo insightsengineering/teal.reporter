@@ -216,7 +216,6 @@ to_rmd.default <- function(block, output_dir, ...) {
 #' @keywords internal
 .to_rmd.rlisting <- .to_rmd.rtables
 
-
 #' @method .to_rmd data.frame
 #' @keywords internal
 .to_rmd.data.frame <- .to_rmd.rtables

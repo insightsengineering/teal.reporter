@@ -37,7 +37,6 @@ setClass(
   slots = c(teal_card = "teal_card")
 )
 
-
 #' It initializes the `teal_report` class
 #'
 #' Accepts .xData as a list and converts it to an environment before initializing

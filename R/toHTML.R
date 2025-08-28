@@ -82,7 +82,6 @@ toHTML.default <- function(x, ...) {
   shiny::tags$img(src = knitr::image_uri(tmpfile))
 }
 
-
 #' @method .toHTML grob
 #' @keywords internal
 .toHTML.grob <- function(x, ...) {
@@ -94,7 +93,6 @@ toHTML.default <- function(x, ...) {
   grDevices::dev.off()
   shiny::tags$img(src = knitr::image_uri(tmpfile))
 }
-
 
 #' @method .toHTML code_chunk
 #' @keywords internal

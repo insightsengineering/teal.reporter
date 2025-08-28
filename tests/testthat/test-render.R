@@ -160,7 +160,6 @@ testthat::describe("render() outputs report.Rmd with", {
   })
 })
 
-
 testthat::describe("render() renders output based on metadata$output field:", {
   with_temp_wd()
   withr::local_options(teal.reporter.global_knitr = list())

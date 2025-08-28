@@ -306,7 +306,6 @@ testthat::describe("reorder_cards", {
   card4 <- teal_card("# Section i")
   metadata(card4, "title") <- "Card4"
 
-
   it("returns the correct order", {
     reporter <- teal.reporter::Reporter$new() # prefix needed in "it" to avoid testthat::Reporter
     reporter$append_cards(list(card1, card2, card3))

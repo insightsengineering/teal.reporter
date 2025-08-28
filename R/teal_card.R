@@ -85,7 +85,6 @@ teal_card.qenv <- function(...) {
   do.call(teal_card, args = dots)
 }
 
-
 #' @rdname teal_card
 #' @param value (`teal_card`) object to set in the `teal_report`.
 #' @export

@@ -9,7 +9,6 @@ testthat::test_that("simple_reporter_srv - render and downlaod  a document", {
       session$setInputs(`download_button_simple-author` = "AUTHOR")
       session$setInputs(`download_button_simple-download_data` = 0)
 
-
       f <- output[["download_button_simple-download_data"]]
       testthat::expect_true(file.exists(f))
       tmp_dir <- tempdir()
