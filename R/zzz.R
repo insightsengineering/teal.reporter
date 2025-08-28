@@ -7,6 +7,8 @@
       tidy.opts = list(width.cutoff = 60),
       tidy = requireNamespace("formatR", quietly = TRUE)
     ),
+    teal.reporter.devices.dev.width = 800,
+    teal.reporter.devices.dev.height = 600,
     teal.reporter.rmd_output = c(
       "html" = "html_document", "pdf" = "pdf_document",
       "powerpoint" = "powerpoint_presentation",

@@ -58,16 +58,16 @@ toHTML.default <- function(x, ...) {
 .plot2html <- function(x, ...) {
   on.exit(unlink(tmpfile))
   tmpfile <- tempfile(fileext = ".png")
-  grDevices::png(filename = tmpfile)
+  dims <- resolve_figure_dimensions(x)
+  grDevices::png(filename = tmpfile, width = dims$width, height = dims$height)
   print(x)
   grDevices::dev.off()
-  shiny::tags$img(src = knitr::image_uri(tmpfile))
+  shiny::tags$img(src = knitr::image_uri(tmpfile), style = "width: 100%; height: auto;")
 }
 
 #' @method .toHTML recordedplot
 #' @keywords internal
 .toHTML.recordedplot <- .plot2html
-
 
 #' @method .toHTML trellis
 #' @keywords internal
@@ -108,7 +108,9 @@ toHTML.default <- function(x, ...) {
 #' @method .toHTML chunk_output
 #' @keywords internal
 .toHTML.chunk_output <- function(x, ...) {
-  tools::toHTML(x[[1]], ...)
+  new_x <- x[[1]]
+  attributes(new_x) <- c(attributes(x)[!names(attributes(x)) %in% "class"], attributes(new_x))
+  tools::toHTML(new_x, ...)
 }
 
 #' @method .toHTML summary.lm
