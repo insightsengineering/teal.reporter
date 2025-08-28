@@ -293,6 +293,34 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
       rlist
     },
+    #' @description Extracts and saves all figure elements from the `teal_card` objects in the `Reporter` to a specified directory.
+    #' @param output_dir (`character(1)`) a path to the directory where figures will be saved.
+    #' @param sub_directory (`character(1)`) a sub-directory within `output_dir` to save figures.
+    write_figures = function(output_dir, sub_directory = "figures") {
+      figures_dir <- file.path(output_dir, sub_directory)
+      dir.create(figures_dir, showWarnings = FALSE, recursive = TRUE)
+      cards <- self$get_cards()
+      for (card_id in names(cards)) {
+        card <- cards[[card_id]]
+        cached_html <- self$get_cached_html(card_id)
+        for (element_ix in seq_along(card)) {
+          card_element <- card[[element_ix]]
+          if (
+            inherits(card_element, "chunk_output") &&
+              checkmate::test_multi_class(card_element[[1]], classes = c("recordedplot", "ggplot", "grob", "trellis", "gg", "Heatmap"))
+          ) {
+            base64_image <- cached_html[[names(card)[[element_ix]]]]
+            if ( # Ensure we only save valid base64 images
+              !is.null(base64_image) && inherits(base64_image, "shiny.tag") && !identical(base64_image$name, "img") &&
+              !is.null(base64_image$attribs) && grepl("^data:image/[^;]+;base64,", base64_image$attribs$src)
+            ) {
+              b64 <- sub("^data:image/[^;]+;base64,", "", base64_image$attribs$src)
+              writeBin(jsonlite::base64_dec(b64), file.path(figures_dir, sprintf("card_%s_%d.png", card_id, element_ix)))
+            }
+          }
+        }
+      }
+    },
     #' @description Reinitializes a `Reporter` from a list representation and associated files in a specified directory.
     #' @param rlist (`named list`) representing a `Reporter` instance.
     #' @param output_dir (`character(1)`) a path to the directory from which files will be copied.
