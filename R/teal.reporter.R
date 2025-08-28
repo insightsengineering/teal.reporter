@@ -4,3 +4,6 @@
 #'
 #' @keywords internal
 "_PACKAGE"
+
+#' @importFrom teal.data teal_data
+NULL
