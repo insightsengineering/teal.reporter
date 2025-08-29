@@ -192,6 +192,12 @@ report_render_and_compress <- function(reporter, rmd_yaml_args, global_knitr, fi
     error = function(cond) message("Archive document error: ", cond)
   )
 
+  tryCatch(
+    reporter$write_figures(tmp_dir),
+    warning = function(cond) message("Save reporter images warning: ", cond),
+    error = function(cond) message("Save reporter images error: ", cond)
+  )
+
   temp_zip_file <- tempfile(fileext = ".zip")
   tryCatch(
     zip::zipr(temp_zip_file, tmp_dir),
