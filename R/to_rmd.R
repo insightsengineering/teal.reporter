@@ -1,5 +1,5 @@
 .content_to_rmd <- function(block, output_dir, ...) {
-  path <- tempfile(pattern = "report_item_", fileext = ".rds", tmpdir = output_dir)
+  path <- basename(tempfile(pattern = "report_item_", fileext = ".rds"))
   suppressWarnings(saveRDS(block, file = path))
   sprintf("```{r echo = FALSE, eval = TRUE}\nreadRDS('%s')\n```", path)
 }
