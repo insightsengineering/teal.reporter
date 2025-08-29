@@ -312,7 +312,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
             base64_image <- cached_html[[names(card)[[element_ix]]]]
             if ( # Ensure we only save valid base64 images
               !is.null(base64_image) && inherits(base64_image, "shiny.tag") && identical(base64_image$name, "img") &&
-              !is.null(base64_image$attribs) && grepl("^data:image/[^;]+;base64,", base64_image$attribs$src)
+                !is.null(base64_image$attribs) && grepl("^data:image/[^;]+;base64,", base64_image$attribs$src)
             ) {
               b64 <- sub("^data:image/[^;]+;base64,", "", base64_image$attribs$src)
               writeBin(jsonlite::base64_dec(b64), file.path(figures_dir, sprintf("card_%s_%d.png", card_id, element_ix)))
