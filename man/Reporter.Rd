@@ -215,6 +215,7 @@ reporter$get_cards()
 \item \href{#method-Reporter-append_metadata}{\code{Reporter$append_metadata()}}
 \item \href{#method-Reporter-from_reporter}{\code{Reporter$from_reporter()}}
 \item \href{#method-Reporter-to_list}{\code{Reporter$to_list()}}
+\item \href{#method-Reporter-write_figures}{\code{Reporter$write_figures()}}
 \item \href{#method-Reporter-from_list}{\code{Reporter$from_list()}}
 \item \href{#method-Reporter-to_jsondir}{\code{Reporter$to_jsondir()}}
 \item \href{#method-Reporter-from_jsondir}{\code{Reporter$from_jsondir()}}
@@ -496,6 +497,25 @@ reporter$to_list(tmp_dir)
 
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-write_figures"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-write_figures}{}}}
+\subsection{Method \code{write_figures()}}{
+Extracts and saves all figure elements from the \code{teal_card} objects in the \code{Reporter} to a specified directory.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$write_figures(output_dir, sub_directory = "figures")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{output_dir}}{(\code{character(1)}) a path to the directory where figures will be saved.}
+
+\item{\code{sub_directory}}{(\code{character(1)}) a sub-directory within \code{output_dir} to save figures.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-from_list"></a>}}
