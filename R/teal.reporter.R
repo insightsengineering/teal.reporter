@@ -5,10 +5,5 @@
 #' @keywords internal
 "_PACKAGE"
 
-#' @importFrom checkmate assert_string
-#' @importFrom grid grid.newpage
-#' @importFrom R6 R6Class
-#' @importFrom rmarkdown render
-#' @importFrom yaml as.yaml
-#' @importFrom lifecycle badge
+#' @importFrom teal.data teal_data
 NULL

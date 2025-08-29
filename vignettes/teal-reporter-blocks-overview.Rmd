@@ -70,7 +70,6 @@ classDiagram
     FileBlock <|-- PictureBlock
     FileBlock <|-- TableBlock
 
-
     namespace Blocks {
       class ContentBlock
       class FileBlock
@@ -92,7 +91,6 @@ style ReportCard fill:lightblue
 "
 )
 ```
-
 
 ## Global `knitr` Options
 To ensure consistency and control over the rendering of markdown elements within reports, teal.reporter adheres to the following default global `knitr` options:

@@ -1,17 +1,7 @@
-testthat::skip_if_not_installed("ggplot2")
-
-card1 <- ReportCard$new()
-card1$append_text("Header 2 text", "header2")
-card1$append_text("A paragraph of default text", "header2")
-card1$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
-    ggplot2::geom_histogram()
-)
-
-reporter <- Reporter$new()
-reporter$append_cards(list(card1))
-
 testthat::test_that("download_report_button_srv - render and downlaod a document", {
+  reporter <- Reporter$new()
+  reporter$append_cards(list(test_card1.ReportCard()))
+
   shiny::testServer(
     download_report_button_srv,
     args = list(reporter = reporter),
@@ -58,6 +48,9 @@ testthat::test_that("download_report_button_srv - subset of rmd_yaml_args", {
     wrong3 = list()
   )
 
+  reporter <- Reporter$new()
+  reporter$append_cards(list(test_card1.ReportCard()))
+
   for (iset in seq_along(rmd_yaml_args_correct)) {
     testthat::expect_silent(
       shiny::testServer(
@@ -74,50 +67,29 @@ testthat::test_that("download_report_button_srv - subset of rmd_yaml_args", {
       shiny::testServer(
         download_report_button_srv,
         args = list(reporter = reporter, rmd_yaml_args = rmd_yaml_args_wrong[[iset]]),
-        expr = {
-        }
+        expr = {}
       ),
       "Assertion"
     )
   }
 })
 
-card1 <- ReportCard$new()
-card1$append_text("Header 2 text", "header2")
-card1$append_text("A paragraph of default text", "header2")
-card1$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
-    ggplot2::geom_histogram()
-)
-
-reporter <- Reporter$new()
-reporter$append_cards(list(card1))
-
 testthat::test_that("download_report_button_ui - returns a tagList", {
-  testthat::expect_true(
-    inherits(download_report_button_ui("sth"), c("shiny.tag.list", "list"))
-  )
+  checkmate::expect_multi_class(download_report_button_ui("sth"), c("shiny.tag.list", "shiny.tag"))
 })
 
-card1 <- ReportCard$new()
-card1$append_text("Header 2 text", "header2")
-card1$append_text("A paragraph of default text", "header2")
-card1$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
-    ggplot2::geom_histogram()
-)
-
-reporter <- Reporter$new()
-reporter$append_cards(list(card1))
-input <- list(author = "NEST", title = "Report", output = "html_document")
-knitr_args <- list()
-temp_dir <- tempdir()
-
 testthat::test_that("report_render_and_compress - valid arguments", {
-  testthat::expect_no_error(report_render_and_compress(reporter, input, knitr_args, temp_dir))
+  reporter <- Reporter$new()
+  reporter$append_cards(list(test_card1.ReportCard()))
+  input <- list(author = "NEST", title = "Report", output = "html_document")
+  testthat::expect_no_error(report_render_and_compress(reporter, input, list(), withr::local_tempdir()))
 })
 
 testthat::test_that("report_render_and_compress - invalid arguments", {
+  input <- list(author = "NEST", title = "Report", output = "html_document")
+  temp_zip_file <- withr::local_tempfile(pattern = "report_", fileext = ".zip")
+  reporter <- Reporter$new()
+  reporter$append_cards(list(test_card1.ReportCard()))
   testthat::expect_error(report_render_and_compress(reporter, list(), list(), temp_zip))
   testthat::expect_error(report_render_and_compress(reporter, input, list(), 2))
   testthat::expect_error(report_render_and_compress(reporter, list, list(), ""))
@@ -125,10 +97,12 @@ testthat::test_that("report_render_and_compress - invalid arguments", {
 
 testthat::test_that("report_render_and_compress - render an html document", {
   input <- list(author = "NEST", title = "Report", output = "html_document", toc = FALSE)
-  temp_dir <- tempdir()
-  knitr_args <- list()
-  res_path <- report_render_and_compress(reporter, input, knitr_args, temp_dir)
+  reporter <- Reporter$new()
+  reporter$append_cards(list(test_card1.ReportCard()))
+  temp_dir <- withr::local_tempdir()
+  res_path <- report_render_and_compress(reporter, input, list(), temp_dir)
   testthat::expect_identical(res_path, temp_dir)
+  withr::with_dir(res_path, zip::unzip(list.files(pattern = "[.]zip$")[[1]])) # Unzip compressed files
   files <- list.files(temp_dir, recursive = TRUE)
   testthat::expect_true(any(grepl("[.]Rmd", files)))
   testthat::expect_true(any(grepl("[.]html", files)))
@@ -136,6 +110,8 @@ testthat::test_that("report_render_and_compress - render an html document", {
 })
 
 testthat::test_that("any_rcode_block", {
+  reporter <- Reporter$new()
+  reporter$append_cards(list(test_card1.ReportCard()))
   testthat::expect_false(any_rcode_block(reporter))
   card_t <- ReportCard$new()
   card_t$append_text("Header 2 text", "header2")

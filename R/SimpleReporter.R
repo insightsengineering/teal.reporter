@@ -15,7 +15,7 @@
 #' @param id (`character(1)`) `shiny` module instance id.
 #' @param reporter (`Reporter`) instance.
 #' @param card_fun (`function`) which returns a [`ReportCard`] instance,
-#' the function has a `card` argument and an optional `comment` argument.
+#' the function has a `teal_card` argument and an optional `comment` argument.
 #' @param global_knitr (`list`) a global `knitr` parameters for customizing the rendering process.
 #' @inheritParams reporter_download_inputs
 #'

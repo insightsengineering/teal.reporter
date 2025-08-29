@@ -1,23 +1,7 @@
-testthat::skip_if_not_installed("ggplot2")
-
-card_fun0 <- function(card = ReportCard$new()) {
-  card$append_text("Header 2 text", "header2")
-  card$append_text("A paragraph of default text", "header2")
-  card$append_plot(
-    ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
-      ggplot2::geom_histogram()
-  )
-  card
-}
-
-
-reporter <- Reporter$new()
-reporter$append_cards(list(card_fun0()))
-
 testthat::test_that("simple_reporter_srv - render and downlaod  a document", {
   shiny::testServer(
     simple_reporter_srv,
-    args = list(reporter = reporter, card_fun = card_fun0),
+    args = list(reporter = test_reporter(), card_fun = test_card1),
     expr = {
       session$setInputs(`download_button_simple` = 0)
       session$setInputs(`download_button_simple-output` = "html_document")
@@ -25,8 +9,7 @@ testthat::test_that("simple_reporter_srv - render and downlaod  a document", {
       session$setInputs(`download_button_simple-author` = "AUTHOR")
       session$setInputs(`download_button_simple-download_data` = 0)
 
-
-      f <- output$`download_button_simple-download_data`
+      f <- output[["download_button_simple-download_data"]]
       testthat::expect_true(file.exists(f))
       tmp_dir <- tempdir()
       output_dir <- file.path(tmp_dir, sprintf("report_test_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
@@ -39,26 +22,42 @@ testthat::test_that("simple_reporter_srv - render and downlaod  a document", {
   )
 })
 
-reporter <- Reporter$new()
+testthat::test_that("simple_reporter_srv - add a Card (ReportCard) to Reporter", {
+  card_fun0 <- function(card = ReportCard$new()) {
+    card$append_text("Header 2 text", "header2")
+    card$append_text("A paragraph of default text", "header2")
+    card$append_plot(ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
+      ggplot2::geom_histogram(binwidth = 0.2))
+    card
+  }
 
-testthat::test_that("simple_reporter_srv - add a Card to Reporter", {
   shiny::testServer(
     simple_reporter_srv,
-    args = list(reporter = reporter, card_fun = card_fun0),
+    args = list(reporter = Reporter$new(), card_fun = card_fun0),
     expr = {
-      card_len <- length(card_fun0()$get_content())
       session$setInputs(`add_report_card_simple-add_report_card_button` = 0)
       session$setInputs(`add_report_card_simple-comment` = "Comment Body")
       session$setInputs(`add_report_card_simple-add_card_ok` = 0)
+      # get_blocks() adds title, comment and comment body
+      testthat::expect_identical(length(reporter$get_blocks()), length(card_fun()) + 3L)
+    }
+  )
+})
 
-      testthat::expect_identical(
-        length(reporter$get_blocks()),
-        card_len + 2L
-      )
+testthat::test_that("simple_reporter_srv - add a Card (teal_card) to Reporter", {
+  shiny::testServer(
+    simple_reporter_srv,
+    args = list(reporter = Reporter$new(), card_fun = test_card1),
+    expr = {
+      session$setInputs(`add_report_card_simple-add_report_card_button` = 0)
+      session$setInputs(`add_report_card_simple-comment` = "Comment Body")
+      session$setInputs(`add_report_card_simple-add_card_ok` = 0)
+      # get_blocks() adds title, comment and comment body
+      testthat::expect_identical(length(reporter$get_blocks()), length(card_fun()) + 3L)
     }
   )
 })
 
 testthat::test_that("simple_reporter_ui - returns a shiny.tag", {
-  testthat::expect_true(inherits(simple_reporter_ui("sth"), "shiny.tag.list"))
+  checkmate::expect_multi_class(simple_reporter_ui("sth"), c("shiny.tag", "shiny.tag.list"))
 })
