@@ -22,9 +22,6 @@ reset_report_button_ui <- function(id, label = NULL) {
     shiny::NS(id, "reset_reporter"),
     label = label,
     icon = "x-lg",
-    # # TODO: averfissimo (check if needs to be added, same with other outline_button calls)
-    # `data-val` = shiny::restoreInput(id = ns("reset_reporter"), default = NULL),
-    # # END of TODO
     class = "danger"
   )
 }

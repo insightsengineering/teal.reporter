@@ -89,7 +89,7 @@ teal_card.qenv <- function(...) {
 #' @param value (`teal_card`) object to set in the `teal_report`.
 #' @export
 `teal_card<-` <- function(x, value) {
-  x <- as(x, "teal_report")
+  x <- methods::as(x, "teal_report")
   checkmate::assert_class(x, "teal_report")
   x@teal_card <- as.teal_card(value)
   x

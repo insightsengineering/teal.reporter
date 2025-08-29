@@ -89,7 +89,7 @@ teal_report <- function(...,
   )
 }
 
-setAs(
+methods::setAs(
   "qenv",
   "teal_report",
   function(from, to) {
@@ -110,5 +110,5 @@ setAs(
 #' @export
 as.teal_report <- function(x) { # nolint: object_name.
   checkmate::assert_class(x, "qenv")
-  as(x, "teal_report")
+  methods::as(x, "teal_report")
 }
