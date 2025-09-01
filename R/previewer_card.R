@@ -1,4 +1,4 @@
-previewer_card_ui <- function(id, card_id) {
+previewer_card_ui <- function(id, card_id, show_loading = TRUE) {
   ns <- shiny::NS(id)
   accordion_item <- bslib::accordion_panel(
     value = card_id,
@@ -7,7 +7,9 @@ previewer_card_ui <- function(id, card_id) {
       bsicons::bs_icon("arrows-move"),
       "Move card"
     ),
-    shiny::tags$h6(id = ns("loading_placeholder"), class = "text-muted", "Loading the report..."),
+    if (show_loading) {
+      shiny::tags$h6(id = ns(paste0("loading_placeholder_", card_id)), class = "text-muted", "Loading the report...")
+    },
     shiny::uiOutput(ns("card_content"))
   )
   accordion_item <- shiny::tagAppendAttributes(accordion_item, "data-rank-id" = card_id)
@@ -25,7 +27,7 @@ previewer_card_ui <- function(id, card_id) {
   )
 }
 
-previewer_card_srv <- function(id, card_r, card_id, reporter) {
+previewer_card_srv <- function(id, card_r, card_id, reporter, show_loading = TRUE) {
   # todo: card_name should be only on the server side
   shiny::moduleServer(id, function(input, output, session) {
     output$title <- shiny::renderUI({
@@ -37,7 +39,9 @@ previewer_card_srv <- function(id, card_r, card_id, reporter) {
     })
     output$card_content <- shiny::renderUI({
       result <- reporter$get_cached_html(card_id)
-      shiny::removeUI(sprintf("#%s", session$ns("loading_placeholder")))
+      if (show_loading) {
+        shiny::removeUI(sprintf("#%s", session$ns(paste0("loading_placeholder_", card_id))))
+      }
       result
     })
 

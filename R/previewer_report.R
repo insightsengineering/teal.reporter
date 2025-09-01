@@ -87,9 +87,12 @@ preview_report_button_srv <- function(id, reporter) {
         lapply(
           names(reporter$get_cards()),
           function(card_id) {
+            # Only show loading placeholder for cards that are being initialized for the first time
+            show_loading <- is.null(srv_list[[card_id]])
+            
             bslib::accordion_panel_insert(
               id = panel_ns(NULL),
-              previewer_card_ui(id = session$ns(panel_ns(card_id)), card_id = card_id)
+              previewer_card_ui(id = session$ns(panel_ns(card_id)), card_id = card_id, show_loading = show_loading)
             )
 
             if (is.null(srv_list[[card_id]])) { # Only initialize srv once per card_id
@@ -97,7 +100,8 @@ preview_report_button_srv <- function(id, reporter) {
                 id = panel_ns(card_id),
                 card_r = shiny::reactive(reporter$get_cards()[[card_id]]),
                 card_id = card_id,
-                reporter = reporter
+                reporter = reporter,
+                show_loading = show_loading
               )
               srv_list[[card_id]] <- card_id
             }
