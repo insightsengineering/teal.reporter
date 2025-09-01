@@ -44,7 +44,6 @@ render <- function(
   rmd_filepath <- "report.Rmd"
   temp_rmd_content <- to_rmd(
     block = input,
-    output_dir = ".",
     global_knitr = c(global_knitr, list(eval = FALSE)), # we don't want to rerun evaluated code chunks to render
     include_chunk_output = TRUE
   )
@@ -62,7 +61,6 @@ render <- function(
     # This Rmd file doesn't contain chunk_outputs as they can be reproduced when executing code-chunks
     out_rmd_content <- to_rmd(
       block = input,
-      output_dir = ".",
       global_knitr = global_knitr,
       include_chunk_output = FALSE
     )

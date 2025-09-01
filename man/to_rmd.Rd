@@ -4,13 +4,10 @@
 \alias{to_rmd}
 \title{Convert \code{ReporterCard}/\code{teal_card} content to \code{rmarkdown}}
 \usage{
-to_rmd(block, output_dir, ...)
+to_rmd(block, ...)
 }
 \arguments{
 \item{block}{(\code{any}) content which can be represented in Rmarkdown syntax.}
-
-\item{output_dir}{(\code{character(1)}) path to the directory where files should be written to. Beware
-that absolute paths will break a reproducibility of the Rmarkdown document.}
 }
 \value{
 \code{character(1)} containing a content or Rmarkdown document.
@@ -26,7 +23,7 @@ Global Environment, where \verb{<class>} is the class of the object to be conver
 
 For example, to override the default behavior for \code{code_chunk} class, you can use:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{to_rmd.code_chunk <- function(block, output_dir, ..., output_format) \{
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{to_rmd.code_chunk <- function(block, ..., output_format) \{
   # custom implementation
   sprintf("### A custom code chunk\\n\\n```\{r\}\\n\%s\\n```\\n", block)
 \}
