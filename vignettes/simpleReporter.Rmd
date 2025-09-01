@@ -27,12 +27,12 @@ The implementation should consist of 4 steps:
 
 1. Add modules UI component to the app's UI.
 2. Initialize `Reporter` instance.
-4. Create the report card function with two optional arguments: `teal_card` and `comment`.
+4. Create the report card function with two optional arguments: `card` and `comment`.
 This function must return a `ReportCard` object.
 The `ReportCard` object should be built step by step, assuming that it is empty at the beginning.
    - If the `comment` argument is provided, it should be added to the card.
    If not, it should be added automatically at the end of the card.
-   - If the `teal_card` argument is provided, the `ReportCard` instance should be automatically created for the user.
+   - If the `card` argument is provided, the `ReportCard` instance should be automatically created for the user.
    If not, the function should create the card itself.
 *Please note that the document page's design is up to the developer's imagination.*
 4. Invoke the servers with the `Reporter` instance and the function to create the `ReportCard` instance.
