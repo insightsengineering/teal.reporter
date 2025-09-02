@@ -1,5 +1,5 @@
-.content_to_rmd <- function(block, output_dir, ...) {
-  path <- tempfile(pattern = "report_item_", fileext = ".rds", tmpdir = output_dir)
+.content_to_rmd <- function(block, ...) {
+  path <- basename(tempfile(pattern = "report_item_", fileext = ".rds"))
   suppressWarnings(saveRDS(block, file = path))
   sprintf("```{r echo = FALSE, eval = TRUE}\nreadRDS('%s')\n```", path)
 }
@@ -30,7 +30,7 @@
 #' For example, to override the default behavior for `code_chunk` class, you can use:
 #'
 #' ```r
-#' to_rmd.code_chunk <- function(block, output_dir, ..., output_format) {
+#' to_rmd.code_chunk <- function(block, ..., output_format) {
 #'   # custom implementation
 #'   sprintf("### A custom code chunk\n\n```{r}\n%s\n```\n", block)
 #' }
@@ -39,40 +39,37 @@
 #' Alternatively, you can register the S3 method using `registerS3method("to_rmd", "<class>", fun)`
 #'
 #' @param block (`any`) content which can be represented in Rmarkdown syntax.
-#' @param output_dir (`character(1)`) path to the directory where files should be written to. Beware
-#' that absolute paths will break a reproducibility of the Rmarkdown document.
 #' @return `character(1)` containing a content or Rmarkdown document.
 #' @keywords internal
-to_rmd <- function(block, output_dir, ...) {
-  checkmate::assert_string(output_dir)
+to_rmd <- function(block, ...) {
   UseMethod("to_rmd")
 }
 
 #' @method to_rmd default
 #' @keywords internal
-to_rmd.default <- function(block, output_dir, ...) {
-  .to_rmd(block, output_dir, ...)
+to_rmd.default <- function(block, ...) {
+  .to_rmd(block, ...)
 }
 
-.to_rmd <- function(block, output_dir, ...) {
+.to_rmd <- function(block, ...) {
   UseMethod(".to_rmd")
 }
 
 #' @method .to_rmd default
 #' @keywords internal
-.to_rmd.default <- function(block, output_dir, ...) {
+.to_rmd.default <- function(block, ...) {
   block
 }
 
 #' @method .to_rmd teal_report
 #' @keywords internal
-.to_rmd.teal_report <- function(block, output_dir, ...) {
-  to_rmd(teal_card(block), output_dir = output_dir, ...)
+.to_rmd.teal_report <- function(block, ...) {
+  to_rmd(teal_card(block), ...)
 }
 
 #' @method .to_rmd teal_card
 #' @keywords internal
-.to_rmd.teal_card <- function(block, output_dir, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
+.to_rmd.teal_card <- function(block, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
   checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
   is_powerpoint <- identical(metadata(block)$output, "powerpoint_presentation")
   powerpoint_exception_parsed <- if (is_powerpoint) {
@@ -100,7 +97,7 @@ to_rmd.default <- function(block, output_dir, ...) {
     paste(utils::capture.output(dput(global_knitr)), collapse = "")
   )
   global_knitr_code_chunk <- code_chunk(c(global_knitr_parsed, powerpoint_exception_parsed), include = FALSE)
-  global_knitr_rendered <- to_rmd(global_knitr_code_chunk, output_dir = output_dir)
+  global_knitr_rendered <- to_rmd(global_knitr_code_chunk)
 
   # we need to prerender global_knitr as code_chunk for powerpoint will wrap it in code_block() call
   blocks_w_global_knitr <- append(
@@ -112,10 +109,10 @@ to_rmd.default <- function(block, output_dir, ...) {
   m <- metadata(block)
   paste(
     c(
-      if (length(m)) sprintf("---\n%s\n---", trimws(yaml::as.yaml(m))),
+      if (length(m)) as_yaml_auto(m),
       unlist(lapply(
         blocks_w_global_knitr,
-        function(x) to_rmd(x, output_dir = output_dir, output_format = m$output, ...)
+        function(x) to_rmd(x, output_format = m$output, ...)
       ))
     ),
     collapse = "\n\n"
@@ -124,7 +121,7 @@ to_rmd.default <- function(block, output_dir, ...) {
 
 #' @method .to_rmd code_chunk
 #' @keywords internal
-.to_rmd.code_chunk <- function(block, output_dir, ..., output_format = NULL) {
+.to_rmd.code_chunk <- function(block, ..., output_format = NULL) {
   params <- lapply(attr(block, "params"), function(l) if (is.character(l)) shQuote(l) else l)
   block_str <- format(block)
   lang <- attr(block, "lang", exact = TRUE)
@@ -145,23 +142,23 @@ to_rmd.default <- function(block, output_dir, ...) {
 
 #' @method .to_rmd character
 #' @keywords internal
-.to_rmd.character <- function(block, output_dir, ...) {
+.to_rmd.character <- function(block, ...) {
   block
 }
 
 #' @method .to_rmd chunk_output
 #' @keywords internal
-.to_rmd.chunk_output <- function(block, output_dir, ..., include_chunk_output) {
+.to_rmd.chunk_output <- function(block, ..., include_chunk_output) {
   if (!missing(include_chunk_output) && isTRUE(include_chunk_output)) {
     new_block <- block[[1]]
     attributes(new_block) <- c(attributes(block)[!names(attributes(block)) %in% "class"], attributes(new_block))
-    to_rmd(new_block, output_dir = output_dir, ..., include_chunk_output = include_chunk_output)
+    to_rmd(block[[1]], ..., include_chunk_output = include_chunk_output)
   }
 }
 
 #' @method .to_rmd condition
 #' @keywords internal
-.to_rmd.condition <- function(block, output_dir, ...) {
+.to_rmd.condition <- function(block, ...) {
   conditionMessage(block)
 }
 
@@ -195,10 +192,10 @@ to_rmd.default <- function(block, output_dir, ...) {
 
 #' @method .to_rmd rtables
 #' @keywords internal
-.to_rmd.rtables <- function(block, output_dir, ...) {
+.to_rmd.rtables <- function(block, ...) {
   flextable_block <- to_flextable(block)
   attr(flextable_block, "keep") <- attr(block, "keep")
-  to_rmd(flextable_block, output_dir, ...)
+  to_rmd(flextable_block, ...)
 }
 
 #' @method .to_rmd flextable
@@ -223,6 +220,6 @@ to_rmd.default <- function(block, output_dir, ...) {
 
 #' @method .to_rmd gtsummary
 #' @keywords internal
-.to_rmd.gtsummary <- function(block, output_dir, ...) {
-  to_rmd(gtsummary::as_flex_table(block), output_dir = output_dir, ...)
+.to_rmd.gtsummary <- function(block, ...) {
+  to_rmd(gtsummary::as_flex_table(block), ...)
 }
