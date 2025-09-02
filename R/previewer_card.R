@@ -27,7 +27,7 @@ previewer_card_ui <- function(id, card_id, show_loading = TRUE) {
   )
 }
 
-previewer_card_srv <- function(id, card_r, card_id, reporter, show_loading = TRUE) {
+previewer_card_srv <- function(id, card_r, card_id, reporter,) {
   # todo: card_name should be only on the server side
   shiny::moduleServer(id, function(input, output, session) {
     output$title <- shiny::renderUI({
@@ -39,9 +39,7 @@ previewer_card_srv <- function(id, card_r, card_id, reporter, show_loading = TRU
     })
     output$card_content <- shiny::renderUI({
       result <- reporter$get_cached_html(card_id)
-      if (show_loading) {
-        shiny::removeUI(sprintf("#%s", session$ns(paste0("loading_placeholder_", card_id))))
-      }
+      shiny::removeUI(sprintf("#%s", session$ns(paste0("loading_placeholder_", card_id))))
       result
     })
 
