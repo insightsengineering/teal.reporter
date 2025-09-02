@@ -260,7 +260,7 @@ reporter_download_inputs <- function(rmd_yaml_args, rmd_output, showrcode, sessi
           shiny::checkboxInput(
             session$ns("toc"),
             label = "Include Table of Contents",
-            value = if (is.list(rmd_yaml_args$output && is.list(rmd_yaml_args$output[[1]]))) rmd_yaml_args$output[[1]]$toc
+            value = if (is.list(rmd_yaml_args$output) && is.list(rmd_yaml_args$output[[1]])) rmd_yaml_args$output[[1]]$toc
           ),
         ),
         toc = shiny::checkboxInput(session$ns("toc"), label = "Include Table of Contents", value = rmd_yaml_args$toc)
