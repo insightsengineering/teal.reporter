@@ -261,7 +261,7 @@ metadata.ReportCard <- function(object, which = NULL) {
 #' These objects are typically processed later to generate the final R Markdown text.
 #'
 #' @param code A character string containing the R code.
-#' @param ... Additional named parameters to be included as chunk options (e.g., `echo = TRUE`). 
+#' @param ... Additional named parameters to be included as chunk options (e.g., `echo = TRUE`).
 #' Check [knitr options/](https://yihui.org/knitr/options/) for more details.
 #' @param lang (`character(1)`) See [`knitr::knit_engines`].
 #'
