@@ -18,7 +18,6 @@
 #' @examples
 #' # Create a new empty card
 #' report <- teal_card()
-#' class(report) # Check the class of the object
 #'
 #' # Create a card with content
 #' report <- teal_card("## Headline", "Some text", summary(iris))
