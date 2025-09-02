@@ -261,7 +261,8 @@ metadata.ReportCard <- function(object, which = NULL) {
 #' These objects are typically processed later to generate the final R Markdown text.
 #'
 #' @param code A character string containing the R code.
-#' @param ... Additional named parameters to be included as chunk options (e.g., `echo = TRUE`).
+#' @param ... Additional named parameters to be included as chunk options (e.g., `echo = TRUE`). 
+#' Check [knitr options/](https://yihui.org/knitr/options/) for more details.
 #' @param lang (`character(1)`) See [`knitr::knit_engines`].
 #'
 #' @return An object of class `code_chunk`.
@@ -273,6 +274,7 @@ metadata.ReportCard <- function(object, which = NULL) {
 code_chunk <- function(code, ..., lang = "R") {
   checkmate::assert_character(code)
   params <- list(...)
+  checkmate::assert_list(params, names = "named", .var.name = "...")
   structure(
     paste(code, collapse = "\n"),
     params = params,
