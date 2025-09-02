@@ -96,7 +96,7 @@ to_rmd.default <- function(block, ...) {
   m <- metadata(block)
   paste(
     c(
-      if (length(m)) sprintf("---\n%s\n---", trimws(as_yaml_auto(m, as_header = FALSE))),
+      if (length(m)) as_yaml_auto(m),
       unlist(lapply(
         blocks_w_global_knitr,
         function(x) to_rmd(x, output_format = m$output, ...)
@@ -177,7 +177,7 @@ to_rmd.default <- function(block, ...) {
 
 #' @method .to_rmd rtables
 #' @keywords internal
-  .to_rmd.rtables <- function(block, ...) {
+.to_rmd.rtables <- function(block, ...) {
   flextable_block <- to_flextable(block)
   attr(flextable_block, "keep") <- attr(block, "keep")
   to_rmd(flextable_block, ...)
