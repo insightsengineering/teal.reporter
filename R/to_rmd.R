@@ -177,7 +177,7 @@ to_rmd.default <- function(block, ...) {
 
 #' @method .to_rmd rtables
 #' @keywords internal
-  .to_rmd.rtables <- function(block, ...) {
+.to_rmd.rtables <- function(block, ...) {
   flextable_block <- to_flextable(block)
   attr(flextable_block, "keep") <- attr(block, "keep")
   to_rmd(flextable_block, ...)

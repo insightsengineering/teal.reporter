@@ -18,7 +18,6 @@
 #' @examples
 #' # Create a new empty card
 #' report <- teal_card()
-#' class(report) # Check the class of the object
 #'
 #' # Create a card with content
 #' report <- teal_card("## Headline", "Some text", summary(iris))
@@ -263,6 +262,7 @@ metadata.ReportCard <- function(object, which = NULL) {
 #'
 #' @param code A character string containing the R code.
 #' @param ... Additional named parameters to be included as chunk options (e.g., `echo = TRUE`).
+#' Check [knitr options/](https://yihui.org/knitr/options/) for more details.
 #' @param lang (`character(1)`) See [`knitr::knit_engines`].
 #'
 #' @return An object of class `code_chunk`.
@@ -274,6 +274,7 @@ metadata.ReportCard <- function(object, which = NULL) {
 code_chunk <- function(code, ..., lang = "R") {
   checkmate::assert_character(code)
   params <- list(...)
+  checkmate::assert_list(params, names = "named", .var.name = "...")
   structure(
     paste(code, collapse = "\n"),
     params = params,
