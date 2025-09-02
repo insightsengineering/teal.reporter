@@ -103,7 +103,11 @@ reporter_previewer_srv <- function(id,
     subset.of = c("author", "title", "date", "output", "toc"),
     must.include = "output"
   )
-  checkmate::assert_true(rmd_yaml_args[["output"]] %in% rmd_output)
+  checkmate::assert_true(
+    .var.name = "rmd_yaml_args$output",
+    rmd_yaml_args[["output"]] %in% rmd_output ||
+      (length(names(rmd_yaml_args[["output"]])) > 0 && names(rmd_yaml_args[["output"]]) %in% rmd_output)
+  )
 
   shiny::moduleServer(id, function(input, output, session) {
     if (!"load" %in% previewer_buttons) {

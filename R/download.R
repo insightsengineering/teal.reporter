@@ -51,7 +51,22 @@ download_report_button_srv <- function(id,
     subset.of = c("author", "title", "date", "output", "toc"),
     must.include = "output"
   )
-  checkmate::assert_true(rmd_yaml_args[["output"]] %in% rmd_output)
+  if (!is.null(rmd_yaml_args$toc)) {
+    if (!is.list(rmd_yaml_args$output)) {
+      rmd_yaml_args$output <- structure(
+        list(list()),
+        names = rmd_yaml_args$output
+      )
+    }
+    rmd_yaml_args$output[[1]]$toc <- rmd_yaml_args$toc
+    rmd_yaml_args$toc <- NULL
+  }
+
+  checkmate::assert_true(
+    .var.name = "rmd_yaml_args$output",
+    rmd_yaml_args[["output"]] %in% rmd_output ||
+      (length(names(rmd_yaml_args[["output"]])) > 0 && names(rmd_yaml_args[["output"]]) %in% rmd_output)
+  )
 
   shiny::moduleServer(id, function(input, output, session) {
     shiny::setBookmarkExclude(c("download_button"))
@@ -240,8 +255,13 @@ reporter_download_inputs <- function(rmd_yaml_args, rmd_output, showrcode, sessi
             inputId = session$ns("output"),
             label = "Choose a document type: ",
             choices = rmd_output,
-            selected = rmd_yaml_args$output
-          )
+            selected = if (is.list(rmd_yaml_args$output)) names(rmd_yaml_args$output) else rmd_yaml_args$output
+          ),
+          shiny::checkboxInput(
+            session$ns("toc"),
+            label = "Include Table of Contents",
+            value = if (is.list(rmd_yaml_args$output && is.list(rmd_yaml_args$output[[1]]))) rmd_yaml_args$output[[1]]$toc
+          ),
         ),
         toc = shiny::checkboxInput(session$ns("toc"), label = "Include Table of Contents", value = rmd_yaml_args$toc)
       )

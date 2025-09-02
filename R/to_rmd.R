@@ -94,9 +94,10 @@ to_rmd.default <- function(block, ...) {
   )
 
   m <- metadata(block)
+  browser()
   paste(
     c(
-      if (length(m)) sprintf("---\n%s\n---", trimws(as_yaml_auto(m, as_header = FALSE))),
+      if (length(m)) sprintf("---\n%s\n---", trimws(yaml::as.yaml(m, handlers = list("Date" = as.character)))),
       unlist(lapply(
         blocks_w_global_knitr,
         function(x) to_rmd(x, output_format = m$output, ...)

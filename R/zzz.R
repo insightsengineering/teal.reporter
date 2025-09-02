@@ -14,8 +14,7 @@
     ),
     teal.reporter.rmd_yaml_args = list(
       author = "NEST", title = "Report",
-      date = as.character(Sys.Date()), output = "html_document",
-      toc = FALSE
+      date = as.character(Sys.Date()), output = list(html_document = list(toc = FALSE))
     )
   )
 
