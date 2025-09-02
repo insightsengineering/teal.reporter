@@ -94,7 +94,6 @@ to_rmd.default <- function(block, ...) {
   )
 
   m <- metadata(block)
-  browser()
   paste(
     c(
       if (length(m)) sprintf("---\n%s\n---", trimws(yaml::as.yaml(m, handlers = list("Date" = as.character)))),

@@ -150,6 +150,13 @@ download_report_button_srv <- function(id,
         shinybusy::block(id = ns("download_data"), text = "", type = "dots")
         rmd_yaml_with_inputs <- lapply(names(rmd_yaml_args), function(x) input[[x]])
         names(rmd_yaml_with_inputs) <- names(rmd_yaml_args)
+        if (is.logical(input$toc)) {
+          rmd_yaml_with_inputs$output <- structure(
+           list(list(dot = input$toc)),
+           names = rmd_yaml_with_inputs$output
+          )
+          rmd_yaml_with_inputs$toc <- NULL # ensure toc is removed
+        }
         if (is.logical(input$showrcode)) global_knitr[["echo"]] <- input$showrcode
         report_render_and_compress(
           reporter = reporter,
