@@ -133,7 +133,8 @@ testthat::test_that("get_metadata", {
 })
 
 testthat::test_that("from_reporter returns identical/equal object from the same reporter", {
-  testthat::expect_identical(reporter, reporter$from_reporter(reporter))
+  suppressWarnings(testthat::expect_identical(reporter, reporter$from_reporter(reporter)))
+  # suppressWarnings used to hide lifecycle deprecation message
 })
 
 reporter1 <- Reporter$new()
