@@ -220,7 +220,7 @@ reporter$get_cards()
 \item \href{#method-Reporter-to_jsondir}{\code{Reporter$to_jsondir()}}
 \item \href{#method-Reporter-from_jsondir}{\code{Reporter$from_jsondir()}}
 \item \href{#method-Reporter-set_id}{\code{Reporter$set_id()}}
-\item \href{#method-Reporter-reactive_trigger}{\code{Reporter$reactive_trigger()}}
+\item \href{#method-Reporter-open_previewer}{\code{Reporter$open_previewer()}}
 \item \href{#method-Reporter-get_cached_html}{\code{Reporter$get_cached_html()}}
 \item \href{#method-Reporter-get_id}{\code{Reporter$get_id()}}
 \item \href{#method-Reporter-set_template}{\code{Reporter$set_template()}}
@@ -638,12 +638,12 @@ The id is added to the downloaded file name.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Reporter-reactive_trigger"></a>}}
-\if{latex}{\out{\hypertarget{method-Reporter-reactive_trigger}{}}}
-\subsection{Method \code{reactive_trigger()}}{
-Trigger report rendering of preview modal in shiny context.
+\if{html}{\out{<a id="method-Reporter-open_previewer"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-open_previewer}{}}}
+\subsection{Method \code{open_previewer()}}{
+Get or set the reactive trigger to open the previewer modal.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$reactive_trigger(val)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$open_previewer(val)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
