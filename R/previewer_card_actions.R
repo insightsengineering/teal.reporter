@@ -91,7 +91,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
           {
             reporter$replace_card(card = new_card, card_id = card_id)
             new_card_rv(NULL)
-            reporter$reactive_trigger(Sys.time())
+            reporter$open_previewer(Sys.time())
             shiny::showNotification("Card was successfully updated.", type = "message")
           },
           error = function(err) {
@@ -108,7 +108,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
         )
       } else {
         new_card_rv(NULL)
-        reporter$reactive_trigger(Sys.time())
+        reporter$open_previewer(Sys.time())
       }
     })
 

@@ -41,14 +41,14 @@ preview_report_button_srv <- function(id, reporter) {
 
     shiny::observeEvent(reporter$get_cards(), {
       shinyjs::toggleClass(
-        id = "preview_button", condition = length(reporter) == 0, class = "disabled"
+        id = "preview_button", condition = length(reporter$get_cards()) == 0, class = "disabled"
       )
     })
 
     output$preview_button_counter <- shiny::renderUI({
       shiny::tags$span(
         class = "position-absolute badge rounded-pill bg-primary",
-        length(reporter)
+        length(reporter$get_cards())
       )
     })
 
@@ -79,7 +79,7 @@ preview_report_button_srv <- function(id, reporter) {
     srv_list <- shiny::reactiveValues()
 
     shiny::observeEvent(
-      list(input$preview_button, reporter$reactive_trigger()),
+      list(input$preview_button, reporter$open_previewer()),
       ignoreInit = TRUE,
       {
         shiny::showModal(preview_modal())

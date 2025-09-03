@@ -21,7 +21,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     initialize = function() {
       private$cards <- shiny::reactiveValues()
       private$cached_html <- shiny::reactiveValues()
-      private$trigger_reactive <- shiny::reactiveVal(NULL)
+      private$open_previewer_r <- shiny::reactiveVal(NULL)
       invisible(self)
     },
 
@@ -418,15 +418,14 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$id <- id
       invisible(self)
     },
-    ## TODO: averissimo consider alternatives to trigger the re-render of modal
-    #' @description Trigger report rendering of preview modal in shiny context.
+    #' @description Get or set the reactive trigger to open the previewer modal.
     #' @param  val value to the passed to the reactive trigger.
     #' @return `reactiveVal` value
-    reactive_trigger = function(val) {
+    open_previewer = function(val) {
       if (missing(val)) {
-        private$trigger_reactive()
+        private$open_previewer_r()
       } else {
-        private$trigger_reactive(val)
+        private$open_previewer_r(val)
       }
     },
     #' @description Get cached HTML for a specific `teal_card` by its id.
@@ -469,7 +468,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     id = "",
     cards = NULL, # reactiveValues
     cached_html = NULL, # reactiveValues
-    trigger_reactive = NULL, # reactiveVal to trigger reactive contexts
+    open_previewer_r = NULL, # reactiveVal to trigger reactive contexts
     override_order = character(0L), # to sort cards (reactiveValues are not sortable)
     metadata = list(),
     template = NULL,
@@ -495,6 +494,3 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
   lock_objects = TRUE,
   lock_class = TRUE
 )
-
-#' @export
-length.Reporter <- function(x) length(x$get_cards())
