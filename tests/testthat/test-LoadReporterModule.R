@@ -31,7 +31,7 @@ testthat::test_that("report_load_srv - loading reporter restores saved content",
       testthat::expect_match(reporter$get_blocks()[[1]], "# .*") # Title is added automatically
       testthat::expect_identical(reporter$get_blocks()[[2]], "## Header 2 text")
       testthat::expect_identical(reporter$get_blocks()[[3]], "A paragraph of default text")
-      testthat::expect_s3_class(reporter$get_blocks()[[4]], "ggplot")
+      testthat::expect_s3_class(reporter$get_blocks()[[4]], "recordedplot")
     }
   )
 })
@@ -70,7 +70,7 @@ testthat::test_that("report_load_srv - loading reporter with ReportCard restores
       testthat::expect_identical(reporter$get_blocks()[[2]], "## Header 2 text")
       testthat::expect_type(reporter$get_blocks()[[3]], "character")
       testthat::expect_identical(reporter$get_blocks()[[3]], "### A paragraph of default text")
-      testthat::expect_s3_class(reporter$get_blocks()[[4]], "ggplot")
+      testthat::expect_s3_class(reporter$get_blocks()[[4]], "recordedplot")
     }
   )
 })

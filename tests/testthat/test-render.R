@@ -43,7 +43,7 @@ testthat::describe("render() by default", {
       lines,
       c(
         "```{R, include=FALSE}",
-        "knitr::opts_chunk$set(list(tidy.opts = list(width.cutoff = 60), tidy = TRUE))",
+        "knitr::opts_chunk$set(list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = TRUE))",
         "```"
       )
     )
@@ -79,9 +79,10 @@ testthat::describe("render() outputs report.Rmd with", {
       lines,
       c(
         "---",
-        "title: test title",
         "author: me is tot",
+        "title: test title",
         "---",
+        "",
         "",
         "# test heading"
       )
