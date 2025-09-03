@@ -43,7 +43,7 @@ testthat::test_that("simple_reporter_srv - reset a reporter", {
   reporter <- teal.reporter::Reporter$new()
   reporter$append_cards(list(card1))
 
-    shiny::testServer(
+  shiny::testServer(
     simple_reporter_srv,
     args = list(reporter = reporter, card_fun = card_fun),
     expr = {

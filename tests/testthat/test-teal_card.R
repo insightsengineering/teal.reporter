@@ -28,7 +28,7 @@ testthat::describe("teal_card", {
   })
 })
 
- testthat::describe("teal_card with multiple arguments", {
+testthat::describe("teal_card with multiple arguments", {
   testthat::it("combines arguments in teal_card and sets them random unique names", {
     doc <- teal_card("a", "b", "c", "d")
     testthat::expect_identical(unname(doc), structure(list("a", "b", "c", "d"), class = "teal_card"))
