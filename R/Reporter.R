@@ -120,8 +120,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' )
     #' metadata(card2, "title") <- "Card2"
     #'
-    #' reporter$replace_card(card2, "Card1")
-    #' reporter$get_cards()[[1]]$get_name()
+    #' metadata(reporter$get_cards()[[1]], "title")
+    #' reporter$replace_card(card2, names(reporter$get_cards())[[1]])
+    #' metadata(reporter$get_cards()[[1]], "title")
     replace_card = function(card, card_id) {
       if (inherits(card, "ReportCard")) {
         card <- card$get_content()
