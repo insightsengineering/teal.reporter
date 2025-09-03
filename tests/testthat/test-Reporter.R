@@ -152,6 +152,8 @@ testthat::test_that("from_reporter does not return identical/equal object form o
 })
 
 testthat::test_that("from_reporter persists the cards structure", {
+  reporter1 <- test_reporter(card1 <- test_card1(), card2 <- test_card2())
+  reporter2 <- Reporter$new()
   lifecycle::expect_deprecated(
     testthat::expect_identical(unname(reporter1$get_cards()), unname(reporter2$from_reporter(reporter1)$get_cards()))
   )
