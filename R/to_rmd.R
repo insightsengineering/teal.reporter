@@ -4,6 +4,19 @@
   sprintf("```{r echo = FALSE, eval = TRUE}\nreadRDS('%s')\n```", path)
 }
 
+.plot_to_rmd <- function(block, output_dir, ...) {
+  path <- tempfile(pattern = "report_item_", fileext = ".rds", tmpdir = output_dir)
+  suppressWarnings(saveRDS(block, file = path))
+  on.exit(file.remove(path))
+  dims <- resolve_figure_dimensions(block, convert_to_inches = TRUE)
+  sprintf(
+    "```{r echo = FALSE, eval = TRUE, fig.width = %f, fig.height = %f}\nreadRDS('%s')\n```",
+    dims$width,
+    dims$height,
+    path
+  )
+}
+
 #' Convert `ReporterCard`/`teal_card` content to `rmarkdown`
 #'
 #' This is an S3 generic that is used to generate content in `rmarkdown` format
@@ -137,6 +150,8 @@ to_rmd.default <- function(block, ...) {
 #' @keywords internal
 .to_rmd.chunk_output <- function(block, ..., include_chunk_output) {
   if (!missing(include_chunk_output) && isTRUE(include_chunk_output)) {
+    new_block <- block[[1]]
+    attributes(new_block) <- c(attributes(block)[!names(attributes(block)) %in% "class"], attributes(new_block))
     to_rmd(block[[1]], ..., include_chunk_output = include_chunk_output)
   }
 }
@@ -149,23 +164,23 @@ to_rmd.default <- function(block, ...) {
 
 #' @method .to_rmd gg
 #' @keywords internal
-.to_rmd.gg <- .content_to_rmd
+.to_rmd.gg <- .plot_to_rmd
 
 #' @method .to_rmd trellis
 #' @keywords internal
-.to_rmd.trellis <- .content_to_rmd
+.to_rmd.trellis <- .plot_to_rmd
 
 #' @method .to_rmd recordedplot
 #' @keywords internal
-.to_rmd.recordedplot <- .content_to_rmd
+.to_rmd.recordedplot <- .plot_to_rmd
 
 #' @method .to_rmd grob
 #' @keywords internal
-.to_rmd.grob <- .content_to_rmd
+.to_rmd.grob <- .plot_to_rmd
 
 #' @method .to_rmd Heatmap
 #' @keywords internal
-.to_rmd.Heatmap <- .content_to_rmd
+.to_rmd.Heatmap <- .plot_to_rmd
 
 #' @method .to_rmd datatables
 #' @keywords internal

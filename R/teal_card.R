@@ -333,7 +333,9 @@ code_chunk <- function(code, ..., lang = "R") {
     return(x)
   }
   if (inherits(x, "chunk_output")) {
-    structure(list(.convert_teal_card_input(x[[1]])), class = c("chunk_output"))
+    res <- structure(list(.convert_teal_card_input(x[[1]])), class = c("chunk_output"))
+    attributes(res) <- attributes(x) # keep same attributes
+    res
   } else if (inherits(x, "ggplot")) {
     .ggplot_to_recordedplot(x)
   } else {
@@ -350,4 +352,29 @@ code_chunk <- function(code, ..., lang = "R") {
   on.exit(grDevices::dev.off(dev))
   print(x)
   grDevices::recordPlot()
+}
+
+#' Determine default dimensions for report figures
+#'
+#' @param x An object, typically a `recordedplot` or `ggplot`, that has an
+#' optional attributes `dev.width` and `dev.height` that override the default
+#' dims set as options `teal.reporter.dev.fig.width` and
+#' `teal.reporter.dev.fig.height`.
+#' @return List with `width` and `height` elements.
+#' @keywords internal
+resolve_figure_dimensions <- function(x, convert_to_inches = FALSE, dpi = 96) {
+  checkmate::assert_flag(convert_to_inches)
+  width <- attr(x, "dev.width") %||% getOption("teal.reporter.dev.fig.width", 800)
+  height <- attr(x, "dev.height") %||% getOption("teal.reporter.dev.fig.height", 600)
+  if (width < 150 || height < 150) {
+    warning("Figure dimensions too small, setting to minimum of 150x150 pixels.")
+    width <- max(width, 150)
+    height <- max(height, 150)
+  }
+
+  if (convert_to_inches) {
+    width <- width / dpi
+    height <- height / dpi
+  }
+  list(width = width, height = height)
 }
