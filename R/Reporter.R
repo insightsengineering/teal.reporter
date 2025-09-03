@@ -259,6 +259,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter <- Reporter$new()
     #' reporter$from_reporter(reporter)
     from_reporter = function(reporter) {
+      lifecycle::deprecate_warn("0.5.0.9000", "Reporter$from_reporter()")
       checkmate::assert_class(reporter, "Reporter")
       self$reset()
       self$append_cards(reporter$get_cards())
