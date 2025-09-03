@@ -203,6 +203,7 @@ testthat::describe("as.teal_card", {
     testthat::skip_if_not_installed("ggplot2")
     plot <- ggplot2::ggplot(iris) +
       ggplot2::geom_point(ggplot2::aes(x = Sepal.Length, y = Sepal.Width))
+    withr::local_options("teal.reporter.disable_teal_card_conversion" = TRUE)
     doc <- as.teal_card(plot)
     testthat::expect_equal(doc, teal_card(plot), ignore_attr = "names")
   })

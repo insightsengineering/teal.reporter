@@ -21,7 +21,11 @@ testthat::describe("Reporter with ReportCard", {
   card2 <- test_card2.ReportCard()
   reporter <- test_reporter.ReportCard(card1, card2)
   it("get_cards returns the same cards which was added to reporter", {
-    testthat::expect_equal(unname(reporter$get_cards()), list(test_card1(), test_card2()), ignore_attr = "names")
+    testthat::expect_equal(
+      reporter$get_cards(),
+      list(card1$get_content(), card2$get_content()),
+      ignore_attr = "names"
+    )
   })
 
   it("get_blocks returns the same blocks which was added to reporter, sep = NULL", {
@@ -133,25 +137,23 @@ testthat::test_that("get_metadata", {
 })
 
 testthat::test_that("from_reporter returns identical/equal object from the same reporter", {
-  suppressWarnings(testthat::expect_identical(reporter, reporter$from_reporter(reporter)))
-  # suppressWarnings used to hide lifecycle deprecation message
+  reporter <- test_reporter(card1 <- test_card1(), card2 <- test_card2())
+  lifecycle::expect_deprecated(
+    testthat::expect_identical(reporter, reporter$from_reporter(reporter))
+  )
 })
 
-reporter1 <- Reporter$new()
-reporter1$append_cards(list(card1, card2))
-
 testthat::test_that("from_reporter does not return identical/equal object form other reporter", {
-  testthat::expect_false(identical(reporter1, reporter2$from_reporter(reporter1)))
+  reporter1 <- test_reporter(card1 <- test_card1(), card2 <- test_card2())
+  reporter2 <- Reporter$new()
+  lifecycle::expect_deprecated(
+    testthat::expect_false(identical(reporter1, reporter2$from_reporter(reporter1)))
+  )
 })
 
 testthat::test_that("from_reporter persists the cards structure", {
-  testthat::expect_identical(unname(reporter1$get_cards()), unname(reporter2$from_reporter(reporter1)$get_cards()))
-})
-
-testthat::test_that("from_reporter persists the reactive_add_card count", {
-  testthat::expect_identical(
-    shiny::isolate(reporter1$get_reactive_add_card()),
-    shiny::isolate(reporter2$from_reporter(reporter1)$get_reactive_add_card())
+  lifecycle::expect_deprecated(
+    testthat::expect_identical(unname(reporter1$get_cards()), unname(reporter2$from_reporter(reporter1)$get_cards()))
   )
 })
 
@@ -181,22 +183,28 @@ testthat::describe("metadata", {
 testthat::describe("from_reporter", {
   it("from_reporter returns identical/equal object from the same reporter", {
     reporter <- test_reporter()
-    testthat::expect_identical(reporter, reporter$from_reporter(reporter))
+    lifecycle::expect_deprecated(
+      testthat::expect_identical(reporter, reporter$from_reporter(reporter))
+    )
   })
 
   it("from_reporter does not return identical/equal object form other reporter", {
     reporter1 <- test_reporter(test_card1(), test_card2())
     reporter2 <- Reporter$new()
 
-    testthat::expect_false(identical(reporter1, reporter2$from_reporter(reporter1)))
+    lifecycle::expect_deprecated(
+      testthat::expect_false(identical(reporter1, reporter2$from_reporter(reporter1)))
+    )
   })
 
   it("from_reporter persists the cards structure, but not the name", {
     reporter1 <- test_reporter(test_card1(), test_card2())
     reporter2 <- Reporter$new()
-    testthat::expect_identical(
-      unname(reporter1$get_cards()),
-      unname(reporter2$from_reporter(reporter1)$get_cards())
+    lifecycle::expect_deprecated(
+      testthat::expect_identical(
+        unname(reporter1$get_cards()),
+        unname(reporter2$from_reporter(reporter1)$get_cards())
+      )
     )
   })
 })
@@ -243,7 +251,9 @@ testthat::describe("from_reporter", {
   it("returns same object from the same reporter", {
     shiny::reactiveConsole(TRUE)
     reporter <- test_reporter(card1 <- test_card1(), card2 <- test_card2())
-    testthat::expect_identical(reporter, (Reporter$new()$from_reporter(reporter)))
+    lifecycle::expect_deprecated(
+      testthat::expect_identical(reporter, teal.reporter::Reporter$new()$from_reporter(reporter))
+    )
   })
 
   it("returns different object if id has already been set", {
@@ -251,7 +261,9 @@ testthat::describe("from_reporter", {
     reporter2 <- teal.reporter::Reporter$new()
     reporter1$set_id("a_id")
     testthat::expect_failure(
-      testthat::expect_identical(reporter1, (reporter2$from_reporter(reporter1))),
+      lifecycle::expect_deprecated(
+        testthat::expect_identical(reporter1, (reporter2$from_reporter(reporter1)))
+      ),
       "not identical to"
     )
   })
@@ -259,10 +271,12 @@ testthat::describe("from_reporter", {
   it("from_reporter persists the cards structure", {
     reporter1 <- test_reporter(test_card1(), test_card2())
     reporter2 <- teal.reporter::Reporter$new()
-    testthat::expect_equal(
-      reporter1$get_cards(),
-      reporter2$from_reporter(reporter1)$get_cards(),
-      ignore_attr = "names"
+    lifecycle::expect_deprecated(
+      testthat::expect_equal(
+        reporter1$get_cards(),
+        reporter2$from_reporter(reporter1)$get_cards(),
+        ignore_attr = "names"
+      )
     )
   })
 })
@@ -344,13 +358,15 @@ testthat::describe("reorder_cards", {
 })
 
 testthat::test_that("from_reporter persists the cards structure", {
-  reporter1 <- Reporter$new()
+  reporter1 <- teal.reporter::Reporter$new()
   card1 <- test_card1("A title")
   card2 <- test_card2("Another title")
   reporter1$append_cards(list(card1, card2))
-  expect_equal(
-    unname(reporter1$get_cards()),
-    unname(Reporter$new()$from_reporter(reporter1)$get_cards())
+  lifecycle::expect_deprecated(
+    expect_equal(
+      unname(reporter1$get_cards()),
+      unname(Reporter$new()$from_reporter(reporter1)$get_cards())
+    )
   )
 })
 
