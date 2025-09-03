@@ -15,7 +15,7 @@ The processed object, possibly converted or left unchanged.
 \description{
 Converts input values to a format compatible with \code{teal_card}.
 This function is used internally to handle common inputs, such as \code{ggplot} objects,
-ensuring they are appropriately converted to evaluable output blocks that can
+ensuring they are appropriately converted to an "evaluable output" blocks that can
 be saved to \code{RDS} file efficiently.
 }
 \details{

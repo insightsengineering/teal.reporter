@@ -261,7 +261,7 @@ metadata.ReportCard <- function(object, which = NULL) {
 #'
 #' @param code A character string containing the R code.
 #' @param ... Additional named parameters to be included as chunk options (e.g., `echo = TRUE`).
-#' Check [knitr options/](https://yihui.org/knitr/options/) for more details.
+#' Check [`knitr` options/](https://yihui.org/knitr/options/) for more details.
 #' @param lang (`character(1)`) See [`knitr::knit_engines`].
 #'
 #' @return An object of class `code_chunk`.
@@ -314,7 +314,7 @@ code_chunk <- function(code, ..., lang = "R") {
 #'
 #' Converts input values to a format compatible with `teal_card`.
 #' This function is used internally to handle common inputs, such as `ggplot` objects,
-#' ensuring they are appropriately converted to evaluable output blocks that can
+#' ensuring they are appropriately converted to an "evaluable output" blocks that can
 #' be saved to `RDS` file efficiently.
 #'
 #' This function performs the following conversions:

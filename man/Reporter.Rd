@@ -503,7 +503,8 @@ reporter$to_list(tmp_dir)
 \if{html}{\out{<a id="method-Reporter-write_figures"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-write_figures}{}}}
 \subsection{Method \code{write_figures()}}{
-Extracts and saves all figure elements from the \code{teal_card} objects in the \code{Reporter} to a specified directory.
+Extracts and saves all figure elements from the \code{teal_card} objects in the
+\code{Reporter} to a specified directory.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Reporter$write_figures(output_dir, sub_directory = "figures")}\if{html}{\out{</div>}}
 }
