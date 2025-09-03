@@ -295,7 +295,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
       rlist
     },
-    #' @description Extracts and saves all figure elements from the `teal_card` objects in the `Reporter` to a specified directory.
+    #' @description Extracts and saves all figure elements from the `teal_card` objects in the
+    #' `Reporter` to a specified directory.
     #' @param output_dir (`character(1)`) a path to the directory where figures will be saved.
     #' @param sub_directory (`character(1)`) a sub-directory within `output_dir` to save figures.
     write_figures = function(output_dir, sub_directory = "figures") {
@@ -309,7 +310,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
           card_element <- card[[element_ix]]
           if (
             inherits(card_element, "chunk_output") &&
-              checkmate::test_multi_class(card_element[[1]], classes = c("recordedplot", "ggplot", "grob", "trellis", "gg", "Heatmap"))
+              checkmate::test_multi_class(
+                card_element[[1]],
+                classes = c("recordedplot", "ggplot", "grob", "trellis", "gg", "Heatmap")
+              )
           ) {
             base64_image <- cached_html[[names(card)[[element_ix]]]]
             if ( # Ensure we only save valid base64 images
@@ -317,7 +321,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
                 !is.null(base64_image$attribs) && grepl("^data:image/[^;]+;base64,", base64_image$attribs$src)
             ) {
               b64 <- sub("^data:image/[^;]+;base64,", "", base64_image$attribs$src)
-              writeBin(jsonlite::base64_dec(b64), file.path(figures_dir, sprintf("card_%s_%d.png", card_id, element_ix)))
+              writeBin(
+                jsonlite::base64_dec(b64),
+                file.path(figures_dir, sprintf("card_%s_%d.png", card_id, element_ix))
+              )
             }
           }
         }

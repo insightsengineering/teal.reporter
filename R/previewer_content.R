@@ -50,8 +50,6 @@ reporter_previewer_content_srv <- function(id, reporter) {
       shinyjs::toggle("empty_reporters", condition = length(all_cards) == 0L)
     })
 
-    # cached_cards <- shiny::reactiveValues()
-
     shiny::observeEvent(queues_rv$insert(), {
       lapply(queues_rv$insert(), function(card_id) {
         current_ids_rv(c(current_ids_rv(), card_id))

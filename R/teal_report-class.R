@@ -91,7 +91,7 @@ teal_report <- function(...,
 
 #' Internal function to convert `qenv` or `teal_data` to `teal_report`
 #' @noRd
-coerce.teal_report <- function(from, to) {
+coerce.teal_report <- function(from, to) { # nolint: object_name.
   if (inherits(from, "teal_report")) {
     return(from)
   }
