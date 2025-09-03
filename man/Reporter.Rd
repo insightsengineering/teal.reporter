@@ -73,8 +73,9 @@ card2 <- teal_card(
 )
 metadata(card2, "title") <- "Card2"
 
-reporter$replace_card(card2, "Card1")
-reporter$get_cards()[[1]]$get_name()
+metadata(reporter$get_cards()[[1]], "title")
+reporter$replace_card(card2, names(reporter$get_cards())[[1]])
+metadata(reporter$get_cards()[[1]], "title")
 \dontshow{\}) # examplesIf}
 \dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(ggplot2)

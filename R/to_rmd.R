@@ -4,10 +4,9 @@
   sprintf("```{r echo = FALSE, eval = TRUE}\nreadRDS('%s')\n```", path)
 }
 
-.plot_to_rmd <- function(block, output_dir, ...) {
-  path <- tempfile(pattern = "report_item_", fileext = ".rds", tmpdir = output_dir)
+.plot_to_rmd <- function(block, ...) {
+  path <- basename(tempfile(pattern = "report_item_", fileext = ".rds"))
   suppressWarnings(saveRDS(block, file = path))
-  on.exit(file.remove(path))
   dims <- resolve_figure_dimensions(block, convert_to_inches = TRUE)
   sprintf(
     "```{r echo = FALSE, eval = TRUE, fig.width = %f, fig.height = %f}\nreadRDS('%s')\n```",
