@@ -53,7 +53,17 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
     #' )
     #'
-    append_plot = function(plot, dim = NULL) self$append_content(plot),
+    append_plot = function(plot, dim = NULL) {
+      checkmate::assert_numeric(dim, len = 2, any.missing = FALSE, null.ok = TRUE)
+      if (!is.null(dim)) {
+        if (!inherits(plot, "chunk_output")) {
+          plot <- structure(list(plot), class = c("chunk_output"))
+        }
+        attr(plot, "dev.width") <- dim[1]
+        attr(plot, "dev.height") <- dim[2]
+      }
+      self$append_content(plot)
+    },
     #' @description Appends a text paragraph to this `ReportCard`.
     #'
     #' @param text (`character`) The text content to add.
