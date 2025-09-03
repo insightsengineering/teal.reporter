@@ -90,7 +90,7 @@ preview_report_button_srv <- function(id, reporter) {
           function(card_id) {
             # Only show loading placeholder for cards that are being initialized for the first time
             first_run <- is.null(srv_list[[card_id]])
-            
+
             bslib::accordion_panel_insert(
               id = panel_ns(NULL),
               previewer_card_ui(id = session$ns(panel_ns(card_id)), card_id = card_id, show_loading = first_run)
