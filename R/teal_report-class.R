@@ -89,21 +89,22 @@ teal_report <- function(...,
   )
 }
 
-methods::setAs(
-  "qenv",
-  "teal_report",
-  function(from, to) {
-    if (inherits(from, "teal_report")) {
-      return(from)
-    }
-    new_x <- teal_report()
-    for (slot_name in methods::slotNames(from)) {
-      methods::slot(new_x, slot_name) <- methods::slot(from, slot_name)
-    }
-    teal_card(new_x) <- .code_to_card(from@code)
-    new_x
+#' Internal function to convert `qenv` or `teal_data` to `teal_report`
+#' @noRd
+coerce.teal_report <- function(from, to) {
+  if (inherits(from, "teal_report")) {
+    return(from)
   }
-)
+  new_x <- teal_report()
+  for (slot_name in methods::slotNames(from)) {
+    methods::slot(new_x, slot_name) <- methods::slot(from, slot_name)
+  }
+  teal_card(new_x) <- .code_to_card(from@code)
+  new_x
+}
+
+methods::setAs("qenv", "teal_report", coerce.teal_report)
+methods::setAs("teal_data", "teal_report", coerce.teal_report)
 
 #' @rdname teal_report
 #' @param x (`qenv` or `teal_data`) object to convert to `teal_report`.
