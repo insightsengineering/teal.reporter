@@ -261,7 +261,6 @@ reporter_download_inputs <- function(rmd_yaml_args, rmd_output, showrcode, sessi
 any_rcode_block <- function(reporter) {
   cards <- reporter$get_cards()
 
-  # todo: make sure code_chunk is also noticed
   any(
     vapply(
       reporter$get_blocks(),
