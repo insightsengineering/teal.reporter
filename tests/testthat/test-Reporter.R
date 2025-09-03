@@ -245,7 +245,6 @@ testthat::describe("from_reporter", {
     testthat::expect_identical(reporter, (Reporter$new()$from_reporter(reporter)))
   })
 
-  # TODO: Q: is this test valid? in other words should override id when using "from_reporter"?
   it("returns different object if id has already been set", {
     reporter1 <- test_reporter(test_card1(), test_card2())
     reporter2 <- teal.reporter::Reporter$new()
@@ -343,12 +342,16 @@ testthat::describe("reorder_cards", {
   })
 })
 
-# nolint start: commented_code.
-# TODO: averissimo fix test
-# testthat::test_that("from_reporter persists the cards structure", {
-#   testthat::expect_identical(unname(reporter1$get_cards()), unname(reporter2$from_reporter(reporter1)$get_cards()))
-# })
-# nolint end: commented_code.
+testthat::test_that("from_reporter persists the cards structure", {
+  reporter1 <- Reporter$new()
+  card1 <- test_card1("A title")
+  card2 <- test_card2("Another title")
+  reporter1$append_cards(list(card1, card2))
+  expect_equal(
+    unname(reporter1$get_cards()),
+    unname(Reporter$new()$from_reporter(reporter1)$get_cards())
+  )
+})
 
 testthat::describe("Reporter with custom template function", {
   it("modifies teal_cards on append", {

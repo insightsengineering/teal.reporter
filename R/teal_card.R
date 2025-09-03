@@ -195,7 +195,6 @@ metadata.teal_card <- function(object, which = NULL) {
 #' @rdname metadata
 #' @export
 metadata.ReportCard <- function(object, which = NULL) {
-  # TODO: soft deprecate
   result <- list(title = object$get_name())
   if (is.null(which)) {
     return(result)

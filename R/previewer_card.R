@@ -26,7 +26,6 @@ previewer_card_ui <- function(id, card_id) {
 }
 
 previewer_card_srv <- function(id, card_r, card_id, reporter) {
-  # todo: card_name should be only on the server side
   shiny::moduleServer(id, function(input, output, session) {
     output$title <- shiny::renderUI({
       title <- metadata(shiny::req(card_r()), "title")
