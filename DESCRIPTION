@@ -52,7 +52,6 @@ Imports:
     yaml (>= 1.1.0),
     zip (>= 1.1.0)
 Suggests:
-    chromote,
     DT (>= 0.13),
     formatR (>= 1.5),
     formatters (>= 0.5.10),
@@ -74,7 +73,7 @@ Config/Needs/verdepcheck: rstudio/bsicons,rstudio/bslib, mllg/checkmate,
     insightsengineering/rtables, insightsengineering/rtables.officer,
     rstudio/shiny, dreamRs/shinybusy, daattali/shinyjs, dreamRs/shinyWidgets,
     rstudio/sortable, insightsengineering/teal.code, insightsengineering/teal.data,
-    yaml=vubiostat/r-yaml, r-lib/zip, rstudio/chromote, rstudio/DT, yihui/formatR,
+    yaml=vubiostat/r-yaml, r-lib/zip, rstudio/DT, yihui/formatR,
     insightsengineering/formatters, tidyverse/ggplot2, deepayan/lattice,
     cran/png, rstudio/shinytest2, r-lib/testthat, rstudio/tinytex, r-lib/waldo,
     r-lib/withr
