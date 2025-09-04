@@ -3,7 +3,7 @@
 ### New features
 
 * Adds editing capabilities to report cards in the previewer modal for the title and text contents.
-* Adds `teal_card` class that replaces `ReportCard` R6 class. It retains all its functionlities in a S4 with less complexity. It allows for easier modifications and insertion of new report content.
+* Adds `teal_card` class that replaces `ReportCard` R6 class. It retains all its functionalities in a S4 with less complexity. It allows for easier modifications and insertion of new report content.
 * Adds `teal_report` class that extends from `teal.data::teal_data` that allows to keep contents of the report card.
 * `teal_report` is updated automatically with executed code and its outputs are stored as well.
 * Supports `flextable` and `gtsummary` objects.

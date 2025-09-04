@@ -16,7 +16,7 @@ to_rmd(block, ...)
 This is an S3 generic that is used to generate content in \code{rmarkdown} format
 from various types of blocks in a \code{ReporterCard} or \code{teal_card} object.
 }
-\section{Customise \code{to_rmd}}{
+\section{Customize \code{to_rmd}}{
 The methods for this S3 generic can be extended by the app developer or even overwritten.
 For this a function with the name \verb{to_rmd.<class>} should be defined in the
 Global Environment, where \verb{<class>} is the class of the object to be converted.

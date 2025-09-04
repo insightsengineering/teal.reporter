@@ -21,7 +21,7 @@
 #' This is an S3 generic that is used to generate content in `rmarkdown` format
 #' from various types of blocks in a `ReporterCard` or `teal_card` object.
 #'
-#' # Customise `to_rmd`
+#' # Customize `to_rmd`
 #' The methods for this S3 generic can be extended by the app developer or even overwritten.
 #' For this a function with the name `to_rmd.<class>` should be defined in the
 #' Global Environment, where `<class>` is the class of the object to be converted.
