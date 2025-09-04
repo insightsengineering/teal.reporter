@@ -14,14 +14,17 @@ repos:
       - id: roxygenize
         name: Regenerate package documentation
         additional_dependencies:
+          - bsicons
           - bslib
           - checkmate
           - commonmark
           - flextable
           - grid
+          - gtsummary
           - knitr
           - lifecycle
           - R6
+          - rlang
           - insightsengineering/rlistings # for rtables
           - rmarkdown
           - insightsengineering/rtables
@@ -33,8 +36,8 @@ repos:
           - shinyjs
           - shinyWidgets
           - sortable
-          - insightsengineering/teal.data
           - insightsengineering/teal.code
+          - insightsengineering/teal.data
           - yaml
           - zip
       - id: spell-check
