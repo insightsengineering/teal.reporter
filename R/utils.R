@@ -216,4 +216,5 @@ format.code_chunk <- function(x, ...) {
 #' @noRd
 dummy <- function() {
   R6::R6Class # Used to trick R CMD check for avoiding NOTE about R6
+  jsonlite::fromJSON # Used to trick R CMD check for not detecting jsonlite usage
 }
