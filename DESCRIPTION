@@ -1,7 +1,7 @@
 Package: teal.reporter
 Title: Reporting Tools for 'shiny' Modules
-Version: 0.5.0.9000
-Date: 2025-08-18
+Version: 0.5.0.9001
+Date: 2025-09-04
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-9533-457X")),
@@ -67,20 +67,21 @@ VignetteBuilder:
     knitr,
     rmarkdown
 Config/Needs/verdepcheck: rstudio/bsicons,rstudio/bslib, mllg/checkmate,
-    r-lib/commonmark, davidgohel/flextable, ddsjoberg/gtsummary, rstudio/htmltools,
-    jeroen/jsonlite, yihui/knitr, r-lib/lifecycle, r-lib/R6, r-lib/rlang,
-    insightsengineering/rlistings, rstudio/rmarkdown,
-    insightsengineering/rtables, insightsengineering/rtables.officer,
-    rstudio/shiny, dreamRs/shinybusy, daattali/shinyjs, dreamRs/shinyWidgets,
-    rstudio/sortable, insightsengineering/teal.code, insightsengineering/teal.data,
+    r-lib/commonmark, davidgohel/flextable, ddsjoberg/gtsummary,
+    rstudio/htmltools, jeroen/jsonlite, yihui/knitr, r-lib/lifecycle,
+    r-lib/R6, r-lib/rlang, insightsengineering/rlistings,
+    rstudio/rmarkdown, insightsengineering/rtables,
+    insightsengineering/rtables.officer, rstudio/shiny, dreamRs/shinybusy,
+    daattali/shinyjs, dreamRs/shinyWidgets, rstudio/sortable,
+    insightsengineering/teal.code, insightsengineering/teal.data,
     yaml=vubiostat/r-yaml, r-lib/zip, rstudio/DT, yihui/formatR,
     insightsengineering/formatters, tidyverse/ggplot2, deepayan/lattice,
-    cran/png, rstudio/shinytest2, r-lib/testthat, rstudio/tinytex, r-lib/waldo,
-    r-lib/withr
+    cran/png, rstudio/shinytest2, r-lib/testthat, rstudio/tinytex,
+    r-lib/waldo, r-lib/withr
 Config/Needs/website: insightsengineering/nesttemplate
+Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-Config/testthat/edition: 3
