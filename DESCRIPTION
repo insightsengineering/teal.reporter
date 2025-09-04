@@ -66,15 +66,16 @@ Suggests:
 VignetteBuilder:
     knitr,
     rmarkdown
-Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate,
+Config/Needs/verdepcheck: rstudio/bslib, mllg/checkmate, r-lib/commonmark,
     davidgohel/flextable, ddsjoberg/gtsummary, yihui/knitr, r-lib/lifecycle,
     r-lib/R6, r-lib/rlang, insightsengineering/rlistings, rstudio/rmarkdown,
     insightsengineering/rtables, insightsengineering/rtables.officer,
     rstudio/shiny, dreamRs/shinybusy, daattali/shinyjs, dreamRs/shinyWidgets,
     rstudio/sortable, insightsengineering/teal.code, insightsengineering/teal.data,
-    yaml=vubiostat/r-yaml, r-lib/zip, rstudio/DT, yihui/formatR,
+    yaml=vubiostat/r-yaml, r-lib/zip, rstudio/chromote, rstudio/DT, yihui/formatR,
     insightsengineering/formatters, tidyverse/ggplot2, deepayan/lattice,
-    cran/png, r-lib/testthat, rstudio/tinytex, r-lib/withr
+    cran/png, rstudio/shinytest2, r-lib/testthat, rstudio/tinytex, r-lib/waldo,
+    r-lib/withr
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US
