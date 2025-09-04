@@ -193,7 +193,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     to_list = function(output_dir = lifecycle::deprecated()) {
       if (lifecycle::is_present(output_dir)) {
-        lifecycle::deprecate_soft("1.0.0", "ReportCard$to_list(output_dir)")
+        lifecycle::deprecate_soft("0.5.0.9000", "ReportCard$to_list(output_dir)")
       }
       private$content
     },
@@ -213,6 +213,9 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' ReportCard$new()$from_list(card$to_list(tempdir()), tempdir())
     #'
     from_list = function(card, output_dir = lifecycle::deprecated()) {
+      if (lifecycle::is_present(output_dir)) {
+        lifecycle::deprecate_soft("0.5.0.9000", "ReportCard$to_list(output_dir)")
+      }
       self$reset()
       private$content <- card
       invisible(self)
