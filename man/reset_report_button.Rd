@@ -13,7 +13,7 @@ reset_report_button_srv(id, reporter)
 \arguments{
 \item{id}{(\code{character(1)}) \code{shiny} module instance id.}
 
-\item{label}{(\code{character(1)}) label of the button. By default it is empty.}
+\item{label}{(\code{character(1)}) label of the button. By default \code{NULL}.}
 
 \item{reporter}{(\code{Reporter}) instance.}
 }

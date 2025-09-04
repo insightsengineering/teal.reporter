@@ -14,25 +14,32 @@ repos:
       - id: roxygenize
         name: Regenerate package documentation
         additional_dependencies:
+          - bsicons
           - bslib
           - checkmate
-          #- flextable
-          - davidgohel/flextable # Error: package 'flextable' is not available
-          - davidgohel/gdtools # for flextable
+          - commonmark
+          - flextable
           - grid
-          - htmltools
+          - gtsummary
           - knitr
           - lifecycle
           - R6
+          - rlang
+          - insightsengineering/rlistings # for rtables
           - rmarkdown
+          - insightsengineering/rtables
+          - insightsengineering/rtables.officer
+          - davidgohel/officer # for rtables.officer
+          - insightsengineering/formatters # for rtables
           - shiny
           - shinybusy
+          - shinyjs
           - shinyWidgets
+          - sortable
+          - insightsengineering/teal.code
+          - insightsengineering/teal.data
           - yaml
           - zip
-          - rlistings
-          - rtables
-          - rtables.officer
       - id: spell-check
         name: Check spelling with `spelling`
         exclude: >

@@ -19,6 +19,17 @@
   padding-top: 0;
 }
 
+.fa-stack.small { width: 2em; }
+
+.edit_title_container {
+  display: flex;
+  gap: .5rem;
+}
+
+pre > code {
+  padding-left: 0;
+}
+
 .teal-reporter.outline-button {
   padding: 0.3em;
   border-radius: 5px;

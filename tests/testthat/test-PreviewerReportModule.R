@@ -4,8 +4,9 @@ card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text", "header2")
 card1$append_plot(
   ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
-    ggplot2::geom_histogram()
+    ggplot2::geom_histogram(binwidth = 0.2)
 )
+card1$set_name("card1")
 
 reporter <- Reporter$new()
 reporter$append_cards(list(card1))
@@ -35,8 +36,7 @@ testthat::test_that("reporter_previewer_srv - subset of rmd_yaml_args", {
       shiny::testServer(
         reporter_previewer_srv,
         args = list(reporter = reporter, rmd_yaml_args = rmd_yaml_args_correct[[iset]]),
-        expr = {
-        }
+        expr = {}
       )
     )
   }
@@ -46,25 +46,54 @@ testthat::test_that("reporter_previewer_srv - subset of rmd_yaml_args", {
       shiny::testServer(
         reporter_previewer_srv,
         args = list(reporter = reporter, rmd_yaml_args = rmd_yaml_args_wrong[[iset]]),
-        expr = {
-        }
+        expr = {}
       ),
       "Assertion"
     )
   }
 })
 
+testthat::test_that("reporter_previewer_ui - returns a shiny tag list", {
+  suppressWarnings(ui <- reporter_previewer_ui("sth"))
+  # suppressWarnings needed to suppress lifecycle deprecatation message
+  testthat::expect_true(inherits(ui, "shiny.tag.list"))
+})
 
-card2 <- ReportCard$new()
-card2$append_text("Header 2 text 2", "header2")
-card2$append_text("A paragraph of default text 2", "header2")
-card2$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Width)) +
-    ggplot2::geom_histogram()
-)
+testthat::test_that("reporter_previewer_srv - previewer_buttons parameter", {
+  testthat::expect_silent(
+    shiny::testServer(
+      reporter_previewer_srv,
+      args = list(
+        reporter = reporter,
+        previewer_buttons = c("download", "load", "reset")
+      ),
+      expr = {}
+    )
+  )
 
-reporter <- Reporter$new()
-reporter$append_cards(list(card1, card2))
+  testthat::expect_silent(
+    shiny::testServer(
+      reporter_previewer_srv,
+      args = list(
+        reporter = reporter,
+        previewer_buttons = "download"
+      ),
+      expr = {}
+    )
+  )
+
+  testthat::expect_error(
+    shiny::testServer(
+      reporter_previewer_srv,
+      args = list(
+        reporter = reporter,
+        previewer_buttons = c("load", "reset")
+      ),
+      expr = {}
+    ),
+    "Assertion"
+  )
+})
 
 testthat::test_that("reporter_previewer_srv - up with first card and down with last card does not induce change", {
   shiny::testServer(
@@ -95,11 +124,5 @@ testthat::test_that("reporter_previewer_srv - card up and down compensate", {
       cards_post <- reporter$get_cards()
       testthat::expect_equal(cards_pre, cards_post)
     }
-  )
-})
-
-testthat::test_that("reporter_previewer_ui - returns a tagList", {
-  testthat::expect_true(
-    inherits(reporter_previewer_ui("sth"), c("shiny.tag.list"))
   )
 })

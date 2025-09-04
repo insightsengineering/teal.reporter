@@ -25,7 +25,6 @@ report_load_ui <- function(id, label = NULL) {
   )
 }
 
-
 #' @rdname load_report_button
 #' @return `shiny::moduleServer`
 #' @export
@@ -94,7 +93,7 @@ load_json_report <- function(reporter, zip_path, filename) {
   tmp_dir <- tempdir()
   output_dir <- file.path(tmp_dir, sprintf("report_load_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
   dir.create(path = output_dir)
-  if (!is.null(zip_path) && grepl("report_", filename)) {
+  if (!is.null(zip_path) && grepl("report(er)?_", filename)) {
     tryCatch(
       expr = zip::unzip(zip_path, exdir = output_dir, junkpaths = TRUE),
       warning = function(cond) {
@@ -143,3 +142,4 @@ load_json_report <- function(reporter, zip_path, filename) {
     )
   }
 }
+1 + 1
