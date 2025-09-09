@@ -12,14 +12,14 @@ For more information about the various blocks, refer to the vignette:
 \code{vignette("teal-reporter-blocks-overview", "teal.reporter")}.
 }
 \examples{
-\dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require("ggplot2")) withAutoprint(\{ # examplesIf}
 library(ggplot2)
 
 card <- ReportCard$new()$append_plot(
   ggplot(iris, aes(x = Petal.Length)) + geom_histogram()
 )
 \dontshow{\}) # examplesIf}
-\dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require("ggplot2")) withAutoprint(\{ # examplesIf}
 library(ggplot2)
 
 card <- ReportCard$new()$append_text("Some text")$append_plot(
@@ -29,7 +29,7 @@ card <- ReportCard$new()$append_text("Some text")$append_plot(
 card$get_content()
 card$get_metadata()
 \dontshow{\}) # examplesIf}
-\dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require("ggplot2")) withAutoprint(\{ # examplesIf}
 library(ggplot2)
 
 card <- ReportCard$new()$append_text("Some text")$append_plot(
@@ -40,7 +40,7 @@ card$get_content()
 
 card$to_list(tempdir())
 \dontshow{\}) # examplesIf}
-\dontshow{if (require("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require("ggplot2")) withAutoprint(\{ # examplesIf}
 library(ggplot2)
 
 card <- ReportCard$new()$append_text("Some text")$append_plot(
