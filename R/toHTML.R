@@ -77,8 +77,9 @@ toHTML.default <- function(x, ...) {
 #' @keywords internal
 .toHTML.gg <- function(x, ...) {
   on.exit(unlink(tmpfile))
+  dims <- resolve_figure_dimensions(x, convert_to_inches = TRUE, dpi = 100)
   tmpfile <- tempfile(fileext = ".png")
-  ggplot2::ggsave(tmpfile, plot = x, width = 5, height = 4, dpi = 100)
+  ggplot2::ggsave(tmpfile, plot = x, width = dims$width, height = dims$height, dpi = 100)
   shiny::tags$img(src = knitr::image_uri(tmpfile))
 }
 
@@ -86,8 +87,9 @@ toHTML.default <- function(x, ...) {
 #' @keywords internal
 .toHTML.grob <- function(x, ...) {
   on.exit(unlink(tmpfile))
+  dims <- resolve_figure_dimensions(x)
   tmpfile <- tempfile(fileext = ".png")
-  grDevices::png(filename = tmpfile)
+  grDevices::png(filename = tmpfile, width = dims$width, height = dims$height)
   grid::grid.newpage()
   grid::grid.draw(x)
   grDevices::dev.off()
