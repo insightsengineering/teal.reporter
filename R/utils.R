@@ -187,7 +187,7 @@ format.code_chunk <- function(x, ...) {
     ),
     shiny::tags$button(
       id = id,
-      class = sprintf("teal-reporter action-button teal-reporter-busy-disable outline-button %s", class),
+      class = sprintf("btn btn-primary teal-reporter action-button teal-reporter-busy-disable outline-button %s", class),
       role = "button",
       style = "text-decoration: none;",
       if (!is.null(icon)) {
