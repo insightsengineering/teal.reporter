@@ -174,7 +174,7 @@ format.code_chunk <- function(x, ...) {
 }
 
 #' @keywords internal
-.outline_button <- function(id, label, icon = NULL, class = "primary") {
+.outline_button <- function(id, label, icon = NULL, class = "", color_class = "primary") {
   shiny::tagList(
     shinyjs::useShinyjs(),
     .custom_css_dependency(),
@@ -188,8 +188,8 @@ format.code_chunk <- function(x, ...) {
     shiny::tags$button(
       id = id,
       class = sprintf(
-        "btn btn-primary teal-reporter action-button teal-reporter-busy-disable outline-button %s",
-        class
+        "teal-reporter action-button teal-reporter-busy-disable outline-button %s",
+        trimws(paste(class, color_class))
       ),
       role = "button",
       style = "text-decoration: none;",
@@ -197,7 +197,7 @@ format.code_chunk <- function(x, ...) {
         margin_style <- ifelse(is.null(label), "margin: 0 10px 0 10px;", "")
         shiny::tags$span(
           style = margin_style,
-          bsicons::bs_icon(icon, class = sprintf("text-%s", class))
+          bsicons::bs_icon(icon, class = sprintf("text-%s", color_class))
         )
       },
       label
