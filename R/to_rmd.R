@@ -143,7 +143,7 @@ to_rmd.default <- function(block, ...) {
 .to_rmd.chunk_output <- function(block, ..., include_chunk_output) {
   if (!missing(include_chunk_output) && isTRUE(include_chunk_output)) {
     new_block <- block[[1]]
-    attributes(new_block) <- c(attributes(block)[!names(attributes(block)) %in% "class"], attributes(new_block))
+    mostattributes(new_block) <- c(attributes(unclass(block)), attributes(new_block))
     to_rmd(new_block, ..., include_chunk_output = include_chunk_output)
   }
 }
