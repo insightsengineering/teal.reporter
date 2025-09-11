@@ -109,7 +109,7 @@ toHTML.default <- function(x, ...) {
 #' @keywords internal
 .toHTML.chunk_output <- function(x, ...) {
   new_x <- x[[1]]
-  attributes(new_x) <- c(attributes(x)[!names(attributes(x)) %in% "class"], attributes(new_x))
+  mostattributes(new_x) <- c(attributes(unclass(x)), attributes(new_x))
   tools::toHTML(new_x, ...)
 }
 
