@@ -208,7 +208,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
 
         include_rcode <- metadata(card, "include_rcode")
         if (is.null(include_rcode)) {
-          include_rcode <- TRUE  # Default to TRUE if not set
+          include_rcode <- TRUE # Default to TRUE if not set
         }
         if (!include_rcode) {
           card <- card[!sapply(card, function(item) inherits(item, "code_chunk"))]
@@ -472,7 +472,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
           card_include_rcode <- TRUE
         }
         if (is.null(private$cached_html[[card_id]]) ||
-            !identical(attr(private$cached_html[[card_id]], "include_rcode"), card_include_rcode)) {
+          !identical(attr(private$cached_html[[card_id]], "include_rcode"), card_include_rcode)) {
           private$cached_html[[card_id]] <- lapply(card, function(item) {
             .toHTML(item, include_rcode = card_include_rcode)
           })

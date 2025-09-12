@@ -226,6 +226,8 @@ reporter$get_cards()
 \item \href{#method-Reporter-get_id}{\code{Reporter$get_id()}}
 \item \href{#method-Reporter-set_template}{\code{Reporter$set_template()}}
 \item \href{#method-Reporter-get_template}{\code{Reporter$get_template()}}
+\item \href{#method-Reporter-get_include_rcode}{\code{Reporter$get_include_rcode()}}
+\item \href{#method-Reporter-set_include_rcode}{\code{Reporter$set_include_rcode()}}
 \item \href{#method-Reporter-clone}{\code{Reporter$clone()}}
 }
 }
@@ -739,6 +741,39 @@ Get the \code{Reporter} template
 
 \subsection{Returns}{
 a template \code{function}.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-get_include_rcode"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-get_include_rcode}{}}}
+\subsection{Method \code{get_include_rcode()}}{
+Get the "Include R Code" setting for this \code{Reporter}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_include_rcode()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\code{logical(1)} indicating whether R code should be included.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Reporter-set_include_rcode"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-set_include_rcode}{}}}
+\subsection{Method \code{set_include_rcode()}}{
+Set the "Include R Code" setting for this \code{Reporter}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Reporter$set_include_rcode(include_rcode)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{include_rcode}}{(\code{logical(1)}) whether R code should be included.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{self}, invisibly.
 }
 }
 \if{html}{\out{<hr>}}
