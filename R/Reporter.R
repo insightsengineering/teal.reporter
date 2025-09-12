@@ -24,7 +24,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$open_previewer_r <- shiny::reactiveVal(NULL)
       invisible(self)
     },
-
     #' @description Append one or more `ReportCard` or `teal_card` objects to the `Reporter`.
     #'
     #' @param cards (`ReportCard` or `teal_card`) or a list of such objects
@@ -509,7 +508,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     },
     #' @description Get the `Reporter` template
     #' @return a template `function`.
-    get_template = function() private$template,
+    get_template = function() private$template
   ),
   private = list(
     id = "",
@@ -519,20 +518,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     override_order = character(0L), # to sort cards (reactiveValues are not sortable)
     metadata = list(),
     template = NULL,
-    # @description Regenerate cached HTML for all cards when include_rcode setting changes
-    regenerate_cached_html = function() {
-      cards <- shiny::reactiveValuesToList(private$cards)
-      for (card_id in names(cards)) {
-        card_include_rcode <- metadata(cards[[card_id]], "include_rcode")
-        if (is.null(card_include_rcode)) {
-          card_include_rcode <- TRUE
-        }
-        private$cached_html[[card_id]] <- lapply(cards[[card_id]], function(item) {
-          .toHTML(item, include_rcode = card_include_rcode)
-        })
-        attr(private$cached_html[[card_id]], "include_rcode") <- card_include_rcode
-      }
-    },
     # @description The copy constructor.
     #
     # @param name the name of the field
