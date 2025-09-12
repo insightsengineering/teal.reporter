@@ -1,6 +1,7 @@
 ui_previewer_card_actions <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
+    shiny::uiOutput(ns("toggle_code_ui")),
     shiny::actionLink(
       inputId = ns("edit_action"),
       class = "btn btn-primary btn-sm float-end p-3",
@@ -20,6 +21,25 @@ ui_previewer_card_actions <- function(id) {
 srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
   shiny::moduleServer(id, function(input, output, session) {
     new_card_rv <- shiny::reactiveVal()
+
+    # Conditionally render toggle button based on include_rcode setting
+    output$toggle_code_ui <- shiny::renderUI({
+      card <- shiny::req(card_r())
+      include_rcode <- metadata(card, "include_rcode")
+      if (is.null(include_rcode)) {
+        include_rcode <- TRUE
+      }
+
+      if (include_rcode) {
+        shiny::actionLink(
+          inputId = session$ns("toggle_code_action"),
+          class = "btn btn-outline-secondary btn-sm float-end p-3 card-code-toggle",
+          label = NULL,
+          title = "Toggle code chunks",
+          icon = shiny::icon("code")
+        )
+      }
+    })
 
     shiny::observeEvent(
       ignoreInit = TRUE,
@@ -110,6 +130,55 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
         new_card_rv(NULL)
         reporter$open_previewer(Sys.time())
       }
+    })
+
+    # Handle toggle code button
+    shiny::observeEvent(input$toggle_code_action, {
+      shinyjs::runjs(sprintf("
+        (function() {
+          const cardId = '%s';
+          const cardElement = document.querySelector('[data-rank-id=\"' + cardId + '\"]');
+          if (!cardElement) {
+            console.log('Card element not found for cardId:', cardId);
+            return;
+          }
+
+          // Find all collapse elements within this card
+          const codeChunks = cardElement.querySelectorAll('.collapse');
+          if (codeChunks.length === 0) {
+            console.log('No code chunks found in card');
+            return;
+          }
+
+          // Check if all chunks are collapsed
+          let allCollapsed = true;
+          codeChunks.forEach(chunk => {
+            if (chunk.classList.contains('show')) {
+              allCollapsed = false;
+            }
+          });
+
+          console.log('Toggling', codeChunks.length, 'code chunks, allCollapsed:', allCollapsed);
+
+          // Toggle all chunks based on current state
+          codeChunks.forEach(chunk => {
+            // Find the corresponding header button
+            const header = chunk.closest('.card').querySelector('.card-header [data-bs-toggle=\"collapse\"]');
+            if (header) {
+              const isCurrentlyCollapsed = !chunk.classList.contains('show');
+
+              // If all collapsed, expand all; if any expanded, collapse all
+              if (allCollapsed && isCurrentlyCollapsed) {
+                // Need to expand this chunk
+                header.click();
+              } else if (!allCollapsed && !isCurrentlyCollapsed) {
+                // Need to collapse this chunk
+                header.click();
+              }
+            }
+          });
+        })();
+      ", card_id))
     })
 
     # Handle remove button
