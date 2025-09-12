@@ -1,13 +1,7 @@
 ui_previewer_card_actions <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
-    shiny::actionLink(
-      inputId = ns("toggle_code_action"),
-      class = "btn btn-outline-secondary btn-sm float-end p-3 card-code-toggle",
-      label = NULL,
-      title = "Toggle code chunks",
-      icon = shiny::icon("code")
-    ),
+    shiny::uiOutput(ns("toggle_code_ui")),
     shiny::actionLink(
       inputId = ns("edit_action"),
       class = "btn btn-primary btn-sm float-end p-3",
@@ -27,6 +21,25 @@ ui_previewer_card_actions <- function(id) {
 srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
   shiny::moduleServer(id, function(input, output, session) {
     new_card_rv <- shiny::reactiveVal()
+    
+    # Conditionally render toggle button based on include_rcode setting
+    output$toggle_code_ui <- shiny::renderUI({
+      card <- shiny::req(card_r())
+      include_rcode <- metadata(card, "include_rcode")
+      if (is.null(include_rcode)) {
+        include_rcode <- TRUE
+      }
+      
+      if (include_rcode) {
+        shiny::actionLink(
+          inputId = session$ns("toggle_code_action"),
+          class = "btn btn-outline-secondary btn-sm float-end p-3 card-code-toggle",
+          label = NULL,
+          title = "Toggle code chunks",
+          icon = shiny::icon("code")
+        )
+      }
+    })
 
     shiny::observeEvent(
       ignoreInit = TRUE,
@@ -147,20 +160,21 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
           
           console.log('Toggling', codeChunks.length, 'code chunks, allCollapsed:', allCollapsed);
           
-          // Toggle all chunks by clicking their headers
+          // Toggle all chunks based on current state
           codeChunks.forEach(chunk => {
-            // Find the corresponding header
+            // Find the corresponding header button
             const header = chunk.closest('.card').querySelector('.card-header [data-bs-toggle=\"collapse\"]');
             if (header) {
-              // Only click if we need to change the state
               const isCurrentlyCollapsed = !chunk.classList.contains('show');
-              if ((allCollapsed && isCurrentlyCollapsed) || (!allCollapsed && !isCurrentlyCollapsed)) {
-                // State is already correct, skip
-                return;
-              }
               
-              // Click the header to toggle
-              header.click();
+              // If all collapsed, expand all; if any expanded, collapse all
+              if (allCollapsed && isCurrentlyCollapsed) {
+                // Need to expand this chunk
+                header.click();
+              } else if (!allCollapsed && !isCurrentlyCollapsed) {
+                // Need to collapse this chunk
+                header.click();
+              }
             }
           });
         })();
