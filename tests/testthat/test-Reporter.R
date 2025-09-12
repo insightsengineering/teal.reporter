@@ -413,4 +413,3 @@ testthat::describe("Reporter with custom template function", {
     )
   })
 })
-

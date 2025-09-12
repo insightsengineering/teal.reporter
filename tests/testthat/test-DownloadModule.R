@@ -46,8 +46,8 @@ testthat::test_that("download_report_button_srv uses global include_rcode settin
 
   reporter <- Reporter$new()
   reporter$append_cards(list(card1))
-  
-  
+
+
   shiny::testServer(
     download_report_button_srv,
     args = list(
@@ -59,7 +59,6 @@ testthat::test_that("download_report_button_srv uses global include_rcode settin
     expr = {
       # Simulate clicking download (would call the content function)
       session$setInputs(download_button = 1)
-      
     }
   )
 })
