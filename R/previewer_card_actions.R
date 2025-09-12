@@ -127,14 +127,14 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
           const codeChunks = cardElement.querySelectorAll('.code-chunk-toggle');
           const toggleButton = document.getElementById('%s');
           const toggleIcon = toggleButton.querySelector('i');
-          
+
           const firstChunk = codeChunks[0];
           const shouldExpand = firstChunk && firstChunk.getAttribute('aria-expanded') === 'false';
-          
+
           codeChunks.forEach(chunk => {
             const targetId = chunk.getAttribute('data-bs-target');
             const target = document.querySelector(targetId);
-            
+
             if (target) {
               if (shouldExpand) {
                 target.classList.add('show');
@@ -145,7 +145,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
               }
             }
           });
-          
+
           if (shouldExpand) {
             toggleIcon.className = 'fas fa-code';
             toggleButton.title = 'Collapse code chunks';
