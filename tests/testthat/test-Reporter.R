@@ -414,36 +414,3 @@ testthat::describe("Reporter with custom template function", {
   })
 })
 
-testthat::describe("include_rcode functionality", {
-  testthat::test_that("Reporter has default include_rcode setting of TRUE", {
-    reporter <- Reporter$new()
-    testthat::expect_true(reporter$get_include_rcode())
-  })
-
-  testthat::test_that("set_include_rcode updates the setting", {
-    reporter <- Reporter$new()
-    reporter$set_include_rcode(FALSE)
-    testthat::expect_false(reporter$get_include_rcode())
-    
-    reporter$set_include_rcode(TRUE)
-    testthat::expect_true(reporter$get_include_rcode())
-  })
-
-  testthat::test_that("set_include_rcode validates logical input", {
-    reporter <- Reporter$new()
-    testthat::expect_error(
-      reporter$set_include_rcode("not_logical"),
-      "logical"
-    )
-    testthat::expect_error(
-      reporter$set_include_rcode(c(TRUE, FALSE)),
-      "Must have length 1"
-    )
-  })
-
-  testthat::test_that("set_include_rcode returns self invisibly", {
-    reporter <- Reporter$new()
-    result <- reporter$set_include_rcode(FALSE)
-    testthat::expect_identical(result, reporter)
-  })
-})

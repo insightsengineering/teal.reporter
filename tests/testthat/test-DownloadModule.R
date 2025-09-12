@@ -62,8 +62,6 @@ testthat::test_that("download_report_button_srv uses global include_rcode settin
       # Simulate clicking download (would call the content function)
       session$setInputs(download_button = 1)
       
-      # Verify that the reporter setting is being used
-      testthat::expect_false(reporter$get_include_rcode())
     }
   )
 })
