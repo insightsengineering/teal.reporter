@@ -188,7 +188,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       cards <- self$get_cards()
       blocks <- teal_card()
       for (idx in seq_along(cards)) {
-        card <- cards[[idx]]
+        card <- unname(cards[[idx]]) # unname to avoid names conflict in c()
         title <- trimws(metadata(card, "title"))
         metadata(card)$title <- NULL
         card_title <- if (length(title) > 0 && nzchar(title)) {

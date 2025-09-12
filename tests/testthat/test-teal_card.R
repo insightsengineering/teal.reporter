@@ -207,6 +207,27 @@ testthat::describe("as.teal_card", {
     doc <- as.teal_card(plot)
     testthat::expect_equal(doc, teal_card(plot), ignore_attr = "names")
   })
+
+  it("corrects names if they do not exist", {
+    simple_list <- list("a", "b", "c")
+    doc <- as.teal_card(simple_list)
+    testthat::expect_equal(unname(doc), structure(list("a", "b", "c"), class = "teal_card"))
+    checkmate::expect_names(names(doc), type = "unique")
+  })
+
+  it("corrects names if they have duplicates", {
+    simple_list <- list(a = "a", b = "b", "c")
+    doc <- as.teal_card(simple_list)
+    testthat::expect_equal(unname(doc), structure(list("a", "b", "c"), class = "teal_card"))
+    checkmate::expect_names(names(doc), type = "unique")
+  })
+
+  it("corrects names if they have duplicates", {
+    simple_list <- list(a = "a", a = "b", c = "c")
+    doc <- as.teal_card(simple_list)
+    testthat::expect_equal(unname(doc), structure(list("a", "b", "c"), class = "teal_card"))
+    checkmate::expect_names(names(doc), type = "unique")
+  })
 })
 
 testthat::describe("metadata", {

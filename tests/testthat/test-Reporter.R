@@ -101,6 +101,17 @@ testthat::test_that("get_blocks and get_cards return empty teal_card by default"
   testthat::expect_identical(reporter$get_cards(), structure(list(), names = character(0L)))
 })
 
+testthat::test_that("get_blocks shows repeated cards", {
+  card1 <- teal_card("A title")
+  reporter <- test_reporter(card1, card1)
+
+  testthat::expect_identical(
+    reporter$get_blocks(sep = "sep"),
+    teal_card("# _Unnamed Card (1)_", "A title", "sep", "# _Unnamed Card (2)_", "A title"),
+    ignore_attr = "names"
+  )
+})
+
 testthat::test_that("The deep copy constructor copies the content files to new files", {
   testthat::skip_if_not_installed("ggplot2")
   card <- teal_card(ggplot2::ggplot(iris))

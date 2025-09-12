@@ -116,6 +116,13 @@ teal_card.qenv <- function(...) {
 #' @export
 as.teal_card <- function(x) { # nolint: object_name.
   if (inherits(x, "teal_card")) {
+    if (length(x) && !checkmate::test_names(names(x), type = "unique")) { # Fix names if not unique or missing
+      names(x) <- substr(
+        vapply(seq_len(length(x)), function(ix) rlang::hash(list(ix, Sys.time(), x[[ix]])), character(1L)),
+        1,
+        8
+      )
+    }
     return(x)
   }
   if (identical(class(x), "list")) {

@@ -259,16 +259,7 @@ reporter_download_inputs <- function(rmd_yaml_args, rmd_output, showrcode, sessi
 #' @noRd
 #' @keywords internal
 any_rcode_block <- function(reporter) {
-  cards <- reporter$get_cards()
-
-  any(
-    vapply(
-      reporter$get_blocks(),
-      inherits,
-      logical(1),
-      what = "code_chunk"
-    )
-  )
+  any(vapply(reporter$get_blocks(), inherits, logical(1), what = "code_chunk"))
 }
 
 .report_identifier <- function(reporter) {
