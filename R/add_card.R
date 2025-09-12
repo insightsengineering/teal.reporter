@@ -190,8 +190,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           }
         }
 
-        # Update the global "Include R Code" setting
-        reporter$set_include_rcode(input$include_rcode)
+        metadata(card, "include_rcode") <- input$include_rcode
 
         reporter$append_cards(list(card))
         shiny::showNotification(sprintf("The card added successfully."), type = "message")

@@ -216,7 +216,7 @@ format.code_chunk <- function(x, ...) {
     name = "teal-reporter",
     version = utils::packageVersion("teal.reporter"),
     package = "teal.reporter",
-    src = "css",
+    src = c(file = "css"),
     stylesheet = "custom.css"
   )
 }

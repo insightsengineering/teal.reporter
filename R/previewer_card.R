@@ -39,7 +39,7 @@ previewer_card_srv <- function(id, card_r, card_id, reporter) {
     output$card_content <- shiny::renderUI({
       result <- reporter$get_cached_html(card_id)
       shiny::removeUI(sprintf("#%s", session$ns(paste0("loading_placeholder_", card_id))))
-      result
+      shiny::tagAppendAttributes(result, `data-card-id` = card_id)
     })
 
     srv_previewer_card_actions("actions", card_r, card_id, reporter)

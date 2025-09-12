@@ -61,9 +61,14 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
 
       for (card_id in names(new_cards)) {
         private$cards[[card_id]] <- new_cards[[card_id]]
+        card_include_rcode <- metadata(new_cards[[card_id]], "include_rcode")
+        if (is.null(card_include_rcode)) {
+          card_include_rcode <- TRUE
+        }
         private$cached_html[[card_id]] <- lapply(new_cards[[card_id]], function(item) {
-          tools::toHTML(item, include_rcode = self$get_include_rcode())
+          tools::toHTML(item, include_rcode = card_include_rcode)
         })
+        attr(private$cached_html[[card_id]], "include_rcode") <- card_include_rcode
       }
       invisible(self)
     },
@@ -131,9 +136,14 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         card <- card$get_content()
       }
       private$cards[[card_id]] <- card
+      card_include_rcode <- metadata(card, "include_rcode")
+      if (is.null(card_include_rcode)) {
+        card_include_rcode <- TRUE
+      }
       private$cached_html[[card_id]] <- lapply(card, function(item) {
-        tools::toHTML(item, include_rcode = self$get_include_rcode())
+        tools::toHTML(item, include_rcode = card_include_rcode)
       })
+      attr(private$cached_html[[card_id]], "include_rcode") <- card_include_rcode
       invisible(self)
     },
     #' @description Retrieves all `teal_card` objects contained in `Reporter`.
@@ -445,6 +455,22 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @param card_id (`character(1)`) the unique id of the card.
     get_cached_html = function(card_id) {
       if (shiny::isRunning()) {
+        card <- private$cards[[card_id]]
+        if (is.null(card)) {
+          return(NULL)
+        }
+        card_include_rcode <- metadata(card, "include_rcode")
+        if (is.null(card_include_rcode)) {
+          card_include_rcode <- TRUE
+        }
+        if (is.null(private$cached_html[[card_id]]) || 
+            !identical(attr(private$cached_html[[card_id]], "include_rcode"), card_include_rcode)) {
+          private$cached_html[[card_id]] <- lapply(card, function(item) {
+            tools::toHTML(item, include_rcode = card_include_rcode)
+          })
+          attr(private$cached_html[[card_id]], "include_rcode") <- card_include_rcode
+        }
+        
         private$cached_html[[card_id]]
       } else {
         shiny::isolate(private$cached_html[[card_id]])
@@ -509,9 +535,14 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     regenerate_cached_html = function() {
       cards <- shiny::reactiveValuesToList(private$cards)
       for (card_id in names(cards)) {
+        card_include_rcode <- metadata(cards[[card_id]], "include_rcode")
+        if (is.null(card_include_rcode)) {
+          card_include_rcode <- TRUE
+        }
         private$cached_html[[card_id]] <- lapply(cards[[card_id]], function(item) {
-          tools::toHTML(item, include_rcode = self$get_include_rcode())
+          tools::toHTML(item, include_rcode = card_include_rcode)
         })
+        attr(private$cached_html[[card_id]], "include_rcode") <- card_include_rcode
       }
     },
     # @description The copy constructor.

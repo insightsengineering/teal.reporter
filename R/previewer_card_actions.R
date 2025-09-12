@@ -2,6 +2,13 @@ ui_previewer_card_actions <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::actionLink(
+      inputId = ns("toggle_code_action"),
+      class = "btn btn-outline-secondary btn-sm float-end p-3 card-code-toggle",
+      label = NULL,
+      title = "Toggle code chunks",
+      icon = shiny::icon("code")
+    ),
+    shiny::actionLink(
       inputId = ns("edit_action"),
       class = "btn btn-primary btn-sm float-end p-3",
       label = NULL,
@@ -112,7 +119,56 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
       }
     })
 
+    # Handle toggle code button
+    shiny::observeEvent(input$toggle_code_action, {
+      shinyjs::runjs(sprintf("
+        (function() {
+          const cardId = '%s';
+          const cardElement = document.querySelector('[data-rank-id=\"' + cardId + '\"]');
+          if (!cardElement) {
+            console.log('Card element not found for cardId:', cardId);
+            return;
+          }
+          
+          // Find all collapse elements within this card
+          const codeChunks = cardElement.querySelectorAll('.collapse');
+          if (codeChunks.length === 0) {
+            console.log('No code chunks found in card');
+            return;
+          }
+          
+          // Check if all chunks are collapsed
+          let allCollapsed = true;
+          codeChunks.forEach(chunk => {
+            if (chunk.classList.contains('show')) {
+              allCollapsed = false;
+            }
+          });
+          
+          console.log('Toggling', codeChunks.length, 'code chunks, allCollapsed:', allCollapsed);
+          
+          // Toggle all chunks by clicking their headers
+          codeChunks.forEach(chunk => {
+            // Find the corresponding header
+            const header = chunk.closest('.card').querySelector('.card-header [data-bs-toggle=\"collapse\"]');
+            if (header) {
+              // Only click if we need to change the state
+              const isCurrentlyCollapsed = !chunk.classList.contains('show');
+              if ((allCollapsed && isCurrentlyCollapsed) || (!allCollapsed && !isCurrentlyCollapsed)) {
+                // State is already correct, skip
+                return;
+              }
+              
+              // Click the header to toggle
+              header.click();
+            }
+          });
+        })();
+      ", card_id))
+    })
+
     # Handle remove button
     shiny::observeEvent(input$remove_action, reporter$remove_cards(ids = card_id))
   })
 }
+
