@@ -66,7 +66,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
           card_include_rcode <- TRUE
         }
         private$cached_html[[card_id]] <- lapply(new_cards[[card_id]], function(item) {
-          tools::toHTML(item, include_rcode = card_include_rcode)
+          .toHTML(item, include_rcode = card_include_rcode)
         })
         attr(private$cached_html[[card_id]], "include_rcode") <- card_include_rcode
       }
@@ -141,7 +141,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         card_include_rcode <- TRUE
       }
       private$cached_html[[card_id]] <- lapply(card, function(item) {
-        tools::toHTML(item, include_rcode = card_include_rcode)
+        .toHTML(item, include_rcode = card_include_rcode)
       })
       attr(private$cached_html[[card_id]], "include_rcode") <- card_include_rcode
       invisible(self)
@@ -206,6 +206,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         card <- cards[[idx]]
         title <- trimws(metadata(card, "title"))
         metadata(card)$title <- NULL
+
+        if (is.null(metadata(card, "include_rcode"))) metadata(card, "include_rcode") <- TRUE  # Default to TRUE
+
         card_title <- if (length(title) > 0 && nzchar(title)) {
           sprintf("# %s", title)
         } else {
@@ -463,14 +466,14 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         if (is.null(card_include_rcode)) {
           card_include_rcode <- TRUE
         }
-        if (is.null(private$cached_html[[card_id]]) || 
+        if (is.null(private$cached_html[[card_id]]) ||
             !identical(attr(private$cached_html[[card_id]], "include_rcode"), card_include_rcode)) {
           private$cached_html[[card_id]] <- lapply(card, function(item) {
-            tools::toHTML(item, include_rcode = card_include_rcode)
+            .toHTML(item, include_rcode = card_include_rcode)
           })
           attr(private$cached_html[[card_id]], "include_rcode") <- card_include_rcode
         }
-        
+
         private$cached_html[[card_id]]
       } else {
         shiny::isolate(private$cached_html[[card_id]])
@@ -540,7 +543,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
           card_include_rcode <- TRUE
         }
         private$cached_html[[card_id]] <- lapply(cards[[card_id]], function(item) {
-          tools::toHTML(item, include_rcode = card_include_rcode)
+          .toHTML(item, include_rcode = card_include_rcode)
         })
         attr(private$cached_html[[card_id]], "include_rcode") <- card_include_rcode
       }
