@@ -92,7 +92,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           shiny::checkboxInput(
             ns("include_rcode"),
             "Include R Code",
-            value = reporter$get_include_rcode()
+            value = TRUE
           ),
           shiny::tags$script(
             shiny::HTML(

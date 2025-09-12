@@ -22,7 +22,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$cards <- shiny::reactiveValues()
       private$cached_html <- shiny::reactiveValues()
       private$open_previewer_r <- shiny::reactiveVal(NULL)
-      private$include_rcode_r <- shiny::reactiveVal(TRUE)
       invisible(self)
     },
 
@@ -511,32 +510,12 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @description Get the `Reporter` template
     #' @return a template `function`.
     get_template = function() private$template,
-    #' @description Get the "Include R Code" setting for this `Reporter`.
-    #' @return `logical(1)` indicating whether R code should be included.
-    get_include_rcode = function() {
-      if (shiny::isRunning()) {
-        private$include_rcode_r()
-      } else {
-        shiny::isolate(private$include_rcode_r())
-      }
-    },
-    #' @description Set the "Include R Code" setting for this `Reporter`.
-    #' @param include_rcode (`logical(1)`) whether R code should be included.
-    #' @return `self`, invisibly.
-    set_include_rcode = function(include_rcode) {
-      checkmate::assert_logical(include_rcode, len = 1)
-      private$include_rcode_r(include_rcode)
-      # Invalidate cached HTML when include_rcode setting changes
-      private$regenerate_cached_html()
-      invisible(self)
-    }
   ),
   private = list(
     id = "",
     cards = NULL, # reactiveValues
     cached_html = NULL, # reactiveValues
     open_previewer_r = NULL, # reactiveVal to trigger reactive contexts
-    include_rcode_r = NULL, # reactiveVal for "Include R Code" setting
     override_order = character(0L), # to sort cards (reactiveValues are not sortable)
     metadata = list(),
     template = NULL,

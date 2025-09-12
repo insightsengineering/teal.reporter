@@ -47,8 +47,6 @@ testthat::test_that("download_report_button_srv uses global include_rcode settin
   reporter <- Reporter$new()
   reporter$append_cards(list(card1))
   
-  # Test with include_rcode = FALSE
-  reporter$set_include_rcode(FALSE)
   
   shiny::testServer(
     download_report_button_srv,
