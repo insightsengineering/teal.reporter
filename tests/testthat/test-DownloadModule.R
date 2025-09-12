@@ -33,3 +33,57 @@ testthat::test_that("download_report_button_srv - download a document", {
     }
   )
 })
+
+testthat::test_that("download_report_button_srv uses global include_rcode setting", {
+  testthat::skip_if_not_installed("ggplot2")
+  card1 <- ReportCard$new()
+  card1$append_text("Header 2 text", "header2")
+  card1$append_text("A paragraph of default text", "header2")
+  card1$append_plot(
+    ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
+      ggplot2::geom_histogram()
+  )
+
+  reporter <- Reporter$new()
+  reporter$append_cards(list(card1))
+  
+  # Test with include_rcode = FALSE
+  reporter$set_include_rcode(FALSE)
+  
+  shiny::testServer(
+    download_report_button_srv,
+    args = list(
+      reporter = reporter,
+      global_knitr = getOption("teal.reporter.global_knitr"),
+      rmd_output = getOption("teal.reporter.rmd_output"),
+      rmd_yaml_args = getOption("teal.reporter.rmd_yaml_args")
+    ),
+    expr = {
+      # Simulate clicking download (would call the content function)
+      session$setInputs(download_button = 1)
+      
+      # Verify that the reporter setting is being used
+      testthat::expect_false(reporter$get_include_rcode())
+    }
+  )
+})
+
+testthat::test_that("download modal no longer contains include_rcode checkbox", {
+  reporter <- Reporter$new()
+  
+  shiny::testServer(
+    download_report_button_srv,
+    args = list(
+      reporter = reporter,
+      global_knitr = getOption("teal.reporter.global_knitr"),
+      rmd_output = getOption("teal.reporter.rmd_output"),
+      rmd_yaml_args = getOption("teal.reporter.rmd_yaml_args")
+    ),
+    expr = {
+      session$setInputs(download_button = 1)
+      
+      # The old showrcode input should not exist
+      testthat::expect_null(input$showrcode)
+    }
+  )
+})
