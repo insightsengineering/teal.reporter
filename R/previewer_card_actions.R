@@ -2,6 +2,13 @@ ui_previewer_card_actions <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::actionLink(
+      inputId = ns("toggle_code_action"),
+      class = "btn btn-outline-secondary btn-sm float-end p-3 card-code-toggle",
+      label = NULL,
+      title = "Toggle code chunks",
+      icon = shiny::icon("code")
+    ),
+    shiny::actionLink(
       inputId = ns("edit_action"),
       class = "btn btn-primary btn-sm float-end p-3",
       label = NULL,
@@ -110,6 +117,44 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
         new_card_rv(NULL)
         reporter$open_previewer(Sys.time())
       }
+    })
+
+    shiny::observeEvent(input$toggle_code_action, {
+      shinyjs::runjs(sprintf("
+        const cardId = '%s';
+        const cardElement = document.querySelector('[data-rank-id=\"' + cardId + '\"]');
+        if (cardElement) {
+          const codeChunks = cardElement.querySelectorAll('.code-chunk-toggle');
+          const toggleButton = document.getElementById('%s');
+          const toggleIcon = toggleButton.querySelector('i');
+          
+          const firstChunk = codeChunks[0];
+          const shouldExpand = firstChunk && firstChunk.getAttribute('aria-expanded') === 'false';
+          
+          codeChunks.forEach(chunk => {
+            const targetId = chunk.getAttribute('data-bs-target');
+            const target = document.querySelector(targetId);
+            
+            if (target) {
+              if (shouldExpand) {
+                target.classList.add('show');
+                chunk.setAttribute('aria-expanded', 'true');
+              } else {
+                target.classList.remove('show');
+                chunk.setAttribute('aria-expanded', 'false');
+              }
+            }
+          });
+          
+          if (shouldExpand) {
+            toggleIcon.className = 'fas fa-code';
+            toggleButton.title = 'Collapse code chunks';
+          } else {
+            toggleIcon.className = 'fas fa-code';
+            toggleButton.title = 'Expand code chunks';
+          }
+        }
+      ", card_id, session$ns("toggle_code_action")))
     })
 
     # Handle remove button

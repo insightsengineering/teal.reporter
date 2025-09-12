@@ -208,8 +208,9 @@ format.code_chunk <- function(x, ...) {
     name = "teal-reporter",
     version = utils::packageVersion("teal.reporter"),
     package = "teal.reporter",
-    src = "css",
-    stylesheet = "custom.css"
+    src = c(file = "css", file = "js"),
+    stylesheet = "custom.css",
+    script = "code-chunks.js"
   )
 }
 

@@ -99,9 +99,32 @@ toHTML.default <- function(x, ...) {
 #' @method .toHTML code_chunk
 #' @keywords internal
 .toHTML.code_chunk <- function(x, ...) {
-  shiny::tags$pre(
-    shiny::tags$code(x, class = sprintf("language-%s", attr(x, "lang"))),
-    .noWS = "inside"
+  chunk_id <- paste0("code-chunk-", rlang::hash(x))
+  shiny::tags$div(
+    class = "code-chunk-container",
+    shiny::tags$div(
+      class = "code-chunk-header",
+      shiny::tags$button(
+        class = "btn btn-sm btn-outline-secondary code-chunk-toggle",
+        "data-bs-toggle" = "collapse",
+        "data-bs-target" = paste0("#", chunk_id),
+        "aria-expanded" = "false",
+        "aria-controls" = chunk_id,
+        shiny::tags$span(
+          class = "code-chunk-icon",
+          shiny::HTML("&#9660;")
+        ),
+        " Code"
+      )
+    ),
+    shiny::tags$div(
+      id = chunk_id,
+      class = "collapse code-chunk-content",
+      shiny::tags$pre(
+        shiny::tags$code(x, class = sprintf("language-%s", attr(x, "lang"))),
+        .noWS = "inside"
+      )
+    )
   )
 }
 

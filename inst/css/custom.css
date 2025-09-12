@@ -95,3 +95,86 @@ pre > code {
 .teal-reporter.reporter-previewer-modal .modal-dialog {
   --bs-modal-margin: 20px;
 }
+
+/* Code chunk collapsible styles */
+.code-chunk-container {
+  margin: 10px 0;
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
+  overflow: hidden;
+}
+
+.code-chunk-header {
+  background-color: #f8f9fa;
+  padding: 8px 12px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.code-chunk-toggle {
+  border: none;
+  background: transparent;
+  padding: 4px 8px;
+  font-size: 0.875rem;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.code-chunk-toggle:hover {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.code-chunk-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+.code-chunk-icon {
+  transition: transform 0.2s ease;
+  font-size: 0.75rem;
+}
+
+.code-chunk-toggle[aria-expanded="true"] .code-chunk-icon {
+  transform: rotate(180deg);
+}
+
+.code-chunk-content {
+  background-color: #ffffff;
+}
+
+.code-chunk-content pre {
+  margin: 0;
+  padding: 12px;
+  background-color: #f8f9fa;
+  border: none;
+  border-radius: 0;
+}
+
+.code-chunk-content pre code {
+  background: transparent;
+  padding: 0;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+/* Card-specific toggle styles */
+.card-code-toggle {
+  margin-left: auto;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+}
+
+/* Default collapsed state */
+.code-chunk-content.collapse:not(.show) {
+  display: none;
+}
+
+/* Animation for smooth collapse/expand */
+.code-chunk-content.collapsing {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.35s ease;
+}
