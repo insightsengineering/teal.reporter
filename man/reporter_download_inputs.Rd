@@ -4,7 +4,7 @@
 \alias{reporter_download_inputs}
 \title{Get the custom list of UI inputs}
 \usage{
-reporter_download_inputs(rmd_yaml_args, rmd_output, session)
+reporter_download_inputs(rmd_yaml_args, rmd_output, showrcode, session)
 }
 \arguments{
 \item{rmd_yaml_args}{(\verb{named list}) with \code{Rmd} \code{yaml} header fields and their default values.
