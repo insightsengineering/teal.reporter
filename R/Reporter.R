@@ -59,14 +59,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
 
       for (card_id in names(new_cards)) {
         private$cards[[card_id]] <- new_cards[[card_id]]
-        card_include_rcode <- metadata(new_cards[[card_id]], "include_rcode")
-        if (is.null(card_include_rcode)) {
-          card_include_rcode <- TRUE
-        }
         private$cached_html[[card_id]] <- lapply(new_cards[[card_id]], function(item) {
-          .toHTML(item, include_rcode = card_include_rcode)
+          .toHTML(item, include_rcode = metadata(new_cards[[card_id]], "include_rcode"))
         })
-        attr(private$cached_html[[card_id]], "include_rcode") <- card_include_rcode
+        attr(private$cached_html[[card_id]], "include_rcode") <- metadata(new_cards[[card_id]], "include_rcode")
       }
       invisible(self)
     },
@@ -134,14 +130,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         card <- card$get_content()
       }
       private$cards[[card_id]] <- card
-      card_include_rcode <- metadata(card, "include_rcode")
-      if (is.null(card_include_rcode)) {
-        card_include_rcode <- TRUE
-      }
       private$cached_html[[card_id]] <- lapply(card, function(item) {
-        .toHTML(item, include_rcode = card_include_rcode)
+        .toHTML(item, include_rcode = metadata(card, "include_rcode"))
       })
-      attr(private$cached_html[[card_id]], "include_rcode") <- card_include_rcode
+      attr(private$cached_html[[card_id]], "include_rcode") <- metadata(card, "include_rcode")
       invisible(self)
     },
     #' @description Retrieves all `teal_card` objects contained in `Reporter`.
@@ -206,9 +198,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         metadata(card)$title <- NULL
 
         include_rcode <- metadata(card, "include_rcode")
-        if (is.null(include_rcode)) {
-          include_rcode <- TRUE # Default to TRUE if not set
-        }
         if (!include_rcode) {
           card <- card[!sapply(card, function(item) inherits(item, "code_chunk"))]
         }
@@ -466,16 +455,12 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         if (is.null(card)) {
           return(NULL)
         }
-        card_include_rcode <- metadata(card, "include_rcode")
-        if (is.null(card_include_rcode)) {
-          card_include_rcode <- TRUE
-        }
         if (is.null(private$cached_html[[card_id]]) ||
-          !identical(attr(private$cached_html[[card_id]], "include_rcode"), card_include_rcode)) {
+          !identical(attr(private$cached_html[[card_id]], "include_rcode"), metadata(card, "include_rcode"))) {
           private$cached_html[[card_id]] <- lapply(card, function(item) {
-            .toHTML(item, include_rcode = card_include_rcode)
+            .toHTML(item, include_rcode = metadata(card, "include_rcode"))
           })
-          attr(private$cached_html[[card_id]], "include_rcode") <- card_include_rcode
+          attr(private$cached_html[[card_id]], "include_rcode") <- metadata(card, "include_rcode")
         }
 
         private$cached_html[[card_id]]
