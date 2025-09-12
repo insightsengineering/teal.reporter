@@ -17,8 +17,16 @@ panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
   checkmate::assert_flag(collapsed)
   checkmate::assert_string(input_id, null.ok = TRUE)
 
-  div_id <- paste0(input_id, "_div")
-  panel_id <- paste0(input_id, "_panel_body_", sample(1:10000, 1))
+  div_id <- if (is.null(input_id)) {
+    paste0("panel_", sample(1:10000, 1), "_div")
+  } else {
+    paste0(input_id, "_div")
+  }
+  panel_id <- if (is.null(input_id)) {
+    paste0("panel_body_", sample(1:10000, 1))
+  } else {
+    paste0(input_id, "_panel_body_", sample(1:10000, 1))
+  }
 
   shiny::tags$div(.renderHook = function(res_tag) {
     res_tag$children <- list(
