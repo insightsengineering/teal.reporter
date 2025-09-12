@@ -98,21 +98,17 @@ to_rmd.default <- function(block, ...) {
   global_knitr_code_chunk <- code_chunk(c(global_knitr_parsed, powerpoint_exception_parsed), include = FALSE)
 
   m <- metadata(block)
-  include_rcode <- m$include_rcode
-  if (is.null(include_rcode)) {
-    include_rcode <- TRUE  # Default to TRUE if not set
-  }
-
-  if (!is.null(m) && "include_rcode" %in% names(m)) {
-    m <- m[names(m) != "include_rcode"]
+  m_yaml <- m
+  if (!is.null(m_yaml) && "include_rcode" %in% names(m_yaml)) {
+    m_yaml <- m_yaml[names(m_yaml) != "include_rcode"]
   }
   paste(
     c(
-      if (length(m)) as_yaml_auto(m),
+      if (length(m_yaml)) as_yaml_auto(m_yaml),
       if (length(global_knitr) || is_powerpoint) to_rmd(global_knitr_code_chunk),
       unlist(lapply(
         block,
-        function(x) to_rmd(x, output_format = m$output, include_rcode = include_rcode, ...)
+        function(x) to_rmd(x, output_format = m$output, ...)
       ))
     ),
     collapse = "\n\n"
@@ -121,11 +117,7 @@ to_rmd.default <- function(block, ...) {
 
 #' @method .to_rmd code_chunk
 #' @keywords internal
-.to_rmd.code_chunk <- function(block, ..., output_format = NULL, include_rcode = TRUE) {
-  if (!include_rcode) {
-    return("")
-  }
-
+.to_rmd.code_chunk <- function(block, ..., output_format = NULL) {
   params <- lapply(attr(block, "params"), function(l) if (is.character(l)) shQuote(l) else l)
   block_str <- format(block)
   lang <- attr(block, "lang", exact = TRUE)
