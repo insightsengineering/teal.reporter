@@ -507,7 +507,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     template = NULL,
     # @description Regenerate cached HTML for all cards when include_rcode setting changes
     regenerate_cached_html = function() {
-      cards <- shiny::reactiveValuesToList(self$cards)
+      cards <- shiny::reactiveValuesToList(private$cards)
       for (card_id in names(cards)) {
         private$cached_html[[card_id]] <- lapply(cards[[card_id]], function(item) {
           tools::toHTML(item, include_rcode = self$get_include_rcode())
