@@ -175,11 +175,11 @@ testthat::test_that("add_card_button_srv - include_rcode checkbox updates global
     card$append_text("Test content")
     card
   }
-  
+
   reporter <- Reporter$new()
   # Verify initial state
   testthat::expect_true(reporter$get_include_rcode())
-  
+
   shiny::testServer(
     add_card_button_srv,
     args = list(reporter = reporter, card_fun = card_fun),
@@ -187,7 +187,7 @@ testthat::test_that("add_card_button_srv - include_rcode checkbox updates global
       session$setInputs(`add_report_card_button` = 0)
       session$setInputs(include_rcode = FALSE)
       session$setInputs(`add_card_ok` = 0)
-      
+
       # Verify setting was updated
       testthat::expect_false(reporter$get_include_rcode())
     }
@@ -199,10 +199,10 @@ testthat::test_that("add_card_button_srv - include_rcode checkbox respects curre
     card$append_text("Test content")
     card
   }
-  
+
   reporter <- Reporter$new()
   reporter$set_include_rcode(FALSE)
-  
+
   shiny::testServer(
     add_card_button_srv,
     args = list(reporter = reporter, card_fun = card_fun),

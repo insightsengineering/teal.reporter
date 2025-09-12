@@ -21,7 +21,7 @@ ui_previewer_card_actions <- function(id) {
 srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
   shiny::moduleServer(id, function(input, output, session) {
     new_card_rv <- shiny::reactiveVal()
-    
+
     # Conditionally render toggle button based on include_rcode setting
     output$toggle_code_ui <- shiny::renderUI({
       card <- shiny::req(card_r())
@@ -29,7 +29,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
       if (is.null(include_rcode)) {
         include_rcode <- TRUE
       }
-      
+
       if (include_rcode) {
         shiny::actionLink(
           inputId = session$ns("toggle_code_action"),
@@ -142,14 +142,14 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
             console.log('Card element not found for cardId:', cardId);
             return;
           }
-          
+
           // Find all collapse elements within this card
           const codeChunks = cardElement.querySelectorAll('.collapse');
           if (codeChunks.length === 0) {
             console.log('No code chunks found in card');
             return;
           }
-          
+
           // Check if all chunks are collapsed
           let allCollapsed = true;
           codeChunks.forEach(chunk => {
@@ -157,16 +157,16 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
               allCollapsed = false;
             }
           });
-          
+
           console.log('Toggling', codeChunks.length, 'code chunks, allCollapsed:', allCollapsed);
-          
+
           // Toggle all chunks based on current state
           codeChunks.forEach(chunk => {
             // Find the corresponding header button
             const header = chunk.closest('.card').querySelector('.card-header [data-bs-toggle=\"collapse\"]');
             if (header) {
               const isCurrentlyCollapsed = !chunk.classList.contains('show');
-              
+
               // If all collapsed, expand all; if any expanded, collapse all
               if (allCollapsed && isCurrentlyCollapsed) {
                 // Need to expand this chunk
@@ -185,4 +185,3 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
     shiny::observeEvent(input$remove_action, reporter$remove_cards(ids = card_id))
   })
 }
-

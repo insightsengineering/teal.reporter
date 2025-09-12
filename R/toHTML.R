@@ -102,7 +102,7 @@ toHTML.default <- function(x, ...) {
   if (!include_rcode) {
     return(shiny::tags$div()) # Return empty div if code should be hidden
   }
-  
+
   # Create collapsible code chunk using panel_item utility with custom styling
   panel_item(
     title = shiny::tags$span(

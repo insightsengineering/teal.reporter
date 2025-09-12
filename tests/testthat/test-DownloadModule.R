@@ -46,10 +46,10 @@ testthat::test_that("download_report_button_srv uses global include_rcode settin
 
   reporter <- Reporter$new()
   reporter$append_cards(list(card1))
-  
+
   # Test with include_rcode = FALSE
   reporter$set_include_rcode(FALSE)
-  
+
   shiny::testServer(
     download_report_button_srv,
     args = list(
@@ -61,7 +61,7 @@ testthat::test_that("download_report_button_srv uses global include_rcode settin
     expr = {
       # Simulate clicking download (would call the content function)
       session$setInputs(download_button = 1)
-      
+
       # Verify that the reporter setting is being used
       testthat::expect_false(reporter$get_include_rcode())
     }
@@ -70,7 +70,7 @@ testthat::test_that("download_report_button_srv uses global include_rcode settin
 
 testthat::test_that("download modal no longer contains include_rcode checkbox", {
   reporter <- Reporter$new()
-  
+
   shiny::testServer(
     download_report_button_srv,
     args = list(
@@ -81,7 +81,7 @@ testthat::test_that("download modal no longer contains include_rcode checkbox", 
     ),
     expr = {
       session$setInputs(download_button = 1)
-      
+
       # The old showrcode input should not exist
       testthat::expect_null(input$showrcode)
     }

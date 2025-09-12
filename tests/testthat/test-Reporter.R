@@ -424,7 +424,7 @@ testthat::describe("include_rcode functionality", {
     reporter <- Reporter$new()
     reporter$set_include_rcode(FALSE)
     testthat::expect_false(reporter$get_include_rcode())
-    
+
     reporter$set_include_rcode(TRUE)
     testthat::expect_true(reporter$get_include_rcode())
   })
