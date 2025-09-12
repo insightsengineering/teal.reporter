@@ -96,21 +96,14 @@ to_rmd.default <- function(block, ...) {
     paste(utils::capture.output(dput(global_knitr)), collapse = "")
   )
   global_knitr_code_chunk <- code_chunk(c(global_knitr_parsed, powerpoint_exception_parsed), include = FALSE)
-  global_knitr_rendered <- to_rmd(global_knitr_code_chunk)
-
-  # we need to prerender global_knitr as code_chunk for powerpoint will wrap it in code_block() call
-  blocks_w_global_knitr <- append(
-    block,
-    if (length(global_knitr) || is_powerpoint) list(global_knitr_rendered),
-    after = 0
-  )
 
   m <- metadata(block)
   paste(
     c(
       if (length(m)) as_yaml_auto(m),
+      if (length(global_knitr) || is_powerpoint) to_rmd(global_knitr_code_chunk),
       unlist(lapply(
-        blocks_w_global_knitr,
+        block,
         function(x) to_rmd(x, output_format = m$output, ...)
       ))
     ),
@@ -150,8 +143,8 @@ to_rmd.default <- function(block, ...) {
 .to_rmd.chunk_output <- function(block, ..., include_chunk_output) {
   if (!missing(include_chunk_output) && isTRUE(include_chunk_output)) {
     new_block <- block[[1]]
-    attributes(new_block) <- c(attributes(block)[!names(attributes(block)) %in% "class"], attributes(new_block))
-    to_rmd(block[[1]], ..., include_chunk_output = include_chunk_output)
+    mostattributes(new_block) <- c(attributes(unclass(block)), attributes(new_block))
+    to_rmd(new_block, ..., include_chunk_output = include_chunk_output)
   }
 }
 
