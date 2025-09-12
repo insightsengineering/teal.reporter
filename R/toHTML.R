@@ -98,10 +98,22 @@ toHTML.default <- function(x, ...) {
 
 #' @method .toHTML code_chunk
 #' @keywords internal
-.toHTML.code_chunk <- function(x, ...) {
-  shiny::tags$pre(
-    shiny::tags$code(x, class = sprintf("language-%s", attr(x, "lang"))),
-    .noWS = "inside"
+.toHTML.code_chunk <- function(x, include_rcode = TRUE, ...) {
+  if (!include_rcode) {
+    return(shiny::tags$div()) # Return empty div if code should be hidden
+  }
+  
+  # Create collapsible code chunk using panel_item utility
+  panel_item(
+    title = shiny::tags$span(
+      shiny::icon("code"),
+      "R Code"
+    ),
+    collapsed = TRUE, # Default to collapsed state
+    shiny::tags$pre(
+      shiny::tags$code(x, class = sprintf("language-%s", attr(x, "lang"))),
+      .noWS = "inside"
+    )
   )
 }
 

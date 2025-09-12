@@ -97,7 +97,6 @@ download_report_button_srv <- function(id,
           reporter_download_inputs(
             rmd_yaml_args = rmd_yaml_args,
             rmd_output = rmd_output,
-            showrcode = any_rcode_block(reporter),
             session = session
           ),
           footer = shiny::tagList(
@@ -135,7 +134,7 @@ download_report_button_srv <- function(id,
         shinybusy::block(id = ns("download_data"), text = "", type = "dots")
         rmd_yaml_with_inputs <- lapply(names(rmd_yaml_args), function(x) input[[x]])
         names(rmd_yaml_with_inputs) <- names(rmd_yaml_args)
-        if (is.logical(input$showrcode)) global_knitr[["echo"]] <- input$showrcode
+        global_knitr[["echo"]] <- reporter$get_include_rcode()
         report_render_and_compress(
           reporter = reporter,
           rmd_yaml_args = rmd_yaml_with_inputs,
@@ -228,7 +227,7 @@ report_render_and_compress <- function(reporter, rmd_yaml_args, global_knitr, fi
 #' The default value for `"output"` has to be in the `rmd_output` argument.
 #'
 #' @keywords internal
-reporter_download_inputs <- function(rmd_yaml_args, rmd_output, showrcode, session) {
+reporter_download_inputs <- function(rmd_yaml_args, rmd_output, session) {
   shiny::tagList(
     lapply(names(rmd_yaml_args), function(e) {
       switch(e,
@@ -245,14 +244,7 @@ reporter_download_inputs <- function(rmd_yaml_args, rmd_output, showrcode, sessi
         ),
         toc = shiny::checkboxInput(session$ns("toc"), label = "Include Table of Contents", value = rmd_yaml_args$toc)
       )
-    }),
-    if (showrcode) {
-      shiny::checkboxInput(
-        session$ns("showrcode"),
-        label = "Include R Code",
-        value = FALSE
-      )
-    }
+    })
   )
 }
 
