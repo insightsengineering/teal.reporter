@@ -5,12 +5,17 @@
 \alias{ReportCard}
 \title{\code{ReportCard}: An \code{R6} class for building report elements}
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 This \code{R6} class that supports creating a report card containing text, plot, table and
 metadata blocks that can be appended and rendered to form a report output from a \code{shiny} app.
-
-For more information about the various blocks, refer to the vignette:
-\code{vignette("teal-reporter-blocks-overview", "teal.reporter")}.
 }
+\section{Lifecycle}{
+
+This class is deprecated. Use \code{teal_report} class instead for new implementations.
+See \code{vignette("teal-report-class", "teal.reporter")} for more information.
+}
+
 \examples{
 \dontshow{if (require("ggplot2")) withAutoprint(\{ # examplesIf}
 library(ggplot2)
