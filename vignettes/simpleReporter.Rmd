@@ -23,6 +23,8 @@ module designed to capture and visualize application views throughout a session,
 - Add card button.
 - Download report button.
 
+> **⚠️ Important Notice**: The `ReportCard` class is deprecated. Users should use the `teal_report` class instead for new implementations. For more information about the `teal_report` class, see the [teal_report class vignette](./teal-report-class.html).
+
 The implementation should consist of 4 steps:
 
 1. Add modules UI component to the app's UI.

@@ -12,6 +12,8 @@ It extended the base modules introduced in the `simpleReporter` vignette, enhanc
 
 The report previewer is now implemented as a modal dialog that opens when a preview button is clicked, providing a streamlined user experience without requiring separate tabs.
 
+> **⚠️ Important Notice**: The `ReportCard` class is deprecated. Users should use the `teal_report` class instead for new implementations. For more information about the `teal_report` class, see the [teal_report class vignette](./teal-report-class.html).
+
 The five essential steps for implementing the report previewer include integrating it within a shiny application. Key code segments are highlighted in `### REPORTER` code blocks.
 
 1. Add the preview button UI component to your app's interface.
