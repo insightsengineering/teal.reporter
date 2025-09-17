@@ -6,7 +6,7 @@
 \alias{add_card_button_srv}
 \title{Add card button module}
 \usage{
-add_card_button_ui(id, label = NULL, class = "")
+add_card_button_ui(id, label = NULL)
 
 add_card_button_srv(id, reporter, card_fun)
 }
