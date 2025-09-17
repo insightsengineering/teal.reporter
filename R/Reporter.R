@@ -24,7 +24,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       private$open_previewer_r <- shiny::reactiveVal(NULL)
       invisible(self)
     },
-
     #' @description Append one or more `ReportCard` or `teal_card` objects to the `Reporter`.
     #'
     #' @param cards (`ReportCard` or `teal_card`) or a list of such objects
@@ -60,7 +59,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
 
       for (card_id in names(new_cards)) {
         private$cards[[card_id]] <- new_cards[[card_id]]
-        private$cached_html[[card_id]] <- lapply(new_cards[[card_id]], tools::toHTML)
+        private$cached_html[[card_id]] <- lapply(new_cards[[card_id]], function(item) {
+          .toHTML(item, include_rcode = metadata(new_cards[[card_id]], "include_rcode"))
+        })
+        attr(private$cached_html[[card_id]], "include_rcode") <- metadata(new_cards[[card_id]], "include_rcode")
       }
       invisible(self)
     },
@@ -128,7 +130,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         card <- card$get_content()
       }
       private$cards[[card_id]] <- card
-      private$cached_html[[card_id]] <- lapply(card, tools::toHTML)
+      private$cached_html[[card_id]] <- lapply(card, function(item) {
+        .toHTML(item, include_rcode = metadata(card, "include_rcode"))
+      })
+      attr(private$cached_html[[card_id]], "include_rcode") <- metadata(card, "include_rcode")
       invisible(self)
     },
     #' @description Retrieves all `teal_card` objects contained in `Reporter`.
@@ -191,6 +196,12 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         card <- unname(cards[[idx]]) # unname to avoid names conflict in c()
         title <- trimws(metadata(card, "title"))
         metadata(card)$title <- NULL
+
+        include_rcode <- metadata(card, "include_rcode")
+        if (!include_rcode) {
+          card <- card[!sapply(card, function(item) inherits(item, "code_chunk"))]
+        }
+
         card_title <- if (length(title) > 0 && nzchar(title)) {
           sprintf("# %s", title)
         } else {
@@ -440,6 +451,18 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @param card_id (`character(1)`) the unique id of the card.
     get_cached_html = function(card_id) {
       if (shiny::isRunning()) {
+        card <- private$cards[[card_id]]
+        if (is.null(card)) {
+          return(NULL)
+        }
+        if (is.null(private$cached_html[[card_id]]) ||
+          !identical(attr(private$cached_html[[card_id]], "include_rcode"), metadata(card, "include_rcode"))) {
+          private$cached_html[[card_id]] <- lapply(card, function(item) {
+            .toHTML(item, include_rcode = metadata(card, "include_rcode"))
+          })
+          attr(private$cached_html[[card_id]], "include_rcode") <- metadata(card, "include_rcode")
+        }
+
         private$cached_html[[card_id]]
       } else {
         shiny::isolate(private$cached_html[[card_id]])

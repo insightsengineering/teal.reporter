@@ -1,6 +1,7 @@
 ui_previewer_card_actions <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
+    shiny::uiOutput(ns("toggle_code_ui")),
     shiny::actionLink(
       inputId = ns("edit_action"),
       class = "btn btn-primary btn-sm float-end p-3",
@@ -20,6 +21,25 @@ ui_previewer_card_actions <- function(id) {
 srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
   shiny::moduleServer(id, function(input, output, session) {
     new_card_rv <- shiny::reactiveVal()
+
+    # Conditionally render toggle button based on include_rcode setting
+    output$toggle_code_ui <- shiny::renderUI({
+      card <- shiny::req(card_r())
+      include_rcode <- metadata(card, "include_rcode")
+      if (is.null(include_rcode)) {
+        include_rcode <- TRUE
+      }
+
+      if (include_rcode) {
+        shiny::actionLink(
+          inputId = session$ns("toggle_code_action"),
+          class = "btn btn-outline-secondary btn-sm float-end p-3 card-code-toggle",
+          label = NULL,
+          title = "Toggle R Code chunks",
+          icon = shiny::icon("code")
+        )
+      }
+    })
 
     shiny::observeEvent(
       ignoreInit = TRUE,
@@ -110,6 +130,77 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
         new_card_rv(NULL)
         reporter$open_previewer(Sys.time())
       }
+    })
+
+    # Handle toggle code button
+    shiny::observeEvent(input$toggle_code_action, {
+      shinyjs::runjs(sprintf("
+        (function() {
+          const cardId = '%s';
+          const cardElement = document.querySelector('[data-rank-id=\"' + cardId + '\"]');
+          if (!cardElement) {
+            console.log('Card element not found for cardId:', cardId);
+            return;
+          }
+
+          // Find only R Code chunks within this card
+          // Look for elements that contain 'R Code' text and have a code icon
+          const rCodeChunks = [];
+          const allCards = cardElement.querySelectorAll('.card');
+
+          allCards.forEach(card => {
+            const header = card.querySelector('.card-header');
+            if (header) {
+              const toggleButton = header.querySelector('[data-bs-toggle=\"collapse\"]');
+              const titleText = header.textContent || '';
+              const hasCodeIcon = header.querySelector('.fa-code, .fas.fa-code, [class*=\"fa-code\"]');
+
+              // Check if this is an R Code chunk by looking for 'R Code' text and code icon
+              if (toggleButton && (titleText.includes('R Code') || hasCodeIcon)) {
+                const targetId = toggleButton.getAttribute('href') || toggleButton.getAttribute('data-bs-target');
+                if (targetId) {
+                  const target = document.querySelector(targetId);
+                  if (target) {
+                    rCodeChunks.push({
+                      button: toggleButton,
+                      target: target
+                    });
+                  }
+                }
+              }
+            }
+          });
+
+          if (rCodeChunks.length === 0) {
+            console.log('No R Code chunks found in card');
+            return;
+          }
+
+          // Check if all R Code chunks are collapsed
+          let allCollapsed = true;
+          rCodeChunks.forEach(chunk => {
+            if (chunk.target.classList.contains('show')) {
+              allCollapsed = false;
+            }
+          });
+
+          console.log('Toggling', rCodeChunks.length, 'R Code chunks, allCollapsed:', allCollapsed);
+
+          // Toggle all R Code chunks based on current state
+          rCodeChunks.forEach(chunk => {
+            const isCurrentlyCollapsed = !chunk.target.classList.contains('show');
+
+            // If all collapsed, expand all; if any expanded, collapse all
+            if (allCollapsed && isCurrentlyCollapsed) {
+              // Need to expand this R Code chunk
+              chunk.button.click();
+            } else if (!allCollapsed && !isCurrentlyCollapsed) {
+              // Need to collapse this R Code chunk
+              chunk.button.click();
+            }
+          });
+        })();
+      ", card_id))
     })
 
     # Handle remove button
