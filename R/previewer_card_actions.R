@@ -147,14 +147,14 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
           // Look for elements that contain 'R Code' text and have a code icon
           const rCodeChunks = [];
           const allCards = cardElement.querySelectorAll('.card');
-          
+
           allCards.forEach(card => {
             const header = card.querySelector('.card-header');
             if (header) {
               const toggleButton = header.querySelector('[data-bs-toggle=\"collapse\"]');
               const titleText = header.textContent || '';
               const hasCodeIcon = header.querySelector('.fa-code, .fas.fa-code, [class*=\"fa-code\"]');
-              
+
               // Check if this is an R Code chunk by looking for 'R Code' text and code icon
               if (toggleButton && (titleText.includes('R Code') || hasCodeIcon)) {
                 const targetId = toggleButton.getAttribute('href') || toggleButton.getAttribute('data-bs-target');
@@ -189,7 +189,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
           // Toggle all R Code chunks based on current state
           rCodeChunks.forEach(chunk => {
             const isCurrentlyCollapsed = !chunk.target.classList.contains('show');
-            
+
             // If all collapsed, expand all; if any expanded, collapse all
             if (allCollapsed && isCurrentlyCollapsed) {
               // Need to expand this R Code chunk
