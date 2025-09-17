@@ -20,7 +20,7 @@ This vignette shows you how to build `teal_report` object and add or remove its 
 
 ## Creating a teal_report
 
-A `teal_report` is an object where developers can add, edit and remove various content (e.g. markdown content, plots, tables), add evaluate code chunks. It provides a framework for building reproducible reports by combining content management with automatic code tracking.
+A `teal_report` is an object where developers can add, edit and remove various content (e.g. markdown content, plots, tables), and evaluate code chunks. It provides a framework for building reproducible reports by combining content management with automatic code tracking.
 
 To ensure complete reproducibility, it's recommended to start with an empty `teal_report` and build up your data and analysis using `eval_code()`:
 
