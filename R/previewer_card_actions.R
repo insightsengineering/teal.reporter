@@ -35,7 +35,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
           inputId = session$ns("toggle_code_action"),
           class = "btn btn-outline-secondary btn-sm float-end p-3 card-code-toggle",
           label = NULL,
-          title = "Toggle code chunks",
+          title = "Toggle R Code chunks",
           icon = shiny::icon("code")
         )
       }
@@ -143,38 +143,60 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
             return;
           }
 
-          // Find all collapse elements within this card
-          const codeChunks = cardElement.querySelectorAll('.collapse');
-          if (codeChunks.length === 0) {
-            console.log('No code chunks found in card');
+          // Find only R Code chunks within this card
+          // Look for elements that contain 'R Code' text and have a code icon
+          const rCodeChunks = [];
+          const allCards = cardElement.querySelectorAll('.card');
+          
+          allCards.forEach(card => {
+            const header = card.querySelector('.card-header');
+            if (header) {
+              const toggleButton = header.querySelector('[data-bs-toggle=\"collapse\"]');
+              const titleText = header.textContent || '';
+              const hasCodeIcon = header.querySelector('.fa-code, .fas.fa-code, [class*=\"fa-code\"]');
+              
+              // Check if this is an R Code chunk by looking for 'R Code' text and code icon
+              if (toggleButton && (titleText.includes('R Code') || hasCodeIcon)) {
+                const targetId = toggleButton.getAttribute('href') || toggleButton.getAttribute('data-bs-target');
+                if (targetId) {
+                  const target = document.querySelector(targetId);
+                  if (target) {
+                    rCodeChunks.push({
+                      button: toggleButton,
+                      target: target
+                    });
+                  }
+                }
+              }
+            }
+          });
+
+          if (rCodeChunks.length === 0) {
+            console.log('No R Code chunks found in card');
             return;
           }
 
-          // Check if all chunks are collapsed
+          // Check if all R Code chunks are collapsed
           let allCollapsed = true;
-          codeChunks.forEach(chunk => {
-            if (chunk.classList.contains('show')) {
+          rCodeChunks.forEach(chunk => {
+            if (chunk.target.classList.contains('show')) {
               allCollapsed = false;
             }
           });
 
-          console.log('Toggling', codeChunks.length, 'code chunks, allCollapsed:', allCollapsed);
+          console.log('Toggling', rCodeChunks.length, 'R Code chunks, allCollapsed:', allCollapsed);
 
-          // Toggle all chunks based on current state
-          codeChunks.forEach(chunk => {
-            // Find the corresponding header button
-            const header = chunk.closest('.card').querySelector('.card-header [data-bs-toggle=\"collapse\"]');
-            if (header) {
-              const isCurrentlyCollapsed = !chunk.classList.contains('show');
-
-              // If all collapsed, expand all; if any expanded, collapse all
-              if (allCollapsed && isCurrentlyCollapsed) {
-                // Need to expand this chunk
-                header.click();
-              } else if (!allCollapsed && !isCurrentlyCollapsed) {
-                // Need to collapse this chunk
-                header.click();
-              }
+          // Toggle all R Code chunks based on current state
+          rCodeChunks.forEach(chunk => {
+            const isCurrentlyCollapsed = !chunk.target.classList.contains('show');
+            
+            // If all collapsed, expand all; if any expanded, collapse all
+            if (allCollapsed && isCurrentlyCollapsed) {
+              // Need to expand this R Code chunk
+              chunk.button.click();
+            } else if (!allCollapsed && !isCurrentlyCollapsed) {
+              // Need to collapse this R Code chunk
+              chunk.button.click();
             }
           });
         })();
