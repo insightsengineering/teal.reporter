@@ -158,3 +158,9 @@ toHTML.default <- function(x, ...) {
 .toHTML.gtsummary <- function(x, ...) {
   tools::toHTML(gtsummary::as_flex_table(x))
 }
+
+#' @method .toHTML listing_df
+#' @keywords internal
+.toHTML.listing_df <- function(x, ...) {
+  tools::toHTML(flextable::as_flextable(x))
+}
