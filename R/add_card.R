@@ -42,13 +42,14 @@ NULL
 
 #' @rdname add_card_button
 #' @export
-add_card_button_ui <- function(id, label = NULL, class = "") {
+add_card_button_ui <- function(id, label = NULL) {
   checkmate::assert_string(label, null.ok = TRUE)
   .outline_button(
     shiny::NS(id, "add_report_card_button"),
     icon = "plus-lg",
     label = label,
-    class = class
+    class = "btn btn-primary",
+    color = "primary"
   )
 }
 
