@@ -61,7 +61,7 @@ pre > code {
 }
 
 .teal-reporter.outline-button .badge {
-  margin-top: -1em;
+  margin-top: 1em;
 }
 
 .teal-reporter.report-previewer-accordion .accordion-header {

@@ -48,8 +48,7 @@ add_card_button_ui <- function(id, label = NULL) {
     shiny::NS(id, "add_report_card_button"),
     icon = "plus-lg",
     label = label,
-    class = "btn btn-primary",
-    color = "primary"
+    class = "primary"
   )
 }
 
