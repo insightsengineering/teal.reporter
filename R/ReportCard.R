@@ -24,7 +24,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     initialize = function() {
       lifecycle::deprecate_warn(
-        when = "0.5.0",
+        when = "0.5.1",
         what = "ReportCard$new()",
         with = "teal_report()",
         details = "Use teal_report class instead. See vignette('teal-report-class', 'teal.reporter') for more information."

@@ -38,7 +38,7 @@ NULL
 #' @export
 simple_reporter_ui <- function(id) {
   lifecycle::deprecate_warn(
-    when = "0.5.0.9003",
+    when = "0.5.1",
     what = "simple_reporter_ui()"
   )
 
