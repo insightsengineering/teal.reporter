@@ -215,3 +215,9 @@ to_rmd.default <- function(block, ...) {
 .to_rmd.gtsummary <- function(block, ...) {
   to_rmd(gtsummary::as_flex_table(block), ...)
 }
+
+#' @method .to_rmd listing_df
+#' @keywords internal
+.to_rmd.listing_df <- function(block, ...) {
+  to_rmd(flextable::as_flextable(block), ...)
+}
