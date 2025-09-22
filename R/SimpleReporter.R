@@ -41,7 +41,7 @@ simple_reporter_ui <- function(id) {
     when = "0.5.0.9003",
     what = "simple_reporter_ui()"
   )
-  
+
   ns <- shiny::NS(id)
   shiny::tagList(
     .custom_css_dependency(),
@@ -75,7 +75,6 @@ simple_reporter_srv <- function(
       date = as.character(Sys.Date()), output = "html_document",
       toc = FALSE
     )) {
-
   lifecycle::deprecate_warn(
     when = "0.5.0.9003",
     what = "simple_reporter_srv()"
