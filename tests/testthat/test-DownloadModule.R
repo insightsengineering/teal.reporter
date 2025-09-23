@@ -7,7 +7,7 @@ card1$append_plot(
     ggplot2::geom_histogram()
 )
 
-reporter <- Reporter$new()
+reporter <- teal.reporter::Reporter$new()
 reporter$append_cards(list(card1))
 
 testthat::test_that("download_report_button_srv - download a document", {

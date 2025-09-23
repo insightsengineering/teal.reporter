@@ -8,7 +8,7 @@ card1$append_plot(
 )
 card1$set_name("card1")
 
-reporter <- Reporter$new()
+reporter <- teal.reporter::Reporter$new()
 reporter$append_cards(list(card1))
 
 testthat::test_that("reporter_previewer_srv - subset of rmd_yaml_args", {

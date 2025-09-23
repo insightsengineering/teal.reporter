@@ -5,7 +5,7 @@ create_test_reporter <- function(n_cards = 2) {
     new_doc
   })
 
-  reporter <- Reporter$new()
+  reporter <- teal.reporter::Reporter$new()
   reporter$append_cards(cards)
   reporter
 }
