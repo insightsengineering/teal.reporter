@@ -3,7 +3,7 @@ testthat::test_that("Reporter object can be created", {
 })
 
 testthat::test_that("new returns an object of type Reporter", {
-  testthat::expect_true(inherits(teal.reporter::Reporter$new(), "teal.reporter::Reporter"))
+  testthat::expect_true(inherits(teal.reporter::Reporter$new(), "Reporter"))
 })
 
 testthat::test_that("default reporter id", {
