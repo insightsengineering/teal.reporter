@@ -170,4 +170,4 @@ testthat::test_that("add_card_button_srv supports passing card_fun with any of t
     }
   )
 })
-)
+})

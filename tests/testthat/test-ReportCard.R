@@ -164,3 +164,4 @@ testthat::test_that("setting and getting a name to the ReportCard", {
     character(0)
   )
 })
+})
