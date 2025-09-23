@@ -1,4 +1,5 @@
-testthat::test_that("download_report_button_srv - render and downlaod a document", {
+testthat::describe("DownloadReportModule", {
+  testthat::test_that("download_report_button_srv - render and downlaod a document", {
   reporter <- Reporter$new()
   reporter$append_cards(list(test_card1.ReportCard()))
 
@@ -118,4 +119,5 @@ testthat::test_that("any_rcode_block", {
   card_t$append_rcode("2+2")
   reporter$append_cards(list(card_t))
   testthat::expect_true(any_rcode_block(reporter))
+})
 })

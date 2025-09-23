@@ -1,4 +1,5 @@
-testthat::test_that("ReportCard object can be created", {
+testthat::describe("ReportCard", {
+  testthat::test_that("ReportCard object can be created", {
   testthat::expect_no_error(ReportCard$new())
 })
 

@@ -1,17 +1,18 @@
-testthat::skip_if_not_installed("ggplot2")
-card1 <- ReportCard$new()
-card1$append_text("Header 2 text", "header2")
-card1$append_text("A paragraph of default text", "header2")
-card1$append_plot(
-  ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
-    ggplot2::geom_histogram(binwidth = 0.2)
-)
-card1$set_name("card1")
+testthat::describe("PreviewerReportModule", {
+  testthat::skip_if_not_installed("ggplot2")
+  card1 <- ReportCard$new()
+  card1$append_text("Header 2 text", "header2")
+  card1$append_text("A paragraph of default text", "header2")
+  card1$append_plot(
+    ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
+      ggplot2::geom_histogram(binwidth = 0.2)
+  )
+  card1$set_name("card1")
 
-reporter <- Reporter$new()
-reporter$append_cards(list(card1))
+  reporter <- Reporter$new()
+  reporter$append_cards(list(card1))
 
-testthat::test_that("reporter_previewer_srv - subset of rmd_yaml_args", {
+  testthat::test_that("reporter_previewer_srv - subset of rmd_yaml_args", {
   rmd_yaml_args_correct <- list(
     correct1 = list(
       author = "NEST", title = "Report",
@@ -125,4 +126,5 @@ testthat::test_that("reporter_previewer_srv - card up and down compensate", {
       testthat::expect_equal(cards_pre, cards_post)
     }
   )
+})
 })

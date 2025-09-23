@@ -1,4 +1,5 @@
-testthat::test_that("report_load_srv - loading reporter restores saved content", {
+testthat::describe("LoadReporterModule", {
+  testthat::test_that("report_load_srv - loading reporter restores saved content", {
   testthat::skip_if_not_installed("ggplot2")
 
   card <- teal.reporter::teal_card(
@@ -105,4 +106,5 @@ testthat::test_that("report_load_srv - fail to load a reporter because of differ
 
 testthat::test_that("report_load_ui - returns a tagList", {
   checkmate::expect_multi_class(report_load_ui("sth"), c("shiny.tag.list", "shiny.tag"))
+})
 })

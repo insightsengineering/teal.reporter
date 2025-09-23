@@ -1,4 +1,5 @@
-testthat::test_that("add_card_button_srv - add a Card to the Reporter", {
+testthat::describe("addCardModule", {
+  testthat::test_that("add_card_button_srv - add a Card to the Reporter", {
   card_fun <- function(card = ReportCard$new(),
                        comment = NULL) {
     card$append_text("Header 2 text", "header2")
@@ -169,3 +170,4 @@ testthat::test_that("add_card_button_srv supports passing card_fun with any of t
     }
   )
 })
+)
