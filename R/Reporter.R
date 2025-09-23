@@ -141,7 +141,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       if (!include_rcode) {
         card <- card[!sapply(card, function(item) inherits(item, "code_chunk"))]
       }
-      
+
       private$cards[[card_id]] <- card
       private$cached_html[[card_id]] <- shiny::tagList(lapply(card, function(item) {
         .toHTML(item, include_rcode = include_rcode)
