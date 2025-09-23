@@ -145,7 +145,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
 
           // Find all bslib accordion elements within this card
           const accordions = cardElement.querySelectorAll('.accordion');
-          
+
           if (accordions.length === 0) {
             console.log('No accordion elements found in card');
             return;
@@ -171,10 +171,10 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
             accordionItems.forEach(item => {
               const button = item.querySelector('.accordion-button');
               const collapse = item.querySelector('.collapse');
-              
+
               if (button && collapse) {
                 const isCurrentlyCollapsed = !collapse.classList.contains('show');
-                
+
                 // If all collapsed, expand all; if any expanded, collapse all
                 if (allCollapsed && isCurrentlyCollapsed) {
                   // Need to expand this accordion item
