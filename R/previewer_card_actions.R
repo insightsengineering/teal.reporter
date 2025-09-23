@@ -129,62 +129,8 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
       }
     })
 
-    # Handle toggle code button
     shiny::observeEvent(input$toggle_code_action, {
-      shinyjs::runjs(sprintf("
-        (function() {
-          const cardId = '%s';
-          const cardElement = document.querySelector('[data-rank-id=\"' + cardId + '\"]');
-          if (!cardElement) {
-            console.log('Card element not found for cardId:', cardId);
-            return;
-          }
-
-          // Find all bslib accordion elements within this card
-          const accordions = cardElement.querySelectorAll('.accordion');
-
-          if (accordions.length === 0) {
-            console.log('No accordion elements found in card');
-            return;
-          }
-
-          // Check if all accordion items are collapsed
-          let allCollapsed = true;
-          accordions.forEach(accordion => {
-            const accordionItems = accordion.querySelectorAll('.accordion-item');
-            accordionItems.forEach(item => {
-              const collapse = item.querySelector('.collapse');
-              if (collapse && collapse.classList.contains('show')) {
-                allCollapsed = false;
-              }
-            });
-          });
-
-          console.log('Toggling', accordions.length, 'accordions, allCollapsed:', allCollapsed);
-
-          // Toggle all accordion items based on current state
-          accordions.forEach(accordion => {
-            const accordionItems = accordion.querySelectorAll('.accordion-item');
-            accordionItems.forEach(item => {
-              const button = item.querySelector('.accordion-button');
-              const collapse = item.querySelector('.collapse');
-
-              if (button && collapse) {
-                const isCurrentlyCollapsed = !collapse.classList.contains('show');
-
-                // If all collapsed, expand all; if any expanded, collapse all
-                if (allCollapsed && isCurrentlyCollapsed) {
-                  // Need to expand this accordion item
-                  button.click();
-                } else if (!allCollapsed && !isCurrentlyCollapsed) {
-                  // Need to collapse this accordion item
-                  button.click();
-                }
-              }
-            });
-          });
-        })();
-      ", card_id))
+      shinyjs::runjs(sprintf("toggleRCodeAccordions('%s');", card_id))
     })
 
     # Handle remove button

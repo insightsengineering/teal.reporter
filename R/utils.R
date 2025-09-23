@@ -221,6 +221,17 @@ format.code_chunk <- function(x, ...) {
   )
 }
 
+#' @keywords internal
+.accordion_toggle_js_dependency <- function() {
+  htmltools::htmlDependency(
+    name = "teal-reporter-accordion-toggle",
+    version = utils::packageVersion("teal.reporter"),
+    package = "teal.reporter",
+    src = "js",
+    script = "accordion-toggle.js"
+  )
+}
+
 #' @noRd
 dummy <- function() {
   R6::R6Class # Used to trick R CMD check for avoiding NOTE about R6
