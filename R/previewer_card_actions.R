@@ -143,61 +143,48 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
             return;
           }
 
-          // Find only R Code chunks within this card
-          // Look for elements that contain 'R Code' text and have a code icon
-          const rCodeChunks = [];
-          const allCards = cardElement.querySelectorAll('.card');
-
-          allCards.forEach(card => {
-            const header = card.querySelector('.card-header');
-            if (header) {
-              const toggleButton = header.querySelector('[data-bs-toggle=\"collapse\"]');
-              const titleText = header.textContent || '';
-              const hasCodeIcon = header.querySelector('.fa-code, .fas.fa-code, [class*=\"fa-code\"]');
-
-              // Check if this is an R Code chunk by looking for 'R Code' text and code icon
-              if (toggleButton && (titleText.includes('R Code') || hasCodeIcon)) {
-                const targetId = toggleButton.getAttribute('href') || toggleButton.getAttribute('data-bs-target');
-                if (targetId) {
-                  const target = document.querySelector(targetId);
-                  if (target) {
-                    rCodeChunks.push({
-                      button: toggleButton,
-                      target: target
-                    });
-                  }
-                }
-              }
-            }
-          });
-
-          if (rCodeChunks.length === 0) {
-            console.log('No R Code chunks found in card');
+          // Find all bslib accordion elements within this card
+          const accordions = cardElement.querySelectorAll('.accordion');
+          
+          if (accordions.length === 0) {
+            console.log('No accordion elements found in card');
             return;
           }
 
-          // Check if all R Code chunks are collapsed
+          // Check if all accordion items are collapsed
           let allCollapsed = true;
-          rCodeChunks.forEach(chunk => {
-            if (chunk.target.classList.contains('show')) {
-              allCollapsed = false;
-            }
+          accordions.forEach(accordion => {
+            const accordionItems = accordion.querySelectorAll('.accordion-item');
+            accordionItems.forEach(item => {
+              const collapse = item.querySelector('.collapse');
+              if (collapse && collapse.classList.contains('show')) {
+                allCollapsed = false;
+              }
+            });
           });
 
-          console.log('Toggling', rCodeChunks.length, 'R Code chunks, allCollapsed:', allCollapsed);
+          console.log('Toggling', accordions.length, 'accordions, allCollapsed:', allCollapsed);
 
-          // Toggle all R Code chunks based on current state
-          rCodeChunks.forEach(chunk => {
-            const isCurrentlyCollapsed = !chunk.target.classList.contains('show');
-
-            // If all collapsed, expand all; if any expanded, collapse all
-            if (allCollapsed && isCurrentlyCollapsed) {
-              // Need to expand this R Code chunk
-              chunk.button.click();
-            } else if (!allCollapsed && !isCurrentlyCollapsed) {
-              // Need to collapse this R Code chunk
-              chunk.button.click();
-            }
+          // Toggle all accordion items based on current state
+          accordions.forEach(accordion => {
+            const accordionItems = accordion.querySelectorAll('.accordion-item');
+            accordionItems.forEach(item => {
+              const button = item.querySelector('.accordion-button');
+              const collapse = item.querySelector('.collapse');
+              
+              if (button && collapse) {
+                const isCurrentlyCollapsed = !collapse.classList.contains('show');
+                
+                // If all collapsed, expand all; if any expanded, collapse all
+                if (allCollapsed && isCurrentlyCollapsed) {
+                  // Need to expand this accordion item
+                  button.click();
+                } else if (!allCollapsed && !isCurrentlyCollapsed) {
+                  // Need to collapse this accordion item
+                  button.click();
+                }
+              }
+            });
           });
         })();
       ", card_id))

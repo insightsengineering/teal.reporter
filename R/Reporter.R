@@ -58,11 +58,19 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }, character(1L))
 
       for (card_id in names(new_cards)) {
-        private$cards[[card_id]] <- new_cards[[card_id]]
-        private$cached_html[[card_id]] <- lapply(new_cards[[card_id]], function(item) {
-          .toHTML(item, include_rcode = metadata(new_cards[[card_id]], "include_rcode"))
-        })
-        attr(private$cached_html[[card_id]], "include_rcode") <- metadata(new_cards[[card_id]], "include_rcode")
+        card <- new_cards[[card_id]]
+        include_rcode <- metadata(card, "include_rcode")
+        if (is.null(include_rcode)) {
+          include_rcode <- TRUE
+        }
+        if (!include_rcode) {
+          card <- card[!sapply(card, function(item) inherits(item, "code_chunk"))]
+        }
+        private$cards[[card_id]] <- card
+        private$cached_html[[card_id]] <- shiny::tagList(lapply(card, function(item) {
+          .toHTML(item, include_rcode = include_rcode)
+        }))
+        attr(private$cached_html[[card_id]], "include_rcode") <- include_rcode
       }
       invisible(self)
     },
@@ -129,11 +137,22 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       if (inherits(card, "ReportCard")) {
         card <- card$get_content()
       }
+      
+      include_rcode <- metadata(card, "include_rcode")
+      if (is.null(include_rcode)) {
+        include_rcode <- TRUE
+      }
+      
+      # Filter out code chunks if include_rcode is FALSE
+      if (!include_rcode) {
+        card <- card[!sapply(card, function(item) inherits(item, "code_chunk"))]
+      }
+      
       private$cards[[card_id]] <- card
-      private$cached_html[[card_id]] <- lapply(card, function(item) {
-        .toHTML(item, include_rcode = metadata(card, "include_rcode"))
-      })
-      attr(private$cached_html[[card_id]], "include_rcode") <- metadata(card, "include_rcode")
+      private$cached_html[[card_id]] <- shiny::tagList(lapply(card, function(item) {
+        .toHTML(item, include_rcode = include_rcode)
+      }))
+      attr(private$cached_html[[card_id]], "include_rcode") <- include_rcode
       invisible(self)
     },
     #' @description Retrieves all `teal_card` objects contained in `Reporter`.
@@ -455,12 +474,17 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         if (is.null(card)) {
           return(NULL)
         }
+        include_rcode <- metadata(card, "include_rcode")
+        if (is.null(include_rcode)) {
+          include_rcode <- TRUE
+        }
+        
         if (is.null(private$cached_html[[card_id]]) ||
-          !identical(attr(private$cached_html[[card_id]], "include_rcode"), metadata(card, "include_rcode"))) {
-          private$cached_html[[card_id]] <- lapply(card, function(item) {
-            .toHTML(item, include_rcode = metadata(card, "include_rcode"))
-          })
-          attr(private$cached_html[[card_id]], "include_rcode") <- metadata(card, "include_rcode")
+          !identical(attr(private$cached_html[[card_id]], "include_rcode"), include_rcode)) {
+          private$cached_html[[card_id]] <- shiny::tagList(lapply(card, function(item) {
+            .toHTML(item, include_rcode = include_rcode)
+          }))
+          attr(private$cached_html[[card_id]], "include_rcode") <- include_rcode
         }
 
         private$cached_html[[card_id]]

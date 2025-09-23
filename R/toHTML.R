@@ -22,19 +22,19 @@ toHTML.default <- function(x, ...) {
 #' @method .toHTML ReportCard
 #' @keywords internal
 .toHTML.ReportCard <- function(x, ...) {
-  shiny::tagList(lapply(x$get_content(), .toHTML, ...))
+  shiny::tagList(lapply(x$get_content(), tools::toHTML, ...))
 }
 
 #' @method .toHTML teal_card
 #' @keywords internal
 .toHTML.teal_card <- function(x, ...) {
-  shiny::tagList(lapply(x, .toHTML, ...))
+  shiny::tagList(lapply(x, tools::toHTML, ...))
 }
 
 #' @method .toHTML teal_report
 #' @keywords internal
 .toHTML.teal_report <- function(x, ...) {
-  .toHTML(teal_card(x), ...)
+  tools::toHTML(teal_card(x), ...)
 }
 
 #' @method .toHTML rtables
@@ -103,16 +103,19 @@ toHTML.default <- function(x, ...) {
     return(shiny::tags$div()) # Return empty div if code should be hidden
   }
 
-  # Create collapsible code chunk using panel_item utility with custom styling
-  panel_item(
-    title = shiny::tags$span(
-      shiny::icon("code"),
-      "R Code"
-    ),
-    collapsed = TRUE, # Default to collapsed state
-    shiny::tags$pre(
-      shiny::tags$code(x, class = sprintf("language-%s", attr(x, "lang"))),
-      .noWS = "inside"
+  bslib::accordion(
+    id = paste0("code_chunk_", sample(1:10000, 1)),
+    bslib::accordion_panel(
+      title = shiny::tags$span(
+        shiny::icon("code"),
+        "R Code"
+      ),
+      value = "rcode",
+      open = FALSE,
+      shiny::tags$pre(
+        shiny::tags$code(x, class = sprintf("language-%s", attr(x, "lang"))),
+        .noWS = "inside"
+      )
     )
   )
 }
