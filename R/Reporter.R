@@ -463,20 +463,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @param card_id (`character(1)`) the unique id of the card.
     get_cached_html = function(card_id) {
       if (shiny::isRunning()) {
-        card <- private$cards[[card_id]]
-        if (is.null(card)) {
-          return(NULL)
-        }
-        include_rcode <- metadata(card, "include_rcode") %||% TRUE
-
-        if (is.null(private$cached_html[[card_id]]) ||
-          !identical(attr(private$cached_html[[card_id]], "include_rcode"), include_rcode)) {
-          private$cached_html[[card_id]] <- shiny::tagList(lapply(card, function(item) {
-            .toHTML(item, include_rcode = include_rcode)
-          }))
-          attr(private$cached_html[[card_id]], "include_rcode") <- include_rcode
-        }
-
         private$cached_html[[card_id]]
       } else {
         shiny::isolate(private$cached_html[[card_id]])
