@@ -43,6 +43,8 @@ The default value for \code{"output"} has to be in the \code{rmd_output} argumen
 \code{NULL}.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 Module provides compact UI and server functions for managing a report in a \code{shiny} app.
 This module combines functionalities for \link[=add_card_button]{adding cards to a report},
 \link[=download_report_button]{downloading the report}, and \link[=reset_report_button]{resetting report content}.
@@ -58,6 +60,12 @@ use \code{getOption('teal.reporter.global_knitr')}. These defaults include:
 \item \code{tidy = TRUE}  if \code{formatR} package is installed, \code{FALSE} otherwise
 }
 }
+\section{Lifecycle}{
+
+Those functions are deprecated. Use \code{teal_report} class instead for new implementations of reporting.
+See \code{vignette("teal-report-class", "teal.reporter")} for more information.
+}
+
 \examples{
 if (interactive()) {
   library(shiny)

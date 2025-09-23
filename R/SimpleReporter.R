@@ -1,6 +1,7 @@
 #' Simple reporter module
 #'
 #' @description
+#' `r lifecycle::badge("deprecated")`
 #'
 #' Module provides compact UI and server functions for managing a report in a `shiny` app.
 #' This module combines functionalities for [adding cards to a report][add_card_button],
@@ -20,6 +21,10 @@
 #' @inheritParams reporter_download_inputs
 #'
 #' @return `NULL`.
+#'
+#' @section Lifecycle:
+#' Those functions are deprecated. Use `teal_report` class instead for new implementations of reporting.
+#' See `vignette("teal-report-class", "teal.reporter")` for more information.
 #'
 #' @examples
 #' if (interactive()) {
