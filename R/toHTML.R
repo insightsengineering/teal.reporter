@@ -100,7 +100,7 @@ toHTML.default <- function(x, ...) {
 #' @keywords internal
 .toHTML.code_chunk <- function(x, include_rcode = TRUE, ...) {
   if (!include_rcode) {
-    return(shiny::tags$div()) # Return empty div if code should be hidden
+    return(shiny::tags$div())
   }
 
   bslib::accordion(

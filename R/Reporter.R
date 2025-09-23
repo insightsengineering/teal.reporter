@@ -137,7 +137,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
 
       include_rcode <- metadata(card, "include_rcode") %||% TRUE
 
-      # Filter out code chunks if include_rcode is FALSE
       if (!include_rcode) {
         card <- card[!sapply(card, function(item) inherits(item, "code_chunk"))]
       }
