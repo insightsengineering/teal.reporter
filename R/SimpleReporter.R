@@ -76,7 +76,7 @@ simple_reporter_srv <- function(
       toc = FALSE
     )) {
   lifecycle::deprecate_warn(
-    when = "0.5.0.9003",
+    when = "0.5.1",
     what = "simple_reporter_srv()"
   )
 
