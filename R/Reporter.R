@@ -63,11 +63,13 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         if (!include_rcode) {
           card <- card[!sapply(card, function(item) inherits(item, "code_chunk"))]
         }
-        private$cards[[card_id]] <- card
-        private$cached_html[[card_id]] <- shiny::tagList(lapply(card, function(item) {
-          .toHTML(item, include_rcode = include_rcode)
-        }))
-        attr(private$cached_html[[card_id]], "include_rcode") <- include_rcode
+        shiny::isolate({
+          private$cards[[card_id]] <- card
+          private$cached_html[[card_id]] <- shiny::tagList(lapply(card, function(item) {
+            .toHTML(item, include_rcode = include_rcode)
+          }))
+          attr(private$cached_html[[card_id]], "include_rcode") <- include_rcode
+        })
       }
       invisible(self)
     },
@@ -141,11 +143,14 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         card <- card[!sapply(card, function(item) inherits(item, "code_chunk"))]
       }
 
-      private$cards[[card_id]] <- card
-      private$cached_html[[card_id]] <- shiny::tagList(lapply(card, function(item) {
-        .toHTML(item, include_rcode = include_rcode)
-      }))
-      attr(private$cached_html[[card_id]], "include_rcode") <- include_rcode
+      # Use isolate to access reactive values outside reactive context
+      shiny::isolate({
+        private$cards[[card_id]] <- card
+        private$cached_html[[card_id]] <- shiny::tagList(lapply(card, function(item) {
+          .toHTML(item, include_rcode = include_rcode)
+        }))
+        attr(private$cached_html[[card_id]], "include_rcode") <- include_rcode
+      })
       invisible(self)
     },
     #' @description Retrieves all `teal_card` objects contained in `Reporter`.
