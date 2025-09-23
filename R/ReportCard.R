@@ -27,7 +27,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
         when = "0.5.1",
         what = "ReportCard$new()",
         with = "teal_card()",
-        details = "Use teal_report class instead. See vignette('teal-report-class', 'teal.reporter') for more information."
+        details = "Use teal_report class instead. See vignette('teal-report-class', 'teal.reporter') for more information." # nolint: line_length_linter.
       )
       private$content <- teal_card()
       invisible(self)
