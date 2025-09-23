@@ -214,11 +214,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         title <- trimws(metadata(card, "title"))
         metadata(card)$title <- NULL
 
-        include_rcode <- metadata(card, "include_rcode") %||% TRUE
-        if (!include_rcode) {
-          card <- card[!sapply(card, function(item) inherits(item, "code_chunk"))]
-        }
-
         card_title <- if (length(title) > 0 && nzchar(title)) {
           sprintf("# %s", title)
         } else {
