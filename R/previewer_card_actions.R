@@ -25,10 +25,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
     # Conditionally render toggle button based on include_rcode setting
     output$toggle_code_ui <- shiny::renderUI({
       card <- shiny::req(card_r())
-      include_rcode <- metadata(card, "include_rcode")
-      if (is.null(include_rcode)) {
-        include_rcode <- TRUE
-      }
+      include_rcode <- metadata(card, "include_rcode") %||% TRUE
 
       if (include_rcode) {
         shiny::actionLink(
