@@ -12,7 +12,7 @@ testthat::test_that("default reporter id", {
 
 testthat::test_that("set_id sets the reporter id and returns reporter", {
   reporter <- test_reporter()
-  testthat::expect_s3_class(reporter$set_id("xyz"), "teal.reporter::Reporter")
+  testthat::expect_s3_class(reporter$set_id("xyz"), "Reporter")
   testthat::expect_identical(reporter$set_id("xyz")$get_id(), "xyz")
 })
 
