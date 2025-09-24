@@ -11,7 +11,7 @@ testthat::describe("DownloadModule", {
   reporter <- Reporter$new()
   reporter$append_cards(list(card1))
 
-  testthat::test_that("download_report_button_srv - download a document", {
+  it("download_report_button_srv - download a document", {
     shiny::testServer(
       download_report_button_srv,
       args = list(

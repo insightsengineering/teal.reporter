@@ -1,5 +1,5 @@
 testthat::describe("addCardModule", {
-  testthat::test_that("add_card_button_srv - add a Card to the Reporter", {
+  it("add_card_button_srv - add a Card to the Reporter", {
     card_fun <- function(card = ReportCard$new(),
                          comment = NULL) {
       card$append_text("Header 2 text", "header2")
@@ -20,13 +20,13 @@ testthat::describe("addCardModule", {
     )
   })
 
-  testthat::test_that("add_card_button_ui - returns a tagList", {
+  it("add_card_button_ui - returns a tagList", {
     testthat::expect_true(
       inherits(add_card_button_ui("sth"), c("shiny.tag.list", "list"))
     )
   })
 
-  testthat::test_that("add_card_button_srv supports custom ReportCard classes", {
+  it("add_card_button_srv supports custom ReportCard classes", {
     custom_card <- R6::R6Class(
       classname = "CustomCard",
       inherit = ReportCard
@@ -49,7 +49,7 @@ testthat::describe("addCardModule", {
     )
   })
 
-  testthat::test_that("add_card_button_srv supports passing no default object to the card", {
+  it("add_card_button_srv supports passing no default object to the card", {
     card_fun <- function(card) {
       card$append_text("Test")
       card
@@ -68,7 +68,7 @@ testthat::describe("addCardModule", {
     )
   })
 
-  testthat::test_that("add_card_button_srv try the card_fun", {
+  it("add_card_button_srv try the card_fun", {
     shiny::testServer(
       add_card_button_srv,
       args = list(reporter = Reporter$new(), card_fun = function(card) stop("ARTIFICIAL ERROR")),
@@ -97,7 +97,7 @@ testthat::describe("addCardModule", {
     )
   })
 
-  testthat::test_that("add_card_button_srv supports passing card_fun with any of the 2 available arguments", {
+  it("add_card_button_srv supports passing card_fun with any of the 2 available arguments", {
     card_fun <- function() {
       card <- ReportCard$new()
       card$append_text("Test")

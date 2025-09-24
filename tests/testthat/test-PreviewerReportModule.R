@@ -12,7 +12,7 @@ testthat::describe("PreviewerReportModule", {
   reporter <- Reporter$new()
   reporter$append_cards(list(card1))
 
-  testthat::test_that("reporter_previewer_srv - subset of rmd_yaml_args", {
+  it("reporter_previewer_srv - subset of rmd_yaml_args", {
     rmd_yaml_args_correct <- list(
       correct1 = list(
         author = "NEST", title = "Report",
@@ -54,13 +54,13 @@ testthat::describe("PreviewerReportModule", {
     }
   })
 
-  testthat::test_that("reporter_previewer_ui - returns a shiny tag list", {
+  it("reporter_previewer_ui - returns a shiny tag list", {
     suppressWarnings(ui <- reporter_previewer_ui("sth"))
     # suppressWarnings needed to suppress lifecycle deprecatation message
     testthat::expect_true(inherits(ui, "shiny.tag.list"))
   })
 
-  testthat::test_that("reporter_previewer_srv - previewer_buttons parameter", {
+  it("reporter_previewer_srv - previewer_buttons parameter", {
     testthat::expect_silent(
       shiny::testServer(
         reporter_previewer_srv,
@@ -96,7 +96,7 @@ testthat::describe("PreviewerReportModule", {
     )
   })
 
-  testthat::test_that("reporter_previewer_srv - up with first card and down with last card does not induce change", {
+  it("reporter_previewer_srv - up with first card and down with last card does not induce change", {
     shiny::testServer(
       reporter_previewer_srv,
       args = list(reporter = reporter),
@@ -114,7 +114,7 @@ testthat::describe("PreviewerReportModule", {
     )
   })
 
-  testthat::test_that("reporter_previewer_srv - card up and down compensate", {
+  it("reporter_previewer_srv - card up and down compensate", {
     shiny::testServer(
       reporter_previewer_srv,
       args = list(reporter = reporter),

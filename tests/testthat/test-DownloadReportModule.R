@@ -1,5 +1,5 @@
 testthat::describe("DownloadReportModule", {
-  testthat::test_that("download_report_button_srv - render and downlaod a document", {
+  it("download_report_button_srv - render and downlaod a document", {
     reporter <- Reporter$new()
     reporter$append_cards(list(test_card1.ReportCard()))
 
@@ -30,7 +30,7 @@ testthat::describe("DownloadReportModule", {
     )
   })
 
-  testthat::test_that("download_report_button_srv - subset of rmd_yaml_args", {
+  it("download_report_button_srv - subset of rmd_yaml_args", {
     rmd_yaml_args_correct <- list(
       correct1 = list(
         author = "NEST", title = "Report",
@@ -76,18 +76,18 @@ testthat::describe("DownloadReportModule", {
     }
   })
 
-  testthat::test_that("download_report_button_ui - returns a tagList", {
+  it("download_report_button_ui - returns a tagList", {
     checkmate::expect_multi_class(download_report_button_ui("sth"), c("shiny.tag.list", "shiny.tag"))
   })
 
-  testthat::test_that("report_render_and_compress - valid arguments", {
+  it("report_render_and_compress - valid arguments", {
     reporter <- Reporter$new()
     reporter$append_cards(list(test_card1.ReportCard()))
     input <- list(author = "NEST", title = "Report", output = "html_document")
     testthat::expect_no_error(report_render_and_compress(reporter, input, list(), withr::local_tempdir()))
   })
 
-  testthat::test_that("report_render_and_compress - invalid arguments", {
+  it("report_render_and_compress - invalid arguments", {
     input <- list(author = "NEST", title = "Report", output = "html_document")
     temp_zip_file <- withr::local_tempfile(pattern = "report_", fileext = ".zip")
     reporter <- Reporter$new()
@@ -97,7 +97,7 @@ testthat::describe("DownloadReportModule", {
     testthat::expect_error(report_render_and_compress(reporter, list, list(), ""))
   })
 
-  testthat::test_that("report_render_and_compress - render an html document", {
+  it("report_render_and_compress - render an html document", {
     input <- list(author = "NEST", title = "Report", output = "html_document", toc = FALSE)
     reporter <- Reporter$new()
     reporter$append_cards(list(test_card1.ReportCard()))
@@ -111,7 +111,7 @@ testthat::describe("DownloadReportModule", {
     testthat::expect_true(any(grepl("Report[.]json", files)))
   })
 
-  testthat::test_that("any_rcode_block", {
+  it("any_rcode_block", {
     reporter <- Reporter$new()
     reporter$append_cards(list(test_card1.ReportCard()))
     testthat::expect_false(any_rcode_block(reporter))

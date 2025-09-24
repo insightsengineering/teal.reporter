@@ -1,5 +1,5 @@
 testthat::describe("teal_card", {
-  testthat::it("creates empty teal_card when no arguments set", {
+  it("creates empty teal_card when no arguments set", {
     doc <- teal_card()
     testthat::expect_identical(doc, structure(list(), class = "teal_card"))
   })
@@ -29,23 +29,23 @@ testthat::describe("teal_card", {
 })
 
 testthat::describe("teal_card with multiple arguments", {
-  testthat::it("combines arguments in teal_card and sets them random unique names", {
+  it("combines arguments in teal_card and sets them random unique names", {
     doc <- teal_card("a", "b", "c", "d")
     testthat::expect_identical(unname(doc), structure(list("a", "b", "c", "d"), class = "teal_card"))
     testthat::expect_true(all(!duplicated(names(doc))))
   })
 
-  testthat::it("doesn't ignore NULL and adds it to teal_card", {
+  it("doesn't ignore NULL and adds it to teal_card", {
     doc <- unname(teal_card("a", NULL))
     testthat::expect_identical(doc, structure(list("a", NULL), class = "teal_card"))
   })
 
-  testthat::it("keeps conditions", {
+  it("keeps conditions", {
     doc <- unname(teal_card(simpleCondition("test")))
     testthat::expect_identical(doc, structure(list(simpleCondition("test")), class = "teal_card"))
   })
 
-  testthat::it("appends each element asis (no list unwrapping)", {
+  it("appends each element asis (no list unwrapping)", {
     doc <- unname(teal_card("a", list(1, list(2)), code_chunk("print('hi')")))
     testthat::expect_identical(
       doc,
@@ -170,7 +170,7 @@ testthat::describe("c.teal_card combines", {
   })
 })
 
-testthat::it("[.card subsets and", {
+it("[.card subsets and", {
   it("retains class", {
     doc <- teal_card("a", "b", "c", "d")
     sub_doc <- doc[c(1, 3)]
@@ -294,7 +294,7 @@ testthat::describe("metadata", {
   })
 })
 
-testthat::test_that("teal_card index assignment converts to unique identifier", {
+it("teal_card index assignment converts to unique identifier", {
   card <- teal_card("# Header", "A paragraph")
   card[[2]] <- "Override"
 
@@ -303,14 +303,14 @@ testthat::test_that("teal_card index assignment converts to unique identifier", 
 })
 
 testthat::describe("teal_card converts", {
-  testthat::it("ggplot2 objects to recordedplot", {
+  it("ggplot2 objects to recordedplot", {
     testthat::skip_if_not_installed("ggplot2")
     sample_plot <- ggplot2::ggplot(iris) +
       ggplot2::geom_histogram(ggplot2::aes(x = Sepal.Length), binwidth = .1)
     testthat::expect_s3_class(teal_card(sample_plot)[[1]], "recordedplot")
   })
 
-  testthat::it("ggplot2 objects to recordedplot when using `c()`", {
+  it("ggplot2 objects to recordedplot when using `c()`", {
     testthat::skip_if_not_installed("ggplot2")
     sample_plot <- ggplot2::ggplot(iris) +
       ggplot2::geom_histogram(ggplot2::aes(x = Sepal.Length), binwidth = .1)
@@ -319,7 +319,7 @@ testthat::describe("teal_card converts", {
     testthat::expect_s3_class(card[[2]], "recordedplot")
   })
 
-  testthat::it("ggplot2 objects to recordedplot when using assigning", {
+  it("ggplot2 objects to recordedplot when using assigning", {
     testthat::skip_if_not_installed("ggplot2")
     sample_plot <- ggplot2::ggplot(iris) +
       ggplot2::geom_histogram(ggplot2::aes(x = Sepal.Length), binwidth = .1)
@@ -329,7 +329,7 @@ testthat::describe("teal_card converts", {
     testthat::expect_s3_class(card[[1]], "recordedplot")
   })
 
-  testthat::it("ggplot2 objects to recordedplot when using assigning with new name", {
+  it("ggplot2 objects to recordedplot when using assigning with new name", {
     testthat::skip_if_not_installed("ggplot2")
     sample_plot <- ggplot2::ggplot(iris) +
       ggplot2::geom_histogram(ggplot2::aes(x = Sepal.Length), binwidth = .1)

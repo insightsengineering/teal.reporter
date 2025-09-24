@@ -1,5 +1,5 @@
 testthat::describe("LoadReporterModule", {
-  testthat::test_that("report_load_srv - loading reporter restores saved content", {
+  it("report_load_srv - loading reporter restores saved content", {
     testthat::skip_if_not_installed("ggplot2")
 
     card <- teal.reporter::teal_card(
@@ -37,7 +37,7 @@ testthat::describe("LoadReporterModule", {
     )
   })
 
-  testthat::test_that("report_load_srv - loading reporter with ReportCard restores saved content (with old blocks)", {
+  it("report_load_srv - loading reporter with ReportCard restores saved content (with old blocks)", {
     testthat::skip_if_not_installed("ggplot2")
 
     card <- teal.reporter::ReportCard$new()
@@ -76,7 +76,7 @@ testthat::describe("LoadReporterModule", {
     )
   })
 
-  testthat::test_that("report_load_srv - fail to load a reporter because of different id", {
+  it("report_load_srv - fail to load a reporter because of different id", {
     reporter <- Reporter$new()
     reporter$set_id("xyz")
 
@@ -104,7 +104,7 @@ testthat::describe("LoadReporterModule", {
     testthat::expect_true(grepl("Loaded Report id has to match the current instance one", oo))
   })
 
-  testthat::test_that("report_load_ui - returns a tagList", {
+  it("report_load_ui - returns a tagList", {
     checkmate::expect_multi_class(report_load_ui("sth"), c("shiny.tag.list", "shiny.tag"))
   })
 })

@@ -1,5 +1,5 @@
 testthat::describe("ResetModule", {
-  testthat::test_that("simple_reporter_srv - reset a reporter (ReporterCard)", {
+  it("simple_reporter_srv - reset a reporter (ReporterCard)", {
     testthat::skip_if_not_installed("ggplot2")
 
     card_fun <- function(card = ReportCard$new(), comment = NULL) {
@@ -28,7 +28,7 @@ testthat::describe("ResetModule", {
     )
   })
 
-  testthat::test_that("simple_reporter_srv - reset a reporter", {
+  it("simple_reporter_srv - reset a reporter", {
     testthat::skip_if_not_installed("ggplot2")
 
     card_fun <- function(card = ReportCard$new(), comment = NULL) {

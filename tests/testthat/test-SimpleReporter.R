@@ -1,5 +1,5 @@
 testthat::describe("SimpleReporter", {
-  testthat::test_that("simple_reporter_srv - render and downlaod  a document", {
+  it("simple_reporter_srv - render and downlaod  a document", {
     shiny::testServer(
       simple_reporter_srv,
       args = list(reporter = test_reporter(), card_fun = test_card1),
@@ -24,7 +24,7 @@ testthat::describe("SimpleReporter", {
     )
   })
 
-  testthat::test_that("simple_reporter_srv - add a Card (ReportCard) to Reporter", {
+  it("simple_reporter_srv - add a Card (ReportCard) to Reporter", {
     card_fun0 <- function(card = ReportCard$new()) {
       card$append_text("Header 2 text", "header2")
       card$append_text("A paragraph of default text", "header2")
@@ -46,7 +46,7 @@ testthat::describe("SimpleReporter", {
     )
   })
 
-  testthat::test_that("simple_reporter_srv - add a Card (teal_card) to Reporter", {
+  it("simple_reporter_srv - add a Card (teal_card) to Reporter", {
     shiny::testServer(
       simple_reporter_srv,
       args = list(reporter = Reporter$new(), card_fun = test_card1),
@@ -60,7 +60,7 @@ testthat::describe("SimpleReporter", {
     )
   })
 
-  testthat::test_that("simple_reporter_ui - returns a shiny.tag", {
+  it("simple_reporter_ui - returns a shiny.tag", {
     checkmate::expect_multi_class(simple_reporter_ui("sth"), c("shiny.tag", "shiny.tag.list"))
   })
 })

@@ -36,7 +36,7 @@ testthat::describe("teal_card built from teal_data", {
   })
 })
 
-testthat::test_that("teal_data converts to teal_report when assigning teal_card", {
+it("teal_data converts to teal_report when assigning teal_card", {
   td <- teal.data::teal_data()
   teal_card(td) <- teal_card("# A title")
 
