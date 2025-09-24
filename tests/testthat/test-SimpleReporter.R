@@ -13,7 +13,8 @@ testthat::describe("SimpleReporter", {
         f <- output[["download_button_simple-download_data"]]
         testthat::expect_true(file.exists(f))
         tmp_dir <- tempdir()
-        output_dir <- file.path(tmp_dir, sprintf("report_test_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
+        output_dir <- 
+          file.path(tmp_dir, sprintf("report_test_%s", gsub("[.]", "", format(Sys.time(), "%Y%m%d%H%M%OS4"))))
         dir.create(path = output_dir)
         zip::unzip(f, exdir = output_dir)
         files <- list.files(output_dir, recursive = TRUE)
