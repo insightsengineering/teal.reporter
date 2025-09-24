@@ -1,5 +1,10 @@
 testthat::skip_if_not_installed("ggplot2")
-card1 <- ReportCard$new()
+
+rlang::with_options(
+  lifecycle_verbosity = "quiet",
+  card1 <- ReportCard$new()
+)
+
 card1$append_text("Header 2 text", "header2")
 card1$append_text("A paragraph of default text", "header2")
 card1$append_plot(
