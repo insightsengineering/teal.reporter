@@ -222,7 +222,7 @@ format.code_chunk <- function(x, ...) {
 }
 
 #' @keywords internal
-.accordion_toggle_js_dependency <- function() {
+.accordion_toggle_js_dependency <- function() { # nolint object_length_linter.
   htmltools::htmlDependency(
     name = "teal-reporter-accordion-toggle",
     version = utils::packageVersion("teal.reporter"),
