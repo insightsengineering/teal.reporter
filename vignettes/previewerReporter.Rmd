@@ -17,15 +17,10 @@ The five essential steps for implementing the report previewer include integrati
 1. Add the preview button UI component to your app's interface.
 2. Integrate the UI components of the modules into the app's UI.
 3. Initialize reporter instance.
-4. Create the report card function with two optional arguments: `card` and `comment`.
-This function must return a `ReportCard` object.
-The `ReportCard` object should be built step by step, assuming that it is empty at the beginning.
-   - If the `comment` argument is provided, it should be added to the card.
-   If not, it should be added automatically at the end of the card.
-   - If the `card` argument is provided, the `ReportCard` instance should be automatically created for the user.
-   If not, the function should create the card itself.
+4. Create a reactive that must return a `teal_card` object.
+The `teal_card` object should be built step by step, assuming that it is empty at the beginning.
 *Please note that the document page's design is up to the developer's imagination.*
-5. Invoke the servers with the `Reporter` instance and the function to create the `ReportCard` instance.
+5. Invoke the servers with the `Reporter` instance and the function to create the `teal_card` instance.
 
 The code added to introduce the reporter is wrapped in the `### REPORTER` code blocks.
 
@@ -54,7 +49,7 @@ ui <- bslib::page_fluid(
         tabPanel("Plot", plotOutput("dist_plot")),
         tabPanel("Table", verbatimTextOutput("table")),
         tabPanel("Table DataFrame", verbatimTextOutput("table2")),
-        tabPanel("Table DataTable", dataTableOutput("table3"))
+        tabPanel("Table DataTable", DTOutput("table3"))
       )
     )
   )
@@ -64,6 +59,7 @@ server <- function(input, output, session) {
     shiny::tagList(
       ### REPORTER
       teal.reporter::add_card_button_ui("add_reporter", label = "Add Report Card"),
+      tags$div(style = "margin-bottom: 0.5em;"), # empty separator
       teal.reporter::preview_report_button_ui("previewer"),
       ###
       if (input$tabs == "Plot") {
@@ -113,7 +109,7 @@ server <- function(input, output, session) {
     data
   })
   output$table2 <- renderPrint(print.data.frame(table2()))
-  output$table3 <- renderDataTable(table2())
+  output$table3 <- renderDT(table2())
 
   ### REPORTER
   reporter <- Reporter$new()
@@ -122,65 +118,61 @@ server <- function(input, output, session) {
   # The id is added to the downloaded file name.
   reporter$set_id("myappid")
 
-  card_fun <- function(card = ReportCard$new(), comment) {
-    if (input$tabs == "Plot") {
-      card$set_name("Plot Module")
-      card$append_text("My plot", "header2")
-      card$append_plot(plot())
-      card$append_rcode(
-        paste(
-          c(
+  card_r <- reactive({
+    card <- teal_card()
+    card <- if (input$tabs == "Plot") {
+      metadata(card, "title") <- "Plot Module"
+      c(
+        card,
+        "## My plot",
+        plot(),
+        code_chunk(
+          paste(
             "x <- mtcars$mpg",
             "ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg)) +",
-            paste0("ggplot2::geom_histogram(binwidth = ", input$binwidth, ")")
-          ),
-          collapse = "\n"
-        ),
-        echo = TRUE,
-        eval = FALSE
+            paste0("ggplot2::geom_histogram(binwidth = ", input$binwidth, ")"),
+            sep = "\n"
+          )
+        )
       )
     } else if (input$tabs == "Table") {
-      card$set_name("Table Module rtables")
-      card$append_text("My rtables", "header2")
-      card$append_table(table())
-      card$append_rcode(
-        paste(
-          c(
+      metadata(card, "title") <- "Table Module rtables"
+      c(
+        card,
+        "## My rtables",
+        table,
+        code_chunk(
+          paste(
             "lyt <- rtables::basic_table() %>%",
             'rtables::split_rows_by("Month", label_pos = "visible") %>%',
             paste0('rtables::analyze("Ozone", afun = ', input$stat, ")"),
-            "rtables::build_table(lyt, airquality)"
-          ),
-          collapse = "\n"
-        ),
-        echo = TRUE,
-        eval = FALSE
+            "rtables::build_table(lyt, airquality)",
+            sep = "\n"
+          )
+        )
       )
     } else if (input$tabs %in% c("Table DataFrame", "Table DataTable")) {
-      card$set_name("Table Module DF")
-      card$append_text("My Table DF", "header2")
-      card$append_table(table2())
-      # Here r code added as a regular verbatim text
-      card$append_text(
-        paste0(
-          c(
+      metadata(card, "title") <- "Table Module DF"
+      c(
+        card,
+        "## My Table DF",
+        table2(),
+        paste(
+          "```",
+          paste0(
             'data <- aggregate(airquality[, c("Ozone"), drop = FALSE], list(Month = airquality$Month), ',
             input$stat,
-            ", na.rm = TRUE)\n",
-            'colnames(data) <- c("Month", ', paste0('"', input$stat, '"'), ")\n",
-            "data"
+            ", na.rm = TRUE)"
           ),
-          collapse = ""
-        ), "verbatim"
+          sprintf('colnames(data) <- c("Month", "%s")', input$stat),
+          "data",
+          "```",
+          sep = "\n"
+        )
       )
     }
-    if (!comment == "") {
-      card$append_text("Comment", "header3")
-      card$append_text(comment)
-    }
-    card
-  }
-  teal.reporter::add_card_button_srv("add_reporter", reporter = reporter, card_fun = card_fun)
+  })
+  teal.reporter::add_card_button_srv("add_reporter", reporter = reporter, card_fun = card_r)
   teal.reporter::preview_report_button_srv("previewer", reporter)
   ###
 }

@@ -5,7 +5,7 @@ create_test_reporter <- function(n_cards = 2) {
     new_doc
   })
 
-  reporter <- Reporter$new()
+  reporter <- teal.reporter::Reporter$new()
   reporter$append_cards(cards)
   reporter
 }
@@ -20,20 +20,12 @@ start_reporter_preview_app <- function(name) {
   testapp <- shiny::shinyApp(
     ui = shiny::fluidPage(
       shinyjs::useShinyjs(),
-      reporter_previewer_ui("preview")
+      preview_report_button_ui("preview")
     ),
     server = function(input, output, session) {
-      reporter_previewer_srv(
+      preview_report_button_srv(
         "preview",
-        reporter = reporter,
-        rmd_output = c("html" = "html_document"),
-        rmd_yaml_args = list(
-          author = "TEST",
-          title = "Test Report",
-          date = as.character(Sys.Date()),
-          output = "html_document",
-          toc = FALSE
-        )
+        reporter = reporter
       )
     }
   )

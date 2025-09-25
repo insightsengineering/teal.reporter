@@ -14,8 +14,7 @@
 #'
 #' @param id (`character(1)`) `shiny` module instance id.
 #' @param reporter (`Reporter`) instance.
-#' @param card_fun (`function`) which returns a [`ReportCard`] instance,
-#' the function has a `teal_card` argument and an optional `comment` argument.
+#' @param card_fun (`reactive` or `function`) which returns a [`teal_card`] or [`ReportCard`] instance.
 #' @param global_knitr (`list`) a global `knitr` parameters for customizing the rendering process.
 #' @inheritParams reporter_download_inputs
 #'
@@ -61,15 +60,8 @@ simple_reporter_srv <- function(
     reporter,
     card_fun,
     global_knitr = getOption("teal.reporter.global_knitr"),
-    rmd_output = c(
-      "html" = "html_document", "pdf" = "pdf_document",
-      "powerpoint" = "powerpoint_presentation", "word" = "word_document"
-    ),
-    rmd_yaml_args = list(
-      author = "NEST", title = "Report",
-      date = as.character(Sys.Date()), output = "html_document",
-      toc = FALSE
-    )) {
+    rmd_output = getOption("teal.reporter.rmd_output"),
+    rmd_yaml_args = getOption("teal.reporter.rmd_yaml_args")) {
   shiny::moduleServer(
     id,
     function(input, output, session) {

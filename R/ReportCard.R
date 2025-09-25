@@ -2,12 +2,14 @@
 #' @docType class
 #'
 #' @description
+#' `r lifecycle::badge("deprecated")`
 #'
 #' This `R6` class that supports creating a report card containing text, plot, table and
 #' metadata blocks that can be appended and rendered to form a report output from a `shiny` app.
 #'
-#' For more information about the various blocks, refer to the vignette:
-#' `vignette("teal-reporter-blocks-overview", "teal.reporter")`.
+#' @section Lifecycle:
+#' This class is deprecated. Use `teal_report` class instead for new implementations.
+#' See `vignette("teal-report-class", "teal.reporter")` for more information.
 #'
 #' @export
 #'
@@ -21,6 +23,12 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card <- ReportCard$new()
     #'
     initialize = function() {
+      lifecycle::deprecate_warn(
+        when = "0.5.1",
+        what = "ReportCard$new()",
+        with = "teal_card()",
+        details = "Use teal_report class instead. See vignette('teal-report-class', 'teal.reporter') for more information." # nolint: line_length_linter.
+      )
       private$content <- teal_card()
       invisible(self)
     },
