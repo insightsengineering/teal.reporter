@@ -23,7 +23,7 @@ testthat::test_that("simple_reporter_srv - render and downlaod  a document", {
 })
 
 testthat::test_that("simple_reporter_srv - add a Card (ReportCard) to Reporter", {
-  card_fun0 <- function(card = ReportCard$new()) {
+  card_fun0 <- function(card = rlang::with_options(lifecycle_verbosity = "quiet", ReportCard$new())) {
     card$append_text("Header 2 text", "header2")
     card$append_text("A paragraph of default text", "header2")
     card$append_plot(ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +

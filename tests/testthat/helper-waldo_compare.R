@@ -1,4 +1,4 @@
-# Register the `compare_proxy` method for the `Reporter` class only for use in
+# Register the `compare_proxy` method for the `teal.reporter::Reporter` class only for use in
 # testthat.
 if (requireNamespace("waldo", quietly = TRUE)) {
   registerS3method(

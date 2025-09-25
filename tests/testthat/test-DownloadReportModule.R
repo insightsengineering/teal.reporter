@@ -1,5 +1,5 @@
 testthat::test_that("download_report_button_srv - render and downlaod a document", {
-  reporter <- Reporter$new()
+  reporter <- teal.reporter::Reporter$new()
   reporter$append_cards(list(test_card1.ReportCard()))
 
   shiny::testServer(
@@ -48,7 +48,7 @@ testthat::test_that("download_report_button_srv - subset of rmd_yaml_args", {
     wrong3 = list()
   )
 
-  reporter <- Reporter$new()
+  reporter <- teal.reporter::Reporter$new()
   reporter$append_cards(list(test_card1.ReportCard()))
 
   for (iset in seq_along(rmd_yaml_args_correct)) {
@@ -79,7 +79,7 @@ testthat::test_that("download_report_button_ui - returns a tagList", {
 })
 
 testthat::test_that("report_render_and_compress - valid arguments", {
-  reporter <- Reporter$new()
+  reporter <- teal.reporter::Reporter$new()
   reporter$append_cards(list(test_card1.ReportCard()))
   input <- list(author = "NEST", title = "Report", output = "html_document")
   testthat::expect_no_error(report_render_and_compress(reporter, input, list(), withr::local_tempdir()))
@@ -88,7 +88,7 @@ testthat::test_that("report_render_and_compress - valid arguments", {
 testthat::test_that("report_render_and_compress - invalid arguments", {
   input <- list(author = "NEST", title = "Report", output = "html_document")
   temp_zip_file <- withr::local_tempfile(pattern = "report_", fileext = ".zip")
-  reporter <- Reporter$new()
+  reporter <- teal.reporter::Reporter$new()
   reporter$append_cards(list(test_card1.ReportCard()))
   testthat::expect_error(report_render_and_compress(reporter, list(), list(), temp_zip))
   testthat::expect_error(report_render_and_compress(reporter, input, list(), 2))
@@ -97,7 +97,7 @@ testthat::test_that("report_render_and_compress - invalid arguments", {
 
 testthat::test_that("report_render_and_compress - render an html document", {
   input <- list(author = "NEST", title = "Report", output = "html_document", toc = FALSE)
-  reporter <- Reporter$new()
+  reporter <- teal.reporter::Reporter$new()
   reporter$append_cards(list(test_card1.ReportCard()))
   temp_dir <- withr::local_tempdir()
   res_path <- report_render_and_compress(reporter, input, list(), temp_dir)
@@ -110,7 +110,7 @@ testthat::test_that("report_render_and_compress - render an html document", {
 })
 
 testthat::test_that("any_rcode_block", {
-  reporter <- Reporter$new()
+  reporter <- teal.reporter::Reporter$new()
   reporter$append_cards(list(test_card1.ReportCard()))
   testthat::expect_false(any_rcode_block(reporter))
   card_t <- ReportCard$new()

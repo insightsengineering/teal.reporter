@@ -13,10 +13,8 @@ simple_reporter_srv(
   reporter,
   card_fun,
   global_knitr = getOption("teal.reporter.global_knitr"),
-  rmd_output = c(html = "html_document", pdf = "pdf_document", powerpoint =
-    "powerpoint_presentation", word = "word_document"),
-  rmd_yaml_args = list(author = "NEST", title = "Report", date =
-    as.character(Sys.Date()), output = "html_document", toc = FALSE)
+  rmd_output = getOption("teal.reporter.rmd_output"),
+  rmd_yaml_args = getOption("teal.reporter.rmd_yaml_args")
 )
 }
 \arguments{
@@ -24,8 +22,7 @@ simple_reporter_srv(
 
 \item{reporter}{(\code{Reporter}) instance.}
 
-\item{card_fun}{(\code{function}) which returns a \code{\link{ReportCard}} instance,
-the function has a \code{teal_card} argument and an optional \code{comment} argument.}
+\item{card_fun}{(\code{reactive} or \code{function}) which returns a \code{\link{teal_card}} or \code{\link{ReportCard}} instance.}
 
 \item{global_knitr}{(\code{list}) a global \code{knitr} parameters for customizing the rendering process.}
 
