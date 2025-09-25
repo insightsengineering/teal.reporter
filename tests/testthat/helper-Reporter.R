@@ -53,14 +53,14 @@ test_card2.ReportCard <- function(card = NULL) { # nolint: object_name.
 test_reporter.ReportCard <- function(card1 = test_card1.ReportCard(), # nolint: object_name.
                                      card2 = test_card2.ReportCard(), ...) { # nolint: object_name.
   new_cards <- append(list(card1, card2), list(...))
-  reporter <- Reporter$new()
+  reporter <- teal.reporter::Reporter$new()
   reporter$append_cards(new_cards)
   reporter
 }
 
 test_reporter <- function(card1 = test_card1(), card2 = test_card2(), ...) {
   new_cards <- append(list(card1, card2), list(...))
-  reporter <- Reporter$new()
+  reporter <- teal.reporter::Reporter$new()
   reporter$append_cards(new_cards)
   reporter
 }

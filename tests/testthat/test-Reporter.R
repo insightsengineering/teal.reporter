@@ -1,13 +1,13 @@
 testthat::test_that("Reporter object can be created", {
-  testthat::expect_no_error(Reporter$new())
+  testthat::expect_no_error(teal.reporter::Reporter$new())
 })
 
 testthat::test_that("new returns an object of type Reporter", {
-  testthat::expect_true(inherits(Reporter$new(), "Reporter"))
+  testthat::expect_true(inherits(teal.reporter::Reporter$new(), "Reporter"))
 })
 
 testthat::test_that("default reporter id", {
-  testthat::expect_identical(Reporter$new()$get_id(), "")
+  testthat::expect_identical(teal.reporter::Reporter$new()$get_id(), "")
 })
 
 testthat::test_that("set_id sets the reporter id and returns reporter", {
@@ -86,8 +86,8 @@ testthat::test_that("get_blocks by default adds 'newpage' between cards", {
   card2 <- test_card2("Another title")
   reporter <- test_reporter(card1, card2)
 
-  reporter_1 <- Reporter$new()$append_cards(card1)
-  reporter_2 <- Reporter$new()$append_cards(card2)
+  reporter_1 <- teal.reporter::Reporter$new()$append_cards(card1)
+  reporter_2 <- teal.reporter::Reporter$new()$append_cards(card2)
 
   reporter_blocks <- reporter$get_blocks()
   reporter_blocks2 <- append(reporter_1$get_blocks(), "\\newpage")
@@ -96,7 +96,7 @@ testthat::test_that("get_blocks by default adds 'newpage' between cards", {
 })
 
 testthat::test_that("get_blocks and get_cards return empty teal_card by default", {
-  reporter <- Reporter$new()
+  reporter <- teal.reporter::Reporter$new()
   testthat::expect_identical(reporter$get_blocks(), teal_card())
   testthat::expect_identical(reporter$get_cards(), structure(list(), names = character(0L)))
 })
@@ -115,7 +115,7 @@ testthat::test_that("get_blocks shows repeated cards", {
 testthat::test_that("The deep copy constructor copies the content files to new files", {
   testthat::skip_if_not_installed("ggplot2")
   card <- teal_card(ggplot2::ggplot(iris))
-  reporter <- Reporter$new()$append_cards(card)
+  reporter <- teal.reporter::Reporter$new()$append_cards(card)
   reporter_copy <- reporter$clone(deep = TRUE)
   original_content_file <- reporter$get_blocks()
   copied_content_file <- reporter_copy$get_blocks()
@@ -127,22 +127,22 @@ testthat::test_that("The deep copy constructor copies the content files to new f
 })
 
 testthat::test_that("append_metadata accept only named list", {
-  reporter <- Reporter$new()
+  reporter <- teal.reporter::Reporter$new()
   testthat::expect_no_error(reporter$append_metadata(list(sth = "sth")))
   testthat::expect_error(reporter$append_metadata("sth"), "'list', not 'character'")
   testthat::expect_error(reporter$append_metadata(list("sth")), "Must have names")
 })
 
 testthat::test_that("append_metadata accept only unique names which could not be repeated", {
-  reporter <- Reporter$new()
+  reporter <- teal.reporter::Reporter$new()
   testthat::expect_error(reporter$append_metadata(list(sth = "sth", sth = 2)), "but element 2 is duplicated")
-  reporter <- Reporter$new()
+  reporter <- teal.reporter::Reporter$new()
   testthat::expect_no_error(reporter$append_metadata(list(sth = "sth")))
   testthat::expect_error(reporter$append_metadata(list(sth = "sth")), "failed: Must be TRUE")
 })
 
 testthat::test_that("get_metadata", {
-  reporter <- Reporter$new()
+  reporter <- teal.reporter::Reporter$new()
   testthat::expect_no_error(reporter$append_metadata(list(sth = "sth")))
   testthat::expect_identical(reporter$get_metadata(), list(sth = "sth"))
 })
@@ -156,7 +156,7 @@ testthat::test_that("from_reporter returns identical/equal object from the same 
 
 testthat::test_that("from_reporter does not return identical/equal object form other reporter", {
   reporter1 <- test_reporter(card1 <- test_card1(), card2 <- test_card2())
-  reporter2 <- Reporter$new()
+  reporter2 <- teal.reporter::Reporter$new()
   lifecycle::expect_deprecated(
     testthat::expect_false(identical(reporter1, reporter2$from_reporter(reporter1)))
   )
@@ -164,7 +164,7 @@ testthat::test_that("from_reporter does not return identical/equal object form o
 
 testthat::test_that("from_reporter persists the cards structure", {
   reporter1 <- test_reporter(card1 <- test_card1(), card2 <- test_card2())
-  reporter2 <- Reporter$new()
+  reporter2 <- teal.reporter::Reporter$new()
   lifecycle::expect_deprecated(
     testthat::expect_identical(unname(reporter1$get_cards()), unname(reporter2$from_reporter(reporter1)$get_cards()))
   )
@@ -172,22 +172,22 @@ testthat::test_that("from_reporter persists the cards structure", {
 
 testthat::describe("metadata", {
   it("append_metadata accept only named list", {
-    reporter <- Reporter$new()
+    reporter <- teal.reporter::Reporter$new()
     testthat::expect_no_error(reporter$append_metadata(list(sth = "sth")))
     testthat::expect_error(reporter$append_metadata("sth"), "'list', not 'character'")
     testthat::expect_error(reporter$append_metadata(list("sth")), "Must have names")
   })
 
   it("append_metadata accept only unique names which could not be repeated", {
-    reporter <- Reporter$new()
+    reporter <- teal.reporter::Reporter$new()
     testthat::expect_error(reporter$append_metadata(list(sth = "sth", sth = 2)), "but element 2 is duplicated")
-    reporter <- Reporter$new()
+    reporter <- teal.reporter::Reporter$new()
     testthat::expect_no_error(reporter$append_metadata(list(sth = "sth")))
     testthat::expect_error(reporter$append_metadata(list(sth = "sth")), "failed: Must be TRUE")
   })
 
   it("get_metadata", {
-    reporter <- Reporter$new()
+    reporter <- teal.reporter::Reporter$new()
     testthat::expect_no_error(reporter$append_metadata(list(sth = "sth")))
     testthat::expect_identical(reporter$get_metadata(), list(sth = "sth"))
   })
@@ -203,7 +203,7 @@ testthat::describe("from_reporter", {
 
   it("from_reporter does not return identical/equal object form other reporter", {
     reporter1 <- test_reporter(test_card1(), test_card2())
-    reporter2 <- Reporter$new()
+    reporter2 <- teal.reporter::Reporter$new()
 
     lifecycle::expect_deprecated(
       testthat::expect_false(identical(reporter1, reporter2$from_reporter(reporter1)))
@@ -212,7 +212,7 @@ testthat::describe("from_reporter", {
 
   it("from_reporter persists the cards structure, but not the name", {
     reporter1 <- test_reporter(test_card1(), test_card2())
-    reporter2 <- Reporter$new()
+    reporter2 <- teal.reporter::Reporter$new()
     lifecycle::expect_deprecated(
       testthat::expect_identical(
         unname(reporter1$get_cards()),
@@ -233,7 +233,7 @@ testthat::describe("to_list", {
     temp_dir <- withr::local_tempdir()
     testthat::expect_equal(
       list(name = "teal Reporter", version = "1", id = "", cards = list(), metadata = list()),
-      Reporter$new()$to_list(temp_dir)
+      teal.reporter::Reporter$new()$to_list(temp_dir)
     )
   })
 
@@ -242,11 +242,11 @@ testthat::describe("to_list", {
     reporter1 <- test_reporter(test_card1(), test_card2())
     testthat::expect_identical(
       length(reporter1$get_cards()),
-      length(Reporter$new()$from_list(reporter1$to_list(temp_dir), temp_dir)$get_cards())
+      length(teal.reporter::Reporter$new()$from_list(reporter1$to_list(temp_dir), temp_dir)$get_cards())
     )
     testthat::expect_identical(
       length(reporter1$get_blocks()),
-      length(Reporter$new()$from_list(reporter1$to_list(temp_dir), temp_dir)$get_blocks())
+      length(teal.reporter::Reporter$new()$from_list(reporter1$to_list(temp_dir), temp_dir)$get_blocks())
     )
   })
 
@@ -255,7 +255,7 @@ testthat::describe("to_list", {
     reporter1 <- test_reporter(test_card1(), test_card2())
     testthat::expect_identical(
       length(reporter1$get_blocks()),
-      length(Reporter$new()$from_list(reporter1$to_list(temp_dir), temp_dir)$get_blocks())
+      length(teal.reporter::Reporter$new()$from_list(reporter1$to_list(temp_dir), temp_dir)$get_blocks())
     )
   })
 })
@@ -378,15 +378,15 @@ testthat::test_that("from_reporter persists the cards structure", {
   lifecycle::expect_deprecated(
     expect_equal(
       unname(reporter1$get_cards()),
-      unname(Reporter$new()$from_reporter(reporter1)$get_cards())
+      unname(teal.reporter::Reporter$new()$from_reporter(reporter1)$get_cards())
     )
   )
 })
 
-testthat::describe("Reporter with custom template function", {
+testthat::describe("teal.reporter::Reporter with custom template function", {
   it("modifies teal_cards on append", {
     card <- teal_card("## A Header", "A paragraph")
-    reporter <- Reporter$new()
+    reporter <- teal.reporter::Reporter$new()
 
     template_fun <- function(card) c(teal_card("Here comes disclaimer text"), card)
 
@@ -402,7 +402,7 @@ testthat::describe("Reporter with custom template function", {
     tr <- within(tr, iris <- iris)
     teal_card(tr) <- c(teal_card(tr), "A footer")
 
-    reporter <- Reporter$new()
+    reporter <- teal.reporter::Reporter$new()
 
     template_fun <- function(card) {
       Filter(

@@ -8,7 +8,7 @@ testthat::test_that("report_load_srv - loading reporter restores saved content",
       ggplot2::geom_histogram(binwidth = 0.2)
   )
 
-  reporter <- Reporter$new()$set_id("xyz")
+  reporter <- teal.reporter::Reporter$new()$set_id("xyz")
   reporter$append_cards(list(card))
   reporter_path <- reporter$to_jsondir(withr::local_tempdir())
 
@@ -47,7 +47,7 @@ testthat::test_that("report_load_srv - loading reporter with ReportCard restores
       ggplot2::geom_histogram(binwidth = 0.2)
   )
 
-  reporter <- Reporter$new()$set_id("xyz")
+  reporter <- teal.reporter::Reporter$new()$set_id("xyz")
   reporter$append_cards(list(card))
   reporter_path <- reporter$to_jsondir(withr::local_tempdir())
 
@@ -76,14 +76,14 @@ testthat::test_that("report_load_srv - loading reporter with ReportCard restores
 })
 
 testthat::test_that("report_load_srv - fail to load a reporter because of different id", {
-  reporter <- Reporter$new()
+  reporter <- teal.reporter::Reporter$new()
   reporter$set_id("xyz")
 
   reporter_path <- reporter$to_jsondir(withr::local_tempdir())
   temp_zip_file <- withr::local_tempfile(pattern = "report_", fileext = ".zip")
   zip::zipr(temp_zip_file, reporter_path)
 
-  reporter <- Reporter$new()$set_id("different")
+  reporter <- teal.reporter::Reporter$new()$set_id("different")
 
   oo <- capture_output(shiny::testServer(
     report_load_srv,

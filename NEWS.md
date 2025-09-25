@@ -7,6 +7,7 @@
 * Adds `teal_report` class that extends from `teal.data::teal_data` that allows to keep contents of the report card.
 * `teal_report` is updated automatically with executed code and its outputs are stored as well.
 * Supports `flextable` and `gtsummary` objects.
+* Soft deprecated `ReportCard`.
 
 # teal.reporter 0.5.0
 

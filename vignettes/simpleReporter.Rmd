@@ -27,13 +27,8 @@ The implementation should consist of 4 steps:
 
 1. Add modules UI component to the app's UI.
 2. Initialize `Reporter` instance.
-4. Create the report card function with two optional arguments: `card` and `comment`.
-This function must return a `ReportCard` object.
-The `ReportCard` object should be built step by step, assuming that it is empty at the beginning.
-   - If the `comment` argument is provided, it should be added to the card.
-   If not, it should be added automatically at the end of the card.
-   - If the `card` argument is provided, the `ReportCard` instance should be automatically created for the user.
-   If not, the function should create the card itself.
+3. Create a reactive that must return a `teal_card` object.
+The `teal_card` object should be built step by step, assuming that it is empty at the beginning.
 *Please note that the document page's design is up to the developer's imagination.*
 4. Invoke the servers with the `Reporter` instance and the function to create the `ReportCard` instance.
 
@@ -122,22 +117,17 @@ server <- function(input, output, session) {
 
   ### REPORTER
   reporter <- Reporter$new()
-  card_fun <- function(card = ReportCard$new(), comment) {
+  card_r <- reactive({
+    card <- teal_card()
     if (input$tabs == "Plot") {
-      card$append_text("My plot", "header2")
-      card$append_plot(plot())
+      card <- c(card, "## My plot", plot())
     } else if (input$tabs == "Table") {
-      card$append_text("My Table", "header2")
-      card$append_table(table())
-    }
-    if (!comment == "") {
-      card$append_text("Comment", "header3")
-      card$append_text(comment)
+      card <- c(card, "## My Table", table())
     }
     card
-  }
+  })
 
-  add_card_button_srv("addReportCard", reporter = reporter, card_fun = card_fun)
+  add_card_button_srv("addReportCard", reporter = reporter, card_fun = card_r)
   download_report_button_srv("downloadButton", reporter = reporter)
   reset_report_button_srv("resetButton", reporter)
   ###
@@ -219,22 +209,18 @@ server <- function(input, output, session) {
   # The id is added to the downloaded file name.
   reporter$set_id("myappid")
 
-  card_fun <- function(card = ReportCard$new(), comment) {
+  reporter <- Reporter$new()
+  card_r <- reactive({
+    card <- teal_card()
     if (input$tabs == "Plot") {
-      card$append_text("My plot", "header2")
-      card$append_plot(plot())
+      card <- c(card, "## My plot", plot())
     } else if (input$tabs == "Table") {
-      card$append_text("My Table", "header2")
-      card$append_table(table())
-    }
-    if (!comment == "") {
-      card$append_text("Comment", "header3")
-      card$append_text(comment)
+      card <- c(card, "## My Table", table())
     }
     card
-  }
+  })
 
-  simple_reporter_srv("simpleReporter", reporter = reporter, card_fun = card_fun)
+  simple_reporter_srv("simpleReporter", reporter = reporter, card_fun = card_r)
   ###
 }
 
