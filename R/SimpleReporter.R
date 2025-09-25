@@ -20,10 +20,6 @@
 #'
 #' @return `NULL`.
 #'
-#' @section Lifecycle:
-#' Those functions are deprecated. Use `teal_report` class instead for new implementations of reporting.
-#' See `vignette("teal-report-class", "teal.reporter")` for more information.
-#'
 #' @examples
 #' if (interactive()) {
 #'   library(shiny)
