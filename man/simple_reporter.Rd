@@ -55,12 +55,6 @@ use \code{getOption('teal.reporter.global_knitr')}. These defaults include:
 \item \code{tidy = TRUE}  if \code{formatR} package is installed, \code{FALSE} otherwise
 }
 }
-\section{Lifecycle}{
-
-Those functions are deprecated. Use \code{teal_report} class instead for new implementations of reporting.
-See \code{vignette("teal-report-class", "teal.reporter")} for more information.
-}
-
 \examples{
 if (interactive()) {
   library(shiny)
