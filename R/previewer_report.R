@@ -81,7 +81,7 @@ preview_report_button_srv <- function(id, reporter) {
       list(input$preview_button, reporter$open_previewer()),
       ignoreInit = TRUE,
       {
-        req(input$preview_button != 0 || !is.null(reporter$open_previewer())) # prevent unnecessary triggering.
+        shiny::req(input$preview_button != 0 || !is.null(reporter$open_previewer())) # prevent unnecessary triggering.
         shiny::showModal(preview_modal())
 
         panel_ns <- shiny::NS(shiny::NS("preview_content", "reporter_cards"))
