@@ -65,8 +65,7 @@ simple_reporter_srv <- function(
     card_fun,
     global_knitr = getOption("teal.reporter.global_knitr"),
     rmd_output = getOption("teal.reporter.rmd_output"),
-    rmd_yaml_args = getOption("teal.reporter.rmd_yaml_args")
-) {
+    rmd_yaml_args = getOption("teal.reporter.rmd_yaml_args")) {
   shiny::moduleServer(
     id,
     function(input, output, session) {

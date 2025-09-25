@@ -164,7 +164,7 @@ server <- function(input, output, session) {
             input$stat,
             ", na.rm = TRUE)"
           ),
-           sprintf('colnames(data) <- c("Month", "%s")', input$stat),
+          sprintf('colnames(data) <- c("Month", "%s")', input$stat),
           "data",
           "```",
           sep = "\n"
