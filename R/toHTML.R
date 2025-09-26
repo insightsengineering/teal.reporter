@@ -98,11 +98,7 @@ toHTML.default <- function(x, ...) {
 
 #' @method .toHTML code_chunk
 #' @keywords internal
-.toHTML.code_chunk <- function(x, include_rcode = TRUE, ...) {
-  if (!include_rcode) {
-    return(shiny::tags$div())
-  }
-
+.toHTML.code_chunk <- function(x, ...) {
   bslib::accordion(
     id = paste0("code_chunk_", sample(1:10000, 1)),
     bslib::accordion_panel(
