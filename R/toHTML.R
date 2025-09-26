@@ -106,10 +106,7 @@ toHTML.default <- function(x, ...) {
   bslib::accordion(
     id = paste0("code_chunk_", sample(1:10000, 1)),
     bslib::accordion_panel(
-      title = shiny::tags$span(
-        shiny::icon("code"),
-        "R Code"
-      ),
+      title = shiny::tags$span(shiny::icon("code"), "R Code"),
       value = "rcode",
       open = FALSE,
       shiny::tags$pre(
