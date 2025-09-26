@@ -56,6 +56,7 @@ preview_report_button_srv <- function(id, reporter) {
       shiny::tags$div(
         class = "teal-reporter reporter-previewer-modal",
         .custom_css_dependency(),
+        .accordion_toggle_js_dependency(),
         shinyjs::extendShinyjs(text = "", functions = c("jumpToFocus", "enterToSubmit", "autoFocusModal")),
         shiny::modalDialog(
           easyClose = TRUE,
