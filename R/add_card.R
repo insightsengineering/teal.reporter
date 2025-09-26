@@ -47,7 +47,8 @@ add_card_button_ui <- function(id, label = NULL) {
   .outline_button(
     shiny::NS(id, "add_report_card_button"),
     icon = "plus-lg",
-    label = label
+    label = label,
+    class = "primary"
   )
 }
 

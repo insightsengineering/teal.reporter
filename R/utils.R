@@ -175,6 +175,7 @@ format.code_chunk <- function(x, ...) {
 
 #' @keywords internal
 .outline_button <- function(id, label, icon = NULL, class = "primary") {
+  checkmate::assert_string(class)
   shiny::tagList(
     shinyjs::useShinyjs(),
     .custom_css_dependency(),
@@ -187,7 +188,10 @@ format.code_chunk <- function(x, ...) {
     ),
     shiny::tags$button(
       id = id,
-      class = sprintf("teal-reporter action-button teal-reporter-busy-disable outline-button %s", class),
+      class = sprintf(
+        "teal-reporter action-button teal-reporter-busy-disable outline-button btn btn-%1$s %1$s",
+        trimws(class)
+      ),
       role = "button",
       style = "text-decoration: none;",
       if (!is.null(icon)) {
