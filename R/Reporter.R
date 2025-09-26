@@ -68,7 +68,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
           private$cached_html[[card_id]] <- shiny::tagList(lapply(card, function(item) {
             .toHTML(item, include_rcode = include_rcode)
           }))
-          attr(private$cached_html[[card_id]], "include_rcode") <- include_rcode
         })
       }
       invisible(self)
@@ -149,7 +148,6 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         private$cached_html[[card_id]] <- shiny::tagList(lapply(card, function(item) {
           .toHTML(item, include_rcode = include_rcode)
         }))
-        attr(private$cached_html[[card_id]], "include_rcode") <- include_rcode
       })
       invisible(self)
     },
