@@ -31,6 +31,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
         shiny::actionLink(
           inputId = session$ns("toggle_code_action"),
           class = "btn btn-outline-secondary btn-sm float-end p-3 card-code-toggle",
+          style = "background-color: white !important; z-index: 10 !important; position: relative !important;",
           label = NULL,
           title = "Toggle R Code chunks",
           icon = shiny::icon("code")
