@@ -89,11 +89,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
             placeholder = "Add a comment here...",
             width = "100%"
           ),
-          shiny::checkboxInput(
-            ns("include_rcode"),
-            "Include R Code",
-            value = TRUE
-          ),
+          shiny::checkboxInput(ns("include_rcode"), "Include R Code", value = TRUE),
           shiny::tags$script(
             shiny::HTML(
               sprintf("shinyjs.autoFocusModal('%s');", ns("label")), # See extendShinyJs.js
