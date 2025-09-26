@@ -61,7 +61,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         card <- new_cards[[card_id]]
         include_rcode <- metadata(card, "include_rcode") %||% TRUE
         if (!include_rcode) {
-          card <- card[!sapply(card, function(item) inherits(item, "code_chunk"))]
+          card <- Filter(function(item) inherits(item, "code_chunk"), card)
         }
         shiny::isolate({
           private$cards[[card_id]] <- card
@@ -140,7 +140,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       include_rcode <- metadata(card, "include_rcode") %||% TRUE
 
       if (!include_rcode) {
-        card <- card[!sapply(card, function(item) inherits(item, "code_chunk"))]
+        card <- Filter(function(item) inherits(item, "code_chunk"), card)
       }
 
       # Use isolate to access reactive values outside reactive context
