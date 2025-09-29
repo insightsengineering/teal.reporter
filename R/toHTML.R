@@ -100,7 +100,7 @@ toHTML.default <- function(x, ...) {
 #' @keywords internal
 .toHTML.code_chunk <- function(x, ...) {
   bslib::accordion(
-    id = paste0("code_chunk_", sample(1:10000, 1)),
+    class = "code_chunk",
     bslib::accordion_panel(
       title = shiny::tags$span(shiny::icon("code"), "R Code"),
       value = "rcode",

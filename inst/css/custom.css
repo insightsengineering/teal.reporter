@@ -1,6 +1,6 @@
 /* To make sure the shinybusy::block() element does not take too much height */
 .teal-reporter.download-ok.nx-block-temporary-position {
-  min-height: 10px !important;
+  min-height: 10px;
 }
 
 /* Smooth rotation animation for dropdown icons */
@@ -130,45 +130,45 @@ pre > code {
 
 /* Code chunk accordion styling - remove blue background and extra padding only for code chunks */
 /* Target only accordions with IDs starting with 'code_chunk_' */
-[id^="code_chunk_"] .accordion-item {
-  border: none !important;
-  background-color: transparent !important;
+.code_chunk .accordion-item {
+  border: none;
+  background-color: transparent;
 }
 
-[id^="code_chunk_"] .accordion-button {
-  background-color: transparent !important;
-  border: none !important;
-  padding: 0.25rem 0 !important;
-  box-shadow: none !important;
+.code_chunk .accordion-header .accordion-button {
+  background-color: transparent;
+  border: none;
+  padding: 0.25rem 0;
+  box-shadow: none;
 }
 
-[id^="code_chunk_"] .accordion-button:not(.collapsed) {
-  background-color: transparent !important;
-  box-shadow: none !important;
+.code_chunk .accordion-header .accordion-button:not(.collapsed) {
+  background-color: transparent;
+  box-shadow: none;
 }
 
-[id^="code_chunk_"] .accordion-button:focus {
-  box-shadow: none !important;
+.code_chunk .accordion-header .accordion-button:focus {
+  box-shadow: none;
 }
 
-[id^="code_chunk_"] .accordion-body {
-  padding: 0 !important;
-  background-color: transparent !important;
+.code_chunk .accordion-body {
+  padding: 0;
+  background-color: transparent;
 }
 
-[id^="code_chunk_"] pre {
-  background-color: transparent !important;
-  border: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  border-radius: 0 !important;
+.code_chunk .accordion-body pre {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
 }
 
-[id^="code_chunk_"] code {
-  background-color: #f8f9fa !important;
-  border: 1px solid #e9ecef !important;
-  border-radius: 0.375rem !important;
-  padding: 0.75rem !important;
-  display: block !important;
-  margin: 0 !important;
+.code_chunk .accordion-body code {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+  display: block;
+  margin: 0;
 }
