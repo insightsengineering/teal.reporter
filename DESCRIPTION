@@ -47,6 +47,7 @@ Imports:
     sortable (>= 0.5.0),
     teal.code (>= 0.6.1.9002),
     teal.data (>= 0.7.0.9002),
+    teal.widgets (>= 0.5.0.9000),
     tools,
     utils,
     yaml (>= 1.1.0),
