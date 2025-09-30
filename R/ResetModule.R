@@ -18,11 +18,13 @@ NULL
 #' @export
 reset_report_button_ui <- function(id, label = NULL) {
   checkmate::assert_string(label, null.ok = TRUE)
-  .outline_button(
+  teal.widgets::action_button_with_busy(
     shiny::NS(id, "reset_reporter"),
     label = label,
     icon = "x-lg",
-    class = "danger"
+    type = "danger",
+    outline = TRUE,
+    additional_class = "teal-reporter"
   )
 }
 

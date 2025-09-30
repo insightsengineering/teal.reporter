@@ -25,7 +25,13 @@ NULL
 #' @export
 download_report_button_ui <- function(id, label = NULL) {
   checkmate::assert_string(label, null.ok = TRUE)
-  .outline_button(shiny::NS(id, "download_button"), label = label, icon = "download")
+  teal.widgets::action_button_with_busy(
+    shiny::NS(id, "download_button"),
+    label = label,
+    icon = "download",
+    outline = TRUE,
+    additional_class = "teal-reporter"
+  )
 }
 
 #' @rdname download_report_button

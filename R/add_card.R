@@ -44,11 +44,13 @@ NULL
 #' @export
 add_card_button_ui <- function(id, label = NULL) {
   checkmate::assert_string(label, null.ok = TRUE)
-  .outline_button(
+  teal.widgets::action_button_with_busy(
     shiny::NS(id, "add_report_card_button"),
     icon = "plus-lg",
     label = label,
-    class = "primary"
+    type = "primary",
+    outline = TRUE,
+    additional_class = "teal-reporter"
   )
 }
 
