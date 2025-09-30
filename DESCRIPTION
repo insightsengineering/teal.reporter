@@ -64,6 +64,8 @@ Suggests:
     tinytex,
     waldo (>= 0.2.0),
     withr (>= 2.0.0)
+Remotes:
+    insightsengineering/teal.widgets@1534-show_r_code@main
 VignetteBuilder:
     knitr,
     rmarkdown
