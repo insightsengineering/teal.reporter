@@ -1,7 +1,8 @@
 testthat::describe("toHTML generates image tags", {
   it("from ggplot2 object", {
     testthat::skip_if_not_installed("ggplot2")
-    plot <- ggplot2::ggplot(mtcars, ggplot2::aes(mpg, wt)) + ggplot2::geom_point()
+    plot <- ggplot2::ggplot(mtcars, ggplot2::aes(mpg, wt)) +
+      ggplot2::geom_point()
     result <- toHTML(plot)
     testthat::expect_s3_class(result, "shiny.tag")
     testthat::expect_equal((result$name), "img")
@@ -18,7 +19,8 @@ testthat::describe("toHTML generates image tags", {
   })
 
   it("from recordedplot", {
-    q <- within(teal.code::qenv(), ggplot2::ggplot(mtcars, ggplot2::aes(mpg, wt)) + ggplot2::geom_point())
+    q <- within(teal.code::qenv(), ggplot2::ggplot(mtcars, ggplot2::aes(mpg, wt)) +
+      ggplot2::geom_point())
     recorded_plot <- teal.code::get_outputs(q)[[1]]
     result <- toHTML(recorded_plot)
     testthat::expect_s3_class(result, "shiny.tag")

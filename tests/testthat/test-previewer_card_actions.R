@@ -47,7 +47,7 @@ testthat::test_that("srv_previewer_card_actions saves the new card without conte
       session$setInputs(edit_save = 1)
       testthat::expect_equal(
         reporter$get_cards()[[1]],
-        list("## A new Header (modified)",  "A new paragraph."),
+        list("## A new Header (modified)", "A new paragraph."),
         ignore_attr = c("names", "class", "metadata")
       )
     }
