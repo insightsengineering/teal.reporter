@@ -1,7 +1,3 @@
-testthat::test_that("panel_item", {
-  testthat::expect_s3_class(panel_item("LABEL", shiny::tags$div()), "shiny.tag")
-})
-
 testthat::test_that("to_flextable: supported class `data.frame`", {
   data_frame <- data.frame(A = 1:3, B = 4:6)
   flextable_output <- to_flextable(data_frame)
@@ -57,4 +53,16 @@ testthat::describe("format.code_chunk", {
     chunk_str <- format(code_chunk("1+1", echo = TRUE, another = "\"param\""))
     testthat::expect_match(chunk_str, "^```\\{R, echo=TRUE, another=\\\"param\\\"\\}.*```$")
   })
+})
+
+testthat::test_that("global_knitr_details returns a string with description", {
+  result <- global_knitr_details()
+  checkmate::expect_string(result, "character")
+  testthat::expect_match(result, "tidy.opts = ")
+  testthat::expect_match(result, "echo = ")
+  testthat::expect_match(result, "tidy = ")
+})
+
+testthat::test_that("dummy function returns a function used to fix note about function use in R6", {
+  checkmate::expect_function(dummy())
 })

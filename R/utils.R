@@ -1,53 +1,3 @@
-#' Panel group widget
-#'
-#'
-#' @param title (`character`) title of panel
-#' @param ... content of panel
-#' @param collapsed (`logical`, optional)
-#'  whether to initially collapse panel
-#' @param input_id (`character`, optional)
-#'  name of the panel item element. If supplied, this will register a shiny input variable that
-#'  indicates whether the panel item is open or collapsed and is accessed with `input$input_id`.
-#'
-#' @return `shiny.tag`.
-#'
-#' @keywords internal
-panel_item <- function(title, ..., collapsed = TRUE, input_id = NULL) {
-  stopifnot(checkmate::test_character(title, len = 1) || inherits(title, c("shiny.tag", "shiny.tag.list", "html")))
-  checkmate::assert_flag(collapsed)
-  checkmate::assert_string(input_id, null.ok = TRUE)
-
-  div_id <- paste0(input_id, "_div")
-  panel_id <- paste0(input_id, "_panel_body_", sample(1:10000, 1))
-
-  shiny::tags$div(.renderHook = function(res_tag) {
-    res_tag$children <- list(
-      shiny::tags$div(
-        class = "card",
-        style = "margin: 0.5rem 0;",
-        shiny::tags$div(
-          class = "card-header",
-          shiny::tags$div(
-            class = ifelse(collapsed, "collapsed", ""),
-            `data-bs-toggle` = "collapse", # bs5
-            href = paste0("#", panel_id),
-            `aria-expanded` = ifelse(collapsed, "false", "true"),
-            shiny::icon("angle-down", class = "dropdown-icon"),
-            shiny::tags$label(style = "display: inline;", title)
-          )
-        ),
-        shiny::tags$div(
-          id = panel_id,
-          class = paste("collapse", ifelse(collapsed, "", "show")),
-          shiny::tags$div(class = "card-body", ...)
-        )
-      )
-    )
-
-    res_tag
-  })
-}
-
 #' Convert content into a `flextable`
 #'
 #' Converts supported table formats into a `flextable` for enhanced formatting and presentation.
@@ -92,23 +42,6 @@ to_flextable <- function(content) {
   }
 
   ft
-}
-
-#' Get the merge index for a single span.
-#' This function retrieves the merge index for a single span,
-#' which is used in merging cells.
-#' @noRd
-#' @keywords internal
-get_merge_index_single <- function(span) {
-  ret <- list()
-  j <- 1
-  while (j < length(span)) {
-    if (span[j] != 1) {
-      ret <- c(ret, list(seq(j, j + span[j] - 1)))
-    }
-    j <- j + span[j]
-  }
-  ret
 }
 
 #' Divide text block into smaller blocks
