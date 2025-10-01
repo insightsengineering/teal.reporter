@@ -80,6 +80,6 @@ testthat::describe("toHTML generates a shiny tag", {
 })
 
 testthat::test_that("toHTML can be locally overwritten", {
-  toHTML.teal_card <- function(...) "Function was overwritten"
+  toHTML.teal_card <- function(...) "Function was overwritten" # nolint: object_name.
   testthat::expect_equal(toHTML(teal_card("## Header")), "Function was overwritten")
 })
