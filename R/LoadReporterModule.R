@@ -18,7 +18,7 @@ NULL
 #' @export
 report_load_ui <- function(id, label = NULL) {
   checkmate::assert_string(label, null.ok = TRUE)
-  .outline_button(
+  .action_button_busy(
     shiny::NS(id, "reporter_load"),
     label = label,
     icon = "upload",

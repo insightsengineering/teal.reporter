@@ -25,7 +25,7 @@ NULL
 #' @export
 download_report_button_ui <- function(id, label = NULL) {
   checkmate::assert_string(label, null.ok = TRUE)
-  .outline_button((
+  .action_button_busy(
     shiny::NS(id, "download_button"),
     label = label,
     icon = "download",

@@ -135,12 +135,12 @@ format.code_chunk <- function(x, ...) {
 #'
 #' @return A `shiny` action button that is disabled while busy.
 #' @keywords internal
-.outline_button <- function(id,
-                            label,
-                            icon = NULL,
-                            type = "primary",
-                            outline = FALSE,
-                            additional_class = NULL) {
+.action_button_busy <- function(id,
+                                label,
+                                icon = NULL,
+                                type = "primary",
+                                outline = FALSE,
+                                additional_class = NULL) {
   checkmate::assert_string(type)
   checkmate::assert_string(additional_class, null.ok = TRUE)
   shiny::tagList(
