@@ -18,12 +18,11 @@ NULL
 #' @export
 report_load_ui <- function(id, label = NULL) {
   checkmate::assert_string(label, null.ok = TRUE)
-  teal.widgets::action_button_with_busy(
+  .outline_button(
     shiny::NS(id, "reporter_load"),
     label = label,
     icon = "upload",
-    outline = TRUE,
-    additional_class = "teal-reporter"
+    outline = TRUE
   )
 }
 
