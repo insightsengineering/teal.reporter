@@ -22,7 +22,7 @@ toHTML.default <- function(x, ...) {
 #' @method .toHTML ReportCard
 #' @keywords internal
 .toHTML.ReportCard <- function(x, ...) {
-  shiny::tagList(lapply(x$get_content(), tools::toHTML))
+  shiny::tagList(lapply(x$get_content(), tools::toHTML, ...))
 }
 
 #' @method .toHTML teal_card
@@ -99,9 +99,17 @@ toHTML.default <- function(x, ...) {
 #' @method .toHTML code_chunk
 #' @keywords internal
 .toHTML.code_chunk <- function(x, ...) {
-  shiny::tags$pre(
-    shiny::tags$code(x, class = sprintf("language-%s", attr(x, "lang"))),
-    .noWS = "inside"
+  bslib::accordion(
+    class = "code_chunk",
+    bslib::accordion_panel(
+      title = shiny::tags$span(shiny::icon("code"), "R Code"),
+      value = "rcode",
+      open = FALSE,
+      shiny::tags$pre(
+        shiny::tags$code(x, class = sprintf("language-%s", attr(x, "lang"))),
+        .noWS = "inside"
+      )
+    )
   )
 }
 
