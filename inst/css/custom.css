@@ -1,6 +1,38 @@
 /* To make sure the shinybusy::block() element does not take too much height */
 .teal-reporter.download-ok.nx-block-temporary-position {
-  min-height: 10px !important;
+  min-height: 10px;
+}
+
+/* Smooth rotation animation for dropdown icons */
+.dropdown-icon {
+  transition: transform 0.3s ease;
+}
+
+/* Code chunk styling */
+.code-chunk-container .card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  cursor: pointer;
+}
+
+.code-chunk-container .card-header:hover {
+  background-color: #e9ecef;
+}
+
+.code-chunk-container .collapse:not(.show) {
+  display: none;
+}
+
+.code-chunk-container .collapse.show {
+  display: block;
+}
+
+.code-chunk-container pre {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
 }
 
 .simple_reporter_container {
@@ -28,40 +60,6 @@
 
 pre > code {
   padding-left: 0;
-}
-
-.teal-reporter.outline-button {
-  padding: 0.3em;
-  border-radius: 5px;
-  background: transparent;
-}
-
-.teal-reporter.outline-button.disabled,
-.teal-reporter.outline-button:disabled {
-  pointer-events: none;
-  opacity: 0.65;
-}
-
-.teal-reporter.outline-button.primary {
-  color: var(--bs-primary);
-  border: solid 1px var(--bs-primary);
-}
-
-.teal-reporter.outline-button.primary:hover:not(:disabled) {
-  background: var(--bs-primary-bg-subtle);
-}
-
-.teal-reporter.outline-button.danger {
-  color: var(--bs-danger);
-  border: solid 1px var(--bs-danger);
-}
-
-.teal-reporter.outline-button.danger:hover:not(:disabled) {
-  background: var(--bs-danger-bg-subtle);
-}
-
-.teal-reporter.outline-button .badge {
-  margin-top: -1em;
 }
 
 .teal-reporter.report-previewer-accordion .accordion-header {
@@ -94,4 +92,49 @@ pre > code {
 
 .teal-reporter.reporter-previewer-modal .modal-dialog {
   --bs-modal-margin: 20px;
+}
+
+/* Code chunk accordion styling - remove blue background and extra padding only for code chunks */
+/* Target only accordions with IDs starting with 'code_chunk_' */
+.code_chunk .accordion-item {
+  border: none;
+  background-color: transparent;
+}
+
+.code_chunk .accordion-header .accordion-button {
+  background-color: transparent;
+  border: none;
+  padding: 0.25rem 0;
+  box-shadow: none;
+}
+
+.code_chunk .accordion-header .accordion-button:not(.collapsed) {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.code_chunk .accordion-header .accordion-button:focus {
+  box-shadow: none;
+}
+
+.code_chunk .accordion-body {
+  padding: 0;
+  background-color: transparent;
+}
+
+.code_chunk .accordion-body pre {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+}
+
+.code_chunk .accordion-body code {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+  display: block;
+  margin: 0;
 }

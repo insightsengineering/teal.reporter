@@ -44,10 +44,12 @@ NULL
 #' @export
 add_card_button_ui <- function(id, label = NULL) {
   checkmate::assert_string(label, null.ok = TRUE)
-  .outline_button(
+  .action_button_busy(
     shiny::NS(id, "add_report_card_button"),
     icon = "plus-lg",
-    label = label
+    label = label,
+    type = "primary",
+    outline = TRUE
   )
 }
 
@@ -89,6 +91,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
             placeholder = "Add a comment here...",
             width = "100%"
           ),
+          shiny::checkboxInput(ns("include_rcode"), "Include R Code", value = TRUE),
           shiny::tags$script(
             shiny::HTML(
               sprintf("shinyjs.autoFocusModal('%s');", ns("label")), # See extendShinyJs.js
@@ -184,6 +187,8 @@ add_card_button_srv <- function(id, reporter, card_fun) {
             metadata(card, "title") <- input$label
           }
         }
+
+        metadata(card, "include_rcode") <- input$include_rcode
 
         reporter$append_cards(list(card))
         shiny::showNotification(sprintf("The card added successfully."), type = "message")
