@@ -172,7 +172,7 @@ format.code_chunk <- function(x, ...) {
 #' @keywords internal
 .custom_js_dependency <- function(script) {
   htmltools::htmlDependency(
-    name = "teal-reporter-busy-disable",
+    name = sprintf("teal-reporter-%s", script),
     version = utils::packageVersion("teal.reporter"),
     package = "teal.reporter",
     src = "js",
