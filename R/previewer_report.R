@@ -20,13 +20,14 @@ preview_report_button_ui <- function(id, label = "Preview Report") {
   checkmate::assert_string(label, null.ok = TRUE)
   ns <- shiny::NS(id)
   shiny::tagList(
-    .outline_button(
+    .action_button_busy(
       ns("preview_button"),
       label = shiny::tags$span(
         label,
         shiny::uiOutput(ns("preview_button_counter"))
       ),
-      icon = "file-earmark-text"
+      icon = "file-earmark-text",
+      outline = TRUE
     )
   )
 }

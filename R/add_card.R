@@ -44,10 +44,12 @@ NULL
 #' @export
 add_card_button_ui <- function(id, label = NULL) {
   checkmate::assert_string(label, null.ok = TRUE)
-  .outline_button(
+  .action_button_busy(
     shiny::NS(id, "add_report_card_button"),
     icon = "plus-lg",
-    label = label
+    label = label,
+    type = "primary",
+    outline = TRUE
   )
 }
 
