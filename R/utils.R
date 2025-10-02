@@ -152,7 +152,7 @@ format.code_chunk <- function(x, ...) {
       class = c(
         "teal-reporter action-button teal-reporter-busy-disable",
         sprintf("btn btn-%1$s %1$s", trimws(type)),
-        ifelse(isTRUE(outline), "outline-button", ""),
+        if(isTRUE(outline)) "outline-button",
         additional_class
       ),
       role = "button",
