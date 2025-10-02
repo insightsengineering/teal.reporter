@@ -149,11 +149,11 @@ format.code_chunk <- function(x, ...) {
     .custom_js_dependency("busy-disable.js", name = "teal-reporter-busy-disable"),
     shiny::tags$button(
       id = id,
-      class = sprintf(
-        "teal-reporter action-button teal-reporter-busy-disable btn btn-%1$s %1$s %2$s %3$s",
-        trimws(type),
+      class = c(
+        "teal-reporter action-button teal-reporter-busy-disable",
+        sprintf("btn btn-%1$s %1$s", trimws(type)),
         ifelse(isTRUE(outline), "outline-button", ""),
-        additional_class %||% ""
+        additional_class
       ),
       role = "button",
       style = "text-decoration: none;",
