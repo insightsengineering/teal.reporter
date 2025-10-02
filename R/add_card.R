@@ -49,8 +49,7 @@ add_card_button_ui <- function(id, label = NULL) {
     icon = "plus-lg",
     label = label,
     type = "primary",
-    outline = TRUE,
-    additional_class = "teal-reporter"
+    outline = TRUE
   )
 }
 

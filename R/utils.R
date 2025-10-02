@@ -146,7 +146,7 @@ format.code_chunk <- function(x, ...) {
   shiny::tagList(
     shinyjs::useShinyjs(),
     .custom_css_dependency("outline_button.css"),
-    .custom_js_dependency("busy-disable.js"),
+    .custom_js_dependency("busy-disable.js", name = "teal-reporter-busy-disable"),
     shiny::tags$button(
       id = id,
       class = sprintf(
@@ -170,9 +170,9 @@ format.code_chunk <- function(x, ...) {
 }
 
 #' @keywords internal
-.custom_js_dependency <- function(script) {
+.custom_js_dependency <- function(script, name = sprintf("teal-reporter-%s", script)) {
   htmltools::htmlDependency(
-    name = sprintf("teal-reporter-%s", script),
+    name = name,
     version = utils::packageVersion("teal.reporter"),
     package = "teal.reporter",
     src = "js",
@@ -181,10 +181,10 @@ format.code_chunk <- function(x, ...) {
 }
 
 #' @keywords internal
-.custom_css_dependency <- function(stylesheet = "custom.css") {
+.custom_css_dependency <- function(stylesheet = "custom.css", name = sprintf("teal-reporter-%s", stylesheet)) {
   checkmate::assert_string(stylesheet)
   htmltools::htmlDependency(
-    name = "teal-reporter",
+    name = name,
     version = utils::packageVersion("teal.reporter"),
     package = "teal.reporter",
     src = "css",
@@ -194,13 +194,7 @@ format.code_chunk <- function(x, ...) {
 
 #' @keywords internal
 .accordion_toggle_js_dependency <- function() { # nolint object_length_linter.
-  htmltools::htmlDependency(
-    name = "teal-reporter-accordion-toggle",
-    version = utils::packageVersion("teal.reporter"),
-    package = "teal.reporter",
-    src = "js",
-    script = "accordion-toggle.js"
-  )
+  .custom_js_dependency("accordion-toggle.js", name = "teal-reporter-accordion-toggle")
 }
 
 #' @noRd
