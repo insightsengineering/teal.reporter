@@ -139,9 +139,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
 
       if (!include_rcode) {
         card <- Filter(
-            Negate(function(item) inherits(item, "code_chunk") && !isTRUE(attr(item, "always_keep", exact = TRUE))),
-            card
-          )
+          Negate(function(item) inherits(item, "code_chunk") && !isTRUE(attr(item, "always_keep", exact = TRUE))),
+          card
+        )
       }
 
       private$cards[[card_id]] <- card
