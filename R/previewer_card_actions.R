@@ -27,7 +27,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
       card <- shiny::req(card_r())
       include_rcode <- metadata(card, "include_rcode") %||% TRUE
 
-      if (include_rcode) {
+      if (include_rcode || any(vapply(card, inherits, logical(1), what = "code_chunk"))) {
         shiny::actionLink(
           inputId = session$ns("toggle_code_action"),
           class = "btn btn-outline-secondary btn-sm float-end p-3 card-code-toggle",
