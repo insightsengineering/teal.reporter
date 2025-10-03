@@ -21,6 +21,5 @@ For example, it can be used for title sections that don't make sense without the
 associated code chunk.
 }
 \examples{
-title_chunk <- pseudo_code_chunk("## Analysis Title")
-class(title_chunk)
+pseudo_code_chunk("## Analysis Title")
 }

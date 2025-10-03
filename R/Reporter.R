@@ -61,7 +61,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
         card <- new_cards[[card_id]]
         include_rcode <- metadata(card, "include_rcode") %||% TRUE
         if (!include_rcode) {
-          card <- Filter(Negate(function(item) inherits(item, "code_chunk")), card)
+          card <- Filter(
+            Negate(function(item) inherits(item, "code_chunk") && !isTRUE(attr(item, "always_keep", exact = TRUE))),
+            card
+          )
         }
         private$cards[[card_id]] <- card
         private$cached_html[[card_id]] <- shiny::tagList(lapply(card, tools::toHTML))
@@ -135,7 +138,10 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       include_rcode <- metadata(card, "include_rcode") %||% TRUE
 
       if (!include_rcode) {
-        card <- Filter(Negate(function(item) inherits(item, "code_chunk")), card)
+        card <- Filter(
+            Negate(function(item) inherits(item, "code_chunk") && !isTRUE(attr(item, "always_keep", exact = TRUE))),
+            card
+          )
       }
 
       private$cards[[card_id]] <- card

@@ -270,6 +270,8 @@ metadata.ReportCard <- function(object, which = NULL) {
 #' @param ... Additional named parameters to be included as chunk options (e.g., `echo = TRUE`).
 #' Check [`knitr` options/](https://yihui.org/knitr/options/) for more details.
 #' @param lang (`character(1)`) See [`knitr::knit_engines`].
+#' @param always_keep (`logical(1)`) If `TRUE`, this will hint the reporter logic that
+#' this chunk should never be discarded.
 #'
 #' @return An object of class `code_chunk`.
 #' @examples
@@ -277,15 +279,17 @@ metadata.ReportCard <- function(object, which = NULL) {
 #' class(my_chunk)
 #' attributes(my_chunk)$param
 #' @export
-code_chunk <- function(code, ..., lang = "R") {
+code_chunk <- function(code, ..., lang = "R", always_keep = FALSE) {
   checkmate::assert_character(code)
+  checkmate::assert_flag(always_keep)
   params <- list(...)
   checkmate::assert_list(params, names = "named", .var.name = "...")
   structure(
     paste(code, collapse = "\n"),
     params = params,
     lang = lang,
-    class = "code_chunk"
+    class = "code_chunk",
+    always_keep = always_keep
   )
 }
 
