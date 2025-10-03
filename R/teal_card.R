@@ -289,6 +289,24 @@ code_chunk <- function(code, ..., lang = "R") {
   )
 }
 
+#' Element of a report that should be treated as a code chunk, but can take other values
+#'
+#' @description
+#' This function creates a `pseudo_code_chunk` object, which is similar to a `code_chunk`
+#' but can contain non-code elements. It is used to represent elements in a report
+#' that are removed alongside with code chunks during certain processing steps.
+#'
+#' For example, it can be used for title sections that don't make sense without the
+#' associated code chunk.
+#' @param object An object to be wrapped as a `pseudo_code_chunk`.
+#' @return An object of class `pseudo_code_chunk`.
+#' @examples
+#' pseudo_code_chunk("## Analysis Title")
+#' @export
+pseudo_code_chunk <- function(object) {
+  structure(list(object), class = c("pseudo_code_chunk", "code_chunk"))
+}
+
 #' Builds `teal_card` from code and outputs in `qenv` object
 #'
 #' Builds a `teal_card` from the code and outputs of a `teal_data`

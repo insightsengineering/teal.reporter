@@ -115,6 +115,12 @@ to_rmd.default <- function(block, ...) {
   )
 }
 
+#' @method .to_rmd pseudo_code_chunk
+#' @keywords internal
+.to_rmd.pseudo_code_chunk <- function(block, ...) {
+  tools::toHTML(to_rmd[[1]], ...)
+}
+
 #' @method .to_rmd code_chunk
 #' @keywords internal
 .to_rmd.code_chunk <- function(block, ..., output_format = NULL) {
