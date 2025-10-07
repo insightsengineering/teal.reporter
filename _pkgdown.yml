@@ -63,6 +63,7 @@ reference:
     contents:
       - as.teal_card
       - code_chunk
+      - pesudo_code_chunk
       - metadata
       - "metadata<-"
       - render
