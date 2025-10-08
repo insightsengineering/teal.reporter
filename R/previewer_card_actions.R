@@ -73,7 +73,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
             size = "l",
             easyClose = TRUE,
             shiny::tagList(
-              ui_card_editor(session$ns("editor"), value = template_card, reporter$get_cached_html(card_id)),
+              ui_editor_card(session$ns("editor"), value = template_card, reporter$get_cached_html(card_id)),
               shiny::uiOutput(session$ns("add_text_element_button_ui"))
             ),
             footer = shiny::tagList(
@@ -85,7 +85,7 @@ srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
       }
     )
 
-    block_input_names_rvs <- srv_card_editor("editor", new_card_rv)
+    block_input_names_rvs <- srv_editor_card("editor", card_r = new_card_rv)
 
     shiny::observeEvent(input$edit_title, {
       shinyjs::hide("edit_title")

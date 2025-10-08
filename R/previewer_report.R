@@ -63,7 +63,7 @@ preview_report_button_srv <- function(id, reporter) {
           easyClose = TRUE,
           size = "xl",
           title = "Report Preview",
-          reporter_previewer_content_ui(session$ns("preview_content")),
+          ui_reporter_previewer_content(session$ns("preview_content")),
           footer = shiny::tagList(
             shiny::tags$button(
               type = "button",
@@ -76,7 +76,7 @@ preview_report_button_srv <- function(id, reporter) {
       )
     }
 
-    reporter_previewer_content_srv(id = "preview_content", reporter = reporter)
+    srv_reporter_previewer_content(id = "preview_content", reporter = reporter)
 
     srv_list <- shiny::reactiveValues()
     shiny::observeEvent(

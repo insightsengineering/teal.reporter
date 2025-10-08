@@ -1,7 +1,25 @@
-# reporter_previewer_content --------------------------------------------------------------------------------------
+#' Reporter previewer content module
+#'
+#' @param id (`character(1)`) A unique identifier for the module.
+#' @param reporter (`Reporter`)
+#' @param cached_content (`list`)
+#' @name module_reporter_previewer_content
 
-#' @keywords internal
-reporter_previewer_content_ui <- function(id, cached_content = rlang::list2()) {
+#' @rdname module_reporter_previewer_content
+#' @export
+ui_reporter_previewer_content <- function(id, cached_content = rlang::list2()) {
+  UseMethod("ui_reporter_previewer_content")
+}
+
+#' @rdname module_reporter_previewer_content
+#' @export
+srv_reporter_previewer_content <- function(id, reporter) {
+  UseMethod("srv_reporter_previewer_content")
+}
+
+#' @rdname module_reporter_previewer_content
+#' @export
+ui_reporter_previewer_content.default <- function(id, cached_content = rlang::list2()) {
   ns <- shiny::NS(id)
   shiny::tags$div(
     .custom_css_dependency(),
@@ -20,8 +38,9 @@ reporter_previewer_content_ui <- function(id, cached_content = rlang::list2()) {
   )
 }
 
-#' @keywords internal
-reporter_previewer_content_srv <- function(id, reporter) {
+#' @rdname module_reporter_previewer_content
+#' @export
+srv_reporter_previewer_content.default <- function(id, reporter) {
   shiny::moduleServer(id, function(input, output, session) {
     shiny::setBookmarkExclude("card_remove_id")
 

@@ -66,7 +66,7 @@ reporter_previewer_ui <- function(id) {
         ),
         shiny::tags$span(id = ns("reset_span"), reset_report_button_ui(ns("reset"), label = "Reset Report"))
       ),
-      shiny::tags$div(reporter_previewer_content_ui(ns("previewer")))
+      shiny::tags$div(ui_reporter_previewer_content(ns("previewer")))
     )
   )
 }
@@ -124,6 +124,6 @@ reporter_previewer_srv <- function(id,
       rmd_yaml_args = rmd_yaml_args
     )
     reset_report_button_srv("reset", reporter = reporter)
-    reporter_previewer_content_srv("previewer", reporter = reporter)
+    srv_reporter_previewer_content("previewer", reporter = reporter)
   })
 }

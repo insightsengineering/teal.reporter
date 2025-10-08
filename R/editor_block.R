@@ -1,14 +1,8 @@
-#' @rdname srv_editor_block
-#' @export
-ui_editor_block <- function(id, value, cached_html) {
-  UseMethod("ui_editor_block", value)
-}
-
 #' UI and Server functions for editing report document blocks
 #'
 #' These functions provide a user interface and server logic for editing and extending
 #' the editor functionality to support new data types.
-#'
+#' @name module_editor_block
 #' @details
 #' The methods for this S3 generic can be extended by the app developer to new classes
 #' or even overwritten.
@@ -19,7 +13,7 @@ ui_editor_block <- function(id, value, cached_html) {
 #' For example, to override the default behavior for `character` class, you can use:
 #'
 #' ```r
-#' ui_editor_block.character <- function(id, value) {
+#' ui_editor_block.character <- function(id, value, cached_html) {
 #'   # custom implementation
 #'   shiny::tagList(
 #'     shiny::tags$h6(shiny::icon("pencil", class = "text-muted"), "Editable CUSTOM markdown block"),
@@ -39,6 +33,19 @@ ui_editor_block <- function(id, value, cached_html) {
 #' @param id (`character(1)`) A unique identifier for the module.
 #' @param value The content of the block to be edited. It can be a character string or other types.
 #' @param cached_html (`shiny.tag` or `shiny.tag.list`) Cached HTML content to display in the UI.
+#'
+#' @return
+#' - `ui_editor_block` returns `shiny.tag`
+#' - `srv_editor_block` returns `reactive`
+NULL
+
+#' @rdname module_editor_block
+#' @export
+ui_editor_block <- function(id, value, cached_html) {
+  UseMethod("ui_editor_block", value)
+}
+
+#' @rdname module_editor_block
 #' @export
 srv_editor_block <- function(id, value) {
   UseMethod("srv_editor_block", value)
