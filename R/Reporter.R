@@ -67,7 +67,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
           )
         }
         private$cards[[card_id]] <- card
-        private$cached_html[[card_id]] <- shiny::tagList(lapply(card, tools::toHTML))
+        private$cached_html[[card_id]] <- lapply(card, tools::toHTML)
       }
       invisible(self)
     },
@@ -145,7 +145,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       }
 
       private$cards[[card_id]] <- card
-      private$cached_html[[card_id]] <- shiny::tagList(lapply(card, tools::toHTML))
+      private$cached_html[[card_id]] <- lapply(card, tools::toHTML)
       invisible(self)
     },
     #' @description Retrieves all `teal_card` objects contained in `Reporter`.
