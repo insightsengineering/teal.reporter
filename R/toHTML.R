@@ -96,6 +96,12 @@ toHTML.default <- function(x, ...) {
   shiny::tags$img(src = knitr::image_uri(tmpfile))
 }
 
+#' @method .toHTML pseudo_code_chunk
+#' @keywords internal
+.toHTML.pseudo_code_chunk <- function(x, ...) {
+  toHTML(x[[1]], ...)
+}
+
 #' @method .toHTML code_chunk
 #' @keywords internal
 .toHTML.code_chunk <- function(x, ...) {

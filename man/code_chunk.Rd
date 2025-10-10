@@ -4,7 +4,7 @@
 \alias{code_chunk}
 \title{Generate an R Markdown code chunk}
 \usage{
-code_chunk(code, ..., lang = "R")
+code_chunk(code, ..., lang = "R", always_keep = FALSE)
 }
 \arguments{
 \item{code}{A character string containing the R code.}
@@ -13,6 +13,9 @@ code_chunk(code, ..., lang = "R")
 Check \href{https://yihui.org/knitr/options/}{\code{knitr} options/} for more details.}
 
 \item{lang}{(\code{character(1)}) See \code{\link[knitr:knit_engines]{knitr::knit_engines}}.}
+
+\item{always_keep}{(\code{logical(1)}) If \code{TRUE}, this will hint the reporter logic that
+this chunk should never be discarded.}
 }
 \value{
 An object of class \code{code_chunk}.
