@@ -8,8 +8,15 @@
   path <- basename(tempfile(pattern = "report_item_", fileext = ".rds"))
   suppressWarnings(saveRDS(block, file = path))
   dims <- resolve_figure_dimensions(block, convert_to_inches = TRUE)
+
+  chunk <- if (inherits(block, "grob")) {
+    "```{r echo = FALSE, eval = TRUE, fig.width = %f, fig.height = %f}\n._figure <- readRDS('%s')\ngrid::grid.newpage()\ngrid::grid.draw(._figure)\n```" # nolint line_length_linter.
+  } else {
+    "```{r echo = FALSE, eval = TRUE, fig.width = %f, fig.height = %f}\nreadRDS('%s')\n```"
+  }
+
   sprintf(
-    "```{r echo = FALSE, eval = TRUE, fig.width = %f, fig.height = %f}\nreadRDS('%s')\n```",
+    chunk,
     dims$width,
     dims$height,
     path
