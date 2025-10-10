@@ -10,7 +10,7 @@
   dims <- resolve_figure_dimensions(block, convert_to_inches = TRUE)
 
   chunk <- if (inherits(block, "grob")) {
-    "```{r echo = FALSE, eval = TRUE, fig.width = %f, fig.height = %f}\nplot <- readRDS('%s')\ngrid::grid.newpage()\ngrid::grid.draw(plot)\n```" # nolint line_length_linter.
+    "```{r echo = FALSE, eval = TRUE, fig.width = %f, fig.height = %f}\n._figure <- readRDS('%s')\ngrid::grid.newpage()\ngrid::grid.draw(._figure)\n```" # nolint line_length_linter.
   } else {
     "```{r echo = FALSE, eval = TRUE, fig.width = %f, fig.height = %f}\nreadRDS('%s')\n```"
   }
