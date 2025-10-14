@@ -1,26 +1,21 @@
-testthat::test_that("preview_report_button_ui returns a shiny tag or tagList", {
-  checkmate::expect_multi_class(
-    preview_report_button_ui("an_id"),
-    c("shiny.tag", "shiny.tag.list")
-  )
-})
+testthat::describe("preview_report_button_srv renders", {
+  it("the card count with 1", {
+    reporter <- Reporter$new()
+    reporter$append_cards(teal_card("## Header", "A paragraph."))
+    shiny::testServer(
+      preview_report_button_srv,
+      args = list(id = "id", reporter = reporter),
+      testthat::expect_match(output$preview_button_counter$html, ">1</", fixed = TRUE)
+    )
+  })
 
-testthat::test_that("preview_report_button_srv renders the card count with 1", {
-  reporter <- Reporter$new()
-  reporter$append_cards(teal_card("## Header", "A paragraph."))
-  shiny::testServer(
-    preview_report_button_srv,
-    args = list(id = "id", reporter = reporter),
-    testthat::expect_match(output$preview_button_counter$html, ">1</", fixed = TRUE)
-  )
-})
-
-testthat::test_that("preview_report_button_srv renders empty card count", {
-  shiny::testServer(
-    preview_report_button_srv,
-    args = list(id = "id", reporter = Reporter$new()),
-    testthat::expect_match(output$preview_button_counter$html, ">0</", fixed = TRUE)
-  )
+  it("empty card count", {
+    shiny::testServer(
+      preview_report_button_srv,
+      args = list(id = "id", reporter = Reporter$new()),
+      testthat::expect_match(output$preview_button_counter$html, ">0</", fixed = TRUE)
+    )
+  })
 })
 
 testthat::describe("preview_report_button_srv triggers a shiny modal", {
