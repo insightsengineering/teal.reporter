@@ -282,6 +282,7 @@ metadata.ReportCard <- function(object, which = NULL) {
 #' @export
 code_chunk <- function(code, ..., lang = "R") {
   checkmate::assert_character(code)
+  checkmate::assert_string(lang)
   params <- list(...)
   checkmate::assert_list(params, names = "named", .var.name = "...")
   structure(
@@ -291,6 +292,7 @@ code_chunk <- function(code, ..., lang = "R") {
     class = "code_chunk"
   )
 }
+
 
 #' Builds `teal_card` from code and outputs in `qenv` object
 #'
