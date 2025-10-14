@@ -111,6 +111,7 @@ teal_card.qenv <- function(...) {
 #' It accepts various input types and converts them appropriately.
 #'
 #' @param x Object to convert to teal_card
+#' @param verbose (`logical`) If `TRUE`, will print a warning when appending `teal_card` objects that share elements.
 #' @return A teal_card object
 #' @rdname teal_card
 #' @export
@@ -133,7 +134,7 @@ as.teal_card <- function(x) { # nolint: object_name.
 
 #' @rdname teal_card
 #' @export
-c.teal_card <- function(...) {
+c.teal_card <- function(..., verbose = TRUE) {
   dots <- list(...)
   structure(
     Reduce(
@@ -143,10 +144,12 @@ c.teal_card <- function(...) {
           if (all(names(u) %in% names(v))) { # nothing from `u` is removed in `v`
             v
           } else {
-            warning(
-              "Appended `teal_card` doesn't remove some of the elements from previous `teal_card`.\n",
-              "Restoring original content and adding only new items to the end of the card."
-            )
+            if (verbose) {
+              warning(
+                "Appended `teal_card` doesn't remove some of the elements from previous `teal_card`.\n",
+                "Restoring original content and adding only new items to the end of the card."
+              )
+            }
             utils::modifyList(u, v)
           }
         } else {
@@ -279,6 +282,7 @@ metadata.ReportCard <- function(object, which = NULL) {
 #' @export
 code_chunk <- function(code, ..., lang = "R") {
   checkmate::assert_character(code)
+  checkmate::assert_string(lang)
   params <- list(...)
   checkmate::assert_list(params, names = "named", .var.name = "...")
   structure(
@@ -288,6 +292,7 @@ code_chunk <- function(code, ..., lang = "R") {
     class = "code_chunk"
   )
 }
+
 
 #' Builds `teal_card` from code and outputs in `qenv` object
 #'
