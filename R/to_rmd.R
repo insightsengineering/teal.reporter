@@ -123,7 +123,7 @@ to_rmd.default <- function(block, ...) {
 .to_rmd.code_chunk <- function(block, ..., output_format = NULL) {
   params <- lapply(attr(block, "params"), function(l) if (is.character(l)) shQuote(l) else l)
   block_str <- format(block)
-  lang <- attr(block, "lang")
+  lang <- attr(block, "lang", exact = TRUE)
   if (identical(output_format, "powerpoint_presentation")) {
     block_content_list <- lapply(
       split_text_block(block, 30),
