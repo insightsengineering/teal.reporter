@@ -1,7 +1,14 @@
 ui_previewer_card_actions <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
-    shiny::uiOutput(ns("toggle_code_ui")),
+    shiny::actionLink(
+      inputId = ns("toggle_code_action"),
+      class = "btn btn-outline-secondary btn-sm float-end p-3 card-code-toggle",
+      style = "background-color: white !important; z-index: 10 !important; position: relative !important;",
+      label = NULL,
+      title = "Toggle code chunks",
+      icon = shiny::icon("code")
+    ),
     shiny::actionLink(
       inputId = ns("edit_action"),
       class = "btn btn-primary btn-sm float-end p-3",
@@ -21,23 +28,6 @@ ui_previewer_card_actions <- function(id) {
 srv_previewer_card_actions <- function(id, card_r, card_id, reporter) {
   shiny::moduleServer(id, function(input, output, session) {
     new_card_rv <- shiny::reactiveVal()
-
-    # Conditionally render toggle button based on include_rcode setting
-    output$toggle_code_ui <- shiny::renderUI({
-      card <- shiny::req(card_r())
-      include_rcode <- metadata(card, "include_rcode") %||% TRUE
-
-      if (include_rcode) {
-        shiny::actionLink(
-          inputId = session$ns("toggle_code_action"),
-          class = "btn btn-outline-secondary btn-sm float-end p-3 card-code-toggle",
-          style = "background-color: white !important; z-index: 10 !important; position: relative !important;",
-          label = NULL,
-          title = "Toggle R Code chunks",
-          icon = shiny::icon("code")
-        )
-      }
-    })
 
     shiny::observeEvent(
       ignoreInit = TRUE,
