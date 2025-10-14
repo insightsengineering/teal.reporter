@@ -59,12 +59,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
 
       for (card_id in names(new_cards)) {
         card <- new_cards[[card_id]]
-        include_rcode <- metadata(card, "include_rcode") %||% TRUE
-        if (!include_rcode) {
-          card <- Filter(Negate(function(item) inherits(item, "code_chunk")), card)
-        }
         private$cards[[card_id]] <- card
-        private$cached_html[[card_id]] <- shiny::tagList(lapply(card, tools::toHTML))
+        private$cached_html[[card_id]] <- lapply(card, tools::toHTML)
       }
       invisible(self)
     },
@@ -131,15 +127,8 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       if (inherits(card, "ReportCard")) {
         card <- card$get_content()
       }
-
-      include_rcode <- metadata(card, "include_rcode") %||% TRUE
-
-      if (!include_rcode) {
-        card <- Filter(Negate(function(item) inherits(item, "code_chunk")), card)
-      }
-
       private$cards[[card_id]] <- card
-      private$cached_html[[card_id]] <- shiny::tagList(lapply(card, tools::toHTML))
+      private$cached_html[[card_id]] <- lapply(card, tools::toHTML)
       invisible(self)
     },
     #' @description Retrieves all `teal_card` objects contained in `Reporter`.
