@@ -110,7 +110,7 @@ global_knitr_details <- function() {
 #' @export
 #' @keywords internal
 format.code_chunk <- function(x, ...) {
-  language <- attr(x, "lang", exact = TRUE)
+  language <- lang(x)
   params <- attr(x, "params", exact = TRUE)
   if (language %in% names(knitr::knit_engines$get())) {
     sprintf(
