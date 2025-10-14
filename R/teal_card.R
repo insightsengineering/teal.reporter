@@ -279,42 +279,17 @@ metadata.ReportCard <- function(object, which = NULL) {
 #' @export
 code_chunk <- function(code, ..., lang = "R") {
   checkmate::assert_character(code)
+  checkmate::assert_string(lang)
   params <- list(...)
   checkmate::assert_list(params, names = "named", .var.name = "...")
-  lang(
-    structure(
-      paste(code, collapse = "\n"),
-      params = params,
-      class = "code_chunk"
-    ),
-    value = lang
+  structure(
+    paste(code, collapse = "\n"),
+    params = params,
+    lang = lang,
+    class = "code_chunk"
   )
 }
 
-#' Set or get language attribute
-#'
-#' Sets or retrieves the language attribute of an element in a `teal_card`.
-#'
-#' @param x The object to set or get the language attribute from.
-#' @param value (`character(1)`) The language value to set (e.g., "R", "python").
-#'
-#' @details
-#' While primarily used to specify the language for code chunks (see [`knitr::knit_engines`]),
-#' `lang` can also be used to associate any element in a `teal_card` with a specific language.
-#' This provides a mechanism to tie non-code elements (such as text sections or headings) to
-#' code chunks. For example, when reports are rendered with "Include R code" unchecked,
-#' all code chunks with `lang = "R"` are removed, and any other elements sharing the same
-#' `lang` attribute are also removed from the report.
-#'
-#' @keywords internal
-lang <- function(x, value) {
-  if (!missing(value)) {
-    attr(x, "lang") <- value
-    x
-  } else {
-    attr(x, "lang", exact = TRUE)
-  }
-}
 
 #' Builds `teal_card` from code and outputs in `qenv` object
 #'
