@@ -12,7 +12,7 @@ c.teal_report <- function(..., verbose = TRUE) {
   result <- NextMethod()
   l <- Filter(function(x) inherits(x, "teal_report"), list(...))
   if (length(l) > 1) {
-    teal_card(result) <- do.call(c, lapply(l, function(x) teal_card(x)), verbose = verbose)
+    teal_card(result) <- do.call(c.teal_card, lapply(l, function(x) teal_card(x)), verbose = verbose)
   }
   result
 }
