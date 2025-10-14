@@ -101,10 +101,10 @@ toHTML.default <- function(x, ...) {
 .toHTML.code_chunk <- function(x, ...) {
   bslib::accordion(
     class = "code_chunk",
+    open = FALSE,
     bslib::accordion_panel(
       title = shiny::tags$span(shiny::icon("code"), lang(x)),
       value = "rcode",
-      open = FALSE,
       shiny::tags$pre(
         shiny::tags$code(x, class = sprintf("language-%s", lang(x))),
         .noWS = "inside"

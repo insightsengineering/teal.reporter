@@ -104,18 +104,14 @@ to_rmd.default <- function(block, ...) {
   )
   global_knitr_code_chunk <- code_chunk(c(global_knitr_parsed, powerpoint_exception_parsed), include = FALSE)
 
-  m <- metadata(block)
-  m_yaml <- m
-  if (!is.null(m_yaml) && "include_rcode" %in% names(m_yaml)) {
-    m_yaml <- m_yaml[names(m_yaml) != "include_rcode"]
-  }
+  m_yaml <- metadata(block)
   paste(
     c(
       if (length(m_yaml)) as_yaml_auto(m_yaml),
       if (length(global_knitr) || is_powerpoint) to_rmd(global_knitr_code_chunk),
       unlist(lapply(
         block,
-        function(x) to_rmd(x, output_format = m$output, ...)
+        function(x) to_rmd(x, output_format = m_yaml$output, ...)
       ))
     ),
     collapse = "\n\n"
