@@ -86,7 +86,7 @@ srv_editor_block.default <- function(id, value) {
 
 #' @method .srv_editor_block default
 .srv_editor_block.default <- function(id, value) {
-  shiny::moduleServer(id, function(input, output, session) NULL) # No input being changed, skipping update
+  shiny::moduleServer(id, function(input, output, session) result <- NULL) # No input being changed, skipping update
 }
 
 #' @method .ui_editor_block character
@@ -100,5 +100,5 @@ srv_editor_block.default <- function(id, value) {
 
 #' @method .srv_editor_block character
 .srv_editor_block.character <- function(id, value) {
-  shiny::moduleServer(id, function(input, output, session) shiny::reactive(input$content))
+  shiny::moduleServer(id, function(input, output, session) result <- shiny::reactive(input$content))
 }

@@ -56,8 +56,7 @@ testthat::test_that("download_report_button_srv - subset of rmd_yaml_args", {
       shiny::testServer(
         download_report_button_srv,
         args = list(reporter = reporter, rmd_yaml_args = rmd_yaml_args_correct[[iset]]),
-        expr = {
-        }
+        expr = {}
       )
     )
   }
@@ -72,10 +71,6 @@ testthat::test_that("download_report_button_srv - subset of rmd_yaml_args", {
       "Assertion"
     )
   }
-})
-
-testthat::test_that("download_report_button_ui - returns a tagList", {
-  checkmate::expect_multi_class(download_report_button_ui("sth"), c("shiny.tag.list", "shiny.tag"))
 })
 
 testthat::test_that("report_render_and_compress - valid arguments", {

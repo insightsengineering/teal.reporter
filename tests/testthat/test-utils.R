@@ -54,3 +54,15 @@ testthat::describe("format.code_chunk", {
     testthat::expect_match(chunk_str, "^```\\{R, echo=TRUE, another=\\\"param\\\"\\}.*```$")
   })
 })
+
+testthat::test_that("global_knitr_details returns a string with description", {
+  result <- global_knitr_details()
+  checkmate::expect_string(result, "character")
+  testthat::expect_match(result, "tidy.opts = ")
+  testthat::expect_match(result, "echo = ")
+  testthat::expect_match(result, "tidy = ")
+})
+
+testthat::test_that("dummy function returns a function used to fix note about function use in R6", {
+  checkmate::expect_function(dummy())
+})

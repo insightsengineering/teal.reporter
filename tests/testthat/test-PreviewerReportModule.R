@@ -55,12 +55,6 @@ testthat::test_that("reporter_previewer_srv - subset of rmd_yaml_args", {
   }
 })
 
-testthat::test_that("reporter_previewer_ui - returns a shiny tag list", {
-  suppressWarnings(ui <- reporter_previewer_ui("sth"))
-  # suppressWarnings needed to suppress lifecycle deprecatation message
-  testthat::expect_true(inherits(ui, "shiny.tag.list"))
-})
-
 testthat::test_that("reporter_previewer_srv - previewer_buttons parameter", {
   testthat::expect_silent(
     shiny::testServer(

@@ -44,23 +44,6 @@ to_flextable <- function(content) {
   ft
 }
 
-#' Get the merge index for a single span.
-#' This function retrieves the merge index for a single span,
-#' which is used in merging cells.
-#' @noRd
-#' @keywords internal
-get_merge_index_single <- function(span) {
-  ret <- list()
-  j <- 1
-  while (j < length(span)) {
-    if (span[j] != 1) {
-      ret <- c(ret, list(seq(j, j + span[j] - 1)))
-    }
-    j <- j + span[j]
-  }
-  ret
-}
-
 #' Divide text block into smaller blocks
 #'
 #' Split a text block into smaller blocks with a specified number of lines.
