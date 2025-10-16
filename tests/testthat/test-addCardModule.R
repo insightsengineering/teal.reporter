@@ -120,7 +120,7 @@ testthat::describe("add_card_button_srv", {
       }
       card
     }
-    
+
     shiny::testServer(
       add_card_button_srv,
       args = list(reporter = Reporter$new(), card_fun = card_fun, default_label = "My Module"),
@@ -129,10 +129,10 @@ testthat::describe("add_card_button_srv", {
         session$setInputs(`add_report_card_button` = 0)
         session$setInputs(comment = "Test comment")
         session$setInputs(`add_card_ok` = 0)
-        
+
         # Verify the card was added and has the correct title
         testthat::expect_length(reporter$get_blocks(), 2) # 1 for title + 1 for content
-        
+
         # Check that the card has the correct title
         blocks <- reporter$get_blocks()
         testthat::expect_equal(blocks[[1]]$get_title(), "My Module")
