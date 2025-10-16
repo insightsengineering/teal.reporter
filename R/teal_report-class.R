@@ -92,7 +92,7 @@ setMethod(
 #'   head(iris)
 #' })
 #'
-#' # Add markdown content to the card
+#' # Add arbitrary markdown content to the card
 #' teal_card(report) <- c(
 #'   teal_card(report),
 #'   teal_card("### Conclusion", "The analysis is complete.")

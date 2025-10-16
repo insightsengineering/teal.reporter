@@ -7,27 +7,18 @@
 code_chunk(code, ..., lang = "R")
 }
 \arguments{
-\item{code}{(\code{character} or \code{language}) The code to be displayed in the code chunk.}
+\item{code}{(\code{character}) The code to be displayed in the code chunk.}
 
 \item{...}{Additional named parameters to be included as chunk options. These control
 how the chunk behaves when rendered (e.g., \code{echo = TRUE}, \code{eval = FALSE},
-\code{message = FALSE}). See \href{https://yihui.org/knitr/options/}{knitr options} for
+\code{message = FALSE}). See \href{https://yihui.org/knitr/options/}{\code{knitr} options} for
 available options.}
 
 \item{lang}{(\code{character(1)}) The language of the code chunk. Defaults to \code{"R"}.
-See \code{\link[knitr:knit_engines]{knitr::knit_engines}} for supported languages (e.g., "python", "sql", "bash").}
+See \code{\link[knitr:knit_engines]{knitr::knit_engines}} for supported languages (e.g., "python", "bash").}
 }
 \value{
-An object of class \code{code_chunk} with the following structure:
-\itemize{
-\item The object itself is a character string containing the code
-\item \strong{Attributes:}
-\itemize{
-\item \code{params}: A list of chunk options passed via \code{...}
-\item \code{lang}: The language specification
-\item \code{class}: Set to \code{"code_chunk"}
-}
-}
+An object of class \code{code_chunk}
 }
 \description{
 This function creates a \code{code_chunk} object that represents code to be displayed
@@ -72,6 +63,5 @@ code_chunk(
 \seealso{
 \itemize{
 \item \code{\link[=teal_card]{teal_card()}} for creating report cards that can contain \code{code_chunk} objects
-\item \code{.code_to_card()} (internal) for building cards from \code{qenv} objects
 }
 }

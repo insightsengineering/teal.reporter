@@ -299,18 +299,12 @@ metadata.ReportCard <- function(object, which = NULL) {
 #' @param code (`character`) The code to be displayed in the code chunk.
 #' @param ... Additional named parameters to be included as chunk options. These control
 #'   how the chunk behaves when rendered (e.g., `echo = TRUE`, `eval = FALSE`,
-#'   `message = FALSE`). See [knitr options](https://yihui.org/knitr/options/) for
+#'   `message = FALSE`). See [`knitr` options](https://yihui.org/knitr/options/) for
 #'   available options.
 #' @param lang (`character(1)`) The language of the code chunk. Defaults to `"R"`.
-#'   See [`knitr::knit_engines`] for supported languages (e.g., "python", "sql", "bash").
+#'   See [`knitr::knit_engines`] for supported languages (e.g., "python", "bash").
 #'
-#' @return An object of class `code_chunk` with the following structure:
-#'   - The object itself is a character string containing the code
-#'   - **Attributes:**
-#'     - `params`: A list of chunk options passed via `...`
-#'     - `lang`: The language specification
-#'     - `class`: Set to `"code_chunk"`
-#'
+#' @return An object of class `code_chunk`
 #' @seealso
 #' - [teal_card()] for creating report cards that can contain `code_chunk` objects
 #'

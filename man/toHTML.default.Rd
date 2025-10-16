@@ -41,7 +41,7 @@ All returns are wrapped with \code{htmltools::browsable()} to enable viewer disp
 
 The \code{toHTML} S3 generic method converts various report objects into HTML representations.
 This is the primary method for rendering report content for display in web browsers,
-RStudio Viewer, or for inclusion in Shiny applications.
+IDE Viewer, or for inclusion in Shiny applications.
 }
 \details{
 \subsection{Relationship with \code{teal_card}}{
@@ -61,7 +61,7 @@ with proper formatting for each content type.
 
 \subsection{Content Type Conversions}{
 
-\strong{Text and Markdown:} Character strings are converted to HTML using CommonMark markdown syntax.
+\strong{Text and Markdown:} Character strings are converted to HTML using \code{CommonMark} markdown syntax.
 Supports headers, lists, code blocks, emphasis, and other markdown features.
 
 \strong{Code Chunks:} Created with \code{\link[=code_chunk]{code_chunk()}}, these are rendered as collapsible Bootstrap
@@ -79,44 +79,40 @@ for consistent formatting.
 
 All HTML output is wrapped with \code{\link[htmltools:browsable]{htmltools::browsable()}}, which enables:
 \itemize{
-\item Automatic display in RStudio/VS-code Viewer when displayed interactively
-\item Proper HTML dependency injection (Bootstrap CSS/JS, Font Awesome icons, etc.)
+\item Automatic render in IDE Viewer when displayed interactively
+\item Proper HTML dependency injection (Bootstrap CSS/JavaScript, Font Awesome icons, etc.)
 \item Standalone HTML files with all required resources
 }
 
-You can override the browsable behavior with:
+You can override the \code{browsable} behavior with:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{print(toHTML(x), browse = FALSE)  # Print markup to console instead
 }\if{html}{\out{</div>}}
 }
 }
 \examples{
+# Initialize empty report
+report <- teal_report()
 
-# Convert a simple text element
-html <- tools::toHTML("# Report Title")
+# Add arbitrary markdown elements to the report's teal_card
+teal_card(report) <- c(
+  teal_card(report),
+  "## Document section",
+  "Lorem ipsum dolor sit amet"
+)
 
-# Print html in a viewer
+# Use within() to execute code and add code-chunk
+report <- within(report, a <- 2)
+
+# within() automatically captures code and outputs
+report <- within(report, plot(a))
+
+html <- tools::toHTML(report)
+# display HTML markup in viewer
 html
 
 # Print HTML markup to console instead of viewer
 print(html, browse = FALSE)
-
-# Convert a teal_card with multiple elements
-card <- teal_card(
-  "# Analysis Report",
-  "## Summary Statistics",
-  summary(iris)
-)
-tools::toHTML(card)
-
-# Convert a code chunk
-code <- code_chunk("x <- 1 + 1", echo = TRUE)
-tools::toHTML(code)
-
-# Convert a complete teal_report
-report <- teal_report(teal_card = teal_card("## Results", "Analysis complete"))
-report <- within(report, iris)
-tools::toHTML(report)
 
 }
 \seealso{
