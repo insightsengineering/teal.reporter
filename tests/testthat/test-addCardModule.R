@@ -109,6 +109,37 @@ testthat::describe("add_card_button_srv", {
     )
   })
 
+  it("uses default_label as default value for card name input", {
+    card_fun <- function(card = teal_card(), comment = NULL, label = NULL) {
+      card <- c(card, "## Header 2 text", "A paragraph of default text")
+      if (!is.null(comment)) {
+        card <- c(card, "### Comment", comment)
+      }
+      if (!is.null(label)) {
+        metadata(card, "title") <- label
+      }
+      card
+    }
+    
+    shiny::testServer(
+      add_card_button_srv,
+      args = list(reporter = Reporter$new(), card_fun = card_fun, default_label = "My Module"),
+      expr = {
+        # Test adding the card with the default label
+        session$setInputs(`add_report_card_button` = 0)
+        session$setInputs(comment = "Test comment")
+        session$setInputs(`add_card_ok` = 0)
+        
+        # Verify the card was added and has the correct title
+        testthat::expect_length(reporter$get_blocks(), 2) # 1 for title + 1 for content
+        
+        # Check that the card has the correct title
+        blocks <- reporter$get_blocks()
+        testthat::expect_equal(blocks[[1]]$get_title(), "My Module")
+      }
+    )
+  })
+
   it("supports passing card_fun with any of the 2 available arguments", {
     card_fun <- function() {
       card <- teal_card()
