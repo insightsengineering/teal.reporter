@@ -15,28 +15,41 @@
 #' @details The `teal_card` class supports `c()` and `x[i]` methods for combining and subsetting elements.
 #' However, these methods only function correctly when the first element is a `teal_card`.
 #'
+#' @seealso [code_chunk()], [render()], [toHTML()]
+#'
 #' @examples
-#' # Create a new empty card
+#' # create an empty card
 #' report <- teal_card()
 #'
 #' # Create a card with content
-#' report <- teal_card("## Headline", "Some text", summary(iris))
-#'
-#' # Extract card from a teal_report
-#' tr <- teal_report(teal_card = teal_card("## Title"))
-#' doc <- teal_card(tr)
+#' report <- teal_card(
+#'   "## Headline",
+#'   "This is `iris` table",
+#'   code_chunk("print(iris)", lang = "R"),
+#'   iris
+#' )
 #'
 #' # Add elements to the report
-#' report <- c(report, list("## Table"), list(summary(mtcars)))
+#' report <- c(
+#'   report,
+#'   list("## mtcars Table"),
+#'   code_chunk("print(mtcars)", lang = "R"),
+#'   mtcars
+#' )
 #'
 #' # Subset the report to keep only the first two elements
-#' report <- report[1:2]
+#' report[1:2]
 #'
-#' # Append new elements after the first element
-#' report <- append(report, c(list("## Table 2"), list(summary(mtcars))), after = 1)
+#' # Replace element
+#' report[[1]] <- "## Iris Table"
 #'
-#' # Verify that the object remains a teal_card
-#' class(report)
+#' # Append element
+#' report <- append(report, teal_card("# Awesome Report"), after = 0)
+#' tools::toHTML(report)
+#'
+#' if (interactive()) {
+#'   render(report, output_format = rmarkdown::pdf_document())
+#' }
 #'
 #' @aliases teal_card
 #' @name teal_card
@@ -263,22 +276,61 @@ metadata.ReportCard <- function(object, which = NULL) {
   object
 }
 
-#' Generate an R Markdown code chunk
+#' Generate a code chunk
 #'
-#' This function creates a `code_chunk` object, which represents an R Markdown
-#' code chunk. It stores the R code and any specified chunk options (e.g., `echo`, `eval`).
-#' These objects are typically processed later to generate the final R Markdown text.
+#' @description
+#' This function creates a `code_chunk` object that represents code to be displayed
+#' in a report. It stores the code of any language (see `lang` argument) and any
+#' specified chunk options (e.g., `echo`, `eval`).
 #'
-#' @param code A character string containing the R code.
-#' @param ... Additional named parameters to be included as chunk options (e.g., `echo = TRUE`).
-#' Check [`knitr` options/](https://yihui.org/knitr/options/) for more details.
-#' @param lang (`character(1)`) See [`knitr::knit_engines`].
+#' @details
+#' **Important Notes:**
+#' - The code is **not evaluated**; it is only stored as text with formatting attributes.
+#' - When converted to output, `code_chunk` produces markdown code block syntax
+#'   (` ```{lang} ... ``` `) or HTML `<pre><code>...</code></pre>` blocks.
+#' - The document is **not rendered** using `rmarkdown::render`. The `code_chunk` is part
+#'   of the `teal_card` API for building reproducible documents that are produced as-is.
 #'
-#' @return An object of class `code_chunk`.
+#' **Typical Workflow:**
+#' 1. Create a `code_chunk` object with your code and options
+#' 2. Add it to a `teal_card` using `teal_card()` or `c()`
+#' 3. The card produces the formatted code block in the final document output
+#'
+#' @param code (`character`) The code to be displayed in the code chunk.
+#' @param ... Additional named parameters to be included as chunk options. These control
+#'   how the chunk behaves when rendered (e.g., `echo = TRUE`, `eval = FALSE`,
+#'   `message = FALSE`). See [knitr options](https://yihui.org/knitr/options/) for
+#'   available options.
+#' @param lang (`character(1)`) The language of the code chunk. Defaults to `"R"`.
+#'   See [`knitr::knit_engines`] for supported languages (e.g., "python", "sql", "bash").
+#'
+#' @return An object of class `code_chunk` with the following structure:
+#'   - The object itself is a character string containing the code
+#'   - **Attributes:**
+#'     - `params`: A list of chunk options passed via `...`
+#'     - `lang`: The language specification
+#'     - `class`: Set to `"code_chunk"`
+#'
+#' @seealso
+#' - [teal_card()] for creating report cards that can contain `code_chunk` objects
+#'
 #' @examples
-#' my_chunk <- code_chunk("x <- 1:10", echo = TRUE, message = FALSE)
-#' class(my_chunk)
-#' attributes(my_chunk)$param
+#' # Basic code chunk with options
+#' code_chunk("x <- 1:10", echo = TRUE, message = FALSE)
+#'
+#' # Python code chunk
+#' code_chunk("import pandas as pd", lang = "python", eval = FALSE)
+#'
+#' # Code chunk with multiple knitr options
+#' code_chunk(
+#'   "plot(mtcars$mpg, mtcars$hp)",
+#'   echo = TRUE,
+#'   eval = TRUE,
+#'   fig.width = 7,
+#'   fig.height = 5,
+#'   warning = FALSE
+#' )
+#'
 #' @export
 code_chunk <- function(code, ..., lang = "R") {
   checkmate::assert_character(code)
@@ -374,7 +426,7 @@ code_chunk <- function(code, ..., lang = "R") {
 #' `teal.reporter.dev.fig.height`.
 #' @return List with `width` and `height` elements.
 #' @keywords internal
-resolve_figure_dimensions <- function(x, convert_to_inches = FALSE, dpi = 96) {
+.determine_default_dimensions <- function(x, convert_to_inches = FALSE, dpi = 96) {
   checkmate::assert_flag(convert_to_inches)
   width <- attr(x, "dev.width") %||% getOption("teal.reporter.dev.fig.width", 800)
   height <- attr(x, "dev.height") %||% getOption("teal.reporter.dev.fig.height", 600)
