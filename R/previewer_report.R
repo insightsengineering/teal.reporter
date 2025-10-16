@@ -48,7 +48,7 @@ preview_report_button_srv <- function(id, reporter) {
 
     output$preview_button_counter <- shiny::renderUI({
       shiny::tags$span(
-        class = "position-absolute badge rounded-pill bg-primary",
+        class = "badge rounded-pill bg-primary",
         length(reporter$get_cards())
       )
     })
