@@ -1,4 +1,4 @@
-# teal.reporter 0.5.0.9016
+# teal.reporter 0.5.0.9017
 
 ### New features
 
