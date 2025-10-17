@@ -8,7 +8,7 @@
 \usage{
 add_card_button_ui(id, label = NULL)
 
-add_card_button_srv(id, reporter, card_fun)
+add_card_button_srv(id, reporter, card_fun, card_title = "")
 }
 \arguments{
 \item{id}{(\code{character(1)}) this \code{shiny} module's id.}
@@ -18,6 +18,8 @@ add_card_button_srv(id, reporter, card_fun)
 \item{reporter}{(\code{Reporter}) instance.}
 
 \item{card_fun}{(\code{function}) which returns a \code{\link{ReportCard}} instance. See \code{Details}.}
+
+\item{card_title}{(\code{character(1)}) default value for the card title input field. By default it is empty.}
 }
 \value{
 \code{NULL}.
