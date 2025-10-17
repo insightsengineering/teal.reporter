@@ -110,9 +110,11 @@ testthat::describe("add_card_button_srv", {
   })
 
   it("uses card_title as a default value for card title input", {
-    card_fun <- function() {
-      card <- teal_card()
-      card <- c(card, "Test")
+    card_fun <- function(card = teal_card(), comment = NULL) {
+      card <- c(card, "## Header 2 text", "A paragraph of default text")
+      if (!is.null(comment)) {
+        card <- c(card, "### Comment", comment)
+      }
       card
     }
 
@@ -123,51 +125,10 @@ testthat::describe("add_card_button_srv", {
         testthat::expect_equal(title_r(), "My Module")
 
         session$setInputs(`add_report_card_button` = 0)
+        session$setInputs(label = title_r())
         session$setInputs(`add_card_ok` = 0)
 
-        # title is not set for the card
-        # testthat::expect_equal(metadata(reporter$get_cards()[[1]], "title"), "# My Module")
-
-
-        # Browse[1]> reporter$get_blocks()
-        # $f0a94b99
-        # [1] "# _Unnamed Card (1)_"
-        #
-        # $`4728e03f`
-        # [1] "## Header 2 text"
-        #
-        # $e3ea0e9f
-        # [1] "A paragraph of default text"
-        #
-        # $`4b68730b`
-        # [1] "### Comment"
-        #
-        # $`650eacc4`
-        # [1] "Comment Body"
-        #
-        # attr(,"class")
-        # [1] "teal_card"
-        # attr(,"metadata")
-        # list()
-        # Browse[1]> reporter$get_cards()
-        # $card_2897d242
-        # $d1daf319
-        # [1] "## Header 2 text"
-        #
-        # $`29dff1fe`
-        # [1] "A paragraph of default text"
-        #
-        # $`5d212d7d`
-        # [1] "### Comment"
-        #
-        # $d2e45d3c
-        # [1] "Comment Body"
-        #
-        # attr(,"class")
-        # [1] "teal_card"
-        # attr(,"metadata")
-        # list()
-
+        testthat::expect_equal(metadata(reporter$get_cards()[[1]], "title"), card_title)
       }
     )
   })
