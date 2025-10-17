@@ -74,7 +74,42 @@ setMethod(
 #' @export
 #'
 #' @examples
-#' teal_report(x1 = iris, x2 = mtcars)
+#' # Initialize teal_report with existing h2 header
+#' report <- teal_report(teal_card = teal_card("## Analysis Report"))
+#'
+#' # Use within() to execute code and add code-chunk
+#' report <- within(report, {
+#'   data <- iris
+#'   summary_stats <- summary(data)
+#' })
+#'
+#' # Access objects created within the report
+#' report$data
+#' report$summary_stats
+#'
+#' # within() automatically captures code and outputs
+#' report <- within(report, {
+#'   head(iris)
+#' })
+#'
+#' # Add arbitrary markdown content to the card
+#' teal_card(report) <- c(
+#'   teal_card(report),
+#'   teal_card("### Conclusion", "The analysis is complete.")
+#' )
+#'
+#' # View the generated card with code chunks
+#' teal_card(report)
+#'
+#' # View report in HTML format
+#' tools::toHTML(report)
+#'
+#' if (interactive()) {
+#'   # Render the report to various formats
+#'   render(report, output_format = rmarkdown::html_document())
+#'   render(report, output_format = rmarkdown::pdf_document())
+#' }
+#'
 teal_report <- function(...,
                         teal_card = NULL,
                         code = character(0),

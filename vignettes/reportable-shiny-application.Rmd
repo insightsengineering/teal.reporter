@@ -1,0 +1,139 @@
+---
+title: "Reportable Shiny Application"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Reportable Shiny Application}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+## Introduction
+
+This vignette demonstrates how to create a fully functional reportable Shiny application using `teal.reporter`. While `teal` provides automatic reporting functionality (as described in the [Getting Started](./getting-started-with-teal-reporter.html) vignette), this guide shows how to integrate reporting capabilities into standalone Shiny applications or when you need more control over the reporting process.
+
+Before diving into this vignette, we recommend familiarizing yourself with:
+
+- [Getting Started with teal.reporter](./getting-started-with-teal-reporter.html) - Overview of the package and its integration with `teal`
+- [teal_report Class](./teal-report-class.html) - Understanding `teal_report` and `teal_card` objects, which are the foundation for creating reproducible report content
+
+## Reporter Modules
+
+`teal.reporter` provides a complete suite of Shiny modules for report management in applications:
+
+- **Add card button** - Add views/cards to a report
+- **Preview report button** - Preview the report content in a modal
+- **Download report button** - Download the report in various formats
+- **Load report button** - Upload previously saved reports
+- **Reset report button** - Clear all cards from the report
+
+This vignette demonstrates how to integrate all five modules into a Shiny application. The key steps are:
+
+1. Add the UI components of all modules to your app's interface.
+2. Initialize a `Reporter` instance.
+3. Build reproducible `teal_report` object by executing a code and adding arbitrary markdown elements.
+4. Extract `teal_card` object containing the content to be added to reports.
+5. Invoke the server functions with the `Reporter` instance and `teal_card` reactive.
+
+The code added to introduce the reporter functionality is wrapped in `### REPORTER` code blocks.
+
+First, load the required packages:
+
+```{r, message = FALSE}
+library(shiny)
+library(teal.reporter)
+```
+
+A simple `shiny` app with all reporter modules integrated:
+
+```{r, eval = interactive()}
+ui <- bslib::page_fluid(
+  bslib::card(
+    bslib::card_header("Reporter Modules Demo"),
+    bslib::layout_sidebar(
+      sidebar = bslib::sidebar(
+        ### REPORTER
+        teal.reporter::add_card_button_ui("add_card", label = "Add Card"),
+        teal.reporter::preview_report_button_ui("preview"),
+        teal.reporter::download_report_button_ui("download", label = "Download"),
+        teal.reporter::report_load_ui("load", label = "Load"),
+        teal.reporter::reset_report_button_ui("reset", label = "Reset"),
+        ###
+      ),
+      bslib::card(
+        bslib::card_header("Summary Statistics by Cylinder"),
+        selectInput(
+          "stat",
+          label = "Select Statistic:",
+          choices = c("mean", "median", "sd"),
+          selected = "mean"
+        ),
+        tableOutput("table")
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  # Here we start with empty teal_report object
+  data <- teal_report()
+
+  # Create summary table
+  with_summary_table <- reactive({
+    req(input$stat)
+    # Add section's header with dynamic content
+    teal_card(data) <- c(teal_card(data), paste("## Summary Statistics:", input$stat))
+
+    # Execute dynamically generated code (this stores evaluated code-chunk and its output)
+    within(
+      data,
+      expr = {
+        summary_table <- data.frame(
+          cyl = sort(unique(mtcars$cyl)),
+          mpg = tapply(mtcars$mpg, mtcars$cyl, stat_fun),
+          hp = tapply(mtcars$hp, mtcars$cyl, stat_fun),
+          wt = tapply(mtcars$wt, mtcars$cyl, stat_fun)
+        )
+        summary_table
+      },
+      stat_fun = as.name(input$stat)
+    )
+  })
+
+  output$table <- renderTable({
+    # extract `summary_table` from teal_report object
+    teal.code::get_outputs(with_summary_table())[[1]]
+  })
+
+  ### REPORTER
+  reporter <- Reporter$new()
+  reporter$set_id("reporter_demo")
+
+  # extract teal_card object and hand it over to add_card_button_srv
+  card_r <- reactive(teal_card(with_summary_table()))
+  teal.reporter::add_card_button_srv("add_card", reporter = reporter, card_fun = card_r)
+  teal.reporter::preview_report_button_srv("preview", reporter)
+  teal.reporter::download_report_button_srv("download", reporter)
+  teal.reporter::report_load_srv("load", reporter)
+  teal.reporter::reset_report_button_srv("reset", reporter)
+  ###
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+## Module Overview
+
+This example demonstrates all five reporter modules working together:
+
+1. **Add Card Button** - Allows users to add the current view to the report. When clicked, it opens a modal where users can provide a card name and optional comment. The `card_fun` reactive creates a `teal_card` containing the current tab's content (plot or table) along with the corresponding R code.
+
+2. **Preview Report Button** - Opens a modal showing all added cards in an accordion view. Users can preview, edit, reorder, or remove individual cards before downloading. The badge shows the current number of cards in the report.
+
+3. **Download Report Button** - Generates and downloads the report as a zip file. Users can customize the report metadata (author, title, date), choose the output format (HTML, PDF, Word, PowerPoint), include a table of contents, and optionally include R code in the output.
+
+4. **Load Report Button** - Allows users to upload and restore a previously saved report (zip file). This enables users to continue working on reports across sessions.
+
+5. **Reset Report Button** - Clears all cards from the current report. The button is disabled when the report is empty and prompts for confirmation before resetting.
+
+All modules share the same `Reporter` instance, ensuring synchronized state management across the application.
