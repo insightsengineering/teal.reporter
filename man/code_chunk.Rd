@@ -2,28 +2,66 @@
 % Please edit documentation in R/teal_card.R
 \name{code_chunk}
 \alias{code_chunk}
-\title{Generate an R Markdown code chunk}
+\title{Generate a code chunk}
 \usage{
 code_chunk(code, ..., lang = "R")
 }
 \arguments{
-\item{code}{A character string containing the R code.}
+\item{code}{(\code{character}) The code to be displayed in the code chunk.}
 
-\item{...}{Additional named parameters to be included as chunk options (e.g., \code{echo = TRUE}).
-Check \href{https://yihui.org/knitr/options/}{\code{knitr} options/} for more details.}
+\item{...}{Additional named parameters to be included as chunk options. These control
+how the chunk behaves when rendered (e.g., \code{echo = TRUE}, \code{eval = FALSE},
+\code{message = FALSE}). See \href{https://yihui.org/knitr/options/}{\code{knitr} options} for
+available options.}
 
-\item{lang}{(\code{character(1)}) See \code{\link[knitr:knit_engines]{knitr::knit_engines}}.}
+\item{lang}{(\code{character(1)}) The language of the code chunk. Defaults to \code{"R"}.
+See \code{\link[knitr:knit_engines]{knitr::knit_engines}} for supported languages (e.g., "python", "bash").}
 }
 \value{
-An object of class \code{code_chunk}.
+An object of class \code{code_chunk}
 }
 \description{
-This function creates a \code{code_chunk} object, which represents an R Markdown
-code chunk. It stores the R code and any specified chunk options (e.g., \code{echo}, \code{eval}).
-These objects are typically processed later to generate the final R Markdown text.
+This function creates a \code{code_chunk} object that represents code to be displayed
+in a report. It stores the code of any language (see \code{lang} argument) and any
+specified chunk options (e.g., \code{echo}, \code{eval}).
+}
+\details{
+\strong{Important Notes:}
+\itemize{
+\item The code is \strong{not evaluated}; it is only stored as text with formatting attributes.
+\item When converted to output, \code{code_chunk} produces markdown code block syntax
+(\verb{```\{lang\} ... ```}) or HTML \verb{<pre><code>...</code></pre>} blocks.
+\item The document is \strong{not rendered} using \code{rmarkdown::render}. The \code{code_chunk} is part
+of the \code{teal_card} API for building reproducible documents that are produced as-is.
+}
+
+\strong{Typical Workflow:}
+\enumerate{
+\item Create a \code{code_chunk} object with your code and options
+\item Add it to a \code{teal_card} using \code{teal_card()} or \code{c()}
+\item The card produces the formatted code block in the final document output
+}
 }
 \examples{
-my_chunk <- code_chunk("x <- 1:10", echo = TRUE, message = FALSE)
-class(my_chunk)
-attributes(my_chunk)$param
+# Basic code chunk with options
+code_chunk("x <- 1:10", echo = TRUE, message = FALSE)
+
+# Python code chunk
+code_chunk("import pandas as pd", lang = "python", eval = FALSE)
+
+# Code chunk with multiple knitr options
+code_chunk(
+  "plot(mtcars$mpg, mtcars$hp)",
+  echo = TRUE,
+  eval = TRUE,
+  fig.width = 7,
+  fig.height = 5,
+  warning = FALSE
+)
+
+}
+\seealso{
+\itemize{
+\item \code{\link[=teal_card]{teal_card()}} for creating report cards that can contain \code{code_chunk} objects
+}
 }
