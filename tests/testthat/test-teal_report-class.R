@@ -1,3 +1,31 @@
+testthat::describe("teal_report initializes", {
+  it("silently with all default arguments", {
+    testthat::expect_no_error(teal_report())
+  })
+  it("silently with teal_card", {
+    testthat::expect_no_error(teal_report(teal_card = teal_card()))
+  })
+  it("silently with teal_card being NULL", {
+    testthat::expect_no_error(teal_report(teal_card = NULL))
+  })
+  it("with error when teal_card is not teal_card nor NULL", {
+    testthat::expect_error(teal_report(teal_card = list()))
+  })
+})
+
+testthat::describe("as.teal_report coerces", {
+  it("from teal_report", {
+    testthat::expect_s4_class(as.teal_report(teal_report()), "teal_report")
+  })
+
+  it("from teal_data", {
+    testthat::expect_s4_class(as.teal_report(teal.data::teal_data()), "teal_report")
+  })
+  it("from qenv", {
+    testthat::expect_s4_class(as.teal_report(teal.code::qenv()), "teal_report")
+  })
+})
+
 testthat::describe("teal_card built from teal_data", {
   code <- c(
     "aa <- 1",
