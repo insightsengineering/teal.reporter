@@ -36,7 +36,7 @@
 #' @param reporter (`Reporter`) instance.
 #' @param label (`character(1)`) label of the button. By default it is empty.
 #' @param card_fun (`function`) which returns a [`ReportCard`] instance. See `Details`.
-#' @param default_label (`character(1)`) default value for the card name input field. By default it is empty.
+#' @param card_name (`character(1)`) default value for the card name input field. By default it is empty.
 #'
 #' @return `NULL`.
 NULL
@@ -56,10 +56,10 @@ add_card_button_ui <- function(id, label = NULL) {
 
 #' @rdname add_card_button
 #' @export
-add_card_button_srv <- function(id, reporter, card_fun, default_label = "") {
+add_card_button_srv <- function(id, reporter, card_fun, card_name = "") {
   checkmate::assert_function(card_fun)
   checkmate::assert_class(reporter, "Reporter")
-  checkmate::assert_string(default_label)
+  checkmate::assert_string(card_name)
   checkmate::assert_subset(names(formals(card_fun)), c("card", "comment", "label"), empty.ok = TRUE)
 
   shiny::moduleServer(id, function(input, output, session) {
@@ -70,6 +70,9 @@ add_card_button_srv <- function(id, reporter, card_fun, default_label = "") {
     ))
 
     ns <- session$ns
+
+    title_r <- reactiveVal(default_label)
+    observeEvent(input$label, title_r(input$label))
 
     add_modal <- function() {
       shiny::div(
@@ -82,7 +85,7 @@ add_card_button_srv <- function(id, reporter, card_fun, default_label = "") {
           shiny::textInput(
             ns("label"),
             "Card Name",
-            value = default_label,
+            value = card_name,
             placeholder = "Add the card title here",
             width = "100%"
           ),
