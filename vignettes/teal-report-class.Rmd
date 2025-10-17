@@ -102,6 +102,15 @@ metadata(teal_card(report)) <- list(
 )
 ```
 
+## Preview report
+
+Report can be previewed in form of HTML markup displayed in viewer of your IDE. `tools::toHTML` returns browsable `shiny.tag` which can be used also in Shiny-application to preview a report.
+
+
+```{r eval=FALSE}
+tools::toHTML(report)
+```
+
 ## Output teal_report
 
 `teal_report` supports several output formats. `render` for `teal_report` utilizes `rmarkdown::render` so it supports the same [output formats](https://pkgs.rstudio.com/rmarkdown/reference/index.html#output-formats) and arguments.
