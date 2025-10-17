@@ -109,6 +109,22 @@ testthat::describe("add_card_button_srv", {
     )
   })
 
+  it("uses module label as default value for card title input", {
+    card_fun <- function() {
+      card <- teal_card()
+      card <- c(card, "Test")
+      card
+    }
+
+    shiny::testServer(
+      add_card_button_srv,
+      args = list(reporter = Reporter$new(), card_fun = card_fun, card_title = "My Module"),
+      expr = {
+        testthat::expect_equal(title_r(), "My Module")
+      }
+    )
+  })
+
   it("supports passing card_fun with any of the 2 available arguments", {
     card_fun <- function() {
       card <- teal_card()
