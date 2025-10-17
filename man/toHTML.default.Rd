@@ -2,6 +2,7 @@
 % Please edit documentation in R/toHTML.R
 \name{toHTML.default}
 \alias{toHTML.default}
+\alias{teal_card-preview}
 \title{Convert report objects to HTML}
 \usage{
 \method{toHTML}{default}(x, ...)
@@ -117,6 +118,7 @@ print(html, browse = FALSE)
 }
 \seealso{
 \itemize{
+\item \code{\link[=teal_report]{teal_report()}} for creating report objects
 \item \code{\link[=teal_card]{teal_card()}} for creating report cards
 \item \code{\link[=code_chunk]{code_chunk()}} for creating code blocks
 \item \code{\link[=render]{render()}} for rendering complete reports to files

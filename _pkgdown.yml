@@ -24,13 +24,13 @@ navbar:
       aria-label: View on Github
 
 articles:
-  - title: "Getting Started with teal.reporter"
+  - title: "Getting Started"
     contents:
       - getting-started-with-teal-reporter
-  - title: "teal_report Class"
+  - title: "Core Concepts"
     contents:
       - teal-report-class
-  - title: "Reportable Shiny Application"
+  - title: "Building Reportable App"
     contents:
       - reportable-shiny-application
 
@@ -79,6 +79,7 @@ reference:
       - render
       - teal_card
       - "teal_card<-"
+      - teal_card-preview
   - title: "Utility functions for `teal_report` object"
     contents:
       - c.teal_report

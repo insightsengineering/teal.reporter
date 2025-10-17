@@ -75,6 +75,7 @@ NULL
 #'   All returns are wrapped with `htmltools::browsable()` to enable viewer display.
 #'
 #' @seealso
+#' - [teal_report()] for creating report objects
 #' - [teal_card()] for creating report cards
 #' - [code_chunk()] for creating code blocks
 #' - [render()] for rendering complete reports to files
@@ -104,6 +105,7 @@ NULL
 #' print(html, browse = FALSE)
 #'
 #' @export
+#' @aliases teal_card-preview
 #' @method toHTML default
 toHTML.default <- function(x, ...) {
   htmltools::browsable(.toHTML(x, ...))
