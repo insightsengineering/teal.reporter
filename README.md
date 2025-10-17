@@ -51,9 +51,11 @@ pak::pak("insightsengineering/teal.reporter")
 To understand how to use this package, please refer to the [Getting Started](https://insightsengineering.github.io/teal.reporter/latest-tag/articles/teal-reporter.html) article, which provides multiple examples of code implementation.
 
 Overall functionalities
+
 ![Showcase](https://github.com/insightsengineering/teal.reporter/blob/main/assets/img/showcase.gif)
 
 Previewer Editor
+
 ![Editor Showcase](https://github.com/insightsengineering/teal.reporter/blob/main/assets/img/editor_showcase.gif)
 
 ## Getting help
