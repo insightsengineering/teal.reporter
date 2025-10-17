@@ -71,8 +71,8 @@ add_card_button_srv <- function(id, reporter, card_fun, card_title = "") {
 
     ns <- session$ns
 
-    title_r <- reactiveVal(card_title)
-    observeEvent(input$label, title_r(input$label))
+    title_r <- shiny::reactiveVal(card_title)
+    shiny::observeEvent(input$label, title_r(input$label))
 
     add_modal <- function() {
       shiny::div(
@@ -85,7 +85,7 @@ add_card_button_srv <- function(id, reporter, card_fun, card_title = "") {
           shiny::textInput(
             ns("label"),
             "Card Title",
-            value = isolate(title_r()),
+            value = shiny::isolate(title_r()),
             placeholder = "Add the card title here",
             width = "100%"
           ),
