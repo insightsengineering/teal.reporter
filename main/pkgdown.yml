@@ -2,11 +2,10 @@ pandoc: 3.7.0.2
 pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
-  previewerReporter: previewerReporter.html
-  simpleReporter: simpleReporter.html
+  getting-started-with-teal-reporter: getting-started-with-teal-reporter.html
+  reportable-shiny-application: reportable-shiny-application.html
   teal-report-class: teal-report-class.html
-  teal-reporter: teal-reporter.html
-last_built: 2025-10-14T13:03Z
+last_built: 2025-10-17T11:07Z
 urls:
   reference: https://insightsengineering.github.io/teal.reporter/reference
   article: https://insightsengineering.github.io/teal.reporter/articles

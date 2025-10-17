@@ -4,11 +4,10 @@
 <url><loc>https://insightsengineering.github.io/teal.reporter/CONTRIBUTING.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/LICENSE-text.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/SECURITY.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.reporter/articles/getting-started-with-teal-reporter.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/articles/index.html</loc></url>
-<url><loc>https://insightsengineering.github.io/teal.reporter/articles/previewerReporter.html</loc></url>
-<url><loc>https://insightsengineering.github.io/teal.reporter/articles/simpleReporter.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.reporter/articles/reportable-shiny-application.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/articles/teal-report-class.html</loc></url>
-<url><loc>https://insightsengineering.github.io/teal.reporter/articles/teal-reporter.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/authors.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/index.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/news/index.html</loc></url>
@@ -22,6 +21,7 @@
 <url><loc>https://insightsengineering.github.io/teal.reporter/reference/dot-action_button_busy.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/reference/dot-code_to_card.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/reference/dot-convert_teal_card_input.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.reporter/reference/dot-determine_default_dimensions.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/reference/download_report_button.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/reference/eval_code-teal_report.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/reference/get_yaml_field.html</loc></url>
@@ -37,7 +37,6 @@
 <url><loc>https://insightsengineering.github.io/teal.reporter/reference/reporter_previewer.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/reference/reporter_previewer_deprecated.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/reference/reset_report_button.html</loc></url>
-<url><loc>https://insightsengineering.github.io/teal.reporter/reference/resolve_figure_dimensions.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/reference/rmd_output_arguments.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/reference/rmd_outputs.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/reference/simple_reporter.html</loc></url>
@@ -47,6 +46,7 @@
 <url><loc>https://insightsengineering.github.io/teal.reporter/reference/teal_card.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/reference/teal_report-class.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/reference/teal_report.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.reporter/reference/toHTML.default.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/reference/to_flextable.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/reference/to_rmd.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.reporter/reference/yaml_quoted.html</loc></url>
