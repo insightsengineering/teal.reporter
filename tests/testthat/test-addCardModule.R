@@ -167,7 +167,6 @@ testthat::describe("add_card_button_srv", {
         # [1] "teal_card"
         # attr(,"metadata")
         # list()
-
       }
     )
   })
