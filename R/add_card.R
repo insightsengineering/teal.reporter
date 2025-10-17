@@ -140,7 +140,7 @@ add_card_button_srv <- function(id, reporter, card_fun, card_title = "") {
         arg_list <- c(arg_list, list(comment = input$comment))
       }
       if (has_label_arg) {
-        arg_list <- c(arg_list, list(label = input$label))
+        arg_list <- c(arg_list, list(label = title_r()))
       }
 
       shinyjs::disable("add_card_ok")
@@ -180,15 +180,15 @@ add_card_button_srv <- function(id, reporter, card_fun, card_title = "") {
             card$append_text(input$comment)
           }
 
-          if (!has_label_arg && length(input$label) == 1 && input$label != "") {
-            card$set_name(input$label)
+          if (!has_label_arg && length(title_r()) == 1 && title_r() != "") {
+            card$set_name(title_r())
           }
         } else if (inherits(card, "teal_card")) {
           if (!has_comment_arg && length(input$comment) > 0 && input$comment != "") {
             card <- c(card, "### Comment", input$comment)
           }
-          if (!has_label_arg && length(input$label) == 1 && input$label != "") {
-            metadata(card, "title") <- input$label
+          if (!has_label_arg && length(title_r()) == 1 && title_r() != "") {
+            metadata(card, "title") <- title_r()
           }
         }
 
