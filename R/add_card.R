@@ -36,6 +36,7 @@
 #' @param reporter (`Reporter`) instance.
 #' @param label (`character(1)`) label of the button. By default it is empty.
 #' @param card_fun (`function`) which returns a [`ReportCard`] instance. See `Details`.
+#' @param card_title (`character(1)`) default value for the card title input field. By default it is empty.
 #'
 #' @return `NULL`.
 NULL
@@ -55,9 +56,10 @@ add_card_button_ui <- function(id, label = NULL) {
 
 #' @rdname add_card_button
 #' @export
-add_card_button_srv <- function(id, reporter, card_fun) {
+add_card_button_srv <- function(id, reporter, card_fun, card_title = "") {
   checkmate::assert_function(card_fun)
   checkmate::assert_class(reporter, "Reporter")
+  checkmate::assert_string(card_title)
   checkmate::assert_subset(names(formals(card_fun)), c("card", "comment", "label"), empty.ok = TRUE)
 
   shiny::moduleServer(id, function(input, output, session) {
@@ -69,6 +71,9 @@ add_card_button_srv <- function(id, reporter, card_fun) {
 
     ns <- session$ns
 
+    title_r <- shiny::reactiveVal(card_title)
+    shiny::observeEvent(input$label, title_r(input$label))
+
     add_modal <- function() {
       shiny::div(
         class = "teal-reporter reporter-modal",
@@ -79,8 +84,8 @@ add_card_button_srv <- function(id, reporter, card_fun) {
           shiny::tags$hr(),
           shiny::textInput(
             ns("label"),
-            "Card Name",
-            value = "",
+            "Card Title",
+            value = shiny::isolate(title_r()),
             placeholder = "Add the card title here",
             width = "100%"
           ),
@@ -135,7 +140,7 @@ add_card_button_srv <- function(id, reporter, card_fun) {
         arg_list <- c(arg_list, list(comment = input$comment))
       }
       if (has_label_arg) {
-        arg_list <- c(arg_list, list(label = input$label))
+        arg_list <- c(arg_list, list(label = title_r()))
       }
 
       shinyjs::disable("add_card_ok")
@@ -175,15 +180,15 @@ add_card_button_srv <- function(id, reporter, card_fun) {
             card$append_text(input$comment)
           }
 
-          if (!has_label_arg && length(input$label) == 1 && input$label != "") {
-            card$set_name(input$label)
+          if (!has_label_arg && length(title_r()) == 1 && title_r() != "") {
+            card$set_name(title_r())
           }
         } else if (inherits(card, "teal_card")) {
           if (!has_comment_arg && length(input$comment) > 0 && input$comment != "") {
             card <- c(card, "### Comment", input$comment)
           }
-          if (!has_label_arg && length(input$label) == 1 && input$label != "") {
-            metadata(card, "title") <- input$label
+          if (!has_label_arg && length(title_r()) == 1 && title_r() != "") {
+            metadata(card, "title") <- title_r()
           }
         }
 

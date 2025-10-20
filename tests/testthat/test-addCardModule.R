@@ -109,6 +109,39 @@ testthat::describe("add_card_button_srv", {
     )
   })
 
+  it("uses card_title as a default value for card title input", {
+    card_fun <- function(card = teal_card()) {
+      c(card, "## Header 2 text", "A paragraph of default text")
+    }
+
+    shiny::testServer(
+      add_card_button_srv,
+      args = list(reporter = Reporter$new(), card_fun = card_fun, card_title = "My Module"),
+      expr = {
+        session$setInputs(`add_report_card_button` = 0)
+        session$setInputs(`add_card_ok` = 0)
+        testthat::expect_equal(metadata(reporter$get_cards()[[1]], "title"), card_title)
+      }
+    )
+  })
+
+  it("change in input$label updates title of the card", {
+    card_fun <- function(card = teal_card()) {
+      c(card, "## Header 2 text", "A paragraph of default text")
+    }
+
+    shiny::testServer(
+      add_card_button_srv,
+      args = list(reporter = Reporter$new(), card_fun = card_fun, card_title = "My Module"),
+      expr = {
+        session$setInputs(`add_report_card_button` = 0)
+        session$setInputs(label = "Test")
+        session$setInputs(`add_card_ok` = 0)
+        testthat::expect_equal(metadata(reporter$get_cards()[[1]], "title"), "Test")
+      }
+    )
+  })
+
   it("supports passing card_fun with any of the 2 available arguments", {
     card_fun <- function() {
       card <- teal_card()
