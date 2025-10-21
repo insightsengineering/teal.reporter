@@ -45,7 +45,8 @@ render <- function(
   temp_rmd_content <- to_rmd(
     block = input,
     global_knitr = c(global_knitr, list(eval = FALSE)), # we don't want to rerun evaluated code chunks to render
-    include_chunk_output = TRUE
+    include_chunk_output = TRUE,
+    output_dir = output_dir
   )
   cat(temp_rmd_content, file = rmd_filepath)
   args <- utils::modifyList(list(...), list(input = rmd_filepath))
