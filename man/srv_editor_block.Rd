@@ -5,16 +5,16 @@
 \alias{srv_editor_block}
 \title{UI and Server functions for editing report document blocks}
 \usage{
-ui_editor_block(id, value, cached_html)
+ui_editor_block(id, value, ...)
 
-srv_editor_block(id, value)
+srv_editor_block(id, value, ...)
 }
 \arguments{
 \item{id}{(\code{character(1)}) A unique identifier for the module.}
 
 \item{value}{The content of the block to be edited. It can be a character string or other types.}
 
-\item{cached_html}{(\code{shiny.tag} or \code{shiny.tag.list}) Cached HTML content to display in the UI.}
+\item{...}{Additional arguments passed to dispatch functions.}
 }
 \description{
 These functions provide a user interface and server logic for editing and extending
