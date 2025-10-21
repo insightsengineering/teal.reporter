@@ -1,12 +1,11 @@
-.content_to_rmd <- function(block, ...) {
-  path <- basename(tempfile(pattern = "report_item_", fileext = ".rds"))
-  suppressWarnings(saveRDS(block, file = path))
-  sprintf("```{r echo = FALSE, eval = TRUE}\nreadRDS('%s')\n```", path)
+.content_to_rmd <- function(block, output_dir = getwd(), ...) {
+  archived_obj <- .archive(block, output_dir)
+  sprintf("```{r echo = FALSE, eval = TRUE}\nreadRDS('%s')\n```", 
+          file.path(archived_obj$repo_dir, archived_obj$path))
 }
 
-.plot_to_rmd <- function(block, ...) {
-  path <- basename(tempfile(pattern = "report_item_", fileext = ".rds"))
-  suppressWarnings(saveRDS(block, file = path))
+.plot_to_rmd <- function(block, output_dir = getwd(), ...) {
+  archived_obj <- .archive(block, output_dir)
   dims <- .determine_default_dimensions(block, convert_to_inches = TRUE)
 
   chunk <- if (inherits(block, "grob")) {
@@ -14,13 +13,38 @@
   } else {
     "```{r echo = FALSE, eval = TRUE, fig.width = %f, fig.height = %f}\nreadRDS('%s')\n```"
   }
-
+  
   sprintf(
     chunk,
     dims$width,
     dims$height,
-    path
+    file.path(archived_obj$repo_dir, archived_obj$path)
   )
+}
+
+#' Archive object to archivist repository
+#'
+#' @param obj (`any`) object to archive
+#' @param repo_dir (`character(1)`) path to archivist repository
+#'
+#' @return `list` with `path` (artifact ID) and `repo_dir`
+#'
+#' @keywords internal
+.archive <- function(obj, repo_dir) {
+  if (!dir.exists(repo_dir)) {
+    dir.create(repo_dir, recursive = TRUE, showWarnings = FALSE)
+  }
+  
+  if (!file.exists(file.path(repo_dir, "backpack.db"))) {
+    archivist::createLocalRepo(repoDir = repo_dir, default = TRUE)
+  }
+  
+  artifact_id <- archivist::saveToLocalRepo(
+    obj = obj,
+    repoDir = repo_dir
+  )
+  
+  list(path = artifact_id, repo_dir = repo_dir)
 }
 
 #' Convert `ReporterCard`/`teal_card` content to `rmarkdown`
