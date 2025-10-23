@@ -1,5 +1,5 @@
-#' @rdname srv_editor_block
 #' @export
+#' @rdname srv_editor_block
 ui_editor_block <- function(id, value, ...) {
   UseMethod("ui_editor_block", value)
 }
@@ -36,6 +36,18 @@ ui_editor_block <- function(id, value, ...) {
 #' `registerS3method("ui_editor_block", "<class>", fun)` and
 #' `registerS3method("srv_editor_block", "<class>", fun)`.
 #'
+#' ### Optional arguments of `ui_editor_block`
+#'
+#' - `cached_html`: (`shiny.tag` or `shiny.tag.list`) Cached HTML content to display in the UI that is
+#' rendered at the time the card is being added. Default is `NULL`.
+#'
+#'    `teal` will call on `ui_editor_block` with the contents of each element
+#'     of the card (`value` argument) and an optional parameter `cached_html`.
+#'     This parameter is not part of the S3 generic as it is optional when overriding the method.
+#'
+#'     The usage of this argument improve the UI performance by avoiding re-rendering on the fly.
+#'     When overriding this method, the usage of this argument is optional, hence it is not part of the S3 generic.
+#'
 #' @param id (`character(1)`) A unique identifier for the module.
 #' @param value The content of the block to be edited. It can be a character string or other types.
 #' @param ... Additional arguments passed to dispatch functions.
@@ -55,7 +67,6 @@ srv_editor_block.default <- function(id, value, ...) {
 }
 
 #' @keywords internal
-# @param cached_html (`shiny.tag` or `shiny.tag.list`) Cached HTML content to display in the UI.
 .ui_editor_block <- function(id, value, cached_html, ...) {
   UseMethod(".ui_editor_block", value)
 }
@@ -91,7 +102,7 @@ srv_editor_block.default <- function(id, value, ...) {
 }
 
 #' @method .ui_editor_block character
-.ui_editor_block.character <- function(id, value, cached_html, ...) {
+.ui_editor_block.character <- function(id, value, ...) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny::tags$h6(shiny::icon("pencil", class = "text-muted"), "Editable markdown block"),

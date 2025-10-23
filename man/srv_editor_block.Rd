@@ -45,4 +45,17 @@ srv_editor_block.character <- function(id, value) \{
 Alternatively, you can register the S3 method using
 \code{registerS3method("ui_editor_block", "<class>", fun)} and
 \code{registerS3method("srv_editor_block", "<class>", fun)}.
+\subsection{Optional arguments of \code{ui_editor_block}}{
+\itemize{
+\item \code{cached_html}: (\code{shiny.tag} or \code{shiny.tag.list}) Cached HTML content to display in the UI that is
+rendered at the time the card is being added. Default is \code{NULL}.
+
+\code{teal} will call on \code{ui_editor_block} with the contents of each element
+of the card (\code{value} argument) and an optional parameter \code{cached_html}.
+This parameter is not part of the S3 generic as it is optional when overriding the method.
+
+The usage of this argument improve the UI performance by avoiding re-rendering on the fly.
+When overriding this method, the usage of this argument is optional, hence it is not part of the S3 generic.
+}
+}
 }
