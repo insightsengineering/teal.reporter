@@ -1,14 +1,13 @@
 # reporter_previewer_content --------------------------------------------------------------------------------------
 
 #' @keywords internal
-reporter_previewer_content_ui <- function(id, cached_content = rlang::list2()) {
+reporter_previewer_content_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny::tags$div(
     .custom_css_dependency(),
     bslib::accordion(
       id = ns("reporter_cards"),
-      class = "teal-reporter report-previewer-accordion",
-      !!!cached_content
+      class = "teal-reporter report-previewer-accordion"
     ),
     sortable::sortable_js(
       css_id = ns("reporter_cards"),
