@@ -14,7 +14,7 @@ teal_card(x) <- value
 
 as.teal_card(x)
 
-\method{c}{teal_card}(..., verbose = TRUE)
+\method{c}{teal_card}(...)
 
 \method{[}{teal_card}(x, i)
 }
@@ -24,8 +24,6 @@ as.teal_card(x)
 \item{x}{Object to convert to teal_card}
 
 \item{value}{(\code{teal_card}) object to set in the \code{teal_report}.}
-
-\item{verbose}{(\code{logical}) If \code{TRUE}, will print a warning when appending \code{teal_card} objects that share elements.}
 
 \item{i}{index specifying elements to extract or replace}
 }
