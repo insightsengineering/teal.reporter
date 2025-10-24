@@ -8,7 +8,6 @@
 }
 \arguments{
 \item{...}{(\code{teal_report}) objects to concatenate}
-
 }
 \value{
 A \code{\link{teal_report}} object with combined \code{\link{teal_card}} elements.

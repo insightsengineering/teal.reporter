@@ -25,7 +25,6 @@ as.teal_card(x)
 
 \item{value}{(\code{teal_card}) object to set in the \code{teal_report}.}
 
-
 \item{i}{index specifying elements to extract or replace}
 }
 \value{
