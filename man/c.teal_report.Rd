@@ -4,13 +4,11 @@
 \alias{c.teal_report}
 \title{Concatenate \code{teal_report} objects}
 \usage{
-\method{c}{teal_report}(..., verbose = TRUE)
+\method{c}{teal_report}(...)
 }
 \arguments{
 \item{...}{(\code{teal_report}) objects to concatenate}
 
-\item{verbose}{(\code{logical}) If \code{TRUE}, will print a warning when appending \code{teal_report} objects that
-share elements of their \code{teal_card} objects.}
 }
 \value{
 A \code{\link{teal_report}} object with combined \code{\link{teal_card}} elements.
