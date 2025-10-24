@@ -9,6 +9,10 @@
 * Supports `flextable` and `gtsummary` objects.
 * Soft deprecated `ReportCard`.
 
+### Enhancements
+
+* Enhanced keyboard accessibility in the download modal - users can now press Enter from any input field to trigger the download action.
+
 # teal.reporter 0.5.0
 
 ### Breaking changes
