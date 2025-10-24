@@ -44,7 +44,11 @@ shinyjs.enterToSubmitModal = function(submit_id) {
     () => {
       const modal = document.getElementById('shiny-modal');
       modal.addEventListener('keyup', (e) => {
-        if (e.key === 'Enter' && (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT')) {
+        // Check if Enter was pressed on an input or select element
+        const targetTag = e.target.tagName;
+        const isInputElement = targetTag === 'INPUT' || targetTag === 'SELECT';
+        
+        if (e.key === 'Enter' && isInputElement) {
           e.preventDefault();
           document.getElementById(submit_id).click();
         }
