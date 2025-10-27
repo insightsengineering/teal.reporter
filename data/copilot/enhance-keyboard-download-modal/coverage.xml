@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.803073420603301" branch-rate="0" lines-covered="1411" lines-valid="1757" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2025-10-24 12:26:06.731042">
+<coverage line-rate="0.803073420603301" branch-rate="0" lines-covered="1411" lines-valid="1757" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2025-10-27 11:03:10.890208">
   <sources>
     <source>/__w/teal.reporter/teal.reporter/teal.reporter</source>
   </sources>
@@ -335,14 +335,14 @@
                 <line number="83" hits="1" branch="false"/>
                 <line number="84" hits="1" branch="false"/>
                 <line number="85" hits="1" branch="false"/>
-                <line number="86" hits="1" branch="false"/>
+                <line number="86" hits="0" branch="false"/>
                 <line number="87" hits="0" branch="false"/>
                 <line number="88" hits="0" branch="false"/>
                 <line number="89" hits="0" branch="false"/>
                 <line number="90" hits="0" branch="false"/>
                 <line number="91" hits="0" branch="false"/>
                 <line number="92" hits="0" branch="false"/>
-                <line number="93" hits="0" branch="false"/>
+                <line number="93" hits="1" branch="false"/>
                 <line number="94" hits="1" branch="false"/>
                 <line number="95" hits="1" branch="false"/>
                 <line number="96" hits="1" branch="false"/>
@@ -546,14 +546,14 @@
             <line number="83" hits="1" branch="false"/>
             <line number="84" hits="1" branch="false"/>
             <line number="85" hits="1" branch="false"/>
-            <line number="86" hits="1" branch="false"/>
+            <line number="86" hits="0" branch="false"/>
             <line number="87" hits="0" branch="false"/>
             <line number="88" hits="0" branch="false"/>
             <line number="89" hits="0" branch="false"/>
             <line number="90" hits="0" branch="false"/>
             <line number="91" hits="0" branch="false"/>
             <line number="92" hits="0" branch="false"/>
-            <line number="93" hits="0" branch="false"/>
+            <line number="93" hits="1" branch="false"/>
             <line number="94" hits="1" branch="false"/>
             <line number="95" hits="1" branch="false"/>
             <line number="96" hits="1" branch="false"/>
