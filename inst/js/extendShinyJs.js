@@ -33,27 +33,3 @@ shinyjs.jumpToFocus = function(focus_id) {
     input.setSelectionRange(input.value.length, input.value.length);
   }
 }
-
-/* Enable pressing Enter anywhere in the modal to trigger a button click.
- * This listens for Enter key events on all input fields within the modal.
- * submit_id is the ID of the button to click when Enter is pressed.
- */
-shinyjs.enterToSubmitModal = function(submit_id) {
-  document.getElementById('shiny-modal').addEventListener(
-    'shown.bs.modal',
-    () => {
-      const modal = document.getElementById('shiny-modal');
-      modal.addEventListener('keyup', (e) => {
-        // Check if Enter was pressed on an input or select element
-        const targetTag = e.target.tagName;
-        const isInputElement = targetTag === 'INPUT' || targetTag === 'SELECT';
-        
-        if (e.key === 'Enter' && isInputElement) {
-          e.preventDefault();
-          document.getElementById(submit_id).click();
-        }
-      });
-    },
-    { once: true }
-  );
-}

@@ -78,7 +78,6 @@ download_report_button_srv <- function(id,
       shiny::tags$div(
         class = "teal-reporter reporter-modal",
         .custom_css_dependency(),
-        shinyjs::extendShinyjs(text = "", functions = c("enterToSubmitModal")),
         shiny::modalDialog(
           easyClose = TRUE,
           shiny::tags$h3("Download the Report"),
@@ -100,15 +99,16 @@ download_report_button_srv <- function(id,
               shiny::tags$br()
             )
           },
-          reporter_download_inputs(
-            rmd_yaml_args = rmd_yaml_args,
-            rmd_output = rmd_output,
-            showrcode = any_rcode_block(reporter),
-            session = session
-          ),
-          shiny::tags$script(
-            shiny::HTML(
-              sprintf("shinyjs.enterToSubmitModal('%s');", ns("download_data"))
+          shiny::tags$form(
+            onsubmit = sprintf(
+              "event.preventDefault(); document.getElementById('%s').click();",
+              ns("download_data")
+            ),
+            reporter_download_inputs(
+              rmd_yaml_args = rmd_yaml_args,
+              rmd_output = rmd_output,
+              showrcode = any_rcode_block(reporter),
+              session = session
             )
           ),
           footer = shiny::tagList(
