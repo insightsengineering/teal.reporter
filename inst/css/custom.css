@@ -138,3 +138,9 @@ pre > code {
   display: block;
   margin: 0;
 }
+
+/* Fix for R code toggle button hover - make text gray instead of white */
+.teal-reporter .card-code-toggle:hover {
+  color: var(--bs-tertiary-color);
+  background-color: var(--bs-light-rgb);
+}
