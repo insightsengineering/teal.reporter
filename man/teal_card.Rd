@@ -14,7 +14,7 @@ teal_card(x) <- value
 
 as.teal_card(x)
 
-\method{c}{teal_card}(...)
+\method{c}{teal_card}(..., verbose = TRUE)
 
 \method{[}{teal_card}(x, i)
 }
@@ -24,6 +24,8 @@ as.teal_card(x)
 \item{x}{Object to convert to teal_card}
 
 \item{value}{(\code{teal_card}) object to set in the \code{teal_report}.}
+
+\item{verbose}{(\code{logical}) If \code{TRUE}, will print a warning when appending \code{teal_card} objects that share elements.}
 
 \item{i}{index specifying elements to extract or replace}
 }
@@ -52,26 +54,40 @@ The \code{teal_card} class supports \code{c()} and \code{x[i]} methods for combi
 However, these methods only function correctly when the first element is a \code{teal_card}.
 }
 \examples{
-# Create a new empty card
+# create an empty card
 report <- teal_card()
 
 # Create a card with content
-report <- teal_card("## Headline", "Some text", summary(iris))
-
-# Extract card from a teal_report
-tr <- teal_report(teal_card = teal_card("## Title"))
-doc <- teal_card(tr)
+report <- teal_card(
+  "## Headline",
+  "This is `iris` table",
+  code_chunk("print(iris)", lang = "R"),
+  iris
+)
 
 # Add elements to the report
-report <- c(report, list("## Table"), list(summary(mtcars)))
+report <- c(
+  report,
+  list("## mtcars Table"),
+  code_chunk("print(mtcars)", lang = "R"),
+  mtcars
+)
 
 # Subset the report to keep only the first two elements
-report <- report[1:2]
+report[1:2]
 
-# Append new elements after the first element
-report <- append(report, c(list("## Table 2"), list(summary(mtcars))), after = 1)
+# Replace element
+report[[1]] <- "## Iris Table"
 
-# Verify that the object remains a teal_card
-class(report)
+# Append element
+report <- append(report, teal_card("# Awesome Report"), after = 0)
+tools::toHTML(report)
 
+if (interactive()) {
+  render(report, output_format = rmarkdown::pdf_document())
+}
+
+}
+\seealso{
+\code{\link[=code_chunk]{code_chunk()}}, \code{\link[=render]{render()}}, \code{\link[=toHTML]{toHTML()}}
 }

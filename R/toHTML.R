@@ -1,11 +1,114 @@
 #' @importFrom tools toHTML
 NULL
 
-#' @method toHTML default
-#' @keywords internal
+#' Convert report objects to HTML
+#'
+#' @description
+#' `r lifecycle::badge("experimental")`
+#'
+#' The `toHTML` S3 generic method converts various report objects into HTML representations.
+#' This is the primary method for rendering report content for display in web browsers,
+#' IDE Viewer, or for inclusion in Shiny applications.
+#'
+#' @param x The object to convert to HTML. Supported types include:
+#'   - `teal_card`: A list-like structure containing report elements
+#'   - `teal_report`: A report object containing a `teal_card`
+#'   - `ReportCard`: Deprecated R6 class for report cards
+#'   - `code_chunk`: Code blocks created with [code_chunk()]
+#'   - `chunk_output`: Output from evaluated code chunks
+#'   - Plot objects: `ggplot`, `recordedplot`, `trellis`, `grob`
+#'   - Table objects: `data.frame`, `rtables`, `TableTree`, `ElementaryTable`,
+#'     `listing_df`, `gtsummary`, `flextable`, `datatables`
+#'   - Text: `character` strings (rendered as markdown)
+#'   - Other objects: Conditions, model summaries, etc.
+#' @param ... Additional arguments passed to methods.
+#'
+#' @details
+#' ## Relationship with `teal_card`
+#'
+#' The `teal_card` class is a central component in the `teal.reporter` ecosystem. It is an S3 list
+#' where each element represents a piece of report content (text, plots, tables, code chunks, etc.).
+#' The `toHTML` method for `teal_card` objects:
+#'
+#' 1. Iterates through each element in the `teal_card` list
+#' 2. Calls `toHTML()` recursively on each element based on its class
+#' 3. Wraps all converted elements in a [bslib::card()] container
+#'
+#' This hierarchical conversion allows complex report structures to be rendered as styled HTML
+#' with proper formatting for each content type.
+#'
+#' ## Content Type Conversions
+#'
+#' **Text and Markdown:** Character strings are converted to HTML using `CommonMark` markdown syntax.
+#' Supports headers, lists, code blocks, emphasis, and other markdown features.
+#'
+#' **Code Chunks:** Created with [code_chunk()], these are rendered as collapsible Bootstrap
+#' accordions with syntax highlighting. The accordion includes the programming language indicator
+#' and an icon.
+#'
+#' **Plots:** Plot objects (`ggplot`, `recordedplot`, `trellis`, `grob`) are converted to PNG
+#' images with base64-encoded data URIs, making them self-contained in the HTML output.
+#'
+#' **Tables:** Table objects are converted to styled HTML tables, typically via `flextable`
+#' for consistent formatting.
+#'
+#' ## Viewer Integration
+#'
+#' All HTML output is wrapped with [htmltools::browsable()], which enables:
+#' - Automatic render in IDE Viewer when displayed interactively
+#' - Proper HTML dependency injection (Bootstrap CSS/JavaScript, Font Awesome icons, etc.)
+#' - Standalone HTML files with all required resources
+#'
+#' You can override the `browsable` behavior with:
+#' ```r
+#' print(toHTML(x), browse = FALSE)  # Print markup to console instead
+#' ```
+#'
+#' @return An HTML representation of the input object. The exact return type depends on the
+#'   input class:
+#'   - For `teal_card`: A `bslib::card()` containing all elements
+#'   - For `code_chunk`: A `bslib::accordion()` with the code
+#'   - For plots: A `shiny::tags$img()` tag
+#'   - For text: HTML markup from markdown conversion
+#'   - For tables: HTML table elements
+#'
+#'   All returns are wrapped with `htmltools::browsable()` to enable viewer display.
+#'
+#' @seealso
+#' - [teal_report()] for creating report objects
+#' - [teal_card()] for creating report cards
+#' - [code_chunk()] for creating code blocks
+#' - [render()] for rendering complete reports to files
+#'
+#' @examples
+#' # Initialize empty report
+#' report <- teal_report()
+#'
+#' # Add arbitrary markdown elements to the report's teal_card
+#' teal_card(report) <- c(
+#'   teal_card(report),
+#'   "## Document section",
+#'   "Lorem ipsum dolor sit amet"
+#' )
+#'
+#' # Use within() to execute code and add code-chunk
+#' report <- within(report, a <- 2)
+#'
+#' # within() automatically captures code and outputs
+#' report <- within(report, plot(a))
+#'
+#' html <- tools::toHTML(report)
+#' # display HTML markup in viewer
+#' html
+#'
+#' # Print HTML markup to console instead of viewer
+#' print(html, browse = FALSE)
+#'
 #' @export
+#' @aliases teal_card-preview
+#' @method toHTML default
 toHTML.default <- function(x, ...) {
-  .toHTML(x, ...)
+  htmltools::browsable(.toHTML(x, ...))
 }
 
 #' @keywords internal
@@ -16,7 +119,7 @@ toHTML.default <- function(x, ...) {
 #' @method .toHTML default
 #' @keywords internal
 .toHTML.default <- function(x, ...) {
-  shiny::HTML(commonmark::markdown_html(x, extensions = TRUE))
+  htmltools::HTML(commonmark::markdown_html(x, extensions = TRUE))
 }
 
 #' @method .toHTML ReportCard
@@ -28,7 +131,7 @@ toHTML.default <- function(x, ...) {
 #' @method .toHTML teal_card
 #' @keywords internal
 .toHTML.teal_card <- function(x, ...) {
-  shiny::tagList(lapply(x, tools::toHTML, ...))
+  bslib::card(lapply(x, tools::toHTML, ...))
 }
 
 #' @method .toHTML teal_report
@@ -58,7 +161,7 @@ toHTML.default <- function(x, ...) {
 .plot2html <- function(x, ...) {
   on.exit(unlink(tmpfile))
   tmpfile <- tempfile(fileext = ".png")
-  dims <- resolve_figure_dimensions(x)
+  dims <- .determine_default_dimensions(x)
   grDevices::png(filename = tmpfile, width = dims$width, height = dims$height)
   print(x)
   grDevices::dev.off()
@@ -77,7 +180,7 @@ toHTML.default <- function(x, ...) {
 #' @keywords internal
 .toHTML.gg <- function(x, ...) {
   on.exit(unlink(tmpfile))
-  dims <- resolve_figure_dimensions(x, convert_to_inches = TRUE, dpi = 100)
+  dims <- .determine_default_dimensions(x, convert_to_inches = TRUE, dpi = 100)
   tmpfile <- tempfile(fileext = ".png")
   ggplot2::ggsave(tmpfile, plot = x, width = dims$width, height = dims$height, dpi = 100)
   shiny::tags$img(src = knitr::image_uri(tmpfile))
@@ -87,7 +190,7 @@ toHTML.default <- function(x, ...) {
 #' @keywords internal
 .toHTML.grob <- function(x, ...) {
   on.exit(unlink(tmpfile))
-  dims <- resolve_figure_dimensions(x)
+  dims <- .determine_default_dimensions(x)
   tmpfile <- tempfile(fileext = ".png")
   grDevices::png(filename = tmpfile, width = dims$width, height = dims$height)
   grid::grid.newpage()
@@ -101,12 +204,12 @@ toHTML.default <- function(x, ...) {
 .toHTML.code_chunk <- function(x, ...) {
   bslib::accordion(
     class = "code_chunk",
+    open = FALSE,
     bslib::accordion_panel(
-      title = shiny::tags$span(shiny::icon("code"), "R Code"),
+      title = shiny::tags$span(shiny::icon("code"), attr(x, "lang", exact = TRUE)),
       value = "rcode",
-      open = FALSE,
       shiny::tags$pre(
-        shiny::tags$code(x, class = sprintf("language-%s", attr(x, "lang"))),
+        shiny::tags$code(x, class = sprintf("language-%s", attr(x, "lang", exact = TRUE))),
         .noWS = "inside"
       )
     )

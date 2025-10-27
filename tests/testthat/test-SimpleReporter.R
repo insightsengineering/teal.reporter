@@ -57,7 +57,3 @@ testthat::test_that("simple_reporter_srv - add a Card (teal_card) to Reporter", 
     }
   )
 })
-
-testthat::test_that("simple_reporter_ui - returns a shiny.tag", {
-  checkmate::expect_multi_class(simple_reporter_ui("sth"), c("shiny.tag", "shiny.tag.list"))
-})

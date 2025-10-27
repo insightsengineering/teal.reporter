@@ -1,7 +1,7 @@
 Package: teal.reporter
 Title: Reporting Tools for 'shiny' Modules
-Version: 0.5.0.9009
-Date: 2025-10-02
+Version: 0.5.0.9019
+Date: 2025-10-17
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-9533-457X")),
@@ -45,8 +45,8 @@ Imports:
     shinyjs (>= 2.1.0),
     shinyWidgets (>= 0.5.1),
     sortable (>= 0.5.0),
-    teal.code (>= 0.6.1.9002),
-    teal.data (>= 0.7.0.9002),
+    teal.code (>= 0.7.0),
+    teal.data (>= 0.8.0),
     tools,
     utils,
     yaml (>= 1.1.0),
