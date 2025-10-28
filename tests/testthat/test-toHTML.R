@@ -15,6 +15,7 @@ testthat::describe("toHTML generates image tags", {
   })
 
   it("from recordedplot", {
+    testthat::skip_if_not_installed("ggplot2")
     q <- within(teal.code::qenv(), ggplot2::ggplot(mtcars, ggplot2::aes(mpg, wt)) +
       ggplot2::geom_point())
     recorded_plot <- teal.code::get_outputs(q)[[1]]
