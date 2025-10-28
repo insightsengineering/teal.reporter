@@ -126,7 +126,7 @@ testthat::describe("c.teal_card combines", {
   })
 
   it("with new teal_card containing ggplot - adds new elements asis", {
-    testhat::skip_if_not_installed("ggplot2")
+    testthat::skip_if_not_installed("ggplot2")
     rlang::local_options("teal.reporter.disable_teal_card_conversion" = TRUE)
     plot <- ggplot2::ggplot(iris) +
       ggplot2::geom_point(ggplot2::aes(x = Sepal.Length, y = Sepal.Width))
