@@ -8,42 +8,47 @@ with_temp_wd <- function() {
 testthat::describe("render() accepts", {
   with_temp_wd()
   it("empty teal_report object", {
-    testthat::expect_no_error(render(teal_report(), quiet = TRUE))
+    testthat::expect_no_error(teal.reporter::render(teal_report(), quiet = TRUE))
   })
   it("empty teal_card object", {
-    testthat::expect_no_error(render(teal_card(), quiet = TRUE))
+    testthat::expect_no_error(teal.reporter::render(teal_card(), quiet = TRUE))
   })
   it("teal_report containing code chunks and outputs", {
     r <- within(teal_report(), {
       a <- 1:10
       plot(a)
     })
-    testthat::expect_no_error(render(r, quiet = TRUE))
+    testthat::expect_no_error(teal.reporter::render(r, quiet = TRUE))
   })
 })
 
 testthat::describe("render() by default", {
   it("outputs and keeps report.Rmd file in the working directory", {
     with_temp_wd()
-    render(teal_report(), quiet = TRUE)
+    teal.reporter::render(teal_report(), quiet = TRUE)
     testthat::expect_true(file.exists("report.Rmd"))
   })
 
   it("renders report.html file in the working directory", {
     with_temp_wd()
-    render(teal_report(), quiet = TRUE)
+    teal.reporter::render(teal_report(), quiet = TRUE)
     testthat::expect_true(file.exists("report.html"))
   })
 
   it("outputs report.Rmd file containing knitr::opts_chunk$set with tidy options set", {
     with_temp_wd()
-    render(teal_report(), quiet = TRUE)
+    teal.reporter::render(teal_report(), quiet = TRUE)
     lines <- base::readLines("report.Rmd", warn = FALSE)
+
+    # `tidy = TRUE`  if `formatR` package is installed, `FALSE` otherwise"
     testthat::expect_identical(
       lines,
       c(
         "```{R, include=FALSE}",
-        "knitr::opts_chunk$set(list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = TRUE))",
+        sprintf(
+          "knitr::opts_chunk$set(list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = %s))",
+          requireNamespace("formatR", quietly = TRUE)
+        ),
         "```"
       )
     )
@@ -55,7 +60,7 @@ testthat::describe("render() outputs report.Rmd with", {
   it("output_dir set to other location then working directory", {
     tr <- teal_report()
     temp_dir <- tempfile()
-    render(tr, output_dir = temp_dir, quiet = TRUE)
+    teal.reporter::render(tr, output_dir = temp_dir, quiet = TRUE)
     testthat::expect_true(file.exists(file.path(temp_dir, "report.Rmd")))
   })
 
@@ -63,7 +68,7 @@ testthat::describe("render() outputs report.Rmd with", {
     with_temp_wd()
     tr <- teal_report()
     teal_card(tr) <- c(teal_card(tr), "# test heading", "Lorem ipsum")
-    render(tr, quiet = TRUE)
+    teal.reporter::render(tr, quiet = TRUE)
     lines <- base::readLines("report.Rmd", warn = FALSE)
     testthat::expect_identical(lines, c("# test heading", "", "Lorem ipsum"))
   })
@@ -73,7 +78,7 @@ testthat::describe("render() outputs report.Rmd with", {
     tr <- teal_report()
     teal_card(tr) <- c(teal_card(tr), "# test heading")
     metadata(teal_card(tr)) <- list(title = "test title", author = "me is tot")
-    render(tr, quiet = TRUE)
+    teal.reporter::render(tr, quiet = TRUE)
     lines <- base::readLines("report.Rmd", warn = FALSE)
     testthat::expect_identical(
       lines,
@@ -94,7 +99,7 @@ testthat::describe("render() outputs report.Rmd with", {
     withr::local_options(teal.reporter.global_knitr = list(eval = TRUE, echo = FALSE))
     tr <- teal_report()
     teal_card(tr) <- c(teal_card(tr), "# test heading")
-    render(tr, quiet = TRUE)
+    teal.reporter::render(tr, quiet = TRUE)
     lines <- base::readLines("report.Rmd", warn = FALSE)
     testthat::expect_identical(
       lines,
@@ -112,7 +117,7 @@ testthat::describe("render() outputs report.Rmd with", {
     with_temp_wd()
     tr <- teal_report()
     teal_card(tr) <- c(teal_card(tr), "# test heading")
-    render(tr, global_knitr = list(echo = TRUE, eval = TRUE), quiet = TRUE)
+    teal.reporter::render(tr, global_knitr = list(echo = TRUE, eval = TRUE), quiet = TRUE)
     lines <- base::readLines("report.Rmd", warn = FALSE)
     testthat::expect_identical(
       lines,
@@ -130,7 +135,7 @@ testthat::describe("render() outputs report.Rmd with", {
     with_temp_wd()
     tr <- teal_report()
     teal_card(tr) <- c(teal_card(tr), "# test heading", code_chunk("a <- 1L", eval = FALSE, echo = FALSE))
-    render(tr, quiet = TRUE)
+    teal.reporter::render(tr, quiet = TRUE)
     lines <- base::readLines("report.Rmd", warn = FALSE)
     testthat::expect_identical(
       lines,
@@ -148,7 +153,7 @@ testthat::describe("render() outputs report.Rmd with", {
     with_temp_wd()
     tr <- teal_report()
     tr <- teal.code::eval_code(tr, "plot(1:10)")
-    render(tr, quiet = TRUE)
+    teal.reporter::render(tr, quiet = TRUE)
     lines <- base::readLines("report.Rmd", warn = FALSE)
     testthat::expect_identical(
       lines,
@@ -169,7 +174,7 @@ testthat::describe("render() renders output based on metadata$output field:", {
     teal_card(tr) <- c(teal_card(tr), "# test heading", "Lorem ipsum")
     tr <- within(tr, plot(1:10))
     metadata(teal_card(tr)) <- list(output = "md_document")
-    render(tr, quiet = TRUE)
+    teal.reporter::render(tr, quiet = TRUE)
     lines <- base::readLines("report.md", warn = FALSE)
     testthat::expect_identical(
       lines,
@@ -190,7 +195,7 @@ testthat::describe("render() renders output based on metadata$output field:", {
     tr <- teal_report()
     tr <- within(tr, plot(1:10))
     metadata(teal_card(tr)) <- list(output = "md_document")
-    render(tr, output_dir = temp_dir, quiet = TRUE)
+    teal.reporter::render(tr, output_dir = temp_dir, quiet = TRUE)
     lines <- base::readLines(file.path(temp_dir, "report.md"), warn = FALSE)
     testthat::expect_identical(
       lines,
