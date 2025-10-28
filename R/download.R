@@ -99,16 +99,16 @@ download_report_button_srv <- function(id,
               shiny::tags$br()
             )
           },
-          shiny::tags$form(
-            onsubmit = sprintf(
-              "event.preventDefault(); document.getElementById('%s').click();",
-              ns("download_data")
-            ),
-            reporter_download_inputs(
-              rmd_yaml_args = rmd_yaml_args,
-              rmd_output = rmd_output,
-              showrcode = any_rcode_block(reporter),
-              session = session
+          reporter_download_inputs(
+            rmd_yaml_args = rmd_yaml_args,
+            rmd_output = rmd_output,
+            showrcode = any_rcode_block(reporter),
+            session = session
+          ),
+          shiny::tags$script(
+            shiny::HTML(
+              sprintf("shinyjs.autoFocusModal('%s');", ns("author")), # See extendShinyJs.js
+              sprintf("shinyjs.enterToSubmit('%s', '%s');", ns("author"), ns("download_data")) # See extendShinyJs.js
             )
           ),
           footer = shiny::tagList(
