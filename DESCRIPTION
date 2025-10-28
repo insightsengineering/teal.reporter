@@ -28,7 +28,7 @@ Imports:
     commonmark (>= 1.9.2),
     flextable (>= 0.9.2),
     grid,
-    gtsummary (>= 1.7.0),
+    gtsummary (>= 2.0.0),
     htmltools (>= 0.5.4),
     jsonlite (>= 1.8.9),
     knitr (>= 1.42),
