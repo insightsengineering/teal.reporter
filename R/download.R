@@ -74,7 +74,6 @@ download_report_button_srv <- function(id,
         ),
         icon = shiny::icon("download")
       )
-
       shiny::tags$div(
         class = "teal-reporter reporter-modal",
         .custom_css_dependency(),
@@ -108,7 +107,12 @@ download_report_button_srv <- function(id,
           shiny::tags$script(
             shiny::HTML(
               sprintf("shinyjs.autoFocusModal('%s');", ns("author")), # See extendShinyJs.js
-              sprintf("shinyjs.enterToSubmit('%s', '%s');", ns("author"), ns("download_data")) # See extendShinyJs.js
+              sprintf("shinyjs.enterToSubmit('%s', '%s');", ns("author"), ns("download_data")), # See extendShinyJs.js
+              sprintf("shinyjs.enterToSubmit('%s', '%s');", ns("title"), ns("download_data")), # See extendShinyJs.js
+              sprintf("shinyjs.enterToSubmit('%s', '%s');", ns("date"), ns("download_data")), # See extendShinyJs.js
+              sprintf("shinyjs.enterToSubmit('%s', '%s');", ns("output"), ns("download_data")), # See extendShinyJs.js
+              sprintf("shinyjs.enterToSubmit('%s', '%s');", ns("toc"), ns("download_data")), # See extendShinyJs.js
+              sprintf("shinyjs.enterToSubmit('%s', '%s');", ns("showrcode"), ns("download_data")) # See extendShinyJs.js
             )
           ),
           footer = shiny::tagList(
