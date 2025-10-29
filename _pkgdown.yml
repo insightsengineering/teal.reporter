@@ -25,12 +25,15 @@ navbar:
 
 articles:
   - title: "Getting Started"
+    navbar: Get started
     contents:
       - getting-started-with-teal-reporter
   - title: "Core Concepts"
+    navbar: Get started
     contents:
       - teal-report-class
   - title: "Building Reportable App"
+    navbar: Get started
     contents:
       - reportable-shiny-application
 
