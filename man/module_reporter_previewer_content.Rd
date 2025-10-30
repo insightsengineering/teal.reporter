@@ -8,20 +8,20 @@
 \alias{srv_reporter_previewer_content.default}
 \title{Reporter previewer content module}
 \usage{
-ui_reporter_previewer_content(id, cached_content = rlang::list2())
+ui_reporter_previewer_content(id)
 
 srv_reporter_previewer_content(id, reporter)
 
-\method{ui_reporter_previewer_content}{default}(id, cached_content = rlang::list2())
+\method{ui_reporter_previewer_content}{default}(id)
 
 \method{srv_reporter_previewer_content}{default}(id, reporter)
 }
 \arguments{
 \item{id}{(\code{character(1)}) A unique identifier for the module.}
 
-\item{cached_content}{(\code{list})}
-
 \item{reporter}{(\code{Reporter})}
+
+\item{cached_content}{(\code{list})}
 }
 \description{
 Reporter previewer content module

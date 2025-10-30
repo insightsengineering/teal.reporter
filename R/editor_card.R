@@ -15,7 +15,7 @@ NULL
 #' @export
 ui_editor_card <- function(id, value, cached_html = NULL) {
   checkmate::assert_string(id)
-  checkmate::assert_multi_class(cached_html, c("shiny.tag", "shiny.tag.list", "character"), null.ok = TRUE)
+  checkmate::assert_list(cached_html, c("shiny.tag", "shiny.tag.list", "character", "NULL"))
   UseMethod("ui_editor_card")
 }
 

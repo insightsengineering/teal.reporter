@@ -2,13 +2,13 @@
 % Please edit documentation in R/editor_block.R
 \name{module_editor_block}
 \alias{module_editor_block}
-\alias{ui_editor_block}
 \alias{srv_editor_block}
+\alias{ui_editor_block.default}
 \title{UI and Server functions for editing report document blocks}
 \usage{
-ui_editor_block(id, value, ...)
-
 srv_editor_block(id, value, ...)
+
+\method{ui_editor_block}{default}(id, value, ...)
 }
 \arguments{
 \item{id}{(\code{character(1)}) A unique identifier for the module.}

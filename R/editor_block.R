@@ -76,7 +76,7 @@ srv_editor_block.default <- function(id, value, ...) {
 }
 
 #' @keywords internal
-.ui_editor_block <- function(id, value, cached_html, ...) {
+.ui_editor_block <- function(id, value, ...) {
   UseMethod(".ui_editor_block", value)
 }
 
