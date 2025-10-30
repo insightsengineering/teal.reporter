@@ -38,6 +38,10 @@ report_load_srv <- function(id, reporter) {
       shiny::setBookmarkExclude(c("reporter_load_main", "reporter_load"))
       ns <- session$ns
 
+      # Set max request size from package option
+      max_size <- getOption("teal.reporter.max_request_size", 10 * 1024^2)
+      options(shiny.maxRequestSize = max_size)
+
       archiver_modal <- function() {
         nr_cards <- length(reporter$get_cards())
         shiny::div(
