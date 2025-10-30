@@ -273,11 +273,10 @@ testthat::describe("from_reporter", {
     reporter1 <- test_reporter(test_card1(), test_card2())
     reporter2 <- teal.reporter::Reporter$new()
     reporter1$set_id("a_id")
-    testthat::expect_failure(
-      lifecycle::expect_deprecated(
+    lifecycle::expect_deprecated(
+      testthat::expect_failure(
         testthat::expect_identical(reporter1, (reporter2$from_reporter(reporter1)))
-      ),
-      "not identical to"
+      )
     )
   })
 
