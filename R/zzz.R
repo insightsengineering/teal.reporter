@@ -18,7 +18,8 @@
       author = "NEST", title = "Report",
       date = as.character(Sys.Date()), output = "html_document",
       toc = FALSE
-    )
+    ),
+    teal.reporter.max_request_size = 10 * 1024^2
   )
 
   toset <- !(names(teal_reporter_default_options) %in% names(op))

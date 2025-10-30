@@ -7,7 +7,7 @@
 
 #' @rdname module_reporter_previewer_content
 #' @export
-ui_reporter_previewer_content <- function(id, cached_content = rlang::list2()) {
+ui_reporter_previewer_content <- function(id) {
   UseMethod("ui_reporter_previewer_content")
 }
 
@@ -19,14 +19,13 @@ srv_reporter_previewer_content <- function(id, reporter) {
 
 #' @rdname module_reporter_previewer_content
 #' @export
-ui_reporter_previewer_content.default <- function(id, cached_content = rlang::list2()) {
+ui_reporter_previewer_content.default <- function(id) {
   ns <- shiny::NS(id)
   shiny::tags$div(
     .custom_css_dependency(),
     bslib::accordion(
       id = ns("reporter_cards"),
-      class = "teal-reporter report-previewer-accordion",
-      !!!cached_content
+      class = "teal-reporter report-previewer-accordion"
     ),
     sortable::sortable_js(
       css_id = ns("reporter_cards"),
