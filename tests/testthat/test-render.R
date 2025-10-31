@@ -176,13 +176,13 @@ testthat::describe("render() renders output based on metadata$output field:", {
     metadata(teal_card(tr)) <- list(output = "md_document")
     teal.reporter::render(tr, quiet = TRUE)
     lines <- base::readLines("report.md", warn = FALSE)
-    
+
     # Pandoc >= 2.11.2 uses ATX headers (# header), older versions use Setext (header\n===)
     pandoc_ver <- tryCatch(
       utils::compareVersion(rmarkdown::pandoc_version(), "2.11.2") >= 0,
       error = function(e) FALSE
     )
-    
+
     if (pandoc_ver) {
       # Pandoc >= 2.11.2: Expect ATX style headers
       expected_lines <- c(
@@ -207,7 +207,7 @@ testthat::describe("render() renders output based on metadata$output field:", {
         sprintf("![](report_files/figure-markdown_strict/unnamed-chunk-3-1.png)")
       )
     }
-    
+
     testthat::expect_identical(lines, expected_lines)
   })
 
