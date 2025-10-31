@@ -23,17 +23,6 @@ navbar:
       href: https://github.com/insightsengineering/teal.reporter
       aria-label: View on Github
 
-articles:
-  - title: "Getting Started"
-    contents:
-      - getting-started-with-teal-reporter
-  - title: "Core Concepts"
-    contents:
-      - teal-report-class
-  - title: "Building Reportable App"
-    contents:
-      - reportable-shiny-application
-
 reference:
   - title: "`shiny` modules for adding content to reports"
     contents:

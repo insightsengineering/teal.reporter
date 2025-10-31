@@ -1,5 +1,6 @@
 ---
 title: "Reportable Shiny Application"
+author: "NEST CoreDev"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Reportable Shiny Application}
