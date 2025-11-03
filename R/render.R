@@ -23,11 +23,12 @@
 #' }
 #' @export
 render <- function(
-    input,
-    output_dir = getwd(),
-    global_knitr = getOption("teal.reporter.global_knitr"),
-    keep_rmd = TRUE,
-    ...) {
+  input,
+  output_dir = getwd(),
+  global_knitr = getOption("teal.reporter.global_knitr"),
+  keep_rmd = TRUE,
+  ...
+) {
   checkmate::assert_multi_class(input, c("teal_report", "teal_card", "Reporter"))
   checkmate::assert_string(output_dir)
   checkmate::assert_list(global_knitr, names = "named")
