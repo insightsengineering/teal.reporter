@@ -184,11 +184,13 @@ pre > code {
 }
 
 /* Ensure modal header has position relative for absolute positioning of fullscreen button */
-.modal-header {
+/* Scoped to teal-reporter modals only to avoid conflicts */
+.teal-reporter .modal-header {
   position: relative;
 }
 
 /* Add some right padding to modal title to prevent overlap with fullscreen button */
-.modal-header .modal-title {
+/* Scoped to teal-reporter modals only to avoid conflicts */
+.teal-reporter .modal-header .modal-title {
   padding-right: 50px;
 }
