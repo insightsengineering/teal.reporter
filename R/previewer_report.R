@@ -58,11 +58,21 @@ preview_report_button_srv <- function(id, reporter) {
         class = "teal-reporter reporter-previewer-modal",
         .custom_css_dependency(),
         .accordion_toggle_js_dependency(),
+        .modal_fullscreen_js_dependency(),
         shinyjs::extendShinyjs(text = "", functions = c("jumpToFocus", "enterToSubmit", "autoFocusModal")),
         shiny::modalDialog(
           easyClose = TRUE,
           size = "xl",
-          title = "Report Preview",
+          title = shiny::tagList(
+            "Report Preview",
+            shiny::tags$button(
+              type = "button",
+              class = "modal-fullscreen-btn",
+              onclick = "toggleModalFullscreen()",
+              title = "Toggle fullscreen",
+              shiny::icon("expand")
+            )
+          ),
           reporter_previewer_content_ui(session$ns("preview_content")),
           footer = shiny::tagList(
             shiny::tags$button(

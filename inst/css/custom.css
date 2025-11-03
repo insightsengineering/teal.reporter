@@ -144,3 +144,41 @@ pre > code {
   color: var(--bs-tertiary-color);
   background-color: var(--bs-light-rgb);
 }
+
+/* Fullscreen modal styles */
+.modal-dialog.modal-fullscreen {
+  width: 100vw;
+  max-width: none;
+  height: 100vh;
+  margin: 0;
+}
+
+.modal-dialog.modal-fullscreen .modal-content {
+  height: 100vh;
+  max-height: 100vh;
+  border: none;
+  border-radius: 0;
+}
+
+/* Fullscreen toggle button styling */
+.modal-fullscreen-btn {
+  position: absolute;
+  top: 10px;
+  right: 50px;
+  z-index: 1060;
+  background-color: white;
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.modal-fullscreen-btn:hover {
+  background-color: #f8f9fa;
+}
+
+.modal-fullscreen-btn i {
+  font-size: 1rem;
+  color: #495057;
+}

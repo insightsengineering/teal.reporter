@@ -180,6 +180,11 @@ format.code_chunk <- function(x, ...) {
   .custom_js_dependency("accordion-toggle.js", name = "teal-reporter-accordion-toggle")
 }
 
+#' @keywords internal
+.modal_fullscreen_js_dependency <- function() { # nolint object_length_linter.
+  .custom_js_dependency("modal-fullscreen.js", name = "teal-reporter-modal-fullscreen")
+}
+
 #' @noRd
 dummy <- function() {
   R6::R6Class # Used to trick R CMD check for avoiding NOTE about R6
