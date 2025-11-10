@@ -238,7 +238,7 @@ to_rmd.default <- function(block, ...) {
   to_rmd(x$get_content(), ...)
 }
 
-#' @method .to_rmd ContentBlock
+#' @method .to_rmd RcodeBlock
 #' @keywords internal
 .to_rmd.RcodeBlock <- function(x, ...) {
   to_rmd(code_chunk(x$get_content(), lang = "R"), ...)
