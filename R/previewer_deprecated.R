@@ -224,7 +224,11 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
       }
       sprintf(
         "%s%s",
-        switch(private$style, header2 = "## ", header3 = "### ", ""),
+        switch(private$style,
+          header2 = "## ",
+          header3 = "### ",
+          ""
+        ),
         private$content
       )
     },
