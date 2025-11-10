@@ -5,7 +5,7 @@ testthat::test_that("download_report_button_srv - download a document", {
   card1$append_text("A paragraph of default text", "header2")
   card1$append_plot(
     ggplot2::ggplot(iris, ggplot2::aes(x = Petal.Length)) +
-      ggplot2::geom_histogram()
+      ggplot2::geom_histogram(bins = 30)
   )
 
   reporter <- teal.reporter::Reporter$new()

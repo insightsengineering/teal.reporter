@@ -77,6 +77,9 @@ to_rmd.default <- function(block, ...) {
 #' @keywords internal
 .to_rmd.teal_card <- function(block, global_knitr = getOption("teal.reporter.global_knitr"), ...) {
   checkmate::assert_subset(names(global_knitr), names(knitr::opts_chunk$get()))
+  if (is.null(metadata(block, "title"))) {
+    metadata(block, "title") <- "Report" # enforce a default title
+  }
   is_powerpoint <- identical(metadata(block)$output, "powerpoint_presentation")
   powerpoint_exception_parsed <- if (is_powerpoint) {
     format_code_block_function <- quote(
