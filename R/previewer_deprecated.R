@@ -218,6 +218,16 @@ TextBlock <- R6::R6Class( # nolint: object_name_linter.
       checkmate::assert_string(content)
       super$set_content(content)
     },
+    get_content = function() {
+      if (private$style == "verbatim") {
+        return(sprintf("```\n%s\n```\n", private$content))
+      }
+      sprintf(
+        "%s%s",
+        switch(private$style, header2 = "## ", header3 = "### ", ""),
+        private$content
+      )
+    },
     set_style = function(style) {
       private$style <- match.arg(style, private$styles)
       invisible(self)
