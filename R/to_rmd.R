@@ -106,7 +106,7 @@ to_rmd.default <- function(block, ...) {
 
   m_yaml <- metadata(block)
   if ("SRC" %in% names(m_yaml)) {
-    m_yaml$SRC <- NULL # remove SRC from metadata, should be removed when `previewer_deprecated.Rmd` is removed
+    m_yaml$SRC <- NULL # TODO: remove when *Block functions are removed from `previewer_deprecated.R` 
   }
   paste(
     c(
