@@ -1,4 +1,4 @@
-local_temp_wd <- function() {
+with_temp_wd <- function() {
   new_dir <- tempfile()
   dir.create(new_dir, recursive = TRUE)
   old_dir <- setwd(new_dir)
@@ -6,7 +6,7 @@ local_temp_wd <- function() {
 }
 
 testthat::describe("render() accepts", {
-  local_temp_wd()
+  with_temp_wd()
   it("empty teal_report object", {
     testthat::expect_no_error(teal.reporter::render(teal_report(), quiet = TRUE))
   })
@@ -24,19 +24,19 @@ testthat::describe("render() accepts", {
 
 testthat::describe("render() by default", {
   it("outputs and keeps report.Rmd file in the working directory", {
-    local_temp_wd()
+    with_temp_wd()
     teal.reporter::render(teal_report(), quiet = TRUE)
     testthat::expect_true(file.exists("report.Rmd"))
   })
 
   it("renders report.html file in the working directory", {
-    local_temp_wd()
+    with_temp_wd()
     teal.reporter::render(teal_report(), quiet = TRUE)
     testthat::expect_true(file.exists("report.html"))
   })
 
   it("outputs report.Rmd file containing knitr::opts_chunk$set with tidy options set", {
-    local_temp_wd()
+    with_temp_wd()
     teal.reporter::render(teal_report(), quiet = TRUE)
     lines <- base::readLines("report.Rmd", warn = FALSE)
 
@@ -65,7 +65,7 @@ testthat::describe("render() outputs report.Rmd with", {
   })
 
   it("markdown content added to teal_card", {
-    local_temp_wd()
+    with_temp_wd()
     tr <- teal_report()
     teal_card(tr) <- c(teal_card(tr), "# test heading", "Lorem ipsum")
     teal.reporter::render(tr, quiet = TRUE)
@@ -74,7 +74,7 @@ testthat::describe("render() outputs report.Rmd with", {
   })
 
   it("yaml header containing entries set through metadata", {
-    local_temp_wd()
+    with_temp_wd()
     tr <- teal_report()
     teal_card(tr) <- c(teal_card(tr), "# test heading")
     metadata(teal_card(tr)) <- list(title = "test title", author = "me is tot")
@@ -95,7 +95,7 @@ testthat::describe("render() outputs report.Rmd with", {
   })
 
   it("code_chunk with knitr::opts_chunk$set call using value from teal.reporter.global_knitr", {
-    local_temp_wd()
+    with_temp_wd()
     withr::local_options(teal.reporter.global_knitr = list(eval = TRUE, echo = FALSE))
     tr <- teal_report()
     teal_card(tr) <- c(teal_card(tr), "# test heading")
@@ -114,7 +114,7 @@ testthat::describe("render() outputs report.Rmd with", {
   })
 
   it("code_chunk with knitr::opts_chunk$set call using value from global_knitr argument", {
-    local_temp_wd()
+    with_temp_wd()
     tr <- teal_report()
     teal_card(tr) <- c(teal_card(tr), "# test heading")
     teal.reporter::render(tr, global_knitr = list(echo = TRUE, eval = TRUE), quiet = TRUE)
@@ -132,7 +132,7 @@ testthat::describe("render() outputs report.Rmd with", {
   })
 
   it("arbitrary code chunk with additional parameters", {
-    local_temp_wd()
+    with_temp_wd()
     tr <- teal_report()
     teal_card(tr) <- c(teal_card(tr), "# test heading", code_chunk("a <- 1L", eval = FALSE, echo = FALSE))
     teal.reporter::render(tr, quiet = TRUE)
@@ -150,7 +150,7 @@ testthat::describe("render() outputs report.Rmd with", {
   })
 
   it("arbitrary code cunk but chunk_output is missing", {
-    local_temp_wd()
+    with_temp_wd()
     tr <- teal_report()
     tr <- teal.code::eval_code(tr, "plot(1:10)")
     teal.reporter::render(tr, quiet = TRUE)
@@ -167,7 +167,7 @@ testthat::describe("render() outputs report.Rmd with", {
 })
 
 testthat::describe("render() renders output based on metadata$output field:", {
-  local_temp_wd()
+  with_temp_wd()
   withr::local_options(teal.reporter.global_knitr = list())
   it("- md_document containing markdown content, code chunks and their outputs", {
     tr <- teal_report()
