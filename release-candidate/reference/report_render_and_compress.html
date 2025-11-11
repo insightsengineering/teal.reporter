@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9029</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,14 +34,13 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="../articles/teal-reporter.html">Get started</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/previewerReporter.html">Report Previewer</a></li>
-    <li><a class="dropdown-item" href="../articles/simpleReporter.html">Simple Reporter</a></li>
-    <li><a class="dropdown-item" href="../articles/teal-reporter-blocks-overview.html">teal.reporter blocks overview</a></li>
+<li><a class="dropdown-item" href="../articles/getting-started-with-teal-reporter.html">Getting Started with teal.reporter</a></li>
+    <li><a class="dropdown-item" href="../articles/reportable-shiny-application.html">Reportable Shiny Application</a></li>
+    <li><a class="dropdown-item" href="../articles/teal-report-class.html">teal_report Class</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -59,6 +58,7 @@
     <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/release-candidate">release-candidate</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc2">v0.6.0-rc2</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.5.0">v0.5.0</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.5.0-rc1">v0.5.0-rc1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.4.0-rc2">v0.4.0-rc2</a>
@@ -78,7 +78,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/insightsengineering/teal.reporter"><span class="fa fa-github"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/insightsengineering/teal.reporter" aria-label="View on Github"><span class="fa fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -89,7 +89,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Render the report</h1>
-      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/teal.reporter/blob/v0.5.0-rc1/R/DownloadModule.R" class="external-link"><code>R/DownloadModule.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/teal.reporter/blob/v0.6.0-rc2/R/download.R" class="external-link"><code>R/download.R</code></a></small>
       <div class="d-none name"><code>report_render_and_compress.Rd</code></div>
     </div>
 
@@ -102,9 +102,9 @@
 </h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">report_render_and_compress</span><span class="op">(</span></span>
 <span>  <span class="va">reporter</span>,</span>
-<span>  <span class="va">input_list</span>,</span>
+<span>  <span class="va">rmd_yaml_args</span>,</span>
 <span>  <span class="va">global_knitr</span>,</span>
-<span>  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -119,9 +119,9 @@
 <dd><p>(<code>Reporter</code>) instance.</p></dd>
 
 
-<dt id="arg-input-list">input_list<a class="anchor" aria-label="anchor" href="#arg-input-list"></a>
+<dt id="arg-rmd-yaml-args">rmd_yaml_args<a class="anchor" aria-label="anchor" href="#arg-rmd-yaml-args"></a>
 </dt>
-<dd><p>(<code>list</code>) like <code>shiny</code> input converted to a regular named list.</p></dd>
+<dd><p>(<code>named list</code>) with <code>Rmd</code> <code>yaml</code> header fields and their values.</p></dd>
 
 
 <dt id="arg-global-knitr">global_knitr<a class="anchor" aria-label="anchor" href="#arg-global-knitr"></a>
@@ -132,7 +132,7 @@ But if local parameter is set it will have priority.</p></dd>
 
 <dt id="arg-file">file<a class="anchor" aria-label="anchor" href="#arg-file"></a>
 </dt>
-<dd><p>(<code>character(1)</code>) where to copy the returned directory.</p></dd>
+<dd><p>(<code>character(1)</code>) where to copy created zip file.</p></dd>
 
 </dl>
 </div>

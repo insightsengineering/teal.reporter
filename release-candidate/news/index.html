@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9029</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,14 +32,13 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="../articles/teal-reporter.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/previewerReporter.html">Report Previewer</a></li>
-    <li><a class="dropdown-item" href="../articles/simpleReporter.html">Simple Reporter</a></li>
-    <li><a class="dropdown-item" href="../articles/teal-reporter-blocks-overview.html">teal.reporter blocks overview</a></li>
+<li><a class="dropdown-item" href="../articles/getting-started-with-teal-reporter.html">Getting Started with teal.reporter</a></li>
+    <li><a class="dropdown-item" href="../articles/reportable-shiny-application.html">Reportable Shiny Application</a></li>
+    <li><a class="dropdown-item" href="../articles/teal-report-class.html">teal_report Class</a></li>
   </ul>
 </li>
 <li class="active nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -57,6 +56,7 @@
     <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/release-candidate">release-candidate</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc2">v0.6.0-rc2</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.5.0">v0.5.0</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.5.0-rc1">v0.5.0-rc1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.4.0-rc2">v0.4.0-rc2</a>
@@ -76,7 +76,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/insightsengineering/teal.reporter"><span class="fa fa-github"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/insightsengineering/teal.reporter" aria-label="View on Github"><span class="fa fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -87,12 +87,30 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/insightsengineering/teal.reporter/blob/v0.5.0-rc1/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/insightsengineering/teal.reporter/blob/v0.6.0-rc2/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.5.0.9029" id="tealreporter-0509029">teal.reporter 0.5.0.9029<a class="anchor" aria-label="anchor" href="#tealreporter-0509029"></a>
+</h2>
+<div class="section level4">
+<h4 id="new-features-0-5-0-9029">New features<a class="anchor" aria-label="anchor" href="#new-features-0-5-0-9029"></a>
+</h4>
+<ul>
+<li>Adds editing capabilities to report cards in the previewer modal for the title and text contents.</li>
+<li>Adds <code>teal_card</code> class that replaces <code>ReportCard</code> R6 class. It retains all its functionalities in a S4 with less complexity. It allows for easier modifications and insertion of new report content.</li>
+<li>Adds <code>teal_report</code> class that extends from <code><a href="https://insightsengineering.github.io/teal.data/latest-tag/reference/teal_data.html" class="external-link">teal.data::teal_data</a></code> that allows to keep contents of the report card.</li>
+<li>
+<code>teal_report</code> is updated automatically with executed code and its outputs are stored as well.</li>
+<li>Supports <code>flextable</code> and <code>gtsummary</code> objects.</li>
+<li>Soft deprecated <code>ReportCard</code>.</li>
+</ul>
+</div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.0" id="tealreporter-050">teal.reporter 0.5.0<a class="anchor" aria-label="anchor" href="#tealreporter-050"></a>
 </h2>
+<p class="text-muted">CRAN release: 2025-08-18</p>
 <div class="section level4">
 <h4 id="breaking-changes-0-5-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-5-0"></a>
 </h4>

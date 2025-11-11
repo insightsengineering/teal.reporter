@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9029</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,14 +32,13 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="../articles/teal-reporter.html">Get started</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/previewerReporter.html">Report Previewer</a></li>
-    <li><a class="dropdown-item" href="../articles/simpleReporter.html">Simple Reporter</a></li>
-    <li><a class="dropdown-item" href="../articles/teal-reporter-blocks-overview.html">teal.reporter blocks overview</a></li>
+<li><a class="dropdown-item" href="../articles/getting-started-with-teal-reporter.html">Getting Started with teal.reporter</a></li>
+    <li><a class="dropdown-item" href="../articles/reportable-shiny-application.html">Reportable Shiny Application</a></li>
+    <li><a class="dropdown-item" href="../articles/teal-report-class.html">teal_report Class</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -57,6 +56,7 @@
     <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/release-candidate">release-candidate</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc2">v0.6.0-rc2</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.5.0">v0.5.0</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.5.0-rc1">v0.5.0-rc1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.4.0-rc2">v0.4.0-rc2</a>
@@ -76,7 +76,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/insightsengineering/teal.reporter"><span class="fa fa-github"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/insightsengineering/teal.reporter" aria-label="View on Github"><span class="fa fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -151,14 +151,6 @@
       <dl>
 <dt>
 
-          <code><a href="add_card_button.html">add_card_button_ui()</a></code> <code><a href="add_card_button.html">add_card_button_srv()</a></code>
-
-        </dt>
-        <dd>Add card button module</dd>
-      </dl>
-<dl>
-<dt>
-
           <code><a href="download_report_button.html">download_report_button_ui()</a></code> <code><a href="download_report_button.html">download_report_button_srv()</a></code>
 
         </dt>
@@ -179,6 +171,22 @@
 
         </dt>
         <dd>Load <code>Reporter</code> button module</dd>
+      </dl>
+<dl>
+<dt>
+
+          <code><a href="srv_editor_block.html">ui_editor_block()</a></code> <code><a href="srv_editor_block.html">srv_editor_block()</a></code>
+
+        </dt>
+        <dd>UI and Server functions for editing report document blocks</dd>
+      </dl>
+<dl>
+<dt>
+
+          <code><a href="add_card_button.html">add_card_button_ui()</a></code> <code><a href="add_card_button.html">add_card_button_srv()</a></code>
+
+        </dt>
+        <dd>Add card button module</dd>
       </dl>
 <dl>
 <dt>
@@ -237,8 +245,7 @@
       </dl>
 </div>
 <div class="section level2">
-      <h2 id="-r-classes-used-inside-package">
-<code>R6</code> classes used inside package<a class="anchor" aria-label="anchor" href="#-r-classes-used-inside-package"></a>
+      <h2 id="classes-used-inside-package">Classes used inside package<a class="anchor" aria-label="anchor" href="#classes-used-inside-package"></a>
 </h2>
 
 
@@ -253,8 +260,25 @@
       <dl>
 <dt>
 
-          <code><a href="ReportCard.html">ReportCard</a></code>
+          <code><a href="teal_card.html">teal_card()</a></code> <code><a href="teal_card.html">`teal_card&lt;-`()</a></code> <code><a href="teal_card.html">as.teal_card()</a></code> <code><a href="teal_card.html">c(<i>&lt;teal_card&gt;</i>)</a></code> <code><a href="teal_card.html">`[`(<i>&lt;teal_card&gt;</i>)</a></code>
+          <span class="badge lifecycle lifecycle-experimental">experimental</span>
+        </dt>
+        <dd>
+<code>teal_card</code>: An <code>S3</code> class for managing <code>teal</code> reports</dd>
+      </dl>
+<dl>
+<dt>
 
+          <code><a href="teal_report.html">teal_report()</a></code> <code><a href="teal_report.html">as.teal_report()</a></code>
+          <span class="badge lifecycle lifecycle-stable">stable</span>
+        </dt>
+        <dd>Comprehensive data integration function for <code>teal</code> applications</dd>
+      </dl>
+<dl>
+<dt>
+
+          <code><a href="ReportCard.html">ReportCard</a></code>
+          <span class="badge lifecycle lifecycle-deprecated">deprecated</span>
         </dt>
         <dd>
 <code>ReportCard</code>: An <code>R6</code> class for building report elements</dd>
@@ -266,7 +290,104 @@
 
         </dt>
         <dd>
-<code>Reporter</code>: An <code>R6</code> class for managing report cards</dd>
+<code>Reporter</code>: An <code>R6</code> class for managing reports</dd>
+      </dl>
+</div>
+<div class="section level2">
+      <h2 id="utility-functions-for-teal-card-object">Utility functions for <code>teal_card</code> object<a class="anchor" aria-label="anchor" href="#utility-functions-for-teal-card-object"></a>
+</h2>
+
+
+
+
+    </div>
+<div class="section level2">
+
+
+
+
+      <dl>
+<dt>
+
+          <code><a href="teal_card.html">teal_card()</a></code> <code><a href="teal_card.html">`teal_card&lt;-`()</a></code> <code><a href="teal_card.html">as.teal_card()</a></code> <code><a href="teal_card.html">c(<i>&lt;teal_card&gt;</i>)</a></code> <code><a href="teal_card.html">`[`(<i>&lt;teal_card&gt;</i>)</a></code>
+          <span class="badge lifecycle lifecycle-experimental">experimental</span>
+        </dt>
+        <dd>
+<code>teal_card</code>: An <code>S3</code> class for managing <code>teal</code> reports</dd>
+      </dl>
+<dl>
+<dt>
+
+          <code><a href="code_chunk.html">code_chunk()</a></code>
+
+        </dt>
+        <dd>Generate a code chunk</dd>
+      </dl>
+<dl>
+<dt>
+
+          <code><a href="metadata.html">metadata()</a></code>
+
+        </dt>
+        <dd>Access metadata from a <code>teal_card</code> or <code>ReportCard</code>
+</dd>
+      </dl>
+<dl>
+<dt>
+
+          <code><a href="metadata-set.html">`metadata&lt;-`()</a></code>
+
+        </dt>
+        <dd>Set metadata for a <code>teal_card</code> or <code>ReportCard</code>
+</dd>
+      </dl>
+<dl>
+<dt>
+
+          <code><a href="render.html">render()</a></code>
+
+        </dt>
+        <dd>Render <code>teal_card</code>
+</dd>
+      </dl>
+<dl>
+<dt>
+
+          <code><a href="toHTML.default.html">toHTML(<i>&lt;default&gt;</i>)</a></code>
+          <span class="badge lifecycle lifecycle-experimental">experimental</span>
+        </dt>
+        <dd>Convert report objects to HTML</dd>
+      </dl>
+</div>
+<div class="section level2">
+      <h2 id="utility-functions-for-teal-report-object">Utility functions for <code>teal_report</code> object<a class="anchor" aria-label="anchor" href="#utility-functions-for-teal-report-object"></a>
+</h2>
+
+
+
+
+    </div>
+<div class="section level2">
+
+
+
+
+      <dl>
+<dt>
+
+          <code><a href="c.teal_report.html">c(<i>&lt;teal_report&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Concatenate <code>teal_report</code> objects</dd>
+      </dl>
+<dl>
+<dt>
+
+          <code><a href="eval_code-teal_report.html">eval_code(<i>&lt;teal_report&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Evaluate code in <code>qenv</code>
+</dd>
       </dl>
 </div>
 <div class="section level2">
