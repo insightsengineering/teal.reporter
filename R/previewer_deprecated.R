@@ -127,3 +127,131 @@ reporter_previewer_srv <- function(id,
     reporter_previewer_content_srv("previewer", reporter = reporter)
   })
 }
+
+#' @noRd
+ContentBlock <- R6::R6Class( # nolint: object_name_linter.
+  classname = "ContentBlock",
+  public = list(
+    set_content = function(content) {
+      private$content <- content
+      invisible(self)
+    },
+    get_content = function() private$content,
+    from_list = function(x) invisible(self),
+    to_list = function() list()
+  ),
+  private = list(
+    content = NULL,
+    deep_clone = function(name, value) {
+      if (name == "content" && checkmate::test_file_exists(value)) {
+        extension <- ""
+        split <- strsplit(basename(value), split = "\\.")
+        # The below ensures no extension is found for files such as this: .gitignore but is found for files like
+        # .gitignore.txt
+        if (length(split[[1]]) > 1 && split[[1]][length(split[[1]]) - 1] != "") {
+          extension <- split[[1]][length(split[[1]])]
+          extension <- paste0(".", extension)
+        }
+        copied_file <- tempfile(fileext = extension)
+        file.copy(value, copied_file, copy.date = TRUE, copy.mode = TRUE)
+        copied_file
+      } else {
+        value
+      }
+    }
+  ),
+  lock_objects = TRUE,
+  lock_class = TRUE
+)
+
+#' @noRd
+RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
+  classname = "RcodeBlock",
+  inherit = ContentBlock,
+  public = list(
+    initialize = function(content = character(0), ...) {
+      checkmate::assert_class(content, "character")
+      super$set_content(content)
+      self$set_params(list(...))
+      invisible(self)
+    },
+    set_content = function(content) {
+      checkmate::assert_string(content)
+      super$set_content(content)
+    },
+    set_params = function(params) {
+      checkmate::assert_list(params, names = "named")
+      checkmate::assert_subset(names(params), self$get_available_params())
+      private$params <- params
+      invisible(self)
+    },
+    get_params = function() private$params,
+    get_available_params = function() names(knitr::opts_chunk$get()),
+    from_list = function(x) {
+      checkmate::assert_list(x)
+      checkmate::assert_names(names(x), must.include = c("text", "params"))
+      self$set_content(x$text)
+      self$set_params(x$params)
+      invisible(self)
+    },
+    to_list = function() list(text = self$get_content(), params = self$get_params())
+  ),
+  private = list(
+    content = character(0),
+    params = list()
+  ),
+  lock_objects = TRUE,
+  lock_class = TRUE
+)
+
+#' @noRd
+TextBlock <- R6::R6Class( # nolint: object_name_linter.
+  classname = "TextBlock",
+  inherit = ContentBlock,
+  public = list(
+    initialize = function(content = character(0), style = private$styles[1]) {
+      super$set_content(content)
+      self$set_style(style)
+      invisible(self)
+    },
+    set_content = function(content) {
+      checkmate::assert_string(content)
+      super$set_content(content)
+    },
+    get_content = function() {
+      if (private$style == "verbatim") {
+        return(sprintf("```\n%s\n```\n", private$content))
+      }
+      sprintf(
+        "%s%s",
+        switch(private$style,
+          header2 = "## ",
+          header3 = "### ",
+          ""
+        ),
+        private$content
+      )
+    },
+    set_style = function(style) {
+      private$style <- match.arg(style, private$styles)
+      invisible(self)
+    },
+    get_style = function() private$style,
+    get_available_styles = function() private$styles,
+    from_list = function(x) {
+      checkmate::assert_list(x)
+      checkmate::assert_names(names(x), must.include = c("text", "style"))
+      self$set_content(x$text)
+      self$set_style(x$style)
+      invisible(self)
+    },
+    to_list = function() list(text = self$get_content(), style = self$get_style())
+  ),
+  private = list(
+    content = character(0),
+    style = character(0),
+    styles = c("default", "header2", "header3", "verbatim")
+  ),
+  lock_objects = TRUE,
+  lock_class = TRUE
+)

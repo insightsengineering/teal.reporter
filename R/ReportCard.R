@@ -99,7 +99,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #' card <- ReportCard$new()$append_rcode("2+2", echo = FALSE)
     #'
     append_rcode = function(text, ...) {
-      self$append_content(code_chunk(code = text, ...))
+      self$append_content(code_chunk(code = text, lang = "R", ...))
     },
     #' @description Appends a generic content to this `ReportCard`.
     #'
