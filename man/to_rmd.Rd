@@ -59,6 +59,7 @@ to_rmd(c("## This is a simple text block.", "", "With a paragraph break."))
 to_rmd(code_chunk("summary(cars)"))
 to_rmd(data.frame(x = 1:10, y = 21:30))
 \dontshow{if (requireNamespace("ggplot2", quietly = TRUE)) withAutoprint(\{ # examplesIf}
-to_rmd(ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) + ggplot2::geom_point())
+to_rmd(ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) +
+  ggplot2::geom_point())
 \dontshow{\}) # examplesIf}
 }
