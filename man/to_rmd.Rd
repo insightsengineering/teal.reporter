@@ -8,6 +8,8 @@ to_rmd(block, ...)
 }
 \arguments{
 \item{block}{(\code{any}) content which can be represented in Rmarkdown syntax.}
+
+\item{...}{additional arguments passed to specific methods.}
 }
 \value{
 \code{character(1)} containing a content or Rmarkdown document.
@@ -16,10 +18,13 @@ to_rmd(block, ...)
 This is an S3 generic that is used to generate content in \code{rmarkdown} format
 from various types of blocks in a \code{ReporterCard} or \code{teal_card} object.
 }
-\section{Customize \code{to_rmd}}{
+\details{
+\subsection{Customize \code{to_rmd}}{
+
 The methods for this S3 generic can be extended by the app developer or even overwritten.
 For this a function with the name \verb{to_rmd.<class>} should be defined in the
-Global Environment, where \verb{<class>} is the class of the object to be converted.
+Global Environment or registered as an S3 method, where \verb{<class>} is the class of the
+object to be converted.
 
 For example, to override the default behavior for \code{code_chunk} class, you can use:
 
@@ -29,7 +34,27 @@ For example, to override the default behavior for \code{code_chunk} class, you c
 \}
 }\if{html}{\out{</div>}}
 
-Alternatively, you can register the S3 method using \code{registerS3method("to_rmd", "<class>", fun)}
+Alternatively, the S3 method can be registered using \code{registerS3method("to_rmd", "<class>", fun)}
 }
 
-\keyword{internal}
+\subsection{Defaults}{
+
+\code{teal.reporter} provides default \code{to_rmd} methods for several common classes.
+These include:
+\itemize{
+\item \code{character} (treated as markdown text)
+\item \code{ggplot2} plots
+\item \code{data.frame}
+\item \code{flextable}
+\item \code{rtables} tables
+\item and others.
+}
+
+All of these defaults can be overridden by defining new \verb{to_rmd.<class>} methods.
+This allows developers to customize how different content types are rendered to R Markdown.
+}
+}
+\examples{
+to_rmd(c("## This is a simple text block.", "", "With a paragraph break."))
+to_rmd(code_chunk("summary(cars)"))
+}

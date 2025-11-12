@@ -28,10 +28,12 @@
 #' This is an S3 generic that is used to generate content in `rmarkdown` format
 #' from various types of blocks in a `ReporterCard` or `teal_card` object.
 #'
-#' # Customize `to_rmd`
+#' ## Customize `to_rmd`
+#'
 #' The methods for this S3 generic can be extended by the app developer or even overwritten.
 #' For this a function with the name `to_rmd.<class>` should be defined in the
-#' Global Environment, where `<class>` is the class of the object to be converted.
+#' Global Environment or registered as an S3 method, where `<class>` is the class of the
+#' object to be converted.
 #'
 #' For example, to override the default behavior for `code_chunk` class, you can use:
 #'
@@ -42,17 +44,35 @@
 #' }
 #' ```
 #'
-#' Alternatively, you can register the S3 method using `registerS3method("to_rmd", "<class>", fun)`
+#' Alternatively, the S3 method can be registered using `registerS3method("to_rmd", "<class>", fun)`
+#'
+#' ## Defaults
+#'
+#' `teal.reporter` provides default `to_rmd` methods for several common classes.
+#' These include:
+#' - `character` (treated as markdown text)
+#' - `ggplot2` plots
+#' - `data.frame`
+#' - `flextable`
+#' - `rtables` tables
+#' - and others.
+#'
+#' All of these defaults can be overridden by defining new `to_rmd.<class>` methods.
+#' This allows developers to customize how different content types are rendered to R Markdown.
 #'
 #' @param block (`any`) content which can be represented in Rmarkdown syntax.
+#' @param ... additional arguments passed to specific methods.
 #' @return `character(1)` containing a content or Rmarkdown document.
-#' @keywords internal
+#' @examples
+#' to_rmd(c("## This is a simple text block.", "", "With a paragraph break."))
+#' to_rmd(code_chunk("summary(cars)"))
+#' @export
 to_rmd <- function(block, ...) {
   UseMethod("to_rmd")
 }
 
 #' @method to_rmd default
-#' @keywords internal
+#' @export
 to_rmd.default <- function(block, ...) {
   .to_rmd(block, ...)
 }
