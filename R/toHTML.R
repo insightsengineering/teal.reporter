@@ -122,6 +122,18 @@ toHTML.default <- function(x, ...) {
   htmltools::HTML(commonmark::markdown_html(x, extensions = TRUE))
 }
 
+#' @method .toHTML ContentBlock
+#' @keywords internal
+.toHTML.ContentBlock <- function(x, ...) {
+  tools::toHTML(x$get_content(), ...)
+}
+
+#' @method .toHTML ContentBlock
+#' @keywords internal
+.toHTML.RcodeBlock <- function(x, ...) {
+  tools::toHTML(code_chunk(x$get_content(), lang = "R"), ...)
+}
+
 #' @method .toHTML ReportCard
 #' @keywords internal
 .toHTML.ReportCard <- function(x, ...) {

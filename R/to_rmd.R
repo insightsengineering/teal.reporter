@@ -105,6 +105,9 @@ to_rmd.default <- function(block, ...) {
   global_knitr_code_chunk <- code_chunk(c(global_knitr_parsed, powerpoint_exception_parsed), include = FALSE)
 
   m_yaml <- metadata(block)
+  if ("SRC" %in% names(m_yaml)) {
+    m_yaml$SRC <- NULL # TODO: remove when *Block functions are removed from `previewer_deprecated.R`
+  }
   paste(
     c(
       if (length(m_yaml)) as_yaml_auto(m_yaml),
@@ -227,4 +230,16 @@ to_rmd.default <- function(block, ...) {
 #' @keywords internal
 .to_rmd.listing_df <- function(block, ...) {
   to_rmd(flextable::as_flextable(block), ...)
+}
+
+#' @method .to_rmd ContentBlock
+#' @keywords internal
+.to_rmd.ContentBlock <- function(block, ...) {
+  to_rmd(block$get_content(), ...)
+}
+
+#' @method .to_rmd RcodeBlock
+#' @keywords internal
+.to_rmd.RcodeBlock <- function(block, ...) {
+  to_rmd(code_chunk(block$get_content(), lang = "R"), ...)
 }
