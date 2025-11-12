@@ -1,7 +1,7 @@
 testthat::describe("to_rmd", {
   r_block_start_regexp <- "^```[{][rR].*[}]"
   md_block_end_regexp <- "```[ \n]*$"
-
+testthat::skip_if_not_installed("withr")
   withr::local_dir(withr::local_tempdir())
 
   it("character arguments return themselves", {
