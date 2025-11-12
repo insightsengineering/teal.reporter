@@ -203,7 +203,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
       if (lifecycle::is_present(output_dir)) {
         lifecycle::deprecate_soft("0.5.0.9000", "ReportCard$to_list(output_dir)")
       }
-      private$content
+      unclass(private$content)
     },
     #' @description Reconstructs the `ReportCard` from a list representation.
     #' @param card (`named list`) a `ReportCard` representation.
@@ -225,7 +225,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
         lifecycle::deprecate_soft("0.5.0.9000", "ReportCard$to_list(output_dir)")
       }
       self$reset()
-      private$content <- card
+      private$content <- as.teal_card(card)
       invisible(self)
     }
   ),

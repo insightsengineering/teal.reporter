@@ -60,6 +60,17 @@ testthat::describe("Reporter with ReportCard", {
       unname(c(teal_card("# _Unnamed Card (1)_"), card1$get_content(), "# _Unnamed Card (2)_", card2$get_content()))
     )
   })
+
+  it("replace switches the cards in the reporter", {
+    reporter <- test_reporter(card1 <- test_card1(), card2 <- test_card2())
+    card3 <- test_card1.ReportCard()
+    reporter$replace_card(card3, names(reporter$get_cards())[2])
+    testthat::expect_equal(
+      unname(reporter$get_cards()),
+      unname(c(list(card1), list(card3$get_content()))),
+      ignore_attr = "names"
+    )
+  })
 })
 
 testthat::test_that("get_cards returns the same cards which was added to reporter", {

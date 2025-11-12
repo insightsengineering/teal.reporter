@@ -1,54 +1,28 @@
-testthat::describe("to_rmd", {
-  r_block_start_regexp <- "^```[{][rR].*[}]"
-  md_block_end_regexp <- "```[ \n]*$"
-  testthat::skip_if_not_installed("withr")
-  withr::local_dir(withr::local_tempdir())
-
-  it("character arguments return themselves", {
+testthat::describe("to_rmd default support: ", {
+  it("character object return themselves", {
     x <- "This is a test string."
     result <- to_rmd(x)
     testthat::expect_identical(result, x)
   })
 
-  it("ggplot objects are converted to code chunks", {
-    testthat::skip_if_not_installed("ggplot2")
-    p <- ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) +
-      ggplot2::geom_point()
-    result <- to_rmd(p)
-    testthat::expect_match(result, r_block_start_regexp)
-    testthat::expect_match(result, "readRDS[(].*[)]")
-    testthat::expect_match(result, md_block_end_regexp)
+  it("unknown object return themselves", {
+    x <- structure(list("This is a test object"), class = "unknown_class")
+    result <- to_rmd(x)
+    testthat::expect_identical(result, x)
   })
 
-  it("data frames are converted to code chunks", {
-    df <- data.frame(x = 1:5, y = letters[1:5])
-    result <- to_rmd(df)
-    testthat::expect_match(result, r_block_start_regexp)
-    testthat::expect_match(result, "readRDS[(].*[)]")
-    testthat::expect_match(result, md_block_end_regexp)
-  })
-
-  it("code_chunk objects are converted correctly", {
+  it("code_chunk object are converted correctly", {
     code <- code_chunk("summary(cars)")
-    result <- to_rmd(code)
-    testthat::expect_match(result, r_block_start_regexp)
-    testthat::expect_match(result, "summary[(]cars[)]")
-    testthat::expect_match(result, md_block_end_regexp)
+    testthat::expect_match(
+      to_rmd(code),
+      "^```[{][rR].*[}].*summary[(]cars[)].*```[ \n]*$"
+    )
   })
 
-  it("simpleCondition objects are converted to text blocks", {
+  it("simpleCondition object are converted to text blocks", {
     cond <- simpleCondition("This is a warning message.")
     result <- to_rmd(cond)
     testthat::expect_match(result, "This is a warning message.")
-  })
-
-  it("flextable objects are converted to code chunks", {
-    testthat::skip_if_not_installed("flextable")
-    ft <- flextable::flextable(head(iris))
-    result <- to_rmd(ft)
-    testthat::expect_match(result, r_block_start_regexp)
-    testthat::expect_match(result, "readRDS[(].*[)]")
-    testthat::expect_match(result, md_block_end_regexp)
   })
 
   it("teal_card adds a header with chunk opts", {
@@ -56,11 +30,7 @@ testthat::describe("to_rmd", {
     result <- to_rmd(card)
     testthat::expect_match(
       result,
-      sprintf(
-        "%s.*knitr::opts_chunk[$]set.*%s",
-        r_block_start_regexp,
-        "```[ \n]*"
-      )
+      "^```[{][rR].*[}].*.*knitr::opts_chunk[$]set.*```[ \n]*"
     )
   })
 
@@ -69,5 +39,61 @@ testthat::describe("to_rmd", {
     result <- to_rmd(card)
     checkmate::expect_string(result)
     testthat::expect_match(result, "chunk 1\n\nchunk 2")
+  })
+
+  it("teal_card adds code_block declaration", {
+    card <- teal_card("1")
+    metadata(card, "output") <- "powerpoint_presentation"
+    testthat::expect_match(
+      to_rmd(card),
+      "code_block[ ]*<-[ ]*function[(]code_text[)]"
+    )
+  })
+})
+
+testthat::describe("to_rmd generating blocks with rds auxiliary files", {
+  testthat::skip_if_not_installed("withr")
+  withr::local_dir(withr::local_tempdir())
+
+  expect_rds_generation <- function(result) {
+    testthat::expect_match(
+      result,
+      "^```[{][rR].*[}].*readRDS[(].*[)].*```[ \n]*$"
+    )
+  }
+
+  it("ggplot objects are converted to code chunks", {
+    testthat::skip_if_not_installed("ggplot2")
+    p <- ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) +
+      ggplot2::geom_point()
+    expect_rds_generation(to_rmd(p))
+  })
+
+  it("data frames are converted to code chunks", {
+    expect_rds_generation(to_rmd(data.frame(x = 1:5, y = letters[1:5])))
+  })
+
+  it("flextable objects are converted to code chunks", {
+    testthat::skip_if_not_installed("flextable")
+    expect_rds_generation(to_rmd(flextable::flextable(head(iris))))
+  })
+})
+
+testthat::describe("to_rmd declaration", {
+  it("of existing character method", {
+    to_rmd.character <- function(block, ...) {
+      paste0("Character method: ", block)
+    }
+    testthat::expect_equal(to_rmd("test"), "Character method: test")
+  })
+
+  it("of new class", {
+    to_rmd.testthat_internal <- function(block, ...) {
+      paste0("internal method: ", block)
+    }
+    testthat::expect_equal(
+      to_rmd(structure("test", class = "testthat_internal")),
+      "internal method: test"
+    )
   })
 })

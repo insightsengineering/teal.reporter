@@ -139,7 +139,9 @@ as.teal_card <- function(x) { # nolint: object_name.
     return(x)
   }
   if (identical(class(x), "list")) {
-    return(do.call(teal_card, unname(x)))
+    result <- do.call(teal_card, unname(x))
+    attr(result, "metadata") <- attr(result, "metadata", exact = TRUE) %||% list()
+    return(result)
   }
   teal_card(x)
 }
