@@ -12,7 +12,8 @@ testthat::describe("to_rmd", {
 
   it("ggplot objects are converted to code chunks", {
     testthat::skip_if_not_installed("ggplot2")
-    p <- ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) + ggplot2::geom_point()
+    p <- ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) +
+      ggplot2::geom_point()
     result <- to_rmd(p)
     testthat::expect_match(result, r_block_start_regexp)
     testthat::expect_match(result, "readRDS[(].*[)]")
