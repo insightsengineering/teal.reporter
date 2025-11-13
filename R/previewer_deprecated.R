@@ -140,26 +140,7 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     from_list = function(x) invisible(self),
     to_list = function() list()
   ),
-  private = list(
-    content = NULL,
-    deep_clone = function(name, value) {
-      if (name == "content" && checkmate::test_file_exists(value)) {
-        extension <- ""
-        split <- strsplit(basename(value), split = "\\.")
-        # The below ensures no extension is found for files such as this: .gitignore but is found for files like
-        # .gitignore.txt
-        if (length(split[[1]]) > 1 && split[[1]][length(split[[1]]) - 1] != "") {
-          extension <- split[[1]][length(split[[1]])]
-          extension <- paste0(".", extension)
-        }
-        copied_file <- tempfile(fileext = extension)
-        file.copy(value, copied_file, copy.date = TRUE, copy.mode = TRUE)
-        copied_file
-      } else {
-        value
-      }
-    }
-  ),
+  private = list(content = NULL),
   lock_objects = TRUE,
   lock_class = TRUE
 )

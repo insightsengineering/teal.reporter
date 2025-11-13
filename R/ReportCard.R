@@ -232,32 +232,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
   private = list(
     content = list(),
     name = character(0L),
-    id = character(0L),
-    # @description The copy constructor.
-    #
-    # @param name the name of the field
-    # @param value the value of the field
-    # @return the new value of the field
-    #
-    deep_clone = function(name, value) {
-      if (name == "content") {
-        content <- Reduce(
-          f = function(result, this) {
-            if (inherits(this, "R6")) {
-              this <- this$clone(deep = TRUE)
-            }
-            c(result, this)
-          },
-          init = teal_card(),
-          x = value
-        )
-
-        metadata(content) <- metadata(value)
-        content
-      } else {
-        value
-      }
-    }
+    id = character(0L)
   ),
   lock_objects = TRUE,
   lock_class = TRUE
