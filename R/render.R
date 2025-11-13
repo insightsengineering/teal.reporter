@@ -39,7 +39,7 @@ render <- function(
   # Set output dir to a new working directory. Absolute paths in rmarkdown files will break .Rmd portability
   dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
   old_wd <- setwd(dir = output_dir)
-  on.exit(setwd(old_wd))
+  on.exit(setwd(old_wd), add = TRUE)
 
   # This Rmd file is for render purpose as it contains evaluated code chunks and their outputs.
   rmd_filepath <- "report.Rmd"

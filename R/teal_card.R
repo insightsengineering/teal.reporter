@@ -406,7 +406,7 @@ code_chunk <- function(code, ..., lang = "R") {
   grDevices::pdf(file = NULL)
   grDevices::dev.control(displaylist = "enable")
   dev <- grDevices::dev.cur()
-  on.exit(grDevices::dev.off(dev))
+  on.exit(grDevices::dev.off(dev), add = TRUE)
   print(x)
   grDevices::recordPlot()
 }
