@@ -1,10 +1,10 @@
-.content_to_rmd <- function(block, folder_path = getwd(), ...) {
+.content_to_rmd <- function(block, folder_path = ".", ...) {
   path <- tempfile(pattern = "report_item_", fileext = ".rds", tmpdir = folder_path)
   suppressWarnings(saveRDS(block, file = path))
   sprintf("```{r echo = FALSE, eval = TRUE}\nreadRDS('%s')\n```", path)
 }
 
-.plot_to_rmd <- function(block, folder_path = getwd(), ...) {
+.plot_to_rmd <- function(block, folder_path = ".", ...) {
   path <- tempfile(pattern = "report_item_", fileext = ".rds", tmpdir = folder_path)
   suppressWarnings(saveRDS(block, file = path))
   dims <- .determine_default_dimensions(block, convert_to_inches = TRUE)
