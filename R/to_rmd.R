@@ -1,11 +1,13 @@
-.content_to_rmd <- function(block, ...) {
-  path <- basename(tempfile(pattern = "report_item_", fileext = ".rds"))
+.content_to_rmd <- function(block, folder_path = ".", ...) {
+  tempfile <- tempfile(pattern = "report_item_", fileext = ".rds")
+  path <- file.path(folder_path, basename(tempfile))
   suppressWarnings(saveRDS(block, file = path))
   sprintf("```{r echo = FALSE, eval = TRUE}\nreadRDS('%s')\n```", path)
 }
 
-.plot_to_rmd <- function(block, ...) {
-  path <- basename(tempfile(pattern = "report_item_", fileext = ".rds"))
+.plot_to_rmd <- function(block, folder_path = ".", ...) {
+  tempfile <- tempfile(pattern = "report_item_", fileext = ".rds")
+  path <- file.path(folder_path, basename(tempfile))
   suppressWarnings(saveRDS(block, file = path))
   dims <- .determine_default_dimensions(block, convert_to_inches = TRUE)
 
@@ -28,31 +30,62 @@
 #' This is an S3 generic that is used to generate content in `rmarkdown` format
 #' from various types of blocks in a `ReporterCard` or `teal_card` object.
 #'
-#' # Customize `to_rmd`
+#' ## Customize `to_rmd`
+#'
 #' The methods for this S3 generic can be extended by the app developer or even overwritten.
 #' For this a function with the name `to_rmd.<class>` should be defined in the
-#' Global Environment, where `<class>` is the class of the object to be converted.
+#' Global Environment or registered as an S3 method, where `<class>` is the class of the
+#' object to be converted.
 #'
 #' For example, to override the default behavior for `code_chunk` class, you can use:
 #'
 #' ```r
-#' to_rmd.code_chunk <- function(block, ..., output_format) {
+#' to_rmd.code_chunk <- function(block, ...) {
 #'   # custom implementation
 #'   sprintf("### A custom code chunk\n\n```{r}\n%s\n```\n", block)
 #' }
 #' ```
 #'
-#' Alternatively, you can register the S3 method using `registerS3method("to_rmd", "<class>", fun)`
+#' Alternatively, the S3 method can be registered using `registerS3method("to_rmd", "<class>", fun)`
+#'
+#' ## Defaults
+#'
+#' `teal.reporter` provides default `to_rmd` methods for several common classes that
+#' returns the content in appropriate R Markdown syntax.
+#' These include:
+#' - `character`
+#' - [code_chunk()] objects
+#' - `ggplot2` plots
+#' - `data.frame`
+#' - `flextable`
+#' - `rtables` tables
+#' - and others.
+#'
+#' All of these defaults can be overridden by defining new `to_rmd.<class>` methods.
+#' These methods are implemented internally using the helper function `.to_rmd.<class>`.
 #'
 #' @param block (`any`) content which can be represented in Rmarkdown syntax.
+#' @param ... additional arguments passed to implemented methods for different classes.
 #' @return `character(1)` containing a content or Rmarkdown document.
-#' @keywords internal
+#' @examples
+#' to_rmd(c("## This is a simple text block.", "", "With a paragraph break."))
+#' to_rmd(code_chunk("summary(cars)"))
+#' to_rmd(data.frame(x = 1:10, y = 21:30))
+#' @examplesIf requireNamespace("ggplot2", quietly = TRUE)
+#'
+#' # Example with ggplot2 will create a temporary RDS file in the tempdir()
+#' to_rmd(
+#'   ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) +
+#'     ggplot2::geom_point(),
+#'   folder_path = tempdir() # internal argument of ggplot2 method
+#' )
+#' @export
 to_rmd <- function(block, ...) {
   UseMethod("to_rmd")
 }
 
 #' @method to_rmd default
-#' @keywords internal
+#' @export
 to_rmd.default <- function(block, ...) {
   .to_rmd(block, ...)
 }
@@ -240,6 +273,6 @@ to_rmd.default <- function(block, ...) {
 
 #' @method .to_rmd RcodeBlock
 #' @keywords internal
-.to_rmd.RcodeBlock <- function(block, ...) {
-  to_rmd(code_chunk(block$get_content(), lang = "R"), ...)
+.to_rmd.RcodeBlock <- function(block, output_format, ...) {
+  to_rmd(code_chunk(block$get_content(output_format), lang = "R"), ...)
 }
