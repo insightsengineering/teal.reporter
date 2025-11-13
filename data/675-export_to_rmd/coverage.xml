@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.806843267108168" branch-rate="0" lines-covered="1462" lines-valid="1812" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2025-11-13 09:48:58.221471">
+<coverage line-rate="0.809050772626932" branch-rate="0" lines-covered="1466" lines-valid="1812" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2025-11-13 10:08:14.130518">
   <sources>
     <source>/__w/teal.reporter/teal.reporter/teal.reporter</source>
   </sources>
   <packages>
-    <package name="teal.reporter" line-rate="0.806843267108168" branch-rate="0" complexity="0">
+    <package name="teal.reporter" line-rate="0.809050772626932" branch-rate="0" complexity="0">
       <classes>
         <class name="add_card.R" filename="R/add_card.R" line-rate="0.923076923076923" branch-rate="0" complexity="0">
           <methods>
@@ -3206,7 +3206,7 @@
             <line number="80" hits="5" branch="false"/>
           </lines>
         </class>
-        <class name="teal_card.R" filename="R/teal_card.R" line-rate="0.980891719745223" branch-rate="0" complexity="0">
+        <class name="teal_card.R" filename="R/teal_card.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
             <method name="teal_card" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
@@ -3434,19 +3434,19 @@
                 <line number="411" hits="54" branch="false"/>
               </lines>
             </method>
-            <method name=".determine_default_dimensions" signature="" line-rate="0.727272727272727" branch-rate="0" complexity="0">
+            <method name=".determine_default_dimensions" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="423" hits="76" branch="false"/>
-                <line number="424" hits="76" branch="false"/>
-                <line number="425" hits="76" branch="false"/>
-                <line number="426" hits="76" branch="false"/>
-                <line number="427" hits="0" branch="false"/>
-                <line number="428" hits="0" branch="false"/>
-                <line number="429" hits="0" branch="false"/>
-                <line number="432" hits="76" branch="false"/>
-                <line number="433" hits="17" branch="false"/>
-                <line number="434" hits="17" branch="false"/>
-                <line number="436" hits="76" branch="false"/>
+                <line number="423" hits="78" branch="false"/>
+                <line number="424" hits="78" branch="false"/>
+                <line number="425" hits="78" branch="false"/>
+                <line number="426" hits="78" branch="false"/>
+                <line number="427" hits="1" branch="false"/>
+                <line number="428" hits="1" branch="false"/>
+                <line number="429" hits="1" branch="false"/>
+                <line number="432" hits="78" branch="false"/>
+                <line number="433" hits="19" branch="false"/>
+                <line number="434" hits="19" branch="false"/>
+                <line number="436" hits="78" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -3597,17 +3597,17 @@
             <line number="409" hits="54" branch="false"/>
             <line number="410" hits="54" branch="false"/>
             <line number="411" hits="54" branch="false"/>
-            <line number="423" hits="76" branch="false"/>
-            <line number="424" hits="76" branch="false"/>
-            <line number="425" hits="76" branch="false"/>
-            <line number="426" hits="76" branch="false"/>
-            <line number="427" hits="0" branch="false"/>
-            <line number="428" hits="0" branch="false"/>
-            <line number="429" hits="0" branch="false"/>
-            <line number="432" hits="76" branch="false"/>
-            <line number="433" hits="17" branch="false"/>
-            <line number="434" hits="17" branch="false"/>
-            <line number="436" hits="76" branch="false"/>
+            <line number="423" hits="78" branch="false"/>
+            <line number="424" hits="78" branch="false"/>
+            <line number="425" hits="78" branch="false"/>
+            <line number="426" hits="78" branch="false"/>
+            <line number="427" hits="1" branch="false"/>
+            <line number="428" hits="1" branch="false"/>
+            <line number="429" hits="1" branch="false"/>
+            <line number="432" hits="78" branch="false"/>
+            <line number="433" hits="19" branch="false"/>
+            <line number="434" hits="19" branch="false"/>
+            <line number="436" hits="78" branch="false"/>
           </lines>
         </class>
         <class name="teal_report-c.R" filename="R/teal_report-c.R" line-rate="1" branch-rate="0" complexity="0">
@@ -3772,35 +3772,35 @@
             </method>
             <method name=".to_rmd.trellis" signature="" line-rate="0.928571428571429" branch-rate="0" complexity="0">
               <lines>
-                <line number="8" hits="15" branch="false"/>
-                <line number="9" hits="15" branch="false"/>
-                <line number="10" hits="15" branch="false"/>
-                <line number="12" hits="15" branch="false"/>
+                <line number="8" hits="17" branch="false"/>
+                <line number="9" hits="17" branch="false"/>
+                <line number="10" hits="17" branch="false"/>
+                <line number="12" hits="17" branch="false"/>
                 <line number="13" hits="0" branch="false"/>
-                <line number="14" hits="15" branch="false"/>
-                <line number="15" hits="15" branch="false"/>
-                <line number="16" hits="15" branch="false"/>
-                <line number="18" hits="15" branch="false"/>
-                <line number="19" hits="15" branch="false"/>
-                <line number="20" hits="15" branch="false"/>
-                <line number="21" hits="15" branch="false"/>
-                <line number="22" hits="15" branch="false"/>
-                <line number="23" hits="15" branch="false"/>
+                <line number="14" hits="17" branch="false"/>
+                <line number="15" hits="17" branch="false"/>
+                <line number="16" hits="17" branch="false"/>
+                <line number="18" hits="17" branch="false"/>
+                <line number="19" hits="17" branch="false"/>
+                <line number="20" hits="17" branch="false"/>
+                <line number="21" hits="17" branch="false"/>
+                <line number="22" hits="17" branch="false"/>
+                <line number="23" hits="17" branch="false"/>
               </lines>
             </method>
             <method name="to_rmd" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="82" hits="220" branch="false"/>
+                <line number="82" hits="222" branch="false"/>
               </lines>
             </method>
             <method name="to_rmd.default" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="88" hits="218" branch="false"/>
+                <line number="88" hits="220" branch="false"/>
               </lines>
             </method>
             <method name=".to_rmd" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="92" hits="218" branch="false"/>
+                <line number="92" hits="220" branch="false"/>
               </lines>
             </method>
             <method name=".to_rmd.default" signature="" line-rate="1" branch-rate="0" complexity="0">
@@ -3926,23 +3926,23 @@
             <line number="2" hits="6" branch="false"/>
             <line number="3" hits="6" branch="false"/>
             <line number="4" hits="6" branch="false"/>
-            <line number="8" hits="15" branch="false"/>
-            <line number="9" hits="15" branch="false"/>
-            <line number="10" hits="15" branch="false"/>
-            <line number="12" hits="15" branch="false"/>
+            <line number="8" hits="17" branch="false"/>
+            <line number="9" hits="17" branch="false"/>
+            <line number="10" hits="17" branch="false"/>
+            <line number="12" hits="17" branch="false"/>
             <line number="13" hits="0" branch="false"/>
-            <line number="14" hits="15" branch="false"/>
-            <line number="15" hits="15" branch="false"/>
-            <line number="16" hits="15" branch="false"/>
-            <line number="18" hits="15" branch="false"/>
-            <line number="19" hits="15" branch="false"/>
-            <line number="20" hits="15" branch="false"/>
-            <line number="21" hits="15" branch="false"/>
-            <line number="22" hits="15" branch="false"/>
-            <line number="23" hits="15" branch="false"/>
-            <line number="82" hits="220" branch="false"/>
-            <line number="88" hits="218" branch="false"/>
-            <line number="92" hits="218" branch="false"/>
+            <line number="14" hits="17" branch="false"/>
+            <line number="15" hits="17" branch="false"/>
+            <line number="16" hits="17" branch="false"/>
+            <line number="18" hits="17" branch="false"/>
+            <line number="19" hits="17" branch="false"/>
+            <line number="20" hits="17" branch="false"/>
+            <line number="21" hits="17" branch="false"/>
+            <line number="22" hits="17" branch="false"/>
+            <line number="23" hits="17" branch="false"/>
+            <line number="82" hits="222" branch="false"/>
+            <line number="88" hits="220" branch="false"/>
+            <line number="92" hits="220" branch="false"/>
             <line number="98" hits="1" branch="false"/>
             <line number="104" hits="28" branch="false"/>
             <line number="110" hits="44" branch="false"/>
@@ -4435,7 +4435,7 @@
             <line number="186" hits="1" branch="false"/>
           </lines>
         </class>
-        <class name="yaml_utils.R" filename="R/yaml_utils.R" line-rate="0.987654320987654" branch-rate="0" complexity="0">
+        <class name="yaml_utils.R" filename="R/yaml_utils.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
             <method name="yaml_quoted" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
@@ -4534,9 +4534,9 @@
                 <line number="272" hits="25" branch="false"/>
               </lines>
             </method>
-            <method name="print.rmd_yaml_header" signature="" line-rate="0" branch-rate="0" complexity="0">
+            <method name="print.rmd_yaml_header" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="287" hits="0" branch="false"/>
+                <line number="287" hits="1" branch="false"/>
               </lines>
             </method>
             <method name="get_yaml_field" signature="" line-rate="1" branch-rate="0" complexity="0">
@@ -4625,7 +4625,7 @@
             <line number="269" hits="25" branch="false"/>
             <line number="270" hits="24" branch="false"/>
             <line number="272" hits="25" branch="false"/>
-            <line number="287" hits="0" branch="false"/>
+            <line number="287" hits="1" branch="false"/>
             <line number="303" hits="1" branch="false"/>
             <line number="304" hits="1" branch="false"/>
             <line number="306" hits="1" branch="false"/>
