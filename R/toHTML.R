@@ -177,7 +177,10 @@ toHTML.default <- function(x, ...) {
   grDevices::png(filename = tmpfile, width = dims$width, height = dims$height)
   print(x)
   grDevices::dev.off()
-  shiny::tags$img(src = knitr::image_uri(tmpfile), style = "width: 100%; height: auto;")
+  shiny::tags$img(
+    src = knitr::image_uri(tmpfile),
+    style = sprintf("width: 100%%; height: auto;max-width: %fpx", dims$width)
+  )
 }
 
 #' @method .toHTML recordedplot
@@ -195,7 +198,7 @@ toHTML.default <- function(x, ...) {
   tmpfile <- tempfile(fileext = ".png")
   on.exit(unlink(tmpfile), add = TRUE)
   ggplot2::ggsave(tmpfile, plot = x, width = dims$width, height = dims$height, dpi = 100)
-  shiny::tags$img(src = knitr::image_uri(tmpfile))
+  shiny::tags$img(src = knitr::image_uri(tmpfile), style = sprintf("max-width: %fpx", dims$width * 100))
 }
 
 #' @method .toHTML grob
@@ -208,7 +211,7 @@ toHTML.default <- function(x, ...) {
   grid::grid.newpage()
   grid::grid.draw(x)
   grDevices::dev.off()
-  shiny::tags$img(src = knitr::image_uri(tmpfile))
+  shiny::tags$img(src = knitr::image_uri(tmpfile), style = sprintf("max-width: %fpx", dims$width))
 }
 
 #' @method .toHTML code_chunk
