@@ -194,6 +194,26 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
       self$set_params(x$params)
       invisible(self)
     },
+    get_content = function(output_format = NULL) {
+      params <- self$get_params()
+      params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
+      if (identical(output_format, "powerpoint_presentation")) {
+        block_content_list <- split_text_block(super$get_content(), 30)
+        paste(
+          sprintf(
+            "```{r, echo=FALSE}\ncode_block(\n%s)\n```\n",
+            shQuote(block_content_list, type = "cmd")
+          ),
+          collapse = "\n\n"
+        )
+      } else {
+        sprintf(
+          "```{r, %s}\n%s\n```\n",
+          paste(names(params), params, sep = "=", collapse = ", "),
+          super$get_content()
+        )
+      }
+    },
     to_list = function() list(text = self$get_content(), params = self$get_params())
   ),
   private = list(

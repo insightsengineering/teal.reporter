@@ -60,6 +60,11 @@ testthat::describe("to_rmd generating blocks with rds auxiliary files", {
       result,
       "^```[{][rR].*[}].*readRDS[(].*[)].*```[ \n]*$"
     )
+    pattern <- "\\.?/[^\\n]+\\.(rds|RDS)"
+    matches <- gregexpr(pattern, result)
+    paths <- regmatches(result, matches)
+    testthat::expect_length(paths, 1)
+    checkmate::expect_file_exists(paths[[1]])
   }
 
   it("ggplot objects are converted to code chunks", {

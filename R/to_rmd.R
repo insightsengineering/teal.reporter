@@ -1,11 +1,11 @@
-.content_to_rmd <- function(block, ...) {
-  path <- basename(tempfile(pattern = "report_item_", fileext = ".rds"))
+.content_to_rmd <- function(block, folder_path = ".", ...) {
+  path <- tempfile(pattern = "report_item_", fileext = ".rds", tmpdir = folder_path)
   suppressWarnings(saveRDS(block, file = path))
   sprintf("```{r echo = FALSE, eval = TRUE}\nreadRDS('%s')\n```", path)
 }
 
-.plot_to_rmd <- function(block, ...) {
-  path <- basename(tempfile(pattern = "report_item_", fileext = ".rds"))
+.plot_to_rmd <- function(block, folder_path = ".", ...) {
+  path <- tempfile(pattern = "report_item_", fileext = ".rds", tmpdir = folder_path)
   suppressWarnings(saveRDS(block, file = path))
   dims <- .determine_default_dimensions(block, convert_to_inches = TRUE)
 
@@ -38,7 +38,7 @@
 #' For example, to override the default behavior for `code_chunk` class, you can use:
 #'
 #' ```r
-#' to_rmd.code_chunk <- function(block, ..., output_format) {
+#' to_rmd.code_chunk <- function(block, ...) {
 #'   # custom implementation
 #'   sprintf("### A custom code chunk\n\n```{r}\n%s\n```\n", block)
 #' }
@@ -48,9 +48,11 @@
 #'
 #' ## Defaults
 #'
-#' `teal.reporter` provides default `to_rmd` methods for several common classes.
+#' `teal.reporter` provides default `to_rmd` methods for several common classes that
+#' returns the content in appropriate R Markdown syntax.
 #' These include:
-#' - `character` (treated as markdown text)
+#' - `character`
+#' - [code_chunk()] objects
 #' - `ggplot2` plots
 #' - `data.frame`
 #' - `flextable`
@@ -58,18 +60,23 @@
 #' - and others.
 #'
 #' All of these defaults can be overridden by defining new `to_rmd.<class>` methods.
-#' This allows developers to customize how different content types are rendered to R Markdown.
+#' These methods are implemented internally using the helper function `.to_rmd.<class>`.
 #'
 #' @param block (`any`) content which can be represented in Rmarkdown syntax.
-#' @param ... additional arguments passed to specific methods.
+#' @param ... additional arguments passed to implemented methods for different classes.
 #' @return `character(1)` containing a content or Rmarkdown document.
 #' @examples
 #' to_rmd(c("## This is a simple text block.", "", "With a paragraph break."))
 #' to_rmd(code_chunk("summary(cars)"))
 #' to_rmd(data.frame(x = 1:10, y = 21:30))
 #' @examplesIf requireNamespace("ggplot2", quietly = TRUE)
-#' to_rmd(ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) +
-#'   ggplot2::geom_point())
+#'
+#' # Example with ggplot2 will create a temporary RDS file in the tempdir()
+#' to_rmd(
+#'   ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) +
+#'     ggplot2::geom_point(),
+#'   folder_path = tempdir() # internal argument of ggplot2 method
+#' )
 #' @export
 to_rmd <- function(block, ...) {
   UseMethod("to_rmd")
@@ -264,6 +271,6 @@ to_rmd.default <- function(block, ...) {
 
 #' @method .to_rmd RcodeBlock
 #' @keywords internal
-.to_rmd.RcodeBlock <- function(block, ...) {
-  to_rmd(code_chunk(block$get_content(), lang = "R"), ...)
+.to_rmd.RcodeBlock <- function(block, output_format, ...) {
+  to_rmd(code_chunk(block$get_content(output_format), lang = "R"), ...)
 }

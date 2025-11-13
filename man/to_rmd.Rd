@@ -9,7 +9,7 @@ to_rmd(block, ...)
 \arguments{
 \item{block}{(\code{any}) content which can be represented in Rmarkdown syntax.}
 
-\item{...}{additional arguments passed to specific methods.}
+\item{...}{additional arguments passed to implemented methods for different classes.}
 }
 \value{
 \code{character(1)} containing a content or Rmarkdown document.
@@ -28,7 +28,7 @@ object to be converted.
 
 For example, to override the default behavior for \code{code_chunk} class, you can use:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{to_rmd.code_chunk <- function(block, ..., output_format) \{
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{to_rmd.code_chunk <- function(block, ...) \{
   # custom implementation
   sprintf("### A custom code chunk\\n\\n```\{r\}\\n\%s\\n```\\n", block)
 \}
@@ -39,10 +39,12 @@ Alternatively, the S3 method can be registered using \code{registerS3method("to_
 
 \subsection{Defaults}{
 
-\code{teal.reporter} provides default \code{to_rmd} methods for several common classes.
+\code{teal.reporter} provides default \code{to_rmd} methods for several common classes that
+returns the content in appropriate R Markdown syntax.
 These include:
 \itemize{
-\item \code{character} (treated as markdown text)
+\item \code{character}
+\item \code{\link[=code_chunk]{code_chunk()}} objects
 \item \code{ggplot2} plots
 \item \code{data.frame}
 \item \code{flextable}
@@ -51,7 +53,7 @@ These include:
 }
 
 All of these defaults can be overridden by defining new \verb{to_rmd.<class>} methods.
-This allows developers to customize how different content types are rendered to R Markdown.
+These methods are implemented internally using the helper function \verb{.to_rmd.<class>}.
 }
 }
 \examples{
@@ -59,7 +61,12 @@ to_rmd(c("## This is a simple text block.", "", "With a paragraph break."))
 to_rmd(code_chunk("summary(cars)"))
 to_rmd(data.frame(x = 1:10, y = 21:30))
 \dontshow{if (requireNamespace("ggplot2", quietly = TRUE)) withAutoprint(\{ # examplesIf}
-to_rmd(ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) +
-  ggplot2::geom_point())
+
+# Example with ggplot2 will create a temporary RDS file in the tempdir()
+to_rmd(
+  ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) +
+    ggplot2::geom_point(),
+  folder_path = tempdir() # internal argument of ggplot2 method
+)
 \dontshow{\}) # examplesIf}
 }
