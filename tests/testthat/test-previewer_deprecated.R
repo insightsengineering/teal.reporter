@@ -38,7 +38,14 @@ testthat::describe("RcodeBlock", {
   })
 
   it("get_content gets properly formatted R code chunk for powerpoint presentations", {
-    rc <- RcodeBlock$new("1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\nsummary(cars)")
+    rc <- RcodeBlock$new(
+      paste(
+        sep = "\n",
+        "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16",
+        "17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30",
+        "summary(cars)"
+      )
+    )
 
     testthat::expect_match(
       rc$get_content("powerpoint_presentation"),

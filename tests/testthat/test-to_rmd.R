@@ -86,14 +86,14 @@ testthat::describe("to_rmd generating blocks with rds auxiliary files", {
 
 testthat::describe("to_rmd declaration", {
   it("of existing character method", {
-    to_rmd.character <- function(block, ...) {
+    to_rmd.character <- function(block, ...) { # nolint: object_name_linter.
       paste0("Character method: ", block)
     }
     testthat::expect_equal(to_rmd("test"), "Character method: test")
   })
 
   it("of new class", {
-    to_rmd.testthat_internal <- function(block, ...) {
+    to_rmd.testthat_internal <- function(block, ...) { # nolint: object_name_linter.
       paste0("internal method: ", block)
     }
     testthat::expect_equal(
