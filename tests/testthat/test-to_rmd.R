@@ -67,18 +67,18 @@ testthat::describe("to_rmd generating blocks with rds auxiliary files", {
     checkmate::expect_file_exists(paths[[1]])
   }
 
-  it("ggplot objects are converted to code chunks", {
+  it("ggplot objects are converted to code chunks with readRDS", {
     testthat::skip_if_not_installed("ggplot2")
     p <- ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) +
       ggplot2::geom_point()
     expect_rds_generation(to_rmd(p))
   })
 
-  it("data frames are converted to code chunks", {
+  it("data frames are converted to code chunks with readRDS", {
     expect_rds_generation(to_rmd(data.frame(x = 1:5, y = letters[1:5])))
   })
 
-  it("flextable objects are converted to code chunks", {
+  it("flextable objects are converted to code chunks with readRDS", {
     testthat::skip_if_not_installed("flextable")
     expect_rds_generation(to_rmd(flextable::flextable(head(iris))))
   })
@@ -100,5 +100,32 @@ testthat::describe("to_rmd declaration", {
       to_rmd(structure("test", class = "testthat_internal")),
       "internal method: test"
     )
+  })
+})
+
+testthat::describe("to_rmd uses custom dimensions of plots", {
+  testthat::skip_if_not_installed("withr")
+  withr::local_dir(withr::local_tempdir())
+
+  it("and throws warning when they are too small", {
+    testthat::skip_if_not_installed("ggplot2")
+    p <- ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) +
+      ggplot2::geom_point()
+    attr(p, "dev.width") <- 100
+    attr(p, "dev.height") <- 100
+    testthat::expect_warning(to_rmd(p), "Figure dimensions too small")
+  })
+
+  it("in inches", {
+    testthat::skip_if_not_installed("ggplot2")
+    p <- ggplot2::ggplot(mtcars, ggplot2::aes(x = wt, y = mpg)) +
+      ggplot2::geom_point()
+    dpi <- formals(.determine_default_dimensions)$dpi
+    attr(p, "dev.width") <- dpi * 3 # 96 dpi
+    attr(p, "dev.height") <- dpi * 4 # 96 dpi
+
+    result <- to_rmd(p)
+    testthat::expect_match(result, "fig[.]width [=] 3.[0]+")
+    testthat::expect_match(result, "fig[.]height [=] 4.[0]+")
   })
 })

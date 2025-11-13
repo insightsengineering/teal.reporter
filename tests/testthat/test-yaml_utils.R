@@ -145,7 +145,7 @@ testthat::test_that("as_yaml_auto - accept multi outputs with the multi_output a
 
 testthat::test_that("as_yaml_auto - prints a valid yml", {
   input <- list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE)
-  out <- as_yaml_auto(input)
+  out <- testthat::capture_output(print(as_yaml_auto(input)))
   testthat::expect_equal(
     yaml::read_yaml(text = out),
     list(author = "", output = list(pdf_document = list(toc = TRUE, keep_tex = TRUE)))
