@@ -139,7 +139,9 @@ as.teal_card <- function(x) { # nolint: object_name.
     return(x)
   }
   if (identical(class(x), "list")) {
-    return(do.call(teal_card, unname(x)))
+    result <- do.call(teal_card, unname(x))
+    attr(result, "metadata") <- attr(x, "metadata", exact = TRUE) %||% list()
+    return(result)
   }
   teal_card(x)
 }
@@ -404,7 +406,7 @@ code_chunk <- function(code, ..., lang = "R") {
   grDevices::pdf(file = NULL)
   grDevices::dev.control(displaylist = "enable")
   dev <- grDevices::dev.cur()
-  on.exit(grDevices::dev.off(dev))
+  on.exit(grDevices::dev.off(dev), add = TRUE)
   print(x)
   grDevices::recordPlot()
 }

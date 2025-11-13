@@ -140,26 +140,7 @@ ContentBlock <- R6::R6Class( # nolint: object_name_linter.
     from_list = function(x) invisible(self),
     to_list = function() list()
   ),
-  private = list(
-    content = NULL,
-    deep_clone = function(name, value) {
-      if (name == "content" && checkmate::test_file_exists(value)) {
-        extension <- ""
-        split <- strsplit(basename(value), split = "\\.")
-        # The below ensures no extension is found for files such as this: .gitignore but is found for files like
-        # .gitignore.txt
-        if (length(split[[1]]) > 1 && split[[1]][length(split[[1]]) - 1] != "") {
-          extension <- split[[1]][length(split[[1]])]
-          extension <- paste0(".", extension)
-        }
-        copied_file <- tempfile(fileext = extension)
-        file.copy(value, copied_file, copy.date = TRUE, copy.mode = TRUE)
-        copied_file
-      } else {
-        value
-      }
-    }
-  ),
+  private = list(content = NULL),
   lock_objects = TRUE,
   lock_class = TRUE
 )
@@ -193,6 +174,26 @@ RcodeBlock <- R6::R6Class( # nolint: object_name_linter.
       self$set_content(x$text)
       self$set_params(x$params)
       invisible(self)
+    },
+    get_content = function(output_format = NULL) {
+      params <- self$get_params()
+      params <- lapply(params, function(l) if (is.character(l)) shQuote(l) else l)
+      if (identical(output_format, "powerpoint_presentation")) {
+        block_content_list <- split_text_block(super$get_content(), 30)
+        paste(
+          sprintf(
+            "```{r, echo=FALSE}\ncode_block(\n%s)\n```\n",
+            shQuote(block_content_list, type = "cmd")
+          ),
+          collapse = "\n\n"
+        )
+      } else {
+        sprintf(
+          "```{r, %s}\n%s\n```\n",
+          paste(names(params), params, sep = "=", collapse = ", "),
+          super$get_content()
+        )
+      }
     },
     to_list = function() list(text = self$get_content(), params = self$get_params())
   ),

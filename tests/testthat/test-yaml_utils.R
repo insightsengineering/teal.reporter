@@ -29,6 +29,13 @@ testthat::test_that("conv_str_logi - character TRUE to logical", {
   testthat::expect_true(isTRUE(conv_str_logi("on")))
 })
 
+testthat::test_that("conv_str_logi - character TRUE to logical shows message with silent set to 'FALSE'", {
+  testthat::expect_message(
+    conv_str_logi("true", silent = FALSE),
+    "The 'true' value should be a logical, so it is automatically converted."
+  )
+})
+
 testthat::test_that("conv_str_logi - character FALSE to logical", {
   testthat::expect_true(isFALSE(conv_str_logi("FALSE")))
   testthat::expect_true(isFALSE(conv_str_logi("false")))
@@ -133,6 +140,15 @@ testthat::test_that("as_yaml_auto - accept multi outputs with the multi_output a
     as_yaml_auto(list(author = "", output = "pdf_document", output = "html_document", toc = TRUE, keep_tex = TRUE),
       silent = TRUE, multi_output = TRUE
     )
+  )
+})
+
+testthat::test_that("as_yaml_auto - prints a valid yml", {
+  input <- list(author = "", output = "pdf_document", toc = TRUE, keep_tex = TRUE)
+  out <- testthat::capture_output(print(as_yaml_auto(input)))
+  testthat::expect_equal(
+    yaml::read_yaml(text = out),
+    list(author = "", output = list(pdf_document = list(toc = TRUE, keep_tex = TRUE)))
   )
 })
 

@@ -86,6 +86,7 @@ testthat::describe("add_card_button_srv", {
       args = list(reporter = Reporter$new(), card_fun = function(card) stop("ARTIFICIAL ERROR")),
       expr = {
         session$setInputs(`add_report_card_button` = 0)
+        session$flushReact()
         testthat::expect_warning(session$setInputs(`add_card_ok` = 0))
       }
     )
