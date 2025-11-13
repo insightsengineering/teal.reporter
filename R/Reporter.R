@@ -480,25 +480,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     open_previewer_r = NULL, # reactiveVal to trigger reactive contexts
     override_order = character(0L), # to sort cards (reactiveValues are not sortable)
     metadata = list(),
-    template = NULL,
-    # @description The copy constructor.
-    #
-    # @param name the name of the field
-    # @param value the value of the field
-    # @return the new value of the field
-    #
-    deep_clone = function(name, value) {
-      shiny::isolate({
-        if (name == "cards") {
-          new_cards <- lapply(shiny::reactiveValuesToList(value), function(card) {
-            if (R6::is.R6(card)) card$clone(deep = TRUE) else card
-          })
-          do.call(shiny::reactiveValues, new_cards)
-        } else {
-          value
-        }
-      })
-    }
+    template = NULL
   ),
   lock_objects = TRUE,
   lock_class = TRUE
