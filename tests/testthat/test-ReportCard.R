@@ -163,3 +163,28 @@ testthat::test_that("setting and getting a name to the ReportCard", {
     character(0)
   )
 })
+
+testthat::test_that("set_content_names sets the names of the content", {
+  card <- ReportCard$new()
+  card$append_text("test1")$append_text("test2")
+  card$set_content_names(c("first", "second"))
+  testthat::expect_identical(
+    names(card$get_content()),
+    c("first", "second")
+  )
+})
+
+testthat::test_that("to_list returns content", {
+  card <- ReportCard$new()
+  card$append_text("test1")$append_text("test2")
+  testthat::expect_type(card$to_list(), "list")
+})
+
+testthat::test_that("from_list builds the original teal_card", {
+  card <- ReportCard$new()
+  card$append_text("test1")$append_text("test2")
+  result <- card$to_list()
+  card2 <- ReportCard$new()$from_list(result)
+  # remove attributes for comparison
+  testthat::expect_equal(unname(card2$get_content()), unname(card$get_content()))
+})
