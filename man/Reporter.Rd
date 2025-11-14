@@ -29,14 +29,9 @@ metadata(card2, "title") <- "Card2"
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 \dontshow{\}) # examplesIf}
-\dontshow{if (require("ggplot2")) withAutoprint(\{ # examplesIf}
-library(ggplot2)
+\dontshow{if (require("ggplot2") && require("rtables")) withAutoprint(\{ # examplesIf}
 library(rtables)
-
-card1 <- teal_card("## Header 2 text", "A paragraph of default text")
-card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
-metadata(card1, "title") <- "Card1"
-
+# With the card1 from above
 lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
 table_res2 <- build_table(lyt, airquality)
 card2 <- teal_card(
@@ -54,62 +49,21 @@ reporter$reorder_cards(c("Card2", "Card1"))
 names(reporter$get_cards())
 \dontshow{\}) # examplesIf}
 \dontshow{if (require("ggplot2")) withAutoprint(\{ # examplesIf}
-library(ggplot2)
-library(rtables)
-
-card1 <- teal_card("## Header 2 text", "A paragraph of default text")
-card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
-metadata(card1, "title") <- "Card1"
-
-reporter <- Reporter$new()
-reporter$append_cards(list(card1))
-
-lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
-table_res2 <- build_table(lyt, airquality)
-card2 <- teal_card(
-  "## Header 2 text",
-  "A paragraph of default text",
-  table_res2
-)
-metadata(card2, "title") <- "Card2"
+# With card1 and card2 from above
 
 metadata(reporter$get_cards()[[1]], "title")
 reporter$replace_card(card2, names(reporter$get_cards())[[1]])
 metadata(reporter$get_cards()[[1]], "title")
 \dontshow{\}) # examplesIf}
 \dontshow{if (require("ggplot2")) withAutoprint(\{ # examplesIf}
-library(ggplot2)
-library(rtables)
-
-card1 <- teal_card("## Header 2 text", "A paragraph of default text")
-card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
-
-lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
-table_res2 <- build_table(lyt, airquality)
-card2 <- teal_card(
-  "## Header 2 text",
-  "A paragraph of default text",
-  table_res2
-)
+# With card1 and card2 from above
 
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 reporter$get_cards()
 \dontshow{\}) # examplesIf}
 \dontshow{if (require("ggplot2")) withAutoprint(\{ # examplesIf}
-library(ggplot2)
-library(rtables)
-
-card1 <- teal_card("## Header 2 text", "A paragraph of default text")
-card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
-
-lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
-table_res2 <- build_table(lyt, airquality)
-card2 <- teal_card(
-  "## Header 2 text",
-  "A paragraph of default text",
-  table_res2
-)
+# With card1 and card2 from above
 
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))

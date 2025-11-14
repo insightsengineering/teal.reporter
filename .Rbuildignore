@@ -47,3 +47,4 @@ SECURITY.md
 ^.revdeprefs\.yaml$
 ^revdep$
 ^\.covrignore$
+.lock$

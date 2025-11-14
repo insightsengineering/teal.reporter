@@ -24,7 +24,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     initialize = function() {
       lifecycle::deprecate_warn(
-        when = "0.5.1",
+        when = "0.6.0",
         what = "ReportCard$new()",
         with = "teal_card()",
         details = "Use teal_report class instead. See vignette('teal-report-class', 'teal.reporter') for more information." # nolint: line_length_linter.
@@ -201,7 +201,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     to_list = function(output_dir = lifecycle::deprecated()) {
       if (lifecycle::is_present(output_dir)) {
-        lifecycle::deprecate_soft("0.5.0.9000", "ReportCard$to_list(output_dir)")
+        lifecycle::deprecate_soft("0.6.0", "ReportCard$to_list(output_dir)")
       }
       unclass(private$content)
     },
@@ -222,7 +222,7 @@ ReportCard <- R6::R6Class( # nolint: object_name_linter.
     #'
     from_list = function(card, output_dir = lifecycle::deprecated()) {
       if (lifecycle::is_present(output_dir)) {
-        lifecycle::deprecate_soft("0.5.0.9000", "ReportCard$to_list(output_dir)")
+        lifecycle::deprecate_soft("0.6.0", "ReportCard$to_list(output_dir)")
       }
       self$reset()
       private$content <- as.teal_card(card)

@@ -1,5 +1,5 @@
 with_temp_wd <- function() {
-  new_dir <- tempfile()
+  new_dir <- normalizePath(tempfile(), winslash = "/", mustWork = FALSE)
   dir.create(new_dir, recursive = TRUE)
   old_dir <- setwd(new_dir)
   withr::defer(setwd(old_dir), envir = parent.frame(2))
@@ -59,7 +59,7 @@ testthat::describe("render() outputs report.Rmd with", {
   withr::local_options(teal.reporter.global_knitr = list())
   it("output_dir set to other location then working directory", {
     tr <- teal_report()
-    temp_dir <- tempfile()
+    temp_dir <- normalizePath(tempfile(), winslash = "/", mustWork = FALSE)
     teal.reporter::render(tr, output_dir = temp_dir, quiet = TRUE)
     testthat::expect_true(file.exists(file.path(temp_dir, "report.Rmd")))
   })
@@ -207,7 +207,7 @@ testthat::describe("render() renders output based on metadata$output field:", {
   })
 
   it("- md_document containing relative path to a plot even if output_dir is set to absolute path", {
-    temp_dir <- tempfile()
+    temp_dir <- normalizePath(tempfile(), winslash = "/", mustWork = FALSE)
     tr <- teal_report()
     tr <- within(tr, plot(1:10))
     metadata(teal_card(tr)) <- list(output = "md_document")

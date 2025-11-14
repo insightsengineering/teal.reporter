@@ -59,7 +59,7 @@ These methods are implemented internally using the helper function \verb{.to_rmd
 \examples{
 to_rmd(c("## This is a simple text block.", "", "With a paragraph break."))
 to_rmd(code_chunk("summary(cars)"))
-to_rmd(data.frame(x = 1:10, y = 21:30))
+to_rmd(data.frame(x = 1:10, y = 21:30), folder_path = tempdir())
 \dontshow{if (requireNamespace("ggplot2", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 
 # Example with ggplot2 will create a temporary RDS file in the tempdir()
