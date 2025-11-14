@@ -94,6 +94,14 @@ pre > code {
   --bs-modal-margin: 20px;
 }
 
+.reporter-previewer-modal .modal-dialog.modal-xl {
+  --bs-modal-width: 95%;
+}
+
+.reporter-editor-modal .modal-dialog.modal-xl {
+  --bs-modal-width: 95%;
+}
+
 /* Code chunk accordion styling - remove blue background and extra padding only for code chunks */
 /* Target only accordions with IDs starting with 'code_chunk_' */
 .code_chunk .accordion-item {
