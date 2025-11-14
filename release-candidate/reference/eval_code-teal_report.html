@@ -58,6 +58,7 @@
     <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/release-candidate">release-candidate</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc5">v0.6.0-rc5</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc4">v0.6.0-rc4</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc3">v0.6.0-rc3</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc2">v0.6.0-rc2</a>
@@ -92,7 +93,7 @@
 
       <h1>Evaluate code in <code>qenv</code>
 </h1>
-      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/teal.reporter/blob/v0.6.0-rc4/R/teal_report-eval_code.R" class="external-link"><code>R/teal_report-eval_code.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/teal.reporter/blob/v0.6.0-rc5/R/teal_report-eval_code.R" class="external-link"><code>R/teal_report-eval_code.R</code></a></small>
       <div class="d-none name"><code>eval_code-teal_report.Rd</code></div>
     </div>
 
@@ -165,7 +166,7 @@ Thus, if the <code>qenv</code> had been instantiated empty, contents of the envi
 <span class="r-in"><span><span class="va">tr</span> <span class="op">&lt;-</span> <span class="fu">teal.code</span><span class="fu">::</span><span class="fu"><a href="https://insightsengineering.github.io/teal.code/latest-tag/reference/eval_code.html" class="external-link">eval_code</a></span><span class="op">(</span><span class="va">tr</span>, <span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mllg.github.io/checkmate/" class="external-link">checkmate</a></span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">tr</span> <span class="op">&lt;-</span> <span class="fu">teal.code</span><span class="fu">::</span><span class="fu"><a href="https://insightsengineering.github.io/teal.code/latest-tag/reference/eval_code.html" class="external-link">eval_code</a></span><span class="op">(</span><span class="va">tr</span>, <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://mllg.github.io/checkmate/reference/checkNumber.html" class="external-link">assert_number</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="teal_card.html">teal_card</a></span><span class="op">(</span><span class="va">tr</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $dd604423</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`3a118dd9`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "iris &lt;- iris"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"params")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> list()</span>
@@ -174,7 +175,7 @@ Thus, if the <code>qenv</code> had been instantiated empty, contents of the envi
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "code_chunk"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`53121f84`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $c2ba51b2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "a &lt;- 1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"params")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> list()</span>
@@ -183,7 +184,7 @@ Thus, if the <code>qenv</code> had been instantiated empty, contents of the envi
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "code_chunk"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`83e79db0`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`4d4ba9a9`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "b &lt;- 2L # with comment"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"params")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> list()</span>
@@ -192,7 +193,7 @@ Thus, if the <code>qenv</code> had been instantiated empty, contents of the envi
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "code_chunk"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`782594d1`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`55f8688b`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "library(checkmate)"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"params")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> list()</span>
@@ -201,7 +202,7 @@ Thus, if the <code>qenv</code> had been instantiated empty, contents of the envi
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "code_chunk"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`23e4e954`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`688eb9d7`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "assert_number(a)"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"params")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> list()</span>

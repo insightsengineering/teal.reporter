@@ -60,6 +60,7 @@ from various types of blocks in a ReporterCard or teal_card object.">
     <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/release-candidate">release-candidate</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc5">v0.6.0-rc5</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc4">v0.6.0-rc4</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc3">v0.6.0-rc3</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc2">v0.6.0-rc2</a>
@@ -94,7 +95,7 @@ from various types of blocks in a ReporterCard or teal_card object.">
 
       <h1>Convert <code>ReporterCard</code>/<code>teal_card</code> content to <code>rmarkdown</code>
 </h1>
-      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/teal.reporter/blob/v0.6.0-rc4/R/to_rmd.R" class="external-link"><code>R/to_rmd.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/teal.reporter/blob/v0.6.0-rc5/R/to_rmd.R" class="external-link"><code>R/to_rmd.R</code></a></small>
       <div class="d-none name"><code>to_rmd.Rd</code></div>
     </div>
 
@@ -119,6 +120,11 @@ from various types of blocks in a <code>ReporterCard</code> or <code>teal_card</
 </dt>
 <dd><p>(<code>any</code>) content which can be represented in Rmarkdown syntax.</p></dd>
 
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a>
+</dt>
+<dd><p>additional arguments passed to implemented methods for different classes.</p></dd>
+
 </dl>
 </div>
     <div class="section level2">
@@ -127,23 +133,73 @@ from various types of blocks in a <code>ReporterCard</code> or <code>teal_card</
     <p><code>character(1)</code> containing a content or Rmarkdown document.</p>
     </div>
     <div class="section level2">
-    <h2 id="customize-to-rmd">Customize <code>to_rmd</code><a class="anchor" aria-label="anchor" href="#customize-to-rmd"></a>
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a>
 </h2>
-    <p>The methods for this S3 generic can be extended by the app developer or even overwritten.
+
+<div class="section">
+<h3 id="customize-to-rmd">Customize <code>to_rmd</code><a class="anchor" aria-label="anchor" href="#customize-to-rmd"></a>
+</h3>
+
+
+<p>The methods for this S3 generic can be extended by the app developer or even overwritten.
 For this a function with the name <code>to_rmd.&lt;class&gt;</code> should be defined in the
-Global Environment, where <code>&lt;class&gt;</code> is the class of the object to be converted.</p>
+Global Environment or registered as an S3 method, where <code>&lt;class&gt;</code> is the class of the
+object to be converted.</p>
 <p>For example, to override the default behavior for <code>code_chunk</code> class, you can use:</p>
 <p></p>
 <div class="sourceCode r">
-<pre><code><span><span class="va">to_rmd.code_chunk</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">block</span>, <span class="va">...</span>, <span class="va">output_format</span><span class="op">)</span> <span class="op">{</span></span>
+<pre><code><span><span class="va">to_rmd.code_chunk</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">block</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># custom implementation</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"### A custom code chunk\n\n```{r}\n%s\n```\n"</span>, <span class="va">block</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre>
 <p></p>
 </div>
-<p>Alternatively, you can register the S3 method using <code>registerS3method("to_rmd", "&lt;class&gt;", fun)</code></p>
+<p>Alternatively, the S3 method can be registered using <code>registerS3method("to_rmd", "&lt;class&gt;", fun)</code></p>
+</div>
+
+<div class="section">
+<h3 id="defaults">Defaults<a class="anchor" aria-label="anchor" href="#defaults"></a>
+</h3>
+
+
+<p><code>teal.reporter</code> provides default <code>to_rmd</code> methods for several common classes that
+returns the content in appropriate R Markdown syntax.
+These include:</p>
+<ul>
+<li><p><code>character</code></p></li>
+<li><p><code><a href="code_chunk.html">code_chunk()</a></code> objects</p></li>
+<li><p><code>ggplot2</code> plots</p></li>
+<li><p><code>data.frame</code></p></li>
+<li><p><code>flextable</code></p></li>
+<li><p><code>rtables</code> tables</p></li>
+<li><p>and others.</p></li>
+</ul>
+<p>All of these defaults can be overridden by defining new <code>to_rmd.&lt;class&gt;</code> methods.
+These methods are implemented internally using the helper function <code>.to_rmd.&lt;class&gt;</code>.</p>
+</div>
+
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a>
+</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">to_rmd</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"## This is a simple text block."</span>, <span class="st">""</span>, <span class="st">"With a paragraph break."</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "## This is a simple text block." ""                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3] "With a paragraph break."        </span>
+<span class="r-in"><span><span class="fu">to_rmd</span><span class="op">(</span><span class="fu"><a href="code_chunk.html">code_chunk</a></span><span class="op">(</span><span class="st">"summary(cars)"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "```{R}\nsummary(cars)\n```"</span>
+<span class="r-in"><span><span class="fu">to_rmd</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, y <span class="op">=</span> <span class="fl">21</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "```{r echo = FALSE, eval = TRUE}\nreadRDS('./report_item_df318492f0c.rds')\n```"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Example with ggplot2 will create a temporary RDS file in the tempdir()</span></span></span>
+<span class="r-in"><span><span class="fu">to_rmd</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">wt</span>, y <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  folder_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># internal argument of ggplot2 method</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "```{r echo = FALSE, eval = TRUE, fig.width = 8.333333, fig.height = 6.250000}\nreadRDS('/tmp/RtmpDqYTKN/report_item_df37a8c91de.rds')\n```"</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
