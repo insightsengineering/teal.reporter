@@ -171,8 +171,8 @@ toHTML.default <- function(x, ...) {
 }
 
 .plot2html <- function(x, ...) {
-  on.exit(unlink(tmpfile))
   tmpfile <- tempfile(fileext = ".png")
+  on.exit(unlink(tmpfile), add = TRUE)
   dims <- .determine_default_dimensions(x)
   grDevices::png(filename = tmpfile, width = dims$width, height = dims$height)
   print(x)
@@ -194,9 +194,9 @@ toHTML.default <- function(x, ...) {
 #' @method .toHTML gg
 #' @keywords internal
 .toHTML.gg <- function(x, ...) {
-  on.exit(unlink(tmpfile))
   dims <- .determine_default_dimensions(x, convert_to_inches = TRUE, dpi = 100)
   tmpfile <- tempfile(fileext = ".png")
+  on.exit(unlink(tmpfile), add = TRUE)
   ggplot2::ggsave(tmpfile, plot = x, width = dims$width, height = dims$height, dpi = 100)
   shiny::tags$img(src = knitr::image_uri(tmpfile), style = sprintf("max-width: %fpx", dims$width * 100))
 }
@@ -204,9 +204,9 @@ toHTML.default <- function(x, ...) {
 #' @method .toHTML grob
 #' @keywords internal
 .toHTML.grob <- function(x, ...) {
-  on.exit(unlink(tmpfile))
   dims <- .determine_default_dimensions(x)
   tmpfile <- tempfile(fileext = ".png")
+  on.exit(unlink(tmpfile), add = TRUE)
   grDevices::png(filename = tmpfile, width = dims$width, height = dims$height)
   grid::grid.newpage()
   grid::grid.draw(x)

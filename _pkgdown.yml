@@ -49,6 +49,7 @@ reference:
       - reporter_previewer
   - title: "`yaml` and rmd utility functions"
     contents:
+      - to_rmd
       - as_yaml_auto
       - print.rmd_yaml_header
       - rmd_output_arguments

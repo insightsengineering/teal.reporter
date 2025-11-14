@@ -55,3 +55,8 @@ testthat::describe("within appends to teal_card", {
     )
   })
 })
+
+testthat::test_that("eval_code returns qenv.error on error", {
+  q <- eval_code(teal_report(), "a <- b")
+  testthat::expect_s3_class(q, c("qenv.error", "try-error", "error", "condition"))
+})
