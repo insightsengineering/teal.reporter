@@ -64,6 +64,7 @@ in the types of reports that can be stored and managed.">
     <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/release-candidate">release-candidate</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc6">v0.6.0-rc6</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc5">v0.6.0-rc5</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc4">v0.6.0-rc4</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc3">v0.6.0-rc3</a>
@@ -99,7 +100,7 @@ in the types of reports that can be stored and managed.">
 
       <h1>
 <code>Reporter</code>: An <code>R6</code> class for managing reports</h1>
-      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/teal.reporter/blob/v0.6.0-rc5/R/Reporter.R" class="external-link"><code>R/Reporter.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/teal.reporter/blob/v0.6.0-rc6/R/Reporter.R" class="external-link"><code>R/Reporter.R</code></a></small>
       <div class="d-none name"><code>Reporter.Rd</code></div>
     </div>
 
@@ -1080,10 +1081,10 @@ Set a function that is called on every report content (of class <code>teal_card<
 <span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">card1</span>, <span class="va">card2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">reporter</span><span class="op">$</span><span class="fu">get_cards</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "card_1168f1e7" "card_2849892c"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "card_6bee37a0" "card_fb405af5"</span>
 <span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">reorder_cards</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Card2"</span>, <span class="st">"Card1"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">reporter</span><span class="op">$</span><span class="fu">get_cards</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "card_1168f1e7" "card_2849892c"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "card_6bee37a0" "card_fb405af5"</span>
 <span class="r-in"><span><span class="co"># With card1 and card2 from above</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="metadata.html">metadata</a></span><span class="op">(</span><span class="va">reporter</span><span class="op">$</span><span class="fu">get_cards</span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="st">"title"</span><span class="op">)</span></span></span>
@@ -1096,14 +1097,14 @@ Set a function that is called on every report content (of class <code>teal_card<
 <span class="r-in"><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">card1</span>, <span class="va">card2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">get_cards</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $card_3362e85e</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $fffd35ee</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $card_10069edb</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`924fcf07`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "## Header 2 text"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`48ab242a`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`6f9e32d3`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A paragraph of default text"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`514ed716`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`86db0fa0`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "teal_card"</span>
@@ -1112,14 +1113,14 @@ Set a function that is called on every report content (of class <code>teal_card<
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Card1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $card_e6823df1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`0ff3df2a`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $card_63642739</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`4c63e144`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "## Header 2 text"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`239bc464`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`0ca30f47`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A paragraph of default text"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $a2f8d1be</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`36464ecd`</span>
 <span class="r-plt img"><img src="Reporter-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              all obs     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> —————————————————————————</span>
@@ -1198,30 +1199,30 @@ Set a function that is called on every report content (of class <code>teal_card<
 <span class="r-in"><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">card1</span>, <span class="va">card2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">get_blocks</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`06d765ff`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`57ae3181`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "# Card1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`56cea2ca`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`7868ec82`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "## Header 2 text"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`98f2fc6e`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`0f629bdf`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A paragraph of default text"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`31c9c6d7`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`01330765`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`541c0aad`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`6420db7b`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "\\newpage"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`18428fa6`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $bc20dfbb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "# Card2"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $bf398f53</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`58f41169`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "## Header 2 text"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $afe042cb</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $fad506a3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A paragraph of default text"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`72ca24ac`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`290fdfa0`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              all obs     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> —————————————————————————</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                        </span>
@@ -1371,7 +1372,7 @@ Set a function that is called on every report content (of class <code>teal_card<
 <span class="r-in"><span><span class="va">tmp_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"jsondir"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">to_jsondir</span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpDqYTKN/jsondir"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpZHteRK/jsondir"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co">## Method `Reporter$from_jsondir`</span></span></span>
@@ -1380,10 +1381,10 @@ Set a function that is called on every report content (of class <code>teal_card<
 <span class="r-in"><span><span class="va">reporter</span> <span class="op">&lt;-</span> <span class="va">Reporter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">tmp_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"jsondir"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/tmp/RtmpDqYTKN/jsondir' already exists</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/tmp/RtmpZHteRK/jsondir' already exists</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">tmp_dir</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">to_jsondir</span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpDqYTKN/jsondir"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpZHteRK/jsondir"</span>
 <span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">from_jsondir</span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
@@ -1401,14 +1402,14 @@ Set a function that is called on every report content (of class <code>teal_card<
 <span class="r-in"><span><span class="fu"><a href="metadata.html">metadata</a></span><span class="op">(</span><span class="va">doc1</span>, <span class="st">"title"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"Welcome card"</span></span></span>
 <span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">append_cards</span><span class="op">(</span><span class="va">doc1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">reporter</span><span class="op">$</span><span class="fu">get_cards</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $card_5f4fb82d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`6c91f405`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $card_f3df6410</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`9b35a0ab`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Here comes disclaimer text"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $e39849f1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`4a4f917f`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "## Header 2 text"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`3c27e5a1`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`75fc6581`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Regular text"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
