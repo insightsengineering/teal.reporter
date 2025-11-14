@@ -70,7 +70,7 @@
 #' @examples
 #' to_rmd(c("## This is a simple text block.", "", "With a paragraph break."))
 #' to_rmd(code_chunk("summary(cars)"))
-#' to_rmd(data.frame(x = 1:10, y = 21:30))
+#' to_rmd(data.frame(x = 1:10, y = 21:30), folder_path = tempdir())
 #' @examplesIf requireNamespace("ggplot2", quietly = TRUE)
 #'
 #' # Example with ggplot2 will create a temporary RDS file in the tempdir()
