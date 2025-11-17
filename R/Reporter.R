@@ -69,14 +69,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' be set in this order.
     #' @description Reorders `teal_card` objects in `Reporter`.
     #' @return `self`, invisibly.
-    #' @examplesIf require("ggplot2")
-    #' library(ggplot2)
+    #' @examplesIf require("ggplot2") && require("rtables")
     #' library(rtables)
-    #'
-    #' card1 <- teal_card("## Header 2 text", "A paragraph of default text")
-    #' card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
-    #' metadata(card1, "title") <- "Card1"
-    #'
+    #' # With the card1 from above
     #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
     #' table_res2 <- build_table(lyt, airquality)
     #' card2 <- teal_card(
@@ -101,24 +96,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @param card The new object (`ReportCard` or `teal_card`) to replace the existing one.
     #' @return `self`, invisibly.
     #' @examplesIf require("ggplot2")
-    #' library(ggplot2)
-    #' library(rtables)
-    #'
-    #' card1 <- teal_card("## Header 2 text", "A paragraph of default text")
-    #' card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
-    #' metadata(card1, "title") <- "Card1"
-    #'
-    #' reporter <- Reporter$new()
-    #' reporter$append_cards(list(card1))
-    #'
-    #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
-    #' table_res2 <- build_table(lyt, airquality)
-    #' card2 <- teal_card(
-    #'   "## Header 2 text",
-    #'   "A paragraph of default text",
-    #'   table_res2
-    #' )
-    #' metadata(card2, "title") <- "Card2"
+    #' # With card1 and card2 from above
     #'
     #' metadata(reporter$get_cards()[[1]], "title")
     #' reporter$replace_card(card2, names(reporter$get_cards())[[1]])
@@ -134,19 +112,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' @description Retrieves all `teal_card` objects contained in `Reporter`.
     #' @return A (`list`) of [`teal_card`] objects.
     #' @examplesIf require("ggplot2")
-    #' library(ggplot2)
-    #' library(rtables)
-    #'
-    #' card1 <- teal_card("## Header 2 text", "A paragraph of default text")
-    #' card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
-    #'
-    #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
-    #' table_res2 <- build_table(lyt, airquality)
-    #' card2 <- teal_card(
-    #'   "## Header 2 text",
-    #'   "A paragraph of default text",
-    #'   table_res2
-    #' )
+    #' # With card1 and card2 from above
     #'
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
@@ -167,19 +133,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' Default is a `\n\\newpage\n` markdown.
     #' @return `list()` of `teal_card`
     #' @examplesIf require("ggplot2")
-    #' library(ggplot2)
-    #' library(rtables)
-    #'
-    #' card1 <- teal_card("## Header 2 text", "A paragraph of default text")
-    #' card1 <- c(card1, ggplot(iris, aes(x = Petal.Length)) + geom_histogram())
-    #'
-    #' lyt <- analyze(split_rows_by(basic_table(), "Day"), "Ozone", afun = mean)
-    #' table_res2 <- build_table(lyt, airquality)
-    #' card2 <- teal_card(
-    #'   "## Header 2 text",
-    #'   "A paragraph of default text",
-    #'   table_res2
-    #' )
+    #' # With card1 and card2 from above
     #'
     #' reporter <- Reporter$new()
     #' reporter$append_cards(list(card1, card2))
@@ -261,7 +215,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter <- Reporter$new()
     #' reporter$from_reporter(reporter)
     from_reporter = function(reporter) {
-      lifecycle::deprecate_warn("0.5.0.9000", "Reporter$from_reporter()")
+      lifecycle::deprecate_warn("0.6.0", "Reporter$from_reporter()")
       checkmate::assert_class(reporter, "Reporter")
       self$reset()
       self$append_cards(reporter$get_cards())
