@@ -101,6 +101,9 @@ teal_card.qenv <- function(...) {
 #' @param value (`teal_card`) object to set in the `teal_report`.
 #' @export
 `teal_card<-` <- function(x, value) {
+  if (inherits(x, "qenv.error")) { # qenv.error does nothing
+    return (x)
+  }
   x <- methods::as(x, "teal_report")
   checkmate::assert_class(x, "teal_report")
   x@teal_card <- as.teal_card(value)
