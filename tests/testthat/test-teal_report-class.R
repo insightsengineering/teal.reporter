@@ -70,3 +70,12 @@ testthat::test_that("teal_data converts to teal_report when assigning teal_card"
 
   testthat::expect_s4_class(td, "teal_report")
 })
+
+testthat::test_that("teal_card assignment of qenv.error does nothing and returns qenv.error", {
+  td_original <- within(teal_report(), stop("An error"))
+  td <- td_original
+  teal_card(td) <- teal_card("# A title")
+
+  testthat::expect_s3_class(td, "qenv.error")
+  testthat::expect_identical(td, td_original)
+})
