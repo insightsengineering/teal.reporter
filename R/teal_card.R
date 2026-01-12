@@ -102,7 +102,7 @@ teal_card.qenv <- function(...) {
 #' @export
 `teal_card<-` <- function(x, value) {
   if (inherits(x, "qenv.error")) { # qenv.error does nothing
-    return (x)
+    return(x)
   }
   x <- methods::as(x, "teal_report")
   checkmate::assert_class(x, "teal_report")
