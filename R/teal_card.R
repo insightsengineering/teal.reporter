@@ -162,8 +162,11 @@ c.teal_card <- function(...) {
             v
           } else {
             warning(
-              "Appended `teal_card` doesn't remove some of the elements from previous `teal_card`.\n",
-              "Restoring original content and adding only new items to the end of the card."
+              warningCondition(
+                "Appended `teal_card` doesn't remove some of the elements from previous `teal_card`.\n",
+                "Restoring original content and adding only new items to the end of the card.",
+                class = "teal_card_append"
+              )
             )
             utils::modifyList(u, v)
           }
