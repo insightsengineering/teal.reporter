@@ -10,7 +10,7 @@ c.teal_report <- function(...) {
   result <- NextMethod()
   l <- Filter(function(x) inherits(x, "teal_report"), list(...))
   if (length(l) > 1) {
-    teal_card(result) <- suppressWarnings(do.call(c, lapply(l, teal_card)), class = "teal_card_append")
+    teal_card(result) <- suppressWarnings(do.call(c, lapply(l, teal_card)), classes = "teal_card_append")
   }
   result
 }
