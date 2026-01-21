@@ -1,5 +1,9 @@
 # teal.reporter 0.6.0.9001
 
+### Miscellaneous
+
+* Prevents warning message when joining two `teal_card` objects that have items with the same id (#455).
+
 # teal.reporter 0.6.0
 
 ### New features
