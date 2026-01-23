@@ -1,0 +1,267 @@
+# teal.reporter
+
+[![CRAN
+Version](https://www.r-pkg.org/badges/version/teal.reporter?color=green)](https://cran.r-project.org/package=teal.reporter)
+[![Total
+Downloads](http://cranlogs.r-pkg.org/badges/grand-total/teal.reporter?color=green)](https://cran.r-project.org/package=teal.reporter)
+[![Last Month
+Downloads](http://cranlogs.r-pkg.org/badges/last-month/teal.reporter?color=green)](https://cran.r-project.org/package=teal.reporter)
+[![Last Week
+Downloads](http://cranlogs.r-pkg.org/badges/last-week/teal.reporter?color=green)](https://cran.r-project.org/package=teal.reporter)
+
+[![Check
+🛠](https://github.com/insightsengineering/teal.reporter/actions/workflows/check.yaml/badge.svg)](https://insightsengineering.github.io/teal.reporter/main/unit-test-report/)
+[![Docs
+📚](https://github.com/insightsengineering/teal.reporter/actions/workflows/docs.yaml/badge.svg)](https://insightsengineering.github.io/teal.reporter/latest-tag/)
+[![Code Coverage
+📔](https://raw.githubusercontent.com/insightsengineering/teal.reporter/_xml_coverage_reports/data/main/badge.svg)](https://insightsengineering.github.io/teal.reporter/main/coverage-report/)
+
+![GitHub
+forks](https://img.shields.io/github/forks/insightsengineering/teal.reporter?style=social)![GitHub
+Repo
+stars](https://img.shields.io/github/stars/insightsengineering/teal.reporter?style=social)
+
+![GitHub commit
+activity](https://img.shields.io/github/commit-activity/m/insightsengineering/teal.reporter)![GitHub
+contributors](https://img.shields.io/github/contributors/insightsengineering/teal.reporter)![GitHub
+last
+commit](https://img.shields.io/github/last-commit/insightsengineering/teal.reporter)![GitHub
+pull
+requests](https://img.shields.io/github/issues-pr/insightsengineering/teal.reporter)![GitHub
+repo
+size](https://img.shields.io/github/repo-size/insightsengineering/teal.reporter)![GitHub
+language
+count](https://img.shields.io/github/languages/count/insightsengineering/teal.reporter)[![Project
+Status: Active – The project has reached a stable, usable state and is
+being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Current
+Version](https://img.shields.io/github/r-package/v/insightsengineering/teal.reporter/main?color=purple&label=package%20version)](https://github.com/insightsengineering/teal.reporter/tree/main)
+[![Open
+Issues](https://img.shields.io/github/issues-raw/insightsengineering/teal.reporter?color=red&label=open%20issues)](https://github.com/insightsengineering/teal.reporter/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
+
+`teal.reporter` empowers both `shiny` and `teal` applications to
+seamlessly integrate reporting functionality. Developers, whether
+working on a `shiny` app or a `teal` module, define the report’s
+content, while `teal.reporter` takes care of the rest.
+
+This package provides:
+
+- A `shiny` module for adding cards (i.e. items) into a report
+- A `shiny` module for previewing the report on-screen
+- The ability to download a zip file containing the reports
+
+## Installation
+
+``` r
+
+install.packages('teal.reporter')
+```
+
+Alternatively, you might want to use the development version.
+
+``` r
+
+# install.packages("pak")
+pak::pak("insightsengineering/teal.reporter")
+```
+
+## Usage
+
+To understand how to use this package, please refer to the [Getting
+Started](https://insightsengineering.github.io/teal.reporter/latest-tag/articles/getting-started-with-teal-reporter.html)
+article, which provides multiple examples of code implementation.
+
+Overall functionalities
+
+![Showcase](https://github.com/insightsengineering/teal.reporter/blob/main/assets/img/showcase.gif)
+
+Showcase
+
+Previewer Editor
+
+![Editor
+Showcase](https://github.com/insightsengineering/teal.reporter/blob/main/assets/img/editor_showcase.gif)
+
+Editor Showcase
+
+## Getting help
+
+If you encounter a bug or have a feature request, please file an issue.
+For questions, discussions, and staying up to date, please use the
+`teal` channel in the [`pharmaverse` slack
+workspace](https://pharmaverse.slack.com).
+
+## Stargazers and Forkers
+
+### Stargazers over time
+
+[![Stargazers over
+time](https://starchart.cc/insightsengineering/teal.reporter.svg)](https://starchart.cc/insightsengineering/teal.reporter)
+
+### Stargazers
+
+[![Stargazers repo roster for
+@insightsengineering/teal.reporter](http://reporoster.com/stars/insightsengineering/teal.reporter)](https://github.com/insightsengineering/teal.reporter/stargazers)
+
+### Forkers
+
+[![Forkers repo roster for
+@insightsengineering/teal.reporter](http://reporoster.com/forks/insightsengineering/teal.reporter)](https://github.com/insightsengineering/teal.reporter/network/members)
+
+# Package index
+
+## `shiny` modules for adding content to reports
+
+- [`add_card_button_ui()`](https://insightsengineering.github.io/teal.reporter/reference/add_card_button.md)
+  [`add_card_button_srv()`](https://insightsengineering.github.io/teal.reporter/reference/add_card_button.md)
+  : Add card button module
+
+## `shiny` modules for viewing and downloading reports
+
+- [`simple_reporter_ui()`](https://insightsengineering.github.io/teal.reporter/reference/simple_reporter.md)
+  [`simple_reporter_srv()`](https://insightsengineering.github.io/teal.reporter/reference/simple_reporter.md)
+  : Simple reporter module
+
+## Supporting `shiny` modules
+
+- [`download_report_button_ui()`](https://insightsengineering.github.io/teal.reporter/reference/download_report_button.md)
+  [`download_report_button_srv()`](https://insightsengineering.github.io/teal.reporter/reference/download_report_button.md)
+  : Download report button module
+
+- [`reset_report_button_ui()`](https://insightsengineering.github.io/teal.reporter/reference/reset_report_button.md)
+  [`reset_report_button_srv()`](https://insightsengineering.github.io/teal.reporter/reference/reset_report_button.md)
+  : Reset report button module
+
+- [`report_load_ui()`](https://insightsengineering.github.io/teal.reporter/reference/load_report_button.md)
+  [`report_load_srv()`](https://insightsengineering.github.io/teal.reporter/reference/load_report_button.md)
+  :
+
+  Load `Reporter` button module
+
+- [`ui_editor_block()`](https://insightsengineering.github.io/teal.reporter/reference/srv_editor_block.md)
+  [`srv_editor_block()`](https://insightsengineering.github.io/teal.reporter/reference/srv_editor_block.md)
+  : UI and Server functions for editing report document blocks
+
+- [`add_card_button_ui()`](https://insightsengineering.github.io/teal.reporter/reference/add_card_button.md)
+  [`add_card_button_srv()`](https://insightsengineering.github.io/teal.reporter/reference/add_card_button.md)
+  : Add card button module
+
+- [`preview_report_button_ui()`](https://insightsengineering.github.io/teal.reporter/reference/reporter_previewer.md)
+  [`preview_report_button_srv()`](https://insightsengineering.github.io/teal.reporter/reference/reporter_previewer.md)
+  **\[experimental\]** : Show report previewer button module
+
+## `yaml` and rmd utility functions
+
+- [`to_rmd()`](https://insightsengineering.github.io/teal.reporter/reference/to_rmd.md)
+  :
+
+  Convert `ReporterCard`/`teal_card` content to `rmarkdown`
+
+- [`as_yaml_auto()`](https://insightsengineering.github.io/teal.reporter/reference/as_yaml_auto.md)
+  :
+
+  Parse a named list to `yaml` header for an `Rmd` file
+
+- [`print(`*`<rmd_yaml_header>`*`)`](https://insightsengineering.github.io/teal.reporter/reference/print.rmd_yaml_header.md)
+  :
+
+  Print method for the `yaml_header` class
+
+- [`rmd_output_arguments()`](https://insightsengineering.github.io/teal.reporter/reference/rmd_output_arguments.md)
+  :
+
+  Get document output arguments from the `rmarkdown` package
+
+- [`rmd_outputs()`](https://insightsengineering.github.io/teal.reporter/reference/rmd_outputs.md)
+  :
+
+  Get document output types from the `rmarkdown` package
+
+## Classes used inside package
+
+- [`teal_card()`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)
+  [`` `teal_card<-`() ``](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)
+  [`as.teal_card()`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)
+  [`c(`*`<teal_card>`*`)`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)
+  [`` `[`( ``*`<teal_card>`*`)`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)
+  **\[experimental\]** :
+
+  `teal_card`: An `S3` class for managing `teal` reports
+
+- [`teal_report()`](https://insightsengineering.github.io/teal.reporter/reference/teal_report.md)
+  [`as.teal_report()`](https://insightsengineering.github.io/teal.reporter/reference/teal_report.md)
+  **\[stable\]** :
+
+  Comprehensive data integration function for `teal` applications
+
+- [`ReportCard`](https://insightsengineering.github.io/teal.reporter/reference/ReportCard.md)
+  **\[deprecated\]** :
+
+  `ReportCard`: An `R6` class for building report elements
+
+- [`Reporter`](https://insightsengineering.github.io/teal.reporter/reference/Reporter.md)
+  :
+
+  `Reporter`: An `R6` class for managing reports
+
+## Utility functions for `teal_card` object
+
+- [`teal_card()`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)
+  [`` `teal_card<-`() ``](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)
+  [`as.teal_card()`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)
+  [`c(`*`<teal_card>`*`)`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)
+  [`` `[`( ``*`<teal_card>`*`)`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)
+  **\[experimental\]** :
+
+  `teal_card`: An `S3` class for managing `teal` reports
+
+- [`code_chunk()`](https://insightsengineering.github.io/teal.reporter/reference/code_chunk.md)
+  : Generate a code chunk
+
+- [`metadata()`](https://insightsengineering.github.io/teal.reporter/reference/metadata.md)
+  :
+
+  Access metadata from a `teal_card` or `ReportCard`
+
+- [`` `metadata<-`() ``](https://insightsengineering.github.io/teal.reporter/reference/metadata-set.md)
+  :
+
+  Set metadata for a `teal_card` or `ReportCard`
+
+- [`render()`](https://insightsengineering.github.io/teal.reporter/reference/render.md)
+  :
+
+  Render `teal_card`
+
+- [`toHTML(`*`<default>`*`)`](https://insightsengineering.github.io/teal.reporter/reference/toHTML.default.md)
+  **\[experimental\]** : Convert report objects to HTML
+
+## Utility functions for `teal_report` object
+
+- [`c(`*`<teal_report>`*`)`](https://insightsengineering.github.io/teal.reporter/reference/c.teal_report.md)
+  :
+
+  Concatenate `teal_report` objects
+
+- [`eval_code(`*`<teal_report>`*`)`](https://insightsengineering.github.io/teal.reporter/reference/eval_code-teal_report.md)
+  :
+
+  Evaluate code in `qenv`
+
+## Deprecated functions
+
+- [`reporter_previewer_ui()`](https://insightsengineering.github.io/teal.reporter/reference/reporter_previewer_deprecated.md)
+  [`reporter_previewer_srv()`](https://insightsengineering.github.io/teal.reporter/reference/reporter_previewer_deprecated.md)
+  **\[deprecated\]** : Report previewer module
+
+# Articles
+
+### All vignettes
+
+- [Getting Started with
+  teal.reporter](https://insightsengineering.github.io/teal.reporter/articles/getting-started-with-teal-reporter.md):
+- [Reportable Shiny
+  Application](https://insightsengineering.github.io/teal.reporter/articles/reportable-shiny-application.md):
+- [teal_report
+  Class](https://insightsengineering.github.io/teal.reporter/articles/teal-report-class.md):
