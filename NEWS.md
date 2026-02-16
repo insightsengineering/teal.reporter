@@ -1,4 +1,4 @@
-# teal.reporter 0.6.0.9002
+# teal.reporter 0.6.1
 
 ### Miscellaneous
 
