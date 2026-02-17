@@ -66,7 +66,7 @@ If you encounter a bug or have a feature request, please file an issue. For ques
 
 ### Stargazers over time
 
-[![Stargazers over time](https://starchart.cc/insightsengineering/teal.reporter.svg)](https://starchart.cc/insightsengineering/teal.reporter)
+[![Stargazers over time](http://starchart.cc/insightsengineering/teal.reporter.svg)](http://starchart.cc/insightsengineering/teal.reporter)
 
 ### Stargazers
 
