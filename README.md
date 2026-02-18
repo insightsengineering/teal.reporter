@@ -61,17 +61,3 @@ Previewer Editor
 ## Getting help
 
 If you encounter a bug or have a feature request, please file an issue. For questions, discussions, and staying up to date, please use the `teal` channel in the [`pharmaverse` slack workspace](https://pharmaverse.slack.com).
-
-## Stargazers and Forkers
-
-### Stargazers over time
-
-[![Stargazers over time](http://starchart.cc/insightsengineering/teal.reporter.svg)](http://starchart.cc/insightsengineering/teal.reporter)
-
-### Stargazers
-
-[![Stargazers repo roster for @insightsengineering/teal.reporter](http://reporoster.com/stars/insightsengineering/teal.reporter)](https://github.com/insightsengineering/teal.reporter/stargazers)
-
-### Forkers
-
-[![Forkers repo roster for @insightsengineering/teal.reporter](http://reporoster.com/forks/insightsengineering/teal.reporter)](https://github.com/insightsengineering/teal.reporter/network/members)
