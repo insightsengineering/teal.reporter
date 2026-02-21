@@ -57,7 +57,7 @@ tr <- teal.code::eval_code(tr, "b <- 2L # with comment")
 tr <- teal.code::eval_code(tr, quote(library(checkmate)))
 tr <- teal.code::eval_code(tr, expression(assert_number(a)))
 teal_card(tr)
-#> $bf04aa23
+#> $c8127f42
 #> [1] "iris <- iris"
 #> attr(,"params")
 #> list()
@@ -66,7 +66,7 @@ teal_card(tr)
 #> attr(,"class")
 #> [1] "code_chunk"
 #> 
-#> $c7e64976
+#> $`910883e5`
 #> [1] "a <- 1"
 #> attr(,"params")
 #> list()
@@ -75,7 +75,7 @@ teal_card(tr)
 #> attr(,"class")
 #> [1] "code_chunk"
 #> 
-#> $e9576982
+#> $`71b592eb`
 #> [1] "b <- 2L # with comment"
 #> attr(,"params")
 #> list()
@@ -84,7 +84,7 @@ teal_card(tr)
 #> attr(,"class")
 #> [1] "code_chunk"
 #> 
-#> $`5e8b92aa`
+#> $ee2bd366
 #> [1] "library(checkmate)"
 #> attr(,"params")
 #> list()
@@ -93,7 +93,7 @@ teal_card(tr)
 #> attr(,"class")
 #> [1] "code_chunk"
 #> 
-#> $de1fac29
+#> $`0f64c888`
 #> [1] "assert_number(a)"
 #> attr(,"params")
 #> list()
