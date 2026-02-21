@@ -27,7 +27,7 @@ It adds an attribute to character strings, indicating that they should be serial
 
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,6 +60,7 @@ It adds an attribute to character strings, indicating that they should be serial
     <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/release-candidate">release-candidate</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.1">v0.6.1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0">v0.6.0</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc7">v0.6.0-rc7</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc6">v0.6.0-rc6</a>
@@ -97,7 +98,7 @@ It adds an attribute to character strings, indicating that they should be serial
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Mark strings for quotation in <code>yaml</code> serialization</h1>
-      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/teal.reporter/blob/v0.6.0/R/yaml_utils.R" class="external-link"><code>R/yaml_utils.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/teal.reporter/blob/v0.6.1/R/yaml_utils.R" class="external-link"><code>R/yaml_utils.R</code></a></small>
       <div class="d-none name"><code>yaml_quoted.Rd</code></div>
     </div>
 
@@ -128,7 +129,7 @@ It adds an attribute to character strings, indicating that they should be serial
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a>
 </h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vubiostat/r-yaml/" class="external-link">yaml</a></span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yaml.r-lib.org" class="external-link">yaml</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">yaml_quoted</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">getFromNamespace</a></span><span class="op">(</span><span class="st">"yaml_quoted"</span>, <span class="st">"teal.reporter"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">yaml</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  author <span class="op">=</span> <span class="fu">yaml_quoted</span><span class="op">(</span><span class="st">"NEST"</span><span class="op">)</span>,</span></span>
@@ -136,7 +137,7 @@ It adds an attribute to character strings, indicating that they should be serial
 <span class="r-in"><span>  date <span class="op">=</span> <span class="fu">yaml_quoted</span><span class="op">(</span><span class="st">"07/04/2019"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pdf_document <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>keep_tex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/as.yaml.html" class="external-link">as.yaml</a></span><span class="op">(</span><span class="va">yaml</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://yaml.r-lib.org/reference/as.yaml.html" class="external-link">as.yaml</a></span><span class="op">(</span><span class="va">yaml</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "author: \"NEST\"\ntitle: \"Report\"\ndate: \"07/04/2019\"\noutput:\n  pdf_document:\n    keep_tex: yes\n"</span>
 </code></pre></div>
     </div>

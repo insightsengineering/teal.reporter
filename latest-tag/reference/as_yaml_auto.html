@@ -27,7 +27,7 @@ as defined in the rmarkdown package. This function simplifies the process of gen
 
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,6 +60,7 @@ as defined in the rmarkdown package. This function simplifies the process of gen
     <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/release-candidate">release-candidate</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.1">v0.6.1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0">v0.6.0</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc7">v0.6.0-rc7</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc6">v0.6.0-rc6</a>
@@ -97,7 +98,7 @@ as defined in the rmarkdown package. This function simplifies the process of gen
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Parse a named list to <code>yaml</code> header for an <code>Rmd</code> file</h1>
-      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/teal.reporter/blob/v0.6.0/R/yaml_utils.R" class="external-link"><code>R/yaml_utils.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/teal.reporter/blob/v0.6.1/R/yaml_utils.R" class="external-link"><code>R/yaml_utils.R</code></a></small>
       <div class="d-none name"><code>as_yaml_auto.Rd</code></div>
     </div>
 
@@ -155,7 +156,7 @@ if they are recognized as quoted <code>yaml</code> logical values , default <cod
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a>
 </h2>
     <p><code>character</code> with <code>rmd_yaml_header</code> class,
-result of <code><a href="https://rdrr.io/pkg/yaml/man/as.yaml.html" class="external-link">yaml::as.yaml</a></code>, optionally wrapped with internal <code><a href="md_header.html">md_header()</a></code>.</p>
+result of <code><a href="https://yaml.r-lib.org/reference/as.yaml.html" class="external-link">yaml::as.yaml</a></code>, optionally wrapped with internal <code><a href="md_header.html">md_header()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a>
@@ -169,7 +170,7 @@ Additionally,  it handles <code>output</code> field types and arguments as defin
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a>
 </h2>
     <p>Only non-nested lists are automatically parsed.
-Nested lists require direct processing with <code><a href="https://rdrr.io/pkg/yaml/man/as.yaml.html" class="external-link">yaml::as.yaml</a></code>.</p>
+Nested lists require direct processing with <code><a href="https://yaml.r-lib.org/reference/as.yaml.html" class="external-link">yaml::as.yaml</a></code>.</p>
     </div>
 
     <div class="section level2">
