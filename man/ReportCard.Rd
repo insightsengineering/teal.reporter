@@ -58,49 +58,49 @@ ReportCard$new()$from_list(card$to_list(tempdir()), tempdir())
 \dontshow{\}) # examplesIf}
 
 ## ------------------------------------------------
-## Method `ReportCard$new`
+## Method `ReportCard$new()`
 ## ------------------------------------------------
 
 card <- ReportCard$new()
 
 
 ## ------------------------------------------------
-## Method `ReportCard$append_table`
+## Method `ReportCard$append_table()`
 ## ------------------------------------------------
 
 card <- ReportCard$new()$append_table(iris)
 
 
 ## ------------------------------------------------
-## Method `ReportCard$append_html`
+## Method `ReportCard$append_html()`
 ## ------------------------------------------------
 
 card <- ReportCard$new()$append_html(shiny::div("HTML Content"))
 
 
 ## ------------------------------------------------
-## Method `ReportCard$append_text`
+## Method `ReportCard$append_text()`
 ## ------------------------------------------------
 
 card <- ReportCard$new()$append_text("A paragraph of default text")
 
 
 ## ------------------------------------------------
-## Method `ReportCard$append_rcode`
+## Method `ReportCard$append_rcode()`
 ## ------------------------------------------------
 
 card <- ReportCard$new()$append_rcode("2+2", echo = FALSE)
 
 
 ## ------------------------------------------------
-## Method `ReportCard$append_content`
+## Method `ReportCard$append_content()`
 ## ------------------------------------------------
 
 card <- ReportCard$new()$append_content(code_chunk("foo <- 2"))
 
 
 ## ------------------------------------------------
-## Method `ReportCard$get_content`
+## Method `ReportCard$get_content()`
 ## ------------------------------------------------
 
 card <- ReportCard$new()$append_text("Some text")$append_metadata("rc", "a <- 2 + 2")
@@ -110,7 +110,7 @@ card$get_content()
 
 
 ## ------------------------------------------------
-## Method `ReportCard$get_metadata`
+## Method `ReportCard$get_metadata()`
 ## ------------------------------------------------
 
 card <- ReportCard$new()$append_text("Some text")$append_metadata("rc", "a <- 2 + 2")
@@ -119,443 +119,443 @@ card$get_metadata()
 
 
 ## ------------------------------------------------
-## Method `ReportCard$get_name`
+## Method `ReportCard$get_name()`
 ## ------------------------------------------------
 
 ReportCard$new()$set_name("NAME")$get_name()
 
 ## ------------------------------------------------
-## Method `ReportCard$set_name`
+## Method `ReportCard$set_name()`
 ## ------------------------------------------------
 
 ReportCard$new()$set_name("NAME")$get_name()
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-ReportCard-new}{\code{ReportCard$new()}}
-\item \href{#method-ReportCard-append_table}{\code{ReportCard$append_table()}}
-\item \href{#method-ReportCard-append_html}{\code{ReportCard$append_html()}}
-\item \href{#method-ReportCard-append_plot}{\code{ReportCard$append_plot()}}
-\item \href{#method-ReportCard-append_text}{\code{ReportCard$append_text()}}
-\item \href{#method-ReportCard-append_rcode}{\code{ReportCard$append_rcode()}}
-\item \href{#method-ReportCard-append_content}{\code{ReportCard$append_content()}}
-\item \href{#method-ReportCard-get_content}{\code{ReportCard$get_content()}}
-\item \href{#method-ReportCard-reset}{\code{ReportCard$reset()}}
-\item \href{#method-ReportCard-get_metadata}{\code{ReportCard$get_metadata()}}
-\item \href{#method-ReportCard-append_metadata}{\code{ReportCard$append_metadata()}}
-\item \href{#method-ReportCard-get_name}{\code{ReportCard$get_name()}}
-\item \href{#method-ReportCard-set_name}{\code{ReportCard$set_name()}}
-\item \href{#method-ReportCard-set_content_names}{\code{ReportCard$set_content_names()}}
-\item \href{#method-ReportCard-to_list}{\code{ReportCard$to_list()}}
-\item \href{#method-ReportCard-from_list}{\code{ReportCard$from_list()}}
-\item \href{#method-ReportCard-clone}{\code{ReportCard$clone()}}
-}
+  \itemize{
+    \item \href{#method-ReportCard-initialize}{\code{ReportCard$new()}}
+    \item \href{#method-ReportCard-append_table}{\code{ReportCard$append_table()}}
+    \item \href{#method-ReportCard-append_html}{\code{ReportCard$append_html()}}
+    \item \href{#method-ReportCard-append_plot}{\code{ReportCard$append_plot()}}
+    \item \href{#method-ReportCard-append_text}{\code{ReportCard$append_text()}}
+    \item \href{#method-ReportCard-append_rcode}{\code{ReportCard$append_rcode()}}
+    \item \href{#method-ReportCard-append_content}{\code{ReportCard$append_content()}}
+    \item \href{#method-ReportCard-get_content}{\code{ReportCard$get_content()}}
+    \item \href{#method-ReportCard-reset}{\code{ReportCard$reset()}}
+    \item \href{#method-ReportCard-get_metadata}{\code{ReportCard$get_metadata()}}
+    \item \href{#method-ReportCard-append_metadata}{\code{ReportCard$append_metadata()}}
+    \item \href{#method-ReportCard-get_name}{\code{ReportCard$get_name()}}
+    \item \href{#method-ReportCard-set_name}{\code{ReportCard$set_name()}}
+    \item \href{#method-ReportCard-set_content_names}{\code{ReportCard$set_content_names()}}
+    \item \href{#method-ReportCard-to_list}{\code{ReportCard$to_list()}}
+    \item \href{#method-ReportCard-from_list}{\code{ReportCard$from_list()}}
+    \item \href{#method-ReportCard-clone}{\code{ReportCard$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ReportCard-new"></a>}}
-\if{latex}{\out{\hypertarget{method-ReportCard-new}{}}}
-\subsection{Method \code{new()}}{
-Initialize a \code{ReportCard} object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$new()}\if{html}{\out{</div>}}
+\if{html}{\out{<a id="method-ReportCard-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-ReportCard-initialize}{}}}
+\subsection{\code{ReportCard$new()}}{
+  Initialize a \code{ReportCard} object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ReportCard$new()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Object of class \code{ReportCard}, invisibly.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{card <- ReportCard$new()
+}
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Returns}{
-Object of class \code{ReportCard}, invisibly.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- ReportCard$new()
-
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-append_table"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-append_table}{}}}
-\subsection{Method \code{append_table()}}{
-Appends a table to this \code{ReportCard}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_table(table)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{table}}{A (\code{data.frame} or \code{rtables} or \code{TableTree} or \code{ElementaryTable} or \code{listing_df})
+\subsection{\code{ReportCard$append_table()}}{
+  Appends a table to this \code{ReportCard}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ReportCard$append_table(table)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{table}}{A (\code{data.frame} or \code{rtables} or \code{TableTree} or \code{ElementaryTable} or \code{listing_df})
 that can be coerced into a table.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{card <- ReportCard$new()$append_table(iris)
 }
-\if{html}{\out{</div>}}
+    \if{html}{\out{</div>}}
+  }
 }
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- ReportCard$new()$append_table(iris)
 
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-append_html"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-append_html}{}}}
-\subsection{Method \code{append_html()}}{
-Appends a html content to this \code{ReportCard}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_html(content)}\if{html}{\out{</div>}}
+\subsection{\code{ReportCard$append_html()}}{
+  Appends a html content to this \code{ReportCard}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ReportCard$append_html(content)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{content}}{An object that can be rendered as a HTML content.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{card <- ReportCard$new()$append_html(shiny::div("HTML Content"))
+}
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{content}}{An object that can be rendered as a HTML content.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- ReportCard$new()$append_html(shiny::div("HTML Content"))
-
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-append_plot"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-append_plot}{}}}
-\subsection{Method \code{append_plot()}}{
-Appends a plot to this \code{ReportCard}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_plot(plot, dim = NULL)}\if{html}{\out{</div>}}
+\subsection{\code{ReportCard$append_plot()}}{
+  Appends a plot to this \code{ReportCard}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ReportCard$append_plot(plot, dim = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{plot}}{(\code{ggplot} or \code{grob} or \code{trellis}) plot object.}
+      \item{\code{dim}}{(\code{numeric(2)}) width and height in pixels.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{plot}}{(\code{ggplot} or \code{grob} or \code{trellis}) plot object.}
-
-\item{\code{dim}}{(\code{numeric(2)}) width and height in pixels.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-append_text"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-append_text}{}}}
-\subsection{Method \code{append_text()}}{
-Appends a text paragraph to this \code{ReportCard}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_text(
+\subsection{\code{ReportCard$append_text()}}{
+  Appends a text paragraph to this \code{ReportCard}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ReportCard$append_text(
   text,
   style = c("default", "header2", "header3", "verbatim")
-)}\if{html}{\out{</div>}}
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{text}}{(\code{character}) The text content to add.}
+      \item{\code{style}}{(\code{character(1)}) the style of the paragraph.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{card <- ReportCard$new()$append_text("A paragraph of default text")
+}
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{text}}{(\code{character}) The text content to add.}
-
-\item{\code{style}}{(\code{character(1)}) the style of the paragraph.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- ReportCard$new()$append_text("A paragraph of default text")
-
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-append_rcode"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-append_rcode}{}}}
-\subsection{Method \code{append_rcode()}}{
-Appends an \code{R} code chunk to \code{ReportCard}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_rcode(text, ...)}\if{html}{\out{</div>}}
+\subsection{\code{ReportCard$append_rcode()}}{
+  Appends an \code{R} code chunk to \code{ReportCard}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ReportCard$append_rcode(text, ...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{text}}{(\code{character}) The \code{R} code to include.}
+      \item{\code{...}}{Additional  \code{rmarkdown} parameters for formatting the \code{R} code chunk.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{card <- ReportCard$new()$append_rcode("2+2", echo = FALSE)
+}
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{text}}{(\code{character}) The \code{R} code to include.}
-
-\item{\code{...}}{Additional  \code{rmarkdown} parameters for formatting the \code{R} code chunk.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- ReportCard$new()$append_rcode("2+2", echo = FALSE)
-
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-append_content"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-append_content}{}}}
-\subsection{Method \code{append_content()}}{
-Appends a generic content to this \code{ReportCard}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_content(content)}\if{html}{\out{</div>}}
+\subsection{\code{ReportCard$append_content()}}{
+  Appends a generic content to this \code{ReportCard}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ReportCard$append_content(content)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{content}}{(Object.)}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{card <- ReportCard$new()$append_content(code_chunk("foo <- 2"))
+}
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{content}}{(Object.)}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- ReportCard$new()$append_content(code_chunk("foo <- 2"))
-
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-get_content"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-get_content}{}}}
-\subsection{Method \code{get_content()}}{
-Get all content blocks from this \code{ReportCard}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_content()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-\code{teal_card()} containing appended elements.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- ReportCard$new()$append_text("Some text")$append_metadata("rc", "a <- 2 + 2")
+\subsection{\code{ReportCard$get_content()}}{
+  Get all content blocks from this \code{ReportCard}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ReportCard$get_content()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{teal_card()} containing appended elements.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{card <- ReportCard$new()$append_text("Some text")$append_metadata("rc", "a <- 2 + 2")
 
 card$get_content()
-
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-reset"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-reset}{}}}
-\subsection{Method \code{reset()}}{
-Clears all content and metadata from \code{ReportCard}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$reset()}\if{html}{\out{</div>}}
+\subsection{\code{ReportCard$reset()}}{
+  Clears all content and metadata from \code{ReportCard}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ReportCard$reset()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
 }
 
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-get_metadata"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-get_metadata}{}}}
-\subsection{Method \code{get_metadata()}}{
-Get the metadata associated with \code{ReportCard}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_metadata()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-\verb{named list} list of elements.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{card <- ReportCard$new()$append_text("Some text")$append_metadata("rc", "a <- 2 + 2")
+\subsection{\code{ReportCard$get_metadata()}}{
+  Get the metadata associated with \code{ReportCard}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ReportCard$get_metadata()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \verb{named list} list of elements.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{card <- ReportCard$new()$append_text("Some text")$append_metadata("rc", "a <- 2 + 2")
 
 card$get_metadata()
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-append_metadata"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-append_metadata}{}}}
-\subsection{Method \code{append_metadata()}}{
-Appends metadata to this \code{ReportCard}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$append_metadata(key, value)}\if{html}{\out{</div>}}
+\subsection{\code{ReportCard$append_metadata()}}{
+  Appends metadata to this \code{ReportCard}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ReportCard$append_metadata(key, value)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{key}}{(\code{character(1)}) string specifying the metadata key.}
+      \item{\code{value}}{value associated with the metadata key.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{key}}{(\code{character(1)}) string specifying the metadata key.}
-
-\item{\code{value}}{value associated with the metadata key.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-get_name"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-get_name}{}}}
-\subsection{Method \code{get_name()}}{
-Get the name of the \code{ReportCard}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$get_name()}\if{html}{\out{</div>}}
+\subsection{\code{ReportCard$get_name()}}{
+  Get the name of the \code{ReportCard}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ReportCard$get_name()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{character} a card name.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{ReportCard$new()$set_name("NAME")$get_name()
+}
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Returns}{
-\code{character} a card name.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{ReportCard$new()$set_name("NAME")$get_name()
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-set_name"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-set_name}{}}}
-\subsection{Method \code{set_name()}}{
-Set the name of the \code{ReportCard}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$set_name(name)}\if{html}{\out{</div>}}
+\subsection{\code{ReportCard$set_name()}}{
+  Set the name of the \code{ReportCard}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ReportCard$set_name(name)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name}}{(\code{character(1)}) a card name.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{ReportCard$new()$set_name("NAME")$get_name()
+}
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{(\code{character(1)}) a card name.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{ReportCard$new()$set_name("NAME")$get_name()
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-set_content_names"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-set_content_names}{}}}
-\subsection{Method \code{set_content_names()}}{
-Set content block names for compatibility with newer \code{teal_card}
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$set_content_names(new_names)}\if{html}{\out{</div>}}
+\subsection{\code{ReportCard$set_content_names()}}{
+  Set content block names for compatibility with newer \code{teal_card}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ReportCard$set_content_names(new_names)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{new_names}}{(\code{character}) vector of new names.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{new_names}}{(\code{character}) vector of new names.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-to_list}{}}}
-\subsection{Method \code{to_list()}}{
-Convert the \code{ReportCard} to a list, including content and metadata.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$to_list(output_dir = lifecycle::deprecated())}\if{html}{\out{</div>}}
+\subsection{\code{ReportCard$to_list()}}{
+  Convert the \code{ReportCard} to a list, including content and metadata.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ReportCard$to_list(output_dir = lifecycle::deprecated())}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{output_dir}}{(\code{character}) with a path to the directory where files will be copied.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    (\verb{named list}) a \code{ReportCard} representation.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{output_dir}}{(\code{character}) with a path to the directory where files will be copied.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-(\verb{named list}) a \code{ReportCard} representation.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-from_list"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-from_list}{}}}
-\subsection{Method \code{from_list()}}{
-Reconstructs the \code{ReportCard} from a list representation.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$from_list(card, output_dir = lifecycle::deprecated())}\if{html}{\out{</div>}}
+\subsection{\code{ReportCard$from_list()}}{
+  Reconstructs the \code{ReportCard} from a list representation.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ReportCard$from_list(card, output_dir = lifecycle::deprecated())}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{card}}{(\verb{named list}) a \code{ReportCard} representation.}
+      \item{\code{output_dir}}{(\code{character}) with a path to the directory where a file will be copied.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{card}}{(\verb{named list}) a \code{ReportCard} representation.}
-
-\item{\code{output_dir}}{(\code{character}) with a path to the directory where a file will be copied.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ReportCard-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-ReportCard-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ReportCard$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{ReportCard$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ReportCard$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

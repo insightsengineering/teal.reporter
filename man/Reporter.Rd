@@ -71,14 +71,14 @@ reporter$get_blocks()
 \dontshow{\}) # examplesIf}
 
 ## ------------------------------------------------
-## Method `Reporter$new`
+## Method `Reporter$new()`
 ## ------------------------------------------------
 
 reporter <- Reporter$new()
 
 
 ## ------------------------------------------------
-## Method `Reporter$get_metadata`
+## Method `Reporter$get_metadata()`
 ## ------------------------------------------------
 
 reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
@@ -86,7 +86,7 @@ reporter$get_metadata()
 
 
 ## ------------------------------------------------
-## Method `Reporter$append_metadata`
+## Method `Reporter$append_metadata()`
 ## ------------------------------------------------
 
 reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
@@ -94,14 +94,14 @@ reporter$get_metadata()
 
 
 ## ------------------------------------------------
-## Method `Reporter$from_reporter`
+## Method `Reporter$from_reporter()`
 ## ------------------------------------------------
 
 reporter <- Reporter$new()
 reporter$from_reporter(reporter)
 
 ## ------------------------------------------------
-## Method `Reporter$to_list`
+## Method `Reporter$to_list()`
 ## ------------------------------------------------
 
 reporter <- Reporter$new()
@@ -110,7 +110,7 @@ dir.create(tmp_dir)
 reporter$to_list(tmp_dir)
 
 ## ------------------------------------------------
-## Method `Reporter$from_list`
+## Method `Reporter$from_list()`
 ## ------------------------------------------------
 
 reporter <- Reporter$new()
@@ -120,7 +120,7 @@ dir.create(tmp_dir)
 reporter$from_list(reporter$to_list(tmp_dir), tmp_dir)
 
 ## ------------------------------------------------
-## Method `Reporter$to_jsondir`
+## Method `Reporter$to_jsondir()`
 ## ------------------------------------------------
 
 reporter <- Reporter$new()
@@ -129,7 +129,7 @@ dir.create(tmp_dir)
 reporter$to_jsondir(tmp_dir)
 
 ## ------------------------------------------------
-## Method `Reporter$from_jsondir`
+## Method `Reporter$from_jsondir()`
 ## ------------------------------------------------
 
 reporter <- Reporter$new()
@@ -140,7 +140,7 @@ reporter$to_jsondir(tmp_dir)
 reporter$from_jsondir(tmp_dir)
 
 ## ------------------------------------------------
-## Method `Reporter$set_template`
+## Method `Reporter$set_template()`
 ## ------------------------------------------------
 
 
@@ -157,516 +157,534 @@ reporter$get_cards()
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-Reporter-new}{\code{Reporter$new()}}
-\item \href{#method-Reporter-append_cards}{\code{Reporter$append_cards()}}
-\item \href{#method-Reporter-reorder_cards}{\code{Reporter$reorder_cards()}}
-\item \href{#method-Reporter-replace_card}{\code{Reporter$replace_card()}}
-\item \href{#method-Reporter-get_cards}{\code{Reporter$get_cards()}}
-\item \href{#method-Reporter-get_blocks}{\code{Reporter$get_blocks()}}
-\item \href{#method-Reporter-reset}{\code{Reporter$reset()}}
-\item \href{#method-Reporter-remove_cards}{\code{Reporter$remove_cards()}}
-\item \href{#method-Reporter-get_metadata}{\code{Reporter$get_metadata()}}
-\item \href{#method-Reporter-append_metadata}{\code{Reporter$append_metadata()}}
-\item \href{#method-Reporter-from_reporter}{\code{Reporter$from_reporter()}}
-\item \href{#method-Reporter-to_list}{\code{Reporter$to_list()}}
-\item \href{#method-Reporter-write_figures}{\code{Reporter$write_figures()}}
-\item \href{#method-Reporter-from_list}{\code{Reporter$from_list()}}
-\item \href{#method-Reporter-to_jsondir}{\code{Reporter$to_jsondir()}}
-\item \href{#method-Reporter-from_jsondir}{\code{Reporter$from_jsondir()}}
-\item \href{#method-Reporter-set_id}{\code{Reporter$set_id()}}
-\item \href{#method-Reporter-open_previewer}{\code{Reporter$open_previewer()}}
-\item \href{#method-Reporter-get_cached_html}{\code{Reporter$get_cached_html()}}
-\item \href{#method-Reporter-get_id}{\code{Reporter$get_id()}}
-\item \href{#method-Reporter-set_template}{\code{Reporter$set_template()}}
-\item \href{#method-Reporter-get_template}{\code{Reporter$get_template()}}
-\item \href{#method-Reporter-clone}{\code{Reporter$clone()}}
-}
+  \itemize{
+    \item \href{#method-Reporter-initialize}{\code{Reporter$new()}}
+    \item \href{#method-Reporter-append_cards}{\code{Reporter$append_cards()}}
+    \item \href{#method-Reporter-reorder_cards}{\code{Reporter$reorder_cards()}}
+    \item \href{#method-Reporter-replace_card}{\code{Reporter$replace_card()}}
+    \item \href{#method-Reporter-get_cards}{\code{Reporter$get_cards()}}
+    \item \href{#method-Reporter-get_blocks}{\code{Reporter$get_blocks()}}
+    \item \href{#method-Reporter-reset}{\code{Reporter$reset()}}
+    \item \href{#method-Reporter-remove_cards}{\code{Reporter$remove_cards()}}
+    \item \href{#method-Reporter-get_metadata}{\code{Reporter$get_metadata()}}
+    \item \href{#method-Reporter-append_metadata}{\code{Reporter$append_metadata()}}
+    \item \href{#method-Reporter-from_reporter}{\code{Reporter$from_reporter()}}
+    \item \href{#method-Reporter-to_list}{\code{Reporter$to_list()}}
+    \item \href{#method-Reporter-write_figures}{\code{Reporter$write_figures()}}
+    \item \href{#method-Reporter-from_list}{\code{Reporter$from_list()}}
+    \item \href{#method-Reporter-to_jsondir}{\code{Reporter$to_jsondir()}}
+    \item \href{#method-Reporter-from_jsondir}{\code{Reporter$from_jsondir()}}
+    \item \href{#method-Reporter-set_id}{\code{Reporter$set_id()}}
+    \item \href{#method-Reporter-open_previewer}{\code{Reporter$open_previewer()}}
+    \item \href{#method-Reporter-get_cached_html}{\code{Reporter$get_cached_html()}}
+    \item \href{#method-Reporter-get_id}{\code{Reporter$get_id()}}
+    \item \href{#method-Reporter-set_template}{\code{Reporter$set_template()}}
+    \item \href{#method-Reporter-get_template}{\code{Reporter$get_template()}}
+    \item \href{#method-Reporter-clone}{\code{Reporter$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Reporter-new"></a>}}
-\if{latex}{\out{\hypertarget{method-Reporter-new}{}}}
-\subsection{Method \code{new()}}{
-Initialize a \code{Reporter} object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$new()}\if{html}{\out{</div>}}
+\if{html}{\out{<a id="method-Reporter-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-Reporter-initialize}{}}}
+\subsection{\code{Reporter$new()}}{
+  Initialize a \code{Reporter} object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$new()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Object of class \code{Reporter}, invisibly.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{reporter <- Reporter$new()
+}
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Returns}{
-Object of class \code{Reporter}, invisibly.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{reporter <- Reporter$new()
-
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-append_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-append_cards}{}}}
-\subsection{Method \code{append_cards()}}{
-Append one or more \code{ReportCard} or \code{teal_card} objects to the \code{Reporter}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$append_cards(cards)}\if{html}{\out{</div>}}
+\subsection{\code{Reporter$append_cards()}}{
+  Append one or more \code{ReportCard} or \code{teal_card} objects to the \code{Reporter}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$append_cards(cards)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{cards}}{(\code{ReportCard} or \code{teal_card}) or a list of such objects}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{cards}}{(\code{ReportCard} or \code{teal_card}) or a list of such objects}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-reorder_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-reorder_cards}{}}}
-\subsection{Method \code{reorder_cards()}}{
-Reorders \code{teal_card} objects in \code{Reporter}.
+\subsection{\code{Reporter$reorder_cards()}}{
+  Reorders \code{teal_card} objects in \code{Reporter}.
 
 
-Reorders \code{teal_card} objects in \code{Reporter}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$reorder_cards(new_order)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{new_order}}{\code{character} vector with names of \code{teal_card} objects to
+  Reorders \code{teal_card} objects in \code{Reporter}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$reorder_cards(new_order)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{new_order}}{\code{character} vector with names of \code{teal_card} objects to
 be set in this order.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
 }
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-replace_card"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-replace_card}{}}}
-\subsection{Method \code{replace_card()}}{
-Sets \code{ReportCard} or \code{teal_card} content.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$replace_card(card, card_id)}\if{html}{\out{</div>}}
+\subsection{\code{Reporter$replace_card()}}{
+  Sets \code{ReportCard} or \code{teal_card} content.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$replace_card(card, card_id)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{card}}{The new object (\code{ReportCard} or \code{teal_card}) to replace the existing one.}
+      \item{\code{card_id}}{(\code{character(1)}) the unique id of the card to be replaced.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{card}}{The new object (\code{ReportCard} or \code{teal_card}) to replace the existing one.}
-
-\item{\code{card_id}}{(\code{character(1)}) the unique id of the card to be replaced.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-get_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_cards}{}}}
-\subsection{Method \code{get_cards()}}{
-Retrieves all \code{teal_card} objects contained in \code{Reporter}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_cards()}\if{html}{\out{</div>}}
+\subsection{\code{Reporter$get_cards()}}{
+  Retrieves all \code{teal_card} objects contained in \code{Reporter}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$get_cards()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A (\code{list}) of \code{\link{teal_card}} objects.
+  }
 }
 
-\subsection{Returns}{
-A (\code{list}) of \code{\link{teal_card}} objects.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-get_blocks"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_blocks}{}}}
-\subsection{Method \code{get_blocks()}}{
-Compiles and returns all content blocks from the \code{teal_card}
+\subsection{\code{Reporter$get_blocks()}}{
+  Compiles and returns all content blocks from the \code{teal_card}
 objects in the \code{Reporter}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_blocks(sep = "\\\\newpage")}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$get_blocks(sep = "\\\\newpage")}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{sep}}{An optional separator to insert between each content block.
+Default is a \verb{\\n\\\\newpage\\n} markdown.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{list()} of \code{teal_card}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{sep}}{An optional separator to insert between each content block.
-Default is a \verb{\\n\\\\newpage\\n} markdown.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{list()} of \code{teal_card}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-reset"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-reset}{}}}
-\subsection{Method \code{reset()}}{
-Resets the \code{Reporter}, removing all \code{teal_card} objects and metadata.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$reset()}\if{html}{\out{</div>}}
+\subsection{\code{Reporter$reset()}}{
+  Resets the \code{Reporter}, removing all \code{teal_card} objects and metadata.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$reset()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
 }
 
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-remove_cards"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-remove_cards}{}}}
-\subsection{Method \code{remove_cards()}}{
-Removes specific \code{teal_card} objects from the \code{Reporter} by their indices.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$remove_cards(ids = NULL)}\if{html}{\out{</div>}}
+\subsection{\code{Reporter$remove_cards()}}{
+  Removes specific \code{teal_card} objects from the \code{Reporter} by their indices.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$remove_cards(ids = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{ids}}{(\code{integer}, \code{character}) the indexes of cards (either name)}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{ids}}{(\code{integer}, \code{character}) the indexes of cards (either name)}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-get_metadata"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_metadata}{}}}
-\subsection{Method \code{get_metadata()}}{
-Get the metadata associated with this \code{Reporter}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_metadata()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-\verb{named list} of metadata to be appended.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
+\subsection{\code{Reporter$get_metadata()}}{
+  Get the metadata associated with this \code{Reporter}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$get_metadata()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \verb{named list} of metadata to be appended.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
 reporter$get_metadata()
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-append_metadata"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-append_metadata}{}}}
-\subsection{Method \code{append_metadata()}}{
-Appends metadata to this \code{Reporter}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$append_metadata(meta)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{meta}}{(\verb{named list}) of metadata to be appended.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
+\subsection{\code{Reporter$append_metadata()}}{
+  Appends metadata to this \code{Reporter}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$append_metadata(meta)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{meta}}{(\verb{named list}) of metadata to be appended.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
 reporter$get_metadata()
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-from_reporter"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-from_reporter}{}}}
-\subsection{Method \code{from_reporter()}}{
-Reinitializes a \code{Reporter} instance by copying the report cards and metadata from another \code{Reporter}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$from_reporter(reporter)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{reporter}}{(\code{Reporter}) instance to copy from.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-invisibly self
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{reporter <- Reporter$new()
+\subsection{\code{Reporter$from_reporter()}}{
+  Reinitializes a \code{Reporter} instance by copying the report cards and metadata from another \code{Reporter}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$from_reporter(reporter)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{reporter}}{(\code{Reporter}) instance to copy from.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    invisibly self
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{reporter <- Reporter$new()
 reporter$from_reporter(reporter)
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-to_list}{}}}
-\subsection{Method \code{to_list()}}{
-Convert a \code{Reporter} to a list and transfer any associated files to specified directory.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$to_list(output_dir)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{output_dir}}{(\code{character(1)}) a path to the directory where files will be copied.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\verb{named list} representing the \code{Reporter} instance, including version information,
+\subsection{\code{Reporter$to_list()}}{
+  Convert a \code{Reporter} to a list and transfer any associated files to specified directory.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$to_list(output_dir)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{output_dir}}{(\code{character(1)}) a path to the directory where files will be copied.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \verb{named list} representing the \code{Reporter} instance, including version information,
 metadata, and report cards.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{reporter <- Reporter$new()
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{reporter <- Reporter$new()
 tmp_dir <- file.path(tempdir(), "testdir")
 dir.create(tmp_dir)
 reporter$to_list(tmp_dir)
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-write_figures"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-write_figures}{}}}
-\subsection{Method \code{write_figures()}}{
-Extracts and saves all figure elements from the \code{teal_card} objects in the
+\subsection{\code{Reporter$write_figures()}}{
+  Extracts and saves all figure elements from the \code{teal_card} objects in the
 \code{Reporter} to a specified directory.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$write_figures(output_dir, sub_directory = "figures")}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$write_figures(output_dir, sub_directory = "figures")}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{output_dir}}{(\code{character(1)}) a path to the directory where figures will be saved.}
+      \item{\code{sub_directory}}{(\code{character(1)}) a sub-directory within \code{output_dir} to save figures.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{output_dir}}{(\code{character(1)}) a path to the directory where figures will be saved.}
-
-\item{\code{sub_directory}}{(\code{character(1)}) a sub-directory within \code{output_dir} to save figures.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-from_list"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-from_list}{}}}
-\subsection{Method \code{from_list()}}{
-Reinitializes a \code{Reporter} from a list representation and associated files in a specified directory.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$from_list(rlist, output_dir)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{rlist}}{(\verb{named list}) representing a \code{Reporter} instance.}
-
-\item{\code{output_dir}}{(\code{character(1)}) a path to the directory from which files will be copied.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{reporter <- Reporter$new()
+\subsection{\code{Reporter$from_list()}}{
+  Reinitializes a \code{Reporter} from a list representation and associated files in a specified directory.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$from_list(rlist, output_dir)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{rlist}}{(\verb{named list}) representing a \code{Reporter} instance.}
+      \item{\code{output_dir}}{(\code{character(1)}) a path to the directory from which files will be copied.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{reporter <- Reporter$new()
 tmp_dir <- file.path(tempdir(), "testdir")
 unlink(tmp_dir, recursive = TRUE)
 dir.create(tmp_dir)
 reporter$from_list(reporter$to_list(tmp_dir), tmp_dir)
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-to_jsondir"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-to_jsondir}{}}}
-\subsection{Method \code{to_jsondir()}}{
-Serializes the \code{Reporter} to a \code{JSON} file and copies any associated files to a specified directory.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$to_jsondir(output_dir)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{output_dir}}{(\code{character(1)}) a path to the directory where files will be copied, \code{JSON} and statics.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{output_dir} argument.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{reporter <- Reporter$new()
+\subsection{\code{Reporter$to_jsondir()}}{
+  Serializes the \code{Reporter} to a \code{JSON} file and copies any associated files to a specified directory.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$to_jsondir(output_dir)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{output_dir}}{(\code{character(1)}) a path to the directory where files will be copied, \code{JSON} and statics.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{output_dir} argument.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{reporter <- Reporter$new()
 tmp_dir <- file.path(tempdir(), "jsondir")
 dir.create(tmp_dir)
 reporter$to_jsondir(tmp_dir)
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-from_jsondir"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-from_jsondir}{}}}
-\subsection{Method \code{from_jsondir()}}{
-Reinitializes a \code{Reporter} from a \code{JSON } file and files in a specified directory.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$from_jsondir(output_dir)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{output_dir}}{(\code{character(1)}) a path to the directory with files, \code{JSON} and statics.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{reporter <- Reporter$new()
+\subsection{\code{Reporter$from_jsondir()}}{
+  Reinitializes a \code{Reporter} from a \code{JSON } file and files in a specified directory.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$from_jsondir(output_dir)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{output_dir}}{(\code{character(1)}) a path to the directory with files, \code{JSON} and statics.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{reporter <- Reporter$new()
 tmp_dir <- file.path(tempdir(), "jsondir")
 dir.create(tmp_dir)
 unlink(list.files(tmp_dir, recursive = TRUE))
 reporter$to_jsondir(tmp_dir)
 reporter$from_jsondir(tmp_dir)
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-set_id"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-set_id}{}}}
-\subsection{Method \code{set_id()}}{
-Set the \code{Reporter} id
+\subsection{\code{Reporter$set_id()}}{
+  Set the \code{Reporter} id
 Optionally add id to a \code{Reporter} which will be compared when it is rebuilt from a list.
 The id is added to the downloaded file name.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$set_id(id)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$set_id(id)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{id}}{(\code{character(1)}) a Report id.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{id}}{(\code{character(1)}) a Report id.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-open_previewer"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-open_previewer}{}}}
-\subsection{Method \code{open_previewer()}}{
-Get or set the reactive trigger to open the previewer modal.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$open_previewer(val)}\if{html}{\out{</div>}}
+\subsection{\code{Reporter$open_previewer()}}{
+  Get or set the reactive trigger to open the previewer modal.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$open_previewer(val)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{val}}{value to the passed to the reactive trigger.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{reactiveVal} value
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{val}}{value to the passed to the reactive trigger.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{reactiveVal} value
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-get_cached_html"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_cached_html}{}}}
-\subsection{Method \code{get_cached_html()}}{
-Get cached HTML for a specific \code{teal_card} by its id.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_cached_html(card_id)}\if{html}{\out{</div>}}
+\subsection{\code{Reporter$get_cached_html()}}{
+  Get cached HTML for a specific \code{teal_card} by its id.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$get_cached_html(card_id)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{card_id}}{(\code{character(1)}) the unique id of the card.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{card_id}}{(\code{character(1)}) the unique id of the card.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-get_id"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_id}{}}}
-\subsection{Method \code{get_id()}}{
-Get the \code{Reporter} id
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_id()}\if{html}{\out{</div>}}
+\subsection{\code{Reporter$get_id()}}{
+  Get the \code{Reporter} id
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$get_id()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{character(1)} the \code{Reporter} id.
+  }
 }
 
-\subsection{Returns}{
-\code{character(1)} the \code{Reporter} id.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-set_template"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-set_template}{}}}
-\subsection{Method \code{set_template()}}{
-Set template function for \code{teal_card}
+\subsection{\code{Reporter$set_template()}}{
+  Set template function for \code{teal_card}
 Set a function that is called on every report content (of class \code{teal_card}) added through \verb{$append_cards}
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$set_template(template)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{template}}{(\code{function}) a template function.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{self}, invisibly.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{
-reporter <- teal.reporter::Reporter$new()
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$set_template(template)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{template}}{(\code{function}) a template function.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{self}, invisibly.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{reporter <- teal.reporter::Reporter$new()
 template_fun <- function(document) {
   disclaimer <- teal.reporter::teal_card("Here comes disclaimer text")
   c(disclaimer, document)
@@ -677,39 +695,42 @@ metadata(doc1, "title") <- "Welcome card"
 reporter$append_cards(doc1)
 reporter$get_cards()
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-get_template"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-get_template}{}}}
-\subsection{Method \code{get_template()}}{
-Get the \code{Reporter} template
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$get_template()}\if{html}{\out{</div>}}
+\subsection{\code{Reporter$get_template()}}{
+  Get the \code{Reporter} template
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$get_template()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    a template \code{function}.
+  }
 }
 
-\subsection{Returns}{
-a template \code{function}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Reporter-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-Reporter-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Reporter$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{Reporter$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Reporter$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

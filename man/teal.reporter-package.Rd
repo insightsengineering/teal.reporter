@@ -18,10 +18,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Dawid Kaledkowski \email{dawid.kaledkowski@roche.com} (\href{https://orcid.org/0000-0001-9533-457X}{ORCID})
+\strong{Maintainer}: Dony Unardi \email{unardid@gene.com} [reviewer]
 
 Authors:
 \itemize{
+  \item Dawid Kaledkowski \email{dawid.kaledkowski@roche.com} (\href{https://orcid.org/0000-0001-9533-457X}{ORCID})
   \item Kartikeya Kirar \email{kartikeya.kirar@businesspartner.roche.com} (\href{https://orcid.org/0009-0005-1258-4757}{ORCID})
   \item Marcin Kosinski \email{marcin.kosinski.mk1@roche.com}
   \item Maciej Nasinski
@@ -32,7 +33,6 @@ Authors:
 Other contributors:
 \itemize{
   \item Chendi Liao \email{chendi.liao@roche.com} [reviewer]
-  \item Dony Unardi \email{unardid@gene.com} [reviewer]
   \item F. Hoffmann-La Roche AG [copyright holder, funder]
 }
 

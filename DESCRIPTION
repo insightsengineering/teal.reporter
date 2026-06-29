@@ -1,9 +1,9 @@
 Package: teal.reporter
 Title: Reporting Tools for 'shiny' Modules
-Version: 0.6.1.9000
-Date: 2026-02-20
+Version: 0.6.2
+Date: 2026-06-26
 Authors@R: c(
-    person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre"),
+    person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = "aut",
            comment = c(ORCID = "0000-0001-9533-457X")),
     person("Kartikeya", "Kirar", , "kartikeya.kirar@businesspartner.roche.com", role = "aut",
            comment = c(ORCID = "0009-0005-1258-4757")),
@@ -12,7 +12,7 @@ Authors@R: c(
     person("Konrad", "Pagacz", role = "aut"),
     person("Mahmoud", "Hallal", , "mahmoud.hallal@roche.com", role = "aut"),
     person("Chendi", "Liao", , "chendi.liao@roche.com", role = "rev"),
-    person("Dony", "Unardi", , "unardid@gene.com", role = "rev"),
+    person("Dony", "Unardi", , "unardid@gene.com", role = c("rev", "cre")),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
 Description: Prebuilt 'shiny' modules containing tools for the generation
@@ -84,4 +84,4 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
+Config/roxygen2/version: 8.0.0
