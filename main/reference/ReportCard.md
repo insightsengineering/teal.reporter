@@ -17,7 +17,7 @@ for more information.
 
 ### Public methods
 
-- [`ReportCard$new()`](#method-ReportCard-new)
+- [`ReportCard$new()`](#method-ReportCard-initialize)
 
 - [`ReportCard$append_table()`](#method-ReportCard-append_table)
 
@@ -53,7 +53,7 @@ for more information.
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `ReportCard$new()`
 
 Initialize a `ReportCard` object.
 
@@ -71,7 +71,7 @@ Object of class `ReportCard`, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method `append_table()`
+### `ReportCard$append_table()`
 
 Appends a table to this `ReportCard`.
 
@@ -96,7 +96,7 @@ Appends a table to this `ReportCard`.
 
 ------------------------------------------------------------------------
 
-### Method `append_html()`
+### `ReportCard$append_html()`
 
 Appends a html content to this `ReportCard`.
 
@@ -120,7 +120,7 @@ Appends a html content to this `ReportCard`.
 
 ------------------------------------------------------------------------
 
-### Method `append_plot()`
+### `ReportCard$append_plot()`
 
 Appends a plot to this `ReportCard`.
 
@@ -144,7 +144,7 @@ Appends a plot to this `ReportCard`.
 
 ------------------------------------------------------------------------
 
-### Method `append_text()`
+### `ReportCard$append_text()`
 
 Appends a text paragraph to this `ReportCard`.
 
@@ -175,7 +175,7 @@ Appends a text paragraph to this `ReportCard`.
 
 ------------------------------------------------------------------------
 
-### Method `append_rcode()`
+### `ReportCard$append_rcode()`
 
 Appends an `R` code chunk to `ReportCard`.
 
@@ -203,7 +203,7 @@ Appends an `R` code chunk to `ReportCard`.
 
 ------------------------------------------------------------------------
 
-### Method `append_content()`
+### `ReportCard$append_content()`
 
 Appends a generic content to this `ReportCard`.
 
@@ -227,7 +227,7 @@ Appends a generic content to this `ReportCard`.
 
 ------------------------------------------------------------------------
 
-### Method `get_content()`
+### `ReportCard$get_content()`
 
 Get all content blocks from this `ReportCard`.
 
@@ -248,7 +248,7 @@ containing appended elements.
 
 ------------------------------------------------------------------------
 
-### Method `reset()`
+### `ReportCard$reset()`
 
 Clears all content and metadata from `ReportCard`.
 
@@ -262,7 +262,7 @@ Clears all content and metadata from `ReportCard`.
 
 ------------------------------------------------------------------------
 
-### Method `get_metadata()`
+### `ReportCard$get_metadata()`
 
 Get the metadata associated with `ReportCard`.
 
@@ -282,7 +282,7 @@ Get the metadata associated with `ReportCard`.
 
 ------------------------------------------------------------------------
 
-### Method `append_metadata()`
+### `ReportCard$append_metadata()`
 
 Appends metadata to this `ReportCard`.
 
@@ -306,7 +306,7 @@ Appends metadata to this `ReportCard`.
 
 ------------------------------------------------------------------------
 
-### Method `get_name()`
+### `ReportCard$get_name()`
 
 Get the name of the `ReportCard`.
 
@@ -324,7 +324,7 @@ Get the name of the `ReportCard`.
 
 ------------------------------------------------------------------------
 
-### Method `set_name()`
+### `ReportCard$set_name()`
 
 Set the name of the `ReportCard`.
 
@@ -348,7 +348,7 @@ Set the name of the `ReportCard`.
 
 ------------------------------------------------------------------------
 
-### Method `set_content_names()`
+### `ReportCard$set_content_names()`
 
 Set content block names for compatibility with newer `teal_card`
 
@@ -364,7 +364,7 @@ Set content block names for compatibility with newer `teal_card`
 
 ------------------------------------------------------------------------
 
-### Method `to_list()`
+### `ReportCard$to_list()`
 
 Convert the `ReportCard` to a list, including content and metadata.
 
@@ -384,7 +384,7 @@ Convert the `ReportCard` to a list, including content and metadata.
 
 ------------------------------------------------------------------------
 
-### Method `from_list()`
+### `ReportCard$from_list()`
 
 Reconstructs the `ReportCard` from a list representation.
 
@@ -409,7 +409,7 @@ Reconstructs the `ReportCard` from a list representation.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `ReportCard$clone()`
 
 The objects of this class are cloneable with this method.
 
@@ -447,12 +447,12 @@ card <- ReportCard$new()$append_text("Some text")$append_plot(
 #> `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 card$get_content()
 
-#> $`0953356e`
+#> $daeddb77
 #> [1] "Some text"
 #> 
-#> $cd389061
+#> $`13954495`
 #> 
-#> $`2f3c77aa`
+#> $`1f124dc8`
 #> [1] "Some text"
 #> 
 #> attr(,"class")
@@ -488,12 +488,12 @@ card <- ReportCard$new()$append_text("Some text")$append_plot(
 #> `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 card$get_content()
 
-#> $a00fe84d
+#> $ae3d4d09
 #> [1] "Some text"
 #> 
-#> $`48ba23d3`
+#> $`4d2367d4`
 #> 
-#> $`8831d368`
+#> $`22f6292c`
 #> [1] "Some text"
 #> 
 #> attr(,"class")
@@ -513,12 +513,12 @@ card$get_content()
 card$to_list(tempdir())
 #> Warning: The `output_dir` argument of `ReportCard$to_list()` is deprecated as of
 #> teal.reporter 0.6.0.
-#> $a00fe84d
+#> $ae3d4d09
 #> [1] "Some text"
 #> 
-#> $`48ba23d3`
+#> $`4d2367d4`
 #> 
-#> $`8831d368`
+#> $`22f6292c`
 #> [1] "Some text"
 #> 
 #> attr(,"metadata")
@@ -541,12 +541,12 @@ card <- ReportCard$new()$append_text("Some text")$append_plot(
 #> `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 card$get_content()
 
-#> $`987d6a7a`
+#> $`247da268`
 #> [1] "Some text"
 #> 
-#> $`6316e4e1`
+#> $bd1f442e
 #> 
-#> $`32960876`
+#> $a53b7ba4
 #> [1] "Some text"
 #> 
 #> attr(,"class")
@@ -566,55 +566,55 @@ card$get_content()
 ReportCard$new()$from_list(card$to_list(tempdir()), tempdir())
 
 ## ------------------------------------------------
-## Method `ReportCard$new`
+## Method `ReportCard$new()`
 ## ------------------------------------------------
 
 card <- ReportCard$new()
 
 
 ## ------------------------------------------------
-## Method `ReportCard$append_table`
+## Method `ReportCard$append_table()`
 ## ------------------------------------------------
 
 card <- ReportCard$new()$append_table(iris)
 
 
 ## ------------------------------------------------
-## Method `ReportCard$append_html`
+## Method `ReportCard$append_html()`
 ## ------------------------------------------------
 
 card <- ReportCard$new()$append_html(shiny::div("HTML Content"))
 
 
 ## ------------------------------------------------
-## Method `ReportCard$append_text`
+## Method `ReportCard$append_text()`
 ## ------------------------------------------------
 
 card <- ReportCard$new()$append_text("A paragraph of default text")
 
 
 ## ------------------------------------------------
-## Method `ReportCard$append_rcode`
+## Method `ReportCard$append_rcode()`
 ## ------------------------------------------------
 
 card <- ReportCard$new()$append_rcode("2+2", echo = FALSE)
 
 
 ## ------------------------------------------------
-## Method `ReportCard$append_content`
+## Method `ReportCard$append_content()`
 ## ------------------------------------------------
 
 card <- ReportCard$new()$append_content(code_chunk("foo <- 2"))
 
 
 ## ------------------------------------------------
-## Method `ReportCard$get_content`
+## Method `ReportCard$get_content()`
 ## ------------------------------------------------
 
 card <- ReportCard$new()$append_text("Some text")$append_metadata("rc", "a <- 2 + 2")
 
 card$get_content()
-#> $b5944340
+#> $`8540ac68`
 #> [1] "Some text"
 #> 
 #> attr(,"class")
@@ -627,7 +627,7 @@ card$get_content()
 
 
 ## ------------------------------------------------
-## Method `ReportCard$get_metadata`
+## Method `ReportCard$get_metadata()`
 ## ------------------------------------------------
 
 card <- ReportCard$new()$append_text("Some text")$append_metadata("rc", "a <- 2 + 2")
@@ -639,14 +639,14 @@ card$get_metadata()
 
 
 ## ------------------------------------------------
-## Method `ReportCard$get_name`
+## Method `ReportCard$get_name()`
 ## ------------------------------------------------
 
 ReportCard$new()$set_name("NAME")$get_name()
 #> [1] "NAME"
 
 ## ------------------------------------------------
-## Method `ReportCard$set_name`
+## Method `ReportCard$set_name()`
 ## ------------------------------------------------
 
 ReportCard$new()$set_name("NAME")$get_name()
