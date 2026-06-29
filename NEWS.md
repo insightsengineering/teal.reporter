@@ -1,3 +1,5 @@
+# teal.reporter 0.6.2.9000
+
 # teal.reporter 0.6.2
 
 * Update maintainer.
