@@ -1,5 +1,11 @@
 # Changelog
 
+## teal.reporter 0.6.2
+
+CRAN release: 2026-06-29
+
+- Update maintainer.
+
 ## teal.reporter 0.6.1
 
 CRAN release: 2026-02-20

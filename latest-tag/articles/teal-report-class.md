@@ -52,10 +52,10 @@ teal_card(report) <- c(
 teal_card(report)
 ```
 
-    ## $`8e2f8824`
+    ## $`3157f89f`
     ## [1] "## Document section"
     ## 
-    ## $`40a786c3`
+    ## $d0472665
     ## [1] "Lorem ipsum dolor sit amet"
     ## 
     ## attr(,"class")
@@ -87,13 +87,13 @@ report$a
 teal_card(report)
 ```
 
-    ## $`8e2f8824`
+    ## $`3157f89f`
     ## [1] "## Document section"
     ## 
-    ## $`40a786c3`
+    ## $d0472665
     ## [1] "Lorem ipsum dolor sit amet"
     ## 
-    ## $`40f8ef29`
+    ## $e4b7115b
     ## [1] "a <- 2"
     ## attr(,"params")
     ## list()
@@ -155,16 +155,16 @@ teal_card(report)[[1]] <- "# My report (replaced)"
 teal_card(report)
 ```
 
-    ## $`1f2032c8`
+    ## $a59bb3f5
     ## [1] "# My report (replaced)"
     ## 
-    ## $`8e2f8824`
+    ## $`3157f89f`
     ## [1] "## Document section"
     ## 
-    ## $`40a786c3`
+    ## $d0472665
     ## [1] "Lorem ipsum dolor sit amet"
     ## 
-    ## $`7a0a3619`
+    ## $b9d88afa
     ## [[1]]
     ##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
     ## 1          5.1         3.5          1.4         0.2  setosa

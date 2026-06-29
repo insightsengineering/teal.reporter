@@ -8,8 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Convert report objects to HTML — toHTML.default • teal.reporter</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Convert report objects to HTML — toHTML.default">
 <meta name="description" content="
@@ -22,8 +22,8 @@ This is the primary method for rendering report content for display in web brows
 IDE Viewer, or for inclusion in Shiny applications.">
 <!-- dependencies from examples --><link href="libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="libs/bslib-component-js-0.10.0/components.min.js"></script><script src="libs/bslib-component-js-0.10.0/web-components.min.js" type="module"></script><link href="libs/bslib-component-css-0.10.0/components.css" rel="stylesheet">
-<script src="libs/bslib-tag-require-0.10.0/tag-require.js"></script><link href="libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+<script src="libs/bslib-component-js-0.11.0/components.min.js"></script><script src="libs/bslib-component-js-0.11.0/web-components.min.js" type="module"></script><link href="libs/bslib-component-css-0.11.0/components.css" rel="stylesheet">
+<script src="libs/bslib-tag-require-0.11.0/tag-require.js"></script><link href="libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
 <link rel="stylesheet" href="../consent.css">
 <script src="../consent.js" type="text/javascript" charset="utf-8"></script>
 </head>
@@ -35,7 +35,7 @@ IDE Viewer, or for inclusion in Shiny applications.">
 
     <a class="navbar-brand me-2" href="../index.html">teal.reporter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,6 +68,7 @@ IDE Viewer, or for inclusion in Shiny applications.">
     <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/release-candidate">release-candidate</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.2">v0.6.2</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.1">v0.6.1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0">v0.6.0</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.reporter/v0.6.0-rc7">v0.6.0-rc7</a>
@@ -106,7 +107,7 @@ IDE Viewer, or for inclusion in Shiny applications.">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Convert report objects to HTML</h1>
-      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/teal.reporter/blob/v0.6.1/R/toHTML.R" class="external-link"><code>R/toHTML.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/teal.reporter/blob/v0.6.2/R/toHTML.R" class="external-link"><code>R/toHTML.R</code></a></small>
       <div class="d-none name"><code>toHTML.default.Rd</code></div>
     </div>
 
@@ -267,10 +268,10 @@ for consistent formatting.</p>
 
     <p>Lorem ipsum dolor sit amet</p>
 
-    <div class="accordion code_chunk" data-require-bs-caller="accordion()" data-require-bs-version="5" id="bslib-accordion-6406">
+    <div class="accordion code_chunk" data-require-bs-caller="accordion()" data-require-bs-version="5" id="bslib-accordion-8875">
       <div class="accordion-item" data-value="rcode">
         <div class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bslib-accordion-panel-2005" aria-expanded="false" aria-controls="bslib-accordion-panel-2005">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bslib-accordion-panel-8040" aria-expanded="false" aria-controls="bslib-accordion-panel-8040">
             <div class="accordion-icon"></div>
             <div class="accordion-title">
               <span>
@@ -280,17 +281,17 @@ for consistent formatting.</p>
             </div>
           </button>
         </div>
-        <div id="bslib-accordion-panel-2005" class="accordion-collapse collapse">
+        <div id="bslib-accordion-panel-8040" class="accordion-collapse collapse">
           <div class="accordion-body">
             <pre><code class="language-R">a &lt;- 2</code></pre>
           </div>
         </div>
       </div>
     </div>
-    <div class="accordion code_chunk" data-require-bs-caller="accordion()" data-require-bs-version="5" id="bslib-accordion-1519">
+    <div class="accordion code_chunk" data-require-bs-caller="accordion()" data-require-bs-version="5" id="bslib-accordion-4125">
       <div class="accordion-item" data-value="rcode">
         <div class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bslib-accordion-panel-3886" aria-expanded="false" aria-controls="bslib-accordion-panel-3886">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bslib-accordion-panel-8021" aria-expanded="false" aria-controls="bslib-accordion-panel-8021">
             <div class="accordion-icon"></div>
             <div class="accordion-title">
               <span>
@@ -300,7 +301,7 @@ for consistent formatting.</p>
             </div>
           </button>
         </div>
-        <div id="bslib-accordion-panel-3886" class="accordion-collapse collapse">
+        <div id="bslib-accordion-panel-8021" class="accordion-collapse collapse">
           <div class="accordion-body">
             <pre><code class="language-R">plot(a)</code></pre>
           </div>
@@ -321,10 +322,10 @@ for consistent formatting.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;div class="accordion code_chunk" data-require-bs-caller="accordion()" data-require-bs-version="5" id="bslib-accordion-6406"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;div class="accordion code_chunk" data-require-bs-caller="accordion()" data-require-bs-version="5" id="bslib-accordion-8875"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;div class="accordion-item" data-value="rcode"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;div class="accordion-header"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bslib-accordion-panel-2005" aria-expanded="false" aria-controls="bslib-accordion-panel-2005"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bslib-accordion-panel-8040" aria-expanded="false" aria-controls="bslib-accordion-panel-8040"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               &lt;div class="accordion-icon"&gt;&lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               &lt;div class="accordion-title"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                 &lt;span&gt;</span>
@@ -334,17 +335,17 @@ for consistent formatting.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;/button&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;div id="bslib-accordion-panel-2005" class="accordion-collapse collapse"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;div id="bslib-accordion-panel-8040" class="accordion-collapse collapse"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;div class="accordion-body"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               &lt;pre&gt;&lt;code class="language-R"&gt;a &amp;lt;- 2&lt;/code&gt;&lt;/pre&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;div class="accordion code_chunk" data-require-bs-caller="accordion()" data-require-bs-version="5" id="bslib-accordion-1519"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;div class="accordion code_chunk" data-require-bs-caller="accordion()" data-require-bs-version="5" id="bslib-accordion-4125"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;div class="accordion-item" data-value="rcode"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;div class="accordion-header"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bslib-accordion-panel-3886" aria-expanded="false" aria-controls="bslib-accordion-panel-3886"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bslib-accordion-panel-8021" aria-expanded="false" aria-controls="bslib-accordion-panel-8021"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               &lt;div class="accordion-icon"&gt;&lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               &lt;div class="accordion-title"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                 &lt;span&gt;</span>
@@ -354,7 +355,7 @@ for consistent formatting.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;/button&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;div id="bslib-accordion-panel-3886" class="accordion-collapse collapse"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;div id="bslib-accordion-panel-8021" class="accordion-collapse collapse"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;div class="accordion-body"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               &lt;pre&gt;&lt;code class="language-R"&gt;plot(a)&lt;/code&gt;&lt;/pre&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;/div&gt;</span>

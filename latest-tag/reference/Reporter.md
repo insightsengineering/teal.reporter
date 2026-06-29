@@ -17,7 +17,7 @@ the currently available one.
 
 ### Public methods
 
-- [`Reporter$new()`](#method-Reporter-new)
+- [`Reporter$new()`](#method-Reporter-initialize)
 
 - [`Reporter$append_cards()`](#method-Reporter-append_cards)
 
@@ -65,7 +65,7 @@ the currently available one.
 
 ------------------------------------------------------------------------
 
-### Method [`new()`](https://rdrr.io/r/methods/new.html)
+### `Reporter$new()`
 
 Initialize a `Reporter` object.
 
@@ -83,7 +83,7 @@ Object of class `Reporter`, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method `append_cards()`
+### `Reporter$append_cards()`
 
 Append one or more `ReportCard` or `teal_card` objects to the
 `Reporter`.
@@ -104,7 +104,7 @@ Append one or more `ReportCard` or `teal_card` objects to the
 
 ------------------------------------------------------------------------
 
-### Method `reorder_cards()`
+### `Reporter$reorder_cards()`
 
 Reorders `teal_card` objects in `Reporter`.
 
@@ -127,7 +127,7 @@ Reorders `teal_card` objects in `Reporter`.
 
 ------------------------------------------------------------------------
 
-### Method `replace_card()`
+### `Reporter$replace_card()`
 
 Sets `ReportCard` or `teal_card` content.
 
@@ -152,7 +152,7 @@ Sets `ReportCard` or `teal_card` content.
 
 ------------------------------------------------------------------------
 
-### Method `get_cards()`
+### `Reporter$get_cards()`
 
 Retrieves all `teal_card` objects contained in `Reporter`.
 
@@ -168,7 +168,7 @@ objects.
 
 ------------------------------------------------------------------------
 
-### Method `get_blocks()`
+### `Reporter$get_blocks()`
 
 Compiles and returns all content blocks from the `teal_card` objects in
 the `Reporter`.
@@ -190,7 +190,7 @@ the `Reporter`.
 
 ------------------------------------------------------------------------
 
-### Method `reset()`
+### `Reporter$reset()`
 
 Resets the `Reporter`, removing all `teal_card` objects and metadata.
 
@@ -204,7 +204,7 @@ Resets the `Reporter`, removing all `teal_card` objects and metadata.
 
 ------------------------------------------------------------------------
 
-### Method `remove_cards()`
+### `Reporter$remove_cards()`
 
 Removes specific `teal_card` objects from the `Reporter` by their
 indices.
@@ -225,7 +225,7 @@ indices.
 
 ------------------------------------------------------------------------
 
-### Method `get_metadata()`
+### `Reporter$get_metadata()`
 
 Get the metadata associated with this `Reporter`.
 
@@ -244,7 +244,7 @@ Get the metadata associated with this `Reporter`.
 
 ------------------------------------------------------------------------
 
-### Method `append_metadata()`
+### `Reporter$append_metadata()`
 
 Appends metadata to this `Reporter`.
 
@@ -269,7 +269,7 @@ Appends metadata to this `Reporter`.
 
 ------------------------------------------------------------------------
 
-### Method `from_reporter()`
+### `Reporter$from_reporter()`
 
 Reinitializes a `Reporter` instance by copying the report cards and
 metadata from another `Reporter`.
@@ -295,7 +295,7 @@ invisibly self
 
 ------------------------------------------------------------------------
 
-### Method `to_list()`
+### `Reporter$to_list()`
 
 Convert a `Reporter` to a list and transfer any associated files to
 specified directory.
@@ -324,7 +324,7 @@ information, metadata, and report cards.
 
 ------------------------------------------------------------------------
 
-### Method `write_figures()`
+### `Reporter$write_figures()`
 
 Extracts and saves all figure elements from the `teal_card` objects in
 the `Reporter` to a specified directory.
@@ -345,7 +345,7 @@ the `Reporter` to a specified directory.
 
 ------------------------------------------------------------------------
 
-### Method `from_list()`
+### `Reporter$from_list()`
 
 Reinitializes a `Reporter` from a list representation and associated
 files in a specified directory.
@@ -379,7 +379,7 @@ files in a specified directory.
 
 ------------------------------------------------------------------------
 
-### Method `to_jsondir()`
+### `Reporter$to_jsondir()`
 
 Serializes the `Reporter` to a `JSON` file and copies any associated
 files to a specified directory.
@@ -408,7 +408,7 @@ files to a specified directory.
 
 ------------------------------------------------------------------------
 
-### Method `from_jsondir()`
+### `Reporter$from_jsondir()`
 
 Reinitializes a `Reporter` from a `JSON ` file and files in a specified
 directory.
@@ -439,7 +439,7 @@ directory.
 
 ------------------------------------------------------------------------
 
-### Method `set_id()`
+### `Reporter$set_id()`
 
 Set the `Reporter` id Optionally add id to a `Reporter` which will be
 compared when it is rebuilt from a list. The id is added to the
@@ -461,7 +461,7 @@ downloaded file name.
 
 ------------------------------------------------------------------------
 
-### Method `open_previewer()`
+### `Reporter$open_previewer()`
 
 Get or set the reactive trigger to open the previewer modal.
 
@@ -481,7 +481,7 @@ Get or set the reactive trigger to open the previewer modal.
 
 ------------------------------------------------------------------------
 
-### Method `get_cached_html()`
+### `Reporter$get_cached_html()`
 
 Get cached HTML for a specific `teal_card` by its id.
 
@@ -497,7 +497,7 @@ Get cached HTML for a specific `teal_card` by its id.
 
 ------------------------------------------------------------------------
 
-### Method `get_id()`
+### `Reporter$get_id()`
 
 Get the `Reporter` id
 
@@ -511,7 +511,7 @@ Get the `Reporter` id
 
 ------------------------------------------------------------------------
 
-### Method `set_template()`
+### `Reporter$set_template()`
 
 Set template function for `teal_card` Set a function that is called on
 every report content (of class `teal_card`) added through
@@ -533,7 +533,6 @@ every report content (of class `teal_card`) added through
 
 #### Examples
 
-
     reporter <- teal.reporter::Reporter$new()
     template_fun <- function(document) {
       disclaimer <- teal.reporter::teal_card("Here comes disclaimer text")
@@ -547,7 +546,7 @@ every report content (of class `teal_card`) added through
 
 ------------------------------------------------------------------------
 
-### Method `get_template()`
+### `Reporter$get_template()`
 
 Get the `Reporter` template
 
@@ -561,7 +560,7 @@ a template `function`.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `Reporter$clone()`
 
 The objects of this class are cloneable with this method.
 
@@ -606,10 +605,10 @@ reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 
 names(reporter$get_cards())
-#> [1] "card_9b86adfd" "card_209f027c"
+#> [1] "card_b3c10b5e" "card_9fba3323"
 reporter$reorder_cards(c("Card2", "Card1"))
 names(reporter$get_cards())
-#> [1] "card_9b86adfd" "card_209f027c"
+#> [1] "card_b3c10b5e" "card_9fba3323"
 # With card1 and card2 from above
 
 metadata(reporter$get_cards()[[1]], "title")
@@ -622,14 +621,14 @@ metadata(reporter$get_cards()[[1]], "title")
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 reporter$get_cards()
-#> $card_158f14ec
-#> $`86674098`
+#> $card_dabd2c26
+#> $`36a245a4`
 #> [1] "## Header 2 text"
 #> 
-#> $`3ea567c2`
+#> $ce41593e
 #> [1] "A paragraph of default text"
 #> 
-#> $f603d362
+#> $ab6a0bdd
 #> 
 #> attr(,"class")
 #> [1] "teal_card"
@@ -638,14 +637,14 @@ reporter$get_cards()
 #> [1] "Card1"
 #> 
 #> 
-#> $card_6b298b64
-#> $eea971b3
+#> $card_04685152
+#> $`89f7099a`
 #> [1] "## Header 2 text"
 #> 
-#> $aa8159e6
+#> $`47c2ff07`
 #> [1] "A paragraph of default text"
 #> 
-#> $f00cca51
+#> $`130953e6`
 
 #>              all obs     
 #> —————————————————————————
@@ -724,30 +723,30 @@ reporter$get_cards()
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 reporter$get_blocks()
-#> $`4766d19a`
+#> $`8c137c27`
 #> [1] "# Card1"
 #> 
-#> $`7e3d5813`
+#> $d13dcdeb
 #> [1] "## Header 2 text"
 #> 
-#> $a4962984
+#> $`7ca5157d`
 #> [1] "A paragraph of default text"
 #> 
-#> $`0d49ce75`
+#> $`8804a6ee`
 #> 
-#> $da1cd3e7
+#> $`55530f52`
 #> [1] "\\newpage"
 #> 
-#> $`32c20268`
+#> $`66cb33a1`
 #> [1] "# Card2"
 #> 
-#> $`3a907785`
+#> $f6a00e6d
 #> [1] "## Header 2 text"
 #> 
-#> $`0a10bfa0`
+#> $a39afbf5
 #> [1] "A paragraph of default text"
 #> 
-#> $a26f4dcd
+#> $`8e83fb60`
 #>              all obs     
 #> —————————————————————————
 #> 1                        
@@ -819,14 +818,14 @@ reporter$get_blocks()
 #> list()
 
 ## ------------------------------------------------
-## Method `Reporter$new`
+## Method `Reporter$new()`
 ## ------------------------------------------------
 
 reporter <- Reporter$new()
 
 
 ## ------------------------------------------------
-## Method `Reporter$get_metadata`
+## Method `Reporter$get_metadata()`
 ## ------------------------------------------------
 
 reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
@@ -837,7 +836,7 @@ reporter$get_metadata()
 
 
 ## ------------------------------------------------
-## Method `Reporter$append_metadata`
+## Method `Reporter$append_metadata()`
 ## ------------------------------------------------
 
 reporter <- Reporter$new()$append_metadata(list(sth = "sth"))
@@ -848,7 +847,7 @@ reporter$get_metadata()
 
 
 ## ------------------------------------------------
-## Method `Reporter$from_reporter`
+## Method `Reporter$from_reporter()`
 ## ------------------------------------------------
 
 reporter <- Reporter$new()
@@ -856,7 +855,7 @@ reporter$from_reporter(reporter)
 #> Warning: `Reporter$from_reporter()` was deprecated in teal.reporter 0.6.0.
 
 ## ------------------------------------------------
-## Method `Reporter$to_list`
+## Method `Reporter$to_list()`
 ## ------------------------------------------------
 
 reporter <- Reporter$new()
@@ -880,7 +879,7 @@ reporter$to_list(tmp_dir)
 #> 
 
 ## ------------------------------------------------
-## Method `Reporter$from_list`
+## Method `Reporter$from_list()`
 ## ------------------------------------------------
 
 reporter <- Reporter$new()
@@ -890,30 +889,30 @@ dir.create(tmp_dir)
 reporter$from_list(reporter$to_list(tmp_dir), tmp_dir)
 
 ## ------------------------------------------------
-## Method `Reporter$to_jsondir`
+## Method `Reporter$to_jsondir()`
 ## ------------------------------------------------
 
 reporter <- Reporter$new()
 tmp_dir <- file.path(tempdir(), "jsondir")
 dir.create(tmp_dir)
 reporter$to_jsondir(tmp_dir)
-#> [1] "/tmp/RtmpVDy0wa/jsondir"
+#> [1] "/tmp/Rtmpi1KGD1/jsondir"
 
 ## ------------------------------------------------
-## Method `Reporter$from_jsondir`
+## Method `Reporter$from_jsondir()`
 ## ------------------------------------------------
 
 reporter <- Reporter$new()
 tmp_dir <- file.path(tempdir(), "jsondir")
 dir.create(tmp_dir)
-#> Warning: '/tmp/RtmpVDy0wa/jsondir' already exists
+#> Warning: '/tmp/Rtmpi1KGD1/jsondir' already exists
 unlink(list.files(tmp_dir, recursive = TRUE))
 reporter$to_jsondir(tmp_dir)
-#> [1] "/tmp/RtmpVDy0wa/jsondir"
+#> [1] "/tmp/Rtmpi1KGD1/jsondir"
 reporter$from_jsondir(tmp_dir)
 
 ## ------------------------------------------------
-## Method `Reporter$set_template`
+## Method `Reporter$set_template()`
 ## ------------------------------------------------
 
 
@@ -927,14 +926,14 @@ doc1 <- teal.reporter::teal_card("## Header 2 text", "Regular text")
 metadata(doc1, "title") <- "Welcome card"
 reporter$append_cards(doc1)
 reporter$get_cards()
-#> $card_4a4c4ed8
-#> $ef7e0e44
+#> $card_0a0ee832
+#> $dd393631
 #> [1] "Here comes disclaimer text"
 #> 
-#> $`15e3e723`
+#> $`574183a9`
 #> [1] "## Header 2 text"
 #> 
-#> $`01aa6aa3`
+#> $dee96241
 #> [1] "Regular text"
 #> 
 #> attr(,"class")
