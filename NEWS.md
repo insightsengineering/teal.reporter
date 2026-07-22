@@ -1,5 +1,9 @@
 # teal.reporter 0.6.2.9000
 
+### Bug fixes
+
+* Fixes `reactiveValues` usage to comply with new `shiny` package update.
+
 # teal.reporter 0.6.2
 
 * Update maintainer.
