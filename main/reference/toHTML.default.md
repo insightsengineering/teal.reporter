@@ -203,30 +203,30 @@ style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;"\> \#\>
 \<h2\>Document section\</h2\> \#\> \#\> \<p\>Lorem ipsum dolor sit
 amet\</p\> \#\> \#\> \<div class="accordion code_chunk"
 data-require-bs-caller="accordion()" data-require-bs-version="5"
-id="bslib-accordion-7942"\> \#\> \<div class="accordion-item"
+id="bslib-accordion-4490"\> \#\> \<div class="accordion-item"
 data-value="rcode"\> \#\> \<div class="accordion-header"\> \#\> \<button
 class="accordion-button collapsed" type="button"
-data-bs-toggle="collapse" data-bs-target="#bslib-accordion-panel-8566"
-aria-expanded="false" aria-controls="bslib-accordion-panel-8566"\> \#\>
+data-bs-toggle="collapse" data-bs-target="#bslib-accordion-panel-3001"
+aria-expanded="false" aria-controls="bslib-accordion-panel-3001"\> \#\>
 \<div class="accordion-icon"\>\</div\> \#\> \<div
 class="accordion-title"\> \#\> \<span\> \#\> \<i class="fas fa-code"
 role="presentation" aria-label="code icon"\>\</i\> \#\> R \#\> \</span\>
 \#\> \</div\> \#\> \</button\> \#\> \</div\> \#\> \<div
-id="bslib-accordion-panel-8566" class="accordion-collapse collapse"\>
+id="bslib-accordion-panel-3001" class="accordion-collapse collapse"\>
 \#\> \<div class="accordion-body"\> \#\> \<pre\>\<code
 class="language-R"\>a &lt;- 2\</code\>\</pre\> \#\> \</div\> \#\>
 \</div\> \#\> \</div\> \#\> \</div\> \#\> \<div class="accordion
 code_chunk" data-require-bs-caller="accordion()"
-data-require-bs-version="5" id="bslib-accordion-3614"\> \#\> \<div
+data-require-bs-version="5" id="bslib-accordion-6612"\> \#\> \<div
 class="accordion-item" data-value="rcode"\> \#\> \<div
 class="accordion-header"\> \#\> \<button class="accordion-button
 collapsed" type="button" data-bs-toggle="collapse"
-data-bs-target="#bslib-accordion-panel-9422" aria-expanded="false"
-aria-controls="bslib-accordion-panel-9422"\> \#\> \<div
+data-bs-target="#bslib-accordion-panel-3937" aria-expanded="false"
+aria-controls="bslib-accordion-panel-3937"\> \#\> \<div
 class="accordion-icon"\>\</div\> \#\> \<div class="accordion-title"\>
 \#\> \<span\> \#\> \<i class="fas fa-code" role="presentation"
 aria-label="code icon"\>\</i\> \#\> R \#\> \</span\> \#\> \</div\> \#\>
-\</button\> \#\> \</div\> \#\> \<div id="bslib-accordion-panel-9422"
+\</button\> \#\> \</div\> \#\> \<div id="bslib-accordion-panel-3937"
 class="accordion-collapse collapse"\> \#\> \<div
 class="accordion-body"\> \#\> \<pre\>\<code
 class="language-R"\>plot(a)\</code\>\</pre\> \#\> \</div\> \#\> \</div\>
