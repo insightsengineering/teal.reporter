@@ -605,10 +605,10 @@ reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 
 names(reporter$get_cards())
-#> [1] "card_5a8feb0a" "card_0a37107b"
+#> [1] "card_7813edb4" "card_911568b5"
 reporter$reorder_cards(c("Card2", "Card1"))
 names(reporter$get_cards())
-#> [1] "card_5a8feb0a" "card_0a37107b"
+#> [1] "card_7813edb4" "card_911568b5"
 # With card1 and card2 from above
 
 metadata(reporter$get_cards()[[1]], "title")
@@ -621,14 +621,14 @@ metadata(reporter$get_cards()[[1]], "title")
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 reporter$get_cards()
-#> $card_dbcc2b79
-#> $`37ed3ae8`
+#> $card_27641c51
+#> $`56e31ddb`
 #> [1] "## Header 2 text"
 #> 
-#> $`98a48887`
+#> $c0eb9055
 #> [1] "A paragraph of default text"
 #> 
-#> $`70fb4654`
+#> $dcf05075
 #> 
 #> attr(,"class")
 #> [1] "teal_card"
@@ -637,14 +637,14 @@ reporter$get_cards()
 #> [1] "Card1"
 #> 
 #> 
-#> $card_7e3b9dd8
-#> $b8e0fb9c
+#> $card_60d09d07
+#> $`15eb1c70`
 #> [1] "## Header 2 text"
 #> 
-#> $`6f9d5621`
+#> $d58d5230
 #> [1] "A paragraph of default text"
 #> 
-#> $`12753544`
+#> $`26c8420e`
 
 #>              all obs     
 #> —————————————————————————
@@ -723,30 +723,30 @@ reporter$get_cards()
 reporter <- Reporter$new()
 reporter$append_cards(list(card1, card2))
 reporter$get_blocks()
-#> $`529ac80d`
+#> $ae91aa0c
 #> [1] "# Card1"
 #> 
-#> $`7f30efd7`
+#> $`30fa812e`
 #> [1] "## Header 2 text"
 #> 
-#> $c36e2e57
+#> $f5934062
 #> [1] "A paragraph of default text"
 #> 
-#> $e210ed9a
+#> $d0f79648
 #> 
-#> $`4105f82b`
+#> $`40e66bd6`
 #> [1] "\\newpage"
 #> 
-#> $`751e70af`
+#> $b324dc61
 #> [1] "# Card2"
 #> 
-#> $`78df0b0f`
+#> $a474fbef
 #> [1] "## Header 2 text"
 #> 
-#> $`46d6a56a`
+#> $e79016b9
 #> [1] "A paragraph of default text"
 #> 
-#> $`095c5bd0`
+#> $`6d5ad0bc`
 #>              all obs     
 #> —————————————————————————
 #> 1                        
@@ -896,7 +896,7 @@ reporter <- Reporter$new()
 tmp_dir <- file.path(tempdir(), "jsondir")
 dir.create(tmp_dir)
 reporter$to_jsondir(tmp_dir)
-#> [1] "/tmp/Rtmp6DWKkC/jsondir"
+#> [1] "/tmp/RtmpNFlGXA/jsondir"
 
 ## ------------------------------------------------
 ## Method `Reporter$from_jsondir()`
@@ -905,10 +905,10 @@ reporter$to_jsondir(tmp_dir)
 reporter <- Reporter$new()
 tmp_dir <- file.path(tempdir(), "jsondir")
 dir.create(tmp_dir)
-#> Warning: '/tmp/Rtmp6DWKkC/jsondir' already exists
+#> Warning: '/tmp/RtmpNFlGXA/jsondir' already exists
 unlink(list.files(tmp_dir, recursive = TRUE))
 reporter$to_jsondir(tmp_dir)
-#> [1] "/tmp/Rtmp6DWKkC/jsondir"
+#> [1] "/tmp/RtmpNFlGXA/jsondir"
 reporter$from_jsondir(tmp_dir)
 
 ## ------------------------------------------------
@@ -926,14 +926,14 @@ doc1 <- teal.reporter::teal_card("## Header 2 text", "Regular text")
 metadata(doc1, "title") <- "Welcome card"
 reporter$append_cards(doc1)
 reporter$get_cards()
-#> $card_36162d3a
-#> $e13e4589
+#> $card_05d34bba
+#> $`270fde67`
 #> [1] "Here comes disclaimer text"
 #> 
-#> $dfcc896f
+#> $`6763642c`
 #> [1] "## Header 2 text"
 #> 
-#> $fe5e806a
+#> $eda19ea4
 #> [1] "Regular text"
 #> 
 #> attr(,"class")
