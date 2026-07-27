@@ -1,0 +1,41 @@
+# Getting Started with teal.reporter
+
+## Introduction
+
+While engaging with data analysis within a `shiny` app, users often
+encounter insights that they wish to capture and share, be it through
+presentations, `markdown` articles, or other formats. The
+`teal.reporter` package simplifies the process for both developers and
+end-users of `shiny` applications. It allows for easy generation and
+dissemination of findings. This eliminates the need for manual
+copy-pasting or writing in markdown.
+
+`teal.reporter` provides a suite of modules and objects that integrate
+seamlessly to create reports directly from `shiny` apps with minimal
+effort for users and developers.
+
+## Integration with `teal`
+
+Discover how teal.reporter complements the
+[`teal`](https://insightsengineering.github.io/teal/) framework by
+visiting the dedicated [on integrating reporting in
+`teal`.](https://insightsengineering.github.io/teal/latest-tag/articles/adding-support-for-reporting.html).
+
+## Automatic Report Functionality
+
+When working with `teal` modules, you can enable automatic report
+functionality by returning a reactive `teal_report` object from your
+module’s server function. This triggers `teal` to automatically provide
+an “Add to Report” button, allowing users to seamlessly add module
+outputs to reports without any additional setup.
+
+For more details on working with `teal_report` objects and their
+capabilities, see the [teal_report class
+vignette](https://insightsengineering.github.io/teal.reporter/articles/teal-report-class.md).
+
+### More control
+
+Developers who want more control over the reporting process and
+customization of the layout can benefit from learning about topics such
+as `add_card_button`,`download_report_button` and `reset_report_button`
+offered by `teal.reporter`.
