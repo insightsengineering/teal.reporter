@@ -24,16 +24,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/insightsengineering/teal.reporter/blob/v0.6.2/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/insightsengineering/teal.reporter/blob/v0.6.3/DESCRIPTION)
 
 Kaledkowski D, Kirar K, Kosinski M, Nasinski M, Pagacz K, Hallal M
 (2026). *teal.reporter: Reporting Tools for 'shiny' Modules*. R package
-version 0.6.2, <https://github.com/insightsengineering/teal.reporter>.
+version 0.6.3, <https://github.com/insightsengineering/teal.reporter>.
 
     @Manual{,
       title = {teal.reporter: Reporting Tools for 'shiny' Modules},
       author = {Dawid Kaledkowski and Kartikeya Kirar and Marcin Kosinski and Maciej Nasinski and Konrad Pagacz and Mahmoud Hallal},
       year = {2026},
-      note = {R package version 0.6.2},
+      note = {R package version 0.6.3},
       url = {https://github.com/insightsengineering/teal.reporter},
     }
