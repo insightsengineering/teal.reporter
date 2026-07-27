@@ -1,4 +1,4 @@
-# teal.reporter 0.6.2.9001
+# teal.reporter 0.6.3
 
 ### Bug fixes
 
