@@ -5,6 +5,9 @@ with_temp_wd <- function() {
   withr::defer(setwd(old_dir), envir = parent.frame(2))
 }
 
+# Default title set to prevent warnings in test suite
+default_title_str <- c("---", "title: Report", "---", "", "")
+
 testthat::describe("render() accepts", {
   with_temp_wd()
   it("empty teal_report object", {
@@ -44,6 +47,7 @@ testthat::describe("render() by default", {
     testthat::expect_identical(
       lines,
       c(
+        default_title_str,
         "```{R, include=FALSE}",
         sprintf(
           "knitr::opts_chunk$set(list(echo = TRUE, tidy.opts = list(width.cutoff = 60), tidy = %s))",
@@ -70,7 +74,13 @@ testthat::describe("render() outputs report.Rmd with", {
     teal_card(tr) <- c(teal_card(tr), "# test heading", "Lorem ipsum")
     teal.reporter::render(tr, quiet = TRUE)
     lines <- base::readLines("report.Rmd", warn = FALSE)
-    testthat::expect_identical(lines, c("# test heading", "", "Lorem ipsum"))
+    testthat::expect_identical(
+      lines,
+      c(default_title_str,
+        "# test heading",
+        "",
+        "Lorem ipsum")
+      )
   })
 
   it("yaml header containing entries set through metadata", {
@@ -103,7 +113,7 @@ testthat::describe("render() outputs report.Rmd with", {
     lines <- base::readLines("report.Rmd", warn = FALSE)
     testthat::expect_identical(
       lines,
-      c(
+      c(default_title_str,
         "```{R, include=FALSE}",
         "knitr::opts_chunk$set(list(eval = TRUE, echo = FALSE))",
         "```",
@@ -122,6 +132,7 @@ testthat::describe("render() outputs report.Rmd with", {
     testthat::expect_identical(
       lines,
       c(
+        default_title_str,
         "```{R, include=FALSE}",
         "knitr::opts_chunk$set(list(echo = TRUE, eval = TRUE))",
         "```",
@@ -140,6 +151,7 @@ testthat::describe("render() outputs report.Rmd with", {
     testthat::expect_identical(
       lines,
       c(
+        default_title_str,
         "# test heading",
         "",
         "```{R, eval=FALSE, echo=FALSE}",
@@ -149,7 +161,7 @@ testthat::describe("render() outputs report.Rmd with", {
     )
   })
 
-  it("arbitrary code cunk but chunk_output is missing", {
+  it("arbitrary code chunk but chunk_output is missing", {
     with_temp_wd()
     tr <- teal_report()
     tr <- teal.code::eval_code(tr, "plot(1:10)")
@@ -158,6 +170,7 @@ testthat::describe("render() outputs report.Rmd with", {
     testthat::expect_identical(
       lines,
       c(
+        default_title_str,
         "```{R}",
         "plot(1:10)",
         "```"
