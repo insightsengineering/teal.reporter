@@ -18,7 +18,7 @@ This eliminates the need for manual copy-pasting or writing in markdown.
 `teal.reporter` provides a suite of modules and objects that integrate seamlessly to create reports directly from `shiny` apps with minimal effort for users and developers.
 
 ## Integration with `teal`
-Discover how teal.reporter complements the [`teal`](https://insightsengineering.github.io/teal/) framework by visiting the dedicated [on integrating reporting in `teal`.](https://insightsengineering.github.io/teal/latest-tag/articles/adding-support-for-reporting.html).
+Discover how teal.reporter complements the [`teal`](https://pharmaverse.github.io/teal/) framework by visiting the dedicated [on integrating reporting in `teal`.](https://pharmaverse.github.io/teal/latest-tag/articles/adding-support-for-reporting.html).
 
 ## Automatic Report Functionality
 When working with `teal` modules, you can enable automatic report functionality by returning a reactive `teal_report` object from your module's server function. This triggers `teal` to automatically provide an "Add to Report" button, allowing users to seamlessly add module outputs to reports without any additional setup.

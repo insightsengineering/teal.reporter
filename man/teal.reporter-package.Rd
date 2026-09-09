@@ -11,9 +11,9 @@ A collection of tools for creating, previewing and modifying reports from \code{
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/insightsengineering/teal.reporter}
-  \item \url{https://insightsengineering.github.io/teal.reporter/}
-  \item Report bugs at \url{https://github.com/insightsengineering/teal.reporter/issues}
+  \item \url{https://github.com/pharmaverse/teal.reporter}
+  \item \url{https://pharmaverse.github.io/teal.reporter/}
+  \item Report bugs at \url{https://github.com/pharmaverse/teal.reporter/issues}
 }
 
 }
