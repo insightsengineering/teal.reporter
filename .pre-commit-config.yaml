@@ -25,19 +25,19 @@ repos:
           - lifecycle
           - R6
           - rlang
-          - insightsengineering/rlistings # for rtables
+          - pharmaverse/rlistings # for rtables
           - rmarkdown
-          - insightsengineering/rtables
+          - pharmaverse/rtables
           - insightsengineering/rtables.officer
           - davidgohel/officer # for rtables.officer
-          - insightsengineering/formatters # for rtables
+          - pharmaverse/formatters # for rtables
           - shiny
           - shinybusy
           - shinyjs
           - shinyWidgets
           - sortable
-          - insightsengineering/teal.code
-          - insightsengineering/teal.data
+          - pharmaverse/teal.code
+          - pharmaverse/teal.data
           - yaml
           - zip
       - id: spell-check
