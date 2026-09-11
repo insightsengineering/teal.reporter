@@ -38,8 +38,9 @@ report_load_srv <- function(id, reporter) {
       shiny::setBookmarkExclude(c("reporter_load_main", "reporter_load"))
       ns <- session$ns
 
-      # Set max request size from package option
-      max_size <- getOption("teal.reporter.max_request_size", 10 * 1024^2)
+      # Set max request size from package option, keeping a higher limit if already set
+      max_size <- max(c(getOption("teal.reporter.max_request_size"),
+        getOption("shiny.maxRequestSize"), 10 * 1024^2), na.rm = TRUE)
       options(shiny.maxRequestSize = max_size)
 
       archiver_modal <- function() {
