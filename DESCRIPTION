@@ -18,9 +18,9 @@ Authors@R: c(
 Description: Prebuilt 'shiny' modules containing tools for the generation
     of 'rmarkdown' reports, supporting reproducible research and analysis.
 License: Apache License 2.0
-URL: https://github.com/insightsengineering/teal.reporter,
-    https://insightsengineering.github.io/teal.reporter/
-BugReports: https://github.com/insightsengineering/teal.reporter/issues
+URL: https://github.com/pharmaverse/teal.reporter,
+    https://pharmaverse.github.io/teal.reporter/
+BugReports: https://github.com/pharmaverse/teal.reporter/issues
 Imports:
     bsicons,
     bslib (>= 0.8.0),
@@ -69,17 +69,17 @@ VignetteBuilder:
 Config/Needs/verdepcheck: rstudio/bsicons,rstudio/bslib, mllg/checkmate,
     r-lib/commonmark, davidgohel/flextable, ddsjoberg/gtsummary,
     rstudio/htmltools, jeroen/jsonlite, yihui/knitr, r-lib/lifecycle,
-    r-lib/R6, r-lib/rlang, insightsengineering/rlistings,
-    rstudio/rmarkdown, insightsengineering/rtables,
+    r-lib/R6, r-lib/rlang, pharmaverse/rlistings,
+    rstudio/rmarkdown, pharmaverse/rtables,
     insightsengineering/rtables.officer, rstudio/shiny, dreamRs/shinybusy,
     daattali/shinyjs, dreamRs/shinyWidgets, rstudio/sortable,
-    insightsengineering/teal.code, insightsengineering/teal.data,
+    pharmaverse/teal.code, pharmaverse/teal.data,
     yaml=vubiostat/r-yaml, r-lib/zip, rstudio/DT, yihui/formatR,
-    insightsengineering/formatters, tidyverse/ggplot2, deepayan/lattice,
+    pharmaverse/formatters, tidyverse/ggplot2, deepayan/lattice,
     cran/png, rstudio/shinytest2, r-lib/testthat, rstudio/tinytex,
     r-lib/waldo, r-lib/withr
 Config/Needs/website: insightsengineering/nesttemplate
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US

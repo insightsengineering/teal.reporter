@@ -1,10 +1,10 @@
 ---
 current_repo:
-  repo: insightsengineering/teal.reporter
+  repo: pharmaverse/teal.reporter
   host: https://github.com
 downstream_repos:
-  insightsengineering/teal:
-    repo: insightsengineering/teal
+  pharmaverse/teal:
+    repo: pharmaverse/teal
     host: https://github.com
   insightsengineering/teal.modules.clinical:
     repo: insightsengineering/teal.modules.clinical
@@ -22,15 +22,15 @@ downstream_repos:
     repo: insightsengineering/teal.modules.hermes
     host: https://github.com
 upstream_repos:
-  insightsengineering/rtables:
-    repo: insightsengineering/rtables
+  pharmaverse/rtables:
+    repo: pharmaverse/rtables
     host: https://github.com
   insightsengineering/rtables.officer:
     repo: insightsengineering/rtables.officer
     host: https://github.com
-  insightsengineering/rlistings:
-    repo: insightsengineering/rlistings
+  pharmaverse/rlistings:
+    repo: pharmaverse/rlistings
     host: https://github.com
-  insightsengineering/formatters:
-    repo: insightsengineering/formatters
+  pharmaverse/formatters:
+    repo: pharmaverse/formatters
     host: https://github.com
