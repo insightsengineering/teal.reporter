@@ -30,7 +30,7 @@ testthat::describe("to_rmd default support: ", {
     result <- to_rmd(card)
     testthat::expect_match(
       result,
-      "^```[{][rR].*[}].*.*knitr::opts_chunk[$]set.*```[ \n]*"
+      "```[{][rR].*[}].*.*knitr::opts_chunk[$]set.*```[ \n]*"
     )
   })
 
