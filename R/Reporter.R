@@ -19,9 +19,9 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
     #' reporter <- Reporter$new()
     #'
     initialize = function() {
-      private$cards <- shiny::reactiveValues()
-      private$cached_html <- shiny::reactiveValues()
-      private$open_previewer_r <- shiny::reactiveVal(NULL)
+      private$cards <- shiny::withReactiveDomain(NULL, do.call(shiny::reactiveValues, list()))
+      private$cached_html <- shiny::withReactiveDomain(NULL, do.call(shiny::reactiveValues, list()))
+      private$open_previewer_r <- shiny::withReactiveDomain(NULL, do.call(shiny::reactiveVal, list(NULL)))
       invisible(self)
     },
     #' @description Append one or more `ReportCard` or `teal_card` objects to the `Reporter`.
@@ -164,7 +164,7 @@ Reporter <- R6::R6Class( # nolint: object_name_linter.
       if (shiny::isRunning()) {
         for (card_id in names(private$cards)) private$cards[[card_id]] <- NULL
       } else {
-        private$cards <- shiny::reactiveValues()
+        private$cards <- shiny::withReactiveDomain(NULL, do.call(shiny::reactiveValues, list()))
       }
       private$override_order <- character(0L)
       private$metadata <- list()
