@@ -60,7 +60,7 @@ Follow the standard R package structure with teal-specific conventions:
 
 ```text
 package_name/
-├── .gitlab-ci.yml    # CI/CD workflows
+├── .github/workflows # CI/CD workflows
 ├── R/                # R source code
 ├── tests/testthat/   # Unit tests using testthat
 ├── vignettes/        # Long-form documentation
@@ -157,10 +157,6 @@ Do not change versions on your own.
 There is a CI/CD workflow that manages the versions automatically on the `main` branch.
 
 ## CI/CD and Development Workflow
-
-### Gitlab Workflows
-
-`.gitlab-ci.yml` reuses CI/CD tasks, such as running all unit tests, `R CMD check`, code quality checks, style checks and website generation.
 
 ### GitHub Workflows
 
