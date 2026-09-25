@@ -1,16 +1,17 @@
 ## Package Overview
 
-`teal.reporter` is part of the `teal` framework and provides with an API and shiny modules to manage the reporter functionality on a `teal` app.
+`teal.reporter` is part of the `teal` framework and provides with an API and shiny modules to manage the reporter functionality in a `teal` app.
 A report is a set of markup language, code chunks and respective outputs (tables, listings and/or graphs) that can be downloaded
 by the user in several formats.
 It should also contain data to restore the report on a `teal` application.
 
-It provides with 4 main features to the framework:
+It provides 4 main features to the framework:
 
 - Shiny modules with UI and server functions to manage reports on a `teal` session
 - `Reporter` manages multiple `teal_card`, which together make up one report
 - `teal_card` object that represent the report of a module in a teal application
 - `teal_report` object that extends on `teal_data` API by adding API to maintain a representation of the report, in addition to all features `teal_data` and `qenv` already provide
+  - See `vignettes/teal-report-class.Rmd` as reference material
 
 ## Development Context
 
@@ -22,7 +23,7 @@ Direct dependencies:
 
 - `teal.data`: `teal_reporter` object extends the `teal_data` object by adding `teal_card` slot
   - Any issue with `join_keys` should be addressed in `teal.data`.
-- `teal.code`: `teal_data` extends a `qenv` object from `teal.code`, where the code execution and reproducibily features are implemented.
+- `teal.code`: `teal_data` extends a `qenv` object from `teal.code`, where the code execution and reproducibility features are implemented.
   - Any issue with code execution and reproducibility should be addressed in this package
   - `teal.reporter` extends `eval_code` for `teal_report` so that outputs are added to the `teal_card` automatically (`teal_report-eval_code.R`)
 
@@ -34,10 +35,10 @@ Usage in other framework packages:
   - Automatically tracks the code execution and output objects
   - It is used in custom modules as well as R packages on CRAN: `teal.modules.clinical` and `teal.modules.general`
 
-*Note*: output object are captured from the code execution `teal_reporter() |> within(plot(1:10))` will capture a plot.
+*Note*: Output objects are captured from the code execution `teal_reporter() |> within(plot(1:10))` will capture a plot.
 It is the equivalent to what is being printed on the console when executing code.
 
-### Extendability
+### Extending reporter
 
 `teal.reporter` should allow for its functionalities to be extended by users according to their specific needs.
 This can be achieved by:
