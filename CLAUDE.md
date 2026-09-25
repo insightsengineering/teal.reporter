@@ -1,5 +1,3 @@
-# teal.modules.gtsummary Development Guide
-
 ## Package Overview
 
 `teal.reporter` is part of the `teal` framework and provides with an API and shiny modules to manage the reporter functionality on a `teal` app.
@@ -10,9 +8,9 @@ It should also contain data to restore the report on a `teal` application.
 It provides with 4 main features to the framework:
 
 - Shiny modules with UI and server functions to manage reports on a `teal` session
-- `Reporter` object that manages multiple reports on a teal session
-- `card` object that represent the report of a module in a teal application
-- `report` object that extends on `teal_data` API by adding API to maintain a representation of the report, in addition to all features `teal_data` and `qenv` already provide.
+- `Reporter` manages multiple `teal_card`, which together make up one report
+- `teal_card` object that represent the report of a module in a teal application
+- `teal_report` object that extends on `teal_data` API by adding API to maintain a representation of the report, in addition to all features `teal_data` and `qenv` already provide
 
 ## Development Context
 
@@ -22,11 +20,11 @@ The main feature of this package is to provide `teal` apps with reporting capabi
 
 Direct dependencies:
 
-- `teal.data`: `teal_reporter` object extends the `teal_data` object by adding new functionalities
-  - Any issue with `join_keys` should be addressed in this package.
+- `teal.data`: `teal_reporter` object extends the `teal_data` object by adding `teal_card` slot
+  - Any issue with `join_keys` should be addressed in `teal.data`.
 - `teal.code`: `teal_data` extends a `qenv` object from `teal.code`, where the code execution and reproducibily features are implemented.
   - Any issue with code execution and reproducibility should be addressed in this package
-  - The only exception is the the `card` object management, which automatically tracks code and outputs to be used in the report
+  - `teal.reporter` extends `eval_code` for `teal_report` so that outputs are added to the `teal_card` automatically (`teal_report-eval_code.R`)
 
 Usage in other framework packages:
 
@@ -48,9 +46,12 @@ This can be achieved by:
 - Using the `Reporter$set_template()` method that processes each card that is being added
 - Adding support for new data types or overwriting existing defaults
 
-The latter framework is implemented on the functions that print the cards as well as the `teal_card` object.
-This uses a 2-layer dispatch mechanism that allows functions `to_rmd()` and `toHTML()` to include new data types and overwrite existing ones.
-This is the reason for the existence of `.to_rmd()` and `.toHTML()` that implement internal methods that serve as defaults for the supported data types.
+`to_rmd()` (exported) and `toHTML()` (generic imported from tools) each have only a `.default` method, which delegates to the internal generics `.to_rmd()` / `.toHTML()`.
+
+- Built-in support for a new class: add `.to_rmd.<class>` / `.toHTML.<class>`. Never add `to_rmd.<class>` inside the package, or users can no longer override it.
+Users override by defining or registering `to_rmd.<class>` / `toHTML.<class>`.
+
+This 2 layer dispatch mechanism allows users to overwrite defaults and add their own support for other data types.
 
 ## Package Structure and Organization
 
@@ -60,7 +61,7 @@ Follow the standard R package structure with teal-specific conventions:
 
 ```text
 package_name/
-├── .github/workflows # CI/CD workflows
+├── .gitlab-ci.yml    # CI/CD workflows
 ├── R/                # R source code
 ├── tests/testthat/   # Unit tests using testthat
 ├── vignettes/        # Long-form documentation
@@ -157,6 +158,10 @@ Do not change versions on your own.
 There is a CI/CD workflow that manages the versions automatically on the `main` branch.
 
 ## CI/CD and Development Workflow
+
+### Gitlab Workflows
+
+`.gitlab-ci.yml` reuses CI/CD tasks, such as running all unit tests, `R CMD check`, code quality checks, style checks and website generation.
 
 ### GitHub Workflows
 
