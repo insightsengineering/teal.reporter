@@ -48,3 +48,5 @@ SECURITY.md
 ^revdep$
 ^\.covrignore$
 .lock$
+^AGENTS\.md
+^CLAUDE\.md
