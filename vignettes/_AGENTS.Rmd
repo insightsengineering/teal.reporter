@@ -1,0 +1,82 @@
+---
+output: github_document
+---
+# teal.code R Package Development Guide
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r include=FALSE, eval=FALSE}
+# This file is used to generate the AGENTS.md file in the root of the package.
+# It is not intended to be run as part of the package build process.
+```
+
+```{r render, include=FALSE, eval=FALSE}
+rmarkdown::render("vignettes/_AGENTS.Rmd", output_file = file.path("..", "AGENTS.md"))
+```
+
+## Package Overview
+
+`teal.reporter` is part of the `teal` framework and provides an API and Shiny modules to manage reporter functionality in a `teal` app.
+A report is a set of markup language, code chunks and respective outputs (tables, listings and/or graphs) that can be downloaded
+by the user in several formats.
+It should also contain data to restore the report on a `teal` application.
+
+It provides 4 main features to the framework:
+
+- Shiny modules with UI and server functions to manage reports on a `teal` session
+- `Reporter` manages multiple `teal_card`, which together make up one report
+- `teal_card` objects that represent the report of a module in a `teal` application
+- `teal_report` object that extends on `teal_data` API by adding API to maintain a representation of the report, in addition to all features `teal_data` and `qenv` already provide
+  - See `vignettes/teal-report-class.Rmd` as reference material
+
+## Development Context
+
+The main feature of this package is to provide `teal` apps with reporting capabilities, however it is also intended to allow for extensions, allowing for more data types to be supported as well as custom rendering of the report.
+
+### Relationships with other packages
+
+Direct dependencies:
+
+- `teal.data`: `teal_report` object extends the `teal_data` object by adding `teal_card` slot
+  - Any issue with `join_keys` should be addressed in `teal.data`.
+- `teal.code`: `teal_data` extends a `qenv` object from `teal.code`, where the code execution and reproducibility features are implemented.
+  - Any issue with code execution and reproducibility should be addressed in this package
+  - `teal.reporter` extends `eval_code` for `teal_report` so that outputs are added to the `teal_card` automatically (`teal_report-eval_code.R`)
+
+Usage in other framework packages:
+
+- `teal`: uses the API in `teal.reporter` to maintain an instance of the reporter and uses the exported shiny modules for the interface
+  - Converts the `data` argument in `teal::init()` function to the `teal_report` object that is used in the modules
+- teal module: The `data` argument passed on to modules uses the `teal_report` data type.
+  - Automatically tracks the code execution and output objects
+  - It is used in custom modules as well as R packages on CRAN: `teal.modules.clinical` and `teal.modules.general`
+
+*Note*: Output objects are captured from the code execution `teal_reporter() |> within(plot(1:10))` will capture a plot.
+It is the equivalent to what is being printed on the console when executing code.
+
+### Extending reporter
+
+`teal.reporter` should allow for its functionalities to be extended by users according to their specific needs.
+This can be achieved by:
+
+- Extending the `Reporter` class
+- Using the `Reporter$set_template()` method that processes each card that is being added
+- Adding support for new data types or overwriting existing defaults
+
+`to_rmd()` (exported) and `toHTML()` (generic imported from tools) each have only a `.default` method, which delegates to the internal generics `.to_rmd()` / `.toHTML()`.
+
+- Built-in support for a new class: add `.to_rmd.<class>` / `.toHTML.<class>`. Never add `to_rmd.<class>` inside the package, or users can no longer override it.
+Users override by defining or registering `to_rmd.<class>` / `toHTML.<class>`.
+
+This 2 layer dispatch mechanism allows users to overwrite defaults and add their own support for other data types.
+
+```{r teal_content, echo=FALSE, results='asis'}
+# Append common shared instructions from teal framework
+common_claude_url <- "https://raw.githubusercontent.com/insightsengineering/teal/refs/heads/add_common_claude%40main/SHARED_CLAUDE.md" # nolint: line_length_linter.
+common_claude_path <- tempfile()
+download.file(url = common_claude_url, destfile = common_claude_path, quiet = TRUE)
+common_claude_shared <- readLines(common_claude_path)
+cat(common_claude_shared, sep = "\n")
+```

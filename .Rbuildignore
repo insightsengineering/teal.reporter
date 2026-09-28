@@ -50,3 +50,4 @@ SECURITY.md
 .lock$
 ^AGENTS\.md
 ^CLAUDE\.md
+vignettes/_AGENTS.md
