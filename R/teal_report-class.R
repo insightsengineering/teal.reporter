@@ -30,14 +30,12 @@ setOldClass("teal_card")
 #' @slot card (`teal_card`)
 # FIXME https://github.com/r-lib/roxygen2/issues/1918 @inheritSection teal.data::`teal_data-class` Code
 #' @section Code:
-#'
 #' Each code element is a character representing one call. Each element is named with the random
 #' identifier to make sure uniqueness when joining. Each element has possible attributes:
 #' - `warnings` (`character`) the warnings output when evaluating the code element.
 #' - `messages` (`character`) the messages output when evaluating the code element.
 #' - `dependency` (`character`) names of objects that appear in this call and gets affected by this call,
 #' separated by `<-` (objects on LHS of `<-` are affected by this line, and objects on RHS are affecting this line).
-#'
 #' @importFrom teal.data teal_data
 #' @keywords internal
 setClass(

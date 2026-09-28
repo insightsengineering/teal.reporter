@@ -40,7 +40,6 @@ Used internally. See \code{\link[teal.data:verify]{teal.data::verify()}} for mor
 
 \section{Code}{
 
-
 Each code element is a character representing one call. Each element is named with the random
 identifier to make sure uniqueness when joining. Each element has possible attributes:
 \itemize{
