@@ -1,7 +1,7 @@
 ---
 output: github_document
 ---
-# teal.code R Package Development Guide
+# teal.reporter R Package Development Guide
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -12,10 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # It is not intended to be run as part of the package build process.
 ```
 
-```{r render, include=FALSE, eval=FALSE}
-rmarkdown::render("vignettes/_AGENTS.Rmd", output_file = file.path("..", "AGENTS.md"))
-```
-
+\
 ## Package Overview
 
 `teal.reporter` is part of the `teal` framework and provides an API and Shiny modules to manage reporter functionality in a `teal` app.
