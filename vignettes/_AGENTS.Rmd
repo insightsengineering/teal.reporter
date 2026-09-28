@@ -2,8 +2,10 @@
 # This file generates AGENTS.md in the package root.
 # It is not part of the package build or the pkgdown site.
 # To regenerate it, run from the package root:
-#   rmarkdown::render("vignettes/_AGENTS.Rmd", output_file = file.path("..", "AGENTS.md"))
-output: github_document
+#   rmarkdown::render("vignettes/_AGENTS.Rmd", output_file = file.path("AGENTS.md"))
+output:
+  github_document:
+    html_preview: false
 params:
   url: "https://raw.githubusercontent.com/insightsengineering/teal/refs/heads/add_common_claude%40main/SHARED_CLAUDE.md"
 ---
