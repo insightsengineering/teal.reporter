@@ -1,5 +1,5 @@
 
-# teal.code R Package Development Guide
+# teal.reporter R Package Development Guide
 
 ## Package Overview
 
