@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ## Package Overview
 
 `teal.reporter` is part of the `teal` framework and provides an API and Shiny modules to manage reporter functionality in a `teal` app.
@@ -201,6 +200,3 @@ Use r.pkg.template workflows for consistency:
 
 - **Long-term Support**: Maintain backward compatibility when possible
 - **Deprecation**: Use `lifecycle` package for function deprecation
-=======
-The content is on @AGENTS.md
->>>>>>> c863eefa (chore: create agents.md)
