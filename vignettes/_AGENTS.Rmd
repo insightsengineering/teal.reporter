@@ -7,7 +7,7 @@ output:
   github_document:
     html_preview: false
 params:
-  url: "https://raw.githubusercontent.com/insightsengineering/teal/refs/heads/add_common_claude%40main/SHARED_CLAUDE.md"
+  url: "https://raw.githubusercontent.com/insightsengineering/teal/refs/heads/main/SHARED_AGENTS.md"
 ---
 # teal.reporter R Package Development Guide
 
