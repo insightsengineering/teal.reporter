@@ -2,7 +2,7 @@
 # This file generates AGENTS.md in the package root.
 # It is not part of the package build or the pkgdown site.
 # To regenerate it, run from the package root:
-#   rmarkdown::render("vignettes/_AGENTS.Rmd", output_file = file.path("AGENTS.md"))
+# rmarkdown::render("vignettes/_AGENTS.Rmd", output_file = file.path("AGENTS.md"), output_dir = ".")
 output:
   github_document:
     html_preview: false
