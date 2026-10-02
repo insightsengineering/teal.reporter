@@ -49,90 +49,86 @@ The code added to introduce the reporter functionality is wrapped in
 
 First, load the required packages:
 
-``` r
-
-library(shiny)
-library(teal.reporter)
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`shiny`](https://shiny.posit.co/)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`teal.reporter`](https://github.com/insightsengineering/teal.reporter)`)`
 
 A simple `shiny` app with all reporter modules integrated:
 
-``` r
-
-ui <- bslib::page_fluid(
-  bslib::card(
-    bslib::card_header("Reporter Modules Demo"),
-    bslib::layout_sidebar(
-      sidebar = bslib::sidebar(
-        ### REPORTER
-        teal.reporter::add_card_button_ui("add_card", label = "Add Card"),
-        teal.reporter::preview_report_button_ui("preview"),
-        teal.reporter::download_report_button_ui("download", label = "Download"),
-        teal.reporter::report_load_ui("load", label = "Load"),
-        teal.reporter::reset_report_button_ui("reset", label = "Reset"),
-        ###
-      ),
-      bslib::card(
-        bslib::card_header("Summary Statistics by Cylinder"),
-        selectInput(
-          "stat",
-          label = "Select Statistic:",
-          choices = c("mean", "median", "sd"),
-          selected = "mean"
-        ),
-        tableOutput("table")
-      )
-    )
-  )
-)
-
-server <- function(input, output, session) {
-  # Here we start with empty teal_report object
-  data <- teal_report()
-
-  # Create summary table
-  with_summary_table <- reactive({
-    req(input$stat)
-    # Add section's header with dynamic content
-    teal_card(data) <- c(teal_card(data), paste("## Summary Statistics:", input$stat))
-
-    # Execute dynamically generated code (this stores evaluated code-chunk and its output)
-    within(
-      data,
-      expr = {
-        summary_table <- data.frame(
-          cyl = sort(unique(mtcars$cyl)),
-          mpg = tapply(mtcars$mpg, mtcars$cyl, stat_fun),
-          hp = tapply(mtcars$hp, mtcars$cyl, stat_fun),
-          wt = tapply(mtcars$wt, mtcars$cyl, stat_fun)
-        )
-        summary_table
-      },
-      stat_fun = as.name(input$stat)
-    )
-  })
-
-  output$table <- renderTable({
-    # extract `summary_table` from teal_report object
-    teal.code::get_outputs(with_summary_table())[[1]]
-  })
-
-  ### REPORTER
-  reporter <- Reporter$new()
-  reporter$set_id("reporter_demo")
-
-  # extract teal_card object and hand it over to add_card_button_srv
-  card_r <- reactive(teal_card(with_summary_table()))
-  teal.reporter::add_card_button_srv("add_card", reporter = reporter, card_fun = card_r)
-  teal.reporter::preview_report_button_srv("preview", reporter)
-  teal.reporter::download_report_button_srv("download", reporter)
-  teal.reporter::report_load_srv("load", reporter)
-  teal.reporter::reset_report_button_srv("reset", reporter)
-  ###
-}
-
-shinyApp(ui = ui, server = server)
-```
+\
+`ui`` ``<-`` ``bslib``::`[`page_fluid`](https://rstudio.github.io/bslib/reference/page.html)`(`\
+`  ``bslib``::`[`card`](https://rstudio.github.io/bslib/reference/card.html)`(`\
+`    ``bslib``::`[`card_header`](https://rstudio.github.io/bslib/reference/card_body.html)`(``"Reporter Modules Demo"``)``,`\
+`    ``bslib``::`[`layout_sidebar`](https://rstudio.github.io/bslib/reference/sidebar.html)`(`\
+`      sidebar ``=`` ``bslib``::`[`sidebar`](https://rstudio.github.io/bslib/reference/sidebar.html)`(`\
+`        ``### REPORTER`\
+`        ``teal.reporter``::`[`add_card_button_ui`](https://insightsengineering.github.io/teal.reporter/reference/add_card_button.md)`(``"add_card"``, label ``=`` ``"Add Card"``)``,`\
+`        ``teal.reporter``::`[`preview_report_button_ui`](https://insightsengineering.github.io/teal.reporter/reference/reporter_previewer.md)`(``"preview"``)``,`\
+`        ``teal.reporter``::`[`download_report_button_ui`](https://insightsengineering.github.io/teal.reporter/reference/download_report_button.md)`(``"download"``, label ``=`` ``"Download"``)``,`\
+`        ``teal.reporter``::`[`report_load_ui`](https://insightsengineering.github.io/teal.reporter/reference/load_report_button.md)`(``"load"``, label ``=`` ``"Load"``)``,`\
+`        ``teal.reporter``::`[`reset_report_button_ui`](https://insightsengineering.github.io/teal.reporter/reference/reset_report_button.md)`(``"reset"``, label ``=`` ``"Reset"``)``,`\
+`        ``###`\
+`      ``)``,`\
+`      ``bslib``::`[`card`](https://rstudio.github.io/bslib/reference/card.html)`(`\
+`        ``bslib``::`[`card_header`](https://rstudio.github.io/bslib/reference/card_body.html)`(``"Summary Statistics by Cylinder"``)``,`\
+`        `[`selectInput`](https://rdrr.io/pkg/shiny/man/selectInput.html)`(`\
+`          ``"stat"``,`\
+`          label ``=`` ``"Select Statistic:"``,`\
+`          choices ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"mean"``, ``"median"``, ``"sd"``)``,`\
+`          selected ``=`` ``"mean"`\
+`        ``)``,`\
+`        `[`tableOutput`](https://rdrr.io/pkg/shiny/man/renderTable.html)`(``"table"``)`\
+`      ``)`\
+`    ``)`\
+`  ``)`\
+`)`\
+\
+`server`` ``<-`` ``function``(``input``, ``output``, ``session``)`` ``{`\
+`  ``# Here we start with empty teal_report object`\
+`  ``data`` ``<-`` `[`teal_report`](https://insightsengineering.github.io/teal.reporter/reference/teal_report.md)`(``)`\
+\
+`  ``# Create summary table`\
+`  ``with_summary_table`` ``<-`` `[`reactive`](https://rdrr.io/pkg/shiny/man/reactive.html)`(``{`\
+`    `[`req`](https://rdrr.io/pkg/shiny/man/req.html)`(``input``$``stat``)`\
+`    ``# Add section's header with dynamic content`\
+`    `[`teal_card`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)`(``data``)`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(`[`teal_card`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)`(``data``)``, `[`paste`](https://rdrr.io/r/base/paste.html)`(``"## Summary Statistics:"``, ``input``$``stat``)``)`\
+\
+`    ``# Execute dynamically generated code (this stores evaluated code-chunk and its output)`\
+`    `[`within`](https://rdrr.io/r/base/with.html)`(`\
+`      ``data``,`\
+`      expr ``=`` ``{`\
+`        ``summary_table`` ``<-`` `[`data.frame`](https://rdrr.io/r/base/data.frame.html)`(`\
+`          cyl ``=`` `[`sort`](https://rdrr.io/r/base/sort.html)`(`[`unique`](https://rdrr.io/r/base/unique.html)`(``mtcars``$``cyl``)``)``,`\
+`          mpg ``=`` `[`tapply`](https://rdrr.io/r/base/tapply.html)`(``mtcars``$``mpg``, ``mtcars``$``cyl``, ``stat_fun``)``,`\
+`          hp ``=`` `[`tapply`](https://rdrr.io/r/base/tapply.html)`(``mtcars``$``hp``, ``mtcars``$``cyl``, ``stat_fun``)``,`\
+`          wt ``=`` `[`tapply`](https://rdrr.io/r/base/tapply.html)`(``mtcars``$``wt``, ``mtcars``$``cyl``, ``stat_fun``)`\
+`        ``)`\
+`        ``summary_table`\
+`      ``}``,`\
+`      stat_fun ``=`` `[`as.name`](https://rdrr.io/r/base/name.html)`(``input``$``stat``)`\
+`    ``)`\
+`  ``}``)`\
+\
+`  ``output``$``table`` ``<-`` `[`renderTable`](https://rdrr.io/pkg/shiny/man/renderTable.html)`(``{`\
+`    ``` # extract `summary_table` from teal_report object ``\
+`    ``teal.code``::`[`get_outputs`](https://insightsengineering.github.io/teal.code/latest-tag/reference/get_outputs.html)`(``with_summary_table``(``)``)``[[``1``]``]`\
+`  ``}``)`\
+\
+`  ``### REPORTER`\
+`  ``reporter`` ``<-`` `[`Reporter`](https://insightsengineering.github.io/teal.reporter/reference/Reporter.md)`$``new``(``)`\
+`  ``reporter``$``set_id``(``"reporter_demo"``)`\
+\
+`  ``# extract teal_card object and hand it over to add_card_button_srv`\
+`  ``card_r`` ``<-`` `[`reactive`](https://rdrr.io/pkg/shiny/man/reactive.html)`(`[`teal_card`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)`(``with_summary_table``(``)``)``)`\
+`  ``teal.reporter``::`[`add_card_button_srv`](https://insightsengineering.github.io/teal.reporter/reference/add_card_button.md)`(``"add_card"``, reporter ``=`` ``reporter``, card_fun ``=`` ``card_r``)`\
+`  ``teal.reporter``::`[`preview_report_button_srv`](https://insightsengineering.github.io/teal.reporter/reference/reporter_previewer.md)`(``"preview"``, ``reporter``)`\
+`  ``teal.reporter``::`[`download_report_button_srv`](https://insightsengineering.github.io/teal.reporter/reference/download_report_button.md)`(``"download"``, ``reporter``)`\
+`  ``teal.reporter``::`[`report_load_srv`](https://insightsengineering.github.io/teal.reporter/reference/load_report_button.md)`(``"load"``, ``reporter``)`\
+`  ``teal.reporter``::`[`reset_report_button_srv`](https://insightsengineering.github.io/teal.reporter/reference/reset_report_button.md)`(``"reset"``, ``reporter``)`\
+`  ``###`\
+`}`\
+\
+[`shinyApp`](https://rdrr.io/pkg/shiny/man/shinyApp.html)`(``ui ``=`` ``ui``, server ``=`` ``server``)`
 
 ## Module Overview
 

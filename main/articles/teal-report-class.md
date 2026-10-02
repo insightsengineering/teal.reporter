@@ -26,11 +26,9 @@ To ensure complete reproducibility, it’s recommended to start with an
 empty `teal_report` and build up your data and analysis using
 [`within()`](https://rdrr.io/r/base/with.html):
 
-``` r
-
-library(teal.reporter)
-report <- teal_report()
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`teal.reporter`](https://github.com/insightsengineering/teal.reporter)`)`\
+`report`` ``<-`` `[`teal_report`](https://insightsengineering.github.io/teal.reporter/reference/teal_report.md)`(``)`
 
 ## Adding content to the `teal_report`
 
@@ -41,21 +39,19 @@ evaluated step by step. Use `teal_card(report)` to access and change
 elements of the document. To add a new element in the `teal_card` one
 can use `c` method.
 
-``` r
+\
+[`teal_card`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)`(``report``)`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(`\
+`  `[`teal_card`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)`(``report``)``,`\
+`  ``"## Document section"``,`\
+`  ``"Lorem ipsum dolor sit amet"`\
+`)`\
+\
+[`teal_card`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)`(``report``)`
 
-teal_card(report) <- c(
-  teal_card(report),
-  "## Document section",
-  "Lorem ipsum dolor sit amet"
-)
-
-teal_card(report)
-```
-
-    ## $`3d8c6bfa`
+    ## $`7b7c329f`
     ## [1] "## Document section"
     ## 
-    ## $`0f6ee175`
+    ## $e0b0b244
     ## [1] "Lorem ipsum dolor sit amet"
     ## 
     ## attr(,"class")
@@ -72,28 +68,24 @@ which execute arbitrary code in its environment. Consider this as
 executing a code chunk in an Rmarkdown document. In the same time you
 can access objects created during code execution.
 
-``` r
-
-report <- within(report, {
-  a <- 2
-})
-report$a
-```
+\
+`report`` ``<-`` `[`within`](https://rdrr.io/r/base/with.html)`(``report``, ``{`\
+`  ``a`` ``<-`` ``2`\
+`}``)`\
+`report``$``a`
 
     ## [1] 2
 
-``` r
+\
+[`teal_card`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)`(``report``)`
 
-teal_card(report)
-```
-
-    ## $`3d8c6bfa`
+    ## $`7b7c329f`
     ## [1] "## Document section"
     ## 
-    ## $`0f6ee175`
+    ## $e0b0b244
     ## [1] "Lorem ipsum dolor sit amet"
     ## 
-    ## $a1e50c9a
+    ## $`2951951b`
     ## [1] "a <- 2"
     ## attr(,"params")
     ## list()
@@ -113,15 +105,13 @@ plot, `teal_report` automatically captures outputs, which can be
 retrieved with
 [`teal.code::get_outputs()`](https://insightsengineering.github.io/teal.code/latest-tag/reference/get_outputs.html).
 
-``` r
-
-report <- within(report, {
-  head_of_iris <- head(iris)
-  head_of_iris
-})
-
-teal.code::get_outputs(report) # returns a list of all outputs
-```
+\
+`report`` ``<-`` `[`within`](https://rdrr.io/r/base/with.html)`(``report``, ``{`\
+`  ``head_of_iris`` ``<-`` `[`head`](https://rdrr.io/r/utils/head.html)`(``iris``)`\
+`  ``head_of_iris`\
+`}``)`\
+\
+`teal.code``::`[`get_outputs`](https://insightsengineering.github.io/teal.code/latest-tag/reference/get_outputs.html)`(``report``)`` ``# returns a list of all outputs`
 
     ## [[1]]
     ##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
@@ -138,33 +128,31 @@ teal.code::get_outputs(report) # returns a list of all outputs
 can add, remove and replace element in the same way as one modifies a
 list.
 
-``` r
+\
+`# adding element at the beginning of the document`\
+[`teal_card`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)`(``report``)`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(`[`teal_card`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)`(``"# My report"``)``, `[`teal_card`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)`(``report``)``)`\
+\
+`# removing code_chunk(s)`\
+[`teal_card`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)`(``report``)`` ``<-`` `[`Filter`](https://rdrr.io/r/base/funprog.html)`(`\
+`  ``function``(``x``)`` ``!`[`inherits`](https://rdrr.io/r/base/class.html)`(``x``, ``"code_chunk"``)``,`\
+`  `[`teal_card`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)`(``report``)`\
+`)`\
+\
+`# replace an element`\
+[`teal_card`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)`(``report``)``[[``1``]``]`` ``<-`` ``"# My report (replaced)"`\
+\
+[`teal_card`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)`(``report``)`
 
-# adding element at the beginning of the document
-teal_card(report) <- c(teal_card("# My report"), teal_card(report))
-
-# removing code_chunk(s)
-teal_card(report) <- Filter(
-  function(x) !inherits(x, "code_chunk"),
-  teal_card(report)
-)
-
-# replace an element
-teal_card(report)[[1]] <- "# My report (replaced)"
-
-teal_card(report)
-```
-
-    ## $`4f8485a4`
+    ## $`3aa693b7`
     ## [1] "# My report (replaced)"
     ## 
-    ## $`3d8c6bfa`
+    ## $`7b7c329f`
     ## [1] "## Document section"
     ## 
-    ## $`0f6ee175`
+    ## $e0b0b244
     ## [1] "Lorem ipsum dolor sit amet"
     ## 
-    ## $b9d07790
+    ## $c54d820d
     ## [[1]]
     ##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
     ## 1          5.1         3.5          1.4         0.2  setosa
@@ -188,13 +176,11 @@ In Rmarkdown it is possible to specify certain parameters as a YAML
 header. `teal_report` allows to specify metadata using
 [`metadata()`](https://insightsengineering.github.io/teal.reporter/reference/metadata.md).
 
-``` r
-
-metadata(teal_card(report)) <- list(
-  title = "My Document",
-  author = "NEST"
-)
-```
+\
+[`metadata`](https://insightsengineering.github.io/teal.reporter/reference/metadata.md)`(`[`teal_card`](https://insightsengineering.github.io/teal.reporter/reference/teal_card.md)`(``report``)``)`` ``<-`` `[`list`](https://rdrr.io/r/base/list.html)`(`\
+`  title ``=`` ``"My Document"``,`\
+`  author ``=`` ``"NEST"`\
+`)`
 
 ## Preview report
 
@@ -203,10 +189,8 @@ your IDE. [`tools::toHTML`](https://rdrr.io/r/tools/toHTML.html) returns
 `browsable` `shiny.tag` which can be used also in Shiny-application to
 preview a report.
 
-``` r
-
-tools::toHTML(report)
-```
+\
+`tools``::`[`toHTML`](https://rdrr.io/r/tools/toHTML.html)`(``report``)`
 
 ## Output teal_report
 
@@ -217,10 +201,8 @@ so it supports the same [output
 formats](https://pkgs.rstudio.com/rmarkdown/reference/index.html#output-formats)
 and arguments.
 
-``` r
-
-render(report, output_format = rmarkdown::pdf_document(), global_knitr = list(fig.width = 10))
-```
+\
+[`render`](https://insightsengineering.github.io/teal.reporter/reference/render.md)`(``report``, output_format ``=`` ``rmarkdown``::`[`pdf_document`](https://pkgs.rstudio.com/rmarkdown/reference/pdf_document.html)`(``)``, global_knitr ``=`` `[`list`](https://rdrr.io/r/base/list.html)`(``fig.width ``=`` ``10``)``)`
 
 ## Key Benefits
 

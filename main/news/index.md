@@ -1,6 +1,10 @@
 # Changelog
 
+## teal.reporter 0.6.3.9002
+
 ## teal.reporter 0.6.3
+
+CRAN release: 2026-07-27
 
 #### Bug fixes
 
