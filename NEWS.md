@@ -1,4 +1,4 @@
-# teal.reporter 0.6.3.9001
+# teal.reporter 0.6.3.9002
 
 # teal.reporter 0.6.3
 
